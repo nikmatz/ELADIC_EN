@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Μοναδιαίος Κύκλος — Animation</title>
+<link rel="stylesheet" href="../../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$']]}}</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+<style>
+  .angbtns{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;margin:.6rem 0}
+  .angbtns button{font-family:'Helvetica Neue',Arial,sans-serif;font-size:.8rem;
+    padding:.28rem .55rem;border:1.5px solid #0082b4;background:#fff;color:#0082b4;
+    border-radius:6px;cursor:pointer}
+  .angbtns button:hover{background:#0082b4;color:#fff}
+  .legend{display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;font-size:.82rem;
+    font-family:'Helvetica Neue',sans-serif;margin-top:.4rem}
+  .legend span{display:flex;align-items:center;gap:.4rem}
+  .dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+  .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+  .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+  .expl-toggle:hover{background:#003060}
+  .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+  .expl-body.open{display:block}
+  .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+  .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+  .author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;
+    font-family:Georgia,serif;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;
+    justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+  .author-stamp .stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+  .author-stamp .stamp-author{opacity:.9}
+</style>
+</head>
+<body>
+<header class="page-header">
+  <div class="type-badge badge-animation">▶ Animation</div>
+  <h1>Μοναδιαίος Κύκλος & Τριγωνομετρία</h1>
+  <p class="chapter-label">Κεφάλαιο 0 · Μαθηματικό Υπόβαθρο · Στοιχεία ΓΑ & ΔΟΛ</p>
+</header>
+<main>
+<div class="info-card">
+  <h2>Πώς λειτουργεί;</h2>
+  <p>Σύρε το σημείο $P$ πάνω στον μοναδιαίο κύκλο (ή πάτησε μια <strong>βασική γωνία</strong>)
+  και δες πώς προκύπτουν γεωμετρικά το $\cos\theta$ (οριζόντια προβολή, πράσινο),
+  το $\sin\theta$ (κατακόρυφη προβολή, μπλε) και το $\tan\theta$ (τμήμα στην
+  κατακόρυφη εφαπτομένη $x=1$, μοβ).</p>
+</div>
+<div class="canvas-wrap" id="cc"></div>
+<div class="legend">
+  <span><span class="dot" style="background:#008c46"></span>$\cos\theta$</span>
+  <span><span class="dot" style="background:#0082b4"></span>$\sin\theta$</span>
+  <span><span class="dot" style="background:#7a4fbf"></span>$\tan\theta$</span>
+</div>
+<div class="angbtns" id="angbtns"></div>
+<div class="controls">
+  <button class="btn btn-ghost" onclick="resetAngle()">↺ Επαναφορά</button>
+</div>
+<div class="info-card" style="border-left-color:#be5000; margin-top:1rem">
+  <h2>Βασικές ταυτότητες</h2>
+  <p>$\sin^2\theta + \cos^2\theta = 1$ &nbsp;·&nbsp;
+     $\tan\theta = \dfrac{\sin\theta}{\cos\theta}$ &nbsp;·&nbsp;
+     $\sin(\theta+2\pi)=\sin\theta$</p>
+</div>
+</main>
+<script>
+let angle = 0.6, dragging = false;
+function resetAngle(){ angle=0.6; }
+const SNAPS=[0,30,45,60,90,120,135,150,180,210,225,240,270,315];
+(function(){ const c=document.getElementById('angbtns');
+  SNAPS.forEach(d=>{ const b=document.createElement('button');
+    b.textContent=d+'°'; b.onclick=()=>{ angle=d*Math.PI/180; }; c.appendChild(b); }); })();
+new p5(p=>{
+  const R=140, cx=180, cy=205, TANX=cx+R;   // κατακόρυφη εφαπτομένη x=1 στο TANX
+  p.setup=()=>{ let c=p.createCanvas(420,410); c.parent('cc'); p.textFont('Georgia'); };
+  p.draw=()=>{
+    p.background(250);
+    // Πλέγμα
+    p.stroke(225); p.strokeWeight(0.7);
+    [-1,0,1].forEach(v=>{ p.line(cx+v*R,25,cx+v*R,385); p.line(25,cy-v*R,395,cy-v*R); });
+    // Άξονες
+    p.stroke(160); p.strokeWeight(1.4); p.line(25,cy,400,cy); p.line(cx,25,cx,390);
+    // Κατακόρυφη εφαπτομένη x=1
+    p.stroke(200); p.strokeWeight(1); p.drawingContext.setLineDash([3,4]);
+    p.line(TANX,30,TANX,385); p.drawingContext.setLineDash([]);
+    p.noStroke(); p.fill(150); p.textSize(10); p.textAlign(p.CENTER); p.text('x=1',TANX,400);
+    // Κύκλος
+    p.noFill(); p.stroke(p.color('#0082b4')); p.strokeWeight(2); p.circle(cx,cy,2*R);
+    const c0=Math.cos(angle), s0=Math.sin(angle), t0=s0/c0;
+    const px=cx+R*c0, py=cy-R*s0;
+    // tan: γεωμετρική κατασκευή στην εφαπτομένη x=1 (αν είναι ορατό)
+    const tanY = cy - R*t0;                 // σημείο τομής προεκτεταμένης ακτίνας με x=1
+    const tanVisible = Math.abs(c0)>1e-3 && Math.abs(R*t0)<=190;
+    if(tanVisible){
+      p.stroke(180); p.strokeWeight(1); p.drawingContext.setLineDash([4,4]);
+      p.line(cx,cy,TANX,tanY); p.drawingContext.setLineDash([]);      // προέκταση ακτίνας
+      p.stroke(p.color('#7a4fbf')); p.strokeWeight(4); p.line(TANX,cy,TANX,tanY); // τμήμα tan
+      p.noStroke(); p.fill(p.color('#7a4fbf'));
+    }
+    // sin (κατακόρυφο, μπλε)
+    p.stroke(p.color('#0082b4')); p.strokeWeight(3); p.line(px,cy,px,py);
+    // cos (οριζόντιο, πράσινο)
+    p.stroke(p.color('#008c46')); p.strokeWeight(3); p.line(cx,cy,px,cy);
+    // Ακτίνα
+    p.stroke(p.color('#be5000')); p.strokeWeight(2.4); p.line(cx,cy,px,py);
+    // Τόξο γωνίας
+    p.noFill(); p.stroke(p.color('#be5000')); p.strokeWeight(1.4);
+    p.arc(cx,cy,52,52,0,-angle,false);
+    // Σημείο P
+    p.fill(p.color('#be5000')); p.noStroke(); p.circle(px,py,11);
+    // Ενδείξεις
+    p.textAlign(p.LEFT); p.textFont('Helvetica Neue, Arial, sans-serif');
+    let deg=((angle*180/Math.PI)%360+360)%360;
+    p.fill('#be5000'); p.textSize(12);
+    p.text('θ = '+deg.toFixed(1)+'°  = '+angle.toFixed(3)+' rad', 12, 22);
+    p.fill('#333'); p.text('P = (cos θ, sin θ) = ('+c0.toFixed(3)+', '+s0.toFixed(3)+')', 12, 40);
+    p.fill('#7a4fbf');
+    const tanTxt = Math.abs(c0)<1e-3 ? 'tan θ = ±∞ (μη ορισμένο)' : 'tan θ = '+t0.toFixed(3);
+    p.text(tanTxt, 12, 58);
+    if(!tanVisible && Math.abs(c0)>=1e-3){ p.textSize(10); p.text('(εκτός πλαισίου — μεγάλη τιμή)',12,72); }
+    // Λαβή
+    if(p.dist(p.mouseX,p.mouseY,px,py)<14){ p.fill(255,200); p.noStroke(); p.circle(px,py,20); }
+  };
+  p.mousePressed=()=>{ if(p.dist(p.mouseX,p.mouseY,cx+R*Math.cos(angle),cy-R*Math.sin(angle))<18) dragging=true; };
+  p.mouseDragged=()=>{ if(dragging){ angle=Math.atan2(-(p.mouseY-cy),p.mouseX-cx); } };
+  p.mouseReleased=()=>{ dragging=false; };
+},document.getElementById('cc'));
+</script>
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Θεωρία & Αιτιολόγηση — Μοναδιαίος Κύκλος & Βασικές Γωνίες ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>Μοναδιαίος Κύκλος & Βασικές Γωνίες</h3>
+    <p>Ο <strong>μοναδιαίος κύκλος</strong> έχει κέντρο $(0,0)$ και ακτίνα $r=1$.
+       Για κάθε γωνία $\theta$ το σημείο $P$ έχει συντεταγμένες $(\cos\theta,\sin\theta)$.</p>
+    <div class="formula">$\sin\theta = $ τεταγμένη $y$ &nbsp;·&nbsp; $\cos\theta = $ τετμημένη $x$ &nbsp;·&nbsp; $\tan\theta = $ μήκος στο $x=1$</div>
+    <p>$\sin^2\theta+\cos^2\theta=1$ (Πυθαγόρειο). Το $\tan\theta$ προκύπτει γεωμετρικά ως
+       το τμήμα που ορίζει η προέκταση της ακτίνας πάνω στην κατακόρυφη εφαπτομένη $x=1$·
+       γι' αυτό απειρίζεται στις $90^\circ,270^\circ$. Βασικές τιμές σε
+       $30^\circ,45^\circ,60^\circ,90^\circ$ (κουμπιά).</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');
+  var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Θεωρία & Αιτιολόγηση — Μοναδιαίος Κύκλος & Βασικές Γωνίες ▲':'📐 Θεωρία & Αιτιολόγηση — Μοναδιαίος Κύκλος & Βασικές Γωνίες ▼';
+});
+</script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Συμπληρωματικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</footer>
+</body></html>
