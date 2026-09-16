@@ -1,0 +1,12 @@
+# GitHub Pages config
+title: "Elements of Linear Algebra, Differential & Integral Calculus"
+description: "Digital companion material: interactive quizzes, CAS activities and animations"
+url: "https://nikmatz.github.io"
+baseurl: "/ELADIC_EN"
+theme: null
+plugins: []
+
+# GitHub Pages (Jekyll) ignores folders whose name starts with "_" by default.
+# Without the next line, _shared/book.css is not published (404) and
+# 46 pages (quizzes, exercises, animations) are displayed without styling.
+include: ["_shared"]

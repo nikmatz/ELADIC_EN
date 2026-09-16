@@ -1,0 +1,3102 @@
+{
+  "version": "3.0",
+  "updated": "2026-09-13",
+  "base_url": "https://nikmatz.github.io/ELADIC_EN",
+  "repo": "https://github.com/nikmatz/ELADIC_EN",
+  "note": "Chapter numbering chXX follows the book's chapters (0-20). The proof_prompt and hist_prompt pages are QR destinations and do not appear on the home page.",
+  "chapters": {
+    "0": "Mathematical Background",
+    "1": "Linear Vector Spaces",
+    "2": "Matrix Algebra",
+    "3": "Linear Systems",
+    "4": "Linear Transformations",
+    "5": "Eigenvalues and Eigenvectors",
+    "6": "Diagonalization of Matrices",
+    "7": "Introduction to Dynamical Systems",
+    "8": "Functions of One Real Variable",
+    "9": "Limits and Continuity of a Function",
+    "10": "The Derivative of a Function",
+    "11": "Monotonicity, Extrema and Convexity",
+    "12": "Applications of the Derivative and Curve Sketching",
+    "13": "The Indefinite Integral",
+    "14": "The Definite Integral",
+    "15": "The Fundamental Theorem of Calculus",
+    "16": "Techniques of Integration",
+    "17": "Applications of the Integral",
+    "18": "Improper Integrals",
+    "19": "Sequences and Infinite Series",
+    "20": "Power Series and Taylor Series"
+  },
+  "entries": [
+    {
+      "id": "code_ch00",
+      "type": "code",
+      "chapter": 0,
+      "title": "📐 Chapter 0 — Mathematical Background",
+      "path": "code/ch00/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch00/",
+      "status": "active",
+      "files": [
+        "maxima_complex.mac",
+        "maxima_complex.wxmx",
+        "python_complex.py"
+      ]
+    },
+    {
+      "id": "code_ch01",
+      "type": "code",
+      "chapter": 1,
+      "title": "📐 Chapter 1 — Linear Vector Spaces",
+      "path": "code/ch01/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch01/",
+      "status": "active",
+      "files": [
+        "maxima_vectors.mac",
+        "maxima_vectors.wxmx",
+        "python_vectors.py"
+      ]
+    },
+    {
+      "id": "code_ch02",
+      "type": "code",
+      "chapter": 2,
+      "title": "📐 Chapter 2 — Matrix Algebra",
+      "path": "code/ch02/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch02/",
+      "status": "active",
+      "files": [
+        "maxima_matrices.mac",
+        "maxima_matrices.wxmx",
+        "python_matrices.py"
+      ]
+    },
+    {
+      "id": "code_ch03",
+      "type": "code",
+      "chapter": 3,
+      "title": "📐 Chapter 3 — Linear Systems",
+      "path": "code/ch03/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch03/",
+      "status": "active",
+      "files": [
+        "maxima_linsys.mac",
+        "maxima_linsys.wxmx",
+        "python_linsys.py"
+      ]
+    },
+    {
+      "id": "code_ch04",
+      "type": "code",
+      "chapter": 4,
+      "title": "📐 Chapter 4 — Linear Transformations",
+      "path": "code/ch04/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch04/",
+      "status": "active",
+      "files": [
+        "maxima_lintrans.mac",
+        "maxima_lintrans.wxmx",
+        "python_lintrans.py"
+      ]
+    },
+    {
+      "id": "code_ch05",
+      "type": "code",
+      "chapter": 5,
+      "title": "📐 Chapter 5 — Eigenvalues and Eigenvectors",
+      "path": "code/ch05/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch05/",
+      "status": "active",
+      "files": [
+        "maxima_eigen.mac",
+        "maxima_eigen.wxmx",
+        "python_eigen.py"
+      ]
+    },
+    {
+      "id": "code_ch06",
+      "type": "code",
+      "chapter": 6,
+      "title": "📐 Chapter 6 — Diagonalization of Matrices",
+      "path": "code/ch06/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch06/",
+      "status": "active",
+      "files": [
+        "maxima_diag.mac",
+        "maxima_diag.wxmx",
+        "python_diag.py"
+      ]
+    },
+    {
+      "id": "code_ch07",
+      "type": "code",
+      "chapter": 7,
+      "title": "📐 Chapter 7 — Dynamical Systems and Markov Chains",
+      "path": "code/ch07/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch07/",
+      "status": "active",
+      "files": [
+        "maxima_dynamics.mac",
+        "python_dynamics.py"
+      ]
+    },
+    {
+      "id": "code_ch08",
+      "type": "code",
+      "chapter": 8,
+      "title": "📐 Chapter 8 — Functions of One Real Variable",
+      "path": "code/ch08/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch08/",
+      "status": "active",
+      "files": [
+        "maxima_limits.mac",
+        "maxima_limits.wxmx",
+        "maxima_synartiseis.mac",
+        "python_limits.py",
+        "python_synartiseis.py"
+      ]
+    },
+    {
+      "id": "code_ch09",
+      "type": "code",
+      "chapter": 9,
+      "title": "📐 Chapter 9 — Limits and Continuity",
+      "path": "code/ch09/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch09/",
+      "status": "active",
+      "files": [
+        "maxima_deriv.mac",
+        "maxima_deriv.wxmx",
+        "maxima_oria.mac",
+        "python_deriv.py",
+        "python_oria.py"
+      ]
+    },
+    {
+      "id": "code_ch10",
+      "type": "code",
+      "chapter": 10,
+      "title": "📐 Chapter 10 — The Derivative of a Function",
+      "path": "code/ch10/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch10/",
+      "status": "active",
+      "files": [
+        "maxima_deriv_apps.mac",
+        "maxima_deriv_apps.wxmx",
+        "maxima_paragogos.mac",
+        "python_deriv_apps.py",
+        "python_paragogos.py"
+      ]
+    },
+    {
+      "id": "code_ch11",
+      "type": "code",
+      "chapter": 11,
+      "title": "📐 Chapter 11 — Monotonicity, Convexity and Extrema",
+      "path": "code/ch11/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch11/",
+      "status": "active",
+      "files": [
+        "maxima_akrotata.mac",
+        "maxima_integral.mac",
+        "maxima_integral.wxmx",
+        "python_akrotata.py",
+        "python_integral.py"
+      ]
+    },
+    {
+      "id": "code_ch12",
+      "type": "code",
+      "chapter": 12,
+      "title": "📐 Chapter 12 — Applications of the Derivative",
+      "path": "code/ch12/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch12/",
+      "status": "active",
+      "files": [
+        "maxima_defintegral.mac",
+        "maxima_defintegral.wxmx",
+        "maxima_efarm_par.mac",
+        "python_defintegral.py",
+        "python_efarm_par.py"
+      ]
+    },
+    {
+      "id": "code_ch13",
+      "type": "code",
+      "chapter": 13,
+      "title": "📐 Chapter 13 — The Indefinite Integral",
+      "path": "code/ch13/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch13/",
+      "status": "active",
+      "files": [
+        "maxima_aoristo.mac",
+        "maxima_integral_apps.mac",
+        "maxima_integral_apps.wxmx",
+        "python_aoristo.py",
+        "python_integral_apps.py"
+      ]
+    },
+    {
+      "id": "code_ch14",
+      "type": "code",
+      "chapter": 14,
+      "title": "📐 Chapter 14 — The Definite Integral",
+      "path": "code/ch14/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch14/",
+      "status": "active",
+      "files": [
+        "maxima_orismeno.mac",
+        "maxima_sequences_series.mac",
+        "maxima_sequences_series.wxmx",
+        "python_orismeno.py",
+        "python_sequences_series.py"
+      ]
+    },
+    {
+      "id": "code_ch15",
+      "type": "code",
+      "chapter": 15,
+      "title": "📐 Chapter 15 — The Fundamental Theorem of Calculus",
+      "path": "code/ch15/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch15/",
+      "status": "active",
+      "files": [
+        "maxima_power_series.mac",
+        "maxima_power_series.wxmx",
+        "maxima_ttl.mac",
+        "python_power_series.py",
+        "python_ttl.py"
+      ]
+    },
+    {
+      "id": "code_ch16",
+      "type": "code",
+      "chapter": 16,
+      "title": "📐 Chapter 16 — Techniques of Integration",
+      "path": "code/ch16/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch16/",
+      "status": "active",
+      "files": [
+        "maxima_ode.mac",
+        "maxima_ode.wxmx",
+        "maxima_texnikes.mac",
+        "python_ode.py",
+        "python_texnikes.py"
+      ]
+    },
+    {
+      "id": "code_ch17",
+      "type": "code",
+      "chapter": 17,
+      "title": "📐 Chapter 17 — Applications of the Integral",
+      "path": "code/ch17/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch17/",
+      "status": "active",
+      "files": [
+        "maxima_efarm_ol.mac",
+        "python_efarm_ol.py"
+      ]
+    },
+    {
+      "id": "code_ch18",
+      "type": "code",
+      "chapter": 18,
+      "title": "📐 Chapter 18 — Improper Integrals",
+      "path": "code/ch18/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch18/",
+      "status": "active",
+      "files": [
+        "maxima_genikeum.mac",
+        "python_genikeum.py"
+      ]
+    },
+    {
+      "id": "code_ch19",
+      "type": "code",
+      "chapter": 19,
+      "title": "📐 Chapter 19 — Sequences and Series",
+      "path": "code/ch19/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch19/",
+      "status": "active",
+      "files": [
+        "maxima_seires.mac",
+        "python_seires.py"
+      ]
+    },
+    {
+      "id": "code_ch20",
+      "type": "code",
+      "chapter": 20,
+      "title": "📐 Chapter 20 — Power Series and Taylor Series",
+      "path": "code/ch20/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/code/ch20/",
+      "status": "active",
+      "files": [
+        "maxima_dynamoseires.mac",
+        "python_dynamoseires.py"
+      ]
+    },
+    {
+      "id": "quiz_ch00",
+      "type": "quiz",
+      "chapter": 0,
+      "title": "Mathematical Background",
+      "path": "quizzes/ch00/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch00/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch01",
+      "type": "quiz",
+      "chapter": 1,
+      "title": "Linear Vector Spaces",
+      "path": "quizzes/ch01/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch01/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch02",
+      "type": "quiz",
+      "chapter": 2,
+      "title": "Matrix Algebra",
+      "path": "quizzes/ch02/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch02/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch03",
+      "type": "quiz",
+      "chapter": 3,
+      "title": "Linear Systems",
+      "path": "quizzes/ch03/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch03/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch04",
+      "type": "quiz",
+      "chapter": 4,
+      "title": "Linear Transformations",
+      "path": "quizzes/ch04/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch04/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch05",
+      "type": "quiz",
+      "chapter": 5,
+      "title": "Eigenvalues and Eigenvectors",
+      "path": "quizzes/ch05/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch05/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch06",
+      "type": "quiz",
+      "chapter": 6,
+      "title": "Diagonalization of Matrices",
+      "path": "quizzes/ch06/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch06/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch07",
+      "type": "quiz",
+      "chapter": 7,
+      "title": "Dynamical Systems and Markov Chains",
+      "path": "quizzes/ch07/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch07/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch08",
+      "type": "quiz",
+      "chapter": 8,
+      "title": "Functions of One Real Variable",
+      "path": "quizzes/ch08/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch08/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch09",
+      "type": "quiz",
+      "chapter": 9,
+      "title": "Limits and Continuity",
+      "path": "quizzes/ch09/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch09/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch10",
+      "type": "quiz",
+      "chapter": 10,
+      "title": "The Derivative of a Function",
+      "path": "quizzes/ch10/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch10/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch11",
+      "type": "quiz",
+      "chapter": 11,
+      "title": "Monotonicity, Convexity and Extrema",
+      "path": "quizzes/ch11/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch11/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch12",
+      "type": "quiz",
+      "chapter": 12,
+      "title": "Applications of the Derivative",
+      "path": "quizzes/ch12/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch12/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch13",
+      "type": "quiz",
+      "chapter": 13,
+      "title": "The Indefinite Integral",
+      "path": "quizzes/ch13/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch13/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch14",
+      "type": "quiz",
+      "chapter": 14,
+      "title": "The Definite Integral",
+      "path": "quizzes/ch14/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch14/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch15",
+      "type": "quiz",
+      "chapter": 15,
+      "title": "The Fundamental Theorem of Calculus",
+      "path": "quizzes/ch15/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch15/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch16",
+      "type": "quiz",
+      "chapter": 16,
+      "title": "Techniques of Integration",
+      "path": "quizzes/ch16/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch16/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch17",
+      "type": "quiz",
+      "chapter": 17,
+      "title": "Applications of the Integral",
+      "path": "quizzes/ch17/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch17/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch18",
+      "type": "quiz",
+      "chapter": 18,
+      "title": "Improper Integrals",
+      "path": "quizzes/ch18/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch18/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch19",
+      "type": "quiz",
+      "chapter": 19,
+      "title": "Sequences and Series",
+      "path": "quizzes/ch19/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch19/",
+      "status": "active"
+    },
+    {
+      "id": "quiz_ch20",
+      "type": "quiz",
+      "chapter": 20,
+      "title": "Power Series and Taylor Series",
+      "path": "quizzes/ch20/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/quizzes/ch20/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch00",
+      "type": "exercises",
+      "chapter": 0,
+      "title": "Mathematical Background",
+      "path": "askiseis/ch00/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch00/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch01",
+      "type": "exercises",
+      "chapter": 1,
+      "title": "Linear Vector Spaces",
+      "path": "askiseis/ch01/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch01/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch02",
+      "type": "exercises",
+      "chapter": 2,
+      "title": "Matrix Algebra",
+      "path": "askiseis/ch02/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch02/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch03",
+      "type": "exercises",
+      "chapter": 3,
+      "title": "Linear Systems",
+      "path": "askiseis/ch03/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch03/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch04",
+      "type": "exercises",
+      "chapter": 4,
+      "title": "Linear Transformations",
+      "path": "askiseis/ch04/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch04/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch05",
+      "type": "exercises",
+      "chapter": 5,
+      "title": "Eigenvalues and Eigenvectors",
+      "path": "askiseis/ch05/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch05/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch06",
+      "type": "exercises",
+      "chapter": 6,
+      "title": "Diagonalization of Matrices",
+      "path": "askiseis/ch06/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch06/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch07",
+      "type": "exercises",
+      "chapter": 7,
+      "title": "Introduction to Dynamical Systems",
+      "path": "askiseis/ch07/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch07/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch08",
+      "type": "exercises",
+      "chapter": 8,
+      "title": "Functions of One Real Variable",
+      "path": "askiseis/ch08/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch08/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch09",
+      "type": "exercises",
+      "chapter": 9,
+      "title": "Limits and Continuity of a Function",
+      "path": "askiseis/ch09/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch09/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch10",
+      "type": "exercises",
+      "chapter": 10,
+      "title": "The Derivative of a Function",
+      "path": "askiseis/ch10/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch10/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch11",
+      "type": "exercises",
+      "chapter": 11,
+      "title": "Monotonicity, Extrema and Convexity",
+      "path": "askiseis/ch11/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch11/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch12",
+      "type": "exercises",
+      "chapter": 12,
+      "title": "Applications of the Derivative and Curve Sketching",
+      "path": "askiseis/ch12/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch12/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch13",
+      "type": "exercises",
+      "chapter": 13,
+      "title": "The Indefinite Integral",
+      "path": "askiseis/ch13/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch13/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch14",
+      "type": "exercises",
+      "chapter": 14,
+      "title": "The Definite Integral",
+      "path": "askiseis/ch14/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch14/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch15",
+      "type": "exercises",
+      "chapter": 15,
+      "title": "The Fundamental Theorem of Calculus",
+      "path": "askiseis/ch15/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch15/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch16",
+      "type": "exercises",
+      "chapter": 16,
+      "title": "Techniques of Integration",
+      "path": "askiseis/ch16/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch16/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch17",
+      "type": "exercises",
+      "chapter": 17,
+      "title": "Applications of the Integral",
+      "path": "askiseis/ch17/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch17/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch18",
+      "type": "exercises",
+      "chapter": 18,
+      "title": "Improper Integrals",
+      "path": "askiseis/ch18/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch18/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch19",
+      "type": "exercises",
+      "chapter": 19,
+      "title": "Sequences and Infinite Series",
+      "path": "askiseis/ch19/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch19/",
+      "status": "active"
+    },
+    {
+      "id": "askiseis_ch20",
+      "type": "exercises",
+      "chapter": 20,
+      "title": "Power Series and Taylor Series",
+      "path": "askiseis/ch20/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/askiseis/ch20/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch00_ypovathro_01_unit_circle",
+      "type": "animation",
+      "chapter": 0,
+      "title": "The Unit Circle & Trigonometry",
+      "path": "animations/ch00_ypovathro/01_unit_circle/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch00_ypovathro/01_unit_circle/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch00_ypovathro_02_complex_numbers",
+      "type": "animation",
+      "chapter": 0,
+      "title": "Complex Numbers — The Argand Diagram",
+      "path": "animations/ch00_ypovathro/02_complex_numbers/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch00_ypovathro/02_complex_numbers/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch00_ypovathro_03_trig_identities",
+      "type": "animation",
+      "chapter": 0,
+      "title": "Trigonometric Identities",
+      "path": "animations/ch00_ypovathro/03_trig_identities/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch00_ypovathro/03_trig_identities/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch01_grammikoi_01_vector_add",
+      "type": "animation",
+      "chapter": 1,
+      "title": "Vector Addition",
+      "path": "animations/ch01_grammikoi/01_vector_add/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch01_grammikoi/01_vector_add/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch01_grammikoi_02_linear_independence",
+      "type": "animation",
+      "chapter": 1,
+      "title": "Linear Independence of Vectors",
+      "path": "animations/ch01_grammikoi/02_linear_independence/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch01_grammikoi/02_linear_independence/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch01_grammikoi_03_basis_span",
+      "type": "animation",
+      "chapter": 1,
+      "title": "Basis and Span in ℝ²",
+      "path": "animations/ch01_grammikoi/03_basis_span/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch01_grammikoi/03_basis_span/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch01_grammikoi_04_gram_schmidt",
+      "type": "animation",
+      "chapter": 1,
+      "title": "The Gram–Schmidt Process",
+      "path": "animations/ch01_grammikoi/04_gram_schmidt/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch01_grammikoi/04_gram_schmidt/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch02_pinakas_01_matrix_vector",
+      "type": "animation",
+      "chapter": 2,
+      "title": "Linear Transformation — $A\\mathbf{x}$",
+      "path": "animations/ch02_pinakas/01_matrix_vector/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch02_pinakas/01_matrix_vector/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch02_pinakas_02_matrix_mult",
+      "type": "animation",
+      "chapter": 2,
+      "title": "Multiplication of 2×2 Matrices",
+      "path": "animations/ch02_pinakas/02_matrix_mult/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch02_pinakas/02_matrix_mult/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch02_pinakas_03_determinant",
+      "type": "animation",
+      "chapter": 2,
+      "title": "The 2×2 Determinant - Geometric Interpretation",
+      "path": "animations/ch02_pinakas/03_determinant/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch02_pinakas/03_determinant/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch03_systimata_01_gauss",
+      "type": "animation",
+      "chapter": 3,
+      "title": "Gaussian Elimination — Step by Step",
+      "path": "animations/ch03_systimata/01_gauss/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch03_systimata/01_gauss/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch03_systimata_02_solutions",
+      "type": "animation",
+      "chapter": 3,
+      "title": "Types of Solutions of a 2×2 Linear System",
+      "path": "animations/ch03_systimata/02_solutions/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch03_systimata/02_solutions/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch04_metaschim_01_linear_transform",
+      "type": "animation",
+      "chapter": 4,
+      "title": "Linear Transformations in ℝ²",
+      "path": "animations/ch04_metaschim/01_linear_transform/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch04_metaschim/01_linear_transform/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch04_metaschim_02_rotation",
+      "type": "animation",
+      "chapter": 4,
+      "title": "The Rotation Matrix",
+      "path": "animations/ch04_metaschim/02_rotation/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch04_metaschim/02_rotation/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch05_idiotimes_01_eigenvalues",
+      "type": "animation",
+      "chapter": 5,
+      "title": "Eigenvalues and Eigenvectors",
+      "path": "animations/ch05_idiotimes/01_eigenvalues/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch05_idiotimes/01_eigenvalues/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch05_idiotimes_02_eigenvectors",
+      "type": "animation",
+      "chapter": 5,
+      "title": "Geometric Interpretation of Eigenvectors",
+      "path": "animations/ch05_idiotimes/02_eigenvectors/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch05_idiotimes/02_eigenvectors/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch06_diagonop_01_diagonalization",
+      "type": "animation",
+      "chapter": 6,
+      "title": "Diagonalization of a Matrix",
+      "path": "animations/ch06_diagonop/01_diagonalization/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch06_diagonop/01_diagonalization/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch06_diagonop_02_pca",
+      "type": "animation",
+      "chapter": 6,
+      "title": "Principal Component Analysis (PCA)",
+      "path": "animations/ch06_diagonop/02_pca/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch06_diagonop/02_pca/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch07_markov_01_markov_chain",
+      "type": "animation",
+      "chapter": 7,
+      "title": "Markov Chains",
+      "path": "animations/ch07_markov/01_markov_chain/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch07_markov/01_markov_chain/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch07_markov_02_phase_portraits",
+      "type": "animation",
+      "chapter": 7,
+      "title": "Phase Portraits of the system x′ = A·x",
+      "path": "animations/ch07_markov/02_phase_portraits/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch07_markov/02_phase_portraits/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch08_synart_01_function_graph",
+      "type": "animation",
+      "chapter": 8,
+      "title": "The Graph of a Function",
+      "path": "animations/ch08_synart/01_function_graph/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch08_synart/01_function_graph/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch08_synart_02_composition",
+      "type": "animation",
+      "chapter": 8,
+      "title": "Composition of Functions",
+      "path": "animations/ch08_synart/02_composition/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch08_synart/02_composition/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch09_oria_01_limit",
+      "type": "animation",
+      "chapter": 9,
+      "title": "The Limit of a Function - the ε-δ Definition",
+      "path": "animations/ch09_oria/01_limit/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch09_oria/01_limit/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch09_oria_02_continuity",
+      "type": "animation",
+      "chapter": 9,
+      "title": "Continuity of a Function",
+      "path": "animations/ch09_oria/02_continuity/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch09_oria/02_continuity/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch10_paragogos_01_tangent",
+      "type": "animation",
+      "chapter": 10,
+      "title": "The Derivative as a Tangent Line",
+      "path": "animations/ch10_paragogos/01_tangent/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch10_paragogos/01_tangent/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch10_paragogos_02_derivative_rules",
+      "type": "animation",
+      "chapter": 10,
+      "title": "Rules of Differentiation",
+      "path": "animations/ch10_paragogos/02_derivative_rules/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch10_paragogos/02_derivative_rules/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch11_akrotata_01_monotonicity",
+      "type": "animation",
+      "chapter": 11,
+      "title": "Monotonicity and the Derivative",
+      "path": "animations/ch11_akrotata/01_monotonicity/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch11_akrotata/01_monotonicity/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch11_akrotata_02_critical_points",
+      "type": "animation",
+      "chapter": 11,
+      "title": "Local & Global Extrema",
+      "path": "animations/ch11_akrotata/02_critical_points/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch11_akrotata/02_critical_points/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch11_akrotata_03_taylor",
+      "type": "animation",
+      "chapter": 11,
+      "title": "Taylor Expansion — Polynomial Approximation",
+      "path": "animations/ch11_akrotata/03_taylor/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch11_akrotata/03_taylor/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch12_efarm_par_02_lhopital",
+      "type": "animation",
+      "chapter": 12,
+      "title": "L'Hôpital's Rule — Resolving Indeterminate Forms",
+      "path": "animations/ch12_efarm_par/02_lhopital/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch12_efarm_par/02_lhopital/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch13_aoristo_01_antiderivative",
+      "type": "animation",
+      "chapter": 13,
+      "title": "Antiderivative — The Indefinite Integral",
+      "path": "animations/ch13_aoristo/01_antiderivative/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch13_aoristo/01_antiderivative/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch13_aoristo_02_substitution",
+      "type": "animation",
+      "chapter": 13,
+      "title": "Integration by Substitution",
+      "path": "animations/ch13_aoristo/02_substitution/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch13_aoristo/02_substitution/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch14_orismeno_01_riemann",
+      "type": "animation",
+      "chapter": 14,
+      "title": "Riemann Sum — The Definite Integral",
+      "path": "animations/ch14_orismeno/01_riemann/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch14_orismeno/01_riemann/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch14_orismeno_02_area",
+      "type": "animation",
+      "chapter": 14,
+      "title": "Area Under a Curve — Signed Area",
+      "path": "animations/ch14_orismeno/02_area/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch14_orismeno/02_area/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch15_ttl_01_ftc",
+      "type": "animation",
+      "chapter": 15,
+      "title": "The Fundamental Theorem of Calculus",
+      "path": "animations/ch15_ttl/01_ftc/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch15_ttl/01_ftc/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch15_ttl_02_newton_leibniz",
+      "type": "animation",
+      "chapter": 15,
+      "title": "Newton–Leibniz: the integral as a difference of antiderivative values",
+      "path": "animations/ch15_ttl/02_newton_leibniz/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch15_ttl/02_newton_leibniz/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch16_texniques_01_by_parts",
+      "type": "animation",
+      "chapter": 16,
+      "title": "Integration by Parts",
+      "path": "animations/ch16_texniques/01_by_parts/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch16_texniques/01_by_parts/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch16_texniques_02_partial_fractions",
+      "type": "animation",
+      "chapter": 16,
+      "title": "Partial Fraction Decomposition",
+      "path": "animations/ch16_texniques/02_partial_fractions/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch16_texniques/02_partial_fractions/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch17_efarm_ol_01_area_curves",
+      "type": "animation",
+      "chapter": 17,
+      "title": "Area Between Curves",
+      "path": "animations/ch17_efarm_ol/01_area_curves/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch17_efarm_ol/01_area_curves/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch17_efarm_ol_02_volume",
+      "type": "animation",
+      "chapter": 17,
+      "title": "Volume of Revolution (Disks)",
+      "path": "animations/ch17_efarm_ol/02_volume/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch17_efarm_ol/02_volume/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch18_genikeum_01_improper",
+      "type": "animation",
+      "chapter": 18,
+      "title": "Improper Integrals",
+      "path": "animations/ch18_genikeum/01_improper/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch18_genikeum/01_improper/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch18_genikeum_02_ptest",
+      "type": "animation",
+      "chapter": 18,
+      "title": "Improper Integrals — the p-test",
+      "path": "animations/ch18_genikeum/02_ptest/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch18_genikeum/02_ptest/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch19_seires_01_sequence",
+      "type": "animation",
+      "chapter": 19,
+      "title": "Convergence of a Sequence",
+      "path": "animations/ch19_seires/01_sequence/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch19_seires/01_sequence/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch19_seires_02_series",
+      "type": "animation",
+      "chapter": 19,
+      "title": "Partial Sums of a Series",
+      "path": "animations/ch19_seires/02_series/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch19_seires/02_series/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch19_seires_03_convergence",
+      "type": "animation",
+      "chapter": 19,
+      "title": "Series & Convergence",
+      "path": "animations/ch19_seires/03_convergence/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch19_seires/03_convergence/",
+      "status": "active"
+    },
+    {
+      "id": "anim_ch20_dynamoseires_01_taylor",
+      "type": "animation",
+      "chapter": 20,
+      "title": "Taylor Polynomials",
+      "path": "animations/ch20_dynamoseires/01_taylor/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/animations/ch20_dynamoseires/01_taylor/",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-algebr-taut",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Basic Algebraic Identities",
+      "path": "prompts/ch00/proof-algebr-taut.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-algebr-taut.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-anagogikoi",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Reduction Formulas",
+      "path": "prompts/ch00/proof-anagogikoi.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-anagogikoi.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-anisotites",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Properties of Inequalities",
+      "path": "prompts/ch00/proof-anisotites.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-anisotites.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-apoluti-timi",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Properties of the Absolute Value",
+      "path": "prompts/ch00/proof-apoluti-timi.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-apoluti-timi.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-apostasi-simeiou-eftheia",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Distance from a Point to a Line",
+      "path": "prompts/ch00/proof-apostasi-simeiou-eftheia.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-apostasi-simeiou-eftheia.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-de-moivre",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "De Moivre's Theorem",
+      "path": "prompts/ch00/proof-de-moivre.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-de-moivre.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-dianysmatikos-C",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "&#8450; as a Vector Space over &#8477;",
+      "path": "prompts/ch00/proof-dianysmatikos-C.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-dianysmatikos-C.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-dynameis-i",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Powers of i",
+      "path": "prompts/ch00/proof-dynameis-i.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-dynameis-i.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-esot-ginomeno-Rn",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Properties of the Dot Product",
+      "path": "prompts/ch00/proof-esot-ginomeno-Rn.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-esot-ginomeno-Rn.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-factor-theorem",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Factor Theorem",
+      "path": "prompts/ch00/proof-factor-theorem.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-factor-theorem.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-nomoi-trig",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Law of Sines and Law of Cosines",
+      "path": "prompts/ch00/proof-nomoi-trig.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-nomoi-trig.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-nostes-rizes",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "nth Roots of a Complex Number",
+      "path": "prompts/ch00/proof-nostes-rizes.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-nostes-rizes.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-parallel-kathetes",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Parallel and Perpendicular Lines",
+      "path": "prompts/ch00/proof-parallel-kathetes.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-parallel-kathetes.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-polar-mult",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Multiplication in Polar Form",
+      "path": "prompts/ch00/proof-polar-mult.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-polar-mult.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-protovathmia-exisosi",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Solution of a First-Degree Equation",
+      "path": "prompts/ch00/proof-protovathmia-exisosi.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-protovathmia-exisosi.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-soma-C",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Field Structure of &#8450;",
+      "path": "prompts/ch00/proof-soma-C.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-soma-C.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-syzygis",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Properties of the Conjugate",
+      "path": "prompts/ch00/proof-syzygis.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-syzygis.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-themeliodes-algebras",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Fundamental Theorem of Algebra",
+      "path": "prompts/ch00/proof-themeliodes-algebras.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-themeliodes-algebras.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-trichotomy-systems",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Three Cases — Geometric Interpretation",
+      "path": "prompts/ch00/proof-trichotomy-systems.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-trichotomy-systems.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-trig-exis",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "General Solution of the Basic Trigonometric Equations",
+      "path": "prompts/ch00/proof-trig-exis.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-trig-exis.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch00_proof-trig-taut",
+      "type": "proof_prompt",
+      "chapter": 0,
+      "title": "Fundamental Trigonometric Identities",
+      "path": "prompts/ch00/proof-trig-taut.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch00/proof-trig-taut.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-apostaseis-R3",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Distances in Space",
+      "path": "prompts/ch01/proof-apostaseis-R3.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-apostaseis-R3.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-basi-monadikotita",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Basis Theorem — Uniqueness of the Number of Elements",
+      "path": "prompts/ch01/proof-basi-monadikotita.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-basi-monadikotita.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-basis-extension",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Extension to a Basis",
+      "path": "prompts/ch01/proof-basis-extension.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-basis-extension.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-cauchy-schwarz",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Cauchy–Schwarz Inequality",
+      "path": "prompts/ch01/proof-cauchy-schwarz.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-cauchy-schwarz.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-esot-ginomeno",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Properties of the Inner Product",
+      "path": "prompts/ch01/proof-esot-ginomeno.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-esot-ginomeno.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-euthu-athroisma",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Direct Sums and Dimension",
+      "path": "prompts/ch01/proof-euthu-athroisma.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-euthu-athroisma.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-exot-ginomeno",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Properties of the Cross Product",
+      "path": "prompts/ch01/proof-exot-ginomeno.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-exot-ginomeno.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-gram-schmidt",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "The Gram–Schmidt Algorithm",
+      "path": "prompts/ch01/proof-gram-schmidt.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-gram-schmidt.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-grammikos-idiotites",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Basic Properties of a Vector Space",
+      "path": "prompts/ch01/proof-grammikos-idiotites.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-grammikos-idiotites.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-grassmann-formula",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Grassmann's Formula",
+      "path": "prompts/ch01/proof-grassmann-formula.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-grassmann-formula.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-gwnies-theseis-R3",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Angles and Relative Positions in Space",
+      "path": "prompts/ch01/proof-gwnies-theseis-R3.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-gwnies-theseis-R3.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-kritiria-basis",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Basis Tests",
+      "path": "prompts/ch01/proof-kritiria-basis.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-kritiria-basis.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-kritirio-duo",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Linear Dependence Test for Two Vectors",
+      "path": "prompts/ch01/proof-kritirio-duo.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-kritirio-duo.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-kritirio-omogenes",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Linear Dependence Test via a Linear System",
+      "path": "prompts/ch01/proof-kritirio-omogenes.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-kritirio-omogenes.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-kritirio-orizousa-R3",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Determinant Test for Three Vectors in ℝ³",
+      "path": "prompts/ch01/proof-kritirio-orizousa-R3.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-kritirio-orizousa-R3.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-kritirio-ypoxorou",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Subspace Criterion",
+      "path": "prompts/ch01/proof-kritirio-ypoxorou.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-kritirio-ypoxorou.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-mikto-ginomeno",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Properties of the Scalar Triple Product",
+      "path": "prompts/ch01/proof-mikto-ginomeno.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-mikto-ginomeno.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-orthogonal-projection",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Orthogonal Projection Theorem",
+      "path": "prompts/ch01/proof-orthogonal-projection.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-orthogonal-projection.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-orthogonia-anexartita",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Orthogonal Sets Are Linearly Independent",
+      "path": "prompts/ch01/proof-orthogonia-anexartita.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-orthogonia-anexartita.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-orthogonio-symplirwma",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Properties of the Orthogonal Complement",
+      "path": "prompts/ch01/proof-orthogonio-symplirwma.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-orthogonio-symplirwma.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-qr-factorization",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "QR Factorization",
+      "path": "prompts/ch01/proof-qr-factorization.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-qr-factorization.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-syntetagmenes-orthokanoniki",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Coordinates Relative to an Orthonormal Basis",
+      "path": "prompts/ch01/proof-syntetagmenes-orthokanoniki.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-syntetagmenes-orthokanoniki.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch01_proof-ypoxoroi-R3",
+      "type": "proof_prompt",
+      "chapter": 1,
+      "title": "Geometric Subspaces of ℝ³",
+      "path": "prompts/ch01/proof-ypoxoroi-R3.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch01/proof-ypoxoroi-R3.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch06_proof-cayley-hamilton",
+      "type": "proof_prompt",
+      "chapter": 6,
+      "title": "The Cayley–Hamilton Theorem",
+      "path": "prompts/ch06/proof-cayley-hamilton.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch06/proof-cayley-hamilton.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch02_proof-characteristic-polynomial",
+      "type": "proof_prompt",
+      "chapter": 2,
+      "title": "The Characteristic Polynomial",
+      "path": "prompts/ch02/proof-characteristic-polynomial.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch02/proof-characteristic-polynomial.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch02_proof-det-props",
+      "type": "proof_prompt",
+      "chapter": 2,
+      "title": "Properties of the Determinant",
+      "path": "prompts/ch02/proof-det-props.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch02/proof-det-props.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch02_proof-det-triangular",
+      "type": "proof_prompt",
+      "chapter": 2,
+      "title": "Determinant of a Triangular Matrix",
+      "path": "prompts/ch02/proof-det-triangular.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch02/proof-det-triangular.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch05_proof-eigenvalue-props",
+      "type": "proof_prompt",
+      "chapter": 5,
+      "title": "Properties of Eigenvalues",
+      "path": "prompts/ch05/proof-eigenvalue-props.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch05/proof-eigenvalue-props.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch02_proof-inverse-adjugate",
+      "type": "proof_prompt",
+      "chapter": 2,
+      "title": "The Inverse via the Adjugate Matrix",
+      "path": "prompts/ch02/proof-inverse-adjugate.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch02/proof-inverse-adjugate.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch02_proof-inverse-props",
+      "type": "proof_prompt",
+      "chapter": 2,
+      "title": "Properties of the Inverse Matrix",
+      "path": "prompts/ch02/proof-inverse-props.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch02/proof-inverse-props.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch02_proof-invertibility-criteria",
+      "type": "proof_prompt",
+      "chapter": 2,
+      "title": "Criteria for Invertibility",
+      "path": "prompts/ch02/proof-invertibility-criteria.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch02/proof-invertibility-criteria.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch02_proof-matrix-add-props",
+      "type": "proof_prompt",
+      "chapter": 2,
+      "title": "Properties of Addition and Scalar Multiplication",
+      "path": "prompts/ch02/proof-matrix-add-props.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch02/proof-matrix-add-props.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch02_proof-matrix-mult-props",
+      "type": "proof_prompt",
+      "chapter": 2,
+      "title": "Properties of Matrix Multiplication",
+      "path": "prompts/ch02/proof-matrix-mult-props.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch02/proof-matrix-mult-props.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch02_proof-power-props",
+      "type": "proof_prompt",
+      "chapter": 2,
+      "title": "Properties of Powers",
+      "path": "prompts/ch02/proof-power-props.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch02/proof-power-props.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch02_proof-rank-nullity-matrix",
+      "type": "proof_prompt",
+      "chapter": 2,
+      "title": "Rank–Nullity Theorem for Matrices",
+      "path": "prompts/ch02/proof-rank-nullity-matrix.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch02/proof-rank-nullity-matrix.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch03_proof-cramer-rule",
+      "type": "proof_prompt",
+      "chapter": 3,
+      "title": "Cramer's Rule",
+      "path": "prompts/ch03/proof-cramer-rule.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch03/proof-cramer-rule.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch03_proof-domi-lyseon",
+      "type": "proof_prompt",
+      "chapter": 3,
+      "title": "Structure of the Solution Set of a Non-homogeneous System",
+      "path": "prompts/ch03/proof-domi-lyseon.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch03/proof-domi-lyseon.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch03_proof-elementary-row-ops",
+      "type": "proof_prompt",
+      "chapter": 3,
+      "title": "Elementary Row Operations",
+      "path": "prompts/ch03/proof-elementary-row-ops.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch03/proof-elementary-row-ops.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch03_proof-homogeneous-nonzero",
+      "type": "proof_prompt",
+      "chapter": 3,
+      "title": "Non-trivial Solutions of a Homogeneous System",
+      "path": "prompts/ch03/proof-homogeneous-nonzero.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch03/proof-homogeneous-nonzero.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch03_proof-kronecker-capelli",
+      "type": "proof_prompt",
+      "chapter": 3,
+      "title": "Kronecker–Capelli Theorem",
+      "path": "prompts/ch03/proof-kronecker-capelli.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch03/proof-kronecker-capelli.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch03_proof-lu-determinant",
+      "type": "proof_prompt",
+      "chapter": 3,
+      "title": "Connection between LU and the Determinant",
+      "path": "prompts/ch03/proof-lu-determinant.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch03/proof-lu-determinant.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch03_proof-square-homogeneous-nonzero",
+      "type": "proof_prompt",
+      "chapter": 3,
+      "title": "Non-trivial Solutions of a Square Homogeneous System",
+      "path": "prompts/ch03/proof-square-homogeneous-nonzero.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch03/proof-square-homogeneous-nonzero.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch03_proof-square-system-inverse",
+      "type": "proof_prompt",
+      "chapter": 3,
+      "title": "Square System — Solution via the Inverse",
+      "path": "prompts/ch03/proof-square-system-inverse.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch03/proof-square-system-inverse.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch03_proof-vandermonde",
+      "type": "proof_prompt",
+      "chapter": 3,
+      "title": "The Vandermonde Matrix and Interpolation",
+      "path": "prompts/ch03/proof-vandermonde.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch03/proof-vandermonde.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch06_proof-definiteness-eigenvalues",
+      "type": "proof_prompt",
+      "chapter": 6,
+      "title": "Characterization of Definiteness through the Eigenvalues",
+      "path": "prompts/ch06/proof-definiteness-eigenvalues.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch06/proof-definiteness-eigenvalues.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch04_proof-injective-kernel",
+      "type": "proof_prompt",
+      "chapter": 4,
+      "title": "One-to-One Transformations and the Kernel",
+      "path": "prompts/ch04/proof-injective-kernel.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch04/proof-injective-kernel.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch04_proof-isomorphism-dimension",
+      "type": "proof_prompt",
+      "chapter": 4,
+      "title": "Isomorphism and Dimension",
+      "path": "prompts/ch04/proof-isomorphism-dimension.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch04/proof-isomorphism-dimension.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch04_proof-matrix-representation",
+      "type": "proof_prompt",
+      "chapter": 4,
+      "title": "Matrix Representation of a Linear Transformation",
+      "path": "prompts/ch04/proof-matrix-representation.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch04/proof-matrix-representation.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch06_proof-quadratic-classification",
+      "type": "proof_prompt",
+      "chapter": 6,
+      "title": "Classification of Quadratic Forms",
+      "path": "prompts/ch06/proof-quadratic-classification.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch06/proof-quadratic-classification.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch04_proof-rank-nullity-transform",
+      "type": "proof_prompt",
+      "chapter": 4,
+      "title": "Rank–Nullity Theorem",
+      "path": "prompts/ch04/proof-rank-nullity-transform.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch04/proof-rank-nullity-transform.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch06_proof-sylvester-criterion",
+      "type": "proof_prompt",
+      "chapter": 6,
+      "title": "Sylvester's Criterion",
+      "path": "prompts/ch06/proof-sylvester-criterion.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch06/proof-sylvester-criterion.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch04_proof-transform-basic-props",
+      "type": "proof_prompt",
+      "chapter": 4,
+      "title": "Basic Properties of a Linear Transformation",
+      "path": "prompts/ch04/proof-transform-basic-props.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch04/proof-transform-basic-props.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch05_proof-conjugate-eigenpairs",
+      "type": "proof_prompt",
+      "chapter": 5,
+      "title": "Conjugate Pairs of Eigenvalues",
+      "path": "prompts/ch05/proof-conjugate-eigenpairs.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch05/proof-conjugate-eigenpairs.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch05_proof-eigenvalue-characterizations",
+      "type": "proof_prompt",
+      "chapter": 5,
+      "title": "Equivalent Characterizations of an Eigenvalue",
+      "path": "prompts/ch05/proof-eigenvalue-characterizations.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch05/proof-eigenvalue-characterizations.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch05_proof-eigenvector-independence",
+      "type": "proof_prompt",
+      "chapter": 5,
+      "title": "Linear Independence of Eigenvectors",
+      "path": "prompts/ch05/proof-eigenvector-independence.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch05/proof-eigenvector-independence.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch05_proof-multiplicity-relation",
+      "type": "proof_prompt",
+      "chapter": 5,
+      "title": "Relation Between the Multiplicities",
+      "path": "prompts/ch05/proof-multiplicity-relation.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch05/proof-multiplicity-relation.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch05_proof-spectral-decomposition-symmetric",
+      "type": "proof_prompt",
+      "chapter": 5,
+      "title": "Spectral Decomposition of a Symmetric Matrix",
+      "path": "prompts/ch05/proof-spectral-decomposition-symmetric.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch05/proof-spectral-decomposition-symmetric.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch06_proof-symmetric-always-diagonalizable",
+      "type": "proof_prompt",
+      "chapter": 6,
+      "title": "Symmetric Matrices: Always Orthogonally Diagonalizable",
+      "path": "prompts/ch06/proof-symmetric-always-diagonalizable.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch06/proof-symmetric-always-diagonalizable.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch05_proof-trace-det-eigenvalues",
+      "type": "proof_prompt",
+      "chapter": 5,
+      "title": "Trace, Determinant and Eigenvalues",
+      "path": "prompts/ch05/proof-trace-det-eigenvalues.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch05/proof-trace-det-eigenvalues.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch06_proof-diagonalizability-criterion",
+      "type": "proof_prompt",
+      "chapter": 6,
+      "title": "Criteria for Diagonalizability",
+      "path": "prompts/ch06/proof-diagonalizability-criterion.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch06/proof-diagonalizability-criterion.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch06_proof-eckart-young",
+      "type": "proof_prompt",
+      "chapter": 6,
+      "title": "The Eckart–Young Theorem (Low-Rank Approximation)",
+      "path": "prompts/ch06/proof-eckart-young.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch06/proof-eckart-young.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch06_proof-matrix-power-diagonalization",
+      "type": "proof_prompt",
+      "chapter": 6,
+      "title": "Computing the Power A^k by Diagonalization",
+      "path": "prompts/ch06/proof-matrix-power-diagonalization.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch06/proof-matrix-power-diagonalization.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch06_proof-singular-values-eigenvalues",
+      "type": "proof_prompt",
+      "chapter": 6,
+      "title": "Singular Values from the Eigenvalues of AᵀA",
+      "path": "prompts/ch06/proof-singular-values-eigenvalues.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch06/proof-singular-values-eigenvalues.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch06_proof-spectral-theorem-symmetric",
+      "type": "proof_prompt",
+      "chapter": 6,
+      "title": "The Spectral Theorem",
+      "path": "prompts/ch06/proof-spectral-theorem-symmetric.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch06/proof-spectral-theorem-symmetric.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch06_proof-svd",
+      "type": "proof_prompt",
+      "chapter": 6,
+      "title": "Singular Value Decomposition (SVD)",
+      "path": "prompts/ch06/proof-svd.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch06/proof-svd.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch06_proof-variance-explained",
+      "type": "proof_prompt",
+      "chapter": 6,
+      "title": "Proportion of Variance Explained",
+      "path": "prompts/ch06/proof-variance-explained.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch06/proof-variance-explained.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch07_proof-defective-eigenvalue",
+      "type": "proof_prompt",
+      "chapter": 7,
+      "title": "Defective (Degenerate) Eigenvalue",
+      "path": "prompts/ch07/proof-defective-eigenvalue.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch07/proof-defective-eigenvalue.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch07_proof-discrete-stability-criterion",
+      "type": "proof_prompt",
+      "chapter": 7,
+      "title": "Stability Criterion for a Discrete System",
+      "path": "prompts/ch07/proof-discrete-stability-criterion.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch07/proof-discrete-stability-criterion.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch07_proof-equilibrium-classification",
+      "type": "proof_prompt",
+      "chapter": 7,
+      "title": "Classification of Equilibrium Points by the Eigenvalues",
+      "path": "prompts/ch07/proof-equilibrium-classification.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch07/proof-equilibrium-classification.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch07_proof-markov-convergence",
+      "type": "proof_prompt",
+      "chapter": 7,
+      "title": "Convergence of Markov Chains (Perron-Frobenius)",
+      "path": "prompts/ch07/proof-markov-convergence.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch07/proof-markov-convergence.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch08_proof-hyperbolic-properties",
+      "type": "proof_prompt",
+      "chapter": 8,
+      "title": "Properties of the Hyperbolic Functions",
+      "path": "prompts/ch08/proof-hyperbolic-properties.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch08/proof-hyperbolic-properties.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch09_proof-weierstrass",
+      "type": "proof_prompt",
+      "chapter": 9,
+      "title": "Weierstrass' Theorem",
+      "path": "prompts/ch09/proof-weierstrass.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch09/proof-weierstrass.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch09_proof-intermediate-value",
+      "type": "proof_prompt",
+      "chapter": 9,
+      "title": "Intermediate Value Theorem (IVT)",
+      "path": "prompts/ch09/proof-intermediate-value.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch09/proof-intermediate-value.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch09_proof-limit-laws",
+      "type": "proof_prompt",
+      "chapter": 9,
+      "title": "Limit Laws",
+      "path": "prompts/ch09/proof-limit-laws.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch09/proof-limit-laws.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch09_proof-squeeze-theorem",
+      "type": "proof_prompt",
+      "chapter": 9,
+      "title": "Squeeze Theorem",
+      "path": "prompts/ch09/proof-squeeze-theorem.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch09/proof-squeeze-theorem.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch09_proof-substitution-theorem",
+      "type": "proof_prompt",
+      "chapter": 9,
+      "title": "Substitution Theorem",
+      "path": "prompts/ch09/proof-substitution-theorem.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch09/proof-substitution-theorem.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch10_proof-chain-rule",
+      "type": "proof_prompt",
+      "chapter": 10,
+      "title": "The Chain Rule",
+      "path": "prompts/ch10/proof-chain-rule.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch10/proof-chain-rule.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch10_proof-differentiability-continuity",
+      "type": "proof_prompt",
+      "chapter": 10,
+      "title": "Differentiability ⇒ Continuity",
+      "path": "prompts/ch10/proof-differentiability-continuity.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch10/proof-differentiability-continuity.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch10_proof-differentiation-rules",
+      "type": "proof_prompt",
+      "chapter": 10,
+      "title": "Rules of Differentiation",
+      "path": "prompts/ch10/proof-differentiation-rules.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch10/proof-differentiation-rules.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch10_proof-fermat-theorem",
+      "type": "proof_prompt",
+      "chapter": 10,
+      "title": "Fermat's Theorem",
+      "path": "prompts/ch10/proof-fermat-theorem.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch10/proof-fermat-theorem.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch10_proof-inverse-function-derivative",
+      "type": "proof_prompt",
+      "chapter": 10,
+      "title": "Derivative of the Inverse Function",
+      "path": "prompts/ch10/proof-inverse-function-derivative.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch10/proof-inverse-function-derivative.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch10_proof-mean-value",
+      "type": "proof_prompt",
+      "chapter": 10,
+      "title": "The Mean Value Theorem (Lagrange)",
+      "path": "prompts/ch10/proof-mean-value.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch10/proof-mean-value.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch10_proof-parametric-tangent",
+      "type": "proof_prompt",
+      "chapter": 10,
+      "title": "Slope of the Tangent Line to a Parametric Curve",
+      "path": "prompts/ch10/proof-parametric-tangent.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch10/proof-parametric-tangent.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch10_proof-polar-tangent",
+      "type": "proof_prompt",
+      "chapter": 10,
+      "title": "Slope of the Tangent Line to a Polar Curve",
+      "path": "prompts/ch10/proof-polar-tangent.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch10/proof-polar-tangent.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch10_proof-rolle",
+      "type": "proof_prompt",
+      "chapter": 10,
+      "title": "Rolle's Theorem",
+      "path": "prompts/ch10/proof-rolle.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch10/proof-rolle.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch10_proof-special-derivatives-table",
+      "type": "proof_prompt",
+      "chapter": 10,
+      "title": "Derivatives of the Special Functions",
+      "path": "prompts/ch10/proof-special-derivatives-table.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch10/proof-special-derivatives-table.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch11_proof-cauchy-mean-value",
+      "type": "proof_prompt",
+      "chapter": 11,
+      "title": "Cauchy's Mean Value Theorem (Generalized MVT)",
+      "path": "prompts/ch11/proof-cauchy-mean-value.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch11/proof-cauchy-mean-value.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch11_proof-closed-interval-method",
+      "type": "proof_prompt",
+      "chapter": 11,
+      "title": "The Closed Interval Method",
+      "path": "prompts/ch11/proof-closed-interval-method.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch11/proof-closed-interval-method.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch11_proof-fermat",
+      "type": "proof_prompt",
+      "chapter": 11,
+      "title": "Fermat's Theorem",
+      "path": "prompts/ch11/proof-fermat.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch11/proof-fermat.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch11_proof-mean-value",
+      "type": "proof_prompt",
+      "chapter": 11,
+      "title": "The Mean Value Theorem (MVT)",
+      "path": "prompts/ch11/proof-mean-value.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch11/proof-mean-value.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch11_proof-monotonicity-extrema",
+      "type": "proof_prompt",
+      "chapter": 11,
+      "title": "Monotonicity and Extrema",
+      "path": "prompts/ch11/proof-monotonicity-extrema.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch11/proof-monotonicity-extrema.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch11_proof-second-derivative-test",
+      "type": "proof_prompt",
+      "chapter": 11,
+      "title": "Second Derivative Test for Extrema",
+      "path": "prompts/ch11/proof-second-derivative-test.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch11/proof-second-derivative-test.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch11_proof-taylor-polynomial",
+      "type": "proof_prompt",
+      "chapter": 11,
+      "title": "Taylor Polynomial",
+      "path": "prompts/ch11/proof-taylor-polynomial.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch11/proof-taylor-polynomial.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch12_proof-asymptote-criteria",
+      "type": "proof_prompt",
+      "chapter": 12,
+      "title": "Criteria for Asymptotes",
+      "path": "prompts/ch12/proof-asymptote-criteria.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch12/proof-asymptote-criteria.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch11_proof-first-derivative-test",
+      "type": "proof_prompt",
+      "chapter": 11,
+      "title": "First Derivative Test for Extrema",
+      "path": "prompts/ch11/proof-first-derivative-test.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch11/proof-first-derivative-test.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch12_proof-lhopital",
+      "type": "proof_prompt",
+      "chapter": 12,
+      "title": "L'Hôpital's Rule",
+      "path": "prompts/ch12/proof-lhopital.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch12/proof-lhopital.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch12_proof-tangent-normal-line",
+      "type": "proof_prompt",
+      "chapter": 12,
+      "title": "The Tangent and the Normal Line",
+      "path": "prompts/ch12/proof-tangent-normal-line.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch12/proof-tangent-normal-line.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch13_proof-antiderivatives-differ-constant",
+      "type": "proof_prompt",
+      "chapter": 13,
+      "title": "Antiderivatives Differ by a Constant",
+      "path": "prompts/ch13/proof-antiderivatives-differ-constant.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch13/proof-antiderivatives-differ-constant.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch13_proof-basic-integrals-table",
+      "type": "proof_prompt",
+      "chapter": 13,
+      "title": "Table of Basic Integrals",
+      "path": "prompts/ch13/proof-basic-integrals-table.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch13/proof-basic-integrals-table.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch13_proof-beam-deflection-general",
+      "type": "proof_prompt",
+      "chapter": 13,
+      "title": "General Solution: Simply Supported Beam under a Uniform Load",
+      "path": "prompts/ch13/proof-beam-deflection-general.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch13/proof-beam-deflection-general.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch13_proof-integration-rules",
+      "type": "proof_prompt",
+      "chapter": 13,
+      "title": "Basic Rules of Integration",
+      "path": "prompts/ch13/proof-integration-rules.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch13/proof-integration-rules.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch13_proof-linear-substitution",
+      "type": "proof_prompt",
+      "chapter": 13,
+      "title": "The Linear Substitution Rule",
+      "path": "prompts/ch13/proof-linear-substitution.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch13/proof-linear-substitution.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch13_proof-logarithmic-rule",
+      "type": "proof_prompt",
+      "chapter": 13,
+      "title": "The Logarithmic Rule of Integration",
+      "path": "prompts/ch13/proof-logarithmic-rule.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch13/proof-logarithmic-rule.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch14_proof-definite-integral-properties",
+      "type": "proof_prompt",
+      "chapter": 14,
+      "title": "Properties of the Definite Integral",
+      "path": "prompts/ch14/proof-definite-integral-properties.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch14/proof-definite-integral-properties.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch14_proof-integral-mean-value",
+      "type": "proof_prompt",
+      "chapter": 14,
+      "title": "The Mean Value Theorem for Integrals",
+      "path": "prompts/ch14/proof-integral-mean-value.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch14/proof-integral-mean-value.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch14_proof-riemann-integrability",
+      "type": "proof_prompt",
+      "chapter": 14,
+      "title": "Riemann Integrability",
+      "path": "prompts/ch14/proof-riemann-integrability.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch14/proof-riemann-integrability.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch15_proof-area-between-curves",
+      "type": "proof_prompt",
+      "chapter": 15,
+      "title": "Area of the Region between Two Curves",
+      "path": "prompts/ch15/proof-area-between-curves.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch15/proof-area-between-curves.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch15_proof-area-integrate-y",
+      "type": "proof_prompt",
+      "chapter": 15,
+      "title": "Area by Integration with Respect to $y$",
+      "path": "prompts/ch15/proof-area-integrate-y.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch15/proof-area-integrate-y.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch15_proof-fundamental-theorem-calculus",
+      "type": "proof_prompt",
+      "chapter": 15,
+      "title": "The Fundamental Theorem of Calculus",
+      "path": "prompts/ch15/proof-fundamental-theorem-calculus.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch15/proof-fundamental-theorem-calculus.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch15_proof-integration-by-parts-definite",
+      "type": "proof_prompt",
+      "chapter": 15,
+      "title": "Integration by Parts in a Definite Integral",
+      "path": "prompts/ch15/proof-integration-by-parts-definite.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch15/proof-integration-by-parts-definite.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch15_proof-leibniz-rule",
+      "type": "proof_prompt",
+      "chapter": 15,
+      "title": "The Leibniz Rule: Differentiation with Variable Limits",
+      "path": "prompts/ch15/proof-leibniz-rule.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch15/proof-leibniz-rule.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch15_proof-substitution-definite",
+      "type": "proof_prompt",
+      "chapter": 15,
+      "title": "Substitution in a Definite Integral (Change of Limits)",
+      "path": "prompts/ch15/proof-substitution-definite.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch15/proof-substitution-definite.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch16_proof-integration-by-parts",
+      "type": "proof_prompt",
+      "chapter": 16,
+      "title": "Integration by Parts",
+      "path": "prompts/ch16/proof-integration-by-parts.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch16/proof-integration-by-parts.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch16_proof-integration-substitution",
+      "type": "proof_prompt",
+      "chapter": 16,
+      "title": "Substitution — the General Form",
+      "path": "prompts/ch16/proof-integration-substitution.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch16/proof-integration-substitution.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch16_proof-irreducible-quadratic-factor",
+      "type": "proof_prompt",
+      "chapter": 16,
+      "title": "Irreducible Quadratic Factor (Completing the Square)",
+      "path": "prompts/ch16/proof-irreducible-quadratic-factor.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch16/proof-irreducible-quadratic-factor.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch16_proof-partial-fractions",
+      "type": "proof_prompt",
+      "chapter": 16,
+      "title": "Integration by Partial Fraction Decomposition",
+      "path": "prompts/ch16/proof-partial-fractions.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch16/proof-partial-fractions.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch16_proof-repeated-linear-factor",
+      "type": "proof_prompt",
+      "chapter": 16,
+      "title": "Repeated Linear Factor",
+      "path": "prompts/ch16/proof-repeated-linear-factor.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch16/proof-repeated-linear-factor.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch16_proof-tan-sec-integrals",
+      "type": "proof_prompt",
+      "chapter": 16,
+      "title": "Integrals with $\\tan$ and $\\sec$",
+      "path": "prompts/ch16/proof-tan-sec-integrals.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch16/proof-tan-sec-integrals.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch16_proof-trigonometric-integrals",
+      "type": "proof_prompt",
+      "chapter": 16,
+      "title": "Trigonometric Integrals",
+      "path": "prompts/ch16/proof-trigonometric-integrals.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch16/proof-trigonometric-integrals.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch16_proof-trigonometric-substitution",
+      "type": "proof_prompt",
+      "chapter": 16,
+      "title": "Trigonometric Substitution",
+      "path": "prompts/ch16/proof-trigonometric-substitution.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch16/proof-trigonometric-substitution.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch17_proof-arc-length",
+      "type": "proof_prompt",
+      "chapter": 17,
+      "title": "Arc Length",
+      "path": "prompts/ch17/proof-arc-length.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch17/proof-arc-length.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch17_proof-area-plane-region",
+      "type": "proof_prompt",
+      "chapter": 17,
+      "title": "The Area of a Plane Region",
+      "path": "prompts/ch17/proof-area-plane-region.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch17/proof-area-plane-region.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch17_proof-center-of-mass",
+      "type": "proof_prompt",
+      "chapter": 17,
+      "title": "The Center of Mass of a Plane Body",
+      "path": "prompts/ch17/proof-center-of-mass.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch17/proof-center-of-mass.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch17_proof-moment-of-inertia",
+      "type": "proof_prompt",
+      "chapter": 17,
+      "title": "The Moment of Inertia of a Plane Region",
+      "path": "prompts/ch17/proof-moment-of-inertia.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch17/proof-moment-of-inertia.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch17_proof-numerical-integration",
+      "type": "proof_prompt",
+      "chapter": 17,
+      "title": "Numerical Integration (Trapezoidal & Simpson)",
+      "path": "prompts/ch17/proof-numerical-integration.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch17/proof-numerical-integration.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch17_proof-pappus-guldin",
+      "type": "proof_prompt",
+      "chapter": 17,
+      "title": "The Pappus-Guldin Theorems",
+      "path": "prompts/ch17/proof-pappus-guldin.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch17/proof-pappus-guldin.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch17_proof-parametric-area",
+      "type": "proof_prompt",
+      "chapter": 17,
+      "title": "Area from a Parametric Curve",
+      "path": "prompts/ch17/proof-parametric-area.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch17/proof-parametric-area.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch17_proof-poiseuille-mean-velocity",
+      "type": "proof_prompt",
+      "chapter": 17,
+      "title": "The Mean Velocity in Poiseuille Flow",
+      "path": "prompts/ch17/proof-poiseuille-mean-velocity.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch17/proof-poiseuille-mean-velocity.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch17_proof-polar-arc-length",
+      "type": "proof_prompt",
+      "chapter": 17,
+      "title": "Arc Length in Polar Coordinates",
+      "path": "prompts/ch17/proof-polar-arc-length.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch17/proof-polar-arc-length.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch17_proof-polar-area",
+      "type": "proof_prompt",
+      "chapter": 17,
+      "title": "Area in Polar Coordinates",
+      "path": "prompts/ch17/proof-polar-area.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch17/proof-polar-area.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch17_proof-pumping-work",
+      "type": "proof_prompt",
+      "chapter": 17,
+      "title": "The General Formula for Pumping Work",
+      "path": "prompts/ch17/proof-pumping-work.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch17/proof-pumping-work.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch17_proof-shell-method",
+      "type": "proof_prompt",
+      "chapter": 17,
+      "title": "The Method of Cylindrical Shells",
+      "path": "prompts/ch17/proof-shell-method.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch17/proof-shell-method.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch17_proof-surface-of-revolution",
+      "type": "proof_prompt",
+      "chapter": 17,
+      "title": "The Area of a Surface of Revolution",
+      "path": "prompts/ch17/proof-surface-of-revolution.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch17/proof-surface-of-revolution.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch17_proof-trapezoid-rule",
+      "type": "proof_prompt",
+      "chapter": 17,
+      "title": "The Trapezoidal Rule",
+      "path": "prompts/ch17/proof-trapezoid-rule.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch17/proof-trapezoid-rule.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch17_proof-volume-revolution",
+      "type": "proof_prompt",
+      "chapter": 17,
+      "title": "The Volume of a Solid of Revolution",
+      "path": "prompts/ch17/proof-volume-revolution.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch17/proof-volume-revolution.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch18_proof-comparison-test-improper",
+      "type": "proof_prompt",
+      "chapter": 18,
+      "title": "The Comparison Test for Improper Integrals",
+      "path": "prompts/ch18/proof-comparison-test-improper.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch18/proof-comparison-test-improper.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch18_proof-gamma-function",
+      "type": "proof_prompt",
+      "chapter": 18,
+      "title": "The Gamma Function (Euler)",
+      "path": "prompts/ch18/proof-gamma-function.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch18/proof-gamma-function.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch18_proof-limit-comparison-improper",
+      "type": "proof_prompt",
+      "chapter": 18,
+      "title": "The Limit Comparison Test (improper integrals)",
+      "path": "prompts/ch18/proof-limit-comparison-improper.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch18/proof-limit-comparison-improper.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch18_proof-p-integral-test",
+      "type": "proof_prompt",
+      "chapter": 18,
+      "title": "The $p$-Integral Test (Types I and II)",
+      "path": "prompts/ch18/proof-p-integral-test.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch18/proof-p-integral-test.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch19_proof-absolute-convergence",
+      "type": "proof_prompt",
+      "chapter": 19,
+      "title": "Absolute Convergence",
+      "path": "prompts/ch19/proof-absolute-convergence.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch19/proof-absolute-convergence.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch19_proof-alternating-series-test",
+      "type": "proof_prompt",
+      "chapter": 19,
+      "title": "Alternating Series Test (Leibniz)",
+      "path": "prompts/ch19/proof-alternating-series-test.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch19/proof-alternating-series-test.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch19_proof-bolzano-weierstrass",
+      "type": "proof_prompt",
+      "chapter": 19,
+      "title": "Bolzano–Weierstrass Theorem",
+      "path": "prompts/ch19/proof-bolzano-weierstrass.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch19/proof-bolzano-weierstrass.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch19_proof-cauchy-criterion-sequences",
+      "type": "proof_prompt",
+      "chapter": 19,
+      "title": "Cauchy Criterion for Sequences",
+      "path": "prompts/ch19/proof-cauchy-criterion-sequences.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch19/proof-cauchy-criterion-sequences.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch19_proof-comparison-test",
+      "type": "proof_prompt",
+      "chapter": 19,
+      "title": "Comparison Test",
+      "path": "prompts/ch19/proof-comparison-test.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch19/proof-comparison-test.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch19_proof-geometric-series",
+      "type": "proof_prompt",
+      "chapter": 19,
+      "title": "Geometric Series — Convergence and Sum",
+      "path": "prompts/ch19/proof-geometric-series.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch19/proof-geometric-series.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch19_proof-integral-test",
+      "type": "proof_prompt",
+      "chapter": 19,
+      "title": "Integral Test",
+      "path": "prompts/ch19/proof-integral-test.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch19/proof-integral-test.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch19_proof-limit-comparison-test",
+      "type": "proof_prompt",
+      "chapter": 19,
+      "title": "Comparison Test — Limit Form",
+      "path": "prompts/ch19/proof-limit-comparison-test.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch19/proof-limit-comparison-test.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch19_proof-monotone-convergence",
+      "type": "proof_prompt",
+      "chapter": 19,
+      "title": "Monotone Convergence Theorem",
+      "path": "prompts/ch19/proof-monotone-convergence.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch19/proof-monotone-convergence.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch19_proof-necessary-condition",
+      "type": "proof_prompt",
+      "chapter": 19,
+      "title": "Necessary Condition for Convergence",
+      "path": "prompts/ch19/proof-necessary-condition.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch19/proof-necessary-condition.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch19_proof-p-series",
+      "type": "proof_prompt",
+      "chapter": 19,
+      "title": "p-Series",
+      "path": "prompts/ch19/proof-p-series.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch19/proof-p-series.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch19_proof-ratio-test",
+      "type": "proof_prompt",
+      "chapter": 19,
+      "title": "Ratio Test (d&#x27;Alembert)",
+      "path": "prompts/ch19/proof-ratio-test.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch19/proof-ratio-test.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch19_proof-root-test",
+      "type": "proof_prompt",
+      "chapter": 19,
+      "title": "Root Test (Cauchy)",
+      "path": "prompts/ch19/proof-root-test.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch19/proof-root-test.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch19_proof-sequence-limit-laws",
+      "type": "proof_prompt",
+      "chapter": 19,
+      "title": "Properties of Limits of Sequences",
+      "path": "prompts/ch19/proof-sequence-limit-laws.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch19/proof-sequence-limit-laws.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch20_proof-alternating-series-error",
+      "type": "proof_prompt",
+      "chapter": 20,
+      "title": "Truncation Error Estimate — Alternating Series",
+      "path": "prompts/ch20/proof-alternating-series-error.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch20/proof-alternating-series-error.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch20_proof-cauchy-hadamard",
+      "type": "proof_prompt",
+      "chapter": 20,
+      "title": "Cauchy–Hadamard Formula (Radius of Convergence)",
+      "path": "prompts/ch20/proof-cauchy-hadamard.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch20/proof-cauchy-hadamard.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch20_proof-taylor-maclaurin-series",
+      "type": "proof_prompt",
+      "chapter": 20,
+      "title": "Taylor and Maclaurin Series",
+      "path": "prompts/ch20/proof-taylor-maclaurin-series.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch20/proof-taylor-maclaurin-series.html",
+      "status": "active"
+    },
+    {
+      "id": "proof_ch20_proof-term-by-term",
+      "type": "proof_prompt",
+      "chapter": 20,
+      "title": "Differentiation and Integration of Power Series",
+      "path": "prompts/ch20/proof-term-by-term.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/prompts/ch20/proof-term-by-term.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch00_hist-argand",
+      "type": "hist_prompt",
+      "chapter": 0,
+      "title": "Historical Note — Jean-Robert Argand",
+      "path": "hist_prompts/ch00/hist-argand.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch00/hist-argand.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch00_hist-cardano",
+      "type": "hist_prompt",
+      "chapter": 0,
+      "title": "Historical Note — Gerolamo Cardano",
+      "path": "hist_prompts/ch00/hist-cardano.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch00/hist-cardano.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch00_hist-de-moivre",
+      "type": "hist_prompt",
+      "chapter": 0,
+      "title": "Historical Note — Abraham de Moivre",
+      "path": "hist_prompts/ch00/hist-de-moivre.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch00/hist-de-moivre.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch00_hist-euler",
+      "type": "hist_prompt",
+      "chapter": 0,
+      "title": "Historical Note — Leonhard Euler",
+      "path": "hist_prompts/ch00/hist-euler.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch00/hist-euler.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch00_hist-horner",
+      "type": "hist_prompt",
+      "chapter": 0,
+      "title": "Historical Note — William George Horner",
+      "path": "hist_prompts/ch00/hist-horner.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch00/hist-horner.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch01_hist-gram",
+      "type": "hist_prompt",
+      "chapter": 1,
+      "title": "Historical Note — Jørgen Pedersen Gram",
+      "path": "hist_prompts/ch01/hist-gram.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch01/hist-gram.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch01_hist-grassmann",
+      "type": "hist_prompt",
+      "chapter": 1,
+      "title": "Historical Note — Hermann Grassmann",
+      "path": "hist_prompts/ch01/hist-grassmann.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch01/hist-grassmann.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch02_hist-cayley",
+      "type": "hist_prompt",
+      "chapter": 2,
+      "title": "Historical Note — Arthur Cayley",
+      "path": "hist_prompts/ch02/hist-cayley.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch02/hist-cayley.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch02_hist-jacobi",
+      "type": "hist_prompt",
+      "chapter": 2,
+      "title": "Historical Note — Carl Gustav Jacob Jacobi",
+      "path": "hist_prompts/ch02/hist-jacobi.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch02/hist-jacobi.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch02_hist-leibniz",
+      "type": "hist_prompt",
+      "chapter": 2,
+      "title": "Historical Note — Gottfried Wilhelm Leibniz",
+      "path": "hist_prompts/ch02/hist-leibniz.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch02/hist-leibniz.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch03_hist-cramer",
+      "type": "hist_prompt",
+      "chapter": 3,
+      "title": "Historical Note — Gabriel Cramer",
+      "path": "hist_prompts/ch03/hist-cramer.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch03/hist-cramer.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch03_hist-gauss",
+      "type": "hist_prompt",
+      "chapter": 3,
+      "title": "Historical Note — Carl Friedrich Gauss",
+      "path": "hist_prompts/ch03/hist-gauss.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch03/hist-gauss.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch03_hist-jordan",
+      "type": "hist_prompt",
+      "chapter": 3,
+      "title": "Historical Note — Wilhelm Jordan",
+      "path": "hist_prompts/ch03/hist-jordan.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch03/hist-jordan.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch03_hist-kirchhoff",
+      "type": "hist_prompt",
+      "chapter": 3,
+      "title": "Historical Note — Gustav Kirchhoff",
+      "path": "hist_prompts/ch03/hist-kirchhoff.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch03/hist-kirchhoff.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch04_hist-sylvester",
+      "type": "hist_prompt",
+      "chapter": 4,
+      "title": "Historical Note — James Joseph Sylvester",
+      "path": "hist_prompts/ch04/hist-sylvester.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch04/hist-sylvester.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch05_hist-cauchy",
+      "type": "hist_prompt",
+      "chapter": 5,
+      "title": "Historical Note — Augustin-Louis Cauchy",
+      "path": "hist_prompts/ch05/hist-cauchy.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch05/hist-cauchy.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch06_hist-hamilton",
+      "type": "hist_prompt",
+      "chapter": 6,
+      "title": "Historical Note — William Rowan Hamilton",
+      "path": "hist_prompts/ch06/hist-hamilton.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch06/hist-hamilton.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch07_hist-markov",
+      "type": "hist_prompt",
+      "chapter": 7,
+      "title": "Historical Note — Andrey Markov",
+      "path": "hist_prompts/ch07/hist-markov.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch07/hist-markov.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch07_hist-poincare",
+      "type": "hist_prompt",
+      "chapter": 7,
+      "title": "Historical Note — Henri Poincaré",
+      "path": "hist_prompts/ch07/hist-poincare.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch07/hist-poincare.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch08_hist-euler",
+      "type": "hist_prompt",
+      "chapter": 8,
+      "title": "Historical Note — Leonhard Euler",
+      "path": "hist_prompts/ch08/hist-euler.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch08/hist-euler.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch09_hist-weierstrass",
+      "type": "hist_prompt",
+      "chapter": 9,
+      "title": "Historical Note — Karl Weierstrass",
+      "path": "hist_prompts/ch09/hist-weierstrass.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch09/hist-weierstrass.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch10_hist-cauchy",
+      "type": "hist_prompt",
+      "chapter": 10,
+      "title": "Historical Note — Augustin-Louis Cauchy",
+      "path": "hist_prompts/ch10/hist-cauchy.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch10/hist-cauchy.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch10_hist-newton-leibniz",
+      "type": "hist_prompt",
+      "chapter": 10,
+      "title": "Historical Note — Isaac Newton & Gottfried Wilhelm Leibniz",
+      "path": "hist_prompts/ch10/hist-newton-leibniz.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch10/hist-newton-leibniz.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch11_hist-fermat",
+      "type": "hist_prompt",
+      "chapter": 11,
+      "title": "Historical Note — Pierre de Fermat",
+      "path": "hist_prompts/ch11/hist-fermat.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch11/hist-fermat.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch11_hist-taylor",
+      "type": "hist_prompt",
+      "chapter": 11,
+      "title": "Historical Note — Brook Taylor",
+      "path": "hist_prompts/ch11/hist-taylor.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch11/hist-taylor.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch12_hist-lagrange",
+      "type": "hist_prompt",
+      "chapter": 12,
+      "title": "Historical Note — Joseph-Louis Lagrange",
+      "path": "hist_prompts/ch12/hist-lagrange.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch12/hist-lagrange.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch12_hist-lhopital",
+      "type": "hist_prompt",
+      "chapter": 12,
+      "title": "Historical Note — Guillaume de l'Hôpital & Johann Bernoulli",
+      "path": "hist_prompts/ch12/hist-lhopital.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch12/hist-lhopital.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch13_hist-archimedes",
+      "type": "hist_prompt",
+      "chapter": 13,
+      "title": "Historical Note — Archimedes",
+      "path": "hist_prompts/ch13/hist-archimedes.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch13/hist-archimedes.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch14_hist-darboux",
+      "type": "hist_prompt",
+      "chapter": 14,
+      "title": "Historical Note — Jean-Gaston Darboux",
+      "path": "hist_prompts/ch14/hist-darboux.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch14/hist-darboux.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch14_hist-riemann",
+      "type": "hist_prompt",
+      "chapter": 14,
+      "title": "Historical Note — Georg Friedrich Bernhard Riemann",
+      "path": "hist_prompts/ch14/hist-riemann.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch14/hist-riemann.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch15_hist-barrow",
+      "type": "hist_prompt",
+      "chapter": 15,
+      "title": "Historical Note — Isaac Barrow",
+      "path": "hist_prompts/ch15/hist-barrow.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch15/hist-barrow.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch16_hist-johann-bernoulli",
+      "type": "hist_prompt",
+      "chapter": 16,
+      "title": "Historical Note — Johann Bernoulli",
+      "path": "hist_prompts/ch16/hist-johann-bernoulli.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch16/hist-johann-bernoulli.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch17_hist-pappus",
+      "type": "hist_prompt",
+      "chapter": 17,
+      "title": "Historical Note — Pappus of Alexandria",
+      "path": "hist_prompts/ch17/hist-pappus.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch17/hist-pappus.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch18_hist-euler",
+      "type": "hist_prompt",
+      "chapter": 18,
+      "title": "Historical Note — Leonhard Euler",
+      "path": "hist_prompts/ch18/hist-euler.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch18/hist-euler.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch19_hist-cauchy",
+      "type": "hist_prompt",
+      "chapter": 19,
+      "title": "Historical Note — Augustin-Louis Cauchy",
+      "path": "hist_prompts/ch19/hist-cauchy.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch19/hist-cauchy.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch19_hist-weierstrass",
+      "type": "hist_prompt",
+      "chapter": 19,
+      "title": "Historical Note — Karl Weierstrass",
+      "path": "hist_prompts/ch19/hist-weierstrass.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch19/hist-weierstrass.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch20_hist-euler",
+      "type": "hist_prompt",
+      "chapter": 20,
+      "title": "Historical Note — Leonhard Euler",
+      "path": "hist_prompts/ch20/hist-euler.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch20/hist-euler.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch20_hist-fourier",
+      "type": "hist_prompt",
+      "chapter": 20,
+      "title": "Historical Note — Jean-Baptiste Joseph Fourier",
+      "path": "hist_prompts/ch20/hist-fourier.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch20/hist-fourier.html",
+      "status": "active"
+    },
+    {
+      "id": "hist_ch20_hist-jakob-bernoulli",
+      "type": "hist_prompt",
+      "chapter": 20,
+      "title": "Historical Note — Jakob Bernoulli",
+      "path": "hist_prompts/ch20/hist-jakob-bernoulli.html",
+      "url": "https://nikmatz.github.io/ELADIC_EN/hist_prompts/ch20/hist-jakob-bernoulli.html",
+      "status": "active"
+    },
+    {
+      "id": "appendix_maxima",
+      "type": "appendix",
+      "chapter": null,
+      "title": "Maxima CAS Guide",
+      "path": "appendices/maxima/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/appendices/maxima/",
+      "status": "active"
+    },
+    {
+      "id": "appendix_python",
+      "type": "appendix",
+      "chapter": null,
+      "title": "Python Guide for Mathematical Computations",
+      "path": "appendices/python/",
+      "url": "https://nikmatz.github.io/ELADIC_EN/appendices/python/",
+      "status": "active"
+    }
+  ]
+}
