@@ -1,0 +1,134 @@
+/* ============================================================
+   maxima_deriv_apps.mac
+   Κεφάλαιο 9 — Εφαρμογές Παραγώγου
+   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού & Ολοκληρωτικού Λογισμού. NewTech Publications.
+   ============================================================
+
+   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
+     diff(f, x)           → παράγωγος
+     solve(eq, x)         → κρίσιμα σημεία (f'=0)
+     realroots(p, eps)    → αριθμητικές ρίζες πολυωνύμου
+     sign(expr)           → πρόσημο έκφρασης
+     at(expr, x=a)        → υπολογισμός στο a
+     subst(a, x, expr)    → αντικατάσταση
+     plot2d               → γραφική παράσταση
+
+   Εκτελέστε με: wxMaxima (Load/File) ή
+                 maxima -b maxima_deriv_apps.mac
+   ============================================================ */
+
+/* ── Μέρος Α: Μονοτονία & Τοπικά Ακρότατα ──────────────── */
+print("════ Α. Μονοτονία & Τοπικά Ακρότατα ════");
+
+f  : x^3 - 3*x^2 - 9*x + 5;
+fp : diff(f, x);
+fpp: diff(f, x, 2);
+
+print("f(x)  =", f);
+print("f'(x) =", fp);
+print("f''(x)=", fpp);
+
+/* Κρίσιμα σημεία: f'=0 */
+crit : solve(fp = 0, x);
+print("Κρίσιμα σημεία (f'=0):", crit);
+
+/* Κριτήριο 2ης παραγώγου */
+for cr in crit do (
+    xc : rhs(cr),
+    fc : subst(xc, x, f),
+    sc : subst(xc, x, fpp),
+    print("  x =", xc, "  f(x) =", fc, "  f''(x) =", sc,
+          if sc > 0 then "  → ΤΟΠΙΚΟ ΕΛΑΧΙΣΤΟ"
+          elseif sc < 0 then "  → ΤΟΠΙΚΟ ΜΕΓΙΣΤΟ"
+          else "  → Αναπροσδιορισμός")
+);
+
+/* Μονοτονία */
+print("Μονοτονία:");
+print("  f'(x) =", factor(fp));
+print("  f'(x) = 3(x-3)(x+1)");
+print("  f'>0 αν x<-1 ή x>3  →  f αύξουσα");
+print("  f'<0 αν -1<x<3       →  f φθίνουσα");
+
+/* ── Μέρος Β: Κυρτότητα & Σημεία Καμπής ────────────────── */
+print("════ Β. Κυρτότητα & Σημεία Καμπής ════");
+
+inflect : solve(fpp = 0, x);
+print("Σημεία καμπής (f''=0):", inflect);
+
+for inf in inflect do (
+    xi : rhs(inf),
+    fi : subst(xi, x, f),
+    print("  Σημείο καμπής: (", xi, ",", fi, ")")
+);
+
+print("  x<1: f''>0 → κυρτή (convex) ↑");
+print("  x>1: f''<0 → κοίλη (concave) ∩");
+
+/* ── Μέρος Γ: Βελτιστοποίηση ────────────────────────────── */
+print("════ Γ. Πρόβλημα Βελτιστοποίησης ════");
+
+/* Ορθογώνιο μέγιστου εμβαδού με περίμετρο P=20
+   E = x*y, x+y=10 → E(x)=x*(10-x) */
+P : 20;
+E : x * (P/2 - x);
+Ep: diff(E, x);
+x_opt : rhs(solve(Ep=0, x)[1]);
+E_opt : subst(x_opt, x, E);
+y_opt : P/2 - x_opt;
+
+print("Ορθογώνιο μέγιστου εμβαδού (P=20):");
+print("  E(x) = x(10-x)  →  E'(x) =", Ep);
+print("  x* =", x_opt, "  y* =", y_opt);
+print("  E_max =", E_opt, "  (τετράγωνο ✓)");
+
+/* Δοχείο ανοικτό χωρίς καπάκι: ελαχιστοποίηση υλικού
+   V = x²h = 32, S = x² + 4xh → αντ. h=32/x² */
+print("");
+print("Δοχείο (V=32, ελαχ. επιφάνεια):");
+assume(x > 0)$
+h_expr : 32 / x^2;
+S_expr : x^2 + 4*x*h_expr;
+S_expr : ratsimp(S_expr);
+print("  S(x) =", S_expr);
+Sp : diff(S_expr, x);
+x_box : rhs(solve(Sp=0, x)[1]);
+h_box : subst(x_box, x, h_expr);
+S_min : subst(x_box, x, S_expr);
+print("  x* =", float(x_box), "  h* =", float(h_box));
+print("  S_min =", float(S_min));
+
+/* ── Μέρος Δ: Θεώρημα Μέσης Τιμής ─────────────────────── */
+print("════ Δ. Θεώρημα Μέσης Τιμής (MVT) ════");
+
+/* f(x)=x²-x+1 στο [1,4]: c τέτοιο ώστε f'(c)=(f(4)-f(1))/(4-1) */
+f_mvt : x^2 - x + 1;
+a_m : 1;  b_m : 4;
+slope : (subst(b_m, x, f_mvt) - subst(a_m, x, f_mvt)) / (b_m - a_m);
+fp_mvt : diff(f_mvt, x);
+c_val : rhs(solve(fp_mvt = slope, x)[1]);
+print("f(x) = x²-x+1 στο [1,4]");
+print("Μέση κλίση:", slope);
+print("f'(c) =", slope, "  →  c =", c_val);
+print("c ∈ [1,4]:", is(a_m < c_val and c_val < b_m));
+
+/* ── Μέρος Ε: Μέθοδος Newton-Raphson ─────────────────────── */
+print("════ Ε. Μέθοδος Newton-Raphson ════");
+
+/* Εύρεση ρίζας x³-x-2=0 κοντά στο x=1.5 */
+f_nr : x^3 - x - 2;
+fp_nr: diff(f_nr, x);
+print("f(x) = x³-x-2,  f'(x) =", fp_nr);
+
+x_nr : 1.5;
+for i : 1 thru 5 do (
+    fx  : float(subst(x_nr, x, f_nr)),
+    fpx : float(subst(x_nr, x, fp_nr)),
+    x_nr_new : x_nr - fx/fpx,
+    print("  Επανάληψη", i, ": x =", float(x_nr_new), "  f(x) =",
+          float(subst(x_nr_new, x, f_nr))),
+    x_nr : x_nr_new
+);
+print("  Σύγκλιση: x* ≈", float(x_nr));
+
+print("════ Τέλος ════");

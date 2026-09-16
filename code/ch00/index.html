@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Κώδικας Κεφ. 0 — Μαθηματικό Υπόβαθρο · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root {
+    --blue:   #1a5276;
+    --teal:   #0e6655;
+    --orange: #ca6f1e;
+    --bg:     #f5f5f0;
+    --white:  #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: #222; }
+
+  header {
+    background: var(--blue);
+    color: white;
+    padding: 18px 24px;
+  }
+  header h1 { font-size: 1.25rem; font-weight: 700; }
+  header p  { font-size: 0.9rem; margin-top: 4px; opacity: .85; }
+
+  .breadcrumb {
+    font-size: 0.82rem;
+    padding: 10px 24px;
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+  }
+  .breadcrumb a { color: var(--blue); text-decoration: none; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+
+  .info-box {
+    background: white;
+    border-left: 5px solid var(--blue);
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+  .info-box h2 { font-size: 1rem; color: var(--blue); margin-bottom: 8px; }
+  .info-box p  { font-size: 0.88rem; line-height: 1.6; }
+
+  .tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 0;
+  }
+  .tab-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px 6px 0 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .tab-btn.maxima { background: #d5f5e3; color: var(--teal); }
+  .tab-btn.python { background: #d6eaf8; color: var(--blue); }
+  .tab-btn.active.maxima { background: var(--teal); color: white; }
+  .tab-btn.active.python { background: var(--blue); color: white; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .code-card {
+    background: white;
+    border-radius: 0 6px 6px 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    overflow: hidden;
+  }
+  .code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .code-header.maxima { background: var(--teal); color: white; }
+  .code-header.python { background: var(--blue); color: white; }
+
+  .download-btn {
+    display: inline-block;
+    padding: 5px 12px;
+    background: rgba(255,255,255,.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,.5);
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: background .2s;
+  }
+  .download-btn:hover { background: rgba(255,255,255,.35); }
+
+  pre[class*="language-"] {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    max-height: 520px;
+    overflow-y: auto;
+    font-size: 0.83rem;
+  }
+
+  .commands-box {
+    background: #fffde7;
+    border: 1px solid #f9a825;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 0.85rem;
+  }
+  .commands-box strong { color: var(--orange); }
+  .commands-box code { background: #fff3cd; padding: 1px 5px; border-radius: 3px; font-size: 0.82rem; }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 32px;
+    border-top: 1px solid #ddd;
+  }
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📐 Κεφάλαιο 0 — Μαθηματικό Υπόβαθρο</h1>
+  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+</header>
+
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 0
+</div>
+
+<div class="container">
+
+  <div class="info-box">
+    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
+    <p>
+      <strong>Αντικείμενο:</strong> μιγαδικοί αριθμοί — ορθογώνια &amp; εκθετική μορφή, φάσορες, θεώρημα De Moivre, n-ιοστές ρίζες, διάγραμμα Argand<br><br>
+      Επιλέξτε γλώσσα από τις καρτέλες παρακάτω.
+      Τον κώδικα <strong>Python</strong> μπορείτε να τον <strong>τρέξετε εδώ μέσα στη σελίδα</strong>
+      (κουμπί «▶ Τρέξε») — μπορείτε και να τον επεξεργαστείτε. Ο κώδικας <strong>Maxima</strong>
+      εκτελείται στο <strong>wxMaxima</strong>.
+    </p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+
+  <!-- ── Maxima Tab ── -->
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_complex.mac</span>
+        <a class="download-btn"
+           href="maxima_complex.mac" download>⬇ Λήψη .mac</a>
+        <a class="download-btn" href="maxima_complex.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Λήψη .wxmx</a>
+      </div>
+
+      <div class="commands-box" style="margin:12px 16px 0;">
+        <strong>Βασικές εντολές:</strong>
+        <code>rectform(z)</code> &nbsp;
+        <code>abs(z)</code> &nbsp;
+        <code>carg(z)</code> &nbsp;
+        <code>simplify(…)</code> &nbsp;
+        <code>solve(x^3=8, x)</code>
+      </div>
+
+      <pre><code class="language-maxima" id="maxima-code">/* ============================================================
+   maxima_complex.mac
+   Κεφάλαιο 0 — Μαθηματικό Υπόβαθρο: Μιγαδικοί Αριθμοί
+   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   ============================================================
+
+   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
+     rectform(z)      → ορθογώνια μορφή  a + b·i
+     polarform(z)     → πολική μορφή     r·(cosθ + i·sinθ)
+     abs(z)           → μέτρο  |z|
+     carg(z)          → όρισμα (argument)  arg(z)  σε rad
+     simplify(expr)   → απλοποίηση
+     expand(expr)     → ανάπτυξη
+     solve(eq, x)     → επίλυση εξίσωσης
+
+   Εκτελέστε με: wxMaxima (Load/File) ή
+                 maxima -b maxima_complex.mac
+   ============================================================ */
+
+/* ── Μέρος Α: Βασικές Πράξεις με Μιγαδικούς ─────────────── */
+print("════ Α. Βασικές Πράξεις ════");
+
+z1 : 3 + 4*%i;          /* z₁ = 3 + 4i */
+z2 : 1 - 2*%i;          /* z₂ = 1 - 2i */
+
+print("z₁ =", z1, "   z₂ =", z2);
+print("Πρόσθεση:       z₁ + z₂ =", expand(z1 + z2));
+print("Αφαίρεση:       z₁ - z₂ =", expand(z1 - z2));
+print("Πολλαπλασιασμός: z₁·z₂  =", expand(z1 * z2));
+print("Διαίρεση:        z₁/z₂  =", rectform(z1 / z2));
+
+/* Μέτρο και Όρισμα */
+print("");
+print("Μέτρο  |z₁| =", abs(z1),    " (= √(3²+4²) = 5)");
+print("Μέτρο  |z₂| =", abs(z2));
+print("Όρισμα arg(z₁) =", carg(z1), "rad =",
+      float(carg(z1)) * 180 / %pi, "°");
+
+/* ── Μέρος Β: Εκθετική Μορφή — Φάσορες AC Κυκλώματος ───── */
+print("════ Β. Εκθετική Μορφή — Φάσορες ════");
+
+/* Δύο φάσορες ηλεκτρικού κυκλώματος */
+z_A : 5 * exp(%i * %pi / 3);   /* |z_A| = 5, γωνία = 60° */
+z_B : 2 * exp(%i * %pi / 6);   /* |z_B| = 2, γωνία = 30° */
+
+print("Φάσορας A: z_A = 5·e^(iπ/3)  →  ορθογώνια:", rectform(z_A));
+print("Φάσορας B: z_B = 2·e^(iπ/6)  →  ορθογώνια:", rectform(z_B));
+
+print("");
+print("(β1) Γινόμενο z_A·z_B  = ", simplify(z_A * z_B));
+print("     Ορθογώνια:        = ", rectform(simplify(z_A * z_B)));
+print("     [Μέτρο = 5·2 = 10, Γωνία = 60°+30° = 90°  →  10i ✓]");
+
+print("");
+print("(β2) Πηλίκο z_A/z_B    = ", simplify(z_A / z_B));
+print("     Ορθογώνια:        = ", rectform(simplify(z_A / z_B)));
+print("     [Μέτρο = 5/2 = 2.5, Γωνία = 60°−30° = 30°]");
+
+/* ── Μέρος Γ: Θεώρημα De Moivre ─────────────────────────── */
+print("════ Γ. Θεώρημα De Moivre ════");
+/* (cos θ + i sin θ)^n = cos(nθ) + i sin(nθ) */
+
+theta : %pi / 3;   /* 60° */
+n     : 3;
+
+lhs : expand((cos(theta) + %i * sin(theta))^n);
+rhs : cos(n * theta) + %i * sin(n * theta);
+
+print("(cos 60° + i sin 60°)³ =", float(lhs));
+print("cos 180° + i sin 180°  =", float(rhs));
+print("Ισότητα:", is(float(lhs) = float(rhs)));   /* true */
+
+/* Εφαρμογή: (5e^(iπ/3))³ */
+print("");
+z_cubed : simplify((5 * exp(%i * %pi / 3))^3);
+print("(5·e^(iπ/3))³ =", z_cubed, "=", rectform(z_cubed));
+print("[Αναμένεται: μέτρο = 5³=125, γωνία = 3·60°=180°  →  −125 ✓]");
+
+/* ── Μέρος Δ: Ρίζες Μιγαδικών Αριθμών ──────────────────── */
+print("════ Δ. n-ιοστές Ρίζες Μιγαδικών ════");
+/* z^n = w  έχει ακριβώς n ρίζες:
+   z_k = r^(1/n) · e^(i(θ+2kπ)/n),  k = 0,1,...,n-1  */
+
+/* Τετραγωνικές ρίζες του −1 */
+print("Ρίζες x² = -1:");
+sol : solve(x^2 = -1, x);
+print("  x =", sol);
+
+/* Κυβικές ρίζες του 8 */
+print("Ρίζες x³ = 8:");
+sol3 : solve(x^3 = 8, x);
+print("  x =", sol3);
+/* Εμφάνιση αριθμητικά */
+print("  Αριθμητικά:", float(sol3));
+
+/* ── Μέρος Ε: Διαίρεση Μιγαδικών — Επαλήθευση ──────────── */
+print("════ Ε. Χρήσιμες Ταυτότητες ════");
+
+z : a + %i * b;   /* γενικός μιγαδικός */
+conj_z : a - %i * b;
+
+print("z·conj(z) =", expand(z * conj_z), " (= a² + b² = |z|²  ✓)");
+print("z + conj(z) =", expand(z + conj_z), " (= 2a = 2·Re(z)  ✓)");
+print("z - conj(z) =", expand(z - conj_z), " (= 2bi = 2i·Im(z) ✓)");
+
+print("════ Τέλος ════");
+</code></pre>
+    </div>
+  </div>
+
+  <!-- ── Python Tab ── -->
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_complex.py</span>
+        <a class="download-btn"
+           href="python_complex.py" download>⬇ Λήψη .py</a>
+      </div>
+
+      <div class="commands-box" style="margin:12px 16px 0;">
+        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <code>cmath.polar(z)</code> &nbsp;
+        <code>cmath.rect(r,θ)</code> &nbsp;
+        <code>cmath.phase(z)</code> &nbsp;
+        <code>sympy.solve()</code> &nbsp;
+        <code>matplotlib.pyplot</code>
+      </div>
+
+      <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Τρέξε</button>
+        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
+        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
+# python_complex.py
+# Κεφάλαιο 0 — Μαθηματικό Υπόβαθρο: Μιγαδικοί Αριθμοί
+# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# ============================================================
+#
+# ΒΙΒΛΙΟΘΗΚΕΣ:
+#   cmath    → αριθμητικοί υπολογισμοί με μιγαδικούς
+#   sympy    → συμβολικοί υπολογισμοί (ακριβείς)
+#   numpy    → αριθμητικές πράξεις πινάκων
+#   matplotlib → γραφικές παραστάσεις (Argand diagram)
+#
+# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
+#   cmath.polar(z)      → (r, θ)  πολικές συντεταγμένες
+#   cmath.rect(r, θ)    → z = r·e^(iθ)  ορθογώνιες
+#   cmath.sqrt(z)       → τετραγωνική ρίζα
+#   cmath.phase(z)      → γωνία arg(z) σε [-π, π]
+#   sympy.simplify(expr)→ συμβολική απλοποίηση
+#   sympy.solve(eq, x)  → επίλυση εξίσωσης
+# ============================================================
+
+import cmath
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+from sympy import (symbols, I, pi, sqrt, exp, cos, sin,
+                   simplify, expand, conjugate, solve,
+                   re, im, Abs, arg,
+                   N, Rational, pretty_print as pprint)
+
+print("=" * 55)
+print(" Κεφάλαιο 0: Μιγαδικοί Αριθμοί — Python")
+print("=" * 55)
+
+# ── Α. Βασικές Πράξεις (cmath — αριθμητικό) ──────────────
+print("\n── Α. Βασικές Πράξεις (cmath) ──")
+
+z1 = 3 + 4j       # z₁ = 3 + 4i
+z2 = 1 - 2j       # z₂ = 1 - 2i
+
+print(f"z₁ = {z1}    z₂ = {z2}")
+print(f"z₁ + z₂ = {z1 + z2}")
+print(f"z₁ - z₂ = {z1 - z2}")
+print(f"z₁ · z₂ = {z1 * z2}")
+print(f"z₁ / z₂ = {z1 / z2:.4f}")
+
+r1, theta1 = cmath.polar(z1)
+print(f"\n|z₁| = {r1:.4f}  (= √(3²+4²) = 5 ✓)")
+print(f"arg(z₁) = {theta1:.4f} rad = {math.degrees(theta1):.2f}°")
+
+# Επαλήθευση: z · conj(z) = |z|²
+print(f"z₁ · conj(z₁) = {z1 * z1.conjugate():.1f}  (= |z₁|² = 25 ✓)")
+
+# ── Β. Φάσορες AC — Εκθετική Μορφή ───────────────────────
+print("\n── Β. Φάσορες AC — Εκθετική Μορφή ──")
+
+zA = cmath.rect(5, math.pi / 3)   # 5·e^(iπ/3),  |zA|=5, θ=60°
+zB = cmath.rect(2, math.pi / 6)   # 2·e^(iπ/6),  |zB|=2, θ=30°
+
+print(f"z_A = 5·e^(iπ/3) = {zA.real:.4f} + {zA.imag:.4f}i")
+print(f"z_B = 2·e^(iπ/6) = {zB.real:.4f} + {zB.imag:.4f}i")
+
+prod = zA * zB
+print(f"\nz_A · z_B = {prod:.4f}")
+print(f"  Μέτρο:  {abs(prod):.4f}  (= 5·2 = 10 ✓)")
+print(f"  Γωνία:  {math.degrees(cmath.phase(prod)):.1f}°  (= 60°+30° = 90° ✓)")
+
+quot = zA / zB
+print(f"\nz_A / z_B = {quot.real:.4f} + {quot.imag:.4f}i")
+print(f"  Μέτρο:  {abs(quot):.4f}  (= 5/2 = 2.5 ✓)")
+print(f"  Γωνία:  {math.degrees(cmath.phase(quot)):.1f}°  (= 60°-30° = 30° ✓)")
+
+# ── Γ. Θεώρημα De Moivre ──────────────────────────────────
+print("\n── Γ. Θεώρημα De Moivre ──")
+# (r·e^(iθ))^n = r^n · e^(inθ)
+
+base = cmath.rect(5, math.pi / 3)   # 5·e^(iπ/3)
+z_cubed = base ** 3
+print(f"(5·e^(iπ/3))³ = {z_cubed:.6f}")
+print(f"  Μέτρο:  {abs(z_cubed):.1f}  (= 5³ = 125 ✓)")
+print(f"  Γωνία:  {math.degrees(cmath.phase(z_cubed)):.1f}°  (= 3·60° = 180° ✓)")
+print(f"  Άρα:    = -125  (= 125·(cos180° + i·sin180°) ✓)")
+
+# Επαλήθευση De Moivre με SymPy (συμβολικά)
+theta_s = pi / 3
+z_sym   = cos(theta_s) + I * sin(theta_s)
+z_sym_3 = simplify(expand(z_sym**3))
+expected = cos(3 * theta_s) + I * sin(3 * theta_s)
+print(f"\nΕπαλήθευση (SymPy):")
+print(f"  (cosθ + i·sinθ)³ - (cos3θ + i·sin3θ) = {simplify(z_sym_3 - expected)}")
+print(f"  (= 0, άρα De Moivre ✓)")
+
+# ── Δ. Ρίζες Μιγαδικών Αριθμών ───────────────────────────
+print("\n── Δ. Ρίζες Μιγαδικών Αριθμών ──")
+
+def complex_roots(w, n):
+    """Βρίσκει όλες τις n-ιοστές ρίζες του w = r·e^(iθ)."""
+    r, theta = cmath.polar(w)
+    roots = []
+    for k in range(n):
+        r_k     = r ** (1 / n)
+        theta_k = (theta + 2 * math.pi * k) / n
+        roots.append(cmath.rect(r_k, theta_k))
+    return roots
+
+# Τετραγωνικές ρίζες του -1
+print("Ρίζες x² = -1:")
+for k, root in enumerate(complex_roots(-1, 2)):
+    print(f"  x_{k} = {root:.4f}  (επαλήθευση: x²={root**2:.1f} ✓)")
+
+# Τετραγωνικές ρίζες του 1+i
+w = 1 + 1j
+print(f"\nΡίζες x² = 1+i:")
+for k, root in enumerate(complex_roots(w, 2)):
+    print(f"  x_{k} = {root:.4f}  (επαλήθευση: x²={root**2:.4f} ✓)")
+
+# Κυβικές ρίζες του 8
+print(f"\nΡίζες x³ = 8:")
+for k, root in enumerate(complex_roots(8, 3)):
+    print(f"  x_{k} = {root.real:.4f} + {root.imag:.4f}i  (επαλήθευση: x³={root**3:.2f})")
+
+# ── Ε. Γραφική Απεικόνιση — Διάγραμμα Argand ─────────────
+print("\n── Ε. Γραφική Απεικόνιση ──")
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+fig.suptitle("Μιγαδικοί Αριθμοί — Διάγραμμα Argand", fontsize=13, fontweight='bold')
+
+# --- Αριστερά: βασικές πράξεις ---
+ax1 = axes[0]
+ax1.set_title("Βασικές Πράξεις")
+points = {'$z_1=3+4i$': z1, '$z_2=1-2i$': z2,
+          '$z_1+z_2$': z1+z2, '$z_1·z_2$': z1*z2}
+colors  = ['royalblue', 'tomato', 'forestgreen', 'darkorchid']
+for (lbl, z), col in zip(points.items(), colors):
+    ax1.annotate('', xy=(z.real, z.imag), xytext=(0, 0),
+                 arrowprops=dict(arrowstyle='-&gt;', color=col, lw=1.8))
+    ax1.plot(z.real, z.imag, 'o', color=col, ms=7)
+    ax1.annotate(lbl, (z.real, z.imag), textcoords="offset points",
+                 xytext=(6, 6), fontsize=9, color=col)
+ax1.axhline(0, color='k', lw=0.5); ax1.axvline(0, color='k', lw=0.5)
+ax1.grid(True, alpha=0.3); ax1.set_aspect('equal')
+ax1.set_xlabel("Πραγματικός άξονας"); ax1.set_ylabel("Φανταστικός άξονας")
+
+# --- Δεξιά: ρίζες z³=8 στον μοναδιαίο κύκλο ×2 ---
+ax2 = axes[1]
+ax2.set_title("Κυβικές ρίζες x³ = 8")
+roots_8 = complex_roots(8, 3)
+theta_plot = np.linspace(0, 2*np.pi, 300)
+ax2.plot(2*np.cos(theta_plot), 2*np.sin(theta_plot), 'k--', lw=0.8, alpha=0.4,
+         label='Κύκλος r=2')
+for k, root in enumerate(roots_8):
+    ax2.plot(root.real, root.imag, 'o', ms=10, label=f'$x_{k}$')
+    ax2.annotate(f'$x_{k}$', (root.real, root.imag),
+                 textcoords="offset points", xytext=(8, 5), fontsize=11)
+ax2.axhline(0, color='k', lw=0.5); ax2.axvline(0, color='k', lw=0.5)
+ax2.grid(True, alpha=0.3); ax2.set_aspect('equal')
+ax2.legend(fontsize=9)
+ax2.set_xlabel("Πραγματικός άξονας"); ax2.set_ylabel("Φανταστικός άξονας")
+
+plt.tight_layout()
+plt.show()
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector('.tab-btn.' + name).classList.add('active');
+}
+
+/* Fetch and display code files */
+function loadCode(file, elementId, lang) {
+  fetch(file + '?v=' + Date.now())
+    .then(r => r.ok ? r.text() : Promise.reject(r.status))
+    .then(text => {
+      const el = document.getElementById(elementId);
+      el.textContent = text;
+      el.className = 'language-' + lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err => {
+      document.getElementById(elementId).textContent =
+        '⚠ Αδυναμία φόρτωσης αρχείου (' + err + ').\n' +
+        'Χρησιμοποιήστε το κουμπί "Λήψη" για να κατεβάσετε.';
+    });
+}
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+
+originalPy = $('py-editor').value;  // κώδικας ενσωματωμένος στο textarea (δουλεύει & τοπικά)
+
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    const py = await loadPyodide();
+    setStatus('Φόρτωση βιβλιοθηκών (numpy, sympy, matplotlib)…');
+    await py.loadPackage(['numpy','sympy','matplotlib']);
+    return py;
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    setStatus('Εκτέλεση…');
+    await py.runPythonAsync("import matplotlib; matplotlib.use('AGG')");
+    py.globals.set('__user_src__', $('py-editor').value);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+import matplotlib.pyplot as plt
+_imgs = []
+for _n in plt.get_fignums():
+    _f = plt.figure(_n); _b = io.BytesIO()
+    _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+    _imgs.append(base64.b64encode(_b.read()).decode())
+plt.close('all')
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Σφάλμα: ' + e;
+    setStatus('Σφάλμα');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

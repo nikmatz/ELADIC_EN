@@ -1,0 +1,207 @@
+/* ============================================================
+   maxima_diag.mac
+   Κεφάλαιο 6 — Διαγωνοποίηση, PDP⁻¹, Ορθογώνια Διαγωνοποίηση,
+                 Τετραγωνικές Μορφές
+   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού & Ολοκληρωτικού Λογισμού. NewTech Publications.
+   ============================================================
+
+   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
+     load("eigen")             → πακέτο ιδιοτιμών
+     eigenvectors(A)           → ιδιοτιμές, πολλαπλότητες, ιδιοδιανύσματα
+     invert(P)                 → αντίστροφος του πίνακα ιδιοδιανυσμάτων
+     transpose(Q)              → για ορθοκανονικό Q ισχύει Q⁻¹ = Qᵀ
+     ratsimp(P . D . invert(P))→ απλοποίηση του γινομένου
+     nullspace(B - 3*ident(2)) → ιδιόχωρος της διπλής ιδιοτιμής
+     gramschmidt(M)            → ορθογωνοποίηση Gram–Schmidt
+     A^^n                      → n-οστή δύναμη πίνακα
+
+   Δραστηριότητα βιβλίου: (α) διαγωνοποίηση του A και A¹⁰,
+     (β) γιατί ο B δεν διαγωνοποιείται, (γ) φασματικό θεώρημα για τον S,
+     (δ) τετραγωνική μορφή xᵀSx και ταξινόμηση.
+
+   Εκτελέστε με: wxMaxima (Load/File) ή
+                 maxima -b maxima_diag.mac
+   ============================================================ */
+
+load("eigen")$
+
+/* Βοηθητικό: ισότητα πινάκων μέσω της διαφοράς τους */
+mat_equal(M, N) := is( ratsimp(M - N) = zeromatrix(length(M), length(M[1])) )$
+
+/* Βοηθητικό: το γινόμενο xᵀ·S·x μπορεί να επιστραφεί είτε ως 1×1
+   πίνακας είτε ήδη ως βαθμωτό — εδώ παίρνουμε πάντα το βαθμωτό. */
+scal(M) := if matrixp(M) then M[1][1] else M$
+
+/* Βοηθητικό: λίστα ιδιοτιμών (με πολλαπλότητες) και λίστα
+   ιδιοδιανυσμάτων ως ΓΡΑΜΜΩΝ, όπως τα δίνει η eigenvectors().
+   ΔΕΝ γράφουμε ιδιοδιανύσματα «με το χέρι»: τα παίρνουμε από τη Maxima. */
+eig_pairs(M) := block([ev, vals, mults, vecs, lv, lw, i, k],
+    ev : eigenvectors(M),
+    vals : ev[1][1], mults : ev[1][2], vecs : ev[2],
+    lv : [], lw : [],
+    for i : 1 thru length(vals) do
+        for k : 1 thru length(vecs[i]) do (
+            lv : endcons(vals[i], lv),
+            lw : endcons(vecs[i][k], lw)
+        ),
+    [lv, lw])$
+
+/* ── Α. (α) Διαγωνοποίηση του A: P, D, PDP⁻¹ = A, A¹⁰ ───── */
+print("════ Α. (α) Διαγωνοποίηση A = P·D·P⁻¹ ════");
+
+A : matrix([5, 4],
+           [1, 2]);
+print("A ="); print(A);
+
+print("eigenvectors(A) ="); print(eigenvectors(A));
+
+pairsA : eig_pairs(A)$
+lamA : pairsA[1]$        /* ιδιοτιμές */
+vecA : pairsA[2]$        /* ιδιοδιανύσματα ως γραμμές */
+print("Ιδιοτιμές λ =", lamA, "  [Αναμένεται {6, 1}]");
+print("Ιδιοδιανύσματα (γραμμές) =", vecA);
+
+P : transpose(apply(matrix, vecA));
+D : apply(diag_matrix, lamA);
+print("P = [v₁|v₂] ="); print(P);
+print("D = diag(λ₁,λ₂) ="); print(D);
+
+print("det(P) =", determinant(P),
+      " ≠ 0 → τα ιδιοδιανύσματα είναι γραμμικά ανεξάρτητα:",
+      is(determinant(P) # 0));
+
+print("P⁻¹ ="); print(invert(P));
+print("P·D·P⁻¹ ="); print(ratsimp(P . D . invert(P)));
+print("P·D·P⁻¹ = A ;  Έλεγχος:", mat_equal(P . D . invert(P), A));
+
+/* A¹⁰ = P·D¹⁰·P⁻¹ */
+n_pow : 10;
+D10 : apply(diag_matrix, map(lambda([t], t^n_pow), lamA));
+A10 : ratsimp(P . D10 . invert(P));
+print("D¹⁰ ="); print(D10);
+print("A¹⁰ = P·D¹⁰·P⁻¹ ="); print(A10);
+print("  [Αναμένεται: matrix([48372941,48372940],[12093235,12093236])]");
+print("Σύγκριση με την άμεση δύναμη A^^10 ;  Έλεγχος:",
+      mat_equal(A10, A^^n_pow));
+
+/* ── Β. (β) Ο B δεν είναι διαγωνοποιήσιμος ──────────────── */
+print("════ Β. (β) B = [[3,1],[0,3]] — μη διαγωνοποιήσιμος ════");
+
+B : matrix([3, 1],
+           [0, 3]);
+print("B ="); print(B);
+print("charpoly(B, λ) =", factor(expand(charpoly(B, lam))),
+      "  [Αναμένεται (λ-3)²]");
+print("eigenvalues(B) =", eigenvalues(B),
+      "  → λ = 3 με αλγεβρική πολλαπλότητα m_a = 2");
+
+B3 : B - 3*ident(2);
+print("B - 3·I ="); print(B3);
+nsB : nullspace(B3);
+print("nullspace(B - 3*ident(2)) =", nsB);
+m_g : length(args(nsB));
+m_a : eigenvalues(B)[2][1];
+print("γεωμετρική πολλαπλότητα m_g = 2 - rank(B-3I) =", 2 - rank(B3),
+      " = ", m_g);
+print("αλγεβρική πολλαπλότητα m_a =", m_a);
+print("m_g < m_a ;  Έλεγχος:", is(m_g < m_a));
+print("Συμπέρασμα: ο B είναι διαγωνοποιήσιμος;", is(m_g = 2));
+print("Γιατί: για διαγωνοποίηση χρειάζονται 2 γραμμικά ανεξάρτητα");
+print("ιδιοδιανύσματα, ώστε ο P = [v₁|v₂] να είναι αντιστρέψιμος.");
+print("Ο ιδιόχωρος της λ=3 είναι ΜΟΝΟΔΙΑΣΤΑΤΟΣ, άρα δεν υπάρχει");
+print("βάση του R² από ιδιοδιανύσματα (ελαττωματική ιδιοτιμή).");
+
+/* ── Γ. (γ) Φασματικό θεώρημα για τον συμμετρικό S ──────── */
+print("════ Γ. (γ) Ορθογώνια Διαγωνοποίηση S = Q·Λ·Qᵀ ════");
+
+S : matrix([4, 2],
+           [2, 1]);
+print("S ="); print(S);
+print("S = Sᵀ ;  Έλεγχος:", mat_equal(S, transpose(S)));
+
+print("eigenvectors(S) ="); print(eigenvectors(S));
+
+pairsS : eig_pairs(S)$
+lamS : pairsS[1]$
+vecS : pairsS[2]$
+print("Ιδιοτιμές λ =", lamS, "  [Αναμένεται {0, 5}]");
+print("Ιδιοδιανύσματα (γραμμές, από τη Maxima) =", vecS);
+
+/* Έλεγχος ορθογωνιότητας ΠΡΙΝ το Gram–Schmidt:
+   για συμμετρικό πίνακα με διακριτές ιδιοτιμές είναι ήδη ορθογώνια */
+print("v₁ · v₂ =", ratsimp(vecS[1] . vecS[2]),
+      " → ήδη ορθογώνια:", is(ratsimp(vecS[1] . vecS[2]) = 0));
+
+/* Gram–Schmidt και κανονικοποίηση */
+gs  : gramschmidt(apply(matrix, vecS))$
+gsn : map(lambda([u], ratsimp(u / sqrt(u . u))), gs)$
+print("Gram–Schmidt →", gs);
+print("Ορθοκανονικά →", gsn);
+
+Q  : transpose(apply(matrix, gsn));
+LS : apply(diag_matrix, lamS);
+print("Q ="); print(Q);
+print("Q (δεκαδικά) ="); print(float(Q));
+print("Λ ="); print(LS);
+
+print("QᵀQ ="); print(ratsimp(transpose(Q) . Q));
+print("QᵀQ = I₂ ;  Έλεγχος:", mat_equal(transpose(Q) . Q, ident(2)));
+print("Q⁻¹ = Qᵀ ;  Έλεγχος:", mat_equal(invert(Q), transpose(Q)));
+print("det(Q) =", ratsimp(determinant(Q)), " (±1 για ορθογώνιο πίνακα)");
+
+print("Q·Λ·Qᵀ ="); print(ratsimp(Q . LS . transpose(Q)));
+print("Q·Λ·Qᵀ = S ;  Έλεγχος:", mat_equal(Q . LS . transpose(Q), S));
+print("  [Φασματικό θεώρημα: κάθε συμμετρικός γράφεται ως QΛQᵀ ✓]");
+
+/* ── Δ. (δ) Τετραγωνική μορφή Q(x) = xᵀSx και ταξινόμηση ── */
+print("════ Δ. (δ) Τετραγωνική Μορφή Q(x) = xᵀ·S·x ════");
+
+xv : matrix([x], [y]);
+qf : expand( scal(transpose(xv) . S . xv) );
+print("Q(x,y) = xᵀSx =", qf);
+print("  σε παραγοντοποιημένη μορφή:", factor(qf));
+print("  [Αναμένεται: 4x² + 4xy + y² = (2x+y)² ✓]");
+
+/* Στις νέες (κύριες) συντεταγμένες x = Q·u η μορφή γίνεται Σλᵢuᵢ² */
+uv : matrix([u1], [u2]);
+qf_diag : expand( scal(transpose(uv) . LS . uv) );
+print("Σε κύριους άξονες (x = Q·u): Q =", qf_diag, "  [= Σλᵢuᵢ²]");
+print("Ταυτότητα Q(Q·u) = Σλᵢuᵢ² ;  Έλεγχος:",
+      is( ratsimp( expand(scal(transpose(Q . uv) . S . (Q . uv))) - qf_diag ) = 0 ));
+
+/* Ταξινόμηση ΑΠΟΚΛΕΙΣΤΙΚΑ από τα πρόσημα των ιδιοτιμών */
+n_pos : length(sublist(lamS, lambda([t], is(t > 0))))$
+n_neg : length(sublist(lamS, lambda([t], is(t < 0))))$
+n_zero : length(sublist(lamS, lambda([t], is(t = 0))))$
+print("Ιδιοτιμές:", lamS, " → θετικές:", n_pos,
+      ", αρνητικές:", n_neg, ", μηδενικές:", n_zero);
+
+classification :
+  if n_neg = 0 and n_zero = 0 then "θετικά ορισμένη"
+  elseif n_pos = 0 and n_zero = 0 then "αρνητικά ορισμένη"
+  elseif n_neg = 0 then "θετικά ημιορισμένη"
+  elseif n_pos = 0 then "αρνητικά ημιορισμένη"
+  else "αόριστη (indefinite)"$
+print("Ταξινόμηση της Q:", classification);
+
+/* Επαλήθευση του συμπεράσματος. Πηλίκο Rayleigh: για ‖x‖ = 1 ισχύει
+   λ_min ≤ Q(x) ≤ λ_max, με τα άκρα στα αντίστοιχα ιδιοδιανύσματα. */
+samples : float( makelist( subst([x = cos(2*%pi*k/360), y = sin(2*%pi*k/360)],
+                                 qf), k, 0, 359) )$
+print("Δείγμα 360 σημείων του μοναδιαίου κύκλου:");
+print("  min Q =", lmin(samples), " | max Q =", lmax(samples));
+print("  Καμία αρνητική τιμή:", is(lmin(samples) >= 0),
+      " | max ≤ λ_max = 5:", is(lmax(samples) <= 5));
+
+/* Ακριβή άκρα: στις στήλες του Q (ορθοκανονικά ιδιοδιανύσματα) */
+for j : 1 thru 2 do block([cj, qj],
+    cj : col(Q, j),
+    qj : ratsimp( scal(transpose(cj) . S . cj) ),
+    print("  Q(q", j, ") =", qj, " = λ", j, " =", lamS[j],
+          " | Ισότητα:", is(qj = lamS[j]))
+);
+print("Υπάρχει x ≠ 0 με Q(x) = 0 (π.χ. x = (1,-2)ᵀ):",
+      subst([x = 1, y = -2], qf),
+      "→ άρα ΗΜΙ-ορισμένη και όχι (γνησίως) θετικά ορισμένη.");
+
+print("════ Τέλος ════");

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Κώδικας Κεφ. 3 — Γραμμικά Συστήματα · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',Arial,sans-serif; background:var(--bg); color:#222; }
+  header { background:var(--blue); color:white; padding:18px 24px; }
+  header h1 { font-size:1.25rem; font-weight:700; }
+  header p  { font-size:0.9rem; margin-top:4px; opacity:.85; }
+  .breadcrumb { font-size:0.82rem; padding:10px 24px; background:#eee; border-bottom:1px solid #ddd; }
+  .breadcrumb a { color:var(--blue); text-decoration:none; }
+  .container { max-width:960px; margin:0 auto; padding:24px 16px; }
+  .info-box { background:white; border-left:5px solid var(--blue); padding:14px 18px;
+    margin-bottom:24px; border-radius:4px; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+  .info-box h2 { font-size:1rem; color:var(--blue); margin-bottom:8px; }
+  .info-box p  { font-size:0.88rem; line-height:1.6; }
+  .tabs { display:flex; gap:6px; }
+  .tab-btn { padding:10px 20px; border:none; border-radius:6px 6px 0 0;
+    font-size:0.9rem; font-weight:600; cursor:pointer; transition:background .2s; }
+  .tab-btn.maxima { background:#d5f5e3; color:var(--teal); }
+  .tab-btn.python { background:#d6eaf8; color:var(--blue); }
+  .tab-btn.active.maxima { background:var(--teal); color:white; }
+  .tab-btn.active.python { background:var(--blue); color:white; }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+  .code-card { background:white; border-radius:0 6px 6px 6px; box-shadow:0 2px 8px rgba(0,0,0,.1); overflow:hidden; }
+  .code-header { display:flex; justify-content:space-between; align-items:center;
+    padding:10px 16px; font-size:0.85rem; font-weight:600; }
+  .code-header.maxima { background:var(--teal); color:white; }
+  .code-header.python { background:var(--blue); color:white; }
+  .download-btn { display:inline-block; padding:5px 12px; background:rgba(255,255,255,.2);
+    color:white; border:1px solid rgba(255,255,255,.5); border-radius:4px;
+    text-decoration:none; font-size:0.8rem; font-weight:600; transition:background .2s; }
+  .download-btn:hover { background:rgba(255,255,255,.35); }
+  pre[class*="language-"] { margin:0!important; border-radius:0!important; max-height:520px; overflow-y:auto; font-size:0.83rem; }
+  .commands-box { background:#fffde7; border:1px solid #f9a825; border-radius:4px;
+    padding:12px 16px; margin:16px 0; font-size:0.85rem; }
+  .commands-box strong { color:var(--orange); }
+  .commands-box code { background:#fff3cd; padding:1px 5px; border-radius:3px; font-size:0.82rem; }
+  footer { text-align:center; padding:20px; font-size:0.8rem; color:#888;
+    margin-top:32px; border-top:1px solid #ddd; }
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📐 Κεφάλαιο 3 — Γραμμικά Συστήματα</h1>
+  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+</header>
+
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 3
+</div>
+
+<div class="container">
+
+  <div class="info-box">
+    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
+    <p>
+      <strong>Αντικείμενο:</strong> απαλοιφή Gauss και κλιμακωτή μορφή, θεώρημα Rouché–Capelli, κανόνας Cramer, ομογενή συστήματα και μηδενόχωρος<br><br>
+      Τον κώδικα <strong>Python</strong> μπορείτε να τον <strong>τρέξετε εδώ μέσα στη σελίδα</strong> (κουμπί «▶ Τρέξε») — μπορείτε και να τον επεξεργαστείτε. Ο κώδικας <strong>Maxima</strong> εκτελείται στο <strong>wxMaxima</strong>.
+    </p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_linsys.mac</span>
+        <a class="download-btn" href="maxima_linsys.mac" download>⬇ Λήψη .mac</a>
+        <a class="download-btn" href="maxima_linsys.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Λήψη .wxmx</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0;">
+        <strong>Βασικές εντολές:</strong>
+        <code>linsolve([eq,...],[x,y,z])</code> &nbsp;
+        <code>echelon(A)</code> &nbsp;
+        <code>rank(A)</code> &nbsp;
+        <code>determinant(A)</code> &nbsp;
+        <code>nullspace(A)</code>
+      </div>
+      <pre><code class="language-maxima" id="maxima-code">/* ============================================================
+   maxima_linsys.mac
+   Κεφάλαιο 3 — Γραμμικά Συστήματα
+   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   ============================================================
+
+   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
+     solve([eq1,eq2,...],[x,y,...])  → επίλυση συστήματος συμβολικά
+     linsolve([eq1,...],[x,y,...])   → γραμμικό σύστημα (αποδοτικότερο)
+     echelon(A)                      → κλιμακωτή μορφή (η Maxima ΔΕΝ διαθέτει rref)
+     rank(A)                         → τάξη πίνακα
+     determinant(A)                  → ορίζουσα (Cramer)
+     augmented_matrix(A,b)           → επαυξημένος πίνακας [A|b]
+
+   Εκτελέστε με: wxMaxima (Load/File) ή
+                 maxima -b maxima_linsys.mac
+   ============================================================ */
+
+/* ── Μέρος Α: Σύστημα με Μοναδική Λύση ──────────────────── */
+print("════ Α. Μοναδική Λύση ════");
+
+/* 2x + y - z  =  8
+   -3x - y + 2z = -11
+   -2x +  y + 2z = -3   */
+
+eq1 :  2*x +   y -   z =  8;
+eq2 : -3*x -   y + 2*z = -11;
+eq3 :  -2*x +   y + 2*z = -3;
+
+sol : linsolve([eq1, eq2, eq3], [x, y, z]);
+print("Λύση:", sol);
+
+/* Επαλήθευση */
+x0 : rhs(sol[1]);
+y0 : rhs(sol[2]);
+z0 : rhs(sol[3]);
+print("Επαλήθευση eq1:", ev(lhs(eq1), x=x0, y=y0, z=z0), "=", rhs(eq1));
+print("Επαλήθευση eq2:", ev(lhs(eq2), x=x0, y=y0, z=z0), "=", rhs(eq2));
+
+/* Μέσω κλιμακωτής μορφής */
+print("");
+A1 : matrix([2, 1, -1], [-3, -1, 2], [-2, 1, 2]);
+b1 : matrix([8], [-11], [-3]);
+Aug1 : addcol(A1, b1);
+print("Επαυξημένος [A|b] ="); print(Aug1);
+print("Κλιμακωτή([A|b]) ="); print(echelon(Aug1));
+
+/* ── Μέρος Β: Σύστημα χωρίς Λύση (Ασύμβατο) ─────────────── */
+print("════ Β. Ασύμβατο Σύστημα ════");
+
+/*  x + y  = 3
+    2x + 2y = 5  (ασύμβατο: 2·(eq1) → 2x+2y=6 ≠ 5) */
+A2 : matrix([1, 1], [2, 2]);
+b2 : matrix([3], [5]);
+Aug2 : addcol(A2, b2);
+print("Κλιμακωτή([A|b]) ="); print(echelon(Aug2));
+print("rank(A) =", rank(A2), "  rank([A|b]) =", rank(Aug2));
+print("→ rank(A) &lt; rank([A|b])  ⇒  ΑΣΥΜΒΑΤΟ σύστημα (0 λύσεις)");
+
+/* ── Μέρος Γ: Σύστημα με Άπειρες Λύσεις ─────────────────── */
+print("════ Γ. Άπειρες Λύσεις ════");
+
+/*  x  + 2y - z = 3
+    2x + 4y - 2z = 6   (= 2·eq1 → εξαρτημένες) */
+A3 : matrix([1, 2, -1], [2, 4, -2]);
+b3 : matrix([3], [6]);
+Aug3 : addcol(A3, b3);
+print("Κλιμακωτή([A|b]) ="); print(echelon(Aug3));
+print("rank(A) =", rank(A3), "  n =", 3);
+print("→ rank(A) = rank([A|b]) &lt; n  ⇒  ΑΠΕΙΡΕΣ λύσεις");
+print("  Ελεύθερες μεταβλητές:", 3 - rank(A3));
+
+sol3 : linsolve([x + 2*y - z = 3, 2*x + 4*y - 2*z = 6], [x, y, z]);
+print("Λύση (SymPy-style):", sol3);
+
+/* ── Μέρος Δ: Κανόνας Cramer ─────────────────────────────── */
+print("════ Δ. Κανόνας Cramer ════");
+/* Μόνο για τετραγωνικά συστήματα με det ≠ 0 */
+
+A_cr : matrix([2, 1], [5, 3]);
+b_cr : matrix([4], [7]);
+det_A : determinant(A_cr);
+print("det(A) =", det_A);
+
+/* Αντικατάσταση στήλης για κάθε άγνωστο */
+A_x : copymatrix(A_cr);
+A_x[1][1] : b_cr[1][1];   A_x[2][1] : b_cr[2][1];
+A_y : copymatrix(A_cr);
+A_y[1][2] : b_cr[1][1];   A_y[2][2] : b_cr[2][1];
+
+x_cr : determinant(A_x) / det_A;
+y_cr : determinant(A_y) / det_A;
+print("x = det(Ax)/det(A) =", x_cr);
+print("y = det(Ay)/det(A) =", y_cr);
+
+/* Επαλήθευση */
+print("Επαλήθευση:", 2*x_cr + y_cr, "=", 4, "  και  ", 5*x_cr + 3*y_cr, "=", 7);
+
+/* ── Μέρος Ε: Ομογενές Σύστημα ───────────────────────────── */
+print("════ Ε. Ομογενές Σύστημα Ax = 0 ════");
+
+A5 : matrix([1, -2,  1],
+            [2, -3,  1],
+            [0,  1, -1]);
+b5 : matrix([0], [0], [0]);
+Aug5 : addcol(A5, b5);
+print("Κλιμακωτή([A|0]) ="); print(echelon(Aug5));
+print("rank(A) =", rank(A5), "  nullity =", 3 - rank(A5));
+print("Μη τετριμμένες λύσεις (nullity =", 3-rank(A5), "&gt; 0):");
+print(nullspace(A5));
+
+print("════ Τέλος ════");
+</code></pre>
+    </div>
+  </div>
+
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_linsys.py</span>
+        <a class="download-btn" href="python_linsys.py" download>⬇ Λήψη .py</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0;">
+        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <code>np.linalg.solve()</code> &nbsp;
+        <code>np.linalg.matrix_rank()</code> &nbsp;
+        <code>sympy.Matrix.rref()</code> &nbsp;
+        <code>sympy.linsolve()</code> &nbsp;
+        <code>matplotlib.pyplot</code>
+      </div>
+            <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Τρέξε</button>
+        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
+        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
+# python_linsys.py
+# Κεφάλαιο 3 — Γραμμικά Συστήματα
+# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# ============================================================
+#
+# ΒΙΒΛΙΟΘΗΚΕΣ:
+#   numpy         → αριθμητική επίλυση (solve, lstsq)
+#   sympy         → RREF, ακριβής λύση, έλεγχος τύπου συστήματος
+#   matplotlib    → γεωμετρική ερμηνεία (2D / 3D)
+#
+# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
+#   np.linalg.solve(A, b)       → μοναδική λύση
+#   np.linalg.lstsq(A, b)       → ελάχιστα τετράγωνα
+#   np.linalg.matrix_rank(A)    → τάξη
+#   sympy.Matrix.rref()         → ανηγμένη κλιμακωτή
+#   sympy.linsolve()            → ακριβής λύση (άπειρες)
+# ============================================================
+
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from sympy import Matrix, symbols, linsolve, Rational, pprint
+
+print("=" * 55)
+print(" Κεφάλαιο 3: Γραμμικά Συστήματα — Python")
+print("=" * 55)
+
+# ── Α. Σύστημα με Μοναδική Λύση ──────────────────────────
+print("\n── Α. Μοναδική Λύση ──")
+#  2x +  y -  z =  8
+# -3x -  y + 2z = -11
+#  -2x +  y + 2z = -3
+
+A1 = np.array([[ 2,  1, -1],
+               [-3, -1,  2],
+               [-2,  1,  2]], dtype=float)
+b1 = np.array([8, -11, -3], dtype=float)
+
+x1 = np.linalg.solve(A1, b1)
+print(f"Λύση: x={x1[0]:.4f}, y={x1[1]:.4f}, z={x1[2]:.4f}")
+print(f"Επαλήθευση A@x = {np.round(A1 @ x1, 10)}  ✓")
+
+# RREF με SymPy
+Aug1 = Matrix([[ 2,  1, -1,  8],
+               [-3, -1,  2, -11],
+               [-2,  1,  2, -3]])
+print("\nRREF([A|b]):")
+pprint(Aug1.rref()[0])
+
+# ── Β. Έλεγχος Τύπου Συστήματος (Θεώρημα Rouché–Capelli) ─
+print("\n── Β. Ταξινόμηση Συστημάτων (Rouché–Capelli) ──")
+
+def classify_system(A, b, label=""):
+    """Ταξινομεί γραμμικό σύστημα σε μοναδική/άπειρες/ασύμβατο."""
+    A_sym = Matrix(A.tolist())
+    Aug   = A_sym.row_join(Matrix(b.reshape(-1,1).tolist()))
+    rA    = A_sym.rank()
+    rAug  = Aug.rank()
+    n     = A.shape[1]
+    if rA != rAug:
+        result = "ΑΣΥΜΒΑΤΟ (0 λύσεις)"
+    elif rA == n:
+        result = "ΜΟΝΑΔΙΚΗ λύση"
+    else:
+        result = f"ΑΠΕΙΡΕΣ λύσεις  (ελεύθερες μεταβλητές: {n - rA})"
+    print(f"  {label}: rank(A)={rA}, rank([A|b])={rAug}, n={n}  →  {result}")
+
+# Μοναδική λύση
+classify_system(A1, b1, "Σύστημα Α")
+
+# Ασύμβατο
+A2 = np.array([[1, 1], [2, 2]], dtype=float)
+b2 = np.array([3, 5], dtype=float)
+classify_system(A2, b2, "Σύστημα Β")
+
+# Άπειρες λύσεις
+A3 = np.array([[1, 2, -1], [2, 4, -2]], dtype=float)
+b3 = np.array([3, 6], dtype=float)
+classify_system(A3, b3, "Σύστημα Γ")
+
+# ── Γ. Άπειρες Λύσεις — Παραμετρική Μορφή ────────────────
+print("\n── Γ. Παραμετρική Λύση ──")
+x, y, z = symbols('x y z')
+sys3 = Matrix([[1, 2, -1, 3],
+               [2, 4, -2, 6]])
+rref3, pivots3 = sys3.rref()
+print("RREF:"); pprint(rref3)
+print(f"Pivots: {pivots3}  →  ελεύθερη μεταβλητή: y, z")
+
+sol3 = linsolve((Matrix([[1,2,-1],[2,4,-2]]), Matrix([3,6])), x, y, z)
+print("Παραμετρική λύση:"); pprint(sol3)
+
+# ── Δ. Κανόνας Cramer ─────────────────────────────────────
+print("\n── Δ. Κανόνας Cramer ──")
+A_cr = np.array([[2, 1], [5, 3]], dtype=float)
+b_cr = np.array([4, 7], dtype=float)
+det_A = np.linalg.det(A_cr)
+print(f"det(A) = {det_A:.4f}")
+
+for i in range(2):
+    Ai = A_cr.copy()
+    Ai[:, i] = b_cr
+    xi = np.linalg.det(Ai) / det_A
+    print(f"  {'xy'[i]} = det(A{i+1})/det(A) = {np.linalg.det(Ai):.4f}/{det_A:.4f} = {xi:.4f}")
+
+print(f"Επαλήθευση: {A_cr @ np.linalg.solve(A_cr, b_cr)} ≈ {b_cr}  ✓")
+
+# ── Ε. Ομογενές Σύστημα ───────────────────────────────────
+print("\n── Ε. Ομογενές Σύστημα Ax = 0 ──")
+A5 = Matrix([[ 1, -2,  1],
+             [ 2, -3,  1],
+             [ 0,  1, -1]])
+print(f"rank(A) = {A5.rank()}, nullity = {3 - A5.rank()}")
+print("Μηδενόχωρος (μη τετριμμένες λύσεις):")
+for v in A5.nullspace():
+    pprint(v.T)
+
+# ── Στ. Γεωμετρική Ερμηνεία (2D) ─────────────────────────
+print("\n── Στ. Γεωμετρική Ερμηνεία ──")
+
+fig, axes = plt.subplots(1, 3, figsize=(14, 4))
+fig.suptitle("Γεωμετρική Ερμηνεία Γραμμικών Συστημάτων (2D)",
+             fontsize=12, fontweight='bold')
+t = np.linspace(-1, 6, 300)
+
+# Μοναδική λύση: 2x+y=7, x+3y=11
+ax = axes[0]; ax.set_title("Μοναδική Λύση\n$2x+y=7$,  $x+3y=11$")
+ax.plot(t, 7 - 2*t, 'royalblue', lw=2, label='$2x+y=7$')
+ax.plot(t, (11 - t)/3, 'tomato', lw=2, label='$x+3y=11$')
+xs = np.linalg.solve([[2,1],[1,3]], [7,11])
+ax.plot(*xs, 'ko', ms=8, zorder=5)
+ax.annotate(f'({xs[0]:.1f},{xs[1]:.1f})', xs, xytext=(xs[0]+0.3, xs[1]+0.3), fontsize=9)
+ax.set_xlim(-1,6); ax.set_ylim(-1,6); ax.grid(True,alpha=0.3)
+ax.legend(fontsize=8); ax.set_xlabel('x'); ax.set_ylabel('y')
+
+# Ασύμβατο: x+y=3, x+y=5
+ax = axes[1]; ax.set_title("Ασύμβατο\n$x+y=3$,  $x+y=5$")
+ax.plot(t, 3 - t, 'royalblue', lw=2, label='$x+y=3$')
+ax.plot(t, 5 - t, 'tomato', lw=2, ls='--', label='$x+y=5$')
+ax.set_xlim(-1,6); ax.set_ylim(-1,6); ax.grid(True,alpha=0.3)
+ax.legend(fontsize=8); ax.set_xlabel('x'); ax.set_ylabel('y')
+ax.text(2, 2.5, 'Παράλληλες\n(κανένα κοινό σημείο)', fontsize=8,
+        ha='center', color='gray',
+        bbox=dict(boxstyle='round', fc='white', alpha=0.8))
+
+# Άπειρες: x+y=3, 2x+2y=6
+ax = axes[2]; ax.set_title("Άπειρες Λύσεις\n$x+y=3$,  $2x+2y=6$")
+ax.plot(t, 3 - t, 'royalblue', lw=3, label='$x+y=3$ (= $2x+2y=6$)')
+ax.set_xlim(-1,6); ax.set_ylim(-1,6); ax.grid(True,alpha=0.3)
+ax.legend(fontsize=8); ax.set_xlabel('x'); ax.set_ylabel('y')
+ax.text(3, 1.5, 'Ταυτόσημες ευθείες\n(άπειρες λύσεις)', fontsize=8,
+        ha='center', color='gray',
+        bbox=dict(boxstyle='round', fc='white', alpha=0.8))
+
+plt.tight_layout()
+plt.show()
+
+# ============================================================
+# ΣΥΜΠΛΗΡΩΜΑ — Πίνακας Vandermonde &amp; προσαρμογή πολυωνύμου
+#   np.vander, np.polyfit, np.polyval
+# ============================================================
+import numpy as np
+
+# Παρεμβολή: βρίσκουμε το πολυώνυμο 2ου βαθμού από 3 σημεία,
+# λύνοντας το γραμμικό σύστημα V c = y με πίνακα Vandermonde.
+xi = np.array([0.0, 1.0, 2.0])
+yi = np.array([1.0, 3.0, 9.0])
+V  = np.vander(xi, 3)          # στήλες: x^2, x^1, x^0
+c  = np.linalg.solve(V, yi)    # συντελεστές (a, b, c) του ax^2+bx+c
+print("Vandermonde V =\n", V)
+print("Συντελεστές (από np.linalg.solve):", np.round(c, 6))
+
+# Το ίδιο αποτέλεσμα με np.polyfit (ελάχιστα τετράγωνα):
+c2 = np.polyfit(xi, yi, 2)
+print("Συντελεστές (από np.polyfit)     :", np.round(c2, 6))
+
+# Αποτίμηση του πολυωνύμου με np.polyval:
+for x0 in (0.0, 1.0, 1.5, 2.0):
+    print(f"  p({x0}) = {np.polyval(c, x0):.4f}")
+
+# Υπερκαθορισμένο σύστημα (περισσότερα σημεία από αγνώστους):
+xs = np.array([0., 1., 2., 3., 4.])
+ys = np.array([1.1, 2.9, 9.2, 19.1, 32.8])
+cls = np.polyfit(xs, ys, 2)    # βέλτιστη προσαρμογή κατά ελάχιστα τετράγωνα
+print("Ελάχιστα τετράγωνα, βαθμός 2:", np.round(cls, 4))
+print("Υπόλοιπα:", np.round(ys - np.polyval(cls, xs), 4))
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector('.tab-btn.' + name).classList.add('active');
+}
+function loadCode(file, elementId, lang) {
+  fetch(file + '?v=' + Date.now())
+    .then(r => r.ok ? r.text() : Promise.reject(r.status))
+    .then(text => {
+      const el = document.getElementById(elementId);
+      el.textContent = text; el.className = 'language-' + lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err => {
+      document.getElementById(elementId).textContent =
+        '⚠ Αδυναμία φόρτωσης (' + err + '). Χρησιμοποιήστε "Λήψη".';
+    });
+}
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+originalPy = $('py-editor').value;
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    return await loadPyodide();
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    const code = $('py-editor').value;
+    setStatus('Φόρτωση βιβλιοθηκών…');
+    await py.loadPackagesFromImports(code);
+    setStatus('Εκτέλεση…');
+    await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
+    py.globals.set('__user_src__', code);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+_imgs = []
+try:
+    import matplotlib.pyplot as plt
+    for _n in plt.get_fignums():
+        _f = plt.figure(_n); _b = io.BytesIO()
+        _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+        _imgs.append(base64.b64encode(_b.read()).decode())
+    plt.close('all')
+except Exception:
+    pass
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Σφάλμα: ' + e;
+    setStatus('Σφάλμα');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

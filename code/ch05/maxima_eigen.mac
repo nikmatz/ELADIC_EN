@@ -1,0 +1,151 @@
+/* ============================================================
+   maxima_eigen.mac
+   Κεφάλαιο 5 — Ιδιοτιμές, Χαρακτηριστικό Πολυώνυμο, Ιδιόχωροι
+   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού & Ολοκληρωτικού Λογισμού. NewTech Publications.
+   ============================================================
+
+   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
+     load("eigen")           → φόρτωση πακέτου ιδιοτιμών
+     charpoly(A, lam)        → χαρακτηριστικό πολυώνυμο det(A - λI)
+     solve(p = 0, lam)       → ρίζες του χαρακτηριστικού πολυωνύμου
+     eigenvalues(A)          → [[ιδιοτιμές], [πολλαπλότητες]]
+     eigenvectors(A)         → ιδιοτιμές + πολλαπλότητες + ιδιοδιανύσματα
+     nullspace(A - lam*I)    → ιδιόχωρος (πυρήνας) της ιδιοτιμής λ
+     ident(n), rank(M)       → μοναδιαίος πίνακας, τάξη
+
+   Δραστηριότητα βιβλίου: (α) χαρ. πολυώνυμο & tr/det,
+     (β) ιδιόχωροι του A, (γ) ιδιοτιμές τριγωνικού C,
+     (δ) αλγεβρική vs γεωμετρική πολλαπλότητα.
+
+   Εκτελέστε με: wxMaxima (Load/File) ή
+                 maxima -b maxima_eigen.mac
+   ============================================================ */
+
+load("eigen")$
+
+/* Βοηθητικό: ισότητα πινάκων μέσω της διαφοράς τους */
+mat_equal(M, N) := is( ratsimp(M - N) = zeromatrix(length(M), length(M[1])) )$
+
+/* Βοηθητικό: λίστα ιδιοτιμών ΜΕ τις πολλαπλότητές τους.
+   Η eigenvalues() επιστρέφει [[λ₁,λ₂,...],[m₁,m₂,...]] — η
+   solve() θα έδινε μόνο τις ΔΙΑΚΡΙΤΕΣ ρίζες, οπότε τα αθροίσματα
+   και τα γινόμενα θα ήταν λανθασμένα για πολλαπλές ιδιοτιμές. */
+eigs_with_mult(M) := block([ev, vals, mults, out],
+    ev : eigenvalues(M),
+    vals : ev[1], mults : ev[2], out : [],
+    for i : 1 thru length(vals) do
+        for k : 1 thru mults[i] do out : endcons(vals[i], out),
+    out)$
+
+/* ── Α. (α) Χαρακτηριστικό πολυώνυμο, tr(A)=Σλ, det(A)=Πλ ─ */
+print("════ Α. (α) Χαρακτηριστικό Πολυώνυμο ════");
+
+A : matrix([4, 1],
+           [2, 3]);
+print("A ="); print(A);
+
+p_A : expand(charpoly(A, lam));
+print("p(λ) = det(A - λI) =", p_A);
+print("  σε παραγοντοποιημένη μορφή:", factor(p_A));
+print("  [Αναμένεται: (λ-5)(λ-2) ✓]");
+
+print("Ρίζες: solve(p(λ)=0, λ) →", solve(p_A = 0, lam));
+
+/* Ιδιοτιμές ΜΕ πολλαπλότητες (σωστό για tr/det) */
+print("eigenvalues(A) =", eigenvalues(A));
+evA : eigs_with_mult(A);
+print("Ιδιοτιμές με πολλαπλότητες: λ =", evA, "  [Αναμένεται [2,5]]");
+
+tr_A : A[1][1] + A[2][2];
+sum_A : apply("+", evA);
+det_A : determinant(A);
+prod_A : apply("*", evA);
+print("tr(A) =", tr_A, " | Σλᵢ =", sum_A, " | Ισότητα:", is(tr_A = sum_A));
+print("det(A) =", det_A, " | Πλᵢ =", prod_A, " | Ισότητα:", is(det_A = prod_A));
+
+/* Επαλήθευση det(A - λᵢI) = 0 για κάθε ιδιοτιμή */
+for lv in evA do
+    print("  λ =", lv, "→ det(A - λI) =", ratsimp(determinant(A - lv*ident(2))));
+
+/* ── Β. (β) Ιδιόχωροι του A και επαλήθευση A·v = λ·v ─────── */
+print("════ Β. (β) Ιδιόχωροι — nullspace(A - λI) ════");
+
+for lv in listify(setify(evA)) do block([Mk, ns, basis, v],
+    Mk : A - lv*ident(2),
+    print("─ λ =", lv, ": A - λI ="), print(Mk),
+    ns : nullspace(Mk),
+    print("  nullspace(A - λI) =", ns),
+    basis : args(ns),
+    print("  διάσταση ιδιόχωρου (γεωμετρική πολλαπλότητα) =", length(basis)),
+    for v in basis do (
+        print("  v =", transpose(v), "ᵀ"),
+        print("  A·v =", transpose(ratsimp(A . v)), "ᵀ",
+              " | λ·v =", transpose(ratsimp(lv * v)), "ᵀ"),
+        print("  A·v = λ·v ;  Έλεγχος:", mat_equal(A . v, lv * v))
+    )
+);
+
+print("eigenvectors(A) =", eigenvectors(A));
+
+/* ── Γ. (γ) Κάτω τριγωνικός C — γιατί λ = διαγώνια στοιχεία ─ */
+print("════ Γ. (γ) Τριγωνικός πίνακας C ════");
+
+C : matrix([2, 0, 0],
+           [1, 3, 0],
+           [0, 1, 2]);
+print("C ="); print(C);
+
+print("C - λI ="); print(C - lam*ident(3));
+p_C : charpoly(C, lam);
+print("p(λ) = det(C - λI) =", factor(expand(p_C)));
+print("  [Αναμένεται: (λ-2)²(λ-3) ✓]");
+print("Γιατί; Η ορίζουσα ΤΡΙΓΩΝΙΚΟΥ πίνακα είναι το γινόμενο των");
+print("διαγώνιων στοιχείων. Ο C - λI παραμένει κάτω τριγωνικός, άρα");
+print("det(C - λI) = (2-λ)(3-λ)(2-λ) → ρίζες ΑΚΡΙΒΩΣ τα διαγώνια 2, 3, 2.");
+print("Γινόμενο διαγώνιων του C - λI:",
+      factor(expand((C[1][1]-lam)*(C[2][2]-lam)*(C[3][3]-lam))));
+print("Ταυτίζεται με το p(λ) ;  Έλεγχος:",
+      is(ratsimp(expand(p_C) - expand((C[1][1]-lam)*(C[2][2]-lam)*(C[3][3]-lam))) = 0));
+
+print("eigenvectors(C) ="); print(eigenvectors(C));
+
+evC : eigs_with_mult(C);
+print("Ιδιοτιμές με πολλαπλότητες:", evC, "  [Αναμένεται [2,2,3]]");
+tr_C : C[1][1] + C[2][2] + C[3][3];
+print("tr(C) =", tr_C, " | Σλᵢ =", apply("+", evC),
+      " | Ισότητα:", is(tr_C = apply("+", evC)));
+print("det(C) =", determinant(C), " | Πλᵢ =", apply("*", evC),
+      " | Ισότητα:", is(determinant(C) = apply("*", evC)));
+
+/* ── Δ. (δ) Αλγεβρική vs γεωμετρική πολλαπλότητα του C ───── */
+print("════ Δ. (δ) Αλγεβρική vs Γεωμετρική Πολλαπλότητα ════");
+
+evsC : eigenvalues(C)$
+valsC : evsC[1]$
+multC : evsC[2]$
+
+defective : false$
+for i : 1 thru length(valsC) do block([lv, ma, Mk, ns, mg],
+    lv : valsC[i],
+    ma : multC[i],
+    Mk : C - lv*ident(3),
+    ns : nullspace(Mk),
+    mg : length(args(ns)),
+    print("─ λ =", lv),
+    print("  αλγεβρική πολλαπλότητα m_a =", ma),
+    print("  nullspace(C - λI) =", ns),
+    print("  γεωμετρική πολλαπλότητα m_g = dim ker = n - rank =",
+          3 - rank(Mk), " = ", mg),
+    if mg < ma then (
+        defective : true,
+        print("  m_g < m_a  →  ΕΛΑΤΤΩΜΑΤΙΚΗ ιδιοτιμή")
+    ) else
+        print("  m_g = m_a  →  κανονική ιδιοτιμή")
+);
+
+print("Σύνολο γεωμετρικών πολλαπλοτήτων =",
+      sum(3 - rank(C - valsC[i]*ident(3)), i, 1, length(valsC)),
+      "( < 3 → ο C ΔΕΝ είναι διαγωνοποιήσιμος )");
+print("Υπάρχει ελαττωματική ιδιοτιμή:", defective);
+
+print("════ Τέλος ════");

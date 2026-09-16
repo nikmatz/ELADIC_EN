@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Κώδικας Κεφ. 2 — Άλγεβρα Πινάκων · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',Arial,sans-serif; background:var(--bg); color:#222; }
+  header { background:var(--blue); color:white; padding:18px 24px; }
+  header h1 { font-size:1.25rem; font-weight:700; }
+  header p  { font-size:0.9rem; margin-top:4px; opacity:.85; }
+  .breadcrumb { font-size:0.82rem; padding:10px 24px; background:#eee; border-bottom:1px solid #ddd; }
+  .breadcrumb a { color:var(--blue); text-decoration:none; }
+  .container { max-width:960px; margin:0 auto; padding:24px 16px; }
+  .info-box { background:white; border-left:5px solid var(--blue); padding:14px 18px;
+    margin-bottom:24px; border-radius:4px; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+  .info-box h2 { font-size:1rem; color:var(--blue); margin-bottom:8px; }
+  .info-box p  { font-size:0.88rem; line-height:1.6; }
+  .tabs { display:flex; gap:6px; }
+  .tab-btn { padding:10px 20px; border:none; border-radius:6px 6px 0 0;
+    font-size:0.9rem; font-weight:600; cursor:pointer; transition:background .2s; }
+  .tab-btn.maxima { background:#d5f5e3; color:var(--teal); }
+  .tab-btn.python { background:#d6eaf8; color:var(--blue); }
+  .tab-btn.active.maxima { background:var(--teal); color:white; }
+  .tab-btn.active.python { background:var(--blue); color:white; }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+  .code-card { background:white; border-radius:0 6px 6px 6px; box-shadow:0 2px 8px rgba(0,0,0,.1); overflow:hidden; }
+  .code-header { display:flex; justify-content:space-between; align-items:center;
+    padding:10px 16px; font-size:0.85rem; font-weight:600; }
+  .code-header.maxima { background:var(--teal); color:white; }
+  .code-header.python { background:var(--blue); color:white; }
+  .download-btn { display:inline-block; padding:5px 12px; background:rgba(255,255,255,.2);
+    color:white; border:1px solid rgba(255,255,255,.5); border-radius:4px;
+    text-decoration:none; font-size:0.8rem; font-weight:600; transition:background .2s; }
+  .download-btn:hover { background:rgba(255,255,255,.35); }
+  pre[class*="language-"] { margin:0!important; border-radius:0!important; max-height:520px; overflow-y:auto; font-size:0.83rem; }
+  .commands-box { background:#fffde7; border:1px solid #f9a825; border-radius:4px;
+    padding:12px 16px; margin:16px 0; font-size:0.85rem; }
+  .commands-box strong { color:var(--orange); }
+  .commands-box code { background:#fff3cd; padding:1px 5px; border-radius:3px; font-size:0.82rem; }
+  footer { text-align:center; padding:20px; font-size:0.8rem; color:#888;
+    margin-top:32px; border-top:1px solid #ddd; }
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📐 Κεφάλαιο 2 — Άλγεβρα Πινάκων</h1>
+  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+</header>
+
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 2
+</div>
+
+<div class="container">
+
+  <div class="info-box">
+    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
+    <p>
+      <strong>Αντικείμενο:</strong> πράξεις πινάκων, ορίζουσες, αντίστροφος, επίλυση Ax=b, αποσύνθεση LU, θετικά ορισμένος πίνακας<br><br>
+      Τον κώδικα <strong>Python</strong> μπορείτε να τον <strong>τρέξετε εδώ μέσα στη σελίδα</strong> (κουμπί «▶ Τρέξε») — μπορείτε και να τον επεξεργαστείτε. Ο κώδικας <strong>Maxima</strong> εκτελείται στο <strong>wxMaxima</strong>.
+    </p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_matrices.mac</span>
+        <a class="download-btn" href="maxima_matrices.mac" download>⬇ Λήψη .mac</a>
+        <a class="download-btn" href="maxima_matrices.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Λήψη .wxmx</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0;">
+        <strong>Βασικές εντολές:</strong>
+        <code>transpose(A)</code> &nbsp;
+        <code>determinant(A)</code> &nbsp;
+        <code>invert(A)</code> &nbsp;
+        <code>A . B</code> &nbsp;
+        <code>echelon(A)</code>
+      </div>
+      <pre><code class="language-maxima" id="maxima-code">/* ============================================================
+   maxima_matrices.mac
+   Κεφάλαιο 2 — Πράξεις Πινάκων: Γινόμενο, Αντίστροφος, LU
+   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   ============================================================
+
+   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
+     A . B                 → γινόμενο πινάκων (τελεστής ".")
+     A + B,  k * A         → πρόσθεση / πολλαπλασιασμός με βαθμωτό
+     transpose(A)          → ανάστροφος πίνακας Aᵀ
+     determinant(A)        → ορίζουσα det(A)
+     invert(A)             → αντίστροφος πίνακας A⁻¹
+     ident(n)              → μοναδιαίος πίνακας n×n
+     zeromatrix(m,n)       → μηδενικός πίνακας m×n
+     echelon(A)            → κλιμακωτή μορφή (η Maxima ΔΕΝ έχει rref)
+     triangularize(A)      → άνω τριγωνοποίηση (χωρίς διαίρεση)
+     lu_factor / get_lu_factors  → αποσύνθεση A = P·L·U (linearalgebra)
+
+   Δραστηριότητα βιβλίου: (α) πράξεις, (β) ορίζουσες,
+                          (γ) αντίστροφος, (δ) επίλυση A·x = b.
+
+   Εκτελέστε με: wxMaxima (Load/File) ή
+                 maxima -b maxima_matrices.mac
+   ============================================================ */
+
+load(linearalgebra)$
+
+/* Βοηθητικό: έλεγχος ισότητας πινάκων μέσω της διαφοράς τους */
+mat_equal(M, N) := is( ratsimp(M - N) = zeromatrix(length(M), length(M[1])) )$
+
+/* Δεδομένα της δραστηριότητας */
+A : matrix([1, 2, 3],
+           [0, 1, 4],
+           [5, 6, 0]);
+
+B : matrix([2, -1, 0],
+           [1,  3, 1],
+           [0,  2, 4]);
+
+b_vec : matrix([1], [2], [3]);
+
+print("A ="); print(A);
+print("B ="); print(B);
+print("b ="); print(b_vec);
+
+/* ── Α. (α) A+B, 3A, A·B, B·A  και  A·B ≠ B·A ───────────── */
+print("════ Α. (α) Πράξεις πινάκων ════");
+
+print("A + B ="); print(A + B);
+print("  [Αναμένεται: matrix([3,1,3],[1,4,5],[5,8,4]) ✓]");
+
+print("3·A ="); print(3 * A);
+print("  [Αναμένεται: matrix([3,6,9],[0,3,12],[15,18,0]) ✓]");
+
+AB : A . B;
+BA : B . A;
+print("A·B ="); print(AB);
+print("  [Αναμένεται: matrix([4,11,14],[1,11,17],[16,13,6]) ✓]");
+print("B·A ="); print(BA);
+print("  [Αναμένεται: matrix([2,3,2],[6,11,15],[20,26,8]) ✓]");
+
+print("A·B - B·A ="); print(AB - BA);
+print("A·B = B·A ;  Έλεγχος:", mat_equal(AB, BA));
+print("  → false: ο πολλαπλασιασμός πινάκων ΔΕΝ είναι αντιμεταθετικός");
+
+/* Ανάστροφος (χρήσιμος και στα επόμενα) */
+print("Aᵀ ="); print(transpose(A));
+print("(Aᵀ)ᵀ = A ;  Έλεγχος:", mat_equal(transpose(transpose(A)), A));
+print("(A·B)ᵀ = Bᵀ·Aᵀ ;  Έλεγχος:",
+      mat_equal(transpose(AB), transpose(B) . transpose(A)));
+
+/* ── Β. (β) Ορίζουσες και det(A·B) = det(A)·det(B) ──────── */
+print("════ Β. (β) Ορίζουσες ════");
+
+det_A : determinant(A);
+det_B : determinant(B);
+det_AB : determinant(AB);
+
+print("det(A) =", det_A, "  [Αναμένεται 1]");
+print("det(B) =", det_B, "  [Αναμένεται 24]");
+print("det(A·B) =", det_AB, "  [Αναμένεται 24]");
+print("det(A)·det(B) =", det_A * det_B);
+print("det(A·B) = det(A)·det(B) ;  Έλεγχος:", is(det_AB = det_A * det_B));
+
+/* ── Γ. (γ) Αντίστροφος A⁻¹ και A·A⁻¹ = I₃ ──────────────── */
+print("════ Γ. (γ) Αντίστροφος ════");
+
+if det_A # 0 then (
+    A_inv : invert(A),
+    print("A⁻¹ ="),
+    print(A_inv),
+    print("  [Αναμένεται: matrix([-24,18,5],[20,-15,-4],[-5,4,1]) ✓]"),
+    print("A·A⁻¹ ="),
+    print(ratsimp(A . A_inv)),
+    print("A·A⁻¹ = I₃ ;  Έλεγχος:", mat_equal(A . A_inv, ident(3))),
+    print("A⁻¹·A = I₃ ;  Έλεγχος:", mat_equal(A_inv . A, ident(3))),
+    print("det(A⁻¹) =", determinant(A_inv), " = 1/det(A) ;  Έλεγχος:",
+          is(determinant(A_inv) = 1/det_A))
+) else (
+    A_inv : 'undefined,
+    print("det(A) = 0  →  ο A δεν αντιστρέφεται")
+);
+
+/* ── Δ. (δ) Επίλυση A·x = b με invert(A) ────────────────── */
+print("════ Δ. (δ) Επίλυση A·x = b ════");
+
+x_sol : ratsimp(A_inv . b_vec);
+print("x = A⁻¹·b ="); print(x_sol);
+print("  [Αναμένεται: x = (27, -22, 6)ᵀ ✓]");
+
+print("Επαλήθευση A·x ="); print(ratsimp(A . x_sol));
+print("A·x = b ;  Έλεγχος:", mat_equal(A . x_sol, b_vec));
+
+/* Σύγκριση με τον απευθείας επιλυτή linsolve */
+sol_ls : linsolve([   x1 + 2*x2 + 3*x3 = 1,
+                            x2 + 4*x3 = 2,
+                   5*x1 + 6*x2        = 3], [x1, x2, x3]);
+print("linsolve →", sol_ls, "  [ίδιο αποτέλεσμα ✓]");
+
+/* ── Ε. Συμπλήρωμα: κλιμακωτή μορφή και αποσύνθεση LU ───── */
+print("════ Ε. Κλιμακωτή μορφή &amp; LU ════");
+
+/* ΠΡΟΣΟΧΗ: η Maxima δεν διαθέτει rref(). Το αντίστοιχο είναι
+   η echelon(A) (κλιμακωτή μορφή με ηγετικά 1) ή η triangularize(A). */
+print("echelon(A) ="); print(echelon(A));
+print("triangularize(A) ="); print(triangularize(A));
+print("rank(A) =", rank(A), "  [πλήρης τάξη 3, άρα A αντιστρέψιμος ✓]");
+
+/* Αποσύνθεση LU: lu_factor + get_lu_factors (πακέτο linearalgebra).
+   Με generalring παίρνουμε ΑΚΡΙΒΕΙΣ (ρητούς) συντελεστές. */
+lu_data : lu_factor(A, generalring)$
+lu_PLU  : get_lu_factors(lu_data)$
+P_lu : lu_PLU[1];
+L_lu : lu_PLU[2];
+U_lu : lu_PLU[3];
+
+print("P ="); print(P_lu);
+print("L (κάτω τριγωνικός) ="); print(L_lu);
+print("U (άνω τριγωνικός) ="); print(U_lu);
+print("P·L·U ="); print(ratsimp(P_lu . L_lu . U_lu));
+print("P·L·U = A ;  Έλεγχος:", mat_equal(P_lu . L_lu . U_lu, A));
+print("det(A) = det(L)·det(U) =", determinant(L_lu) * determinant(U_lu),
+      ";  Έλεγχος:", is(determinant(L_lu)*determinant(U_lu) = det_A));
+
+print("════ Τέλος ════");
+</code></pre>
+    </div>
+  </div>
+
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_matrices.py</span>
+        <a class="download-btn" href="python_matrices.py" download>⬇ Λήψη .py</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0;">
+        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <code>A @ B</code> &nbsp;
+        <code>np.linalg.det()</code> &nbsp;
+        <code>np.linalg.inv()</code> &nbsp;
+        <code>np.linalg.solve()</code> &nbsp;
+        <code>scipy.linalg.lu()</code> &nbsp;
+        <code>np.linalg.eigh()</code>
+      </div>
+            <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Τρέξε</button>
+        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
+        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
+# python_matrices.py
+# Κεφάλαιο 2 — Πίνακες, NumPy, Αποσύνθεση LU, Heatmaps
+# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# ============================================================
+#
+# ΒΙΒΛΙΟΘΗΚΕΣ:
+#   numpy         → αριθμητικές πράξεις πινάκων
+#   scipy.linalg  → αποσύνθεση LU
+#   sympy         → ακριβείς υπολογισμοί (κλάσματα)
+#   matplotlib    → οπτικοποίηση (heatmaps πινάκων)
+#
+# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
+#   A @ B                  → γινόμενο πινάκων
+#   A.T                    → ανάστροφος
+#   np.linalg.det(A)       → ορίζουσα
+#   np.linalg.inv(A)       → αντίστροφος
+#   np.linalg.solve(A, b)  → λύση A·x = b
+#   scipy.linalg.lu(A)     → αποσύνθεση A = P·L·U
+#   np.linalg.eigh(S)      → ιδιοτιμές συμμετρικού πίνακα
+#
+# Δραστηριότητα βιβλίου: (α) πράξεις NumPy, (β) επίλυση A·x = b,
+#   (γ) A = P·L·U, (δ) θετική οριστικότητα του S, (ε) heatmaps.
+# ============================================================
+
+import numpy as np
+import scipy.linalg as la
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+from sympy import Matrix, pprint
+
+print("=" * 58)
+print(" Κεφάλαιο 2: Πίνακες, LU, Heatmaps — Python")
+print("=" * 58)
+
+# Δεδομένα της δραστηριότητας Maxima (ίδια A, B, b)
+A = np.array([[1, 2, 3],
+              [0, 1, 4],
+              [5, 6, 0]], dtype=float)
+
+B = np.array([[2, -1, 0],
+              [1,  3, 1],
+              [0,  2, 4]], dtype=float)
+
+b = np.array([1.0, 2.0, 3.0])
+
+print("\nA =\n", A)
+print("\nB =\n", B)
+print("\nb =", b)
+
+# ── Α. (α) Πράξεις με NumPy — σύγκριση με Maxima ──────────
+print("\n── Α. (α) Πράξεις με NumPy ──")
+
+AB = A @ B
+BA = B @ A
+
+print("A @ B =\n", AB)
+print("  [Maxima: matrix([4,11,14],[1,11,17],[16,13,6])] →",
+      np.allclose(AB, [[4, 11, 14], [1, 11, 17], [16, 13, 6]]))
+print("\nB @ A =\n", BA)
+print("A@B == B@A ;  Έλεγχος:", np.allclose(AB, BA))
+print("  → False: ο πολλαπλασιασμός πινάκων δεν είναι αντιμεταθετικός")
+
+print("\nAᵀ =\n", A.T)
+print("(A@B)ᵀ == Bᵀ@Aᵀ ;  Έλεγχος:", np.allclose(AB.T, B.T @ A.T))
+
+det_A = np.linalg.det(A)
+det_B = np.linalg.det(B)
+det_AB = np.linalg.det(AB)
+print(f"\ndet(A)  = {det_A:.10f}   [Maxima: 1]")
+print(f"det(B)  = {det_B:.10f}   [Maxima: 24]")
+print(f"det(AB) = {det_AB:.10f}   [Maxima: 24]")
+print("det(A·B) == det(A)·det(B) ;  Έλεγχος:",
+      np.isclose(det_AB, det_A * det_B))
+
+A_inv = np.linalg.inv(A)
+print("\nA⁻¹ =\n", np.round(A_inv, 10))
+print("  [Maxima: matrix([-24,18,5],[20,-15,-4],[-5,4,1])] →",
+      np.allclose(A_inv, [[-24, 18, 5], [20, -15, -4], [-5, 4, 1]]))
+print("A @ A⁻¹ =\n", np.round(A @ A_inv, 10))
+print("A·A⁻¹ == I₃ ;  Έλεγχος:", np.allclose(A @ A_inv, np.eye(3)))
+
+# Ακριβής (ρητός) υπολογισμός με SymPy — σύγκριση με το Maxima
+A_sym = Matrix([[1, 2, 3], [0, 1, 4], [5, 6, 0]])
+print("\nΑκριβής A⁻¹ (SymPy):")
+pprint(A_sym.inv())
+
+# ── Β. (β) Επίλυση A·x = b ────────────────────────────────
+print("\n── Β. (β) Επίλυση A·x = b ──")
+
+x = np.linalg.solve(A, b)
+print("x = np.linalg.solve(A, b) =", np.round(x, 10))
+print("  [Αναμένεται: (27, -22, 6)] →", np.allclose(x, [27, -22, 6]))
+print("A @ x =", np.round(A @ x, 10))
+print("A·x == b ;  Έλεγχος:", np.allclose(A @ x, b))
+print(f"Υπόλοιπο ‖A·x - b‖ = {np.linalg.norm(A @ x - b):.2e}")
+
+# Ακριβής λύση με SymPy
+print("\nx (SymPy, ακριβής):",
+      list(A_sym.solve(Matrix([1, 2, 3]))))
+
+# ── Γ. (γ) Αποσύνθεση A = P·L·U ───────────────────────────
+print("\n── Γ. (γ) Αποσύνθεση LU ──")
+
+P, L, U = la.lu(A)
+
+print("P (πίνακας μετάθεσης) =\n", P)
+print("\nL (κάτω τριγωνικός, μονάδες στη διαγώνιο) =\n", np.round(L, 6))
+print("\nU (άνω τριγωνικός) =\n", np.round(U, 6))
+print("\nP @ L @ U =\n", np.round(P @ L @ U, 10))
+print("P·L·U == A ;  Έλεγχος:", np.allclose(P @ L @ U, A))
+print("L κάτω τριγωνικός:", np.allclose(L, np.tril(L)),
+      "| U άνω τριγωνικός:", np.allclose(U, np.triu(U)))
+print(f"det(A) = ±det(U) = {np.linalg.det(P) * np.prod(np.diag(U)):.10f}",
+      "  Έλεγχος:",
+      np.isclose(np.linalg.det(P) * np.prod(np.diag(U)), det_A))
+
+# ── Δ. (δ) Συμμετρικός S: ιδιοτιμές &amp; θετική οριστικότητα ─
+print("\n── Δ. (δ) Συμμετρικός S — np.linalg.eigh ──")
+
+S = np.array([[4, 2, 1],
+              [2, 5, 3],
+              [1, 3, 6]], dtype=float)
+
+print("S =\n", S)
+print("S == Sᵀ ;  Έλεγχος:", np.allclose(S, S.T))
+
+eigvals, eigvecs = np.linalg.eigh(S)     # eigh: συμμετρικός → πραγματικές λ
+print("\nΙδιοτιμές (eigh):", np.round(eigvals, 6))
+print("Ιδιοδιανύσματα (στήλες Q):\n", np.round(eigvecs, 6))
+print("QᵀQ == I ;  Έλεγχος:", np.allclose(eigvecs.T @ eigvecs, np.eye(3)))
+print("QΛQᵀ == S ;  Έλεγχος:",
+      np.allclose(eigvecs @ np.diag(eigvals) @ eigvecs.T, S))
+
+# Κριτήριο 1: όλες οι ιδιοτιμές &gt; 0
+pd_eig = bool(np.all(eigvals &gt; 0))
+# Κριτήριο 2 (Sylvester): όλα τα ηγετικά κύρια ελάσσονα &gt; 0
+minors = [float(np.linalg.det(S[:k, :k])) for k in (1, 2, 3)]
+pd_minors = all(m &gt; 0 for m in minors)
+# Κριτήριο 3: υπάρχει ανάλυση Cholesky
+try:
+    np.linalg.cholesky(S)
+    pd_chol = True
+except np.linalg.LinAlgError:
+    pd_chol = False
+
+print(f"\nΗγετικά κύρια ελάσσονα: {[round(m, 6) for m in minors]}"
+      "   [Αναμένονται 4, 16, 67]")
+print(f"Κριτήριο ιδιοτιμών  (όλες λᵢ &gt; 0): {pd_eig}")
+print(f"Κριτήριο Sylvester  (ελάσσονα &gt; 0): {pd_minors}")
+print(f"Κριτήριο Cholesky   (υπάρχει L):    {pd_chol}")
+print("→ Ο S είναι θετικά ορισμένος:",
+      pd_eig and pd_minors and pd_chol)
+print("ΠΡΟΣΟΧΗ: το det(S) &gt; 0 ΜΟΝΟ του δεν αρκεί "
+      "(π.χ. ο -I₂ έχει det = 1 &gt; 0 αλλά είναι αρνητικά ορισμένος).")
+
+# Έλεγχος με τυχαία διανύσματα: xᵀSx &gt; 0 για κάθε x ≠ 0
+rng = np.random.default_rng(0)
+X = rng.normal(size=(3, 200))
+qvals = np.sum(X * (S @ X), axis=0)
+print(f"min(xᵀSx) σε 200 τυχαία x: {qvals.min():.6f} &gt; 0 →",
+      bool(qvals.min() &gt; 0))
+
+# ── Ε. (ε) Προαιρετικό: Heatmaps των A, A·B και L ─────────
+print("\n── Ε. (ε) Heatmaps (προαιρετικό) ──")
+
+fig, axes = plt.subplots(1, 3, figsize=(13, 4))
+fig.suptitle("Κεφ. 2 — Heatmaps πινάκων", fontsize=13, fontweight='bold')
+
+
+def plot_matrix(ax, M, title, fmt=".1f"):
+    """Εμφάνιση πίνακα ως heatmap με τις αριθμητικές τιμές."""
+    vmax = max(abs(M.min()), abs(M.max()), 1e-9)
+    im = ax.imshow(M, cmap='RdBu_r', aspect='auto',
+                   norm=mcolors.TwoSlopeNorm(vcenter=0,
+                                             vmin=-vmax, vmax=vmax))
+    ax.set_title(title, fontsize=10)
+    for i in range(M.shape[0]):
+        for j in range(M.shape[1]):
+            ax.text(j, i, format(M[i, j], fmt),
+                    ha='center', va='center', fontsize=9,
+                    color='black' if abs(M[i, j]) &lt; 0.7 * vmax else 'white')
+    ax.set_xticks([]); ax.set_yticks([])
+    plt.colorbar(im, ax=ax, shrink=0.8)
+
+
+plot_matrix(axes[0], A,  "Πίνακας A")
+plot_matrix(axes[1], AB, "A · B")
+plot_matrix(axes[2], L,  "L (από την A = P·L·U)")
+
+plt.tight_layout()
+print("Δημιουργήθηκε heatmap για A, A·B και L.")
+plt.show()
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector('.tab-btn.' + name).classList.add('active');
+}
+function loadCode(file, elementId, lang) {
+  fetch(file + '?v=' + Date.now())
+    .then(r => r.ok ? r.text() : Promise.reject(r.status))
+    .then(text => {
+      const el = document.getElementById(elementId);
+      el.textContent = text;
+      el.className = 'language-' + lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err => {
+      document.getElementById(elementId).textContent =
+        '⚠ Αδυναμία φόρτωσης (' + err + '). Χρησιμοποιήστε "Λήψη".';
+    });
+}
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+originalPy = $('py-editor').value;
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    return await loadPyodide();
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    const code = $('py-editor').value;
+    setStatus('Φόρτωση βιβλιοθηκών…');
+    await py.loadPackagesFromImports(code);
+    setStatus('Εκτέλεση…');
+    await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
+    py.globals.set('__user_src__', code);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+_imgs = []
+try:
+    import matplotlib.pyplot as plt
+    for _n in plt.get_fignums():
+        _f = plt.figure(_n); _b = io.BytesIO()
+        _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+        _imgs.append(base64.b64encode(_b.read()).decode())
+    plt.close('all')
+except Exception:
+    pass
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Σφάλμα: ' + e;
+    setStatus('Σφάλμα');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

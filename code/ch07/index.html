@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Κώδικας Κεφ. 7 — Δυναμικά Συστήματα · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',Arial,sans-serif; background:var(--bg); color:#222; }
+  header { background:var(--blue); color:white; padding:18px 24px; }
+  header h1 { font-size:1.25rem; font-weight:700; }
+  header p  { font-size:0.9rem; margin-top:4px; opacity:.85; }
+  .breadcrumb { font-size:0.82rem; padding:10px 24px; background:#eee; border-bottom:1px solid #ddd; }
+  .breadcrumb a { color:var(--blue); text-decoration:none; }
+  .container { max-width:960px; margin:0 auto; padding:24px 16px; }
+  .info-box { background:white; border-left:5px solid var(--blue); padding:14px 18px;
+    margin-bottom:24px; border-radius:4px; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+  .info-box h2 { font-size:1rem; color:var(--blue); margin-bottom:8px; }
+  .info-box p  { font-size:0.88rem; line-height:1.6; }
+  .tabs { display:flex; gap:6px; }
+  .tab-btn { padding:10px 20px; border:none; border-radius:6px 6px 0 0;
+    font-size:0.9rem; font-weight:600; cursor:pointer; transition:background .2s; }
+  .tab-btn.maxima { background:#d5f5e3; color:var(--teal); }
+  .tab-btn.python { background:#d6eaf8; color:var(--blue); }
+  .tab-btn.active.maxima { background:var(--teal); color:white; }
+  .tab-btn.active.python { background:var(--blue); color:white; }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+  .code-card { background:white; border-radius:0 6px 6px 6px; box-shadow:0 2px 8px rgba(0,0,0,.1); overflow:hidden; }
+  .code-header { display:flex; justify-content:space-between; align-items:center;
+    padding:10px 16px; font-size:0.85rem; font-weight:600; }
+  .code-header.maxima { background:var(--teal); color:white; }
+  .code-header.python { background:var(--blue); color:white; }
+  .download-btn { display:inline-block; padding:5px 12px; background:rgba(255,255,255,.2);
+    color:white; border:1px solid rgba(255,255,255,.5); border-radius:4px;
+    text-decoration:none; font-size:0.8rem; font-weight:600; }
+  .download-btn:hover { background:rgba(255,255,255,.35); }
+  pre[class*="language-"] { margin:0!important; border-radius:0!important; max-height:520px; overflow-y:auto; font-size:0.83rem; }
+  .commands-box { background:#fffde7; border:1px solid #f9a825; border-radius:4px;
+    padding:12px 16px; margin:16px 0; font-size:0.85rem; }
+  .commands-box strong { color:var(--orange); }
+  .commands-box code { background:#fff3cd; padding:1px 5px; border-radius:3px; font-size:0.82rem; }
+  footer { text-align:center; padding:20px; font-size:0.8rem; color:#888;
+    margin-top:32px; border-top:1px solid #ddd; }
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📐 Κεφάλαιο 7 — Δυναμικά Συστήματα και Αλυσίδες Markov</h1>
+  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+</header>
+
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 7
+</div>
+
+<div class="container">
+
+  <div class="info-box">
+    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
+    <p>
+      <strong>Αντικείμενο:</strong> εξέλιξη του x(k+1)=Ax(k), ευστάθεια μέσω της φασματικής ακτίνας, αλυσίδες Markov και στάσιμη κατανομή, φασικά πορτρέτα</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_dynamics.mac</span>
+        <a class="download-btn" href="maxima_dynamics.mac" download>⬇ Λήψη .mac</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0;">
+        <strong>Βασικές εντολές:</strong>
+        <code>eigenvalues(A)</code> &nbsp;
+        <code>A^^k . x0</code> &nbsp;
+        <code>eigenvectors(P)</code> &nbsp;
+        <code>float(…)</code> &nbsp;
+        <code>invert(P)</code>
+      </div>
+      <pre><code class="language-maxima" id="maxima-code">/* ============================================================
+   maxima_dynamics.mac
+   Κεφάλαιο 7 — Δυναμικά Συστήματα: Εξέλιξη, Ευστάθεια, Markov
+   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   ============================================================
+   ΕΝΤΟΛΕΣ:
+     eigenvalues(A)     -&gt; [[ιδιοτιμές],[πολλαπλότητες]]
+     eigenvectors(P)    -&gt; ιδιοτιμές μαζί με ιδιοδιανύσματα
+     A^^k . x0          -&gt; δύναμη πίνακα (^^) επί διάνυσμα
+     invert(M)          -&gt; αντίστροφος πίνακας
+     float(expr)        -&gt; δεκαδική μορφή
+   ------------------------------------------------------------
+   Δουλεύουμε με ΡΗΤΟΥΣ (8/10 αντί 0.8) ώστε οι ιδιοτιμές να
+   βγαίνουν ακριβείς· τυπώνουμε με float() όπου χρειάζεται.
+   ============================================================ */
+
+/* ── Α. (α) Εξέλιξη x_{k+1} = A x_k, ιδιοτιμές, ευστάθεια ──── */
+print("════ Α. Εξέλιξη του συστήματος x_{k+1} = A x_k ════")$
+
+A  : matrix([8/10, 0], [0, 6/10])$
+x0 : matrix([1], [1])$
+print("A  =", A)$
+print("x0 =", transpose(x0))$
+
+x1  : A . x0$
+x2  : A . x1$
+x10 : A^^10 . x0$
+print("x1  =", transpose(x1),  " = (0,8 ; 0,6)  (= [4/5, 3/5] ✓)")$
+print("x2  =", transpose(x2),  " = (0,64 ; 0,36) (= [16/25, 9/25] ✓)")$
+print("x10 =", float(transpose(x10)),
+      " = (0,8^10 ; 0,6^10) = (0,1073741824 ; 0,0060466176) ✓")$
+
+evA : eigenvalues(A)$
+print("Ιδιοτιμές του A:", evA[1], " (= [4/5, 3/5] ✓)")$
+rhoA : lmax(map(abs, evA[1]))$
+print("Φασματική ακτίνα ρ(A) =", rhoA, "=", float(rhoA), " (= 0,8 ✓)")$
+
+/* Το συμπέρασμα ΔΕΝ γράφεται σταθερά: προκύπτει από σύγκριση.  */
+if rhoA &lt; 1 then
+   print("ρ(A) &lt; 1  =&gt;  x_k -&gt; 0 : ασυμπτωτικά ΕΥΣΤΑΘΕΣ")
+elseif rhoA = 1 then
+   print("ρ(A) = 1  =&gt;  οριακή περίπτωση: φραγμένες τροχιές, όχι -&gt; 0")
+else
+   print("ρ(A) &gt; 1  =&gt;  ΑΣΤΑΘΕΣ: οι τροχιές απομακρύνονται")$
+
+/* ── Β. (β) Το σύστημα με B είναι ασταθές, μέσω ρ(B) ───────── */
+print("════ Β. Αστάθεια για τον πίνακα B ════")$
+
+B : matrix([11/10, 2/10], [1/10, 9/10])$
+print("B =", B)$
+evB : eigenvalues(B)$
+print("Ιδιοτιμές του B:", evB[1])$
+print("  αριθμητικά:", float(evB[1]),
+      " (= 1 - sqrt(3)/10 = 0,82679... και 1 + sqrt(3)/10 = 1,17320... ✓)")$
+rhoB : lmax(map(abs, float(evB[1])))$
+print("ρ(B) =", rhoB, " (= 1,1732050807568877 ✓)")$
+
+if rhoB &lt; 1 then
+   print("ρ(B) &lt; 1  =&gt;  ευσταθές")
+elseif rhoB = 1 then
+   print("ρ(B) = 1  =&gt;  οριακή περίπτωση")
+else
+   print("ρ(B) &gt; 1  =&gt;  ΑΣΤΑΘΕΣ ✓ (όπως ζητά το ερώτημα)")$
+
+/* Επιβεβαίωση: η τροχιά του B απομακρύνεται (οι όροι μεγαλώνουν). */
+y0 : matrix([1], [1])$
+for m : 5 thru 20 step 5 do
+    print("  B^", m, ". y0 =", float(transpose(B^^m . y0)))$
+
+/* ── Γ. (γ) Αλυσίδα Markov: στάσιμη κατανομή π ─────────────── */
+print("════ Γ. Στάσιμη κατανομή αλυσίδας Markov ════")$
+
+Pm : matrix([9/10, 2/10], [1/10, 8/10])$
+print("P =", Pm, "  (στήλες με άθροισμα 1)")$
+
+[valsP, vecsP] : eigenvectors(Pm)$
+print("Ιδιοτιμές του P:", valsP[1], " (= [7/10, 1] ✓)")$
+
+/* ΠΡΟΣΟΧΗ: δεν υποθέτουμε ποια θέση έχει η λ=1 — την ΨΑΧΝΟΥΜΕ. */
+idx : 0$
+for i : 1 thru length(valsP[1]) do
+    if valsP[1][i] = 1 then idx : i$
+print("Η ιδιοτιμή λ=1 βρίσκεται στη θέση:", idx)$
+
+v : transpose(matrix(vecsP[idx][1]))$
+print("Ιδιοδιάνυσμα για λ=1 (πριν την κανονικοποίηση):", transpose(v))$
+
+s : v[1,1] + v[2,1]$
+print("Άθροισμα συνιστωσών:", s, " (πρέπει να είναι ≠ 0)")$
+pist : v / s$
+print("Στάσιμη κατανομή π =", transpose(pist), " (= [2/3, 1/3] ✓)")$
+print("  αριθμητικά:", float(transpose(pist)), " (= [0,6667 ; 0,3333] ✓)")$
+print("Έλεγχος P.π = π :", is(ratsimp(Pm . pist - pist) = matrix([0],[0])),
+      "  (true ✓)")$
+print("Έλεγχος αθροίσματος = 1 :", is(pist[1,1] + pist[2,1] = 1), "  (true ✓)")$
+
+/* ── Δ. (δ) Κλειστός τύπος για το A^k μέσω διαγωνιοποίησης ─── */
+print("════ Δ. A^k σε κλειστή μορφή (διαγωνιοποίηση) ════")$
+
+kill(k)$   /* το k πρέπει να είναι ελεύθερο σύμβολο */
+
+[valsA, vecsA] : eigenvectors(A)$
+/* Συγκεντρώνουμε ΟΛΑ τα ιδιοδιανύσματα σε στήλες του S.        */
+lam  : []$
+cols : []$
+for i : 1 thru length(valsA[1]) do
+    for j : 1 thru valsA[2][i] do (
+        lam  : append(lam,  [valsA[1][i]]),
+        cols : append(cols, [vecsA[i][j]]) )$
+S  : transpose(apply(matrix, cols))$
+Dm : apply(matrix, makelist(makelist(if i = j then lam[i] else 0,
+                                     j, 1, length(lam)),
+                            i, 1, length(lam)))$
+print("S =", S, "   D =", Dm)$
+print("Έλεγχος A = S.D.S^(-1):",
+      is(ratsimp(S . Dm . invert(S) - A) = matrix([0,0],[0,0])), " (true ✓)")$
+
+Dk : apply(matrix, makelist(makelist(if i = j then lam[i]^k else 0,
+                                     j, 1, length(lam)),
+                            i, 1, length(lam)))$
+Ak : ratsimp(S . Dk . invert(S))$
+print("A^k =", Ak, "   δηλαδή A^k = diag((4/5)^k, (3/5)^k) ✓")$
+
+/* Επαλήθευση του κλειστού τύπου για k = 10.                    */
+print("A^10 από τον τύπο:", float(subst(10, k, Ak)))$
+print("A^10 απευθείας   :", float(A^^10), "  (ταυτίζονται ✓)")$
+print("x_k = A^k x0 =", transpose(ratsimp(Ak . x0)))$
+
+/* ── Γραφική εποπτεία: οι συνιστώσες φθίνουν γεωμετρικά ────── */
+kill(t)$
+plot2d([(4/5)^t, (3/5)^t], [t, 0, 20],
+       [legend, "x1(k) = 0,8^k", "x2(k) = 0,6^k"],
+       [xlabel, "k"], [ylabel, "συνιστώσα"],
+       [title, "Ασυμπτωτική ευστάθεια: ρ(A) = 0,8 &lt; 1"])$
+
+print("── Τέλος maxima_dynamics.mac ──")$
+</code></pre>
+    </div>
+  </div>
+
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_dynamics.py</span>
+        <a class="download-btn" href="python_dynamics.py" download>⬇ Λήψη .py</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0;">
+        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <code>np.linalg.eigvals(A)</code> &nbsp;
+        <code>A @ x</code> &nbsp;
+        <code>np.linalg.eig(P)</code> &nbsp;
+        <code>matplotlib.pyplot</code>
+      </div>
+            <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Τρέξε</button>
+        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
+        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
+# python_dynamics.py
+# Κεφάλαιο 7 — Δυναμικά Συστήματα: Τροχιές και Φασικά Πορτρέτα
+# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# ============================================================
+#
+# ΒΙΒΛΙΟΘΗΚΕΣ:
+#   numpy      -&gt; πίνακες, ιδιοτιμές, επαναλήψεις
+#   matplotlib -&gt; τροχιές και φασικά πορτρέτα
+#
+# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
+#   np.linalg.eigvals(A)  -&gt; ιδιοτιμές
+#   A @ x                 -&gt; πολλαπλασιασμός πίνακα επί διάνυσμα
+#   np.linalg.eig(P)      -&gt; ιδιοτιμές ΚΑΙ ιδιοδιανύσματα
+#   matplotlib.pyplot     -&gt; γραφήματα
+# ============================================================
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+print("=" * 60)
+print(" Κεφάλαιο 7: Δυναμικά Συστήματα — Τροχιές &amp; Φασικά Πορτρέτα")
+print("=" * 60)
+
+
+def spectral_radius(M):
+    """Φασματική ακτίνα ρ(M) = max |λ_i|."""
+    return float(np.max(np.abs(np.linalg.eigvals(M))))
+
+
+def stability_verdict(rho, tol=1e-12):
+    """Το συμπέρασμα ΠΡΟΚΥΠΤΕΙ από τον έλεγχο — δεν είναι σταθερό κείμενο."""
+    if rho &lt; 1 - tol:
+        return ("ρ &lt; 1  -&gt;  ασυμπτωτικά ΕΥΣΤΑΘΕΣ: x_k -&gt; 0")
+    elif abs(rho - 1) &lt;= tol:
+        return ("ρ = 1  -&gt;  ΟΡΙΑΚΗ περίπτωση: η τροχιά παραμένει φραγμένη "
+                "και συγκλίνει σε ΜΗ ΜΗΔΕΝΙΚΗ στάσιμη κατάσταση, όχι στο 0")
+    else:
+        return ("ρ &gt; 1  -&gt;  ΑΣΤΑΘΕΣ: η τροχιά απομακρύνεται (|x_k| -&gt; ∞)")
+
+
+def trajectory(M, x0, steps):
+    """Τροχιά x_{n+1} = M x_n, επιστρέφει πίνακα σχήματος (steps+1, 2)."""
+    out = [np.asarray(x0, dtype=float)]
+    for _ in range(steps):
+        out.append(M @ out[-1])
+    return np.array(out)
+
+
+# ── Α. (α) Τροχιά 50 βημάτων, ιδιοτιμές και ευστάθεια ────────
+print("\n[Α] Τροχιά x_{n+1} = A x_n και ευστάθεια μέσω ρ(A)")
+
+A  = np.array([[0.9, 0.1],
+               [0.1, 0.9]])
+x0 = np.array([1.0, 0.0])
+
+evals = np.linalg.eigvals(A)
+rhoA  = spectral_radius(A)
+print("  A =", A.tolist())
+print("  x0 =", x0.tolist())
+print("  Ιδιοτιμές:", np.round(np.real_if_close(evals), 10).tolist(),
+      " (= [1,0 ; 0,8] ✓)")
+print("  ρ(A) =", round(rhoA, 12), " (= 1,0 ✓)")
+print("  ", stability_verdict(rhoA))
+
+traj = trajectory(A, x0, 50)
+for k in range(1, 6):
+    print(f"  x_{k} = {np.round(traj[k], 6).tolist()}")
+print("  x_50 =", np.round(traj[50], 6).tolist(),
+      " (-&gt; [0,5 ; 0,5] ✓ — ΟΧΙ στο μηδέν)")
+
+# Το άθροισμα x1+x2 διατηρείται, επειδή το (1,1) είναι αριστερό
+# ιδιοδιάνυσμα του A για λ = 1:  1^T A = 1^T.
+print("  Διατηρούμενο άθροισμα x1+x2:",
+      np.round(traj[:, 0] + traj[:, 1], 10)[[0, 1, 25, 50]].tolist(),
+      " (σταθερό = 1 ✓)")
+print("  Οριακή κατάσταση θεωρητικά = ((x1+x2)/2, (x1+x2)/2) = [0.5, 0.5] ✓")
+
+# ── Β. (β) Στάσιμη κατανομή αλυσίδας Markov, έλεγχος Pπ = π ──
+print("\n[Β] Αλυσίδα Markov: στάσιμη κατανομή π")
+
+P = np.array([[0.9, 0.2],
+              [0.1, 0.8]])
+print("  P =", P.tolist(), " (στήλες με άθροισμα 1)")
+
+vals, vecs = np.linalg.eig(P)
+print("  Ιδιοτιμές του P:", np.round(np.real_if_close(vals), 10).tolist(),
+      " (= [1,0 ; 0,7] ✓)")
+
+# Εντοπίζουμε ΠΟΙΑ ιδιοτιμή ισούται με 1 — δεν υποθέτουμε θέση.
+i = int(np.argmin(np.abs(vals - 1.0)))
+print("  Η λ = 1 βρίσκεται στη θέση:", i, " (λ =", round(float(np.real(vals[i])), 10), ")")
+
+pi = np.real(vecs[:, i])
+pi = pi / pi.sum()                      # κανονικοποίηση: άθροισμα 1
+print("  π =", np.round(pi, 6).tolist(), " (= [2/3 ; 1/3] = [0,666667 ; 0,333333] ✓)")
+print("  Έλεγχος P π = π :", bool(np.allclose(P @ pi, pi)), " (True ✓)")
+print("  Έλεγχος Σπ_i = 1 :", bool(np.isclose(pi.sum(), 1.0)), " (True ✓)")
+print("  Σφάλμα ||Pπ - π||:", float(np.linalg.norm(P @ pi - pi)))
+
+# ── Γ. (γ) Τροχιά στον χώρο κατάστασης και συνιστώσες ────────
+print("\n[Γ] Γραφήματα: χώρος κατάστασης (x1,x2) και συνιστώσες x1(k), x2(k)")
+
+fig1, ax = plt.subplots(1, 2, figsize=(10, 4))
+
+ax[0].plot(traj[:, 0], traj[:, 1], 'o-', ms=3, lw=1, color='tab:blue',
+           label='τροχιά')
+ax[0].plot(traj[0, 0], traj[0, 1], 's', color='tab:green', ms=9, label='$x_0=(1,0)$')
+ax[0].plot(traj[-1, 0], traj[-1, 1], '*', color='tab:red', ms=14,
+           label='οριακό $(0{,}5\\,;\\,0{,}5)$')
+ax[0].set_xlabel('$x_1$'); ax[0].set_ylabel('$x_2$')
+ax[0].set_title('Τροχιά στον χώρο κατάστασης  (ρ(A)=1)')
+ax[0].grid(alpha=.3); ax[0].legend(fontsize=8)
+
+ax[1].plot(traj[:, 0], label='$x_1(k)$')
+ax[1].plot(traj[:, 1], label='$x_2(k)$')
+ax[1].axhline(0.5, color='k', ls='--', lw=.8, label='όριο 0,5')
+ax[1].set_xlabel('$k$'); ax[1].set_ylabel('τιμή συνιστώσας')
+ax[1].set_title('Συνιστώσες ανά βήμα')
+ax[1].grid(alpha=.3); ax[1].legend(fontsize=8)
+fig1.tight_layout()
+
+# ── Δ. (δ) ΠΡΟΑΙΡΕΤΙΚΟ: ασταθές σύστημα &amp; σύγκριση πορτρέτων ─
+print("\n[Δ] Προαιρετικό: ασταθές σύστημα και σύγκριση φασικών πορτρέτων")
+
+B = np.array([[1.1, 0.2],
+              [0.1, 0.9]])
+rhoB = spectral_radius(B)
+print("  B =", B.tolist())
+print("  Ιδιοτιμές του B:", np.round(np.linalg.eigvals(B), 6).tolist(),
+      " (= [1,173205 ; 0,826795] ✓)")
+print("  ρ(B) =", round(rhoB, 12), " (= 1,173205080757 ✓)")
+print("  ", stability_verdict(rhoB))
+
+trB = trajectory(B, x0, 20)
+for k in (5, 10, 20):
+    print(f"  B^{k} x0 = {np.round(trB[k], 6).tolist()}")
+print("  ||x_20|| για A:", round(float(np.linalg.norm(traj[20])), 6),
+      " | για B:", round(float(np.linalg.norm(trB[20])), 6),
+      " (η δεύτερη πολύ μεγαλύτερη ✓)")
+
+# Ένα τρίτο, γνήσια ευσταθές σύστημα για πλήρη σύγκριση.
+C = np.array([[0.8, 0.0],
+              [0.0, 0.6]])
+print("  C =", C.tolist(), " ρ(C) =", round(spectral_radius(C), 12), " (= 0,8 ✓)")
+print("  ", stability_verdict(spectral_radius(C)))
+
+# Φασικά πορτρέτα: πολλές αρχικές συνθήκες πάνω στον μοναδιαίο κύκλο.
+theta  = np.linspace(0, 2 * np.pi, 12, endpoint=False)
+starts = np.stack([np.cos(theta), np.sin(theta)], axis=1)
+
+fig2, axs = plt.subplots(1, 3, figsize=(13, 4.2))
+for axi, (M, name, steps) in zip(
+        axs,
+        [(C, 'C: ρ=0,8 &lt; 1 — ευσταθές', 25),
+         (A, 'A: ρ=1 — οριακό', 40),
+         (B, 'B: ρ=1,173 &gt; 1 — ασταθές', 12)]):
+    for s in starts:
+        t = trajectory(M, s, steps)
+        axi.plot(t[:, 0], t[:, 1], '-', lw=1, alpha=.85)
+        axi.plot(t[0, 0], t[0, 1], '.', color='tab:green', ms=6)
+        axi.plot(t[-1, 0], t[-1, 1], '.', color='tab:red', ms=6)
+    axi.axhline(0, color='k', lw=.5); axi.axvline(0, color='k', lw=.5)
+    axi.set_title(name, fontsize=10)
+    axi.set_xlabel('$x_1$'); axi.set_ylabel('$x_2$')
+    axi.set_aspect('equal', adjustable='datalim')
+    axi.grid(alpha=.3)
+fig2.suptitle('Φασικά πορτρέτα: πράσινο = αρχή, κόκκινο = τέλος τροχιάς',
+              fontsize=10)
+fig2.tight_layout()
+
+print("\n  Σύγκριση: στο C οι τροχιές καταρρέουν στο 0· στο A συρρέουν")
+print("  στην ευθεία x1 = x2 (ιδιοχώρος της λ=1)· στο B εκτοξεύονται")
+print("  κατά τη διεύθυνση του ιδιοδιανύσματος της λ = 1,1732.")
+
+plt.show()
+print("\n✓ Ολοκληρώθηκε.")
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector('.tab-btn.' + name).classList.add('active');
+}
+function loadCode(file, elementId, lang) {
+  fetch(file + '?v=' + Date.now())
+    .then(r => r.ok ? r.text() : Promise.reject(r.status))
+    .then(text => {
+      const el = document.getElementById(elementId);
+      el.textContent = text; el.className = 'language-' + lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err => {
+      document.getElementById(elementId).textContent =
+        '⚠ Αδυναμία φόρτωσης (' + err + '). Χρησιμοποιήστε "Λήψη".';
+    });
+}
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+originalPy = $('py-editor').value;
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    return await loadPyodide();
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    const code = $('py-editor').value;
+    setStatus('Φόρτωση βιβλιοθηκών…');
+    await py.loadPackagesFromImports(code);
+    setStatus('Εκτέλεση…');
+    await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
+    py.globals.set('__user_src__', code);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+_imgs = []
+try:
+    import matplotlib.pyplot as plt
+    for _n in plt.get_fignums():
+        _f = plt.figure(_n); _b = io.BytesIO()
+        _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+        _imgs.append(base64.b64encode(_b.read()).decode())
+    plt.close('all')
+except Exception:
+    pass
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Σφάλμα: ' + e;
+    setStatus('Σφάλμα');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

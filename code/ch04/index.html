@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Κώδικας Κεφ. 4 — Γραμμικοί Μετασχηματισμοί · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',Arial,sans-serif; background:var(--bg); color:#222; }
+  header { background:var(--blue); color:white; padding:18px 24px; }
+  header h1 { font-size:1.25rem; font-weight:700; }
+  header p  { font-size:0.9rem; margin-top:4px; opacity:.85; }
+  .breadcrumb { font-size:0.82rem; padding:10px 24px; background:#eee; border-bottom:1px solid #ddd; }
+  .breadcrumb a { color:var(--blue); text-decoration:none; }
+  .container { max-width:960px; margin:0 auto; padding:24px 16px; }
+  .info-box { background:white; border-left:5px solid var(--blue); padding:14px 18px;
+    margin-bottom:24px; border-radius:4px; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+  .info-box h2 { font-size:1rem; color:var(--blue); margin-bottom:8px; }
+  .info-box p  { font-size:0.88rem; line-height:1.6; }
+  .tabs { display:flex; gap:6px; }
+  .tab-btn { padding:10px 20px; border:none; border-radius:6px 6px 0 0;
+    font-size:0.9rem; font-weight:600; cursor:pointer; transition:background .2s; }
+  .tab-btn.maxima { background:#d5f5e3; color:var(--teal); }
+  .tab-btn.python { background:#d6eaf8; color:var(--blue); }
+  .tab-btn.active.maxima { background:var(--teal); color:white; }
+  .tab-btn.active.python { background:var(--blue); color:white; }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+  .code-card { background:white; border-radius:0 6px 6px 6px; box-shadow:0 2px 8px rgba(0,0,0,.1); overflow:hidden; }
+  .code-header { display:flex; justify-content:space-between; align-items:center;
+    padding:10px 16px; font-size:0.85rem; font-weight:600; }
+  .code-header.maxima { background:var(--teal); color:white; }
+  .code-header.python { background:var(--blue); color:white; }
+  .download-btn { display:inline-block; padding:5px 12px; background:rgba(255,255,255,.2);
+    color:white; border:1px solid rgba(255,255,255,.5); border-radius:4px;
+    text-decoration:none; font-size:0.8rem; font-weight:600; }
+  .download-btn:hover { background:rgba(255,255,255,.35); }
+  pre[class*="language-"] { margin:0!important; border-radius:0!important; max-height:520px; overflow-y:auto; font-size:0.83rem; }
+  .commands-box { background:#fffde7; border:1px solid #f9a825; border-radius:4px;
+    padding:12px 16px; margin:16px 0; font-size:0.85rem; }
+  .commands-box strong { color:var(--orange); }
+  .commands-box code { background:#fff3cd; padding:1px 5px; border-radius:3px; font-size:0.82rem; }
+  footer { text-align:center; padding:20px; font-size:0.8rem; color:#888;
+    margin-top:32px; border-top:1px solid #ddd; }
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📐 Κεφάλαιο 4 — Γραμμικοί Μετασχηματισμοί</h1>
+  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+</header>
+
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 4
+</div>
+
+<div class="container">
+
+  <div class="info-box">
+    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
+    <p>
+      <strong>Αντικείμενο:</strong> πίνακας μετασχηματισμού, γραμμικότητα, πυρήνας και εικόνα, στροφή/ανάκλαση/κλιμάκωση/διάτμηση, η ορίζουσα ως εμβαδόν<br><br>
+      Τον κώδικα <strong>Python</strong> μπορείτε να τον <strong>τρέξετε εδώ μέσα στη σελίδα</strong> (κουμπί «▶ Τρέξε») — μπορείτε και να τον επεξεργαστείτε. Ο κώδικας <strong>Maxima</strong> εκτελείται στο <strong>wxMaxima</strong>.
+    </p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_lintrans.mac</span>
+        <a class="download-btn" href="maxima_lintrans.mac" download>⬇ Λήψη .mac</a>
+        <a class="download-btn" href="maxima_lintrans.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Λήψη .wxmx</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0;">
+        <strong>Βασικές εντολές:</strong>
+        <code>A . v</code> &nbsp;
+        <code>nullspace(A)</code> &nbsp;
+        <code>columnspace(A)</code> &nbsp;
+        <code>rank(A)</code> &nbsp;
+        <code>determinant(A)</code> &nbsp;
+        <code>invert(A)</code>
+      </div>
+      <pre><code class="language-maxima" id="maxima-code">/* ============================================================
+   maxima_lintrans.mac
+   Κεφάλαιο 4 — Γραμμικοί Μετασχηματισμοί
+   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   ============================================================
+
+   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
+     A . v            → εφαρμογή μετασχηματισμού σε διάνυσμα
+     A . B            → σύνθεση μετασχηματισμών (γινόμενο πινάκων)
+     invert(A)        → αντίστροφος μετασχηματισμός
+     nullspace(A)     → πυρήνας (kernel) T
+     columnspace(A)   → εικόνα (image) T
+     rank(A)          → διάσταση εικόνας
+     determinant(A)   → έλεγχος αντιστρεψιμότητας
+
+   Εκτελέστε με: wxMaxima (Load/File) ή
+                 maxima -b maxima_lintrans.mac
+   ============================================================ */
+
+/* ── Μέρος Α: Ορισμός Γραμμικού Μετασχηματισμού ─────────── */
+print("════ Α. Γραμμικός Μετασχηματισμός T: ℝ³ → ℝ³ ════");
+
+/* T(x,y,z) = (x+2y, 3x-y+z, 2y-z) */
+A : matrix([1, 2, 0],
+           [3,-1, 1],
+           [0, 2,-1]);
+
+print("Πίνακας μετασχηματισμού A =");
+print(A);
+
+/* Εφαρμογή σε συγκεκριμένα διανύσματα */
+v1 : matrix([1], [0], [0]);
+v2 : matrix([0], [1], [0]);
+v3 : matrix([0], [0], [1]);
+
+print("T(e₁) = A·e₁ ="); print(A . v1);
+print("T(e₂) = A·e₂ ="); print(A . v2);
+print("T(e₃) = A·e₃ ="); print(A . v3);
+
+/* Γενικό διάνυσμα */
+u : matrix([2], [-1], [3]);
+print("T([2,-1,3]ᵀ) = A·u ="); print(A . u);
+
+/* Έλεγχος γραμμικότητας: T(αu + βv) = αT(u) + βT(v) */
+print("");
+alpha : 2; beta : -1;
+w : matrix([1], [1], [1]);
+lhs_lin : A . (alpha * u + beta * w);
+rhs_lin : alpha * (A . u) + beta * (A . w);
+print("Έλεγχος γραμμικότητας:");
+print("T(2u - w) =", lhs_lin);
+print("2T(u) - T(w) =", rhs_lin);
+print("Ισότητα:", is(lhs_lin = rhs_lin));
+
+/* ── Μέρος Β: Πυρήνας (Kernel) και Εικόνα (Image) ─────────── */
+print("════ Β. Πυρήνας (Ker) &amp; Εικόνα (Im) ════");
+
+print("Ker(T) = Null space:");
+print(nullspace(A));
+
+print("Im(T) = Column space:");
+print(columnspace(A));
+
+print("dim(Im) = rank(A) =", rank(A));
+print("dim(Ker) = nullity =", 3 - rank(A));
+print("Θεώρημα rank-nullity: rank + nullity =", rank(A) + (3 - rank(A)), "= n = 3  ✓");
+
+/* ── Μέρος Γ: Γεωμετρικοί Μετασχηματισμοί στο ℝ² ─────────── */
+print("════ Γ. Γεωμετρικοί Μετασχηματισμοί ════");
+
+/* Στροφή κατά γωνία θ */
+theta : %pi / 4;   /* 45° */
+R_45 : matrix([cos(theta), -sin(theta)],
+              [sin(theta),  cos(theta)]);
+R_45_s : trigsimp(R_45);
+print("Στροφή 45°: R ="); print(float(R_45_s));
+
+p : matrix([1], [0]);   /* σημείο (1,0) */
+print("R₄₅·(1,0)ᵀ ="); print(float(R_45_s . p));
+print("[Αναμένεται: (cos45°, sin45°) = (√2/2, √2/2) ✓]");
+
+/* det(R) = 1 (διατηρεί εμβαδόν) */
+print("det(R₄₅) =", trigsimp(determinant(R_45_s)));
+
+/* Ανακλαστικοί μετασχηματισμοί */
+Ref_x : matrix([1, 0], [0,-1]);   /* ανάκλαση ως προς x-άξονα */
+Ref_y : matrix([-1,0], [0, 1]);   /* ανάκλαση ως προς y-άξονα */
+Ref_d : matrix([0, 1], [1, 0]);   /* ανάκλαση ως προς y=x */
+
+print("Ανάκλαση ως προς x-άξονα:");
+q : matrix([3], [4]);
+print("  (3,4) →", Ref_x . q);
+
+/* Ομοιοθεσία (scaling) */
+S : matrix([2, 0], [0, 3]);
+print("Κλιμάκωση sx=2, sy=3:");
+print("  (1,1) →", S . matrix([1],[1]));
+
+/* ── Μέρος Δ: Σύνθεση Μετασχηματισμών ─────────────────────── */
+print("════ Δ. Σύνθεση Μετασχηματισμών ════");
+
+/* Στροφή 90° ακολουθούμενη από ανάκλαση ως προς x */
+R_90 : matrix([0,-1],[1, 0]);
+print("R₉₀·Ref_x ="); print(R_90 . Ref_x);
+print("Ref_x·R₉₀ ="); print(Ref_x . R_90);
+print("R₉₀·Ref_x ≠ Ref_x·R₉₀  (μη αντιμεταθετικότητα)");
+
+/* ── Μέρος Ε: Αντίστροφος Μετασχηματισμός ──────────────────── */
+print("════ Ε. Αντίστροφος Μετασχηματισμός ════");
+
+print("det(A) =", determinant(A));
+if determinant(A) # 0 then (
+    A_inv : invert(A),
+    print("A⁻¹ ="), print(A_inv),
+    print("A·A⁻¹ = I:"), print(ratsimp(A . A_inv))
+) else
+    print("det(A) = 0  →  T δεν είναι αντιστρέψιμος");
+
+print("════ Τέλος ════");
+</code></pre>
+    </div>
+  </div>
+
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_lintrans.py</span>
+        <a class="download-btn" href="python_lintrans.py" download>⬇ Λήψη .py</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0;">
+        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <code>A @ v</code> &nbsp;
+        <code>np.linalg.det()</code> &nbsp;
+        <code>sympy.Matrix.nullspace()</code> &nbsp;
+        <code>np.radians()</code> &nbsp;
+        <code>matplotlib.pyplot</code>
+      </div>
+            <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Τρέξε</button>
+        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
+        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
+# python_lintrans.py
+# Κεφάλαιο 4 — Γραμμικοί Μετασχηματισμοί
+# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# ============================================================
+#
+# ΒΙΒΛΙΟΘΗΚΕΣ:
+#   numpy      → εφαρμογή μετασχηματισμών (@ operator)
+#   sympy      → πυρήνας, εικόνα, ακριβής λύση
+#   matplotlib → γεωμετρική οπτικοποίηση (μοναδιαίος κύκλος,
+#                μετασχηματισμός πολυγώνων)
+#
+# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
+#   A @ v                    → T(v) = εφαρμογή μετασχηματισμού
+#   A @ B                    → σύνθεση T₂∘T₁
+#   np.linalg.inv(A)         → αντίστροφος μετασχηματισμός
+#   sympy.Matrix.nullspace() → πυρήνας
+#   sympy.Matrix.columnspace()→ εικόνα
+#   np.linalg.det(A)         → det (αντιστρεψιμότητα, εμβαδόν)
+# ============================================================
+
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+from matplotlib.patches import FancyArrowPatch
+from sympy import Matrix, pi, cos, sin, sqrt, Rational, pprint
+
+print("=" * 55)
+print(" Κεφάλαιο 4: Γραμμικοί Μετασχηματισμοί — Python")
+print("=" * 55)
+
+# ── Α. Ορισμός &amp; Εφαρμογή Μετασχηματισμού ────────────────
+print("\n── Α. Μετασχηματισμός T: ℝ³ → ℝ³ ──")
+
+A = np.array([[ 1,  2,  0],
+              [ 3, -1,  1],
+              [ 0,  2, -1]], dtype=float)
+
+print("A =\n", A)
+
+# Εφαρμογή σε βασικά διανύσματα
+e1, e2, e3 = np.eye(3)
+print(f"\nT(e₁) = {A @ e1}")
+print(f"T(e₂) = {A @ e2}")
+print(f"T(e₃) = {A @ e3}")
+
+u = np.array([2, -1, 3])
+print(f"\nT([2,-1,3]ᵀ) = {A @ u}")
+
+# Έλεγχος γραμμικότητας
+w = np.array([1, 1, 1])
+alpha, beta = 2, -1
+lhs = A @ (alpha*u + beta*w)
+rhs = alpha*(A @ u) + beta*(A @ w)
+print(f"\nΈλεγχος: T(2u-w) = {lhs}")
+print(f"         2T(u)-T(w) = {rhs}")
+print(f"Ισότητα: {np.allclose(lhs, rhs)}  ✓")
+
+# ── Β. Πυρήνας (Kernel) &amp; Εικόνα (Image) ─────────────────
+print("\n── Β. Ker(T) &amp; Im(T) ──")
+
+A_sym = Matrix([[ 1,  2,  0],
+                [ 3, -1,  1],
+                [ 0,  2, -1]])
+
+r = A_sym.rank()
+print(f"rank(A)  = {r}  →  dim(Im) = {r}")
+print(f"nullity  = {3-r}  →  dim(Ker) = {3-r}")
+print(f"rank + nullity = {r} + {3-r} = 3 = n  ✓")
+
+ker = A_sym.nullspace()
+print("\nKer(T):")
+if ker:
+    for v in ker: pprint(v.T)
+else:
+    print("  {0}  (μόνο το μηδενικό διάνυσμα)")
+
+print("\nIm(T) — βάση:")
+for v in A_sym.columnspace(): pprint(v.T)
+
+# ── Γ. Γεωμετρικοί Μετασχηματισμοί στο ℝ² ───────────────
+print("\n── Γ. Γεωμετρικοί Μετασχηματισμοί ──")
+
+def rot(theta_deg):
+    """Πίνακας στροφής κατά θ μοίρες."""
+    t = np.radians(theta_deg)
+    return np.array([[np.cos(t), -np.sin(t)],
+                     [np.sin(t),  np.cos(t)]])
+
+def ref_x():
+    return np.array([[1, 0], [0, -1]])
+
+def scale(sx, sy):
+    return np.array([[sx, 0], [0, sy]])
+
+def shear(k):
+    """Διάτμηση ως προς x."""
+    return np.array([[1, k], [0, 1]])
+
+R45  = rot(45)
+R90  = rot(90)
+Refx = ref_x()
+Sc   = scale(2, 0.5)
+Sh   = shear(1)
+
+print(f"R₄₅·(1,0)ᵀ = {np.round(R45 @ [1,0], 6)}")
+print(f"  (= (√2/2, √2/2) ≈ (0.7071, 0.7071) ✓)")
+print(f"det(R₄₅) = {np.linalg.det(R45):.6f}  (= 1 → διατηρεί εμβαδόν ✓)")
+print(f"det(Ref_x) = {np.linalg.det(Refx):.1f}  (= -1 → αντιστρέφει προσανατολισμό)")
+print(f"det(Scale(2,0.5)) = {np.linalg.det(Sc):.4f}  (= 2·0.5 = 1)")
+
+# Σύνθεση: μη αντιμεταθετική
+print(f"\nR₉₀∘Ref_x =\n{np.round(R90 @ Refx, 6)}")
+print(f"Ref_x∘R₉₀ =\n{np.round(Refx @ R90, 6)}")
+print("Διαφορετικά!  →  μη αντιμεταθετικότητα ✓")
+
+# ── Δ. Γραφική Απεικόνιση ──────────────────────────────────
+print("\n── Δ. Γραφική Απεικόνιση ──")
+
+# Τετράγωνο μοναδιαίας πλευράς (+ κλειστό)
+sq = np.array([[0,1,1,0,0],
+               [0,0,1,1,0]], dtype=float)
+
+fig, axes = plt.subplots(2, 3, figsize=(13, 8))
+fig.suptitle("Γεωμετρικοί Γραμμικοί Μετασχηματισμοί", fontsize=13, fontweight='bold')
+
+transforms = [
+    (np.eye(2),  "Ταυτοτικός $I$"),
+    (R45,        "Στροφή $45°$"),
+    (R90,        "Στροφή $90°$"),
+    (Refx,       "Ανάκλαση ως προς $x$"),
+    (Sc,         "Κλιμάκωση\n$s_x=2, s_y=0.5$"),
+    (Sh,         "Διάτμηση $k=1$"),
+]
+
+for ax, (T, title) in zip(axes.flat, transforms):
+    sq_t = T @ sq
+    ax.fill(sq[0], sq[1], alpha=0.25, color='royalblue', label='Αρχικό')
+    ax.fill(sq_t[0], sq_t[1], alpha=0.35, color='tomato', label='Μετά T')
+    ax.plot(sq[0], sq[1], 'royalblue', lw=1.5)
+    ax.plot(sq_t[0], sq_t[1], 'tomato', lw=2)
+    ax.axhline(0, color='k', lw=0.5); ax.axvline(0, color='k', lw=0.5)
+    ax.set_xlim(-2.2, 2.2); ax.set_ylim(-2.2, 2.2)
+    ax.set_aspect('equal'); ax.grid(True, alpha=0.3)
+    ax.set_title(title, fontsize=9)
+    det_T = np.linalg.det(T)
+    ax.set_xlabel(f"det = {det_T:.3f}", fontsize=8)
+    ax.legend(fontsize=7, loc='upper right')
+
+plt.tight_layout()
+plt.show()
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector('.tab-btn.' + name).classList.add('active');
+}
+function loadCode(file, elementId, lang) {
+  fetch(file + '?v=' + Date.now())
+    .then(r => r.ok ? r.text() : Promise.reject(r.status))
+    .then(text => {
+      const el = document.getElementById(elementId);
+      el.textContent = text; el.className = 'language-' + lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err => {
+      document.getElementById(elementId).textContent =
+        '⚠ Αδυναμία φόρτωσης (' + err + '). Χρησιμοποιήστε "Λήψη".';
+    });
+}
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+originalPy = $('py-editor').value;
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    return await loadPyodide();
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    const code = $('py-editor').value;
+    setStatus('Φόρτωση βιβλιοθηκών…');
+    await py.loadPackagesFromImports(code);
+    setStatus('Εκτέλεση…');
+    await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
+    py.globals.set('__user_src__', code);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+_imgs = []
+try:
+    import matplotlib.pyplot as plt
+    for _n in plt.get_fignums():
+        _f = plt.figure(_n); _b = io.BytesIO()
+        _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+        _imgs.append(base64.b64encode(_b.read()).decode())
+    plt.close('all')
+except Exception:
+    pass
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Σφάλμα: ' + e;
+    setStatus('Σφάλμα');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

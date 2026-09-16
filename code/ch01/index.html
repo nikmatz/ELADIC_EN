@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Κώδικας Κεφ. 1 — Γραμμικοί Διανυσματικοί Χώροι · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root {
+    --blue:   #1a5276;
+    --teal:   #0e6655;
+    --orange: #ca6f1e;
+    --bg:     #f5f5f0;
+    --white:  #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: #222; }
+
+  header {
+    background: var(--blue);
+    color: white;
+    padding: 18px 24px;
+  }
+  header h1 { font-size: 1.25rem; font-weight: 700; }
+  header p  { font-size: 0.9rem; margin-top: 4px; opacity: .85; }
+
+  .breadcrumb {
+    font-size: 0.82rem;
+    padding: 10px 24px;
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+  }
+  .breadcrumb a { color: var(--blue); text-decoration: none; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+
+  .info-box {
+    background: white;
+    border-left: 5px solid var(--blue);
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+  .info-box h2 { font-size: 1rem; color: var(--blue); margin-bottom: 8px; }
+  .info-box p  { font-size: 0.88rem; line-height: 1.6; }
+
+  .tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 0;
+  }
+  .tab-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px 6px 0 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .tab-btn.maxima { background: #d5f5e3; color: var(--teal); }
+  .tab-btn.python { background: #d6eaf8; color: var(--blue); }
+  .tab-btn.active.maxima { background: var(--teal); color: white; }
+  .tab-btn.active.python { background: var(--blue); color: white; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .code-card {
+    background: white;
+    border-radius: 0 6px 6px 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    overflow: hidden;
+  }
+  .code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .code-header.maxima { background: var(--teal); color: white; }
+  .code-header.python { background: var(--blue); color: white; }
+
+  .download-btn {
+    display: inline-block;
+    padding: 5px 12px;
+    background: rgba(255,255,255,.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,.5);
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: background .2s;
+  }
+  .download-btn:hover { background: rgba(255,255,255,.35); }
+
+  pre[class*="language-"] {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    max-height: 520px;
+    overflow-y: auto;
+    font-size: 0.83rem;
+  }
+
+  .commands-box {
+    background: #fffde7;
+    border: 1px solid #f9a825;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 0.85rem;
+  }
+  .commands-box strong { color: var(--orange); }
+  .commands-box code { background: #fff3cd; padding: 1px 5px; border-radius: 3px; font-size: 0.82rem; }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 32px;
+    border-top: 1px solid #ddd;
+  }
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📐 Κεφάλαιο 1 — Γραμμικοί Διανυσματικοί Χώροι</h1>
+  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+</header>
+
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 1
+</div>
+
+<div class="container">
+
+  <div class="info-box">
+    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
+    <p>
+      <strong>Αντικείμενο:</strong> ορίζουσα &amp; τάξη, κλιμακωτή μορφή, μηδενόχωρος και χώρος στηλών, γραμμική ανεξαρτησία, Gram–Schmidt<br><br>
+      Επιλέξτε γλώσσα από τις καρτέλες παρακάτω.
+      Τον κώδικα <strong>Python</strong> μπορείτε να τον <strong>τρέξετε εδώ μέσα στη σελίδα</strong> (κουμπί «▶ Τρέξε») — μπορείτε και να τον επεξεργαστείτε. Ο κώδικας <strong>Maxima</strong> εκτελείται στο <strong>wxMaxima</strong>.
+    </p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+
+  <!-- ── Maxima Tab ── -->
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_vectors.mac</span>
+        <a class="download-btn"
+           href="maxima_vectors.mac" download>⬇ Λήψη .mac</a>
+        <a class="download-btn" href="maxima_vectors.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Λήψη .wxmx</a>
+      </div>
+
+      <div class="commands-box" style="margin:12px 16px 0;">
+        <strong>Βασικές εντολές:</strong>
+        <code>determinant(A)</code> &nbsp;
+        <code>rank(A)</code> &nbsp;
+        <code>echelon(A)</code> &nbsp;
+        <code>nullspace(A)</code> &nbsp;
+        <code>columnspace(A)</code>
+      </div>
+
+      <pre><code class="language-maxima" id="maxima-code">/* ============================================================
+   maxima_vectors.mac
+   Κεφάλαιο 1 — Γραμμικοί Διανυσματικοί Χώροι
+   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   ============================================================
+
+   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
+     determinant(A)   → ορίζουσα τετραγωνικού πίνακα
+     rank(A)          → τάξη πίνακα
+     echelon(A)       → κλιμακωτή μορφή (η Maxima ΔΕΝ διαθέτει rref)
+     nullspace(A)     → μηδενόχωρος (null space)
+     columnspace(A)   → χώρος στηλών
+     invert(A)        → αντίστροφος πίνακας
+     load("eigen")    → φόρτωση πακέτου ιδιοτιμών
+
+   Εκτελέστε με: wxMaxima (Load/File) ή
+                 maxima -b maxima_vectors.mac
+   ============================================================ */
+
+/* ── Μέρος Α: Ορισμός και Πράξεις Πινάκων ───────────────── */
+print("════ Α. Πράξεις Πινάκων ════");
+
+/* Πίνακας A 3×3 */
+A : matrix([1, 2, 1],
+           [2, 1, 3],
+           [1, 3, -1]);
+
+print("Πίνακας A =");
+print(A);
+
+/* Ορίζουσα */
+det_A : determinant(A);
+print("det(A) =", det_A);
+
+/* Τάξη */
+r : rank(A);
+print("rank(A) =", r);
+
+/* ── Μέρος Β: Κλιμακωτή Μορφή &amp; Μηδενόχωρος ────────────── */
+print("════ Β. Κλιμακωτή Μορφή &amp; Χώροι ════");
+
+/* Κλιμακωτή μορφή — τα οδηγά στοιχεία φαίνονται κατευθείαν */
+A_ech : echelon(A);
+print("Κλιμακωτή(A) =");
+print(A_ech);
+
+/* Μηδενόχωρος: Ax = 0 */
+ns : nullspace(A);
+print("Null space (Μηδενόχωρος) του A:");
+print(ns);
+
+/* Χώρος στηλών */
+cs : columnspace(A);
+print("Column space (Χώρος Στηλών) του A:");
+print(cs);
+
+/* ── Μέρος Γ: Γραμμική Ανεξαρτησία ─────────────────────── */
+print("════ Γ. Γραμμική Ανεξαρτησία ════");
+
+/* Διανύσματα v1, v2, v3 */
+v1 : matrix([1], [0], [1]);
+v2 : matrix([0], [1], [1]);
+v3 : matrix([1], [1], [2]);    /* v3 = v1 + v2  (γραμμικά εξαρτημένα) */
+
+/* Ελέγχουμε αν {v1, v2, v3} είναι γραμμικά ανεξάρτητα
+   σχηματίζοντας πίνακα με τα v ως στήλες */
+M : addcol(v1, v2, v3);
+print("Πίνακας [v1|v2|v3] =");
+print(M);
+print("rank([v1|v2|v3]) =", rank(M));
+print("→ Αν rank &lt; 3  ⇒  γραμμικά ΕΞΑΡΤΗΜΕΝΑ");
+print("  Εδώ rank =", rank(M), "&lt; 3, άρα εξαρτημένα ✓");
+
+/* Επαλήθευση: v3 = v1 + v2 */
+print("Επαλήθευση: v3 - v1 - v2 =", expand(v3 - v1 - v2));
+
+/* ── Μέρος Δ: Αλγόριθμος Gram-Schmidt ───────────────────── */
+print("════ Δ. Gram-Schmidt Ορθοκανονικοποίηση ════");
+
+/* Ξεκινάμε με γραμμικά ανεξάρτητα διανύσματα */
+u1 : matrix([1], [1], [0]);
+u2 : matrix([1], [0], [1]);
+u3 : matrix([0], [1], [1]);
+
+/* Gram-Schmidt: e1, e2, e3 */
+/* Βήμα 1: e1 = u1 / |u1| */
+e1_unnorm : u1;
+e1 : e1_unnorm / sqrt(e1_unnorm . e1_unnorm);
+e1 : ratsimp(e1);
+print("e₁ =", e1);
+
+/* Βήμα 2: αφαιρούμε τη συνιστώσα παράλληλα στο e1 */
+e2_unnorm : u2 - (u2 . e1) * e1;
+e2_unnorm : ratsimp(e2_unnorm);
+e2 : e2_unnorm / sqrt(e2_unnorm . e2_unnorm);
+e2 : ratsimp(e2);
+print("e₂ =", e2);
+
+/* Βήμα 3 */
+e3_unnorm : u3 - (u3 . e1) * e1 - (u3 . e2) * e2;
+e3_unnorm : ratsimp(e3_unnorm);
+e3 : e3_unnorm / sqrt(e3_unnorm . e3_unnorm);
+e3 : ratsimp(e3);
+print("e₃ =", e3);
+
+/* Επαλήθευση: e1·e2 = 0, e2·e3 = 0, e1·e3 = 0 */
+print("Ορθογωνιότητα:");
+print("  e₁·e₂ =", ratsimp(e1 . e2));
+print("  e₁·e₃ =", ratsimp(e1 . e3));
+print("  e₂·e₃ =", ratsimp(e2 . e3));
+
+/* Επαλήθευση μοναδιαίων νορμών */
+print("Νόρμες:");
+print("  |e₁|² =", ratsimp(e1 . e1));
+print("  |e₂|² =", ratsimp(e2 . e2));
+print("  |e₃|² =", ratsimp(e3 . e3));
+
+/* ── Μέρος Ε: Βάση και Διάσταση ─────────────────────────── */
+print("════ Ε. Βάση και Διάσταση ════");
+
+/* Βρίσκουμε βάση του χώρου στηλών του A */
+print("Βάση του χώρου στηλών (column space) του A:");
+print(columnspace(A));
+print("Διάσταση (rank) =", rank(A));
+
+/* Nullity */
+print("Nullity = n - rank = 3 -", rank(A), "=", 3 - rank(A));
+
+print("════ Τέλος ════");
+</code></pre>
+    </div>
+  </div>
+
+  <!-- ── Python Tab ── -->
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_vectors.py</span>
+        <a class="download-btn"
+           href="python_vectors.py" download>⬇ Λήψη .py</a>
+      </div>
+
+      <div class="commands-box" style="margin:12px 16px 0;">
+        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <code>np.linalg.matrix_rank()</code> &nbsp;
+        <code>sympy.Matrix.rref()</code> &nbsp;
+        <code>sympy.Matrix.nullspace()</code> &nbsp;
+        <code>np.linalg.norm()</code> &nbsp;
+        <code>mpl_toolkits.mplot3d</code>
+      </div>
+
+            <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Τρέξε</button>
+        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
+        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
+# python_vectors.py
+# Κεφάλαιο 1 — Γραμμικοί Διανυσματικοί Χώροι
+# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# ============================================================
+#
+# ΒΙΒΛΙΟΘΗΚΕΣ:
+#   numpy    → γραμμική άλγεβρα (rank, det, SVD, null space)
+#   scipy    → επιπλέον εργαλεία (null_space)
+#   sympy    → ακριβείς υπολογισμοί (rref, GS συμβολικά)
+#   matplotlib → οπτικοποίηση διανυσμάτων στο R²/R³
+#
+# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
+#   np.linalg.det(A)        → ορίζουσα
+#   np.linalg.matrix_rank(A)→ τάξη
+#   np.linalg.svd(A)        → SVD ανάλυση
+#   sympy.Matrix(A).rref()  → ανηγμένη κλιμακωτή (RREF)
+#   sympy.Matrix(A).nullspace()  → μηδενόχωρος
+#   sympy.Matrix(A).columnspace()→ χώρος στηλών
+# ============================================================
+
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from sympy import Matrix, Rational, sqrt, symbols, pprint
+
+print("=" * 55)
+print(" Κεφάλαιο 1: Γραμμικοί Διανυσματικοί Χώροι — Python")
+print("=" * 55)
+
+# ── Α. Πίνακας, Ορίζουσα, Τάξη ───────────────────────────
+print("\n── Α. Ανάλυση Πίνακα ──")
+
+A = np.array([[1, 2, 1],
+              [2, 1, 3],
+              [1, 3, -1]], dtype=float)
+
+print("Πίνακας A:")
+print(A)
+print(f"\ndet(A) = {np.linalg.det(A):.4f}")
+print(f"rank(A) = {np.linalg.matrix_rank(A)}")
+
+# ── Β. RREF και Χώροι (SymPy — ακριβής) ──────────────────
+print("\n── Β. RREF &amp; Χώροι (SymPy) ──")
+
+A_sym = Matrix([[1, 2, 1],
+                [2, 1, 3],
+                [1, 3, -1]])
+
+rref_A, pivots = A_sym.rref()
+print("RREF(A):")
+pprint(rref_A)
+print(f"Pivot στήλες: {pivots}")
+
+print("\nNull space (Μηδενόχωρος) — Ax=0:")
+ns = A_sym.nullspace()
+if ns:
+    for i, v in enumerate(ns):
+        print(f"  v{i+1} =", end=" ")
+        pprint(v.T)
+else:
+    print("  Τετριμμένος (μηδέν) — A αντιστρέψιμος")
+
+print("\nColumn space (Χώρος Στηλών):")
+cs = A_sym.columnspace()
+for i, v in enumerate(cs):
+    print(f"  c{i+1} =", end=" ")
+    pprint(v.T)
+
+# ── Γ. Γραμμική Ανεξαρτησία ───────────────────────────────
+print("\n── Γ. Γραμμική Ανεξαρτησία ──")
+
+v1 = np.array([1, 0, 1])
+v2 = np.array([0, 1, 1])
+v3 = np.array([1, 1, 2])   # v3 = v1 + v2  → εξαρτημένα
+
+M = np.column_stack([v1, v2, v3])
+r = np.linalg.matrix_rank(M)
+
+print(f"v₁ = {v1}")
+print(f"v₂ = {v2}")
+print(f"v₃ = {v3}  ← v₃ = v₁ + v₂")
+print(f"\nrank([v₁|v₂|v₃]) = {r}")
+print(f"→ rank = {r} &lt; 3  ⇒  γραμμικά ΕΞΑΡΤΗΜΕΝΑ ✓")
+
+# Ανεξάρτητα σύνολα
+w1 = np.array([1, 1, 0])
+w2 = np.array([1, 0, 1])
+w3 = np.array([0, 1, 1])
+N = np.column_stack([w1, w2, w3])
+print(f"\nw₁={w1}, w₂={w2}, w₃={w3}")
+print(f"rank([w₁|w₂|w₃]) = {np.linalg.matrix_rank(N)}")
+print(f"→ rank = 3  ⇒  γραμμικά ΑΝΕΞΑΡΤΗΤΑ ✓")
+
+# ── Δ. Gram-Schmidt Ορθοκανονικοποίηση ────────────────────
+print("\n── Δ. Gram-Schmidt ──")
+
+def gram_schmidt(vectors):
+    """Gram-Schmidt ορθοκανονικοποίηση συνόλου διανυσμάτων."""
+    orthonormal = []
+    for v in vectors:
+        w = v.copy().astype(float)
+        for e in orthonormal:
+            w -= np.dot(w, e) * e   # αφαιρούμε προβολή
+        norm = np.linalg.norm(w)
+        if norm &gt; 1e-10:            # αν δεν είναι μηδέν
+            orthonormal.append(w / norm)
+    return orthonormal
+
+basis = [w1.astype(float), w2.astype(float), w3.astype(float)]
+ONB   = gram_schmidt(basis)
+
+print("Αρχική βάση: w₁, w₂, w₃")
+print("Ορθοκανονική βάση {e₁, e₂, e₃}:")
+for i, e in enumerate(ONB):
+    print(f"  e{i+1} = {np.round(e, 6)}")
+
+# Επαλήθευση ορθογωνιότητας
+print("\nΕπαλήθευση εσωτερικών γινομένων:")
+print(f"  e₁·e₂ = {ONB[0] @ ONB[1]:.10f}  (≈ 0 ✓)")
+print(f"  e₁·e₃ = {ONB[0] @ ONB[2]:.10f}  (≈ 0 ✓)")
+print(f"  e₂·e₃ = {ONB[1] @ ONB[2]:.10f}  (≈ 0 ✓)")
+print(f"  |e₁|  = {np.linalg.norm(ONB[0]):.6f}  (= 1 ✓)")
+
+# Κατασκευή πίνακα Q και επαλήθευση Q·Qᵀ = I
+Q = np.column_stack(ONB)
+QQT = Q @ Q.T
+print("\nQ·Qᵀ ≈ I₃:")
+print(np.round(QQT, 8))
+print("✓ Ορθοκανονικός πίνακας επαληθεύεται")
+
+# ── Ε. Γραφική Απεικόνιση ──────────────────────────────────
+print("\n── Ε. Γραφική Απεικόνιση ──")
+
+fig = plt.figure(figsize=(13, 5))
+fig.suptitle("Γραμμικοί Διανυσματικοί Χώροι — Διανύσματα στο ℝ³",
+             fontsize=13, fontweight='bold')
+
+# --- Αριστερά: Γραμμική εξάρτηση ---
+ax1 = fig.add_subplot(121, projection='3d')
+ax1.set_title("Γραμμική Εξάρτηση\n$v_3 = v_1 + v_2$")
+origin = [0, 0, 0]
+vecs  = [v1, v2, v3]
+colors = ['royalblue', 'tomato', 'forestgreen']
+labels = ['$v_1=(1,0,1)$', '$v_2=(0,1,1)$', '$v_3=v_1+v_2$']
+for v, col, lbl in zip(vecs, colors, labels):
+    ax1.quiver(*origin, *v, color=col, arrow_length_ratio=0.15,
+               linewidth=2, label=lbl)
+ax1.set_xlim([0, 1.5]); ax1.set_ylim([0, 1.5]); ax1.set_zlim([0, 2.5])
+ax1.set_xlabel('x'); ax1.set_ylabel('y'); ax1.set_zlabel('z')
+ax1.legend(fontsize=8, loc='upper left')
+
+# --- Δεξιά: Ορθοκανονική βάση Gram-Schmidt ---
+ax2 = fig.add_subplot(122, projection='3d')
+ax2.set_title("Ορθοκανονική Βάση (Gram-Schmidt)")
+colors2 = ['royalblue', 'tomato', 'forestgreen']
+labels2 = ['$e_1$', '$e_2$', '$e_3$']
+for e, col, lbl in zip(ONB, colors2, labels2):
+    ax2.quiver(*origin, *e, color=col, arrow_length_ratio=0.15,
+               linewidth=2.5, label=lbl)
+ax2.set_xlim([-0.8, 1]); ax2.set_ylim([-0.8, 1]); ax2.set_zlim([-0.8, 1])
+ax2.set_xlabel('x'); ax2.set_ylabel('y'); ax2.set_zlabel('z')
+ax2.legend(fontsize=8, loc='upper left')
+
+plt.tight_layout()
+plt.show()
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector('.tab-btn.' + name).classList.add('active');
+}
+
+/* Fetch and display code files */
+function loadCode(file, elementId, lang) {
+  fetch(file + '?v=' + Date.now())
+    .then(r => r.ok ? r.text() : Promise.reject(r.status))
+    .then(text => {
+      const el = document.getElementById(elementId);
+      el.textContent = text;
+      el.className = 'language-' + lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err => {
+      document.getElementById(elementId).textContent =
+        '⚠ Αδυναμία φόρτωσης αρχείου (' + err + ').\n' +
+        'Χρησιμοποιήστε το κουμπί "Λήψη" για να κατεβάσετε.';
+    });
+}
+
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+originalPy = $('py-editor').value;
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    return await loadPyodide();
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    const code = $('py-editor').value;
+    setStatus('Φόρτωση βιβλιοθηκών…');
+    await py.loadPackagesFromImports(code);
+    setStatus('Εκτέλεση…');
+    await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
+    py.globals.set('__user_src__', code);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+_imgs = []
+try:
+    import matplotlib.pyplot as plt
+    for _n in plt.get_fignums():
+        _f = plt.figure(_n); _b = io.BytesIO()
+        _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+        _imgs.append(base64.b64encode(_b.read()).decode())
+    plt.close('all')
+except Exception:
+    pass
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Σφάλμα: ' + e;
+    setStatus('Σφάλμα');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

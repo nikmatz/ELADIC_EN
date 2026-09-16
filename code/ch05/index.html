@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Κώδικας Κεφ. 5 — Ιδιοτιμές & Ιδιοδιανύσματα · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',Arial,sans-serif; background:var(--bg); color:#222; }
+  header { background:var(--blue); color:white; padding:18px 24px; }
+  header h1 { font-size:1.25rem; font-weight:700; }
+  header p  { font-size:0.9rem; margin-top:4px; opacity:.85; }
+  .breadcrumb { font-size:0.82rem; padding:10px 24px; background:#eee; border-bottom:1px solid #ddd; }
+  .breadcrumb a { color:var(--blue); text-decoration:none; }
+  .container { max-width:960px; margin:0 auto; padding:24px 16px; }
+  .info-box { background:white; border-left:5px solid var(--blue); padding:14px 18px;
+    margin-bottom:24px; border-radius:4px; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+  .info-box h2 { font-size:1rem; color:var(--blue); margin-bottom:8px; }
+  .info-box p  { font-size:0.88rem; line-height:1.6; }
+  .tabs { display:flex; gap:6px; }
+  .tab-btn { padding:10px 20px; border:none; border-radius:6px 6px 0 0;
+    font-size:0.9rem; font-weight:600; cursor:pointer; transition:background .2s; }
+  .tab-btn.maxima { background:#d5f5e3; color:var(--teal); }
+  .tab-btn.python { background:#d6eaf8; color:var(--blue); }
+  .tab-btn.active.maxima { background:var(--teal); color:white; }
+  .tab-btn.active.python { background:var(--blue); color:white; }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+  .code-card { background:white; border-radius:0 6px 6px 6px; box-shadow:0 2px 8px rgba(0,0,0,.1); overflow:hidden; }
+  .code-header { display:flex; justify-content:space-between; align-items:center;
+    padding:10px 16px; font-size:0.85rem; font-weight:600; }
+  .code-header.maxima { background:var(--teal); color:white; }
+  .code-header.python { background:var(--blue); color:white; }
+  .download-btn { display:inline-block; padding:5px 12px; background:rgba(255,255,255,.2);
+    color:white; border:1px solid rgba(255,255,255,.5); border-radius:4px;
+    text-decoration:none; font-size:0.8rem; font-weight:600; }
+  .download-btn:hover { background:rgba(255,255,255,.35); }
+  pre[class*="language-"] { margin:0!important; border-radius:0!important; max-height:520px; overflow-y:auto; font-size:0.83rem; }
+  .commands-box { background:#fffde7; border:1px solid #f9a825; border-radius:4px;
+    padding:12px 16px; margin:16px 0; font-size:0.85rem; }
+  .commands-box strong { color:var(--orange); }
+  .commands-box code { background:#fff3cd; padding:1px 5px; border-radius:3px; font-size:0.82rem; }
+  footer { text-align:center; padding:20px; font-size:0.8rem; color:#888;
+    margin-top:32px; border-top:1px solid #ddd; }
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📐 Κεφάλαιο 5 — Ιδιοτιμές και Ιδιοδιανύσματα</h1>
+  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+</header>
+
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 5
+</div>
+
+<div class="container">
+
+  <div class="info-box">
+    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
+    <p>
+      <strong>Αντικείμενο:</strong> χαρακτηριστικό πολυώνυμο, ιδιοτιμές και ιδιόχωροι, αλγεβρική έναντι γεωμετρικής πολλαπλότητας, ελαττωματικές ιδιοτιμές, στάσιμη κατανομή Markov<br><br>
+      Τον κώδικα <strong>Python</strong> μπορείτε να τον <strong>τρέξετε εδώ μέσα στη σελίδα</strong> (κουμπί «▶ Τρέξε») — μπορείτε και να τον επεξεργαστείτε. Ο κώδικας <strong>Maxima</strong> εκτελείται στο <strong>wxMaxima</strong>.
+    </p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_eigen.mac</span>
+        <a class="download-btn" href="maxima_eigen.mac" download>⬇ Λήψη .mac</a>
+        <a class="download-btn" href="maxima_eigen.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Λήψη .wxmx</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0;">
+        <strong>Βασικές εντολές:</strong>
+        <code>load(&quot;eigen&quot;)</code> &nbsp;
+        <code>eigenvalues(A)</code> &nbsp;
+        <code>eigenvectors(A)</code> &nbsp;
+        <code>charpoly(A,λ)</code> &nbsp;
+        <code>nullspace(A-λ*I)</code>
+      </div>
+      <pre><code class="language-maxima" id="maxima-code">/* ============================================================
+   maxima_eigen.mac
+   Κεφάλαιο 5 — Ιδιοτιμές, Χαρακτηριστικό Πολυώνυμο, Ιδιόχωροι
+   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   ============================================================
+
+   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
+     load("eigen")           → φόρτωση πακέτου ιδιοτιμών
+     charpoly(A, lam)        → χαρακτηριστικό πολυώνυμο det(A - λI)
+     solve(p = 0, lam)       → ρίζες του χαρακτηριστικού πολυωνύμου
+     eigenvalues(A)          → [[ιδιοτιμές], [πολλαπλότητες]]
+     eigenvectors(A)         → ιδιοτιμές + πολλαπλότητες + ιδιοδιανύσματα
+     nullspace(A - lam*I)    → ιδιόχωρος (πυρήνας) της ιδιοτιμής λ
+     ident(n), rank(M)       → μοναδιαίος πίνακας, τάξη
+
+   Δραστηριότητα βιβλίου: (α) χαρ. πολυώνυμο &amp; tr/det,
+     (β) ιδιόχωροι του A, (γ) ιδιοτιμές τριγωνικού C,
+     (δ) αλγεβρική vs γεωμετρική πολλαπλότητα.
+
+   Εκτελέστε με: wxMaxima (Load/File) ή
+                 maxima -b maxima_eigen.mac
+   ============================================================ */
+
+load("eigen")$
+
+/* Βοηθητικό: ισότητα πινάκων μέσω της διαφοράς τους */
+mat_equal(M, N) := is( ratsimp(M - N) = zeromatrix(length(M), length(M[1])) )$
+
+/* Βοηθητικό: λίστα ιδιοτιμών ΜΕ τις πολλαπλότητές τους.
+   Η eigenvalues() επιστρέφει [[λ₁,λ₂,...],[m₁,m₂,...]] — η
+   solve() θα έδινε μόνο τις ΔΙΑΚΡΙΤΕΣ ρίζες, οπότε τα αθροίσματα
+   και τα γινόμενα θα ήταν λανθασμένα για πολλαπλές ιδιοτιμές. */
+eigs_with_mult(M) := block([ev, vals, mults, out],
+    ev : eigenvalues(M),
+    vals : ev[1], mults : ev[2], out : [],
+    for i : 1 thru length(vals) do
+        for k : 1 thru mults[i] do out : endcons(vals[i], out),
+    out)$
+
+/* ── Α. (α) Χαρακτηριστικό πολυώνυμο, tr(A)=Σλ, det(A)=Πλ ─ */
+print("════ Α. (α) Χαρακτηριστικό Πολυώνυμο ════");
+
+A : matrix([4, 1],
+           [2, 3]);
+print("A ="); print(A);
+
+p_A : expand(charpoly(A, lam));
+print("p(λ) = det(A - λI) =", p_A);
+print("  σε παραγοντοποιημένη μορφή:", factor(p_A));
+print("  [Αναμένεται: (λ-5)(λ-2) ✓]");
+
+print("Ρίζες: solve(p(λ)=0, λ) →", solve(p_A = 0, lam));
+
+/* Ιδιοτιμές ΜΕ πολλαπλότητες (σωστό για tr/det) */
+print("eigenvalues(A) =", eigenvalues(A));
+evA : eigs_with_mult(A);
+print("Ιδιοτιμές με πολλαπλότητες: λ =", evA, "  [Αναμένεται [2,5]]");
+
+tr_A : A[1][1] + A[2][2];
+sum_A : apply("+", evA);
+det_A : determinant(A);
+prod_A : apply("*", evA);
+print("tr(A) =", tr_A, " | Σλᵢ =", sum_A, " | Ισότητα:", is(tr_A = sum_A));
+print("det(A) =", det_A, " | Πλᵢ =", prod_A, " | Ισότητα:", is(det_A = prod_A));
+
+/* Επαλήθευση det(A - λᵢI) = 0 για κάθε ιδιοτιμή */
+for lv in evA do
+    print("  λ =", lv, "→ det(A - λI) =", ratsimp(determinant(A - lv*ident(2))));
+
+/* ── Β. (β) Ιδιόχωροι του A και επαλήθευση A·v = λ·v ─────── */
+print("════ Β. (β) Ιδιόχωροι — nullspace(A - λI) ════");
+
+for lv in listify(setify(evA)) do block([Mk, ns, basis, v],
+    Mk : A - lv*ident(2),
+    print("─ λ =", lv, ": A - λI ="), print(Mk),
+    ns : nullspace(Mk),
+    print("  nullspace(A - λI) =", ns),
+    basis : args(ns),
+    print("  διάσταση ιδιόχωρου (γεωμετρική πολλαπλότητα) =", length(basis)),
+    for v in basis do (
+        print("  v =", transpose(v), "ᵀ"),
+        print("  A·v =", transpose(ratsimp(A . v)), "ᵀ",
+              " | λ·v =", transpose(ratsimp(lv * v)), "ᵀ"),
+        print("  A·v = λ·v ;  Έλεγχος:", mat_equal(A . v, lv * v))
+    )
+);
+
+print("eigenvectors(A) =", eigenvectors(A));
+
+/* ── Γ. (γ) Κάτω τριγωνικός C — γιατί λ = διαγώνια στοιχεία ─ */
+print("════ Γ. (γ) Τριγωνικός πίνακας C ════");
+
+C : matrix([2, 0, 0],
+           [1, 3, 0],
+           [0, 1, 2]);
+print("C ="); print(C);
+
+print("C - λI ="); print(C - lam*ident(3));
+p_C : charpoly(C, lam);
+print("p(λ) = det(C - λI) =", factor(expand(p_C)));
+print("  [Αναμένεται: (λ-2)²(λ-3) ✓]");
+print("Γιατί; Η ορίζουσα ΤΡΙΓΩΝΙΚΟΥ πίνακα είναι το γινόμενο των");
+print("διαγώνιων στοιχείων. Ο C - λI παραμένει κάτω τριγωνικός, άρα");
+print("det(C - λI) = (2-λ)(3-λ)(2-λ) → ρίζες ΑΚΡΙΒΩΣ τα διαγώνια 2, 3, 2.");
+print("Γινόμενο διαγώνιων του C - λI:",
+      factor(expand((C[1][1]-lam)*(C[2][2]-lam)*(C[3][3]-lam))));
+print("Ταυτίζεται με το p(λ) ;  Έλεγχος:",
+      is(ratsimp(expand(p_C) - expand((C[1][1]-lam)*(C[2][2]-lam)*(C[3][3]-lam))) = 0));
+
+print("eigenvectors(C) ="); print(eigenvectors(C));
+
+evC : eigs_with_mult(C);
+print("Ιδιοτιμές με πολλαπλότητες:", evC, "  [Αναμένεται [2,2,3]]");
+tr_C : C[1][1] + C[2][2] + C[3][3];
+print("tr(C) =", tr_C, " | Σλᵢ =", apply("+", evC),
+      " | Ισότητα:", is(tr_C = apply("+", evC)));
+print("det(C) =", determinant(C), " | Πλᵢ =", apply("*", evC),
+      " | Ισότητα:", is(determinant(C) = apply("*", evC)));
+
+/* ── Δ. (δ) Αλγεβρική vs γεωμετρική πολλαπλότητα του C ───── */
+print("════ Δ. (δ) Αλγεβρική vs Γεωμετρική Πολλαπλότητα ════");
+
+evsC : eigenvalues(C)$
+valsC : evsC[1]$
+multC : evsC[2]$
+
+defective : false$
+for i : 1 thru length(valsC) do block([lv, ma, Mk, ns, mg],
+    lv : valsC[i],
+    ma : multC[i],
+    Mk : C - lv*ident(3),
+    ns : nullspace(Mk),
+    mg : length(args(ns)),
+    print("─ λ =", lv),
+    print("  αλγεβρική πολλαπλότητα m_a =", ma),
+    print("  nullspace(C - λI) =", ns),
+    print("  γεωμετρική πολλαπλότητα m_g = dim ker = n - rank =",
+          3 - rank(Mk), " = ", mg),
+    if mg &lt; ma then (
+        defective : true,
+        print("  m_g &lt; m_a  →  ΕΛΑΤΤΩΜΑΤΙΚΗ ιδιοτιμή")
+    ) else
+        print("  m_g = m_a  →  κανονική ιδιοτιμή")
+);
+
+print("Σύνολο γεωμετρικών πολλαπλοτήτων =",
+      sum(3 - rank(C - valsC[i]*ident(3)), i, 1, length(valsC)),
+      "( &lt; 3 → ο C ΔΕΝ είναι διαγωνιοποιήσιμος )");
+print("Υπάρχει ελαττωματική ιδιοτιμή:", defective);
+
+print("════ Τέλος ════");
+</code></pre>
+    </div>
+  </div>
+
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_eigen.py</span>
+        <a class="download-btn" href="python_eigen.py" download>⬇ Λήψη .py</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0;">
+        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <code>np.linalg.eig()</code> &nbsp;
+        <code>sympy.Matrix.eigenvects()</code> &nbsp;
+        <code>sympy.Matrix.charpoly()</code> &nbsp;
+        <code>np.linalg.matrix_power()</code> &nbsp;
+        <code>np.diag()</code>
+      </div>
+            <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Τρέξε</button>
+        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
+        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
+# python_eigen.py
+# Κεφάλαιο 5 — Ιδιοτιμές, NumPy, Ιδιόχωροι, Markov
+# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# ============================================================
+#
+# ΒΙΒΛΙΟΘΗΚΕΣ:
+#   numpy         → αριθμητικές ιδιοτιμές (eig), δυνάμεις πινάκων
+#   sympy         → ακριβείς ιδιοτιμές, ιδιόχωροι, χαρ. πολυώνυμο
+#   matplotlib    → σύγκλιση power iteration &amp; αλυσίδας Markov
+#
+# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
+#   sympy.Matrix.eigenvects()  → (λ, m_a, [ιδιοδιανύσματα]) ακριβώς
+#   sympy.Matrix.charpoly()    → χαρακτηριστικό πολυώνυμο
+#   np.linalg.eig(A)           → ιδιοτιμές + ιδιοδιανύσματα (αριθμητικά)
+#   np.linalg.matrix_power(M,n)→ Mⁿ
+#   np.diag(v)                 → διαγώνιος πίνακας
+#
+# Δραστηριότητα βιβλίου: (α) ακριβείς ιδιοτιμές/ιδιοδιανύσματα του A,
+#   (β) αριθμητική επαλήθευση A·v = λ·v, (γ) ελαττωματικός πίνακας
+#   [[3,1],[0,3]], (δ) στάσιμη κατανομή Markov, (ε) γραφήματα.
+# ============================================================
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sympy import Matrix, Symbol, Rational, factor
+
+print("=" * 58)
+print(" Κεφάλαιο 5: Ιδιοτιμές &amp; Ιδιόχωροι — Python")
+print("=" * 58)
+
+# ── Α. (α) Ακριβείς ιδιοτιμές/ιδιοδιανύσματα με SymPy ─────
+print("\n── Α. (α) SymPy: eigenvects, trace, det ──")
+
+A_sym = Matrix([[4, 1],
+                [2, 3]])
+lam = Symbol('lambda')
+
+print("A =", A_sym.tolist())
+print("p(λ) = det(A - λI) =", factor(A_sym.charpoly(lam).as_expr()))
+print("  [Αναμένεται: (λ-5)(λ-2) ✓]")
+
+print("\neigenvects(A):")
+eig_list = []          # λίστα ιδιοτιμών ΜΕ τις πολλαπλότητές τους
+for eigval, m_a, vecs in A_sym.eigenvects():
+    eig_list.extend([eigval] * m_a)
+    print(f"  λ = {eigval}   (αλγεβρική πολλαπλότητα m_a = {m_a},"
+          f" γεωμετρική m_g = {len(vecs)})")
+    for v in vecs:
+        print("    ιδιοδιάνυσμα vᵀ =", list(v))
+        print("    A·v = λ·v ;  Έλεγχος:", (A_sym * v) == (eigval * v))
+
+tr_A, det_A = A_sym.trace(), A_sym.det()
+sum_l = sum(eig_list)             # άθροισμα ΜΕ τις πολλαπλότητες
+prod_l = 1
+for e in eig_list:
+    prod_l *= e
+
+print(f"\ntr(A) = {tr_A} | Σλᵢ = {sum_l} | Ισότητα: {tr_A == sum_l}")
+print(f"det(A) = {det_A} | Πλᵢ = {prod_l} | Ισότητα: {det_A == prod_l}")
+print("  [Αναμένονται tr = 7 = 5+2, det = 10 = 5·2 ✓]")
+
+# ── Β. (β) Αριθμητική επαλήθευση A·v = λ·v (NumPy) ────────
+print("\n── Β. (β) NumPy: np.linalg.eig και A·v = λ·v ──")
+
+A = np.array([[4, 1],
+              [2, 3]], dtype=float)
+
+vals, vecs = np.linalg.eig(A)
+print("Ιδιοτιμές:", np.round(vals, 10))
+
+all_ok = True
+for i in range(len(vals)):
+    lv, v = vals[i], vecs[:, i]
+    res = A @ v - lv * v
+    ok = bool(np.allclose(res, 0))
+    all_ok = all_ok and ok
+    print(f"  λ{i+1} = {lv:.6f}  v{i+1} = {np.round(v, 6)}")
+    print(f"    A·v = {np.round(A @ v, 6)}   λ·v = {np.round(lv * v, 6)}")
+    print(f"    ‖A·v - λ·v‖ = {np.linalg.norm(res):.2e}  →  {ok}")
+print("Όλες οι σχέσεις A·v = λ·v επαληθεύονται:", all_ok)
+
+# Διαγωνιοποίηση: A = P·D·P⁻¹ (χρήσιμη στο (ε))
+P = vecs
+D = np.diag(vals)
+print("P·D·P⁻¹ == A ;  Έλεγχος:",
+      bool(np.allclose(P @ D @ np.linalg.inv(P), A)))
+
+# ── Γ. (γ) Ελαττωματικός πίνακας [[3,1],[0,3]] ────────────
+print("\n── Γ. (γ) Ελαττωματική ιδιοτιμή: B = [[3,1],[0,3]] ──")
+
+B_sym = Matrix([[3, 1],
+                [0, 3]])
+print("B =", B_sym.tolist())
+print("p(λ) =", factor(B_sym.charpoly(lam).as_expr()),
+      "  [Αναμένεται: (λ-3)² ✓]")
+print("eigenvals(B) =", B_sym.eigenvals(), "  → λ = 3 με m_a = 2")
+
+for eigval, m_a, vecs_b in B_sym.eigenvects():
+    m_g = len(vecs_b)
+    print(f"\n  λ = {eigval}")
+    print(f"  αλγεβρική πολλαπλότητα  m_a = {m_a}")
+    print(f"  ιδιόχωρος ker(B - λI) = span{[list(v) for v in vecs_b]}")
+    print(f"  γεωμετρική πολλαπλότητα m_g = dim ker = {m_g}")
+    print(f"  m_g &lt; m_a ;  Έλεγχος: {m_g &lt; m_a}"
+          f"  ({m_g} &lt; {m_a})")
+    if m_g &lt; m_a:
+        print("  → Η ιδιοτιμή είναι ΕΛΑΤΤΩΜΑΤΙΚΗ (defective)")
+
+# Ο ιδιόχωρος και μέσω nullspace του B - 3I
+N = (B_sym - 3 * Matrix.eye(2)).nullspace()
+print("\nnullspace(B - 3I) =", [list(v) for v in N],
+      " | διάσταση =", len(N))
+print("rank(B - 3I) =", (B_sym - 3 * Matrix.eye(2)).rank(),
+      " → dim ker = 2 - rank =", 2 - (B_sym - 3 * Matrix.eye(2)).rank())
+print("Ο B είναι διαγωνιοποιήσιμος:", B_sym.is_diagonalizable(),
+      " (χρειάζονταν 2 γραμμικά ανεξάρτητα ιδιοδιανύσματα, υπάρχει 1)")
+
+# ── Δ. (δ) Αλυσίδα Markov: στάσιμη κατανομή ───────────────
+print("\n── Δ. (δ) Αλυσίδα Markov — στάσιμη κατανομή π ──")
+
+M = np.array([[0.8, 0.3],
+              [0.2, 0.7]])
+print("M =\n", M)
+print("Στοχαστικός κατά στήλες (άθροισμα στηλών = 1):",
+      bool(np.allclose(M.sum(axis=0), 1.0)))
+
+M_vals, M_vecs = np.linalg.eig(M)
+print("Ιδιοτιμές M:", np.round(M_vals, 10),
+      " → υπάρχει λ = 1:", bool(np.any(np.isclose(M_vals, 1.0))))
+
+idx = int(np.argmin(np.abs(M_vals - 1.0)))
+pi = M_vecs[:, idx].real
+pi = pi / pi.sum()                     # κανονικοποίηση σε κατανομή
+print("π =", np.round(pi, 10), "  [Αναμένεται (0.6, 0.4)]")
+print("Άθροισμα π = ", round(float(pi.sum()), 10))
+print("M·π =", np.round(M @ pi, 10))
+print("M·π == π ;  Έλεγχος:", bool(np.allclose(M @ pi, pi)))
+
+# Ακριβής υπολογισμός με SymPy (ρητοί αριθμοί)
+M_sym = Matrix([[Rational(8, 10), Rational(3, 10)],
+                [Rational(2, 10), Rational(7, 10)]])
+ns = (M_sym - Matrix.eye(2)).nullspace()[0]
+pi_exact = ns / sum(ns)
+print("π (ακριβώς, SymPy) =", list(pi_exact), "  [= (3/5, 2/5) ✓]")
+print("M·π = π (ακριβώς) ;  Έλεγχος:", (M_sym * pi_exact) == pi_exact)
+
+# Σύγκλιση Mⁿ → [π | π]
+M50 = np.linalg.matrix_power(M, 50)
+print("\nM⁵⁰ =\n", np.round(M50, 10))
+print("Κάθε στήλη του M⁵⁰ ισούται με π ;  Έλεγχος:",
+      bool(np.allclose(M50, np.column_stack([pi, pi]))))
+
+# ── Ε. (ε) Προαιρετικό: power iteration &amp; Markov (γραφικά) ─
+print("\n── Ε. (ε) Προαιρετικό: γραφήματα σύγκλισης ──")
+
+
+def power_iteration(Mat, num_iter=25, seed=42):
+    """Μέθοδος δύναμης: εκτίμηση της κυρίαρχης ιδιοτιμής (πηλίκο Rayleigh)."""
+    rng = np.random.default_rng(seed)
+    x = rng.normal(size=Mat.shape[0])
+    x = x / np.linalg.norm(x)
+    estimates = []
+    for _ in range(num_iter):
+        y = Mat @ x
+        x = y / np.linalg.norm(y)
+        estimates.append(float(x @ (Mat @ x)))   # πηλίκο Rayleigh
+    return x, estimates
+
+
+v_est, history = power_iteration(A)
+lam_max = float(np.max(vals))
+lam_est = history[-1]
+print(f"Κυρίαρχη ιδιοτιμή (power iteration, 25 βήματα): {lam_est:.10f}")
+print(f"Ακριβής τιμή λ_max = {lam_max:.10f}"
+      f"  | σφάλμα = {abs(lam_est - lam_max):.2e}"
+      f"  | σύγκλιση: {abs(lam_est - lam_max) &lt; 1e-8}")
+
+# Πορεία της αλυσίδας Markov από την κατάσταση (1, 0)
+state = np.array([1.0, 0.0])
+traj = [state.copy()]
+for _ in range(25):
+    state = M @ state
+    traj.append(state.copy())
+traj = np.array(traj)
+print(f"Κατάσταση μετά από 25 βήματα: {np.round(traj[-1], 8)}"
+      f"  | ταυτίζεται με π: {bool(np.allclose(traj[-1], pi))}")
+
+fig, axes = plt.subplots(1, 3, figsize=(14, 4.5))
+fig.suptitle("Κεφ. 5 — Ιδιοδιανύσματα, Power Iteration, Markov",
+             fontsize=13, fontweight='bold')
+
+# (1) Ιδιοδιανύσματα του A στο επίπεδο
+ax1 = axes[0]
+ax1.set_title("Ιδιοδιανύσματα του $A$")
+colors = ['royalblue', 'tomato']
+for i in range(2):
+    vn = vecs[:, i] / np.linalg.norm(vecs[:, i])
+    ax1.annotate('', xy=vn, xytext=(0, 0),
+                 arrowprops=dict(arrowstyle='-&gt;', color=colors[i], lw=2.5))
+    ax1.annotate(f'$v_{i+1}$, $\\lambda={vals[i]:.0f}$', vn,
+                 fontsize=9, color=colors[i],
+                 xytext=(6, 6), textcoords='offset points')
+ax1.set_xlim(-1.5, 1.5); ax1.set_ylim(-1.5, 1.5)
+ax1.axhline(0, color='k', lw=0.5); ax1.axvline(0, color='k', lw=0.5)
+ax1.grid(True, alpha=0.3); ax1.set_aspect('equal')
+ax1.set_xlabel('x'); ax1.set_ylabel('y')
+
+# (2) Σύγκλιση power iteration
+ax2 = axes[1]
+ax2.set_title("Σύγκλιση Power Iteration")
+ax2.plot(range(1, len(history) + 1), history, 'o-', color='royalblue',
+         lw=1.8, ms=3, label='πηλίκο Rayleigh')
+ax2.axhline(lam_max, color='tomato', ls='--', lw=1.5,
+            label=f'$\\lambda_{{max}}={lam_max:.0f}$')
+ax2.set_xlabel("Επανάληψη"); ax2.set_ylabel("Εκτίμηση $\\lambda$")
+ax2.legend(fontsize=9); ax2.grid(True, alpha=0.3)
+
+# (3) Σύγκλιση αλυσίδας Markov προς π
+ax3 = axes[2]
+ax3.set_title("Αλυσίδα Markov → στάσιμη $\\pi$")
+ax3.plot(traj[:, 0], color='royalblue', lw=2, label='Κατάσταση 1')
+ax3.plot(traj[:, 1], color='tomato', lw=2, label='Κατάσταση 2')
+ax3.axhline(pi[0], color='royalblue', ls='--', lw=1, alpha=0.7)
+ax3.axhline(pi[1], color='tomato', ls='--', lw=1, alpha=0.7)
+ax3.text(14, pi[0] + 0.03, f'$\\pi_1={pi[0]:.1f}$', color='royalblue',
+         fontsize=9)
+ax3.text(14, pi[1] - 0.07, f'$\\pi_2={pi[1]:.1f}$', color='tomato',
+         fontsize=9)
+ax3.set_xlabel("Βήματα"); ax3.set_ylabel("Πιθανότητα")
+ax3.set_ylim(0, 1.05)
+ax3.legend(fontsize=9); ax3.grid(True, alpha=0.3)
+
+plt.tight_layout()
+print("Δημιουργήθηκαν τα γραφήματα σύγκλισης.")
+plt.show()
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelector('.tab-btn.' + name).classList.add('active');
+}
+function loadCode(file, elementId, lang) {
+  fetch(file + '?v=' + Date.now())
+    .then(r => r.ok ? r.text() : Promise.reject(r.status))
+    .then(text => {
+      const el = document.getElementById(elementId);
+      el.textContent = text; el.className = 'language-' + lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err => {
+      document.getElementById(elementId).textContent =
+        '⚠ Αδυναμία φόρτωσης (' + err + '). Χρησιμοποιήστε "Λήψη".';
+    });
+}
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+originalPy = $('py-editor').value;
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    return await loadPyodide();
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    const code = $('py-editor').value;
+    setStatus('Φόρτωση βιβλιοθηκών…');
+    await py.loadPackagesFromImports(code);
+    setStatus('Εκτέλεση…');
+    await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
+    py.globals.set('__user_src__', code);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+_imgs = []
+try:
+    import matplotlib.pyplot as plt
+    for _n in plt.get_fignums():
+        _f = plt.figure(_n); _b = io.BytesIO()
+        _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+        _imgs.append(base64.b64encode(_b.read()).decode())
+    plt.close('all')
+except Exception:
+    pass
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Σφάλμα: ' + e;
+    setStatus('Σφάλμα');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

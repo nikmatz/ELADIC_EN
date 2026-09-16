@@ -1,0 +1,114 @@
+/* ============================================================
+   maxima_deriv.mac
+   Κεφάλαιο 8 — Παράγωγος
+   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού & Ολοκληρωτικού Λογισμού. NewTech Publications.
+   ============================================================
+
+   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
+     diff(f, x)          → f'(x)  (πρώτη παράγωγος)
+     diff(f, x, n)       → f⁽ⁿ⁾(x)  (n-ιοστή παράγωγος)
+     diff(f, x, 1), ...  → μερικές παράγωγοι
+     at(expr, x=a)       → υπολογισμός στο x=a
+     subst(a, x, f)      → αντικατάσταση x=a σε f
+     ratsimp / trigsimp  → απλοποίηση
+     solve(eq, x)        → εύρεση κρίσιμων σημείων
+
+   Εκτελέστε με: wxMaxima (Load/File) ή
+                 maxima -b maxima_deriv.mac
+   ============================================================ */
+
+/* ── Μέρος Α: Βασικές Παράγωγοι ────────────────────────── */
+print("════ Α. Βασικές Παράγωγοι ════");
+
+/* Πολυώνυμα */
+f1 : 3*x^4 - 5*x^2 + 2*x - 7;
+print("f(x) =", f1);
+print("f'(x) =", diff(f1, x));
+print("f''(x) =", diff(f1, x, 2));
+
+/* Τριγωνομετρικές */
+print("");
+print("d/dx[sin(x)] =", diff(sin(x), x));
+print("d/dx[cos(x)] =", diff(cos(x), x));
+print("d/dx[tan(x)] =", trigsimp(diff(tan(x), x)));
+print("d/dx[sin²(x)] =", trigsimp(diff(sin(x)^2, x)));
+
+/* Εκθετικές / λογαριθμικές */
+print("");
+print("d/dx[e^x]   =", diff(%e^x, x));
+print("d/dx[e^(3x)]=", diff(%e^(3*x), x));
+print("d/dx[ln(x)] =", diff(log(x), x));
+print("d/dx[ln(x²+1)]=", ratsimp(diff(log(x^2+1), x)));
+print("d/dx[aˣ]    =", diff(a^x, x));   /* a>0, a≠1 */
+
+/* ── Μέρος Β: Κανόνες Παραγώγισης ─────────────────────── */
+print("════ Β. Κανόνες Παραγώγισης ════");
+
+f : x^2 * sin(x);
+g : (x^3 + 1) / (x^2 - 1);
+h : sin(x^2 + 1);    /* σύνθετη */
+
+print("Κανόνας γινομένου: d/dx[x²·sin x] =", expand(diff(f, x)));
+print("Κανόνας πηλίκου: d/dx[(x³+1)/(x²-1)] =", ratsimp(diff(g, x)));
+print("Κανόνας αλυσίδας: d/dx[sin(x²+1)] =", diff(h, x));
+
+/* Επαλήθευση κανόνα αλυσίδας βήμα-βήμα */
+u : x^2 + 1;   /* εσωτερική */
+print("  Βήμα 1: du/dx =", diff(u, x));
+print("  Βήμα 2: d/du[sin u] =", diff(sin(u), u));
+print("  Αλυσίδα: cos(u)·2x = cos(x²+1)·2x ✓");
+
+/* ── Μέρος Γ: Ανώτερης Τάξης Παράγωγοι ─────────────────── */
+print("════ Γ. Ανώτερης Τάξης Παράγωγοι ════");
+
+f_e : %e^x * cos(x);
+print("f(x) = eˣcos(x)");
+print("f'(x)  =", trigsimp(diff(f_e, x)));
+print("f''(x) =", trigsimp(diff(f_e, x, 2)));
+print("f'''(x)=", trigsimp(diff(f_e, x, 3)));
+print("f⁽⁴⁾(x)=", trigsimp(diff(f_e, x, 4)));
+print("  [Αναμένεται: -4·eˣcos(x) = -4·f(x)]");
+print("  Επαλήθευση:", ratsimp(diff(f_e,x,4) + 4*f_e));
+
+/* ── Μέρος Δ: Παράγωγος με Ορισμό ──────────────────────── */
+print("════ Δ. Παράγωγος μέσω Ορισμού ════");
+
+/* f'(x) = lim_{h→0} [f(x+h)-f(x)]/h */
+f_def : x^2;
+h_var : h;
+diff_def : limit((subst(x+h_var, x, f_def) - f_def)/h_var, h_var, 0);
+print("Ορισμός: d/dx[x²] =", diff_def, "  (= 2x ✓)");
+
+f_def2 : sqrt(x);
+diff_def2 : ratsimp(limit((subst(x+h_var,x,f_def2)-f_def2)/h_var, h_var, 0));
+print("Ορισμός: d/dx[√x] =", diff_def2, "  (= 1/(2√x) ✓)");
+
+/* ── Μέρος Ε: Εφαπτόμενη & Κάθετη Ευθεία ───────────────── */
+print("════ Ε. Εφαπτόμενη Ευθεία ════");
+
+f_tan : x^3 - 2*x + 1;
+x0 : 1;
+y0 : subst(x0, x, f_tan);
+m  : subst(x0, x, diff(f_tan, x));
+
+print("f(x) = x³ - 2x + 1,  x₀ =", x0);
+print("f(x₀) =", y0, "   f'(x₀) =", m);
+print("Εφαπτόμενη: y =", m*(x-x0)+y0, "  (y =", m, "x +", y0-m*x0, ")");
+print("Κάθετη:     y =", -1/m*(x-x0)+y0);
+
+/* ── Μέρος Στ: Λογαριθμική Παραγώγιση ───────────────────── */
+print("════ Στ. Λογαριθμική Παραγώγιση ════");
+
+/* y = x^x → ln y = x·ln x → y'/y = ln x + 1 → y' = x^x(ln x+1) */
+assume(x > 0)$
+y_log : x^x;
+print("y = xˣ");
+print("d/dx[xˣ] =", diff(y_log, x));
+print("  [= xˣ·(ln x + 1) ✓]");
+
+/* Σύνθετο: y = (sin x)^(cos x) */
+y_log2 : sin(x)^cos(x);
+print("d/dx[(sin x)^(cos x)] =",
+      trigsimp(diff(y_log2, x)));
+
+print("════ Τέλος ════");
