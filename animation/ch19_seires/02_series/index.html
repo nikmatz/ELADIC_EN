@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partial Sums of a Series</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 650px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin: 0 0 20px 0;
+            font-size: 24px;
+        }
+        .controls {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        label {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+        select, input[type="range"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        input[type="range"] {
+            flex: 1;
+        }
+        .slider-value {
+            font-weight: bold;
+            color: #2196F3;
+            min-width: 50px;
+            text-align: right;
+        }
+        .canvas-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #333;
+            background-color: #fafafa;
+            display: block;
+        }
+        .canvas-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #666;
+            text-align: center;
+        }
+        .info-box {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 12px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        .info-box.diverging {
+            background-color: #ffebee;
+            border-left-color: #f44336;
+        }
+        .info-box-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2e7d32;
+        }
+        .info-box.diverging .info-box-title {
+            color: #c62828;
+        }
+        .info-box-content {
+            font-size: 14px;
+            color: #333;
+        }
+        .author-stamp {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            gap: 4px;
+        }
+        .stamp-book {
+            font-weight: bold;
+        }
+    
+    .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+    .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+  </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div><h1>Partial Sums of a Series</h1>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="seriesSelect">Series Σₙ:</label><div style="font-size:.8rem;color:#666;margin:.15rem 0 .35rem">All the series here are summed from <b>n = 1</b>. In the book the geometric series is often written from n = 0, so that Σ<sub>n=0</sub>(0.5)ⁿ = 2 = 1 + Σ<sub>n=1</sub>(0.5)ⁿ.</div>
+                <select id="seriesSelect">
+                    <option value="geom05">Geometric r = 0.5: Σ<sub>n=1</sub><sup>∞</sup> (0.5)ⁿ = 1</option>
+                    <option value="geom11">Geometric r = 1.1: Σ<sub>n=1</sub><sup>∞</sup> (1.1)ⁿ (diverges)</option>
+                    <option value="inv2">Σ<sub>n=1</sub><sup>∞</sup> 1/n² = π²/6</option>
+                    <option value="harm">Σ<sub>n=1</sub><sup>∞</sup> 1/n — harmonic (diverges)</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="nSlider">Number of terms N:</label>
+                <div class="slider-container">
+                    <input type="range" id="nSlider" min="1" max="50" step="1" value="20">
+                    <span class="slider-value" id="nValue">20</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box" id="infoBox">
+            <div class="info-box-title">Series Σ(0.5)ⁿ</div>
+            <div class="info-box-content">
+                Converges: Sₙ → <strong id="limitValue">2.000</strong><br>
+                Current S₂₀: <strong id="currentSum">1.999</strong>
+            </div>
+        </div>
+
+        <div class="canvas-wrapper">
+            <div>
+                <canvas id="canvasTerms" width="280" height="280"></canvas>
+                <div class="canvas-label">aₙ (Terms of the series)</div>
+            </div>
+            <div>
+                <canvas id="canvasSums" width="280" height="280"></canvas>
+                <div class="canvas-label">Sₙ (Partial sums)</div>
+            </div>
+        </div>
+    </div>
+
+    
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Theory & Justification — Series & Partial Sums ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>Series — Partial Sums</h3>
+    <p>A <strong>series</strong> Σaₙ converges if the sequence of partial sums Sₙ = a₁+...+aₙ converges.</p>
+    <div class="formula">Geometric series: Σrⁿ = 1/(1−r) if |r|<1 &nbsp;·&nbsp; Harmonic series Σ(1/n): diverges!</div>
+    <p>Tests: ratio test (|aₙ₊₁/aₙ|→L<1⟹convergence), root test, comparison test. Necessary condition: aₙ→0 (but NOT sufficient).</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');
+  var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Theory & Justification — Series & Partial Sums ▲':'📐 Theory & Justification — Series & Partial Sums ▼';
+});
+</script>
+
+<script>
+        const ctxTerms = document.getElementById('canvasTerms').getContext('2d');
+        const ctxSums = document.getElementById('canvasSums').getContext('2d');
+        const canvasTerms = document.getElementById('canvasTerms');
+        const canvasSums = document.getElementById('canvasSums');
+        const seriesSelect = document.getElementById('seriesSelect');
+        const nSlider = document.getElementById('nSlider');
+        const nValue = document.getElementById('nValue');
+        const infoBox = document.getElementById('infoBox');
+        const limitValue = document.getElementById('limitValue');
+        const currentSum = document.getElementById('currentSum');
+
+        const width = canvasTerms.width;
+        const height = canvasTerms.height;
+        const padding = 35;
+        const graphWidth = width - 2 * padding;
+        const graphHeight = height - 2 * padding;
+
+        const series = {
+            geom05: {
+                name: 'Σ (0.5)ⁿ, n≥1',
+                term: n => Math.pow(0.5, n),
+                limit: 1,
+                converges: true
+            },
+            geom11: {
+                name: 'Σ (1.1)ⁿ, n≥1',
+                term: n => Math.pow(1.1, n),
+                limit: null,
+                converges: false
+            },
+            inv2: {
+                name: 'Σ 1/n², n≥1',
+                term: n => 1 / (n * n),
+                limit: Math.PI * Math.PI / 6,
+                converges: true
+            },
+            harm: {
+                name: 'Σ 1/n, n≥1 (harmonic)',
+                term: n => 1 / n,
+                limit: null,
+                converges: false
+            }
+        };
+
+        function drawAxis(ctx, canvas, yMin, yMax, maxN) {
+            ctx.fillStyle = '#fafafa';
+            ctx.fillRect(padding, padding, graphWidth, graphHeight);
+
+            // Grid
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 10; i++) {
+                const x = padding + (i / 10) * graphWidth;
+                const y = padding + (i / 10) * graphHeight;
+                ctx.beginPath();
+                ctx.moveTo(x, padding);
+                ctx.lineTo(x, height - padding);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(width - padding, y);
+                ctx.stroke();
+            }
+
+            // Axes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, height - padding);
+            ctx.lineTo(width - padding, height - padding);
+            ctx.stroke();
+
+            // Labels
+            ctx.fillStyle = '#333';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            const tickStep = Math.max(1, Math.ceil(maxN / 6));
+            for (let v = 0; v <= maxN; v += tickStep) {
+                const x = padding + (v / (maxN + 2)) * graphWidth;
+                ctx.fillText(String(v), x, height - padding + 15);
+            }
+
+            ctx.textAlign = 'right';
+            for (let i = 0; i <= 10; i += 2) {
+                const y = padding + (i / 10) * graphHeight;
+                const val = (yMax - (i / 10) * (yMax - yMin)).toFixed(1);
+                ctx.fillText(val, padding - 10, y + 4);
+            }
+
+            ctx.fillStyle = '#333';
+            ctx.textAlign = 'center';
+            ctx.fillText('n', width - padding + 10, height - padding + 20);
+            ctx.textAlign = 'right';
+            ctx.fillText('Value', padding - 15, padding - 5);
+        }
+
+        function drawTerms(seriesName, maxN) {
+            const ser = series[seriesName];
+            const terms = [];
+            let maxTerm = 0;
+
+            for (let n = 1; n <= maxN; n++) {
+                const term = ser.term(n);
+                terms.push(term);
+                maxTerm = Math.max(maxTerm, term);
+            }
+
+            drawAxis(ctxTerms, canvasTerms, 0, maxTerm * 1.2, maxN);
+
+            // Draw bars
+            ctxTerms.fillStyle = seriesName.startsWith('geom05') || seriesName === 'inv2' ? '#4CAF50' : '#f44336';
+            terms.forEach((term, i) => {
+                const n = i + 1;
+                const px = padding + (n / (maxN + 2)) * graphWidth;
+                const py = height - padding - (term / (maxTerm * 1.2)) * graphHeight;
+                const barWidth = Math.max(2, graphWidth / (maxN + 2) * 0.8);
+                const barHeight = height - padding - py;
+
+                ctxTerms.fillRect(px - barWidth / 2, py, barWidth, barHeight);
+            });
+        }
+
+        function drawSums(seriesName, maxN) {
+            const ser = series[seriesName];
+            const sums = [];
+            let maxSum = 0;
+            let totalSum = 0;
+
+            for (let n = 1; n <= maxN; n++) {
+                totalSum += ser.term(n);
+                sums.push(totalSum);
+                maxSum = Math.max(maxSum, totalSum);
+            }
+
+            // Consider limit for y-axis
+            let yMax = maxSum;
+            if (ser.limit !== null) {
+                yMax = Math.max(maxSum, ser.limit * 1.1);
+            }
+
+            drawAxis(ctxSums, canvasSums, 0, yMax, maxN);
+
+            // Draw partial sums
+            ctxSums.strokeStyle = '#2196F3';
+            ctxSums.lineWidth = 2;
+            ctxSums.beginPath();
+
+            sums.forEach((sum, i) => {
+                const n = i + 1;
+                const px = padding + (n / (maxN + 2)) * graphWidth;
+                const py = height - padding - (sum / yMax) * graphHeight;
+
+                if (i === 0) ctxSums.moveTo(px, py);
+                else ctxSums.lineTo(px, py);
+            });
+            ctxSums.stroke();
+
+            // Draw points
+            ctxSums.fillStyle = '#2196F3';
+            sums.forEach((sum, i) => {
+                const n = i + 1;
+                const px = padding + (n / (maxN + 2)) * graphWidth;
+                const py = height - padding - (sum / yMax) * graphHeight;
+                ctxSums.beginPath();
+                ctxSums.arc(px, py, 3, 0, 2 * Math.PI);
+                ctxSums.fill();
+            });
+
+            // Draw limit line if it exists
+            if (ser.limit !== null) {
+                ctxSums.strokeStyle = '#f44336';
+                ctxSums.lineWidth = 2;
+                ctxSums.setLineDash([5, 5]);
+                const limitPy = height - padding - (ser.limit / yMax) * graphHeight;
+                ctxSums.beginPath();
+                ctxSums.moveTo(padding, limitPy);
+                ctxSums.lineTo(width - padding, limitPy);
+                ctxSums.stroke();
+                ctxSums.setLineDash([]);
+            }
+
+            return { sums, totalSum, maxSum };
+        }
+
+        function draw() {
+            const seriesName = seriesSelect.value;
+            const maxN = parseInt(nSlider.value);
+            nValue.textContent = maxN.toString();
+
+            const ser = series[seriesName];
+
+            drawTerms(seriesName, maxN);
+            const { sums, totalSum } = drawSums(seriesName, maxN);
+
+            // Update info box
+            const titleText = `Series ${ser.name}`;
+            infoBox.className = 'info-box' + (ser.converges ? '' : ' diverging');
+
+            let infoHTML = `<div class="info-box-title">${titleText}</div><div class="info-box-content">`;
+
+            if (ser.converges) {
+                infoHTML += `Converges: Sₙ → <strong>${ser.limit.toFixed(4)}</strong><br>`;
+            } else {
+                infoHTML += `Divergent series<br>`;
+            }
+            infoHTML += `Current S₍${maxN}₎: <strong>${totalSum.toFixed(4)}</strong></div>`;
+
+            infoBox.innerHTML = infoHTML;
+        }
+
+        seriesSelect.addEventListener('change', draw);
+        nSlider.addEventListener('input', draw);
+
+        draw();
+    </script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>

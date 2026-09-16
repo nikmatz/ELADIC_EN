@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taylor Polynomials — Approximating a Function</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 650px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin: 0 0 20px 0;
+            font-size: 24px;
+        }
+        .controls {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        label {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+        select, input[type="range"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        input[type="range"] {
+            flex: 1;
+        }
+        .slider-value {
+            font-weight: bold;
+            color: #2196F3;
+            min-width: 50px;
+            text-align: right;
+        }
+        .canvas-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        canvas {
+            border: 2px solid #333;
+            background-color: #fafafa;
+            display: block;
+        }
+        .canvas-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #666;
+            text-align: center;
+        }
+        .info-box {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 12px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        .info-box.diverging {
+            background-color: #ffebee;
+            border-left-color: #f44336;
+        }
+        .info-box-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2e7d32;
+        }
+        .info-box.diverging .info-box-title {
+            color: #c62828;
+        }
+        .info-box-content {
+            font-size: 14px;
+            color: #333;
+        }
+        .author-stamp {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            gap: 4px;
+        }
+        .stamp-book {
+            font-weight: bold;
+        }
+    
+    .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+    .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+  </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div><h1>Taylor Polynomials</h1>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="fnSelect">Function f(x):</label>
+                <select id="fnSelect">
+                    <option value="sin">f(x) = sin x&nbsp;&nbsp;(R = ∞)</option>
+                    <option value="cos">f(x) = cos x&nbsp;&nbsp;(R = ∞)</option>
+                    <option value="exp">f(x) = e&#739;&nbsp;&nbsp;(R = ∞)</option>
+                    <option value="ln1p">f(x) = ln(1+x)&nbsp;&nbsp;(R = 1)</option>
+                    <option value="geo">f(x) = 1/(1−x)&nbsp;&nbsp;(R = 1)</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="nSlider">Degree of the polynomial n:</label>
+                <div class="slider-container">
+                    <input type="range" id="nSlider" min="0" max="20" step="1" value="3">
+                    <span class="slider-value" id="nValue">3</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="xSlider">Test point x₀:</label>
+                <div class="slider-container">
+                    <input type="range" id="xSlider" min="-40" max="40" step="1" value="20">
+                    <span class="slider-value" id="xValue">2.0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box" id="infoBox"></div>
+
+        <div class="canvas-wrapper">
+            <div>
+                <canvas id="canvasFn" width="280" height="280"></canvas>
+                <div class="canvas-label">f(x) and T&#8345;(x)</div>
+            </div>
+            <div>
+                <canvas id="canvasErr" width="280" height="280"></canvas>
+                <div class="canvas-label">error |f(x) − T&#8345;(x)|</div>
+            </div>
+        </div>
+    </div>
+
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Theory &amp; Justification — Taylor Polynomials ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>Taylor polynomials and the radius of convergence</h3>
+    <p>The <strong>Taylor polynomial</strong> of degree n of f about 0 is
+       T&#8345;(x) = Σ&#8342;₌₀&#8319; f&#8317;&#8342;&#8318;(0)·x&#8342;/k!. Each increase of n adds one more term
+       and improves the approximation <em>near the center</em>.</p>
+    <div class="formula">f(x) − T&#8345;(x) = R&#8345;(x) = f&#8317;&#8319;&#8314;&#185;&#8318;(c)·x&#8319;&#8314;&#185;/(n+1)!&nbsp;&nbsp;(Lagrange remainder)</div>
+    <p>For sin, cos and e&#739; the series converges for every x (R = ∞): as n increases, the curve
+       T&#8345; “sticks” to f over an ever wider interval. For ln(1+x) and 1/(1−x) the radius
+       is R = 1: <strong>outside (−1, 1) no increase of n helps</strong> — the error
+       blows up. This is the difference between “the series converges” and “the series converges
+       to the function”.</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');
+  var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Theory & Justification — Taylor Polynomials ▲':'📐 Theory & Justification — Taylor Polynomials ▼';
+});
+</script>
+
+<script>
+const FN = {
+  sin:  {f: Math.sin,               name:'sin x',    R: Infinity, xmax: 10, ymax: 2.2,
+         c:(k)=>{ if(k%2===0) return 0; return (k%4===1?1:-1)/fact(k); }},
+  cos:  {f: Math.cos,               name:'cos x',    R: Infinity, xmax: 10, ymax: 2.2,
+         c:(k)=>{ if(k%2===1) return 0; return (k%4===0?1:-1)/fact(k); }},
+  exp:  {f: Math.exp,               name:'e^x',      R: Infinity, xmax: 4,  ymax: 12,
+         c:(k)=>1/fact(k)},
+  ln1p: {f:(x)=>Math.log(1+x),      name:'ln(1+x)',  R: 1,        xmax: 2,  ymax: 3,
+         c:(k)=> k===0?0:((k%2===1?1:-1)/k)},
+  geo:  {f:(x)=>1/(1-x),            name:'1/(1-x)',  R: 1,        xmax: 2,  ymax: 6,
+         c:(k)=>1}
+};
+function fact(n){let r=1;for(let i=2;i<=n;i++)r*=i;return r;}
+function taylor(key,n,x){const c=FN[key].c;let s=0;for(let k=0;k<=n;k++){const a=c(k);if(a!==0)s+=a*Math.pow(x,k);}return s;}
+
+const cF=document.getElementById('canvasFn').getContext('2d');
+const cE=document.getElementById('canvasErr').getContext('2d');
+const fnSel=document.getElementById('fnSelect'), nS=document.getElementById('nSlider'),
+      xS=document.getElementById('xSlider'), nV=document.getElementById('nValue'),
+      xV=document.getElementById('xValue'), box=document.getElementById('infoBox');
+const W=280,H=280;
+
+function axes(ctx,xmax,ymax){
+  ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle='#bbb'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(0,H/2); ctx.lineTo(W,H/2);
+  ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.stroke();
+  ctx.fillStyle='#888'; ctx.font='10px Arial';
+  ctx.fillText('x = '+xmax.toFixed(0), W-46, H/2-4);
+}
+const px=(x,xmax)=>W/2 + x/xmax*(W/2);
+const py=(y,ymax)=>H/2 - y/ymax*(H/2);
+
+function curve(ctx,g,xmax,ymax,color,width){
+  ctx.strokeStyle=color; ctx.lineWidth=width; ctx.beginPath();
+  let started=false;
+  for(let i=0;i<=600;i++){
+    const x=-xmax+2*xmax*i/600; const y=g(x);
+    if(!isFinite(y)||Math.abs(y)>ymax*1.6){started=false;continue;}
+    const X=px(x,xmax),Y=py(y,ymax);
+    if(!started){ctx.moveTo(X,Y);started=true;}else ctx.lineTo(X,Y);
+  }
+  ctx.stroke();
+}
+
+function draw(){
+  const key=fnSel.value, S=FN[key];
+  const n=parseInt(nS.value); nV.textContent=n;
+  const xmax=S.xmax, ymax=S.ymax;
+  const lim=Math.min(xmax*0.95,4);            // keep x₀ always inside the plotted range
+  let x0=parseInt(xS.value)/10;
+  if(Math.abs(x0)>lim){ x0=Math.sign(x0)*lim; xS.value=Math.round(x0*10); }
+  xV.textContent=x0.toFixed(1);
+
+  axes(cF,xmax,ymax);
+  if(isFinite(S.R)){                       // band of convergence
+    cF.fillStyle='rgba(76,175,80,.10)';
+    cF.fillRect(px(-S.R,xmax),0,px(S.R,xmax)-px(-S.R,xmax),H);
+    cF.strokeStyle='#4CAF50'; cF.setLineDash([4,3]); cF.lineWidth=1;
+    cF.beginPath(); cF.moveTo(px(-S.R,xmax),0); cF.lineTo(px(-S.R,xmax),H);
+    cF.moveTo(px(S.R,xmax),0); cF.lineTo(px(S.R,xmax),H); cF.stroke(); cF.setLineDash([]);
+  }
+  curve(cF,S.f,xmax,ymax,'#333',2.2);
+  curve(cF,(x)=>taylor(key,n,x),xmax,ymax,'#2196F3',2);
+  const yv=taylor(key,n,x0);
+  if(isFinite(yv)&&Math.abs(yv)<=ymax*1.6){
+    cF.fillStyle='#f44336'; cF.beginPath();
+    cF.arc(px(x0,xmax),py(yv,ymax),4,0,6.2832); cF.fill();
+  }
+
+  const errmax=1;
+  cE.clearRect(0,0,W,H);
+  cE.strokeStyle='#bbb'; cE.beginPath(); cE.moveTo(0,H-20); cE.lineTo(W,H-20);
+  cE.moveTo(W/2,0); cE.lineTo(W/2,H); cE.stroke();
+  cE.strokeStyle='#f44336'; cE.lineWidth=2; cE.beginPath();
+  let st=false;
+  for(let i=0;i<=600;i++){
+    const x=-xmax+2*xmax*i/600;
+    let e=Math.abs(S.f(x)-taylor(key,n,x));
+    if(!isFinite(e)){st=false;continue;}
+    const Y=(H-20)-Math.min(e,errmax)/errmax*(H-40);
+    const X=px(x,xmax);
+    if(!st){cE.moveTo(X,Y);st=true;}else cE.lineTo(X,Y);
+  }
+  cE.stroke();
+  cE.fillStyle='#888'; cE.font='10px Arial'; cE.fillText('error ≥ 1', 6, 14);
+
+  const fx=S.f(x0), err=Math.abs(fx-yv);
+  const inside = !isFinite(S.R) || Math.abs(x0)<S.R;
+  box.className='info-box'+(inside?'':' diverging');
+  box.innerHTML='<div class="info-box-title">f(x) = '+S.name+'&nbsp;&nbsp;·&nbsp;&nbsp;T<sub>'+n+'</sub>(x)</div>'+
+    '<div class="info-box-content">'+
+    'At x₀ = '+x0.toFixed(1)+':&nbsp; f = <strong>'+(isFinite(fx)?fx.toFixed(5):'—')+'</strong>'+
+    ' , T<sub>'+n+'</sub> = <strong>'+(isFinite(yv)?yv.toFixed(5):'—')+'</strong><br>'+
+    'Error |f − T<sub>'+n+'</sub>| = <strong>'+(isFinite(err)?err.toExponential(2):'—')+'</strong><br>'+
+    (isFinite(S.R)
+      ? (inside ? 'Radius of convergence R = 1: x₀ is <strong>inside</strong>, so the error tends to 0 as n → ∞.'
+                : 'Radius of convergence R = 1: x₀ is <strong>outside</strong>. However much you increase n, the error does not tend to 0.')
+      : 'R = ∞: for every x the error tends to 0 as n → ∞ (but the more slowly the larger |x| is).')+
+    '</div>';
+}
+fnSel.addEventListener('change',draw);
+nS.addEventListener('input',draw);
+xS.addEventListener('input',draw);
+draw();
+</script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>

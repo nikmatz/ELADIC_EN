@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integration by Parts</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 700px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin: 0 0 20px 0;
+            font-size: 24px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        label {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+        select {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .formula-header {
+            text-align: center;
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4CAF50;
+        }
+        .formula-header .title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        .formula-header .formula {
+            font-size: 14px;
+            color: #555;
+            font-style: italic;
+        }
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .step {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #2196F3;
+            opacity: 0.4;
+            transition: all 0.3s ease;
+        }
+        .step.active {
+            background-color: #e3f2fd;
+            opacity: 1;
+            border-left-color: #1976d2;
+            box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2);
+        }
+        .step-number {
+            font-weight: bold;
+            color: #2196F3;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .step-content {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .step-table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .step-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 13px;
+        }
+        .step-table td.header {
+            background-color: #2196F3;
+            color: white;
+            font-weight: bold;
+        }
+        .step-table td.u {
+            background-color: #fff3e0;
+        }
+        .step-table td.dv {
+            background-color: #f3e5f5;
+        }
+        .step-table td.du {
+            background-color: #e0f2f1;
+        }
+        .step-table td.v {
+            background-color: #fce4ec;
+        }
+        .buttons-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .btn-next {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-next:hover {
+            background-color: #45a049;
+        }
+        .btn-prev {
+            background-color: #2196F3;
+            color: white;
+        }
+        .btn-prev:hover {
+            background-color: #0b7dda;
+        }
+        .btn-prev:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .step-indicator {
+            text-align: center;
+            margin-top: 15px;
+            color: #666;
+            font-size: 13px;
+        }
+        .liate-rule {
+            background-color: #fff9c4;
+            border: 1px solid #fbc02d;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #f57f17;
+        }
+        .liate-rule strong {
+            color: #f57f17;
+        }
+        .author-stamp {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            gap: 4px;
+        }
+        .stamp-book {
+            font-weight: bold;
+        }
+    
+    .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+    .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+  </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div><h1>Integration by Parts</h1>
+
+        <div class="controls">
+            <label for="exampleSelect">Example:</label>
+            <select id="exampleSelect">
+                <option value="0">∫ x·eˣ dx</option>
+                <option value="1">∫ x·sin(x) dx</option>
+                <option value="2">∫ ln(x) dx</option>
+            </select>
+        </div>
+
+        <div class="liate-rule">
+            <strong>LIATE rule:</strong> Choose u in this order of priority:
+            <strong>L</strong>ogarithm → <strong>I</strong>nverse trig → <strong>A</strong>lgebraic → <strong>T</strong>rigonometric → <strong>E</strong>xponential
+        </div>
+
+        <div class="formula-header">
+            <div class="title" id="problemTitle">∫ x·eˣ dx</div>
+            <div class="formula">∫ u · dv = u · v − ∫ v · du</div>
+        </div>
+
+        <div class="steps-container" id="stepsContainer"></div>
+
+        <div class="buttons-container">
+            <button class="btn-prev" id="prevBtn">← Previous</button>
+            <button class="btn-next" id="nextBtn">Next →</button>
+        </div>
+
+        <div class="step-indicator">
+            <span id="stepIndicator">Step 1 of 5</span>
+        </div>
+    </div>
+
+    
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Theory & Justification — Integration by Parts ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>Integration by Parts</h3>
+    <p>The product rule for derivatives: (uv)′=u′v+uv′ &nbsp;→ integrating: ∫uv′dx = uv − ∫u′v dx.</p>
+    <div class="formula">∫u dv = uv − ∫v du &nbsp;·&nbsp; Choice: u = the part that simplifies when differentiated, dv = the part that is easy to integrate</div>
+    <p>ILATE mnemonic: Inverse trig. > Logarithmic > Algebraic > Trigonometric > Exponential. Sometimes the rule has to be applied more than once.</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');
+  var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Theory & Justification — Integration by Parts ▲':'📐 Theory & Justification — Integration by Parts ▼';
+});
+</script>
+
+<script>
+        const exampleSelect = document.getElementById('exampleSelect');
+        const problemTitle = document.getElementById('problemTitle');
+        const stepsContainer = document.getElementById('stepsContainer');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const stepIndicator = document.getElementById('stepIndicator');
+
+        const examples = [
+            {
+                title: '∫ x·eˣ dx',
+                steps: [
+                    {
+                        title: 'Step 1: Apply the LIATE rule',
+                        content: 'x is Algebraic and eˣ is Exponential. According to LIATE, x has the higher priority.',
+                        table: {
+                            headers: ['u', 'dv', 'du', 'v'],
+                            data: [['x', 'eˣ dx', '?', '?']]
+                        }
+                    },
+                    {
+                        title: 'Step 2: Compute du and v',
+                        content: 'Differentiate u: du = 1·dx = dx<br>Integrate dv: v = ∫eˣ dx = eˣ',
+                        table: {
+                            headers: ['u', 'dv', 'du', 'v'],
+                            data: [['x', 'eˣ dx', 'dx', 'eˣ']]
+                        }
+                    },
+                    {
+                        title: 'Step 3: Apply the formula',
+                        content: '∫ u · dv = u · v − ∫ v · du<br>∫ x·eˣ dx = x·eˣ − ∫ eˣ · dx',
+                        table: null
+                    },
+                    {
+                        title: 'Step 4: Evaluate the remaining integral',
+                        content: '∫ eˣ dx = eˣ<br><br>Therefore: ∫ x·eˣ dx = x·eˣ − eˣ',
+                        table: null
+                    },
+                    {
+                        title: 'Step 5: Final result',
+                        content: '∫ x·eˣ dx = <strong>eˣ(x − 1) + C</strong><br><br><em>Check: Differentiate: d/dx[eˣ(x−1)] = eˣ(x−1) + eˣ = x·eˣ ✓</em>',
+                        table: null
+                    }
+                ]
+            },
+            {
+                title: '∫ x·sin(x) dx',
+                steps: [
+                    {
+                        title: 'Step 1: Apply the LIATE rule',
+                        content: 'x is Algebraic and sin(x) is Trigonometric. So x has the higher priority.',
+                        table: {
+                            headers: ['u', 'dv', 'du', 'v'],
+                            data: [['x', 'sin(x) dx', '?', '?']]
+                        }
+                    },
+                    {
+                        title: 'Step 2: Compute du and v',
+                        content: 'Differentiate u: du = 1·dx = dx<br>Integrate dv: v = ∫sin(x) dx = −cos(x)',
+                        table: {
+                            headers: ['u', 'dv', 'du', 'v'],
+                            data: [['x', 'sin(x) dx', 'dx', '−cos(x)']]
+                        }
+                    },
+                    {
+                        title: 'Step 3: Apply the formula',
+                        content: '∫ u · dv = u · v − ∫ v · du<br>∫ x·sin(x) dx = x·(−cos(x)) − ∫ (−cos(x)) · dx<br>= −x·cos(x) + ∫ cos(x) dx',
+                        table: null
+                    },
+                    {
+                        title: 'Step 4: Evaluate the remaining integral',
+                        content: '∫ cos(x) dx = sin(x)<br><br>Therefore: ∫ x·sin(x) dx = −x·cos(x) + sin(x)',
+                        table: null
+                    },
+                    {
+                        title: 'Step 5: Final result',
+                        content: '∫ x·sin(x) dx = <strong>sin(x) − x·cos(x) + C</strong><br><br><em>Check: Differentiate: d/dx[sin(x)−x·cos(x)] = cos(x) − cos(x) + x·sin(x) = x·sin(x) ✓</em>',
+                        table: null
+                    }
+                ]
+            },
+            {
+                title: '∫ ln(x) dx',
+                steps: [
+                    {
+                        title: 'Step 1: Apply the LIATE rule',
+                        content: 'ln(x) is a Logarithm and has the highest priority in the LIATE rule. Set u = ln(x) and dv = 1·dx.',
+                        table: {
+                            headers: ['u', 'dv', 'du', 'v'],
+                            data: [['ln(x)', '1·dx = dx', '?', '?']]
+                        }
+                    },
+                    {
+                        title: 'Step 2: Compute du and v',
+                        content: 'Differentiate u: du = (1/x)·dx<br>Integrate dv: v = ∫1 dx = x',
+                        table: {
+                            headers: ['u', 'dv', 'du', 'v'],
+                            data: [['ln(x)', 'dx', '(1/x) dx', 'x']]
+                        }
+                    },
+                    {
+                        title: 'Step 3: Apply the formula',
+                        content: '∫ u · dv = u · v − ∫ v · du<br>∫ ln(x) dx = ln(x)·x − ∫ x · (1/x) dx<br>= x·ln(x) − ∫ 1 dx',
+                        table: null
+                    },
+                    {
+                        title: 'Step 4: Evaluate the remaining integral',
+                        content: '∫ 1 dx = x<br><br>Therefore: ∫ ln(x) dx = x·ln(x) − x',
+                        table: null
+                    },
+                    {
+                        title: 'Step 5: Final result',
+                        content: '∫ ln(x) dx = <strong>x·ln(x) − x + C</strong> = <strong>x(ln(x) − 1) + C</strong><br><br><em>Check: Differentiate: d/dx[x·ln(x)−x] = ln(x) + x·(1/x) − 1 = ln(x) ✓</em>',
+                        table: null
+                    }
+                ]
+            }
+        ];
+
+        let currentExample = 0;
+        let currentStep = 0;
+
+        function renderSteps() {
+            stepsContainer.innerHTML = '';
+            const steps = examples[currentExample].steps;
+            steps.forEach((step, index) => {
+                const stepDiv = document.createElement('div');
+                stepDiv.className = 'step' + (index === currentStep ? ' active' : '');
+                
+                let html = `<div class="step-number">${step.title}</div>`;
+                html += `<div class="step-content">${step.content}`;
+                
+                if (step.table) {
+                    html += '<table class="step-table"><tr>';
+                    step.table.headers.forEach(header => {
+                        html += `<td class="header">${header}</td>`;
+                    });
+                    html += '</tr><tr>';
+                    step.table.data[0].forEach((val, i) => {
+                        const classes = ['u', 'dv', 'du', 'v'];
+                        html += `<td class="${classes[i]}">${val}</td>`;
+                    });
+                    html += '</tr></table>';
+                }
+                
+                html += '</div>';
+                stepDiv.innerHTML = html;
+                stepsContainer.appendChild(stepDiv);
+            });
+
+            stepIndicator.textContent = `Step ${currentStep + 1} of ${steps.length}`;
+            prevBtn.disabled = currentStep === 0;
+            nextBtn.disabled = currentStep === steps.length - 1;
+        }
+
+        function updateDisplay() {
+            problemTitle.textContent = examples[currentExample].title;
+            currentStep = 0;
+            renderSteps();
+        }
+
+        exampleSelect.addEventListener('change', (e) => {
+            currentExample = parseInt(e.target.value);
+            updateDisplay();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentStep < examples[currentExample].steps.length - 1) {
+                currentStep++;
+                renderSteps();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep--;
+                renderSteps();
+            }
+        });
+
+        updateDisplay();
+    </script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>
