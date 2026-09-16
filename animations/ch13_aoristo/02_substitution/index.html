@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Integration by Substitution</title>
+<script>MathJax={tex:{inlineMath:[['$','$']]}}</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
+header{background:linear-gradient(135deg,#004080,#0060a0);color:#fff;padding:1.2rem 1.5rem;border-bottom:3px solid #c85000}
+header h1{font-size:1.3rem}header p{font-size:.85rem;opacity:.85;margin-top:.3rem}
+.anim-badge{display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem}
+.container{max-width:950px;margin:0 auto;padding:1.5rem 1rem}
+canvas{border:2px solid #dde3ea;border-radius:10px;background:#fff;display:block;margin:1rem auto;max-width:100%}
+.btn{background:#004080;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:6px;cursor:pointer;font-size:.88rem;margin:.2rem}
+.btn.orange{background:#c85000}.btn:hover{background:#003060}.btn.orange:hover{background:#a54000}
+input[type=range]{width:100%;accent-color:#c85000}
+.control-group{background:#fff;padding:1rem;border-radius:8px;margin-bottom:1rem;border:1px solid #dde3ea}
+.control-group label{display:block;font-weight:bold;font-size:.86rem;margin:.5rem 0 .25rem}
+.info-box{background:#e8f4f8;border-left:4px solid #004080;padding:.7rem 1rem;margin-bottom:1rem;border-radius:0 8px 8px 0;font-size:.9rem;line-height:1.55}
+.info-box strong{color:#004080}
+.legend{display:flex;gap:1.1rem;flex-wrap:wrap;justify-content:center;font-size:.8rem;margin:.3rem 0}
+.legend span{display:flex;align-items:center;gap:.4rem}.dot{width:12px;height:12px;border-radius:50%}
+.author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;font-family:Georgia,serif;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+.stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+.expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+.expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+.expl-toggle:hover{background:#003060}
+.expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+.expl-body.open{display:block}.expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+.expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}</style></head><body>
+<header><div class="anim-badge">▶ ANIMATION</div><h1>Integration by Substitution</h1><p>Chapter 13 · The Indefinite Integral · u-substitution</p></header>
+<div class="container">
+<div class="info-box"><strong>Example:</strong> $\int_0^b 2x\cos(x^2)\,dx$ with the substitution $u=x^2,\ du=2x\,dx$ becomes $\int_0^{b^2}\cos u\,du$. The two shaded regions are <strong>equal</strong>.</div><div class="control-group"><label>Upper limit b: <span id="bV">1.40</span></label><input type="range" id="b" min="0.3" max="1.95" step="0.05" value="1.4"></div><div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><div><div style="text-align:center;font-size:.8rem;color:#004080;font-weight:bold">x-space: $2x\cos(x^2)$</div><canvas id="cvx" width="290" height="240"></canvas></div><div><div style="text-align:center;font-size:.8rem;color:#004080;font-weight:bold">u-space: $\cos u$</div><canvas id="cvu" width="290" height="240"></canvas></div></div><div class="info-box" id="ro"></div>
+</div>
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+<button class="expl-toggle" id="explBtn">📐 Theory & Justification — Substitution ▼</button>
+<div class="expl-body" id="explBody"><h3>Integration by Substitution</h3><p>The chain rule in reverse:</p><div class="formula">$\int_a^b f(g(x))\,g'(x)\,dx=\int_{g(a)}^{g(b)} f(u)\,du$</div><p>With $u=x^2$ the limits change: $x:0\to b$ becomes $u:0\to b^2$. Both integrals equal $\sin(b^2)$ — the substitution preserves the value (the signed area).</p></div></div>
+<script>
+document.getElementById("explBtn").addEventListener("click",function(){var b=document.getElementById("explBody");var o=b.classList.toggle("open");this.textContent=o?"📐 Theory & Justification — Substitution ▲":"📐 Theory & Justification — Substitution ▼";});
+</script>
+<script>
+function panel(id,fn,xa,xb,upto){const c=document.getElementById(id),x=c.getContext('2d');const W=c.width,Hh=c.height;x.clearRect(0,0,W,Hh);
+let mx=0.1;for(let t=xa;t<=xb;t+=0.01)mx=Math.max(mx,Math.abs(fn(t)));
+const x0=30,axisY=Hh/2,sx=(W-44)/(xb-xa),sy=(Hh/2-18)/mx;
+const X=t=>x0+(t-xa)*sx,Y=v=>axisY-v*sy;
+x.strokeStyle='#c7ced6';x.lineWidth=1.2;x.beginPath();x.moveTo(x0,axisY);x.lineTo(W-8,axisY);x.stroke();x.beginPath();x.moveTo(x0,12);x.lineTo(x0,Hh-12);x.stroke();
+// shaded signed area xa..upto
+x.fillStyle='rgba(0,130,180,0.18)';x.beginPath();x.moveTo(X(xa),axisY);for(let t=xa;t<=upto+1e-9;t+=0.005)x.lineTo(X(t),Y(fn(t)));x.lineTo(X(upto),axisY);x.closePath();x.fill();
+// curve
+x.strokeStyle='#c85000';x.lineWidth=2.4;x.beginPath();let f=true;for(let t=xa;t<=xb+1e-9;t+=0.005){const px=X(t),py=Y(fn(t));if(f){x.moveTo(px,py);f=false;}else x.lineTo(px,py);}x.stroke();
+// upper limit marker
+x.strokeStyle='#004080';x.setLineDash([4,3]);x.beginPath();x.moveTo(X(upto),12);x.lineTo(X(upto),Hh-12);x.stroke();x.setLineDash([]);}
+let b=1.4;
+function draw(){const hb=b*b;
+panel('cvx',t=>2*t*Math.cos(t*t),0,1.95,b);
+panel('cvu',u=>Math.cos(u),0,1.95*1.95,hb);
+const val=Math.sin(b*b);
+document.getElementById('ro').innerHTML='∫₀ᵇ 2x·cos(x²)dx = sin(b²) = <strong>'+val.toFixed(4)+'</strong> &nbsp;=&nbsp; ∫₀^{b²} cos u du = sin(b²) = <strong>'+val.toFixed(4)+'</strong> ✓ (b²='+hb.toFixed(3)+')';}
+document.getElementById('b').addEventListener('input',e=>{b=+e.target.value;document.getElementById('bV').textContent=b.toFixed(2);draw();});draw();
+</script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body></html>

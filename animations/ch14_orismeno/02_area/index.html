@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Under a Curve — Signed Area</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin: 0 0 20px 0;
+            font-size: 24px;
+        }
+        .controls {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        label {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+        select, input[type="range"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        input[type="range"] {
+            flex: 1;
+        }
+        .slider-value {
+            font-weight: bold;
+            color: #2196F3;
+            min-width: 50px;
+            text-align: right;
+        }
+        canvas {
+            border: 2px solid #333;
+            background-color: #fafafa;
+            display: block;
+            margin: 20px 0;
+        }
+        .formula {
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-style: italic;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .stat-box {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            border-left: 4px solid #2196F3;
+        }
+        .stat-box.positive {
+            border-left-color: #4CAF50;
+        }
+        .stat-box.negative {
+            border-left-color: #f44336;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+        }
+        .author-stamp {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            gap: 4px;
+        }
+        .stamp-book {
+            font-weight: bold;
+        }
+    
+    .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+    .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+  </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div><h1>Area Under a Curve — Signed Area</h1>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="funcSelect">Function f(x):</label>
+                <select id="funcSelect">
+                    <option value="sin">f(x) = sin(x)</option>
+                    <option value="quad">f(x) = x² - 2</option>
+                    <option value="cubic">f(x) = x³ - 3x</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="aSlider">Lower limit a:</label>
+                <div class="slider-container">
+                    <input type="range" id="aSlider" min="-3.14159" max="3.14159" step="0.1" value="-1.5">
+                    <span class="slider-value" id="aValue">-1.50</span>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label for="bSlider">Upper limit b:</label>
+                <div class="slider-container">
+                    <input type="range" id="bSlider" min="-3.14159" max="3.14159" step="0.1" value="1.5">
+                    <span class="slider-value" id="bValue">1.50</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="formula" id="formula">∫₋₁.₅¹·⁵ sin(x) dx</div>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-label">Integral</div>
+                <div class="stat-value" id="totalIntegral">0.000</div>
+            </div>
+            <div class="stat-box positive">
+                <div class="stat-label">Positive Area</div>
+                <div class="stat-value" id="positiveArea">0.000</div>
+            </div>
+            <div class="stat-box negative">
+                <div class="stat-label">Negative Area</div>
+                <div class="stat-value" id="negativeArea">0.000</div>
+            </div>
+        </div>
+
+        <canvas id="canvas" width="480" height="360"></canvas>
+    </div>
+
+    
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Theory & Justification — Area Under a Curve ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>Area Under a Curve</h3>
+    <p>The area between f(x) and the x-axis on [a,b] is ∫ₐᵇ|f(x)|dx.</p>
+    <div class="formula">If f(x)≥0: Area = ∫ₐᵇf(x)dx &nbsp;·&nbsp; If f changes sign: split into subintervals</div>
+    <p>Area between two curves: ∫ₐᵇ[f(x)−g(x)]dx if f≥g. An important application: areas of composite shapes.</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');
+  var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Theory & Justification — Area Under a Curve ▲':'📐 Theory & Justification — Area Under a Curve ▼';
+});
+</script>
+
+<script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const funcSelect = document.getElementById('funcSelect');
+        const aSlider = document.getElementById('aSlider');
+        const bSlider = document.getElementById('bSlider');
+        const aValue = document.getElementById('aValue');
+        const bValue = document.getElementById('bValue');
+
+        const width = canvas.width;
+        const height = canvas.height;
+        const padding = 40;
+        const graphWidth = width - 2 * padding;
+        const graphHeight = height - 2 * padding;
+
+        // Function definitions
+        const functions = {
+            sin: x => Math.sin(x),
+            quad: x => x * x - 2,
+            cubic: x => x * x * x - 3 * x
+        };
+
+        // Display name of each function
+        const funcNames = {
+            sin: 'sin(x)',
+            quad: 'x² - 2',
+            cubic: 'x³ - 3x'
+        };
+
+        // Numerical integration (Simpson's rule)
+        function integrate(func, a, b, n = 1000) {
+            const h = (b - a) / n;
+            let sum = func(a) + func(b);
+            for (let i = 1; i < n; i++) {
+                const x = a + i * h;
+                sum += (i % 2 === 0 ? 2 : 4) * func(x);
+            }
+            return (h / 3) * sum;
+        }
+
+        // Calculate positive and negative areas
+        function calculateAreas(func, a, b) {
+            const n = 1000;
+            const h = (b - a) / n;
+            let positive = 0, negative = 0;
+            for (let i = 0; i < n; i++) {
+                const x = a + i * h;
+                const y = func(x);
+                if (y >= 0) positive += y * h;
+                else negative -= y * h;
+            }
+            return { positive, negative };
+        }
+
+        function drawAxis() {
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.fillStyle = '#333';
+            ctx.font = '12px Arial';
+
+            // Draw axes
+            ctx.beginPath();
+            ctx.moveTo(padding, padding);
+            ctx.lineTo(padding, height - padding);
+            ctx.lineTo(width - padding, height - padding);
+            ctx.stroke();
+
+            // X-axis label
+            ctx.textAlign = 'center';
+            ctx.fillText('x', width - padding + 10, height - padding);
+
+            // Y-axis label
+            ctx.textAlign = 'right';
+            ctx.fillText('y', padding - 10, padding - 5);
+
+            // X-axis ticks and labels
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 1;
+            for (let i = -3; i <= 3; i += 0.5) {
+                const px = padding + ((i + 3.5) / 7) * graphWidth;
+                if (Math.abs(i - Math.round(i)) < 0.01) {
+                    ctx.strokeStyle = '#999';
+                    ctx.lineWidth = 1;
+                } else {
+                    ctx.strokeStyle = '#ddd';
+                    ctx.lineWidth = 0.5;
+                }
+                ctx.beginPath();
+                ctx.moveTo(px, height - padding);
+                ctx.lineTo(px, height - padding + 5);
+                ctx.stroke();
+                
+                if (Math.abs(i - Math.round(i)) < 0.01) {
+                    ctx.fillStyle = '#333';
+                    ctx.textAlign = 'center';
+                    ctx.font = '11px Arial';
+                    ctx.fillText(Math.round(i).toString(), px, height - padding + 15);
+                }
+            }
+
+            // Y-axis ticks
+            ctx.strokeStyle = '#ddd';
+            for (let i = -4; i <= 4; i += 1) {
+                const py = height - padding - ((i + 4) / 8) * graphHeight;
+                ctx.beginPath();
+                ctx.moveTo(padding - 5, py);
+                ctx.lineTo(padding, py);
+                ctx.stroke();
+                
+                ctx.fillStyle = '#333';
+                ctx.textAlign = 'right';
+                ctx.font = '11px Arial';
+                ctx.fillText(i.toString(), padding - 10, py + 4);
+            }
+        }
+
+        function xToPixel(x) {
+            return padding + ((x + 3.5) / 7) * graphWidth;
+        }
+
+        function yToPixel(y) {
+            return height - padding - ((y + 4) / 8) * graphHeight;
+        }
+
+        function drawFunction(func) {
+            ctx.strokeStyle = '#2196F3';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            for (let px = 0; px <= graphWidth; px += 1) {
+                const x = -3.5 + (px / graphWidth) * 7;
+                const y = func(x);
+                const py = yToPixel(y);
+                
+                if (px === 0) ctx.moveTo(xToPixel(x), py);
+                else ctx.lineTo(xToPixel(x), py);
+            }
+            ctx.stroke();
+        }
+
+        function shadeArea(func, a, b) {
+            const n = 100;
+            const h = (b - a) / n;
+
+            for (let i = 0; i < n; i++) {
+                const x1 = a + i * h;
+                const x2 = a + (i + 1) * h;
+                const y1 = func(x1);
+                const y2 = func(x2);
+                const yAvg = (y1 + y2) / 2;
+
+                const px1 = xToPixel(x1);
+                const px2 = xToPixel(x2);
+                const baseline = yToPixel(0);
+
+                if (yAvg >= 0) {
+                    ctx.fillStyle = 'rgba(76, 175, 80, 0.4)'; // Green for positive
+                } else {
+                    ctx.fillStyle = 'rgba(244, 67, 54, 0.4)'; // Red for negative
+                }
+
+                ctx.fillRect(px1, Math.min(baseline, yToPixel(yAvg)), px2 - px1, Math.abs(yToPixel(yAvg) - baseline));
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+            
+            const funcName = funcSelect.value;
+            const func = functions[funcName];
+            const a = parseFloat(aSlider.value);
+            const b = parseFloat(bSlider.value);
+
+            // Update display values
+            aValue.textContent = a.toFixed(2);
+            bValue.textContent = b.toFixed(2);
+
+            // Draw axes
+            drawAxis();
+
+            if (a < b) {
+                // Shade area
+                shadeArea(func, a, b);
+
+                // Calculate areas
+                const { positive, negative } = calculateAreas(func, a, b);
+                const integral = positive - negative;
+
+                // Update stats
+                document.getElementById('totalIntegral').textContent = integral.toFixed(3);
+                document.getElementById('positiveArea').textContent = positive.toFixed(3);
+                document.getElementById('negativeArea').textContent = negative.toFixed(3);
+
+                // Update formula
+                document.getElementById('formula').textContent = `∫₍${a.toFixed(2)}₎^${b.toFixed(2)} ${funcNames[funcName]} dx`;
+            }
+
+            // Draw function
+            drawFunction(func);
+
+            // Draw x-axis line at y=0 (bold)
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([]);
+            const baseline = yToPixel(0);
+            ctx.beginPath();
+            ctx.moveTo(padding, baseline);
+            ctx.lineTo(width - padding, baseline);
+            ctx.stroke();
+
+            // Draw bounds
+            if (a < b) {
+                ctx.strokeStyle = '#f44336';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 5]);
+                const px_a = xToPixel(a);
+                const px_b = xToPixel(b);
+                ctx.beginPath();
+                ctx.moveTo(px_a, padding);
+                ctx.lineTo(px_a, height - padding);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(px_b, padding);
+                ctx.lineTo(px_b, height - padding);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+        }
+
+        // Event listeners
+        funcSelect.addEventListener('change', draw);
+        aSlider.addEventListener('input', draw);
+        bSlider.addEventListener('input', draw);
+
+        // Initial draw
+        draw();
+    </script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>

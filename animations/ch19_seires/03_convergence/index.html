@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Series & Convergence</title>
+<script>MathJax={tex:{inlineMath:[['$','$']]}}</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
+header{background:linear-gradient(135deg,#004080,#0060a0);color:#fff;padding:1.2rem 1.5rem;border-bottom:3px solid #c85000}
+header h1{font-size:1.3rem}header p{font-size:.85rem;opacity:.85;margin-top:.3rem}
+.anim-badge{display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem}
+.container{max-width:950px;margin:0 auto;padding:1.5rem 1rem}
+canvas{border:2px solid #dde3ea;border-radius:10px;background:#fff;display:block;margin:1rem auto;max-width:100%}
+.btn{background:#004080;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:6px;cursor:pointer;font-size:.88rem;margin:.2rem}
+.btn.orange{background:#c85000}.btn:hover{background:#003060}.btn.orange:hover{background:#a54000}
+input[type=range]{width:100%;accent-color:#c85000}
+.control-group{background:#fff;padding:1rem;border-radius:8px;margin-bottom:1rem;border:1px solid #dde3ea}
+.control-group label{display:block;font-weight:bold;font-size:.86rem;margin:.5rem 0 .25rem}
+.info-box{background:#e8f4f8;border-left:4px solid #004080;padding:.7rem 1rem;margin-bottom:1rem;border-radius:0 8px 8px 0;font-size:.9rem;line-height:1.55}
+.info-box strong{color:#004080}
+.legend{display:flex;gap:1.1rem;flex-wrap:wrap;justify-content:center;font-size:.8rem;margin:.3rem 0}
+.legend span{display:flex;align-items:center;gap:.4rem}.dot{width:12px;height:12px;border-radius:50%}
+.author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;font-family:Georgia,serif;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+.stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+.expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+.expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+.expl-toggle:hover{background:#003060}
+.expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+.expl-body.open{display:block}.expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+.expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}</style></head><body>
+<header><div class="anim-badge">▶ ANIMATION</div><h1>Series & Convergence</h1><p>Chapter 19 · Sequences & Series · Geometric series</p></header>
+<div class="container">
+<div class="info-box"><strong>Geometric series:</strong> $\sum_{n=0}^{\infty} r^n$. See how the partial sums $S_N=\sum_{n=0}^{N} r^n$ converge (or diverge).</div><div class="control-group"><label>Ratio r: <span id="rV">0.6</span></label><input type="range" id="r" min="-1.4" max="1.4" step="0.05" value="0.6"><label>Terms N: <span id="nV">20</span></label><input type="range" id="N" min="5" max="40" step="1" value="20"></div><canvas id="cv" width="560" height="350"></canvas><div class="info-box" id="ro"></div>
+</div>
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+<button class="expl-toggle" id="explBtn">📐 Theory & Justification — Convergence of Series ▼</button>
+<div class="expl-body" id="explBody"><h3>The Geometric Series & the Ratio Test</h3><p>$\sum r^n$ <strong>converges</strong> exactly when $|r|<1$, with sum:</p><div class="formula">$\displaystyle\sum_{n=0}^{\infty} r^n=\frac{1}{1-r}\quad(|r|<1)$</div><p>The ratio test gives $\lim|a_{n+1}/a_n|=|r|$: if $<1$ it converges, if $>1$ it diverges. For $|r|\ge1$ the terms do not tend to $0$, so the series diverges.</p></div></div>
+<script>
+document.getElementById("explBtn").addEventListener("click",function(){var b=document.getElementById("explBody");var o=b.classList.toggle("open");this.textContent=o?"📐 Theory & Justification — Convergence of Series ▲":"📐 Theory & Justification — Convergence of Series ▼";});
+</script>
+<script>
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');const W=cv.width,H=cv.height;
+let r=0.6,N=20;
+function draw(){ctx.clearRect(0,0,W,H);
+const conv=Math.abs(r)<1;const L=conv?1/(1-r):null;
+let S=[],s=0;for(let n=0;n<=N;n++){s+=Math.pow(r,n);S.push(s);}
+let lo=Math.min(0,...S),hi=Math.max(0,...S);if(conv){lo=Math.min(lo,L);hi=Math.max(hi,L);}
+const pad=(hi-lo)*0.12+0.3;lo-=pad;hi+=pad;
+const x0=52,x1=W-20,y0=H-40,y1=20;
+const X=n=>x0+(x1-x0)*n/N;const Y=v=>y0+(y1-y0)*(v-lo)/(hi-lo);
+// axes
+ctx.strokeStyle='#c7ced6';ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(x0,Y(0));ctx.lineTo(x1,Y(0));ctx.stroke();
+ctx.beginPath();ctx.moveTo(x0,y1);ctx.lineTo(x0,y0);ctx.stroke();
+ctx.fillStyle='#888';ctx.font='12px Georgia';ctx.fillText('n',x1-12,Y(0)+16);ctx.fillText('Sₙ',x0-44,y1+10);
+// limit line
+if(conv){ctx.strokeStyle='#008c46';ctx.setLineDash([6,5]);ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x0,Y(L));ctx.lineTo(x1,Y(L));ctx.stroke();ctx.setLineDash([]);
+ctx.fillStyle='#008c46';ctx.fillText('1/(1−r)='+L.toFixed(3),x1-150,Y(L)-7);}
+// partial sums
+ctx.strokeStyle='#0082b4';ctx.lineWidth=2;ctx.beginPath();S.forEach((v,n)=>{const px=X(n),py=Y(v);if(n===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);});ctx.stroke();
+ctx.fillStyle='#c85000';S.forEach((v,n)=>{ctx.beginPath();ctx.arc(X(n),Y(v),3,0,2*Math.PI);ctx.fill();});
+document.getElementById('ro').innerHTML='<strong>S₍'+N+'₎ = '+S[N].toFixed(4)+'</strong> &nbsp;·&nbsp; |r| = '+Math.abs(r).toFixed(2)+' &nbsp;·&nbsp; '+(conv?('<span style="color:#008c46"><strong>converges</strong> to '+L.toFixed(4)+'</span>'):'<span style="color:#c0392b"><strong>diverges</strong> (|r|≥1)</span>');}
+document.getElementById('r').addEventListener('input',e=>{r=+e.target.value;document.getElementById('rV').textContent=r.toFixed(2);draw();});
+document.getElementById('N').addEventListener('input',e=>{N=+e.target.value;document.getElementById('nV').textContent=N;draw();});draw();
+</script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body></html>

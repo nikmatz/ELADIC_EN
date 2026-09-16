@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Partial Fraction Decomposition</title>
+<script>MathJax={tex:{inlineMath:[['$','$']]}}</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
+header{background:linear-gradient(135deg,#004080,#0060a0);color:#fff;padding:1.2rem 1.5rem;border-bottom:3px solid #c85000}
+header h1{font-size:1.3rem}header p{font-size:.85rem;opacity:.85;margin-top:.3rem}
+.anim-badge{display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem}
+.container{max-width:950px;margin:0 auto;padding:1.5rem 1rem}
+canvas{border:2px solid #dde3ea;border-radius:10px;background:#fff;display:block;margin:1rem auto;max-width:100%}
+.btn{background:#004080;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:6px;cursor:pointer;font-size:.88rem;margin:.2rem}
+.btn.orange{background:#c85000}.btn:hover{background:#003060}.btn.orange:hover{background:#a54000}
+input[type=range]{width:100%;accent-color:#c85000}
+.control-group{background:#fff;padding:1rem;border-radius:8px;margin-bottom:1rem;border:1px solid #dde3ea}
+.control-group label{display:block;font-weight:bold;font-size:.86rem;margin:.5rem 0 .25rem}
+.info-box{background:#e8f4f8;border-left:4px solid #004080;padding:.7rem 1rem;margin-bottom:1rem;border-radius:0 8px 8px 0;font-size:.9rem;line-height:1.55}
+.info-box strong{color:#004080}
+.legend{display:flex;gap:1.1rem;flex-wrap:wrap;justify-content:center;font-size:.8rem;margin:.3rem 0}
+.legend span{display:flex;align-items:center;gap:.4rem}.dot{width:12px;height:12px;border-radius:50%}
+.author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;font-family:Georgia,serif;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+.stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+.expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+.expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+.expl-toggle:hover{background:#003060}
+.expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+.expl-body.open{display:block}.expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+.expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}</style></head><body>
+<header><div class="anim-badge">▶ ANIMATION</div><h1>Partial Fraction Decomposition</h1><p>Chapter 16 · Techniques of Integration · Partial fractions</p></header>
+<div class="container">
+<div class="info-box"><strong>Decomposition:</strong> $\dfrac{1}{(x-r_1)(x-r_2)}=\dfrac{A}{x-r_1}+\dfrac{B}{x-r_2}$. The original function (orange) coincides with the sum of the two simple fractions.</div><div class="control-group"><label>Root r₁: <span id="r1V">-2.0</span></label><input type="range" id="r1" min="-4" max="0" step="0.1" value="-2"><label>Root r₂: <span id="r2V">2.0</span></label><input type="range" id="r2" min="0.2" max="4" step="0.1" value="2"></div><canvas id="cv" width="540" height="360"></canvas><div class="legend"><span><span class="dot" style="background:#c85000"></span>original R(x)</span><span><span class="dot" style="background:#0082b4"></span>A/(x−r₁)</span><span><span class="dot" style="background:#008c46"></span>B/(x−r₂)</span></div><div class="info-box" id="ro"></div>
+</div>
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+<button class="expl-toggle" id="explBtn">📐 Theory & Justification — Partial Fractions ▼</button>
+<div class="expl-body" id="explBody"><h3>Partial Fraction Decomposition</h3><p>For distinct real roots $r_1\ne r_2$:</p><div class="formula">$\dfrac{1}{(x-r_1)(x-r_2)}=\dfrac{A}{x-r_1}+\dfrac{B}{x-r_2},\quad A=\dfrac{1}{r_1-r_2},\ B=\dfrac{1}{r_2-r_1}=-A$</div><p>Useful for integration: $\int=\!A\ln|x-r_1|+B\ln|x-r_2|+C$. Graphically, the sum of the two simple fractions reproduces the original function.</p></div></div>
+<script>
+document.getElementById("explBtn").addEventListener("click",function(){var b=document.getElementById("explBody");var o=b.classList.toggle("open");this.textContent=o?"📐 Theory & Justification — Partial Fractions ▲":"📐 Theory & Justification — Partial Fractions ▼";});
+</script>
+<script>
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');const W=cv.width,H=cv.height,CX=W/2,CY=H/2,SX=40,SY=28;
+let r1=-2,r2=2;
+function Xp(x){return CX+x*SX;}function Yp(v){return CY-v*SY;}
+function plot(fn,col,dash,lw){ctx.strokeStyle=col;ctx.setLineDash(dash||[]);ctx.lineWidth=lw||2;ctx.beginPath();let pen=false;
+for(let x=-6.5;x<=6.5;x+=0.01){let v=fn(x);if(!isFinite(v)||Math.abs(v)>6.6){pen=false;continue;}const px=Xp(x),py=Yp(v);if(!pen){ctx.moveTo(px,py);pen=true;}else ctx.lineTo(px,py);}ctx.stroke();ctx.setLineDash([]);}
+function draw(){ctx.clearRect(0,0,W,H);
+ctx.strokeStyle='#eef0f5';ctx.lineWidth=1;for(let i=-6;i<=6;i++){ctx.beginPath();ctx.moveTo(Xp(i),0);ctx.lineTo(Xp(i),H);ctx.stroke();}
+for(let j=-6;j<=6;j++){ctx.beginPath();ctx.moveTo(0,Yp(j));ctx.lineTo(W,Yp(j));ctx.stroke();}
+ctx.strokeStyle='#c7ced6';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(0,CY);ctx.lineTo(W,CY);ctx.stroke();ctx.beginPath();ctx.moveTo(CX,0);ctx.lineTo(CX,H);ctx.stroke();
+// asymptotes
+ctx.strokeStyle='rgba(150,150,150,.5)';ctx.setLineDash([4,4]);[r1,r2].forEach(rr=>{ctx.beginPath();ctx.moveTo(Xp(rr),0);ctx.lineTo(Xp(rr),H);ctx.stroke();});ctx.setLineDash([]);
+const A=1/(r1-r2),B=1/(r2-r1);
+plot(x=>A/(x-r1),'#0082b4',[6,4],1.8);
+plot(x=>B/(x-r2),'#008c46',[6,4],1.8);
+plot(x=>1/((x-r1)*(x-r2)),'#c85000',[],2.8);
+document.getElementById('ro').innerHTML='<strong>A = 1/(r₁−r₂) = '+A.toFixed(3)+'</strong> &nbsp;·&nbsp; <strong>B = −A = '+B.toFixed(3)+'</strong><br>Check: A/(x−r₁)+B/(x−r₂) coincides with the original function (orange).';}
+document.getElementById('r1').addEventListener('input',e=>{r1=+e.target.value;document.getElementById('r1V').textContent=r1.toFixed(1);draw();});
+document.getElementById('r2').addEventListener('input',e=>{r2=+e.target.value;document.getElementById('r2V').textContent=r2.toFixed(1);draw();});draw();
+</script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body></html>
