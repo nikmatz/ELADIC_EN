@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Principal Component Analysis (PCA)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
+header{background:linear-gradient(135deg,#004080,#0060a0);color:#fff;padding:1.2rem 1.5rem;border-bottom:3px solid #c85000}
+header h1{font-size:1.3rem}header p{font-size:.85rem;opacity:.85;margin-top:.3rem}
+.container{max-width:950px;margin:0 auto;padding:1.5rem 1rem}
+canvas{border:2px solid #dde3ea;border-radius:10px;background:#fff;display:block;margin:1rem auto}
+.btn{background:#004080;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:6px;cursor:pointer;font-size:.88rem;margin:.2rem}
+.btn.orange{background:#c85000}.btn:hover{background:#003060}.btn.orange:hover{background:#a54000}
+input[type=range]{width:100%;accent-color:#c85000}
+.control-group{background:#fff;padding:1rem;border-radius:8px;margin-bottom:1rem;border:1px solid #dde3ea}
+.control-group label{display:block;font-weight:bold;font-size:.88rem;margin-bottom:.3rem}
+.info-box{background:#e8f4f8;border-left:4px solid #004080;padding:.7rem 1rem;margin-bottom:1rem;border-radius:0 8px 8px 0;font-size:.9rem;line-height:1.55}
+.info-box strong{color:#004080}
+.legend{display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;font-size:.82rem;margin:.3rem 0}
+.legend span{display:flex;align-items:center;gap:.4rem}.dot{width:12px;height:12px;border-radius:50%}
+.author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;font-family:Georgia,serif;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+.stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+.expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+.expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+.expl-toggle:hover{background:#003060}
+.expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+.expl-body.open{display:block}
+.expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+.expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+</style>
+</head>
+<body>
+<header>
+  <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div>
+  <h1>Principal Component Analysis (PCA)</h1>
+  <p>Chapter 6 · Diagonalization · Eigenvectors of the covariance matrix</p>
+</header>
+<div class="container">
+  <div class="info-box"><strong>Idea:</strong> PCA finds the directions of maximum variance of a cloud of points.
+  They are the <strong>eigenvectors</strong> of the covariance matrix $\Sigma$, and the variance along them is given by the <strong>eigenvalues</strong> $\lambda_1\ge\lambda_2$.</div>
+  <div class="control-group">
+    <label>Data correlation (ρ): <span id="rhoVal">0.8</span></label>
+    <input type="range" id="rho" min="-0.95" max="0.95" step="0.05" value="0.8">
+    <div style="margin-top:.6rem"><button class="btn orange" id="regen">↻ New data</button></div>
+  </div>
+  <canvas id="cv" width="480" height="430"></canvas>
+  <div class="legend">
+    <span><span class="dot" style="background:#9aa7b4"></span>data</span>
+    <span><span class="dot" style="background:#c85000"></span>1st principal component (PC1)</span>
+    <span><span class="dot" style="background:#008c46"></span>2nd principal component (PC2)</span>
+  </div>
+  <div class="info-box" id="readout"></div>
+</div>
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Theory & Justification — PCA & Covariance ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>PCA & the Covariance Matrix</h3>
+    <p>We center the data ($X_c$) and compute the symmetric covariance matrix
+       $\Sigma=\frac{1}{n-1}X_c^\top X_c$.</p>
+    <div class="formula">$\Sigma\,v_i=\lambda_i\,v_i$ &nbsp;·&nbsp; PC1 = the eigenvector of the largest $\lambda$</div>
+    <p>The eigenvectors are orthogonal (since $\Sigma$ is symmetric). The proportion of the variance
+       explained by PC1 is $\lambda_1/(\lambda_1+\lambda_2)$. This is exactly an <strong>orthogonal diagonalization</strong>
+       $\Sigma=Q\Lambda Q^\top$.</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Theory & Justification — PCA & Covariance ▲':'📐 Theory & Justification — PCA & Covariance ▼';
+});
+</script>
+<script>
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+const W=cv.width,H=cv.height,CX=W/2,CY=H/2,SC=46;
+let rho=0.8, pts=[];
+function randn(){let u=1-Math.random(),v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+function gen(){pts=[];for(let i=0;i<70;i++){let x=randn()*2.2;let y=rho*x+randn()*Math.sqrt(1-rho*rho)*2.2;pts.push([x,y]);}}
+function eigSym(a,b,d){
+  const tr=a+d, det=a*d-b*b, disc=Math.sqrt(Math.max(0,tr*tr-4*det));
+  const l1=(tr+disc)/2, l2=(tr-disc)/2;
+  let v1; if(Math.abs(b)>1e-9){v1=[b,l1-a];} else {v1=(a>=d)?[1,0]:[0,1];}
+  const n1=Math.hypot(v1[0],v1[1]); v1=[v1[0]/n1,v1[1]/n1];
+  const v2=[-v1[1],v1[0]];
+  return {l1,l2,v1,v2};
+}
+function toS(x,y){return [CX+x*SC, CY-y*SC];}
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  // grid + axes
+  ctx.strokeStyle='#eef0f5';ctx.lineWidth=1;
+  for(let i=-5;i<=5;i++){let[a1,b1]=toS(i,-5),[a2,b2]=toS(i,5);ctx.beginPath();ctx.moveTo(a1,b1);ctx.lineTo(a2,b2);ctx.stroke();
+    let[c1,d1]=toS(-5,i),[c2,d2]=toS(5,i);ctx.beginPath();ctx.moveTo(c1,d1);ctx.lineTo(c2,d2);ctx.stroke();}
+  ctx.strokeStyle='#c7ced6';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(0,CY);ctx.lineTo(W,CY);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(CX,0);ctx.lineTo(CX,H);ctx.stroke();
+  // mean
+  let mx=0,my=0;pts.forEach(p=>{mx+=p[0];my+=p[1];});mx/=pts.length;my/=pts.length;
+  // covariance
+  let a=0,b=0,d=0;pts.forEach(p=>{let dx=p[0]-mx,dy=p[1]-my;a+=dx*dx;b+=dx*dy;d+=dy*dy;});
+  const n=pts.length-1;a/=n;b/=n;d/=n;
+  const e=eigSym(a,b,d);
+  // points
+  ctx.fillStyle='#9aa7b4';pts.forEach(p=>{let[sx,sy]=toS(p[0],p[1]);ctx.beginPath();ctx.arc(sx,sy,3.2,0,2*Math.PI);ctx.fill();});
+  // centroid
+  let[mcx,mcy]=toS(mx,my);ctx.fillStyle='#004080';ctx.beginPath();ctx.arc(mcx,mcy,5,0,2*Math.PI);ctx.fill();
+  // principal axes (length ∝ sqrt(λ))
+  function axis(v,l,col,lab){
+    const len=Math.sqrt(Math.max(l,0))*1.6;
+    const[x1,y1]=toS(mx-v[0]*len,my-v[1]*len),[x2,y2]=toS(mx+v[0]*len,my+v[1]*len);
+    ctx.strokeStyle=col;ctx.lineWidth=3.5;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+    // arrowhead
+    const ang=Math.atan2(y2-y1,x2-x1);ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(x2,y2);
+    ctx.lineTo(x2-13*Math.cos(ang-0.3),y2-13*Math.sin(ang-0.3));
+    ctx.lineTo(x2-13*Math.cos(ang+0.3),y2-13*Math.sin(ang+0.3));ctx.closePath();ctx.fill();
+    ctx.font='bold 13px Georgia';ctx.fillText(lab,x2+6,y2-6);
+  }
+  axis(e.v2,e.l2,'#008c46','PC2');
+  axis(e.v1,e.l1,'#c85000','PC1');
+  // readout
+  const tot=e.l1+e.l2, pc1=tot>0?(100*e.l1/tot):50;
+  document.getElementById('readout').innerHTML=
+    '<strong>Covariance Σ:</strong> [['+a.toFixed(2)+', '+b.toFixed(2)+'], ['+b.toFixed(2)+', '+d.toFixed(2)+']]<br>'+
+    '<strong>Eigenvalues:</strong> λ₁='+e.l1.toFixed(2)+', λ₂='+e.l2.toFixed(2)+
+    ' &nbsp;·&nbsp; <strong>PC1 explains '+pc1.toFixed(1)+'%</strong> of the variance';
+}
+document.getElementById('rho').addEventListener('input',e=>{rho=parseFloat(e.target.value);document.getElementById('rhoVal').textContent=rho.toFixed(2);gen();draw();});
+document.getElementById('regen').addEventListener('click',()=>{gen();draw();});
+gen();draw();
+</script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaussian Elimination — Step by Step</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a;font-size:15px}
+    header{background:linear-gradient(135deg,#004080,#0060a0);color:#fff;padding:1.2rem 1.5rem;border-bottom:3px solid #c85000}
+    header h1{font-size:1.3rem}
+    header p{font-size:.85rem;opacity:.85;margin-top:.3rem}
+    .container{max-width:860px;margin:0 auto;padding:1.5rem 1rem}
+
+    /* Tabs */
+    .tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.2rem}
+    .tab{background:#004080;color:#fff;border:none;padding:.5rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.85rem;font-family:Georgia,serif}
+    .tab.on{background:#c85000}
+    .tab:hover{opacity:.85}
+
+    /* Controls */
+    .ctrls{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:1.3rem}
+    .btn{padding:.48rem 1.1rem;border:none;border-radius:6px;cursor:pointer;font-size:.87rem;font-family:Georgia,serif}
+    .btn-blue{background:#004080;color:#fff}.btn-blue:hover{background:#003060}
+    .btn-org{background:#c85000;color:#fff}.btn-org:hover{background:#a54000}
+    .btn-gray{background:#e0e7ef;color:#004080}.btn-gray:hover{background:#c8d5e8}
+    .btn:disabled{opacity:.35;cursor:not-allowed}
+    select{padding:.38rem .7rem;border:1.5px solid #dde3ea;border-radius:6px;font-family:Georgia,serif;font-size:.85rem}
+    .spd{font-size:.82rem;color:#666}
+
+    /* Steps list */
+    #steps{display:flex;flex-direction:column;align-items:center;gap:0}
+
+    /* Each step animates in */
+    .step-in{animation:drop .5s cubic-bezier(.22,.68,0,1.2) forwards}
+    @keyframes drop{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+
+    /* Matrix block */
+    .mat-wrap{display:flex;align-items:center;justify-content:center;padding:.9rem 1.4rem;background:#fff;border:2px solid #c8d5e8;border-radius:10px}
+    .mat-wrap.initial{border-color:#004080}
+    .mat-wrap.final{border-color:#2e7d32;background:#f4fbf5}
+
+    /* The matrix itself: bracket + table + augment line + rhs */
+    .matrix{display:inline-flex;align-items:stretch;gap:0}
+    .m-brak{display:flex;flex-direction:column;justify-content:space-between;width:10px;flex-shrink:0}
+    .m-brak-l .m-top,.m-brak-l .m-bot{border-left:3px solid #004080;height:12px}
+    .m-brak-l .m-mid{border-left:3px solid #004080;flex:1}
+    .m-brak-l .m-top{border-top:3px solid #004080;border-radius:3px 0 0 0}
+    .m-brak-l .m-bot{border-bottom:3px solid #004080;border-radius:0 0 0 3px}
+    .m-brak-r .m-top,.m-brak-r .m-bot{border-right:3px solid #004080;height:12px}
+    .m-brak-r .m-mid{border-right:3px solid #004080;flex:1}
+    .m-brak-r .m-top{border-top:3px solid #004080;border-radius:0 3px 0 0}
+    .m-brak-r .m-bot{border-bottom:3px solid #004080;border-radius:0 0 3px 0}
+    .mat-wrap.final .m-brak-l .m-top,.mat-wrap.final .m-brak-l .m-bot,.mat-wrap.final .m-brak-l .m-mid,
+    .mat-wrap.final .m-brak-r .m-top,.mat-wrap.final .m-brak-r .m-bot,.mat-wrap.final .m-brak-r .m-mid{border-color:#2e7d32}
+    .m-body{display:flex;align-items:center;gap:0;padding:0 4px}
+    .m-col{display:flex;flex-direction:column;gap:2px;padding:0 3px}
+    .m-aug-line{width:2px;background:#004080;margin:2px 6px;border-radius:1px}
+    .mat-wrap.final .m-aug-line{background:#2e7d32}
+    .mcell{min-width:44px;height:36px;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:.9rem;font-weight:600;border-radius:5px;border:1.5px solid transparent;transition:background .4s,color .4s,border-color .4s}
+    .mcell.norm{color:#333}
+    .mcell.piv-row{background:#ddeeff;border-color:#4d90d0;color:#003a80}
+    .mcell.piv-cell{background:#004080;color:#fff;border-color:#004080}
+    .mcell.chg-row{background:#ffeedd;border-color:#d07040;color:#8b3000}
+    .mcell.new-zero{background:#e6f5ea;border-color:#5cb870;color:#1a6b2a;animation:glow .7s ease}
+    @keyframes glow{0%{background:#b2dfdb;transform:scale(1.15)}100%{background:#e6f5ea;transform:scale(1)}}
+
+    /* Row labels left of matrix */
+    .rlbls{display:flex;flex-direction:column;gap:2px;margin-right:7px}
+    .rlbl{height:36px;display:flex;align-items:center;font-size:.78rem;color:#aaa;font-style:italic}
+
+    /* Step label above matrix */
+    .mat-lbl{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:#888;margin-bottom:.45rem;text-align:center}
+    .mat-lbl.init{color:#004080;font-weight:bold}
+    .mat-lbl.fin{color:#2e7d32;font-weight:bold}
+
+    /* Arrow between matrices */
+    .op-arrow{display:flex;flex-direction:column;align-items:center;gap:.3rem;padding:.55rem 0}
+    .op-pill{background:#c85000;color:#fff;padding:.28rem .9rem;border-radius:20px;font-size:.88rem;font-family:'Courier New',monospace;font-weight:bold}
+    .op-note{font-size:.75rem;color:#999;font-style:italic;text-align:center;max-width:200px}
+    .op-sym{font-size:1.5rem;color:#c85000;line-height:1}
+
+    /* Result banner */
+    .result{margin:.6rem 0;padding:.7rem 1.1rem;border-radius:8px;font-size:.9rem;font-weight:bold;animation:drop .4s ease}
+    .result.uniq{background:#e8f5e9;color:#2e7d32;border-left:4px solid #2e7d32}
+    .result.inf{background:#e3f2fd;color:#1565c0;border-left:4px solid #1565c0}
+    .result.none{background:#ffebee;color:#c62828;border-left:4px solid #c62828}
+
+    /* Explanation */
+    .expl-section{margin-top:1.4rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem 1.2rem;background:#fffbf0;font-size:.9rem;line-height:1.75}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem}
+    .formula{background:#fff;border-left:4px solid #c85000;padding:.45rem .9rem;margin:.5rem 0;border-radius:0 6px 6px 0;font-style:italic}
+
+    .author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+    .stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+  </style>
+</head>
+<body>
+<header>
+  <h1>Gaussian Elimination — Step by Step</h1>
+  <p>Chapter 3 · Linear Systems · Every step visible — each matrix in proper notation</p>
+</header>
+<div class="container">
+
+  <div class="tabs">
+    <button class="tab on" onclick="loadEx(0)">Example 1 — Unique Solution</button>
+    <button class="tab"    onclick="loadEx(1)">Example 2 — Infinitely Many Solutions</button>
+    <button class="tab"    onclick="loadEx(2)">Example 3 — No Solution</button>
+    <button class="tab"    onclick="showCustom()">✏️ Your own 3×3 system</button>
+  </div>
+
+  <div id="customPanel" style="display:none;background:#f6f9fc;border:1px solid #d7e2ec;border-radius:10px;padding:.9rem 1rem;margin:.6rem 0 1rem">
+    <div style="font-weight:600;color:#0b5d84;margin-bottom:.55rem">Enter the augmented matrix [A|b] of the 3×3 system:</div>
+    <div id="cgrid" style="display:inline-grid;grid-template-columns:repeat(3,3.4rem) .7rem 3.4rem;gap:.35rem;align-items:center"></div>
+    <div style="margin-top:.75rem;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+      <button class="btn btn-blue" onclick="runCustom()">Eliminate ▶</button>
+      <button class="btn btn-gray" onclick="fillCustom([[1,1,1,6],[0,2,5,-4],[2,5,-1,27]])">Example</button>
+      <button class="btn btn-gray" onclick="fillCustom([[0,0,0,0],[0,0,0,0],[0,0,0,0]])">Clear</button>
+      <span id="cmsg" style="color:#b03030;font-size:.85rem"></span>
+    </div>
+  </div>
+
+  <div class="ctrls">
+    <button class="btn btn-blue" id="bNext" onclick="revealNext()">Next Step ▶</button>
+    <button class="btn btn-org"  id="bAll"  onclick="revealAll()">Show All ⏩</button>
+    <button class="btn btn-gray" onclick="loadEx(curEx)">↺ Reset</button>
+    <span class="spd">Auto speed:</span>
+    <select id="spd"><option value="2000">Slow</option><option value="1100" selected>Normal</option><option value="550">Fast</option></select>
+    <button class="btn btn-org" id="bAuto" onclick="toggleAuto()">▶ Auto</button>
+  </div>
+
+  <div id="steps"></div>
+
+  <div class="expl-section">
+    <button class="expl-toggle" id="eTog">📐 Theory & Justification — Gaussian Elimination ▼</button>
+    <div class="expl-body" id="eBody">
+      <h3>Gaussian Elimination — Row Echelon Reduction (REF)</h3>
+      <p>The augmented matrix [A|b] is brought to <strong>row echelon form</strong> by three permitted row operations:</p>
+      <div class="formula">R<sub>i</sub> ↔ R<sub>j</sub> &nbsp;·&nbsp; R<sub>i</sub> ← λ·R<sub>i</sub> (λ≠0) &nbsp;·&nbsp; R<sub>i</sub> ← R<sub>i</sub> + λ·R<sub>j</sub></div>
+      <p>Color coding: <span style="color:#003a80;font-weight:bold">■ blue = pivot row</span> · <span style="color:#8b3000;font-weight:bold">■ orange = row being changed</span> · <span style="color:#1a6b2a;font-weight:bold">■ green = new zero</span>.</p>
+      <div class="formula">Kronecker–Capelli theorem: the system Ax=b is consistent ⟺ rank(A) = rank([A|b])</div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+const EX=[
+  {name:'Unique Solution',type:'uniq',
+   res:'✓ Row echelon form — Unique solution: x<sub>1</sub>=2, x<sub>2</sub>=3, x<sub>3</sub>=−1',
+   mats:[
+     [[2,1,-1,8],[-3,-1,2,-11],[-2,1,2,-3]],
+     [[2,1,-1,8],[0,0.5,0.5,1],[-2,1,2,-3]],
+     [[2,1,-1,8],[0,0.5,0.5,1],[0,2,1,5]],
+     [[2,1,-1,8],[0,0.5,0.5,1],[0,0,-1,1]]
+   ],
+   ops:[
+     {html:'R<sub>2</sub> ← R<sub>2</sub> + <sup>3</sup>/<sub>2</sub>·R<sub>1</sub>', note:'Eliminate a₂₁: pivot row 1, row 2 changes', piv:0,chg:1},
+     {html:'R<sub>3</sub> ← R<sub>3</sub> + R<sub>1</sub>', note:'Eliminate a₃₁: pivot row 1, row 3 changes', piv:0,chg:2},
+     {html:'R<sub>3</sub> ← R<sub>3</sub> − 4·R<sub>2</sub>', note:'Eliminate a₃₂: pivot row 2, row 3 changes', piv:1,chg:2}
+   ]},
+  {name:'Infinitely Many Solutions',type:'inf',
+   res:'∞ Infinitely many solutions: rank(A)=rank([A|b])=1&lt;3 &nbsp;→&nbsp; x<sub>1</sub>=6−2x<sub>2</sub>−3x<sub>3</sub>, x<sub>2</sub>, x<sub>3</sub> free',
+   mats:[
+     [[1,2,3,6],[2,4,6,12],[1,2,3,6]],
+     [[1,2,3,6],[0,0,0,0],[1,2,3,6]],
+     [[1,2,3,6],[0,0,0,0],[0,0,0,0]]
+   ],
+   ops:[
+     {html:'R<sub>2</sub> ← R<sub>2</sub> − 2·R<sub>1</sub>', note:'Row 2 becomes [0 0 0 | 0]', piv:0,chg:1},
+     {html:'R<sub>3</sub> ← R<sub>3</sub> − R<sub>1</sub>',  note:'Row 3 becomes [0 0 0 | 0]', piv:0,chg:2}
+   ]},
+  {name:'No Solution',type:'none',
+   res:'✗ No solution: rank(A)=1 &lt; rank([A|b])=2 &nbsp;→&nbsp; contradiction [0 0 0 | −1]',
+   mats:[
+     [[1,2,3,6],[2,4,6,12],[1,2,3,5]],
+     [[1,2,3,6],[0,0,0,0],[1,2,3,5]],
+     [[1,2,3,6],[0,0,0,0],[0,0,0,-1]]
+   ],
+   ops:[
+     {html:'R<sub>2</sub> ← R<sub>2</sub> − 2·R<sub>1</sub>', note:'Row 2 → [0 0 0 | 0]', piv:0,chg:1},
+     {html:'R<sub>3</sub> ← R<sub>3</sub> − R<sub>1</sub>',  note:'Row 3 → [0 0 0 | −1] ← contradiction!', piv:0,chg:2}
+   ]}
+];
+
+let curEx=0,revealed=0,autoT=null;
+
+function fr(v){
+  if(Math.abs(v)<1e-9)return'0';
+  if(Math.abs(v-Math.round(v))<1e-9)return String(Math.round(v));
+  const fs=[[1,2],[1,3],[2,3],[3,2],[1,4],[3,4],[5,2],[7,2],[1,5],[2,5],[3,5],[4,5],[5,7],[20,7]];
+  for(const[n,d]of fs){
+    if(Math.abs(v-n/d)<1e-9)return`<sup>${n}</sup>/<sub>${d}</sub>`;
+    if(Math.abs(v+n/d)<1e-9)return`−<sup>${n}</sup>/<sub>${d}</sub>`;
+  }
+  return v.toFixed(2);
+}
+
+function bracket(top){
+  return`<div class="m-brak ${top?'m-brak-l':'m-brak-r'}"><div class="m-top"></div><div class="m-mid"></div><div class="m-bot"></div></div>`;
+}
+
+function buildMat(mat,piv,chg,prevMat,isFinal){
+  const nr=mat.length,nc=mat[0].length,nc0=nc-1;
+  let h='<div class="rlbls">';
+  for(let r=0;r<nr;r++)h+=`<div class="rlbl">R<sub>${r+1}</sub></div>`;
+  h+='</div>';
+
+  h+='<div class="matrix">';
+  h+=bracket(true);
+  h+='<div class="m-body">';
+
+  // coefficient columns
+  for(let c=0;c<nc0;c++){
+    h+='<div class="m-col">';
+    for(let r=0;r<nr;r++){
+      let cls='mcell norm';
+      if(r===piv){cls=(c===0)?'mcell piv-cell':'mcell piv-row';}
+      else if(r===chg){
+        if(prevMat&&Math.abs(mat[r][c])<1e-9&&Math.abs(prevMat[r][c])>1e-9) cls='mcell new-zero';
+        else cls='mcell chg-row';
+      }
+      h+=`<div class="${cls}">${fr(mat[r][c])}</div>`;
+    }
+    h+='</div>';
+  }
+
+  // vertical augment line
+  h+='<div class="m-aug-line"></div>';
+
+  // rhs column
+  h+='<div class="m-col">';
+  for(let r=0;r<nr;r++){
+    let cls='mcell norm';
+    if(r===piv) cls='mcell piv-row';
+    else if(r===chg) cls='mcell chg-row';
+    h+=`<div class="${cls}">${fr(mat[r][nc-1])}</div>`;
+  }
+  h+='</div>';
+
+  h+='</div>'; // m-body
+  h+=bracket(false);
+  h+='</div>'; // matrix
+  return h;
+}
+
+function buildBlock(mat,piv,chg,prevMat,label,labelCls,isFinal){
+  return`<div class="mat-wrap ${isFinal?'final':''} step-in" style="flex-direction:column">
+    <div class="mat-lbl ${labelCls}">${label}</div>
+    <div style="display:flex;align-items:center">${buildMat(mat,piv,chg,prevMat,isFinal)}</div>
+  </div>`;
+}
+
+function buildArrow(op){
+  return`<div class="op-arrow step-in">
+    <div class="op-sym">↓</div>
+    <div class="op-pill">${op.html}</div>
+    <div class="op-note">${op.note}</div>
+  </div>`;
+}
+
+function renderSteps(){
+  const ex=EX[curEx];
+  const sc=document.getElementById('steps');
+  sc.innerHTML='';
+
+  // step 0: initial
+  const d0=document.createElement('div');
+  d0.innerHTML=buildBlock(ex.mats[0],-1,-1,null,'Initial augmented matrix [A|b]','init',false);
+  sc.appendChild(d0);
+
+  // steps 1..revealed
+  for(let s=1;s<=revealed;s++){
+    const op=ex.ops[s-1];
+    const isFinal=(s===ex.ops.length);
+    const lbl=isFinal?'Row Echelon Form (REF)':'Step '+s;
+    const lblCls=isFinal?'fin':'';
+
+    const da=document.createElement('div');
+    da.innerHTML=buildArrow(op);
+    sc.appendChild(da);
+
+    const dm=document.createElement('div');
+    dm.innerHTML=buildBlock(ex.mats[s],op.piv,op.chg,ex.mats[s-1],lbl,lblCls,isFinal);
+    sc.appendChild(dm);
+
+    if(isFinal){
+      const dr=document.createElement('div');
+      dr.className='step-in';
+      dr.innerHTML=`<div class="result ${ex.type}">${ex.res}</div>`;
+      sc.appendChild(dr);
+    }
+  }
+
+  document.getElementById('bNext').disabled=(revealed>=ex.ops.length);
+}
+
+function loadEx(i){
+  stopAuto();curEx=i;revealed=0;
+  document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('on',j===i));
+  renderSteps();
+}
+
+function revealNext(){
+  if(revealed>=EX[curEx].ops.length)return;
+  revealed++;renderSteps();
+  setTimeout(()=>window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}),80);
+}
+function revealAll(){
+  stopAuto();revealed=EX[curEx].ops.length;renderSteps();
+  setTimeout(()=>window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}),120);
+}
+function stopAuto(){
+  if(autoT){clearInterval(autoT);autoT=null;}
+  document.getElementById('bAuto').textContent='▶ Auto';
+}
+function toggleAuto(){
+  if(autoT){stopAuto();return;}
+  const spd=parseInt(document.getElementById('spd').value);
+  document.getElementById('bAuto').textContent='⏸ Pause';
+  revealNext();
+  autoT=setInterval(()=>{
+    if(revealed>=EX[curEx].ops.length){stopAuto();return;}
+    revealNext();
+  },spd);
+}
+document.getElementById('eTog').addEventListener('click',function(){
+  const b=document.getElementById('eBody'),o=b.classList.toggle('open');
+  this.textContent=o?'📐 Theory & Justification — Gaussian Elimination ▲':'📐 Theory & Justification — Gaussian Elimination ▼';
+});
+
+/* ============================================================
+   Your own system: real Gaussian elimination on a 3x4 matrix.
+   Produces the same structure {mats, ops, type, res} as the preset
+   examples, so that the same buttons work.
+   ============================================================ */
+function fillCustom(M){
+  for(let r=0;r<3;r++)for(let c=0;c<4;c++){
+    const el=document.getElementById(`c${r}${c}`);
+    if(el) el.value = M[r][c];
+  }
+  document.getElementById('cmsg').textContent='';
+}
+
+function buildCustomGrid(){
+  const g=document.getElementById('cgrid');
+  if(g.dataset.ready) return;
+  let h='';
+  for(let r=0;r<3;r++){
+    for(let c=0;c<3;c++)
+      h+=`<input id="c${r}${c}" type="number" step="any" value="0" style="width:3.4rem;padding:.3rem;text-align:center;border:1px solid #bcd;border-radius:6px;font-size:.95rem">`;
+    h+=`<div style="text-align:center;color:#789;font-weight:700">|</div>`;
+    h+=`<input id="c${r}3" type="number" step="any" value="0" style="width:3.4rem;padding:.3rem;text-align:center;border:1px solid #f0b27a;border-radius:6px;font-size:.95rem;background:#fff8f0">`;
+  }
+  g.innerHTML=h; g.dataset.ready='1';
+  fillCustom([[2,1,-1,8],[1,-1,1,0],[3,2,1,13]]);
+}
+
+function showCustom(){
+  stopAuto();
+  buildCustomGrid();
+  document.getElementById('customPanel').style.display='block';
+  document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('on',j===3));
+  document.getElementById('steps').innerHTML='';
+  document.getElementById('bNext').disabled=true;
+}
+
+function rankOf(M,cols){
+  /* rank via elimination on a copy */
+  const A=M.map(r=>r.slice(0,cols)); const n=A.length; let rank=0;
+  for(let c=0;c<cols && rank<n;c++){
+    let p=-1;
+    for(let r=rank;r<n;r++) if(Math.abs(A[r][c])>1e-9){p=r;break;}
+    if(p<0) continue;
+    [A[rank],A[p]]=[A[p],A[rank]];
+    for(let r=rank+1;r<n;r++){
+      const f=A[r][c]/A[rank][c];
+      for(let k=c;k<cols;k++) A[r][k]-=f*A[rank][k];
+    }
+    rank++;
+  }
+  return rank;
+}
+
+function sub(i){return `<sub>${i}</sub>`;}
+function numTxt(v){
+  if(Math.abs(v-Math.round(v))<1e-9) return String(Math.round(v));
+  return v.toFixed(3).replace(/0+$/,'').replace(/\.$/,'');
+}
+
+function buildFromMatrix(M0){
+  const M=M0.map(r=>r.slice());
+  const mats=[M.map(r=>r.slice())], ops=[];
+  let rank=0;
+  for(let c=0;c<3 && rank<3;c++){
+    let p=-1;
+    for(let r=rank;r<3;r++) if(Math.abs(M[r][c])>1e-9){p=r;break;}
+    if(p<0) continue;
+    if(p!==rank){
+      [M[rank],M[p]]=[M[p],M[rank]];
+      ops.push({html:`R${sub(rank+1)} ↔ R${sub(p+1)}`,
+                note:`Row swap: the pivot of column ${c+1} was zero`,
+                piv:rank,chg:p});
+      mats.push(M.map(r=>r.slice()));
+    }
+    for(let r=rank+1;r<3;r++){
+      if(Math.abs(M[r][c])<1e-9) continue;
+      const f=M[r][c]/M[rank][c];
+      for(let k=0;k<4;k++) M[r][k]-=f*M[rank][k];
+      M[r]=M[r].map(v=>Math.abs(v)<1e-9?0:v);
+      const sg=f>0?'−':'+';
+      ops.push({html:`R${sub(r+1)} ← R${sub(r+1)} ${sg} ${numTxt(Math.abs(f))}·R${sub(rank+1)}`,
+                note:`Eliminate a${sub(''+(r+1)+(c+1))}: pivot row ${rank+1}, row ${r+1} changes`,
+                piv:rank,chg:r});
+      mats.push(M.map(r2=>r2.slice()));
+    }
+    rank++;
+  }
+  const rA=rankOf(M,3), rAb=rankOf(M,4);
+  let type,res;
+  if(rAb>rA){
+    type='none';
+    res=`✗ No solution: rank(A)=${rA} &lt; rank([A|b])=${rAb} &nbsp;→&nbsp; a contradictory row appears`;
+  }else if(rA<3){
+    type='inf';
+    res=`∞ Infinitely many solutions: rank(A)=rank([A|b])=${rA}&lt;3 &nbsp;→&nbsp; ${3-rA} free variable(s)`;
+  }else{
+    /* back substitution */
+    const x=[0,0,0];
+    for(let r=2;r>=0;r--){
+      let sum=M[r][3];
+      for(let k=r+1;k<3;k++) sum-=M[r][k]*x[k];
+      x[r]=sum/M[r][r];
+    }
+    type='uniq';
+    res=`✓ Row echelon form — Unique solution: x${sub(1)}=${numTxt(x[0])}, x${sub(2)}=${numTxt(x[1])}, x${sub(3)}=${numTxt(x[2])}`;
+  }
+  if(ops.length===0){
+    ops.push({html:'—',note:'The matrix is already in row echelon form',piv:0,chg:-1});
+    mats.push(M.map(r=>r.slice()));
+  }
+  return {name:'Your own system',type:type,res:res,mats:mats,ops:ops};
+}
+
+function runCustom(){
+  const msg=document.getElementById('cmsg'); msg.textContent='';
+  const M=[];
+  for(let r=0;r<3;r++){
+    const row=[];
+    for(let c=0;c<4;c++){
+      const v=parseFloat(document.getElementById(`c${r}${c}`).value);
+      if(!isFinite(v)){msg.textContent='Fill in all the cells with numbers.';return;}
+      row.push(v);
+    }
+    M.push(row);
+  }
+  if(M.every(r=>r.slice(0,3).every(v=>Math.abs(v)<1e-9))){
+    msg.textContent='The coefficient matrix is zero — please enter a meaningful system.';
+    return;
+  }
+  EX[3]=buildFromMatrix(M);
+  curEx=3; revealed=0;
+  document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('on',j===3));
+  renderSteps();
+}
+
+/* The preset tabs hide the input panel */
+const _loadExOrig = loadEx;
+loadEx = function(i){
+  if(i<3) document.getElementById('customPanel').style.display='none';
+  _loadExOrig(i);
+};
+
+loadEx(0);
+</script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>
