@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taylor Expansion</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
+    header{background:linear-gradient(135deg,#004080,#0060a0);color:#fff;padding:1.2rem 1.5rem;border-bottom:3px solid #c85000}
+    header h1{font-size:1.3rem}header p{font-size:.85rem;opacity:.85;margin-top:.3rem}
+    .container{max-width:980px;margin:0 auto;padding:1.5rem 1rem}
+    .layout{display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-start}
+    canvas{border:2px solid #dde3ea;border-radius:10px;background:#fff}
+    .panel{flex:1;min-width:260px}
+    .panel h2{color:#004080;font-size:1rem;margin-bottom:.8rem;border-bottom:2px solid #dde3ea;padding-bottom:.3rem}
+    .slider-group{margin-bottom:.8rem}.slider-group label{display:block;font-size:.85rem;color:#444;margin-bottom:.3rem}
+    input[type=range]{width:100%;accent-color:#c85000}
+    select{width:100%;padding:.4rem;border:1.5px solid #dde3ea;border-radius:6px;font-family:Georgia;margin-bottom:.8rem}
+    .result-box{background:#fff;border:2px solid #dde3ea;border-radius:8px;padding:.8rem 1rem;margin-bottom:.6rem;font-size:.88rem;line-height:1.6}
+    .result-box .lbl{font-size:.75rem;color:#888;text-transform:uppercase;margin-bottom:.3rem}
+    .poly-display{font-size:.82rem;background:#fffbf0;border-left:4px solid #c85000;padding:.6rem .8rem;border-radius:0 6px 6px 0;margin-bottom:.6rem;word-break:break-word;line-height:1.7}
+    .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+    .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+    .author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+    .stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+  </style>
+</head>
+<body>
+<header>
+  <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div><h1>Taylor Expansion — Polynomial Approximation</h1>
+  <p>Chapter 11 · Monotonicity, Extrema and Convexity · Convergence of the Taylor polynomial to f(x)</p>
+</header>
+<div class="container">
+  <div class="layout">
+    <canvas id="cv" width="520" height="400"></canvas>
+    <div class="panel">
+      <h2>Parameters</h2>
+      <div class="slider-group">
+        <label>Function f(x):</label>
+        <select id="selF">
+          <option value="sin">f(x) = sin(x)</option>
+          <option value="cos">f(x) = cos(x)</option>
+          <option value="exp">f(x) = eˣ</option>
+          <option value="ln">f(x) = ln(1+x)</option>
+          <option value="atan">f(x) = arctan(x)</option>
+        </select>
+      </div>
+      <div class="slider-group">
+        <label>Expansion point a = <strong id="aVal">0.00</strong></label>
+        <input type="range" id="slA" min="-1.5" max="1.5" step="0.1" value="0">
+      </div>
+      <div class="slider-group">
+        <label>Degree n = <strong id="nVal">3</strong></label>
+        <input type="range" id="slN" min="1" max="12" step="1" value="3">
+      </div>
+      <div class="poly-display" id="polyDisplay">—</div>
+      <div class="result-box">
+        <div class="lbl">Error |f(1) − Tₙ(1)|</div>
+        <div id="errDisplay">—</div>
+      </div>
+      <div class="result-box" style="border-color:#008c46">
+        <div class="lbl">Interval of Convergence</div>
+        <div id="convDisplay">—</div>
+      </div>
+    </div>
+  </div>
+  <div class="expl-section">
+    <button class="expl-toggle" id="explBtn">📐 Theory & Justification — Taylor Expansion ▼</button>
+    <div class="expl-body" id="explBody">
+      <h3>Taylor polynomial of degree n about x = a</h3>
+      <div class="formula">Tₙ(x) = Σₖ₌₀ⁿ f⁽ᵏ⁾(a)/k! · (x−a)ᵏ = f(a) + f′(a)(x−a) + f″(a)/2!(x−a)² + ⋯</div>
+      <p>The <strong>orange curve</strong> is f(x) and the <strong>blue</strong> one is the polynomial Tₙ(x). Increase n to see how well the Taylor polynomial approximates f.</p>
+      <div class="formula">Lagrange remainder: Rₙ(x) = f⁽ⁿ⁺¹⁾(ξ)/(n+1)! · (x−a)ⁿ⁺¹</div>
+      <p>For sin, cos, eˣ the convergence holds everywhere (R=∞). For ln(1+x) only for |x−a| &lt; 1.</p>
+    </div>
+  </div>
+</div>
+<script>
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+const P={l:50,r:20,t:20,b:40};
+function fact(n){let r=1;for(let i=2;i<=n;i++)r*=i;return r;}
+/* The derivatives of every order are given ANALYTICALLY. With numerical finite
+   differences of fixed step size the error grows like h^(-n) and the higher-order
+   expansions (n ≳ 7) break down. */
+const FN={
+  sin:{f:x=>Math.sin(x),d:(k,x)=>Math.sin(x+k*Math.PI/2),conv:'every x∈ℝ (R=∞)',xr:[-4,4]},
+  cos:{f:x=>Math.cos(x),d:(k,x)=>Math.cos(x+k*Math.PI/2),conv:'every x∈ℝ (R=∞)',xr:[-4,4]},
+  exp:{f:x=>Math.exp(x),d:(k,x)=>Math.exp(x),conv:'every x∈ℝ (R=∞)',xr:[-3,3]},
+  ln:{f:x=>Math.log(1+x),amin:-0.9,
+      d:(k,x)=>k===0?Math.log(1+x):(k%2===1?1:-1)*fact(k-1)/Math.pow(1+x,k),
+      conv:'−1<x≤1 (R=1)',xr:[-0.95,2.5]},
+  atan:{f:x=>Math.atan(x),
+        d:(k,x)=>{if(k===0)return Math.atan(x);
+                  const th=Math.atan2(1,x);
+                  return (k%2===1?1:-1)*fact(k-1)*Math.sin(k*th)/Math.pow(1+x*x,k/2);},
+        conv:'−1≤x≤1 (R=1)',xr:[-3,3]}
+};
+function taylorVal(fn,a,n,x){
+  let s=0,xma=1;
+  for(let k=0;k<=n;k++){s+=fn.d(k,a)/fact(k)*xma;xma*=(x-a);}
+  return s;
+}
+function getFn(){return FN[document.getElementById('selF').value];}
+function scX(x,a,b){return P.l+(x-a)/(b-a)*(W-P.l-P.r);}
+function scY(y,a,b){return H-P.b-(y-a)/(b-a)*(H-P.t-P.b);}
+function draw(){
+  const fn=getFn(),xr=fn.xr;
+  let a=parseFloat(document.getElementById('slA').value);
+  if(fn.amin!==undefined&&a<fn.amin)a=fn.amin;
+  const n=parseInt(document.getElementById('slN').value);
+  let ymi=1e9,yma=-1e9;
+  for(let i=0;i<=300;i++){
+    const x=xr[0]+(xr[1]-xr[0])*i/300;
+    try{const y=fn.f(x);if(isFinite(y)){if(y<ymi)ymi=y;if(y>yma)yma=y;}}catch(e){}
+    try{const y=taylorVal(fn,a,n,x);if(isFinite(y)&&Math.abs(y)<200){if(y<ymi)ymi=y;if(y>yma)yma=y;}}catch(e){}
+  }
+  const pd=(yma-ymi)*0.18;ymi-=pd;yma+=pd;
+  if(!isFinite(ymi)||!isFinite(yma)||yma-ymi<0.1){ymi=-3;yma=3;}
+  ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle='#eef0f5';ctx.lineWidth=1;
+  for(let i=0;i<=8;i++){
+    const px=scX(xr[0]+(xr[1]-xr[0])*i/8,xr[0],xr[1]);
+    ctx.beginPath();ctx.moveTo(px,P.t);ctx.lineTo(px,H-P.b);ctx.stroke();
+    const py=scY(ymi+(yma-ymi)*i/8,ymi,yma);
+    ctx.beginPath();ctx.moveTo(P.l,py);ctx.lineTo(W-P.r,py);ctx.stroke();
+  }
+  ctx.strokeStyle='#888';ctx.lineWidth=1.5;
+  const y0=scY(0,ymi,yma);if(y0>P.t&&y0<H-P.b){ctx.beginPath();ctx.moveTo(P.l,y0);ctx.lineTo(W-P.r,y0);ctx.stroke();}
+  const x0=scX(0,xr[0],xr[1]);if(x0>P.l&&x0<W-P.r){ctx.beginPath();ctx.moveTo(x0,P.t);ctx.lineTo(x0,H-P.b);ctx.stroke();}
+  ctx.fillStyle='#555';ctx.font='10px Georgia';ctx.textAlign='center';
+  for(let v=Math.ceil(xr[0]);v<=Math.floor(xr[1]);v++)ctx.fillText(v,scX(v,xr[0],xr[1]),H-P.b+13);
+  // Taylor polynomial
+  ctx.strokeStyle='rgba(0,64,128,0.9)';ctx.lineWidth=2.2;ctx.setLineDash([]);
+  ctx.beginPath();let st=false;
+  for(let i=0;i<=600;i++){
+    const x=xr[0]+(xr[1]-xr[0])*i/600;
+    const y=taylorVal(fn,a,n,x);
+    if(!isFinite(y)||Math.abs(y)>1000){st=false;continue;}
+    const px=scX(x,xr[0],xr[1]),py=scY(y,ymi,yma);
+    if(!st){ctx.moveTo(px,py);st=true;}else ctx.lineTo(px,py);
+  }
+  ctx.stroke();
+  // f(x)
+  ctx.strokeStyle='#c85000';ctx.lineWidth=2.5;st=false;
+  ctx.beginPath();
+  for(let i=0;i<=600;i++){
+    const x=xr[0]+(xr[1]-xr[0])*i/600;
+    try{const y=fn.f(x);if(!isFinite(y)){st=false;continue;}
+      const px=scX(x,xr[0],xr[1]),py=scY(y,ymi,yma);
+      if(!st){ctx.moveTo(px,py);st=true;}else ctx.lineTo(px,py);}catch(e){st=false;}
+  }
+  ctx.stroke();
+  // vertical line at a
+  const pa=scX(a,xr[0],xr[1]);
+  ctx.strokeStyle='rgba(0,64,128,0.4)';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+  ctx.beginPath();ctx.moveTo(pa,P.t);ctx.lineTo(pa,H-P.b);ctx.stroke();ctx.setLineDash([]);
+  try{const ya=fn.f(a);if(isFinite(ya)){
+    ctx.fillStyle='#004080';ctx.beginPath();ctx.arc(pa,scY(ya,ymi,yma),5,0,2*Math.PI);ctx.fill();
+  }}catch(e){}
+  // legend
+  ctx.font='11px Georgia';ctx.textAlign='left';
+  ctx.fillStyle='rgba(200,80,0,1)';ctx.fillRect(P.l+5,P.t+6,20,3);ctx.fillText('f(x)',P.l+30,P.t+11);
+  ctx.fillStyle='rgba(0,64,128,0.9)';ctx.fillRect(P.l+5,P.t+19,20,3);ctx.fillText('T'+n+'(x)',P.l+30,P.t+24);
+  // panel
+  document.getElementById('aVal').textContent=a.toFixed(2);
+  document.getElementById('nVal').textContent=n;
+  // poly label (simplified)
+  let terms=[];
+  for(let k=0;k<=Math.min(n,5);k++){
+    const c=fn.d(k,a)/fact(k);
+    if(Math.abs(c)<1e-8)continue;
+    const cs=(c>=0&&terms.length?'+':'')+c.toFixed(3);
+    if(k===0)terms.push(cs);
+    else if(k===1)terms.push(cs+(a===0?'x':`(x${a>=0?'−'+a.toFixed(1):'+'+(-a).toFixed(1)})`));
+    else terms.push(cs+(a===0?`x^${k}`:`(x${a>=0?'−'+a.toFixed(1):'+'+(-a).toFixed(1)})^${k}`));
+  }
+  if(n>5)terms.push('…');
+  document.getElementById('polyDisplay').textContent='Tₙ = '+(terms.join(' ')||'0');
+  try{const xtest=1;const err=Math.abs(fn.f(xtest)-taylorVal(fn,a,n,xtest));
+    document.getElementById('errDisplay').innerHTML='<b>'+err.toFixed(7)+'</b>';}catch(e){document.getElementById('errDisplay').textContent='—';}
+  document.getElementById('convDisplay').textContent='Converges for: '+fn.conv;
+}
+['slA','slN','selF'].forEach(id=>document.getElementById(id).addEventListener('input',draw));
+document.getElementById('explBtn').addEventListener('click',()=>{
+  const b=document.getElementById('explBody');const open=b.classList.toggle('open');
+  document.getElementById('explBtn').textContent=open?'📐 Theory & Justification — Taylor Expansion ▲':'📐 Theory & Justification — Taylor Expansion ▼';
+});
+draw();
+</script>
+
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>

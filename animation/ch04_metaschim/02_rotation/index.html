@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Rotation Matrix</title>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
+        header{background:linear-gradient(135deg,#004080,#0060a0);color:#fff;padding:1.2rem 1.5rem;border-bottom:3px solid #c85000}
+        header h1{font-size:1.3rem}
+        header p{font-size:.85rem;opacity:.85;margin-top:.3rem}
+        .container{max-width:950px;margin:0 auto;padding:1.5rem 1rem}
+        canvas{border:2px solid #dde3ea;border-radius:10px;background:#fff;display:block;margin:1.5rem auto}
+        .formula{background:#fffbf0;border-left:4px solid #c85000;padding:.7rem 1rem;border-radius:0 8px 8px 0;font-size:.9rem;margin-bottom:.8rem}
+        .btn{background:#004080;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:6px;cursor:pointer;font-size:.88rem;margin:.2rem}
+        .btn.orange{background:#c85000}.btn:hover{background:#003060}.btn.orange:hover{background:#a54000}
+        input[type=range]{width:100%;accent-color:#c85000}
+        .control-group{background:#fff;padding:1rem;border-radius:8px;margin-bottom:1rem;border:1px solid #dde3ea}
+        .control-group label{display:block;margin-top:.5rem;font-weight:bold;font-size:.9rem}
+        .slider-container{display:flex;align-items:center;gap:1rem;margin-top:.3rem}
+        .slider-value{min-width:50px;font-family:monospace;background:#f0f0f0;padding:.2rem .4rem;border-radius:4px;text-align:right}
+        .info-box{background:#e8f4f8;border-left:4px solid #004080;padding:.7rem 1rem;margin-bottom:1rem;border-radius:0 8px 8px 0}
+        .info-box strong{color:#004080}
+        .properties{background:#fff;padding:1rem;border-radius:8px;border:1px solid #dde3ea;margin-top:1rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+        .property-item{text-align:center}
+        .property-item label{display:block;font-weight:bold;color:#004080;margin-bottom:0.3rem}
+        .property-item value{display:block;font-family:monospace;font-size:1.1rem;background:#f0f0f0;padding:0.5rem;border-radius:4px}
+        @media(max-width:600px){.properties{grid-template-columns:1fr}}
+        .author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;font-family:Georgia,serif;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+        .stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+    
+    .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+    .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+  </style>
+</head>
+<body>
+    <header>
+        <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div><h1>The Rotation Matrix</h1>
+        <p>Chapter 4: Linear Transformations - Orthogonal transformations</p>
+    </header>
+
+    <div class="container">
+        <div class="info-box">
+            <strong>Learning objective:</strong> The rotation matrix R(θ) = [[cosθ, -sinθ],[sinθ, cosθ]] rotates vectors through an angle θ. Key property: a rotation preserves the lengths of vectors and the angles between them.
+        </div>
+
+        <div class="formula">
+            <strong>Rotation Matrix:</strong> R(θ) = [[cos θ, -sin θ], [sin θ, cos θ]] &nbsp;&nbsp;&nbsp;&nbsp; <strong>Property:</strong> |Rv| = |v|
+        </div>
+
+        <div class="control-group">
+            <label>Angle θ: <span id="angle-val">0</span>° (<span id="angle-rad">0.00</span> rad)</label>
+            <div class="slider-container">
+                <input type="range" id="theta" min="0" max="360" step="5" value="0">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <button class="btn orange" id="angle0">0°</button>
+            <button class="btn orange" id="angle45">45°</button>
+            <button class="btn orange" id="angle90">90°</button>
+            <button class="btn orange" id="angle180">180°</button>
+            <button class="btn orange" id="angle270">270°</button>
+            <button class="btn" id="reset">Reset</button>
+        </div>
+
+        <canvas id="canvas" width="500" height="500"></canvas>
+
+        <div class="properties">
+            <div class="property-item">
+                <label>cos θ</label>
+                <value id="cosValue">1.00</value>
+            </div>
+            <div class="property-item">
+                <label>sin θ</label>
+                <value id="sinValue">0.00</value>
+            </div>
+            <div class="property-item">
+                <label>|v| (Before)</label>
+                <value id="normBefore">-</value>
+            </div>
+            <div class="property-item">
+                <label>|Rv| (After)</label>
+                <value id="normAfter">-</value>
+            </div>
+        </div>
+    </div>
+
+    
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Theory & Justification — The Rotation Matrix ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>The Rotation Matrix</h3>
+    <p>The rotation through an angle θ (counterclockwise) is represented by:</p>
+    <div class="formula">R(θ) = [[cos θ, −sin θ],[sin θ, cos θ]] &nbsp;·&nbsp; det(R)=1, Rᵀ=R⁻¹</div>
+    <p>A rotation is an <strong>orthogonal transformation</strong>: it preserves distances and angles. Composition of rotations: R(θ₁+θ₂) = R(θ₁)·R(θ₂).</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');
+  var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Theory & Justification — The Rotation Matrix ▲':'📐 Theory & Justification — The Rotation Matrix ▼';
+});
+</script>
+
+<script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const scale = 80;
+
+        let theta = 0;
+
+        // Shape: arrow/house pointing right
+        const shape = [
+            {x: 1, y: 0},
+            {x: 0.7, y: 0.5},
+            {x: 0.7, y: 0.2},
+            {x: 0, y: 0.2},
+            {x: 0, y: -0.2},
+            {x: 0.7, y: -0.2},
+            {x: 0.7, y: -0.5}
+        ];
+
+        const thetaInput = document.getElementById('theta');
+        thetaInput.addEventListener('input', (e) => {
+            theta = parseFloat(e.target.value);
+            document.getElementById('angle-val').textContent = theta.toFixed(0);
+            document.getElementById('angle-rad').textContent = (theta * Math.PI / 180).toFixed(2);
+            updateDisplay();
+        });
+
+        function setAngle(angle) {
+            theta = angle;
+            document.getElementById('theta').value = theta;
+            document.getElementById('angle-val').textContent = theta.toFixed(0);
+            document.getElementById('angle-rad').textContent = (theta * Math.PI / 180).toFixed(2);
+            updateDisplay();
+        }
+
+        document.getElementById('angle0').addEventListener('click', () => setAngle(0));
+        document.getElementById('angle45').addEventListener('click', () => setAngle(45));
+        document.getElementById('angle90').addEventListener('click', () => setAngle(90));
+        document.getElementById('angle180').addEventListener('click', () => setAngle(180));
+        document.getElementById('angle270').addEventListener('click', () => setAngle(270));
+        document.getElementById('reset').addEventListener('click', () => setAngle(0));
+
+        function updateDisplay() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const rad = theta * Math.PI / 180;
+            const cos = Math.cos(rad);
+            const sin = Math.sin(rad);
+
+            document.getElementById('cosValue').textContent = cos.toFixed(2);
+            document.getElementById('sinValue').textContent = sin.toFixed(2);
+
+            // Draw grid
+            ctx.strokeStyle = '#e8e8e8';
+            ctx.lineWidth = 1;
+            for (let i = -1; i <= 1; i++) {
+                ctx.beginPath();
+                ctx.moveTo(centerX + i * scale, 0);
+                ctx.lineTo(centerX + i * scale, canvas.height);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(0, centerY - i * scale);
+                ctx.lineTo(canvas.width, centerY - i * scale);
+                ctx.stroke();
+            }
+
+            // Axes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, canvas.height);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(canvas.width, centerY);
+            ctx.stroke();
+
+            // Draw original shape
+            ctx.strokeStyle = '#c85000';
+            ctx.lineWidth = 2.5;
+            ctx.globalAlpha = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(centerX + shape[0].x * scale, centerY - shape[0].y * scale);
+            for (let i = 1; i < shape.length; i++) {
+                ctx.lineTo(centerX + shape[i].x * scale, centerY - shape[i].y * scale);
+            }
+            ctx.stroke();
+            ctx.globalAlpha = 1.0;
+
+            // Draw rotated shape
+            ctx.strokeStyle = '#008c46';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            let rotated = rotatePoint(shape[0], rad);
+            ctx.moveTo(centerX + rotated.x * scale, centerY - rotated.y * scale);
+            for (let i = 1; i < shape.length; i++) {
+                rotated = rotatePoint(shape[i], rad);
+                ctx.lineTo(centerX + rotated.x * scale, centerY - rotated.y * scale);
+            }
+            ctx.stroke();
+
+            // Draw angle arc
+            ctx.strokeStyle = '#7b2daa';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 40, 0, rad);
+            ctx.stroke();
+            ctx.fillStyle = '#7b2daa';
+            ctx.font = 'bold 12px Georgia';
+            ctx.fillText(`θ=${theta.toFixed(0)}°`, centerX + 50, centerY - 15);
+
+            // Calculate and display norm preservation
+            const v = shape[0];
+            const vNorm = Math.sqrt(v.x * v.x + v.y * v.y);
+            const rv = rotatePoint(v, rad);
+            const rvNorm = Math.sqrt(rv.x * rv.x + rv.y * rv.y);
+
+            document.getElementById('normBefore').textContent = vNorm.toFixed(2);
+            document.getElementById('normAfter').textContent = rvNorm.toFixed(2);
+        }
+
+        function rotatePoint(p, angle) {
+            const cos = Math.cos(angle);
+            const sin = Math.sin(angle);
+            return {
+                x: p.x * cos - p.y * sin,
+                y: p.x * sin + p.y * cos
+            };
+        }
+
+        updateDisplay();
+    </script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Limit of a Function</title>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
+        header{background:linear-gradient(135deg,#004080,#0060a0);color:#fff;padding:1.2rem 1.5rem;border-bottom:3px solid #c85000}
+        header h1{font-size:1.3rem}
+        header p{font-size:.85rem;opacity:.85;margin-top:.3rem}
+        .container{max-width:950px;margin:0 auto;padding:1.5rem 1rem}
+        canvas{border:2px solid #dde3ea;border-radius:10px;background:#fff;display:block;margin:1.5rem auto}
+        .formula{background:#fffbf0;border-left:4px solid #c85000;padding:.7rem 1rem;border-radius:0 8px 8px 0;font-size:.9rem;margin-bottom:.8rem}
+        .btn{background:#004080;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:6px;cursor:pointer;font-size:.88rem;margin:.2rem}
+        .btn.orange{background:#c85000}.btn:hover{background:#003060}.btn.orange:hover{background:#a54000}
+        input[type=range]{width:100%;accent-color:#c85000}
+        .control-group{background:#fff;padding:1rem;border-radius:8px;margin-bottom:1rem;border:1px solid #dde3ea}
+        .control-group label{display:block;margin-top:.5rem;font-weight:bold;font-size:.9rem}
+        .slider-container{display:flex;align-items:center;gap:1rem;margin-top:.3rem}
+        .slider-value{min-width:50px;font-family:monospace;background:#f0f0f0;padding:.2rem .4rem;border-radius:4px;text-align:right}
+        .info-box{background:#e8f4f8;border-left:4px solid #004080;padding:.7rem 1rem;margin-bottom:1rem;border-radius:0 8px 8px 0}
+        .info-box strong{color:#004080}
+        .author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;font-family:Georgia,serif;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+        .stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+    
+    .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+    .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+  </style>
+</head>
+<body>
+    <header>
+        <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div><h1>The Limit of a Function - the ε-δ Definition</h1>
+        <p>Chapter 9: Limits - Approaching a value</p>
+    </header>
+
+    <div class="container">
+        <div class="info-box">
+            <strong>Learning objective:</strong> The limit lim(x→a) f(x) = L means: for every ε&gt;0 there is a δ&gt;0 such that if 0&lt;|x−a|&lt;δ then |f(x)−L|&lt;ε. Geometrically: the whole graph above the <em>punctured</em> neighborhood 0&lt;|x−a|&lt;δ stays inside the <strong>rectangle</strong> formed by the horizontal band of width 2ε around L and the vertical band of width 2δ around a. The value f(a) plays no role whatsoever.
+        </div>
+
+        <div class="formula">
+            <strong>ε-δ Definition:</strong> ∀ε&gt;0 ∃δ&gt;0: 0&lt;|x−a|&lt;δ ⟹ |f(x)−L|&lt;ε
+        </div>
+
+        <div class="control-group">
+            <button class="btn orange" id="func1">f(x) = sin(x)/x, x→0</button>
+            <button class="btn orange" id="func2">f(x) = (x²-1)/(x-1), x→1</button>
+            <button class="btn orange" id="func3">f(x) = 2x, x→2</button>
+        </div>
+
+        <div class="control-group">
+            <label>ε (error): <span id="eps-val">0.5</span></label>
+            <div class="slider-container">
+                <input type="range" id="eps" min="0.1" max="2" step="0.1" value="0.5">
+            </div>
+            <label>δ (δ-neighborhood): <span id="delta-val">0.5</span></label>
+            <div class="slider-container">
+                <input type="range" id="delta" min="0.05" max="1" step="0.05" value="0.5">
+            </div>
+        </div>
+
+        <canvas id="canvas" width="700" height="500"></canvas>
+
+        <div class="info-box" id="statusBox">
+            <strong id="status"></strong>
+        </div>
+    </div>
+
+    
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Theory & Justification — The ε-δ Definition of the Limit ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>The ε-δ Definition of the Limit</h3>
+    <p>lim[x→a] f(x) = L means: for every ε&gt;0 there is a δ&gt;0 such that 0&lt;|x−a|&lt;δ ⟹ |f(x)−L|&lt;ε.</p>
+    <div class="formula">ε: how close we want f(x) to be to L &nbsp;·&nbsp; δ: how close x must be to a</div>
+    <p>The ε-δ definition shows that we can make f(x) AS CLOSE AS WE LIKE to L, provided x is close enough to a. The value f(a) is irrelevant!</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');
+  var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Theory & Justification — The ε-δ Definition of the Limit ▲':'📐 Theory & Justification — The ε-δ Definition of the Limit ▼';
+});
+</script>
+
+<script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let funcType = 1;
+        let eps = 0.5, delta = 0.5;
+
+        const functions = {
+            1: {
+                formula: x => x === 0 ? 1 : Math.sin(x) / x,
+                limit: 1,
+                point: 0,
+                xlim: [-2, 2],
+                ylim: [-1.5, 3.5],
+                hole: false,
+                name: 'f(x) = sin(x)/x, x→0, L=1'
+            },
+            2: {
+                formula: x => x === 1 ? 0 : (x*x - 1) / (x - 1),
+                limit: 2,
+                point: 1,
+                xlim: [-1, 3],
+                ylim: [-1, 5],
+                hole: true,
+                name: 'f(x) = (x²-1)/(x-1), x→1, L=2'
+            },
+            3: {
+                formula: x => 2*x,
+                limit: 4,
+                point: 2,
+                xlim: [0, 4],
+                ylim: [-1, 9],
+                hole: false,
+                name: 'f(x) = 2x, x→2, L=4'
+            }
+        };
+
+        document.getElementById('eps').addEventListener('input', (e) => {
+            eps = parseFloat(e.target.value);
+            document.getElementById('eps-val').textContent = eps.toFixed(1);
+            updateDisplay();
+        });
+
+        document.getElementById('delta').addEventListener('input', (e) => {
+            delta = parseFloat(e.target.value);
+            document.getElementById('delta-val').textContent = delta.toFixed(2);
+            updateDisplay();
+        });
+
+        document.getElementById('func1').addEventListener('click', () => {funcType = 1; updateDisplay();});
+        document.getElementById('func2').addEventListener('click', () => {funcType = 2; updateDisplay();});
+        document.getElementById('func3').addEventListener('click', () => {funcType = 3; updateDisplay();});
+
+        function updateDisplay() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const func = functions[funcType];
+            const W = canvas.width, H = canvas.height;
+            const scaleX = (W * 0.8) / (func.xlim[1] - func.xlim[0]);
+            const scaleY = (H * 0.8) / (func.ylim[1] - func.ylim[0]);
+            const PX = x => W * 0.1 + (x - func.xlim[0]) * scaleX;
+            const PY = y => H * 0.1 + (func.ylim[1] - y) * scaleY;
+            const axisX = PX(0), axisY = PY(0);
+
+            // Axes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            if (axisX >= W * 0.1 && axisX <= W * 0.9) {
+                ctx.beginPath(); ctx.moveTo(axisX, H * 0.1); ctx.lineTo(axisX, H * 0.9); ctx.stroke();
+            }
+            if (axisY >= H * 0.1 && axisY <= H * 0.9) {
+                ctx.beginPath(); ctx.moveTo(W * 0.1, axisY); ctx.lineTo(W * 0.9, axisY); ctx.stroke();
+            }
+
+            // Grid
+            ctx.strokeStyle = '#e8e8e8';
+            ctx.lineWidth = 1;
+            for (let i = Math.ceil(func.xlim[0]); i <= Math.floor(func.xlim[1]); i++) {
+                const px = PX(i);
+                ctx.beginPath();
+                ctx.moveTo(px, H * 0.1);
+                ctx.lineTo(px, H * 0.9);
+                ctx.stroke();
+            }
+
+            // ε-band around L
+            ctx.fillStyle = 'rgba(200, 80, 0, 0.1)';
+            const yL = PY(func.limit);
+            ctx.fillRect(W * 0.1, PY(func.limit + eps), W * 0.8, 2 * eps * scaleY);
+
+            // δ-band around x₀
+            ctx.fillStyle = 'rgba(0, 140, 70, 0.1)';
+            const xP = PX(func.point);
+            ctx.fillRect(xP - delta * scaleX, H * 0.1, 2 * delta * scaleX, H * 0.8);
+
+            // Graph
+            ctx.strokeStyle = '#c85000';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            let first = true;
+            const step = (func.xlim[1] - func.xlim[0]) / 400;
+            for (let x = func.xlim[0]; x <= func.xlim[1] + 1e-9; x += step) {
+                if (func.hole && Math.abs(x - func.point) < step * 0.75) { first = true; continue; }
+                const y = func.formula(x);
+                if (!isFinite(y)) { first = true; continue; }
+                const px = PX(x), py = PY(y);
+                if (first) { ctx.moveTo(px, py); first = false; } else { ctx.lineTo(px, py); }
+            }
+            ctx.stroke();
+
+            // The point (x₀, L) — an open circle when f does not attain the value L there
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#7b2daa';
+            ctx.fillStyle = func.hole ? '#fff' : '#7b2daa';
+            ctx.beginPath();
+            ctx.arc(xP, yL, 6, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+
+            // Labels
+            ctx.fillStyle = '#004080';
+            ctx.font = 'bold 12px Georgia';
+            ctx.fillText(func.name, W * 0.15, H * 0.05);
+            ctx.fillText(`L = ${func.limit}`, W * 0.02, yL - 10);
+            ctx.fillText(`x = ${func.point}`, xP, H * 0.95);
+
+            // Check the implication over the whole of (x₀−δ, x₀+δ), with x ≠ x₀
+            let worst = 0, finite = true;
+            const M = 400;
+            for (let k = -M; k <= M; k++) {
+                if (k === 0) continue;
+                const x = func.point + (k / M) * delta * 0.999;
+                const y = func.formula(x);
+                if (!isFinite(y)) { finite = false; break; }
+                worst = Math.max(worst, Math.abs(y - func.limit));
+            }
+            const ok = finite && worst < eps;
+            const verdict = ok
+                ? '<span style="color:#008c46;font-weight:bold">✓ HOLDS</span>'
+                : '<span style="color:#c00;font-weight:bold">✗ DOES NOT HOLD</span> — a smaller δ is needed';
+            const wtxt = finite ? worst.toFixed(3) : '∞';
+            document.getElementById('status').innerHTML =
+                `<strong>ε = ${eps.toFixed(1)}</strong>, δ = ${delta.toFixed(2)}<br>` +
+                `If 0 &lt; |x − ${func.point}| &lt; ${delta.toFixed(2)}, then |f(x) − ${func.limit}| &lt; ${eps.toFixed(1)} &nbsp; ${verdict}<br>` +
+                `<small>maximum |f(x) − L| in the δ-band: ${wtxt}</small>`;
+        }
+
+        updateDisplay();
+    </script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>

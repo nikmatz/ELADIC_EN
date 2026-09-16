@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometric Interpretation of Eigenvectors</title>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
+        header{background:linear-gradient(135deg,#004080,#0060a0);color:#fff;padding:1.2rem 1.5rem;border-bottom:3px solid #c85000}
+        header h1{font-size:1.3rem}
+        header p{font-size:.85rem;opacity:.85;margin-top:.3rem}
+        .container{max-width:950px;margin:0 auto;padding:1.5rem 1rem}
+        canvas{border:2px solid #dde3ea;border-radius:10px;background:#fff;display:block;margin:1.5rem auto}
+        .formula{background:#fffbf0;border-left:4px solid #c85000;padding:.7rem 1rem;border-radius:0 8px 8px 0;font-size:.9rem;margin-bottom:.8rem}
+        .btn{background:#004080;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:6px;cursor:pointer;font-size:.88rem;margin:.2rem}
+        .btn.orange{background:#c85000}.btn:hover{background:#003060}.btn.orange:hover{background:#a54000}
+        .control-group{background:#fff;padding:1rem;border-radius:8px;margin-bottom:1rem;border:1px solid #dde3ea}
+        .info-box{background:#e8f4f8;border-left:4px solid #004080;padding:.7rem 1rem;margin-bottom:1rem;border-radius:0 8px 8px 0}
+        .info-box strong{color:#004080}
+        .explanation{background:#fffbf0;border-left:4px solid #c85000;padding:.7rem 1rem;border-radius:0 8px 8px 0;margin:0.8rem 0;font-size:0.9rem}
+        .author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;font-family:Georgia,serif;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+        .stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+    
+    .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+    .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+  </style>
+</head>
+<body>
+    <header>
+        <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div><h1>Geometric Interpretation of Eigenvectors</h1>
+        <p>Chapter 5: Eigenvectors - Convergence toward the dominant direction</p>
+    </header>
+
+    <div class="container">
+        <div class="info-box">
+            <strong>Learning objective:</strong> We repeatedly apply a linear transformation to many random vectors. Most vectors gradually align with the dominant eigenvector (the one with the largest eigenvalue). This reveals the geometric meaning of eigenvectors.
+        </div>
+
+        <div class="formula">
+            <strong>Repeated application:</strong> A^n·v → λ₁^n·v₁ as n → ∞ (for |λ₁| > |λ₂|)
+        </div>
+
+        <div class="control-group">
+            <button class="btn orange" id="start">Start Animation</button>
+            <button class="btn orange" id="reset">Reset</button>
+            <button class="btn" id="diagonal">Diagonal matrix</button>
+            <button class="btn" id="asymmetric">Non-symmetric matrix</button>
+        </div>
+
+        <canvas id="canvas" width="700" height="500"></canvas>
+
+        <div class="explanation">
+            <strong>Geometric interpretation:</strong> Every vector (dot) is a mixture of the eigenvectors v₁ and v₂. Under repeated application of A, the component with the largest eigenvalue |λ₁| dominates, and the vectors converge toward the direction of v₁.
+        </div>
+    </div>
+
+    
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Theory & Justification — Geometric Interpretation of Eigenvectors ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>Geometric Interpretation of Eigenvectors</h3>
+    <p>The <strong>eigenvectors</strong> are the directions left unchanged by the transformation (only scaled).</p>
+    <div class="formula">Ax = λx: x keeps its direction. If λ>1 it is stretched, if 0&lt;λ&lt;1 it is contracted, if λ&lt;0 it is reflected.</div>
+    <p>Eigenvectors belonging to distinct eigenvalues are linearly independent. A matrix with n distinct eigenvalues is diagonalizable.</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');
+  var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Theory & Justification — Geometric Interpretation of Eigenvectors ▲':'📐 Theory & Justification — Geometric Interpretation of Eigenvectors ▼';
+});
+</script>
+
+<script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const scale = 70;
+
+        let matrix = {a11: 2, a12: 0.5, a21: 0.5, a22: 1};
+        let dragV = {x: 1, y: 0.6};   // the vector dragged by the user
+        let dragging = false;
+        let vectors = [];
+        let iteration = 0;
+        let isAnimating = false;
+
+        function initVectors() {
+            vectors = [];
+            const numVectors = 40;
+            for (let i = 0; i < numVectors; i++) {
+                const angle = (i / numVectors) * 2 * Math.PI + Math.random() * 0.3;
+                const radius = 0.5 + Math.random() * 0.5;
+                vectors.push({
+                    x: Math.cos(angle) * radius,
+                    y: Math.sin(angle) * radius,
+                    originalX: Math.cos(angle) * radius,
+                    originalY: Math.sin(angle) * radius
+                });
+            }
+            iteration = 0;
+        }
+
+        function applyMatrix(v) {
+            return {
+                x: matrix.a11 * v.x + matrix.a12 * v.y,
+                y: matrix.a21 * v.x + matrix.a22 * v.y
+            };
+        }
+
+        function normalizeIfNeeded(v) {
+            const len = Math.sqrt(v.x * v.x + v.y * v.y);
+            if (len > 3) {
+                return {x: v.x / len * 2, y: v.y / len * 2};
+            }
+            return v;
+        }
+
+        function updateDisplay() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Grid
+            ctx.strokeStyle = '#e8e8e8';
+            ctx.lineWidth = 1;
+            for (let i = -2; i <= 2; i++) {
+                ctx.beginPath();
+                ctx.moveTo(centerX + i * scale, 0);
+                ctx.lineTo(centerX + i * scale, canvas.height);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(0, centerY - i * scale);
+                ctx.lineTo(canvas.width, centerY - i * scale);
+                ctx.stroke();
+            }
+
+            // Axes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, canvas.height);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(canvas.width, centerY);
+            ctx.stroke();
+
+            // Draw eigenvectors (dominant direction)
+            const trace = matrix.a11 + matrix.a22;
+            const det = matrix.a11 * matrix.a22 - matrix.a12 * matrix.a21;
+            const discriminant = trace * trace - 4 * det;
+            if (discriminant >= 0) {
+                const sqrt_disc = Math.sqrt(discriminant);
+                const lambda1 = (trace + sqrt_disc) / 2;
+                const lambda2 = (trace - sqrt_disc) / 2;
+
+                const m11_1 = matrix.a11 - lambda1;
+                const m12_1 = matrix.a12;
+                let v1 = {x: -m12_1, y: m11_1};
+                if (Math.abs(m11_1) < 0.001) v1 = {x: m12_1 === 0 ? 1 : matrix.a22 - lambda1, y: -matrix.a21};
+                const len1 = Math.sqrt(v1.x * v1.x + v1.y * v1.y);
+                if (len1 > 0) {
+                    v1 = {x: v1.x / len1, y: v1.y / len1};
+                    ctx.strokeStyle = '#008c46';
+                    ctx.lineWidth = 2;
+                    ctx.globalAlpha = 0.4;
+                    ctx.beginPath();
+                    ctx.moveTo(centerX - v1.x * scale * 3, centerY + v1.y * scale * 3);
+                    ctx.lineTo(centerX + v1.x * scale * 3, centerY - v1.y * scale * 3);
+                    ctx.stroke();
+                    ctx.globalAlpha = 1.0;
+                }
+            }
+
+            // Draw vectors
+            ctx.fillStyle = '#c85000';
+            for (let i = 0; i < vectors.length; i++) {
+                ctx.beginPath();
+                ctx.arc(centerX + vectors[i].x * scale, centerY - vectors[i].y * scale, 4, 0, 2*Math.PI);
+                ctx.fill();
+            }
+
+            // --- the vector v dragged by the user and its image Av ---
+            const Av = applyMatrix(dragV);
+            drawArrow(dragV.x, dragV.y, '#c85000', 'v');
+            drawArrow(Av.x,   Av.y,   '#0082b4', 'Av');
+            // handle
+            ctx.fillStyle = '#c85000';
+            ctx.beginPath();
+            ctx.arc(centerX + dragV.x*scale, centerY - dragV.y*scale, 7, 0, 2*Math.PI);
+            ctx.fill();
+
+            // Draw info
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 12px Georgia';
+            ctx.fillText(`Iteration: ${iteration}`, 20, 30);
+
+            // angle between v and Av — 0° (or 180°) means an eigendirection
+            const nv = Math.hypot(dragV.x, dragV.y), na = Math.hypot(Av.x, Av.y);
+            let msg = '—';
+            if (nv > 1e-6 && na > 1e-6) {
+                let cosA = (dragV.x*Av.x + dragV.y*Av.y)/(nv*na);
+                cosA = Math.max(-1, Math.min(1, cosA));
+                const deg = Math.acos(cosA) * 180/Math.PI;
+                const par = (deg < 2 || deg > 178);
+                const lam = (dragV.x*Av.x + dragV.y*Av.y)/(nv*nv);
+                msg = par
+                  ? `✓ Av is parallel to v — an eigendirection! λ ≈ ${lam.toFixed(3)}`
+                  : `Angle(v, Av) = ${deg.toFixed(1)}°  ·  |Av|/|v| = ${(na/nv).toFixed(3)}  →  not an eigenvector`;
+                ctx.fillStyle = par ? '#008c46' : '#555';
+                ctx.font = par ? 'bold 13px Georgia' : '13px Georgia';
+                ctx.fillText(msg, 20, canvas.height - 18);
+            }
+        }
+
+        // helper: arrow from the origin
+        function drawArrow(vx, vy, col, lbl){
+            const x2 = centerX + vx*scale, y2 = centerY - vy*scale;
+            ctx.save();
+            ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 3;
+            ctx.beginPath(); ctx.moveTo(centerX, centerY); ctx.lineTo(x2, y2); ctx.stroke();
+            const ang = Math.atan2(y2-centerY, x2-centerX);
+            ctx.translate(x2, y2); ctx.rotate(ang);
+            ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(-11,-5); ctx.lineTo(-11,5); ctx.closePath(); ctx.fill();
+            ctx.restore();
+            ctx.save(); ctx.fillStyle = col; ctx.font = 'bold italic 14px Georgia';
+            ctx.fillText(lbl, x2 + 8, y2 - 8); ctx.restore();
+        }
+
+        function animate() {
+            if (!isAnimating) return;
+
+            for (let i = 0; i < vectors.length; i++) {
+                const v = applyMatrix(vectors[i]);
+                vectors[i] = normalizeIfNeeded(v);
+            }
+            iteration++;
+
+            updateDisplay();
+
+            if (iteration < 50) {
+                setTimeout(animate, 300);
+            } else {
+                isAnimating = false;
+            }
+        }
+
+        // --- dragging v on the canvas (mouse and touch) ---
+        function canvasPt(ev){
+            const r = canvas.getBoundingClientRect();
+            const src = ev.touches ? ev.touches[0] : ev;
+            return { x: (src.clientX - r.left) * canvas.width / r.width,
+                     y: (src.clientY - r.top)  * canvas.height / r.height };
+        }
+        function toWorld(pt){ return { x: (pt.x - centerX)/scale, y: (centerY - pt.y)/scale }; }
+        function startDrag(ev){
+            const w = toWorld(canvasPt(ev));
+            if (Math.hypot(w.x - dragV.x, w.y - dragV.y) < 0.35) { dragging = true; ev.preventDefault(); }
+        }
+        function moveDrag(ev){
+            if (!dragging) return;
+            const w = toWorld(canvasPt(ev));
+            dragV.x = Math.max(-2.4, Math.min(2.4, w.x));
+            dragV.y = Math.max(-2.4, Math.min(2.4, w.y));
+            updateDisplay(); ev.preventDefault();
+        }
+        function endDrag(){ dragging = false; }
+        canvas.addEventListener('mousedown', startDrag);
+        canvas.addEventListener('mousemove', moveDrag);
+        window.addEventListener('mouseup', endDrag);
+        canvas.addEventListener('touchstart', startDrag, {passive:false});
+        canvas.addEventListener('touchmove', moveDrag, {passive:false});
+        window.addEventListener('touchend', endDrag);
+        canvas.style.cursor = 'crosshair';
+
+        document.getElementById('start').addEventListener('click', () => {
+            if (!isAnimating) {
+                isAnimating = true;
+                animate();
+            }
+        });
+
+        document.getElementById('reset').addEventListener('click', () => {
+            isAnimating = false;
+            initVectors();
+            updateDisplay();
+        });
+
+        document.getElementById('diagonal').addEventListener('click', () => {
+            matrix = {a11: 2, a12: 0, a21: 0, a22: 0.8};
+            isAnimating = false;
+            initVectors();
+            updateDisplay();
+        });
+
+        document.getElementById('asymmetric').addEventListener('click', () => {
+            matrix = {a11: 2, a12: 0.5, a21: 0.5, a22: 1};
+            isAnimating = false;
+            initVectors();
+            updateDisplay();
+        });
+
+        initVectors();
+        updateDisplay();
+    </script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>

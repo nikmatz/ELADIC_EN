@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Composition of Functions</title>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
+        header{background:linear-gradient(135deg,#004080,#0060a0);color:#fff;padding:1.2rem 1.5rem;border-bottom:3px solid #c85000}
+        header h1{font-size:1.3rem}
+        header p{font-size:.85rem;opacity:.85;margin-top:.3rem}
+        .container{max-width:950px;margin:0 auto;padding:1.5rem 1rem}
+        canvas{border:2px solid #dde3ea;border-radius:10px;background:#fff;display:block;margin:1.5rem auto}
+        .formula{background:#fffbf0;border-left:4px solid #c85000;padding:.7rem 1rem;border-radius:0 8px 8px 0;font-size:.9rem;margin-bottom:.8rem}
+        .btn{background:#004080;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:6px;cursor:pointer;font-size:.88rem;margin:.2rem}
+        .btn.orange{background:#c85000}.btn:hover{background:#003060}.btn.orange:hover{background:#a54000}
+        .control-group{background:#fff;padding:1rem;border-radius:8px;margin-bottom:1rem;border:1px solid #dde3ea}
+        .info-box{background:#e8f4f8;border-left:4px solid #004080;padding:.7rem 1rem;margin-bottom:1rem;border-radius:0 8px 8px 0}
+        .info-box strong{color:#004080}
+        .button-group{display:flex;flex-wrap:wrap;gap:0.5rem}
+        .author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;font-family:Georgia,serif;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+        .stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+    
+    .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+    .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+  </style>
+</head>
+<body>
+    <header>
+        <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div><h1>Composition of Functions</h1>
+        <p>Chapter 8: Functions - Composite maps</p>
+    </header>
+
+    <div class="container">
+        <div class="info-box">
+            <strong>Learning objective:</strong> The composition of two functions f and g is defined by (f∘g)(x) = f(g(x)). First we apply g, then f. Composition is not commutative: (f∘g) ≠ (g∘f) in general.
+        </div>
+
+        <div class="formula">
+            <strong>Composition:</strong> (f∘g)(x) = f(g(x)) &nbsp;&nbsp;&nbsp;&nbsp; <strong>Not commutative!</strong> (f∘g) ≠ (g∘f)
+        </div>
+
+        <div class="control-group">
+            <label>Choose g(x):</label>
+            <div class="button-group">
+                <button class="btn" id="g-2x">g(x) = 2x</button>
+                <button class="btn" id="g-x2">g(x) = x²</button>
+                <button class="btn" id="g-sin">g(x) = sin(x)</button>
+                <button class="btn" id="g-sqr">g(x) = √x</button>
+            </div>
+            <label style="margin-top:1rem">Choose f(x):</label>
+            <div class="button-group">
+                <button class="btn" id="f-x2">f(x) = x²</button>
+                <button class="btn" id="f-sin">f(x) = sin(x)</button>
+                <button class="btn" id="f-exp">f(x) = eˣ</button>
+                <button class="btn" id="f-1x">f(x) = 1/x</button>
+            </div>
+            <div style="margin-top:1rem">
+                <button class="btn orange" id="swapFG">⇄ Swap f and g &nbsp;(see g∘f)</button>
+                <div id="swapNote" style="font-size:.85rem;color:#555;margin-top:.4rem">
+                    Click it to swap the roles: the curve changes, because
+                    <b>f∘g ≠ g∘f</b> in general.
+                </div>
+            </div>
+        </div>
+
+        <canvas id="canvas" width="800" height="350"></canvas>
+
+        <div class="info-box" id="compositionInfo">
+            <strong id="compName">(f∘g)(x) = f(g(x))</strong>
+        </div>
+    </div>
+
+    
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Theory & Justification — Composition of Functions ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>Composition of Functions</h3>
+    <p>The <strong>composition</strong> (f∘g)(x) = f(g(x)): first g is applied, then f.</p>
+    <div class="formula">Domain of f∘g: {x ∈ Dom(g) : g(x) ∈ Dom(f)}. In general f∘g ≠ g∘f.</div>
+    <p>Important: if g=f⁻¹ then f∘g = id. Error checking: verify that g(x) ∈ Dom(f) for every x.</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');
+  var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Theory & Justification — Composition of Functions ▲':'📐 Theory & Justification — Composition of Functions ▼';
+});
+</script>
+
+<script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let gFunc = x => 2*x;
+        let gName = 'g(x) = 2x';
+        let fFunc = x => x*x;
+        let fName = 'f(x) = x²';
+
+        /* wrap: parentheses only where needed */
+        const wrap = u => /^[A-Za-zΑ-Ωα-ω0-9]+$/.test(u) ? u : '(' + u + ')';
+
+        let gSub = u => '2·' + wrap(u);
+        let fSub = u => wrap(u) + '²';
+
+        const gFunctions = {
+            '2x': {formula: x => 2*x, name: 'g(x) = 2x', sub: u => '2·' + wrap(u)},
+            'x2': {formula: x => x*x, name: 'g(x) = x²', sub: u => wrap(u) + '²'},
+            'sin': {formula: x => Math.sin(x), name: 'g(x) = sin(x)', sub: u => 'sin(' + u + ')'},
+            'sqr': {formula: x => x >= 0 ? Math.sqrt(x) : null, name: 'g(x) = √x', sub: u => '√(' + u + ')'}
+        };
+
+        const fFunctions = {
+            'x2': {formula: x => x*x, name: 'f(x) = x²', sub: u => wrap(u) + '²'},
+            'sin': {formula: x => Math.sin(x), name: 'f(x) = sin(x)', sub: u => 'sin(' + u + ')'},
+            'exp': {formula: x => Math.exp(x), name: 'f(x) = eˣ', sub: u => 'e^' + wrap(u)},
+            '1x': {formula: x => x === 0 ? null : 1/x, name: 'f(x) = 1/x', sub: u => '1/' + wrap(u)}
+        };
+
+        function setG(key) {
+            const func = gFunctions[key];
+            gFunc = func.formula;
+            gName = func.name;
+            gSub = func.sub;
+            updateDisplay();
+        }
+
+        function setF(key) {
+            const func = fFunctions[key];
+            fFunc = func.formula;
+            fName = func.name;
+            fSub = func.sub;
+            updateDisplay();
+        }
+
+        /* --- Swapping the roles of f and g: composition is NOT commutative --- */
+        document.getElementById('swapFG').addEventListener('click', () => {
+            const tf = fFunc, tn = fName, ts = fSub;
+            fFunc = gFunc; fName = gName.replace(/^g/, 'f'); fSub = gSub;
+            gFunc = tf;    gName = tn.replace(/^f/, 'g');    gSub = ts;
+            const note = document.getElementById('swapNote');
+            if (note) note.innerHTML =
+                'Now <b>f∘g</b> is computed with ' + gName + ' and ' + fName +
+                '. Compare the curve with the previous one: <b>f∘g ≠ g∘f</b>.';
+            updateDisplay();
+        });
+
+        document.getElementById('g-2x').addEventListener('click', () => setG('2x'));
+        document.getElementById('g-x2').addEventListener('click', () => setG('x2'));
+        document.getElementById('g-sin').addEventListener('click', () => setG('sin'));
+        document.getElementById('g-sqr').addEventListener('click', () => setG('sqr'));
+
+        document.getElementById('f-x2').addEventListener('click', () => setF('x2'));
+        document.getElementById('f-sin').addEventListener('click', () => setF('sin'));
+        document.getElementById('f-exp').addEventListener('click', () => setF('exp'));
+        document.getElementById('f-1x').addEventListener('click', () => setF('1x'));
+
+        function updateDisplay() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const width = canvas.width / 3;
+            const height = canvas.height;
+
+            // Draw three panels
+            drawPanel(ctx, 0, 0, width, height, gName, gFunc, [-2, 2]);
+            drawPanel(ctx, width, 0, width, height, fName, fFunc, [-2, 2]);
+
+            // Draw composition
+            const compFunc = x => {
+                const g_val = gFunc(x);
+                if (g_val === null || !isFinite(g_val)) return null;
+                const f_val = fFunc(g_val);
+                return f_val;
+            };
+            drawPanel(ctx, 2*width, 0, width, height, `(f∘g)(x)`, compFunc, [-2, 2]);
+
+            document.getElementById('compName').textContent = `(f∘g)(x) = f(g(x)) = ${fSub(gSub('x'))}`;
+        }
+
+        function drawPanel(ctx, startX, startY, width, height, label, func, xlim) {
+            const centerX = startX + width / 2;
+            const centerY = startY + height / 2;
+            const scaleX = width / (xlim[1] - xlim[0]) * 0.7;
+            const scaleY = height / 8;
+
+            // Background
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(startX, startY, width, height);
+            ctx.strokeStyle = '#dde3ea';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(startX, startY, width, height);
+
+            // Grid
+            ctx.strokeStyle = '#f0f0f0';
+            ctx.lineWidth = 0.5;
+            for (let x = Math.ceil(xlim[0]); x <= Math.floor(xlim[1]); x++) {
+                const px = centerX + (x - (xlim[0]+xlim[1])/2) * scaleX;
+                ctx.beginPath();
+                ctx.moveTo(px, startY);
+                ctx.lineTo(px, startY + height);
+                ctx.stroke();
+            }
+
+            // Axes
+            ctx.strokeStyle = '#999';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(centerX, startY);
+            ctx.lineTo(centerX, startY + height);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(startX, centerY);
+            ctx.lineTo(startX + width, centerY);
+            ctx.stroke();
+
+            // Function curve
+            ctx.strokeStyle = '#c85000';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            let firstPoint = true;
+            const step = (xlim[1] - xlim[0]) / 100;
+            for (let x = xlim[0]; x <= xlim[1]; x += step) {
+                const y = func(x);
+                if (y !== null && isFinite(y)) {
+                    const px = centerX + (x - (xlim[0]+xlim[1])/2) * scaleX;
+                    const py = centerY - y * scaleY;
+                    if (py >= startY && py <= startY + height) {
+                        if (firstPoint) {
+                            ctx.moveTo(px, py);
+                            firstPoint = false;
+                        } else {
+                            ctx.lineTo(px, py);
+                        }
+                    } else {
+                        firstPoint = true;
+                    }
+                } else {
+                    firstPoint = true;
+                }
+            }
+            ctx.stroke();
+
+            // Label
+            ctx.fillStyle = '#004080';
+            ctx.font = 'bold 12px Georgia';
+            ctx.textAlign = 'center';
+            ctx.fillText(label, centerX, startY + 20);
+        }
+
+        updateDisplay();
+    </script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>
