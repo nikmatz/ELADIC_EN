@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Guide for Mathematical Computations · Elements of Linear Algebra &amp; Calculus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+ :root{--blue:#1a5276;--teal:#0e6655;--orange:#ca6f1e;--bg:#f5f5f0;}
+ *{box-sizing:border-box;margin:0;padding:0;}
+ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#222;line-height:1.55;}
+ header{background:var(--blue);color:#fff;padding:18px 24px;}
+ header h1{font-size:1.3rem;} header p{font-size:.9rem;margin-top:4px;opacity:.85;}
+ .breadcrumb{font-size:.82rem;padding:10px 24px;background:#eee;border-bottom:1px solid #ddd;}
+ .breadcrumb a{color:var(--blue);text-decoration:none;}
+ .container{max-width:980px;margin:0 auto;padding:24px 16px;}
+ .goals{background:#fff;border-left:5px solid var(--orange);padding:14px 18px;margin-bottom:22px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+ .goals h2{font-size:1rem;color:var(--orange);margin-bottom:6px;}
+ .toc{background:#fff;border:1px solid #ddd;border-radius:6px;padding:14px 20px;margin-bottom:26px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+ .toc strong{color:var(--blue);} .toc ol{margin:8px 0 0 20px;font-size:.9rem;columns:2;}
+ .toc a{color:var(--blue);text-decoration:none;} .toc a:hover{text-decoration:underline;}
+ section{margin-bottom:34px;}
+ h2{color:var(--blue);font-size:1.25rem;border-bottom:2px solid var(--blue);padding-bottom:5px;margin-bottom:14px;}
+ h3{color:var(--teal);font-size:1.05rem;margin:18px 0 8px;}
+ h4{color:var(--blue);font-size:.98rem;margin-bottom:8px;}
+ p{margin:8px 0;font-size:.92rem;}
+ ul,ol{margin:8px 0 8px 26px;font-size:.92rem;} li{margin:3px 0;}
+ .en{font-style:italic;color:#555;}
+ code{background:#eef3f7;color:#10324a;padding:1px 5px;border-radius:3px;font-size:.86em;}
+ table.cheat{width:100%;border-collapse:collapse;margin:12px 0;background:#fff;font-size:.86rem;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+ table.cheat th{background:var(--blue);color:#fff;text-align:left;padding:7px 10px;}
+ table.cheat td{padding:6px 10px;border-bottom:1px solid #eee;vertical-align:top;}
+ table.cheat tr:nth-child(even) td{background:#fafafa;}
+ table.cheat code{background:#f0f4f8;}
+ .example{background:#fff;border:1px solid #e3e3e3;border-left:4px solid var(--teal);border-radius:6px;padding:14px 18px;margin:18px 0;box-shadow:0 1px 5px rgba(0,0,0,.07);}
+ .example h4{color:var(--teal);}
+ .ekf{background:#f3f9f6;border-radius:4px;padding:8px 12px;font-size:.9rem;}
+ .tip{background:#fffde7;border:1px solid #f4c430;border-radius:6px;padding:12px 18px;margin:18px 0;}
+ .tip h4{color:var(--orange);}
+ .code-card{margin:12px 0;border-radius:6px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.12);}
+ .code-top{display:flex;justify-content:space-between;align-items:center;background:#2d2d2d;color:#ccc;padding:6px 12px;font-size:.8rem;}
+ .copy{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:4px;padding:3px 10px;font-size:.78rem;cursor:pointer;}
+ .copy:hover{background:rgba(255,255,255,.25);}
+ pre[class*="language-"]{margin:0!important;border-radius:0!important;font-size:.83rem;max-height:560px;overflow:auto;}
+ pre code.language-none{display:block;background:#2d2d2d;color:#e6e6e6;padding:14px 16px;white-space:pre;}
+ footer{text-align:center;padding:22px;font-size:.8rem;color:#888;margin-top:30px;border-top:1px solid #ddd;}
+ a.top{color:var(--blue);font-size:.8rem;text-decoration:none;}
+</style>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},options:{ignoreHtmlClass:'tex2jax_ignore'}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<header><h1>Python Guide for Mathematical Computations</h1><p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» · N. Matzakos</p></header>
+<div class="breadcrumb"><a href="../../index.html">🏠 Home</a> › <a href="../">Appendices</a> › Python</div>
+<div class="container">
+<div class="goals"><h2>🎯 Objectives</h2><ul>
+<li>Install Anaconda and work with Jupyter Notebooks.</li>
+<li>Carry out Linear Algebra computations with <strong>NumPy</strong>.</li>
+<li>Compute derivatives, integrals and series with <strong>SymPy</strong>.</li>
+<li>Evaluate integrals and solve ODEs numerically with <strong>SciPy</strong>.</li>
+<li>Produce plots with <strong>Matplotlib</strong>.</li>
+</ul></div>
+<nav class="toc"><strong>Contents</strong><ol>
+<li><a href="#s0">Introduction: Why Python for Mathematical Computations?</a></li>
+<li><a href="#s1">Getting Started — Installation</a></li>
+<li><a href="#s2">NumPy — Numerical Linear Algebra</a></li>
+<li><a href="#s3">SciPy — Scientific Computing</a></li>
+<li><a href="#s4">SymPy — Symbolic Computation</a></li>
+<li><a href="#s5">Matplotlib — Plots</a></li>
+<li><a href="#s6">Fully Worked Examples</a></li>
+<li><a href="#s7">Optimization and Root-Finding — <code>scipy.optimize</code></a></li>
+<li><a href="#s8">Useful Shortcuts and Common Errors</a></li>
+</ol></nav>
+<section id="s0"><h2>Introduction: Why Python for Mathematical Computations?</h2><p><strong>Python</strong> is today the most widely used programming language
+in the scientific community.
+Unlike specialized tools such as MATLAB or Mathematica,
+Python is <em>free</em> and <em>open source</em>, and it has one
+of the richest ecosystems of libraries for scientific computing.</p>
+<p>For this course we use four specialized libraries:</p>
+<ul>
+<li><strong>NumPy</strong> (<span class="en">Numerical Python</span>) — the foundation of every scientific
+ computation: fast $n$-dimensional arrays, linear algebra
+ operations, mathematical functions.</li>
+<li><strong>SciPy</strong> (<span class="en">Scientific Python</span>) — higher-level
+ algorithms: numerical integration, initial value problems for ODEs,
+ special functions, optimization.</li>
+<li><strong>SymPy</strong> (<span class="en">Symbolic Python</span>) — symbolic computation
+ comparable to Maxima: exact derivatives, integrals, limits,
+ Taylor series, solutions of equations.</li>
+<li><strong>Matplotlib</strong> — a professional plotting library:
+ 2D/3D plots, direction fields, contour curves,
+ application plots.</li>
+</ul>
+<p><strong>What can I do with Python that I cannot do with Maxima?</strong></p>
+<ul>
+<li>Process <em>large matrices</em> (thousands of rows)
+ at high speed.</li>
+<li>Automate repetitive computations with loops.</li>
+<li>Produce <em>publication-quality plots</em> ready for
+ print.</li>
+<li>Combine symbolic (SymPy) and numerical (NumPy/SciPy)
+ computations in the same program.</li>
+<li>Solve real engineering problems: structural analysis,
+ fluid dynamics, signal processing.</li>
+</ul>
+<p>For a deeper study of Python in mathematics and scientific computing,
+see the relevant references in the book.</p>
+<div class="tip"><h4>💡 Anaconda — The Scientist's "Bundle"</h4><p>The <strong>Anaconda</strong> distribution (<a href="https://www.anaconda.com" target="_blank">https://www.anaconda.com</a>) installs
+Python, NumPy, SciPy, SymPy, Matplotlib, Jupyter Notebooks
+and hundreds of further libraries with a single installer.
+It is the <em>recommended choice</em> for students of civil engineering
+who wish to use Python for mathematical computations.</p></div></section>
+<section id="s1"><h2>Getting Started — Installation</h2><p>Python is one of the most widely used programming languages for scientific
+computing. For this course we need four libraries:</p>
+<ul>
+<li><strong>NumPy</strong> — numerical linear algebra and arrays</li>
+<li><strong>SciPy</strong> — scientific algorithms (integration, ODEs, special functions)</li>
+<li><strong>SymPy</strong> — symbolic computation (derivatives, integrals, limits, analytically)</li>
+<li><strong>Matplotlib</strong> — plotting and visualization</li>
+</ul>
+<h3>Installation --- Anaconda (Recommended)</h3>
+<ol>
+<li>Go to <a href="https://www.anaconda.com/download" target="_blank">https://www.anaconda.com/download</a></li>
+<li>Download <strong>Anaconda Individual Edition</strong> for your operating system.</li>
+<li>Install it — all the libraries (NumPy, SciPy, SymPy, Matplotlib) are included.</li>
+<li>Launch <strong>Jupyter Notebook</strong> from the Anaconda Navigator menu.</li>
+</ol>
+<h3>Basic Python Syntax</h3>
+<div class="code-card"><div class="code-top"><span>Python</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-python"># Comments start with #
+x = 5 # assignment
+print(x) # printing
+y = x**2 + 3*x - 1 # powers with **
+
+# Importing the libraries (the usual idiom for mathematics)
+import numpy as np
+import matplotlib.pyplot as plt
+from sympy import symbols, diff, integrate, limit, solve, series
+from scipy.integrate import quad
+from scipy.linalg import null_space</code></pre></div></section>
+<section id="s2"><h2>NumPy — Numerical Linear Algebra</h2><h3>Creating Arrays and Vectors</h3>
+<table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>np.array([a,b,c])</code></td><td>Vector (1D array)</td></tr>
+<tr><td><code>np.array([[a,b],[c,d]])</code></td><td>Matrix (2D array)</td></tr>
+<tr><td><code>np.zeros((m,n))</code></td><td>Zero $m\times n$ matrix</td></tr>
+<tr><td><code>np.ones((m,n))</code></td><td>Matrix of ones</td></tr>
+<tr><td><code>np.eye(n)</code></td><td>Identity matrix $n\times n$</td></tr>
+<tr><td><code>np.diag([a,b,c])</code></td><td>Diagonal matrix</td></tr>
+<tr><td><code>np.linspace(a, b, n)</code></td><td>$n$ equally spaced points from $a$ to $b$</td></tr>
+<tr><td><code>np.arange(a, b, step)</code></td><td>Sequence from $a$ to $b$ with a given step</td></tr>
+<tr><td><code>np.meshgrid(x, y)</code></td><td>2D grid for plotting</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Defining Arrays</h4>
+<p class="ekf"><strong>Statement:</strong> Use NumPy to define: (a) a vector with three entries, (b) a $2\times3$ matrix, (c) a $3\times3$ identity matrix and (d) a random $2\times2$ matrix. Print the shape and the data type of each object.</p>
+<div class="code-card"><div class="code-top"><span>Python</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-python">import numpy as np
+
+# Vector
+v = np.array([1, 2, 3])
+
+# 2x3 matrix
+A = np.array([[1, 2, 3],
+ [4, 5, 6]])
+
+# 3x3 identity matrix
+I = np.eye(3)
+
+# Uniform grid (100 points from 0 to 2pi)
+x = np.linspace(0, 2*np.pi, 100)
+
+# Grid for 3D plots
+X, Y = np.meshgrid(np.linspace(-2,2,50), np.linspace(-2,2,50))
+Z = np.sin(X) * np.cos(Y)</code></pre></div>
+</div>
+<h3>Linear Algebra Operations</h3>
+<table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>A @ B</code> or <code>np.dot(A, B)</code></td><td>Matrix multiplication $A\cdot B$</td></tr>
+<tr><td><code>A.T</code></td><td>Transpose $A^T$</td></tr>
+<tr><td><code>k * A</code></td><td>Scalar multiplication</td></tr>
+<tr><td><code>A + B</code>, <code>A - B</code></td><td>Addition / subtraction</td></tr>
+<tr><td><code>np.linalg.det(A)</code></td><td>Determinant $\det(A)$</td></tr>
+<tr><td><code>np.linalg.inv(A)</code></td><td>Inverse $A^{-1}$</td></tr>
+<tr><td><code>np.linalg.solve(A, b)</code></td><td>Solution of $Ax=b$</td></tr>
+<tr><td><code>np.linalg.eig(A)</code></td><td>Eigenvalues + eigenvectors</td></tr>
+<tr><td><code>np.linalg.eigvals(A)</code></td><td>Eigenvalues only</td></tr>
+<tr><td><code>np.linalg.norm(v)</code></td><td>Norm $\|v\|$ (Euclidean)</td></tr>
+<tr><td><code>np.linalg.matrix_rank(A)</code></td><td>Rank</td></tr>
+<tr><td><code>np.linalg.qr(A)</code></td><td>QR decomposition</td></tr>
+<tr><td><code>np.linalg.svd(A)</code></td><td>SVD decomposition</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Linear Algebra with NumPy</h4>
+<p class="ekf"><strong>Statement:</strong> Let $A = \begin{pmatrix}2&1&-1\\3&2&1\\1&-1&2\end{pmatrix}$. Use NumPy to: (a) solve the linear system $A\mathbf{x} = \mathbf{b}$ for $\mathbf{b} = (8,11,-3)^T$ and check the answer, (b) find the determinant and the inverse matrix, (c) compute the eigenvalues and eigenvectors of a $2\times2$ matrix $B$.</p>
+<div class="code-card"><div class="code-top"><span>Python</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-python">import numpy as np
+
+A = np.array([[2., 1., -1.],
+ [3., 2., 1.],
+ [1., -1., 2.]])
+b = np.array([8., 11., -3.])
+
+# Solving Ax = b
+x = np.linalg.solve(A, b)
+print(&quot;Solution:&quot;, x) # [2. 3. -1.]
+
+# Check
+print(&quot;Check:&quot;, A @ x) # [8. 11. -3.]
+
+# Determinant
+print(&quot;det(A):&quot;, np.linalg.det(A)) # 10.0
+
+# Inverse
+Ainv = np.linalg.inv(A)
+print(&quot;A*A^-1 =\n&quot;, A @ Ainv) # I
+
+# Eigenvalues and eigenvectors
+B = np.array([[4., 1.], [2., 3.]])
+vals, vecs = np.linalg.eig(B)
+print(&quot;Eigenvalues:&quot;, vals) # [5. 2.]
+print(&quot;Eigenvectors:\n&quot;, vecs)
+
+# Check: B*v = lambda*v
+for i in range(len(vals)):
+ lam, v = vals[i], vecs[:,i]
+ print(f&quot;B*v{i} - {lam}*v{i} =&quot;, B@v - lam*v) # ~[0,0]</code></pre></div>
+</div>
+<h3>NumPy Mathematical Functions</h3>
+<table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th><th><strong>Command</strong></th></tr></thead><tbody>
+<tr><td><code>np.sin(x)</code>, <code>np.cos(x)</code></td><td>trigonometric</td><td><code>np.arcsin(x)</code>, <code>np.arctan(x)</code></td></tr>
+<tr><td><code>np.exp(x)</code></td><td>exponential $e^x$</td><td><code>np.log(x)</code>, <code>np.log10(x)</code></td></tr>
+<tr><td><code>np.sqrt(x)</code></td><td>square root</td><td><code>np.abs(x)</code></td></tr>
+<tr><td><code>np.pi</code>, <code>np.e</code></td><td>constants</td><td><code>np.inf</code></td></tr>
+<tr><td><code>np.sum(A)</code></td><td>sum</td><td><code>np.max(A)</code>, <code>np.min(A)</code></td></tr>
+<tr><td><code>np.cumsum(v)</code></td><td>cumulative sum</td><td><code>np.round(x, n)</code></td></tr>
+</tbody></table>
+<h3>Complex Numbers</h3>
+<table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>z = 3 + 4j</code></td><td>Definition (<code>j</code> is the imaginary unit)</td></tr>
+<tr><td><code>np.abs(z)</code></td><td>Modulus $|z|$</td></tr>
+<tr><td><code>np.angle(z)</code></td><td>Argument $\arg(z)$ (in radians)</td></tr>
+<tr><td><code>np.conj(z)</code></td><td>Conjugate $\bar{z}$</td></tr>
+<tr><td><code>z.real</code>, <code>z.imag</code></td><td>Real / imaginary part</td></tr>
+<tr><td><code>np.exp(1j*theta)</code></td><td>$e^{i\theta} = \cos\theta + i\sin\theta$</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Complex Numbers</h4>
+<p class="ekf"><strong>Statement:</strong> Use Python to carry out operations with complex numbers: (a) define $z_1 = 3+4i$ and $z_2 = 1-2i$, (b) compute the sum, the product and the quotient $z_1/z_2$, (c) find the modulus, the conjugate and the argument $\arg(z_1)$, (d) print the results.</p>
+<div class="code-card"><div class="code-top"><span>Python</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-python">import numpy as np
+
+z1 = 3 + 4j
+z2 = 1 - 2j
+
+print(&quot;|z1| =&quot;, np.abs(z1)) # 5.0
+print(&quot;arg(z1) =&quot;, np.degrees(np.angle(z1))) # 53.13...
+print(&quot;conj(z1) =&quot;, np.conj(z1)) # 3-4j
+print(&quot;z1*z2 =&quot;, z1*z2) # 11-2j
+print(&quot;z1/z2 =&quot;, z1/z2) # -1+2j
+
+# Euler's formula
+theta = np.pi/4
+print(&quot;e^(i*pi/4) =&quot;, np.exp(1j*theta)) # (0.707+0.707j)
+
+# Complex eigenvalues
+A = np.array([[0., -1.], [1., 0.]])
+vals = np.linalg.eigvals(A)
+print(&quot;Eigenvalues:&quot;, vals) # [0.+1j, 0.-1j]</code></pre></div>
+</div>
+<h3>Polynomials</h3>
+<table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>np.roots([a,b,c])</code></td><td>Roots of $ax^2+bx+c=0$</td></tr>
+<tr><td><code>np.poly(roots)</code></td><td>Polynomial from its roots</td></tr>
+<tr><td><code>np.polyval(p, x)</code></td><td>Value of the polynomial $p$ at $x$</td></tr>
+<tr><td><code>np.polyfit(x, y, n)</code></td><td>Polynomial fit of degree $n$</td></tr>
+</tbody></table></section>
+<section id="s3"><h2>SciPy — Scientific Computing</h2><h3>Linear Algebra in SciPy</h3>
+<table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>from scipy.linalg import null_space</code></td><td></td></tr>
+<tr><td><code>null_space(A)</code></td><td>Orthonormal basis of $\ker(A)$</td></tr>
+<tr><td><code>from scipy.linalg import expm</code></td><td></td></tr>
+<tr><td><code>expm(A)</code></td><td>Matrix exponential $e^A$</td></tr>
+<tr><td><code>from scipy.linalg import solve</code></td><td></td></tr>
+<tr><td><code>solve(A, b)</code></td><td>Solution of $Ax=b$ (optimized)</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Kernel and Matrix Exponential</h4>
+<p class="ekf"><strong>Statement:</strong> Use SciPy to: (a) compute the exponential $e^A$ of a matrix $A$, (b) find the kernel (null space) of a matrix using SVD, (c) print the results and verify that $e^A \cdot e^{-A} = I$.</p>
+<div class="code-card"><div class="code-top"><span>Python</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-python">import numpy as np
+from scipy.linalg import null_space, expm
+
+# Kernel (null space)
+A = np.array([[1., 2., 3.],
+ [4., 5., 6.],
+ [7., 8., 9.]])
+ker = null_space(A)
+print(&quot;Kernel (orthonormal basis):\n&quot;, ker)
+print(&quot;Check A*ker ~ 0:\n&quot;, A @ ker)
+
+# Matrix exponential: e^A (for the ODE x&#x27; = Ax)
+B = np.array([[-1., 0.], [0., -2.]])
+t = 0.5
+eAt = expm(B * t)
+print(&quot;e^(B*0.5) =\n&quot;, eAt) # diag([e^-0.5, e^-1])</code></pre></div>
+</div>
+<h3>Numerical Integration</h3>
+<table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>from scipy.integrate import quad</code></td><td></td></tr>
+<tr><td><code>quad(f, a, b)</code></td><td>$\int_a^b f(x)\,dx$ — returns <code>(value, error)</code></td></tr>
+<tr><td><code>quad(f, a, np.inf)</code></td><td>Improper integral $\int_a^{+\infty}$</td></tr>
+<tr><td><code>from scipy.integrate import dblquad</code></td><td></td></tr>
+<tr><td><code>dblquad(f, a, b, g, h)</code></td><td>$\int_a^b\!\int_{g(x)}^{h(x)} f(x,y)\,dy\,dx$</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Numerical Integration</h4>
+<p class="ekf"><strong>Statement:</strong> Use the <code>quad</code> function of SciPy to evaluate numerically the integrals: (a) $\int_0^1 x^2\,dx$, (b) $\int_0^{\pi} \sin x\,dx$, (c) $\int_1^{\infty} e^{-x}\,dx$. Compare the numerical results with the analytical values.</p>
+<div class="code-card"><div class="code-top"><span>Python</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-python">import numpy as np
+from scipy.integrate import quad, dblquad
+
+# Simple integral: int_0^pi sin(x)dx = 2
+val, err = quad(np.sin, 0, np.pi)
+print(f&quot;integral = {val:.6f}, error = {err:.2e}&quot;) # 2.000000
+
+# Gaussian: int_0^inf exp(-x^2)dx = sqrt(pi)/2
+val, err = quad(lambda x: np.exp(-x**2), 0, np.inf)
+print(f&quot;Gaussian = {val:.6f}&quot;) # 0.886227 = sqrt(pi)/2
+
+# An integral with no closed form
+val, err = quad(lambda x: np.sin(x)/x, 0.001, 10)
+print(f&quot;Si(10) ≈ {val:.4f}&quot;)
+
+# Double integral: int_0^1 int_0^1 x*y dydx = 1/4
+val, err = dblquad(lambda y, x: x*y, 0, 1, 0, 1)
+print(f&quot;Double integral = {val:.4f}&quot;) # 0.25</code></pre></div>
+</div>
+<h3>Differential Equations</h3>
+<table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>from scipy.integrate import solve_ivp</code></td><td></td></tr>
+<tr><td><code>solve_ivp(f, [t0,tf], y0)</code></td><td>Solution of $\mathbf{y}'=f(t,\mathbf{y})$, $\mathbf{y}(t_0)=\mathbf{y}_0$</td></tr>
+<tr><td><code>solve_ivp(f, ..., method='RK45')</code></td><td>Runge-Kutta of order 4/5 (default)</td></tr>
+<tr><td><code>solve_ivp(f, ..., dense_output=True)</code></td><td>Continuous interpolation of the solution</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Initial Value Problem for an ODE</h4>
+<p class="ekf"><strong>Statement:</strong> Solve numerically the initial value problem $y' = -y + \sin t$, $y(0)=1$ on the interval $[0,10]$ using the <code>solve_ivp</code> function of SciPy. Plot the solution and compare it with the analytical one, $y(t) = e^{-t} + \frac{1}{2}(\sin t - \cos t) + \frac{1}{2}e^{-t}$.</p>
+<div class="code-card"><div class="code-top"><span>Python</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
+
+# Example 1: y&#x27; = -y, y(0)=1 =&gt; y=e^-t
+def f(t, y):
+ return [-y[0]]
+
+sol = solve_ivp(f, [0, 5], [1.0], dense_output=True)
+t = np.linspace(0, 5, 200)
+y_numerical = sol.sol(t)[0]
+y_exact = np.exp(-t)
+
+plt.plot(t, y_numerical, &#x27;b-&#x27;, label=&#x27;Numerical solution&#x27;)
+plt.plot(t, y_exact, &#x27;r--&#x27;, label=&#x27;Exact: $e^{-t}$&#x27;)
+plt.xlabel(&#x27;t&#x27;); plt.ylabel(&#x27;y(t)&#x27;)
+plt.legend(); plt.grid(True); plt.show()
+
+# Example 2: a 2x2 system (harmonic oscillator)
+# y&#x27;&#x27; + omega^2*y = 0 =&gt; [y&#x27;, v&#x27;] = [v, -omega^2*y]
+omega = 2.0
+def harmonic(t, Y):
+ y, v = Y
+ return [v, -omega**2 * y]
+
+sol2 = solve_ivp(harmonic, [0, 10], [1.0, 0.0],
+ dense_output=True, max_step=0.1)
+t2 = np.linspace(0, 10, 500)
+Y2 = sol2.sol(t2)
+plt.plot(t2, Y2[0], label=&#x27;y(t) position&#x27;)
+plt.plot(t2, Y2[1], label=&quot;y&#x27;(t) velocity&quot;)
+plt.legend(); plt.grid(True); plt.show()</code></pre></div>
+</div></section>
+<section id="s4"><h2>SymPy — Symbolic Computation</h2><p>SymPy allows <em>exact</em> (symbolic) computation — much like Maxima, but from inside Python.</p>
+<table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>symbols('x y z')</code></td><td>Define symbolic variables</td></tr>
+<tr><td><code>diff(f, x)</code></td><td>Derivative $f'(x)$</td></tr>
+<tr><td><code>diff(f, x, n)</code></td><td>$n$-th derivative $f^{(n)}(x)$</td></tr>
+<tr><td><code>integrate(f, x)</code></td><td>Indefinite integral</td></tr>
+<tr><td><code>integrate(f, (x, a, b))</code></td><td>Definite integral</td></tr>
+<tr><td><code>limit(f, x, a)</code></td><td>Limit $\lim_{x\to a}f(x)$</td></tr>
+<tr><td><code>solve(eq, x)</code></td><td>Solve an equation</td></tr>
+<tr><td><code>series(f, x, 0, n)</code></td><td>Maclaurin series with remainder $O(x^{n})$ (terms up to $x^{n-1}$)</td></tr>
+<tr><td><code>simplify(expr)</code></td><td>Simplification</td></tr>
+<tr><td><code>factor(expr)</code></td><td>Factorization</td></tr>
+<tr><td><code>expand(expr)</code></td><td>Expansion</td></tr>
+<tr><td><code>latex(expr)</code></td><td>Conversion to LaTeX</td></tr>
+<tr><td><code>lambdify(x, f)</code></td><td>Symbolic &rarr; numerical function</td></tr>
+<tr><td><code>dsolve(ode, y)</code></td><td>Symbolic solution of an ODE</td></tr>
+</tbody></table>
+<div class="example">
+<h4>SymPy — Derivative, Integral, Limit</h4>
+<p class="ekf"><strong>Statement:</strong> Use SymPy to carry out symbolic computations: (a) compute derivatives of $f(x) = x^3 e^{-x} \sin x$, (b) find the integral $\int \frac{1}{1+x^2}\,dx$, (c) compute the limit $\lim_{x\to 0} \frac{\sin x}{x}$, (d) expand in a Taylor series about $x=0$ up to order 8.</p>
+<div class="code-card"><div class="code-top"><span>Python</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-python">from sympy import symbols, diff, integrate, limit, solve
+from sympy import sin, cos, exp, ln, pi, oo, simplify, series
+
+x, t, n = symbols(&#x27;x t n&#x27;)
+
+# Derivative
+f = x**2 * sin(x)
+fp = diff(f, x)
+print(&quot;f&#x27;(x) =&quot;, fp) # 2*x*sin(x) + x^2*cos(x)
+
+# Second derivative
+fpp = diff(f, x, 2)
+print(&quot;f&#x27;&#x27;(x) =&quot;, fpp)
+
+# Integral
+g = x * exp(x)
+print(integrate(g, x)) # (x-1)*exp(x)
+print(integrate(g, (x, 0, 1))) # 1
+
+# Limit
+print(limit(sin(x)/x, x, 0)) # 1
+print(limit((1+1/n)**n, n, oo)) # E = 2.718...
+
+# Solving an equation
+sols = solve(x**2 - 5*x + 6, x)
+print(&quot;Roots:&quot;, sols) # [2, 3]
+
+# Taylor (Maclaurin) series
+print(series(sin(x), x, 0, 8))
+# x - x^3/6 + x^5/120 - x^7/5040 + O(x^8)</code></pre></div>
+</div>
+<p>SymPy also supports full linear algebra computations and the symbolic solution of differential equations, as the next example shows.</p>
+<div class="example">
+<h4>SymPy — Linear Algebra and ODEs</h4>
+<p class="ekf"><strong>Statement:</strong> Use SymPy to: (a) define a symbolic matrix $A$ and compute its determinant, inverse and eigenvalues, (b) compute the characteristic polynomial, (c) solve symbolically the linear ODE $y'' - 3y' + 2y = 0$.</p>
+<div class="code-card"><div class="code-top"><span>Python</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-python">from sympy import Matrix, symbols, dsolve, Function, Eq, diff
+
+x_s = symbols(&#x27;x&#x27;)
+
+# Symbolic matrix
+A = Matrix([[3, 1], [0, 2]])
+print(&quot;det =&quot;, A.det()) # 6
+print(&quot;inv =\n&quot;, A.inv())
+print(&quot;eigenvals =&quot;, A.eigenvals()) # {2: 1, 3: 1}
+print(&quot;eigenvects =\n&quot;, A.eigenvects())
+
+# Characteristic polynomial
+lam = symbols(&#x27;lambda&#x27;)
+print(&quot;charpoly =&quot;, A.charpoly(lam)) # lambda^2 - 5*lambda + 6
+
+# Symbolic solution of the ODE
+y = Function(&#x27;y&#x27;)
+ode = Eq(y(x_s).diff(x_s, 2) - 3*y(x_s).diff(x_s) + 2*y(x_s), 0)
+sol = dsolve(ode, y(x_s))
+print(&quot;Solution:&quot;, sol)
+# y(x) = C1*exp(x) + C2*exp(2*x)</code></pre></div>
+</div></section>
+<section id="s5"><h2>Matplotlib — Plots</h2><table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>plt.figure(figsize=(w,h))</code></td><td>New figure (width $w$, height $h$ in inches)</td></tr>
+<tr><td><code>plt.plot(x, y)</code></td><td>Line plot</td></tr>
+<tr><td><code>plt.plot(x, y, 'r--', label='...')</code></td><td>With color, style and label</td></tr>
+<tr><td><code>plt.scatter(x, y)</code></td><td>Scatter plot</td></tr>
+<tr><td><code>plt.fill_between(x, y1, y2)</code></td><td>Shading a region (area)</td></tr>
+<tr><td><code>plt.quiver(X, Y, U, V)</code></td><td>Vector field</td></tr>
+<tr><td><code>plt.contour(X, Y, Z)</code></td><td>Contour curves</td></tr>
+<tr><td><code>plt.xlabel('...')</code>, <code>plt.ylabel('...')</code></td><td>Axis labels</td></tr>
+<tr><td><code>plt.title('...')</code></td><td>Plot title</td></tr>
+<tr><td><code>plt.legend()</code></td><td>Legend</td></tr>
+<tr><td><code>plt.grid(True)</code></td><td>Grid</td></tr>
+<tr><td><code>plt.axhline(y=0, color='k')</code></td><td>Horizontal line</td></tr>
+<tr><td><code>plt.axvline(x=0, color='k')</code></td><td>Vertical line</td></tr>
+<tr><td><code>plt.xlim(a, b)</code>, <code>plt.ylim(a, b)</code></td><td>Axis limits</td></tr>
+<tr><td><code>plt.subplots(m, n)</code></td><td>$m\times n$ grid of subplots</td></tr>
+<tr><td><code>plt.tight_layout()</code></td><td>Improve the layout</td></tr>
+<tr><td><code>plt.savefig('file.pdf', dpi=150)</code></td><td>Save to file</td></tr>
+<tr><td><code>plt.show()</code></td><td>Display</td></tr>
+</tbody></table>
+<p><strong>Colors:</strong> <code>'b'</code> blue, <code>'r'</code> red, <code>'g'</code> green, <code>'k'</code> black, <code>'m'</code> magenta. 
+<strong>Line styles:</strong> <code>'-'</code> solid, <code>'--'</code> dashed, <code>':'</code> dotted, <code>'-.'</code> dash-dot.</p>
+<div class="example">
+<h4>Basic Plots</h4>
+<p class="ekf"><strong>Statement:</strong> Use Matplotlib to produce plots: (a) plot $f(x) = \sin x$ and $g(x) = \cos x$ on $[0,2\pi]$, (b) compute and shade the area between the two curves on the interval $[0,\pi/2]$. Add a title, axis labels and a legend.</p>
+<div class="code-card"><div class="code-top"><span>Python</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 2*np.pi, 300)
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+# Left: two functions
+axes[0].plot(x, np.sin(x), &#x27;b-&#x27;, label=r&#x27;$\sin x$&#x27;)
+axes[0].plot(x, np.cos(x), &#x27;r--&#x27;, label=r&#x27;$\cos x$&#x27;)
+axes[0].axhline(y=0, color=&#x27;k&#x27;, linewidth=0.8)
+axes[0].set_xlabel(&#x27;x&#x27;); axes[0].set_ylabel(&#x27;y&#x27;)
+axes[0].set_title(&#x27;Trigonometric Functions&#x27;)
+axes[0].legend(); axes[0].grid(True)
+
+# Right: area between curves
+x2 = np.linspace(0, 1, 200)
+f1 = x2**2
+f2 = x2
+axes[1].plot(x2, f1, &#x27;b-&#x27;, label=r&#x27;$y=x^2$&#x27;)
+axes[1].plot(x2, f2, &#x27;r-&#x27;, label=r&#x27;$y=x$&#x27;)
+axes[1].fill_between(x2, f1, f2, alpha=0.3, color=&#x27;green&#x27;,
+ label=&#x27;Area&#x27;)
+axes[1].set_title(&#x27;Area between curves&#x27;)
+axes[1].legend(); axes[1].grid(True)
+
+plt.tight_layout()
+plt.show()</code></pre></div>
+</div>
+<p>Beyond basic plots, Matplotlib can draw direction fields for differential equations, a useful tool for the qualitative analysis of solutions.</p>
+<div class="example">
+<h4>Direction Field Plot — Differential Equations</h4>
+<p class="ekf"><strong>Statement:</strong> Draw the direction field of the differential equation $y' = x - y$ on the rectangle $[-2,3]\times[-2,3]$ using the <code>quiver</code> function of Matplotlib. Add one representative solution curve as well.</p>
+<div class="code-card"><div class="code-top"><span>Python</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Direction field for y&#x27; = x - y
+x = np.linspace(-2, 3, 20)
+y = np.linspace(-2, 3, 20)
+X, Y = np.meshgrid(x, y)
+
+# Slope: dy/dx = X - Y
+dX = np.ones_like(X)
+dY = X - Y
+# Normalization
+N = np.sqrt(dX**2 + dY**2)
+plt.quiver(X, Y, dX/N, dY/N, color=&#x27;gray&#x27;, alpha=0.7)
+
+# Numerical solution with solve_ivp
+from scipy.integrate import solve_ivp
+sol = solve_ivp(lambda t, y: [t - y[0]],
+ [-2, 3], [0.0], dense_output=True)
+t_plot = np.linspace(-2, 3, 200)
+plt.plot(t_plot, sol.sol(t_plot)[0], &#x27;r-&#x27;, linewidth=2,
+ label=&quot;y&#x27;=x-y, y(-2)=0&quot;)
+
+plt.xlabel(&#x27;x&#x27;); plt.ylabel(&#x27;y&#x27;)
+plt.title(&quot;Direction Field: $y&#x27;=x-y$&quot;)
+plt.legend(); plt.grid(True); plt.show()</code></pre></div>
+</div></section>
+<section id="s6"><h2>Fully Worked Examples</h2><div class="example">
+<h4>A Complete Linear Algebra Analysis</h4>
+<p class="ekf"><strong>Statement:</strong> Let $P$ be the stochastic matrix of a Markov chain. Use NumPy to: (a) compute the eigenvalues and verify that the largest one is $\lambda=1$, (b) find the stationary distribution $\boldsymbol{\pi}$ as an eigenvector, (c) carry out many iterations, up to $P^{100}$, and confirm the convergence.</p>
+<div class="code-card"><div class="code-top"><span>Python</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from scipy.linalg import null_space
+
+# The Markov matrix
+P = np.array([[0.7, 0.1, 0.2],
+ [0.2, 0.8, 0.1],
+ [0.1, 0.1, 0.7]])
+
+# Stationary distribution (column-stochastic): P*pi = pi =&gt; (P - I)*pi = 0
+A = P - np.eye(3)
+ker = null_space(A)
+pi = ker[:,0] / ker[:,0].sum() # Normalization
+print(&quot;Stationary distribution:&quot;, np.round(pi, 4))
+
+# Evolution of the distribution
+x0 = np.array([1., 0., 0.])
+states = [x0]
+for _ in range(50):
+ x0 = P @ x0
+ states.append(x0)
+states = np.array(states)
+
+plt.plot(states[:,0], label=&#x27;State 1&#x27;); 
+plt.plot(states[:,1], label=&#x27;State 2&#x27;)
+plt.plot(states[:,2], label=&#x27;State 3&#x27;)
+plt.axhline(pi[0], linestyle=&#x27;--&#x27;, color=&#x27;blue&#x27;)
+plt.xlabel(&#x27;Steps k&#x27;); plt.ylabel(&#x27;Probability&#x27;)
+plt.title(&#x27;Convergence of the Markov Chain&#x27;)
+plt.legend(); plt.grid(True); plt.show()</code></pre></div>
+</div>
+<p>Combining SymPy and NumPy lets symbolic results be used in numerical applications, bridging theory and practice.</p>
+<div class="example">
+<h4>Symbolic + Numerical Computation</h4>
+<p class="ekf"><strong>Statement:</strong> Show how SymPy and NumPy work together: (a) define a function $f(x)$ symbolically and find its derivative and integral analytically, (b) convert the symbolic results into numerical functions with <code>lambdify</code>, (c) draw the plot while also printing the formula in LaTeX.</p>
+<div class="code-card"><div class="code-top"><span>Python</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from sympy import symbols, sin, diff, integrate, lambdify, latex
+
+x = symbols(&#x27;x&#x27;)
+
+# Symbolic f and its derivatives
+f_sym = sin(x**2)
+fp_sym = diff(f_sym, x) # 2*x*cos(x^2)
+fpp_sym = diff(f_sym, x, 2)
+
+print(&quot;f&#x27;(x) =&quot;, fp_sym)
+print(&quot;f&#x27;&#x27;(x) =&quot;, fpp_sym)
+print(&quot;LaTeX:&quot;, latex(fp_sym)) # 2 x \cos{\left(x^{2} \right)}
+
+# Indefinite integral (no closed form -> Fresnel)
+# Use numerical integration instead
+from scipy.integrate import quad
+F = lambda t: np.sin(t**2)
+x_vals = np.linspace(0, 4, 200)
+F_vals = [quad(F, 0, xi)[0] for xi in x_vals]
+
+# Convert to numerical form for plotting
+f_num = lambdify(x, f_sym, &#x27;numpy&#x27;)
+fp_num = lambdify(x, fp_sym, &#x27;numpy&#x27;)
+
+plt.figure(figsize=(10, 4))
+plt.subplot(1,2,1)
+plt.plot(x_vals, f_num(x_vals), &#x27;b-&#x27;, label=r&#x27;$\sin(x^2)$&#x27;)
+plt.plot(x_vals, fp_num(x_vals), &#x27;r-&#x27;, label=r&quot;$f&#x27;(x)$&quot;)
+plt.legend(); plt.grid(True); plt.title(&#x27;Function and Derivative&#x27;)
+
+plt.subplot(1,2,2)
+plt.plot(x_vals, F_vals, &#x27;g-&#x27;, label=r&#x27;$\int_0^x\sin(t^2)dt$&#x27;)
+plt.legend(); plt.grid(True); plt.title(&#x27;Fresnel Integral&#x27;)
+plt.tight_layout(); plt.show()</code></pre></div>
+</div></section>
+<section id="s7"><h2>Optimization and Root-Finding — <code>scipy.optimize</code></h2><p>The <code>scipy.optimize</code> library provides tools for root-finding,
+minimization of functions and solution of systems of equations.</p>
+<table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Usage</strong></th></tr></thead><tbody>
+<tr><td><code>fsolve(f, x0)</code></td><td>Solve $f(x)=0$ (or a system)</td></tr>
+<tr><td><code>brentq(f, a, b)</code></td><td>Root-finding on $[a,b]$ (Brent)</td></tr>
+<tr><td><code>minimize(f, x0)</code></td><td>Minimization of $f(x)$</td></tr>
+<tr><td><code>minimize_scalar(f)</code></td><td>Minimization in one variable</td></tr>
+<tr><td><code>linprog(c, A_ub, b_ub)</code></td><td>Linear programming</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Root-Finding and Minimization</h4>
+<div class="code-card"><div class="code-top"><span>Python</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-python">from scipy.optimize import fsolve, brentq, minimize
+import numpy as np
+
+# -- Root-finding: f(x) = cos(x) - x
+f = lambda x: np.cos(x) - x
+root = brentq(f, 0, 1)
+print(f&quot;Root (Brent): x = {root:.6f}&quot;)   # ~ 0.739085
+
+# -- System of equations: x^2 + y^2 = 1, x - y = 0
+def system(vars):
+    x, y = vars
+    return [x**2 + y**2 - 1, x - y]
+
+sol = fsolve(system, [0.5, 0.5])
+print(f&quot;System: x={sol[0]:.4f}, y={sol[1]:.4f}&quot;)  # ~ 0.7071
+
+# -- Minimization: f(x,y) = (x-1)^2 + (y-2)^2
+def objective(v):
+    return (v[0]-1)**2 + (v[1]-2)**2
+
+result = minimize(objective, [0, 0], method=&#x27;BFGS&#x27;)
+print(f&quot;Minimum: x={result.x[0]:.4f}, y={result.x[1]:.4f}&quot;)  # -> (1, 2)
+print(f&quot;f_min = {result.fun:.6f}&quot;)</code></pre></div>
+</div>
+<div class="example">
+<h4>Constrained Optimization — An Engineering Example</h4>
+<div class="code-card"><div class="code-top"><span>Python</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-python">from scipy.optimize import minimize
+import numpy as np
+
+# Cost minimization: f = 2*x + 3*y
+# Constraints: x + y &gt;= 4,  x &gt;= 1, y &gt;= 1
+def cost(v):
+    return 2*v[0] + 3*v[1]
+
+constraints = [
+    {&#x27;type&#x27;: &#x27;ineq&#x27;, &#x27;fun&#x27;: lambda v: v[0] + v[1] - 4},  # x+y &gt;= 4
+]
+bounds = [(1, None), (1, None)]   # x&gt;=1, y&gt;=1
+
+res = minimize(cost, [2, 2], method=&#x27;SLSQP&#x27;,
+               constraints=constraints, bounds=bounds)
+print(f&quot;Optimum: x={res.x[0]:.3f}, y={res.x[1]:.3f}&quot;)
+print(f&quot;Minimum cost: {res.fun:.3f}&quot;)</code></pre></div>
+</div></section>
+<section id="s8"><h2>Useful Shortcuts and Common Errors</h2><table class="cheat">
+<thead><tr><th><strong>Incorrect</strong></th><th><strong>Cause</strong></th><th><strong>Fix</strong></th></tr></thead><tbody>
+<tr><td><code>2**3 = 8</code> but <code>np.array error</code></td><td>Wrong data type</td><td>Use <code>float</code> or <code>np.float64</code></td></tr>
+<tr><td><code>A * B</code> instead of <code>A @ B</code></td><td>Element-wise product instead of matrix product</td><td>Always use <code>@</code> for matrix multiplication</td></tr>
+<tr><td><code>integrate</code> returns <code>0</code></td><td>A symbolic $x$ instead of a numerical one</td><td>Use <code>quad</code> from scipy</td></tr>
+<tr><td><code>solve_ivp</code> is slow</td><td>The step size is too large</td><td>Reduce <code>max_step</code></td></tr>
+<tr><td><code>eig</code> returns complex values</td><td>The matrix is not symmetric</td><td>If it is symmetric, use <code>np.linalg.eigh</code></td></tr>
+</tbody></table>
+<div class="tip"><h4>💡 Jupyter Notebook Tips</h4><ul>
+<li><strong>Shift+Enter</strong>: Run the cell and move to the next one.</li>
+<li><strong>Tab</strong>: Autocompletion (for example <code>np.lin</code> + Tab).</li>
+<li><strong>Shift+Tab</strong>: Show the documentation of a function.</li>
+<li>Type <code>?np.linalg.eig</code> for the full documentation.</li>
+<li>Use <code>%matplotlib inline</code> to display plots inside the notebook.</li>
+</ul></div></section>
+</div>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N.&nbsp;M. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small><br><a href="https://nikmatz.github.io/ELADIC_EN/" style="color:#aaa">ELADIC_EN</a></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function cp(btn){const code=btn.closest('.code-card').querySelector('code').innerText;
+ navigator.clipboard.writeText(code).then(()=>{btn.textContent='✓ Copied';setTimeout(()=>btn.textContent='📋 Copy',1500);});}
+</script>
+</body></html>

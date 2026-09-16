@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maxima CAS Guide · Elements of Linear Algebra &amp; Calculus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+ :root{--blue:#1a5276;--teal:#0e6655;--orange:#ca6f1e;--bg:#f5f5f0;}
+ *{box-sizing:border-box;margin:0;padding:0;}
+ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#222;line-height:1.55;}
+ header{background:var(--blue);color:#fff;padding:18px 24px;}
+ header h1{font-size:1.3rem;} header p{font-size:.9rem;margin-top:4px;opacity:.85;}
+ .breadcrumb{font-size:.82rem;padding:10px 24px;background:#eee;border-bottom:1px solid #ddd;}
+ .breadcrumb a{color:var(--blue);text-decoration:none;}
+ .container{max-width:980px;margin:0 auto;padding:24px 16px;}
+ .goals{background:#fff;border-left:5px solid var(--orange);padding:14px 18px;margin-bottom:22px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+ .goals h2{font-size:1rem;color:var(--orange);margin-bottom:6px;}
+ .toc{background:#fff;border:1px solid #ddd;border-radius:6px;padding:14px 20px;margin-bottom:26px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+ .toc strong{color:var(--blue);} .toc ol{margin:8px 0 0 20px;font-size:.9rem;columns:2;}
+ .toc a{color:var(--blue);text-decoration:none;} .toc a:hover{text-decoration:underline;}
+ section{margin-bottom:34px;}
+ h2{color:var(--blue);font-size:1.25rem;border-bottom:2px solid var(--blue);padding-bottom:5px;margin-bottom:14px;}
+ h3{color:var(--teal);font-size:1.05rem;margin:18px 0 8px;}
+ h4{color:var(--blue);font-size:.98rem;margin-bottom:8px;}
+ p{margin:8px 0;font-size:.92rem;}
+ ul,ol{margin:8px 0 8px 26px;font-size:.92rem;} li{margin:3px 0;}
+ .en{font-style:italic;color:#555;}
+ code{background:#eef3f7;color:#10324a;padding:1px 5px;border-radius:3px;font-size:.86em;}
+ table.cheat{width:100%;border-collapse:collapse;margin:12px 0;background:#fff;font-size:.86rem;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+ table.cheat th{background:var(--blue);color:#fff;text-align:left;padding:7px 10px;}
+ table.cheat td{padding:6px 10px;border-bottom:1px solid #eee;vertical-align:top;}
+ table.cheat tr:nth-child(even) td{background:#fafafa;}
+ table.cheat code{background:#f0f4f8;}
+ .example{background:#fff;border:1px solid #e3e3e3;border-left:4px solid var(--teal);border-radius:6px;padding:14px 18px;margin:18px 0;box-shadow:0 1px 5px rgba(0,0,0,.07);}
+ .example h4{color:var(--teal);}
+ .ekf{background:#f3f9f6;border-radius:4px;padding:8px 12px;font-size:.9rem;}
+ .tip{background:#fffde7;border:1px solid #f4c430;border-radius:6px;padding:12px 18px;margin:18px 0;}
+ .tip h4{color:var(--orange);}
+ .code-card{margin:12px 0;border-radius:6px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.12);}
+ .code-top{display:flex;justify-content:space-between;align-items:center;background:#2d2d2d;color:#ccc;padding:6px 12px;font-size:.8rem;}
+ .copy{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:4px;padding:3px 10px;font-size:.78rem;cursor:pointer;}
+ .copy:hover{background:rgba(255,255,255,.25);}
+ pre[class*="language-"]{margin:0!important;border-radius:0!important;font-size:.83rem;max-height:560px;overflow:auto;}
+ pre code.language-none{display:block;background:#2d2d2d;color:#e6e6e6;padding:14px 16px;white-space:pre;}
+ footer{text-align:center;padding:22px;font-size:.8rem;color:#888;margin-top:30px;border-top:1px solid #ddd;}
+ a.top{color:var(--blue);font-size:.8rem;text-decoration:none;}
+</style>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},options:{ignoreHtmlClass:'tex2jax_ignore'}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+</head>
+<body>
+<header><h1>Maxima CAS Guide</h1><p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» · N. Matzakos</p></header>
+<div class="breadcrumb"><a href="../../index.html">🏠 Home</a> › <a href="../">Appendices</a> › Maxima</div>
+<div class="container">
+<div class="goals"><h2>🎯 Objectives</h2><ul>
+<li>Install and launch <strong>wxMaxima</strong>.</li>
+<li>Use Maxima for symbolic computations in Linear Algebra.</li>
+<li>Compute derivatives, integrals, limits and series symbolically.</li>
+<li>Solve differential equations and visualize the results.</li>
+</ul></div>
+<nav class="toc"><strong>Contents</strong><ol>
+<li><a href="#s0">Introduction: What Is Maxima?</a></li>
+<li><a href="#s1">Getting Started with Maxima</a></li>
+<li><a href="#s2">Basic Algebraic Operations</a></li>
+<li><a href="#s3">Linear Algebra</a></li>
+<li><a href="#s4">Differential Calculus — The Derivative</a></li>
+<li><a href="#s5">Integral Calculus</a></li>
+<li><a href="#s6">Differential Equations</a></li>
+<li><a href="#s7">Sequences and Series</a></li>
+<li><a href="#s8">Diagonalization and Similarity of Matrices</a></li>
+<li><a href="#s9">Complex Numbers</a></li>
+<li><a href="#s10">Plots</a></li>
+<li><a href="#s11">Numerical Methods</a></li>
+<li><a href="#s12">Common Errors and How to Fix Them</a></li>
+</ol></nav>
+<section id="s0"><h2>Introduction: What Is Maxima?</h2><p><strong>Maxima</strong> is a <em>Computer Algebra System</em>
+(<span class="en">CAS</span>): software that carries out mathematical
+operations <em>symbolically</em>, that is, exactly as a person would with pencil and paper,
+without truncating decimals.</p>
+<p>Whereas a scientific computing environment (for example Python/NumPy or MATLAB) works
+<em>numerically</em> — it computes $\sqrt{2}\approx 1.41421\ldots$ — Maxima
+returns <em>exactly</em> <code>sqrt(2)</code>, factors polynomials,
+integrates functions analytically and solves equations in closed form.
+This makes it particularly useful for:</p>
+<ul>
+<li><strong>Checking computations done by hand</strong> — you catch mistakes
+ before the exam.</li>
+<li><strong>Exploring mathematical concepts</strong> — for example, how does the solution
+ of an ODE change if the initial condition changes?</li>
+<li><strong>Computing limits, derivatives and integrals</strong> that are
+ time-consuming by hand.</li>
+<li><strong>Geometric visualization</strong> with built-in 2D/3D plots.</li>
+</ul>
+<p><strong>History:</strong> Maxima descends from <strong>Macsyma</strong>,
+the first CAS, developed at MIT in the 1960s. Today it is
+distributed as free software (GNU GPL) and is one of the
+most complete free alternatives to commercial
+systems such as Mathematica or Maple.</p>
+<p>For a deeper study and an extensive presentation of the Maxima commands,
+see the relevant references in the book.</p>
+<div class="tip"><h4>💡 Maxima vs Python/NumPy — When to use which?</h4><ul>
+<li>Use <strong>Maxima</strong> when: you want an exact analytical answer,
+ you need to check a theoretical result, or you are working with parameters
+ (for example, integrate $\int x^n\,dx$ for general $n$).</li>
+<li>Use <strong>Python/NumPy</strong> when: you need a numerical result
+ for a large matrix, you want to produce high-quality plots, or
+ the function has no closed form.</li>
+<li>Ideally: use the two of them together!</li>
+</ul></div></section>
+<section id="s1"><h2>Getting Started with Maxima</h2><p><strong>Maxima</strong> is a free computer algebra system (CAS — <em>Computer Algebra System</em>),
+available for Windows, macOS and Linux. It was developed at MIT as "Macsyma" in the 1960s and
+is distributed today as open-source software. Its graphical front end, <strong>wxMaxima</strong>, offers
+a friendly interface with results displayed in mathematical notation.</p>
+<h3>Installation</h3>
+<ol>
+<li>Go to <a href="https://wxmaxima-developers.github.io/wxmaxima/" target="_blank">https://wxmaxima-developers.github.io/wxmaxima/</a></li>
+<li>Download the installer for your operating system.</li>
+<li>Install it — Maxima itself is included automatically.</li>
+</ol>
+<h3>Basic Syntax Rules</h3>
+<ul>
+<li>Every command ends with a <strong>semicolon</strong> <code>;</code> or a <strong>dollar sign</strong> <code>$</code> (no printed output).</li>
+<li>Comments: <code>/* text */</code></li>
+<li>Assignment: <code>a : 5</code> (with a colon)</li>
+<li>Function definition: <code>f(x) := x^2 + 1</code></li>
+<li>The symbol <code>%</code> refers to the <em>last result</em>.</li>
+<li><code>float(&hellip;)</code> converts to a decimal number.</li>
+<li>Execution: <strong>Shift+Enter</strong> in wxMaxima.</li>
+</ul>
+<div class="example">
+<h4>First Commands in Maxima</h4>
+<p class="ekf"><strong>Statement:</strong> Open Maxima or wxMaxima and run the following basic commands: (a) arithmetic operations and numerical constants ($\pi$, $e$), (b) computing factors, roots and powers, (c) defining a variable and a function. Notice the difference between symbolic and numerical evaluation.</p>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">/* Arithmetic operations */
+2 + 3; /* 5 */
+sqrt(2); /* sqrt(2) -- symbolic */
+float(sqrt(2)); /* 1.41421356... */
+
+/* Function definition */
+f(x) := x^2 - 3*x + 2;
+f(3); /* 2 */
+f(a+1); /* (a+1)^2 - 3*(a+1) + 2 */
+
+/* Note: Maxima keeps results exact */
+1/3 + 1/6; /* 1/2 */</code></pre></div>
+</div></section>
+<section id="s2"><h2>Basic Algebraic Operations</h2><p>The table below lists the basic computer-algebra commands:</p>
+<table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th><th><strong>Example</strong></th></tr></thead><tbody>
+<tr><td><code>expand(expr)</code></td><td>Expand an expression</td><td><code>expand((x+1)^3)</code></td></tr>
+<tr><td><code>factor(expr)</code></td><td>Factorization</td><td><code>factor(x^2-1)</code></td></tr>
+<tr><td><code>fullratsimp(expr)</code></td><td>Full simplification of a rational expression</td><td><code>fullratsimp((x^3-1)/(x-1))</code></td></tr>
+<tr><td><code>ratsimp(expr)</code></td><td>Simplification of a rational expression</td><td><code>ratsimp((x^2-1)/(x-1))</code></td></tr>
+<tr><td><code>trigsimp(expr)</code></td><td>Trigonometric simplification</td><td><code>trigsimp(2*sin(x)*cos(x))</code></td></tr>
+<tr><td><code>float(expr)</code></td><td>Decimal result</td><td><code>float(%pi)</code></td></tr>
+<tr><td><code>ev(expr, x=a)</code></td><td>Substitution</td><td><code>ev(x^2+1, x=3)</code></td></tr>
+<tr><td><code>subst(a, x, f)</code></td><td>Substitution</td><td><code>subst(2, x, x^3)</code></td></tr>
+<tr><td><code>solve(eq, x)</code></td><td>Solve an equation</td><td><code>solve(x^2=4, x)</code></td></tr>
+</tbody></table>
+<p><strong>Basic Mathematical Constants:</strong>
+<code>%pi</code> $=\pi$, <code>%e</code> $=e$, <code>%i</code> $=i$ (the imaginary unit), 
+<code>inf</code> $=+\infty$, <code>minf</code> $=-\infty$.</p>
+<div class="example">
+<h4>Algebraic Operations — Examples</h4>
+<p class="ekf"><strong>Statement:</strong> Use Maxima for algebraic operations: (a) simplify algebraic expressions with <code>expand</code> and <code>factor</code>, (b) solve equations and inequalities with <code>solve</code>, (c) factor polynomials. Compare the results with computations done by hand.</p>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">/* Factorization */
+factor(x^3 - 3*x^2 + 3*x - 1); /* (x-1)^3 */
+
+/* Trigonometric simplification */
+trigsimp(sin(x)^2 + cos(x)^2); /* 1 */
+
+/* Solving an equation */
+solve(x^2 - 5*x + 6 = 0, x); /* [x=2, x=3] */
+
+/* Substitution */
+f(x) := x^3 - 2*x;
+ev(f(x), x = sqrt(2)); /* 0 */</code></pre></div>
+</div></section>
+<section id="s3"><h2>Linear Algebra</h2><p>Maxima provides a complete set of commands for Linear Algebra.
+For the more advanced operations (echelon, nullspace, columnspace) load the package:</p>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">load(&quot;linearalgebra&quot;);</code></pre></div>
+<h3>Defining Matrices and Basic Matrix Operations</h3>
+<table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>matrix([a,b],[c,d])</code></td><td>Define a $2\times2$ matrix</td></tr>
+<tr><td><code>A . B</code></td><td>Matrix multiplication $A\cdot B$</td></tr>
+<tr><td><code>A ^^ n</code></td><td>Matrix power $A^n$</td></tr>
+<tr><td><code>transpose(A)</code></td><td>Transpose $A^T$</td></tr>
+<tr><td><code>invert(A)</code></td><td>Inverse $A^{-1}$</td></tr>
+<tr><td><code>determinant(A)</code></td><td>Determinant $\det(A)$</td></tr>
+<tr><td><code>rank(A)</code></td><td>Rank</td></tr>
+<tr><td><code>ident(n)</code></td><td>Identity matrix $n\times n$</td></tr>
+<tr><td><code>zeromatrix(m,n)</code></td><td>Zero matrix $m\times n$</td></tr>
+<tr><td><code>submatrix(i,A,j)</code></td><td>Submatrix (delete row $i$, column $j$)</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Basic Matrix Operations</h4>
+<p class="ekf"><strong>Statement:</strong> Use Maxima for matrix operations: (a) define a matrix with <code>matrix</code>, (b) multiply matrices with the <code>.</code> operator, (c) compute the determinant with <code>determinant</code> and the inverse with <code>invert</code>. Verify that $A \cdot A^{-1} = I$.</p>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">/* Defining matrices */
+A: matrix([2, 1], [5, 3]);
+B: matrix([3, -1], [-5, 2]);
+
+/* Multiplication */
+A . B; /* matrix([1,0],[0,1]) -- they are inverses! */
+
+/* Determinant */
+determinant(A); /* 1 */
+
+/* Inverse */
+invert(A); /* matrix([3,-1],[-5,2]) */
+
+/* Check: A * A^(-1) = I */
+A . invert(A); /* ident(2) */
+
+/* Transpose */
+C: matrix([1,2,3],[4,5,6]);
+transpose(C); /* matrix([1,4],[2,5],[3,6]) */</code></pre></div>
+</div>
+<h3>Gauss Elimination, Echelon Form, Kernel</h3>
+<table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>echelon(A)</code></td><td>Echelon form (Gauss)</td></tr>
+<tr><td><code>triangularize(A)</code></td><td>Upper triangular form (division-free)</td></tr>
+<tr><td><code>nullspace(A)</code></td><td>Kernel $\ker(A)$</td></tr>
+<tr><td><code>columnspace(A)</code></td><td>Column space (image)</td></tr>
+<tr><td><code>columnspace(transpose(A))</code></td><td>Row space (as the columns of $A^{T}$)</td></tr>
+<tr><td><code>linsolve([eq1,...],[x,y,...])</code></td><td>Solution of a linear system</td></tr>
+</tbody></table>
+<div class="example">
+<h4>A $3\times3$ Linear System with Maxima</h4>
+<p class="ekf"><strong>Statement:</strong> Use Maxima to solve the $3\times3$ linear system: define the coefficient matrix $A$ and the right-hand-side vector $\mathbf{b}$, and find the solution $\mathbf{x} = A^{-1}\mathbf{b}$ using <code>linsolve</code>. Check the result by computing $A \cdot \mathbf{x}$.</p>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">load(&quot;linearalgebra&quot;);
+
+/* System: 2x+y-z=8, 3x+2y+z=11, x-y+2z=-3 */
+A: matrix([2, 1, -1], [3, 2, 1], [1, -1, 2]);
+b: matrix([8], [11], [-3]);
+
+/* Method 1: linsolve */
+linsolve([2*x+y-z=8, 3*x+2*y+z=11, x-y+2*z=-3], [x,y,z]);
+/* [x=2, y=3, z=-1] */
+
+/* Method 2: inverse matrix (valid only if det(A) # 0) */
+determinant(A); /* 10 */
+invert(A) . b; /* matrix([2],[3],[-1]) */
+
+/* Analysis: echelon form of the augmented matrix [A|b] */
+echelon(addcol(A, b));
+
+/* Kernel (homogeneous system) */
+nullspace(A); /* span() -- only the zero solution, since det(A) # 0 */</code></pre></div>
+</div>
+<h3>Eigenvalues and Eigenvectors</h3>
+<table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>eigenvalues(A)</code></td><td>Eigenvalues — returns <code>[[$\lambda_1$,$\lambda_2$,...],[$m_1$,$m_2$,...]]</code></td></tr>
+<tr><td><code>eigenvectors(A)</code></td><td>Eigenvalues + eigenvectors</td></tr>
+<tr><td><code>charpoly(A, x)</code></td><td>Characteristic polynomial in $x$</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Eigenvalues and Eigenvectors</h4>
+<p class="ekf"><strong>Statement:</strong> Let $A = \begin{pmatrix}4&1\\2&3\end{pmatrix}$. Use Maxima to: (a) compute the characteristic polynomial with <code>charpoly</code>, (b) find the eigenvalues with <code>eigenvalues</code>, (c) compute the eigenvectors with <code>eigenvectors</code>. Interpret the results.</p>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">A: matrix([4, 1], [2, 3]);
+
+/* Characteristic polynomial */
+expand(charpoly(A, lambda)); /* lambda^2 - 7*lambda + 10 */
+
+/* Eigenvalues */
+eigenvalues(A); /* [[5, 2], [1, 1]] =&gt; l1=5 (mult. 1), l2=2 (mult. 1) */
+
+/* Eigenvectors */
+eigenvectors(A);
+/* For l=5: v=[1,1]; for l=2: v=[1,-2] (equivalently [-1,2]) */
+
+/* Check: A*v = l*v */
+v1: matrix([-1], [2]);
+A . v1; /* 2 * v1 */</code></pre></div>
+</div></section>
+<section id="s4"><h2>Differential Calculus — The Derivative</h2><table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>diff(f(x), x)</code></td><td>Derivative $f'(x)$</td></tr>
+<tr><td><code>diff(f(x), x, n)</code></td><td>$n$-th derivative $f^{(n)}(x)$</td></tr>
+<tr><td><code>diff(f(x,y), x)</code></td><td>Partial derivative $\partial f/\partial x$</td></tr>
+<tr><td><code>limit(f(x), x, a)</code></td><td>Limit $\lim_{x\to a}f(x)$</td></tr>
+<tr><td><code>limit(f(x), x, a, plus)</code></td><td>Right-hand limit $\lim_{x\to a^+}$</td></tr>
+<tr><td><code>limit(f(x), x, a, minus)</code></td><td>Left-hand limit $\lim_{x\to a^-}$</td></tr>
+<tr><td><code>limit(f(x), x, inf)</code></td><td>Limit at $+\infty$</td></tr>
+<tr><td><code>taylor(f(x), x, a, n)</code></td><td>Taylor polynomial of order $n$ about $a$</td></tr>
+<tr><td><code>find_root(f(x), x, a, b)</code></td><td>Numerical root-finding on $[a,b]$</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Derivative, Limit and Taylor Series</h4>
+<p class="ekf"><strong>Statement:</strong> Use Maxima for symbolic differential calculus: (a) compute derivatives of various orders of $f(x) = x^3 e^{-x}$ with <code>diff</code>, (b) find limits with <code>limit</code>, including limits at infinity, (c) expand in a Taylor series about $x_0 = 0$ with <code>taylor</code>.</p>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">/* Derivative */
+f(x) := x^2 * sin(x);
+diff(f(x), x); /* 2*x*sin(x) + x^2*cos(x) */
+
+/* Chain rule */
+g(x) := exp(x^2 + 1);
+diff(g(x), x); /* 2*x*exp(x^2+1) */
+
+/* Second derivative */
+diff(f(x), x, 2);
+
+/* Limits */
+limit(sin(x)/x, x, 0); /* 1 */
+limit((1+1/n)^n, n, inf); /* %e */
+limit(exp(-x), x, inf); /* 0 */
+
+/* L&#x27;Hopital's rule */
+limit((exp(x)-1)/x, x, 0); /* 1 */
+
+/* Taylor about x=0, order 5 */
+taylor(sin(x), x, 0, 5);
+/* x - x^3/6 + x^5/120 + ... */
+
+/* Numerical root */
+find_root(x^3 - 2, x, 1, 2); /* 1.259921... */</code></pre></div>
+</div></section>
+<section id="s5"><h2>Integral Calculus</h2><table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>integrate(f(x), x)</code></td><td>Indefinite integral $\int f(x)\,dx$</td></tr>
+<tr><td><code>integrate(f(x), x, a, b)</code></td><td>Definite integral $\int_a^b f(x)\,dx$</td></tr>
+<tr><td><code>romberg(f(x), x, a, b)</code></td><td>Numerical integration (Romberg)</td></tr>
+<tr><td><code>quad_qags(f(x), x, a, b)</code></td><td>Numerical integration (QUADPACK)</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Indefinite and Definite Integrals</h4>
+<p class="ekf"><strong>Statement:</strong> Use Maxima to compute integrals: (a) indefinite integrals of composite functions with <code>integrate</code>, (b) definite integrals over an interval, (c) integrals involving trigonometric and exponential functions. Check the results by differentiating.</p>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">/* Indefinite integral */
+integrate(x^2, x); /* x^3/3 */
+integrate(sin(x)*exp(x), x); /* exp(x)*(sin(x)-cos(x))/2 */
+integrate(1/(x^2-1), x); /* log(x-1)/2 - log(x+1)/2 */
+
+/* Definite integral */
+integrate(x^2, x, 0, 1); /* 1/3 */
+integrate(sin(x), x, 0, %pi); /* 2 */
+
+/* Improper integral */
+integrate(exp(-x^2), x, 0, inf); /* sqrt(%pi)/2 */
+
+/* Numerical integration (when there is no closed form) */
+romberg(exp(-x^2), x, 0, 1); /* 0.7468241... */</code></pre></div>
+</div></section>
+<section id="s6"><h2>Differential Equations</h2><table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>depends(y, x)</code></td><td>Declares that $y=y(x)$</td></tr>
+<tr><td><code>ode2(ode, y, x)</code></td><td>Solution of a first- or second-order ODE</td></tr>
+<tr><td><code>ic1(sol, x=x0, y=y0)</code></td><td>Initial condition, first order</td></tr>
+<tr><td><code>ic2(sol, x=x0, y=y0, diff(y,x)=y1)</code></td><td>Initial conditions, second order</td></tr>
+<tr><td><code>desolve(de, y)</code></td><td>Symbolic solution of an ODE (alternative)</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Differential Equations — Separable and Second-Order</h4>
+<p class="ekf"><strong>Statement:</strong> Use Maxima to solve differential equations: (a) a separable first-order ODE with <code>ode2</code>, (b) a linear second-order ODE with constant coefficients, (c) an initial value problem with <code>ic1</code> and <code>ic2</code>. Plot the solution with <code>plot2d</code>.</p>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">/* First-order ODE: dy/dx = -y */
+depends(y, x);
+ode1: diff(y,x) + y = 0;
+sol1: ode2(ode1, y, x); /* y = %c * exp(-x) */
+
+/* With the initial condition y(0)=2 */
+ic1(sol1, x=0, y=2); /* y = 2*exp(-x) */
+
+/* Second-order ODE: y&#x27;&#x27; - 3y&#x27; + 2y = 0 */
+ode2_eq: diff(y,x,2) - 3*diff(y,x) + 2*y = 0;
+sol2: ode2(ode2_eq, y, x);
+/* y = %k1*exp(x) + %k2*exp(2*x) */
+
+/* With the initial conditions y(0)=1, y&#x27;(0)=0 */
+ic2(sol2, x=0, y=1, diff(y,x)=0);
+/* y = 2*exp(x) - exp(2*x) */
+
+/* Bernoulli ODE: y&#x27; + y/x = y^2 */
+ode_bern: diff(y,x) + y/x = y^2;
+ode2(ode_bern, y, x);</code></pre></div>
+</div></section>
+<section id="s7"><h2>Sequences and Series</h2><table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>sum(expr, k, a, b)</code></td><td>Sum $\sum_{k=a}^{b}$ expr</td></tr>
+<tr><td><code>sum(expr, k, 1, inf)</code></td><td>Infinite series (if it converges)</td></tr>
+<tr><td><code>taylor(f, x, a, n)</code></td><td>Taylor series of order $n$ about $a$</td></tr>
+<tr><td><code>powerseries(f, x, 0)</code></td><td>Power series about $0$</td></tr>
+<tr><td><code>ratsimp(%)</code></td><td>Simplify the result of a series</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Series and Sequences</h4>
+<p class="ekf"><strong>Statement:</strong> Use Maxima to work with sequences and series: (a) define a sequence and compute its first terms, (b) study the convergence of a geometric series with <code>sum</code>, (c) evaluate infinite sums (<code>inf</code>) — for example $\sum_{n=1}^{\infty} \frac{1}{n^2}$. Interpret the results.</p>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">/* Numerical series */
+ev(sum(1/k^2, k, 1, inf), simpsum); /* %pi^2/6 -- without simpsum it stays unevaluated */
+sum(1/k, k, 1, 10); /* 7381/2520 */
+
+/* Taylor series of sin(x) about 0 */
+taylor(sin(x), x, 0, 7);
+/* x - x^3/6 + x^5/120 - x^7/5040 */
+
+/* Series for exp(x) */
+taylor(exp(x), x, 0, 5);
+/* 1 + x + x^2/2 + x^3/6 + x^4/24 + x^5/120 */
+
+/* Radius of convergence by the ratio test */
+f(n) := 1/n!;
+float(limit(f(n+1)/f(n), n, inf)); /* 0 =&gt; radius = +inf */
+
+/* Power series */
+powerseries(atan(x), x, 0);</code></pre></div>
+</div></section>
+<section id="s8"><h2>Diagonalization and Similarity of Matrices</h2><table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>eigenvectors(A)</code></td><td>Eigenvalues &amp; eigenvectors</td></tr>
+<tr><td><code>jordan(A)</code></td><td>Jordan structure; the matrix itself via <code>dispJordan(jordan(A))</code></td></tr>
+<tr><td><code>similaritytransform(A)</code></td><td>Matrix $P$ with $A = PDP^{-1}$</td></tr>
+<tr><td><code>matrixexp(A)</code></td><td>Matrix exponential $e^A$</td></tr>
+<tr><td><code>columnspace(A)</code></td><td>Column space</td></tr>
+<tr><td><code>nullspace(A)</code></td><td>Kernel (null space)</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Diagonalizing a Matrix</h4>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">/* Define the matrix */
+A : matrix([4, 1], [2, 3]);
+
+/* Eigenvalues and eigenvectors */
+[vals, vecs] : eigenvectors(A);
+print(&quot;Eigenvalues:&quot;, vals);
+print(&quot;Eigenvectors:&quot;, vecs);
+
+/* Eigenvector matrix P */
+P : transpose(matrix(vecs[1][1], vecs[2][1]));
+
+/* Check: A = P * D * P^(-1) */
+D : matrix([vals[1][1], 0], [0, vals[1][2]]);
+print(&quot;Check A = P*D*P^-1:&quot;, ratsimp(P . D . invert(P) - A));</code></pre></div>
+</div>
+<div class="example">
+<h4>The Matrix Exponential and the Jordan Normal Form</h4>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">/* Matrix exponential e^(At) */
+load(&quot;diag&quot;);
+A : matrix([0, 1], [-1, 0]);   /* harmonic oscillator */
+eAt : matrixexp(A * t);
+print(&quot;e^(At) =&quot;, eAt);
+/* the result comes out in complex exponential form;
+   it is equivalent to matrix([cos(t), sin(t)], [-sin(t), cos(t)]) */
+
+/* Jordan normal form (for a non-diagonalizable matrix) */
+B : matrix([3, 1], [0, 3]);    /* double eigenvalue */
+JB : jordan(B);
+print(&quot;Jordan(B) =&quot;, dispJordan(JB));</code></pre></div>
+</div></section>
+<section id="s9"><h2>Complex Numbers</h2><table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>rectform(z)</code></td><td>Cartesian (rectangular) form $a+bi$</td></tr>
+<tr><td><code>polarform(z)</code></td><td>Polar form $r\cdot e^{i\theta}$</td></tr>
+<tr><td><code>abs(z)</code></td><td>Modulus $|z|$</td></tr>
+<tr><td><code>carg(z)</code></td><td>Argument $\arg(z)$</td></tr>
+<tr><td><code>conjugate(z)</code></td><td>Conjugate $\bar{z}$</td></tr>
+<tr><td><code>realpart(z)</code></td><td>Real part $\Re(z)$</td></tr>
+<tr><td><code>imagpart(z)</code></td><td>Imaginary part $\Im(z)$</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Complex Numbers</h4>
+<p class="ekf"><strong>Statement:</strong> Use Maxima to work with complex numbers: (a) define complex numbers and carry out arithmetic operations, (b) find the modulus, the conjugate and the argument, (c) express a complex number in polar form $r e^{i\theta}$ and apply De Moivre's formula. Verify that $e^{i\pi} + 1 = 0$.</p>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">/* Definition: %i is the imaginary unit i */
+z1: 3 + 4*%i;
+z2: 1 - 2*%i;
+
+/* Basic operations */
+rectform(z1 * z2); /* 11 - 2*%i */
+rectform(z1 / z2); /* -1 + 2*%i */
+rectform(z1^2); /* -7 + 24*%i */
+
+/* Modulus and argument */
+abs(z1); /* 5 */
+float(carg(z1)); /* 0.9272952... = arctan(4/3) */
+
+/* Polar form */
+polarform(z1); /* 5 * exp(%i*arctan(4/3)) */
+
+/* De Moivre's theorem */
+z: cos(%pi/6) + %i*sin(%pi/6);
+rectform(z^6); /* -1 = exp(%i*%pi) */</code></pre></div>
+</div></section>
+<section id="s10"><h2>Plots</h2><table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>plot2d(f(x), [x,a,b])</code></td><td>Plot of a single function</td></tr>
+<tr><td><code>plot2d([f,g], [x,a,b])</code></td><td>Multiple plots</td></tr>
+<tr><td><code>plot3d(f(x,y), [x,a,b], [y,c,d])</code></td><td>Three-dimensional plot</td></tr>
+<tr><td><code>wxdraw2d(...)</code></td><td>Inline plot in wxMaxima</td></tr>
+</tbody></table>
+<p><strong>Plot options:</strong> 
+<code>[legend, "f(x)"]</code> — legend, 
+<code>[xlabel, "x"]</code> — $x$ label, 
+<code>[color, red, blue]</code> — colors, 
+<code>[style, lines, linespoints]</code> — line style.</p>
+<div class="example">
+<h4>Plotting with Maxima</h4>
+<p class="ekf"><strong>Statement:</strong> Use the plotting commands of Maxima: (a) plot a single function with <code>plot2d</code> — for example $f(x) = x \sin x$ on $[0, 4\pi]$, (b) draw several curves in the same figure with different colors, (c) draw a three-dimensional surface $f(x,y)$ with <code>plot3d</code>.</p>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">/* Simple plot */
+plot2d(sin(x), [x, -%pi, %pi]);
+
+/* Two functions together */
+plot2d([sin(x), cos(x)], [x, 0, 2*%pi],
+ [legend, &quot;sin(x)&quot;, &quot;cos(x)&quot;],
+ [xlabel, &quot;x&quot;], [ylabel, &quot;y&quot;]);
+
+/* Function and its derivative */
+f(x) := x^3 - 3*x;
+plot2d([f(x), diff(f(x),x)], [x,-2,2],
+ [legend, &quot;f(x)&quot;, &quot;f&#x27;(x)&quot;],
+ [color, blue, red]);
+
+/* Three-dimensional plot */
+plot3d(sin(x)*cos(y), [x, 0, 2*%pi], [y, 0, 2*%pi]);
+
+/* Numerical solution and plot of an ODE */
+depends(y, x);
+sol: ode2(diff(y,x) + y = sin(x), y, x);
+sol_part: ic1(sol, x=0, y=0);
+plot2d(rhs(sol_part), [x, 0, 4*%pi]);</code></pre></div>
+</div></section>
+<section id="s11"><h2>Numerical Methods</h2><table class="cheat">
+<thead><tr><th><strong>Command</strong></th><th><strong>Description</strong></th></tr></thead><tbody>
+<tr><td><code>find_root(f, x, a, b)</code></td><td>Root-finding on $[a,b]$</td></tr>
+<tr><td><code>newton(f, x, x0, tol)</code></td><td>Newton-Raphson method</td></tr>
+<tr><td><code>romberg(f, x, a, b)</code></td><td>Romberg numerical integration</td></tr>
+<tr><td><code>rk(ode, y, y0, [t,t0,tf,h])</code></td><td>Fourth-order Runge-Kutta</td></tr>
+<tr><td><code>mnewton(flist,xlist,x0)</code></td><td>Newton's method for a system of equations (requires <code>load("mnewton")</code>)</td></tr>
+</tbody></table>
+<div class="example">
+<h4>Root-Finding and Numerical Integration</h4>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">/* Root-finding for f(x)=cos(x)-x on [0,1] */
+f(x) := cos(x) - x;
+r : find_root(f, x, 0, 1);
+print(&quot;Root:&quot;, float(r));    /* ~ 0.7391 */
+
+/* Newton's method: f(x)=x^3-2, x0=1 */
+load(&quot;newton1&quot;);
+g(x) := x^3 - 2;
+x_newton : newton(g(x), x, 1, 1e-10);
+print(&quot;Newton:&quot;, float(x_newton));  /* ~ 1.2599 */
+
+/* Numerical integration: int_0^1 exp(-x^2) dx */
+h(x) := exp(-x^2);
+I : romberg(h(x), x, 0, 1);
+print(&quot;Integral:&quot;, float(I));    /* ~ 0.7468 */</code></pre></div>
+</div>
+<div class="example">
+<h4>Numerical Solution of ODE Systems — Runge-Kutta</h4>
+<div class="code-card"><div class="code-top"><span>Maxima</span><button class="copy" onclick="cp(this)">📋 Copy</button></div><pre><code class="language-none">/* Solve y&#x27;=-2*y, y(0)=1 with RK4, step h=0.1 */
+sol_rk : rk([-2*y], [y], [1], [t, 0, 2, 0.1]);
+
+/* sol_rk: a list of [t, y(t)] pairs */
+/* Print the first 5 points */
+for i:1 thru 5 do
+  print(&quot;t=&quot;, sol_rk[i][1], &quot; y=&quot;, sol_rk[i][2]);
+
+/* Exact solution for comparison */
+y_exact(t) := exp(-2*t);
+print(&quot;Error at t=0.5:&quot;,
+  abs(sol_rk[6][2] - y_exact(0.5)));</code></pre></div>
+</div></section>
+<section id="s12"><h2>Common Errors and How to Fix Them</h2><table class="cheat">
+<thead><tr><th><strong>Incorrect</strong></th><th><strong>Cause</strong></th><th><strong>Fix</strong></th></tr></thead><tbody>
+<tr><td><code>integrate(...)</code> fails</td><td>There is no closed form</td><td>Use <code>romberg()</code></td></tr>
+<tr><td><code>ode2()</code> fails</td><td>The ODE is not of a standard type</td><td>Solve it numerically</td></tr>
+<tr><td><code>eigenvalues()</code> is slow</td><td>The matrix is large</td><td><code>float(eigenvalues(A))</code></td></tr>
+<tr><td>Result containing <code>sqrt(%)</code></td><td>Maxima keeps it symbolic</td><td>Use <code>float(%)</code></td></tr>
+<tr><td><code>nullspace()</code> is empty</td><td>The matrix has full rank</td><td>Check <code>rank(A)</code></td></tr>
+</tbody></table>
+<div class="tip"><h4>💡 A Useful Tip</h4><p>In wxMaxima, the command <code>describe(command)</code> displays the documentation for that command.
+For example, <code>describe(integrate);</code> explains all of its variants.
+The official documentation contains a complete
+manual in English.</p></div></section>
+</div>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N.&nbsp;M. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small><br><a href="https://nikmatz.github.io/ELADIC_EN/" style="color:#aaa">ELADIC_EN</a></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+<script>
+function cp(btn){const code=btn.closest('.code-card').querySelector('code').innerText;
+ navigator.clipboard.writeText(code).then(()=>{btn.textContent='✓ Copied';setTimeout(()=>btn.textContent='📋 Copy',1500);});}
+</script>
+</body></html>

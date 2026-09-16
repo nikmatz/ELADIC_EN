@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elements of Linear Algebra, Differential &amp; Integral Calculus — Digital Companion Material</title>
+  <style>
+    :root {
+      --blue:#004080; --bookorange:#c85000; --bookgreen:#008c46;
+      --bg:#f5f7fa; --card:#fff; --shadow:0 2px 12px rgba(0,0,0,.10);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Georgia,'Times New Roman',serif;background:var(--bg);color:#1a1a1a;line-height:1.7}
+    header{background:linear-gradient(135deg,var(--blue) 55%,#0060a0);color:#fff;padding:2.5rem 2rem 2rem;border-bottom:3px solid #b48c00}
+    header h1{font-size:1.75rem;letter-spacing:-.02em}
+    header p{opacity:.8;font-size:.95rem;margin-top:.4rem}
+    .badge{display:inline-block;background:#b48c00;color:#fff;padding:.2em .8em;border-radius:4px;font-size:.72rem;font-family:sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.8rem}
+    main{max-width:1100px;margin:0 auto;padding:2rem 1.2rem 4rem}
+    .section-title{font-size:1.3rem;color:var(--blue);margin:2rem 0 1rem;border-bottom:2px solid #dde3ea;padding-bottom:.4rem}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
+    .card{background:var(--card);border-radius:10px;box-shadow:var(--shadow);padding:1.2rem 1.4rem;border-top:4px solid var(--blue);transition:transform .15s}
+    .card:hover{transform:translateY(-2px)}
+    .card-num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:var(--bookorange);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem}
+    .card h3{font-size:1.05rem;color:var(--blue);margin-bottom:.35rem}
+    .card p{font-size:.88rem;color:#555;margin-bottom:.9rem}
+    .card-links{display:flex;gap:.5rem;flex-wrap:wrap}
+    .btn-quiz{background:var(--bookorange);color:#fff;padding:.3em .9em;border-radius:5px;text-decoration:none;font-size:.82rem;font-family:sans-serif;font-weight:600}
+    .btn-quiz:hover{background:#a54000}
+    .btn-anim{background:var(--bookgreen);color:#fff;padding:.3em .9em;border-radius:5px;text-decoration:none;font-size:.82rem;font-family:sans-serif;font-weight:600}
+    .btn-anim:hover{background:#006030}
+    .btn-code{background:#555;color:#fff;padding:.3em .9em;border-radius:5px;text-decoration:none;font-size:.82rem;font-family:sans-serif;font-weight:600}
+    .btn-extra{background:#003888;color:#fff;padding:.3em .9em;border-radius:5px;text-decoration:none;font-size:.82rem;font-family:sans-serif;font-weight:600}
+    .btn-extra:hover{background:#00265e}
+    .btn-code:hover{background:#333}
+    footer{text-align:center;padding:2rem;font-size:.83rem;color:#888;font-family:sans-serif}
+    .author-stamp{
+      background:linear-gradient(135deg,#004080 0%,#003060 100%);
+      color:#fff;padding:.8rem 1.4rem;font-family:'Georgia',serif;font-size:.82rem;
+      display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+      gap:.4rem;border-top:3px solid #c85000;margin-top:2rem;
+    }
+    .author-stamp .stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+    .author-stamp .stamp-author{opacity:.9}
+  </style>
+</head>
+<body>
+<header>
+  <div class="badge">Digital Companion Material</div>
+  <h1>📖 Elements of Linear Algebra, Differential &amp; Integral Calculus</h1>
+  <p>N. Matzakos &nbsp;·&nbsp; Interactive Quizzes · Python in the Browser &amp; Maxima · 20 Chapters</p>
+</header>
+<main>
+  <div class="section-title">📝 Self-Assessment Quizzes &amp; CAS Activities — Choose a Chapter</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-num">Ch. 0</div>
+      <h3>Mathematical Background</h3>
+      <p>Number sets, inequalities, trigonometry, complex numbers</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch00/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch00/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch00/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch00_ypovathro/01_unit_circle/">⬡ Unit Circle</a>
+        <a class="btn-anim" href="animations/ch00_ypovathro/02_complex_numbers/">⬡ Complex Numbers</a>
+        <a class="btn-anim" href="animations/ch00_ypovathro/03_trig_identities/">⬡ Trig. Identities</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 1</div>
+      <h3>Linear Vector Spaces</h3>
+      <p>Vector spaces, basis, dimension, subspaces</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch01/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch01/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch01/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch01_grammikoi/01_vector_add/">⬡ Vector Addition</a>
+        <a class="btn-anim" href="animations/ch01_grammikoi/02_linear_independence/">⬡ Independence</a>
+        <a class="btn-anim" href="animations/ch01_grammikoi/03_basis_span/">⬡ Basis</a>
+        <a class="btn-anim" href="animations/ch01_grammikoi/04_gram_schmidt/">⬡ Gram–Schmidt</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 2</div>
+      <h3>Matrix Algebra</h3>
+      <p>Operations, determinant, inverse, rank</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch02/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch02/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch02/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch02_pinakas/01_matrix_vector/">⬡ Matrix×Vector</a>
+        <a class="btn-anim" href="animations/ch02_pinakas/02_matrix_mult/">⬡ Multiplication</a>
+        <a class="btn-anim" href="animations/ch02_pinakas/03_determinant/">⬡ Determinant</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 3</div>
+      <h3>Linear Systems</h3>
+      <p>Gauss, Rouché-Capelli, LU factorization</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch03/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch03/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch03/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch03_systimata/01_gauss/">⬡ Gauss</a>
+        <a class="btn-anim" href="animations/ch03_systimata/02_solutions/">⬡ Solutions</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 4</div>
+      <h3>Linear Transformations</h3>
+      <p>Kernel, image, representation matrix</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch04/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch04/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch04/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch04_metaschim/01_linear_transform/">⬡ Transformation</a>
+        <a class="btn-anim" href="animations/ch04_metaschim/02_rotation/">⬡ Rotation</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 5</div>
+      <h3>Eigenvalues and Eigenvectors</h3>
+      <p>Characteristic polynomial, eigenvectors</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch05/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch05/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch05/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch05_idiotimes/01_eigenvalues/">⬡ Eigenvalues</a>
+        <a class="btn-anim" href="animations/ch05_idiotimes/02_eigenvectors/">⬡ Eigenvectors</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 6</div>
+      <h3>Diagonalization of Matrices</h3>
+      <p>Diagonalization, SVD, symmetric matrices</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch06/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch06/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch06/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch06_diagonop/01_diagonalization/">⬡ Diagonalization</a>
+        <a class="btn-anim" href="animations/ch06_diagonop/02_pca/">⬡ PCA</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 7</div>
+      <h3>Introduction to Dynamical Systems</h3>
+      <p>Markov chains, phase portraits</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch07/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch07/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch07/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch07_markov/01_markov_chain/">⬡ Markov</a>
+        <a class="btn-anim" href="animations/ch07_markov/02_phase_portraits/">⬡ Phase Portraits</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 8</div>
+      <h3>Functions of One Real Variable</h3>
+      <p>Domain, inverse function, composition</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch08/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch08/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch08/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch08_synart/01_function_graph/">⬡ Graph</a>
+        <a class="btn-anim" href="animations/ch08_synart/02_composition/">⬡ Composition</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 9</div>
+      <h3>Limits and Continuity of a Function</h3>
+      <p>Computing limits, continuity theorems</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch09/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch09/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch09/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch09_oria/01_limit/">⬡ Limit</a>
+        <a class="btn-anim" href="animations/ch09_oria/02_continuity/">⬡ Continuity</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 10</div>
+      <h3>The Derivative of a Function</h3>
+      <p>Rules of differentiation, chain rule, tangent line</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch10/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch10/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch10/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch10_paragogos/01_tangent/">⬡ Tangent</a>
+        <a class="btn-anim" href="animations/ch10_paragogos/02_derivative_rules/">⬡ Rules</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 11</div>
+      <h3>Monotonicity, Extrema and Convexity</h3>
+      <p>Taylor, convexity, mean value theorem</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch11/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch11/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch11/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch11_akrotata/01_monotonicity/">⬡ Monotonicity</a>
+        <a class="btn-anim" href="animations/ch11_akrotata/02_critical_points/">⬡ Extrema</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 12</div>
+      <h3>Applications of the Derivative and Curve Sketching</h3>
+      <p>L'Hôpital, Newton, asymptotes</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch12/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch12/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch12/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch11_akrotata/03_taylor/">⬡ Taylor</a>
+        <a class="btn-anim" href="animations/ch12_efarm_par/02_lhopital/">⬡ L'Hôpital</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 13</div>
+      <h3>The Indefinite Integral</h3>
+      <p>Antidifferentiation, substitution</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch13/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch13/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch13/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch13_aoristo/01_antiderivative/">⬡ Antiderivative</a>
+        <a class="btn-anim" href="animations/ch13_aoristo/02_substitution/">⬡ Substitution</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 14</div>
+      <h3>The Definite Integral</h3>
+      <p>Riemann, area, properties</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch14/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch14/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch14/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch14_orismeno/01_riemann/">⬡ Riemann</a>
+        <a class="btn-anim" href="animations/ch14_orismeno/02_area/">⬡ Area</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 15</div>
+      <h3>The Fundamental Theorem of Calculus</h3>
+      <p>The link between derivative and integral</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch15/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch15/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch15/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch15_ttl/01_ftc/">⬡ FTC</a>
+        <a class="btn-anim" href="animations/ch15_ttl/02_newton_leibniz/">⬡ Newton–Leibniz</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 16</div>
+      <h3>Techniques of Integration</h3>
+      <p>By parts, partial fractions, trig. substitution</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch16/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch16/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch16/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch16_texniques/01_by_parts/">⬡ By Parts</a>
+        <a class="btn-anim" href="animations/ch16_texniques/02_partial_fractions/">⬡ Partial Fractions</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 17</div>
+      <h3>Applications of the Integral</h3>
+      <p>Areas, volumes, numerical integration</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch17/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch17/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch17/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch17_efarm_ol/01_area_curves/">⬡ Area</a>
+        <a class="btn-anim" href="animations/ch17_efarm_ol/02_volume/">⬡ Volumes</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 18</div>
+      <h3>Improper Integrals</h3>
+      <p>Convergence of improper integrals</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch18/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch18/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch18/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch18_genikeum/01_improper/">⬡ Improper Integrals</a>
+        <a class="btn-anim" href="animations/ch18_genikeum/02_ptest/">⬡ p-test</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 19</div>
+      <h3>Sequences and Infinite Series</h3>
+      <p>Convergence, tests, geometric series</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch19/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch19/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch19/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch19_seires/01_sequence/">⬡ Sequence</a>
+        <a class="btn-anim" href="animations/ch19_seires/02_series/">⬡ Series</a>
+        <a class="btn-anim" href="animations/ch19_seires/03_convergence/">⬡ Convergence</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Ch. 20</div>
+      <h3>Power Series and Taylor Series</h3>
+      <p>Radius of convergence, Maclaurin/Taylor expansions, Lagrange remainder</p>
+      <div class="card-links">
+        <a class="btn-extra" href="askiseis/ch20/">⊕ Additional Exercises</a>
+        <a class="btn-quiz" href="quizzes/ch20/">✓ Quiz</a>
+        <a class="btn-code" href="code/ch20/">⚙ Code</a>
+        <a class="btn-anim" href="animations/ch20_dynamoseires/01_taylor/">⬡ Taylor Polynomials</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Appendix A</div>
+      <h3>Maxima CAS Guide</h3>
+      <p>Symbolic computation: algebra, linear algebra, derivatives, integrals, ODEs, plots</p>
+      <div class="card-links">
+        <a class="btn-code" href="appendices/maxima/">⚙ Online guide</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-num">Appendix B</div>
+      <h3>Python Guide for Mathematical Computations</h3>
+      <p>NumPy, SciPy, SymPy &amp; Matplotlib for numerical and symbolic computation</p>
+      <div class="card-links">
+        <a class="btn-code" href="appendices/python/">⚙ Online guide</a>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>«Elements of Linear Algebra, Differential &amp; Integral Calculus» · N. Matzakos · <a href="https://github.com/nikmatz/ELADIC_EN">GitHub</a></footer>
+<div class="author-stamp">
+  <span class="stamp-book">📖 Digital companion material for the book <em>«Elements of Linear Algebra, Differential &amp; Integral Calculus»</em></span>
+  <span class="stamp-author">Nikos Matzakos &nbsp;·&nbsp; nikmatz@gmail.com</span>
+</div>
+</body>
+</html>
