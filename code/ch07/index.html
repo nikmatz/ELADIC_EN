@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Κώδικας Κεφ. 7 — Δυναμικά Συστήματα · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<title>Code Ch. 7 — Dynamical Systems · Elements of Linear Algebra &amp; Calculus</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 <style>
   :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
@@ -61,20 +61,20 @@
 <body>
 
 <header>
-  <h1>📐 Κεφάλαιο 7 — Δυναμικά Συστήματα και Αλυσίδες Markov</h1>
-  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+  <h1>📐 Chapter 7 — Dynamical Systems and Markov Chains</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
 </header>
 
 <div class="breadcrumb">
-  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 7
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 7
 </div>
 
 <div class="container">
 
   <div class="info-box">
-    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
+    <h2>📋 Contents of the Activities</h2>
     <p>
-      <strong>Αντικείμενο:</strong> εξέλιξη του x(k+1)=Ax(k), ευστάθεια μέσω της φασματικής ακτίνας, αλυσίδες Markov και στάσιμη κατανομή, φασικά πορτρέτα</p>
+      <strong>Topic:</strong> evolution of x(k+1)=Ax(k), stability through the spectral radius, Markov chains and the stationary distribution, phase portraits</p>
   </div>
 
   <div class="tabs">
@@ -86,10 +86,10 @@
     <div class="code-card">
       <div class="code-header maxima">
         <span>maxima_dynamics.mac</span>
-        <a class="download-btn" href="maxima_dynamics.mac" download>⬇ Λήψη .mac</a>
+        <a class="download-btn" href="maxima_dynamics.mac" download>⬇ Download .mac</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0;">
-        <strong>Βασικές εντολές:</strong>
+        <strong>Basic commands:</strong>
         <code>eigenvalues(A)</code> &nbsp;
         <code>A^^k . x0</code> &nbsp;
         <code>eigenvectors(P)</code> &nbsp;
@@ -98,22 +98,22 @@
       </div>
       <pre><code class="language-maxima" id="maxima-code">/* ============================================================
    maxima_dynamics.mac
-   Κεφάλαιο 7 — Δυναμικά Συστήματα: Εξέλιξη, Ευστάθεια, Markov
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 7 — Dynamical Systems: Evolution, Stability, Markov
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
    ============================================================
-   ΕΝΤΟΛΕΣ:
-     eigenvalues(A)     -&gt; [[ιδιοτιμές],[πολλαπλότητες]]
-     eigenvectors(P)    -&gt; ιδιοτιμές μαζί με ιδιοδιανύσματα
-     A^^k . x0          -&gt; δύναμη πίνακα (^^) επί διάνυσμα
-     invert(M)          -&gt; αντίστροφος πίνακας
-     float(expr)        -&gt; δεκαδική μορφή
+   COMMANDS:
+     eigenvalues(A)     -&gt; [[eigenvalues],[multiplicities]]
+     eigenvectors(P)    -&gt; eigenvalues together with eigenvectors
+     A^^k . x0          -&gt; power of a matrix (^^) times a vector
+     invert(M)          -&gt; inverse matrix
+     float(expr)        -&gt; decimal form
    ------------------------------------------------------------
-   Δουλεύουμε με ΡΗΤΟΥΣ (8/10 αντί 0.8) ώστε οι ιδιοτιμές να
-   βγαίνουν ακριβείς· τυπώνουμε με float() όπου χρειάζεται.
+   We work with RATIONAL numbers (8/10 instead of 0.8) so that the
+   eigenvalues come out exact; we print with float() where needed.
    ============================================================ */
 
-/* ── Α. (α) Εξέλιξη x_{k+1} = A x_k, ιδιοτιμές, ευστάθεια ──── */
-print("════ Α. Εξέλιξη του συστήματος x_{k+1} = A x_k ════")$
+/* ── A. (a) Evolution x_{k+1} = A x_k, eigenvalues, stability ─ */
+print("════ A. Evolution of the system x_{k+1} = A x_k ════")$
 
 A  : matrix([8/10, 0], [0, 6/10])$
 x0 : matrix([1], [1])$
@@ -123,82 +123,82 @@ print("x0 =", transpose(x0))$
 x1  : A . x0$
 x2  : A . x1$
 x10 : A^^10 . x0$
-print("x1  =", transpose(x1),  " = (0,8 ; 0,6)  (= [4/5, 3/5] ✓)")$
-print("x2  =", transpose(x2),  " = (0,64 ; 0,36) (= [16/25, 9/25] ✓)")$
+print("x1  =", transpose(x1),  " = (0.8 ; 0.6)  (= [4/5, 3/5] ✓)")$
+print("x2  =", transpose(x2),  " = (0.64 ; 0.36) (= [16/25, 9/25] ✓)")$
 print("x10 =", float(transpose(x10)),
-      " = (0,8^10 ; 0,6^10) = (0,1073741824 ; 0,0060466176) ✓")$
+      " = (0.8^10 ; 0.6^10) = (0.1073741824 ; 0.0060466176) ✓")$
 
 evA : eigenvalues(A)$
-print("Ιδιοτιμές του A:", evA[1], " (= [4/5, 3/5] ✓)")$
+print("Eigenvalues of A:", evA[1], " (= [4/5, 3/5] ✓)")$
 rhoA : lmax(map(abs, evA[1]))$
-print("Φασματική ακτίνα ρ(A) =", rhoA, "=", float(rhoA), " (= 0,8 ✓)")$
+print("Spectral radius rho(A) =", rhoA, "=", float(rhoA), " (= 0.8 ✓)")$
 
-/* Το συμπέρασμα ΔΕΝ γράφεται σταθερά: προκύπτει από σύγκριση.  */
+/* The conclusion is NOT hard-coded: it follows from a comparison. */
 if rhoA &lt; 1 then
-   print("ρ(A) &lt; 1  =&gt;  x_k -&gt; 0 : ασυμπτωτικά ΕΥΣΤΑΘΕΣ")
+   print("rho(A) &lt; 1  =&gt;  x_k -&gt; 0 : asymptotically STABLE")
 elseif rhoA = 1 then
-   print("ρ(A) = 1  =&gt;  οριακή περίπτωση: φραγμένες τροχιές, όχι -&gt; 0")
+   print("rho(A) = 1  =&gt;  borderline case: bounded orbits, not -&gt; 0")
 else
-   print("ρ(A) &gt; 1  =&gt;  ΑΣΤΑΘΕΣ: οι τροχιές απομακρύνονται")$
+   print("rho(A) &gt; 1  =&gt;  UNSTABLE: the orbits move away")$
 
-/* ── Β. (β) Το σύστημα με B είναι ασταθές, μέσω ρ(B) ───────── */
-print("════ Β. Αστάθεια για τον πίνακα B ════")$
+/* ── B. (b) The system with B is unstable, through rho(B) ──── */
+print("════ B. Instability for the matrix B ════")$
 
 B : matrix([11/10, 2/10], [1/10, 9/10])$
 print("B =", B)$
 evB : eigenvalues(B)$
-print("Ιδιοτιμές του B:", evB[1])$
-print("  αριθμητικά:", float(evB[1]),
-      " (= 1 - sqrt(3)/10 = 0,82679... και 1 + sqrt(3)/10 = 1,17320... ✓)")$
+print("Eigenvalues of B:", evB[1])$
+print("  numerically:", float(evB[1]),
+      " (= 1 - sqrt(3)/10 = 0.82679... and 1 + sqrt(3)/10 = 1.17320... ✓)")$
 rhoB : lmax(map(abs, float(evB[1])))$
-print("ρ(B) =", rhoB, " (= 1,1732050807568877 ✓)")$
+print("rho(B) =", rhoB, " (= 1.1732050807568877 ✓)")$
 
 if rhoB &lt; 1 then
-   print("ρ(B) &lt; 1  =&gt;  ευσταθές")
+   print("rho(B) &lt; 1  =&gt;  stable")
 elseif rhoB = 1 then
-   print("ρ(B) = 1  =&gt;  οριακή περίπτωση")
+   print("rho(B) = 1  =&gt;  borderline case")
 else
-   print("ρ(B) &gt; 1  =&gt;  ΑΣΤΑΘΕΣ ✓ (όπως ζητά το ερώτημα)")$
+   print("rho(B) &gt; 1  =&gt;  UNSTABLE ✓ (as the question asks)")$
 
-/* Επιβεβαίωση: η τροχιά του B απομακρύνεται (οι όροι μεγαλώνουν). */
+/* Confirmation: the orbit of B moves away (the terms grow). */
 y0 : matrix([1], [1])$
 for m : 5 thru 20 step 5 do
     print("  B^", m, ". y0 =", float(transpose(B^^m . y0)))$
 
-/* ── Γ. (γ) Αλυσίδα Markov: στάσιμη κατανομή π ─────────────── */
-print("════ Γ. Στάσιμη κατανομή αλυσίδας Markov ════")$
+/* ── C. (c) Markov chain: stationary distribution pi ───────── */
+print("════ C. Stationary distribution of a Markov chain ════")$
 
 Pm : matrix([9/10, 2/10], [1/10, 8/10])$
-print("P =", Pm, "  (στήλες με άθροισμα 1)")$
+print("P =", Pm, "  (columns summing to 1)")$
 
 [valsP, vecsP] : eigenvectors(Pm)$
-print("Ιδιοτιμές του P:", valsP[1], " (= [7/10, 1] ✓)")$
+print("Eigenvalues of P:", valsP[1], " (= [7/10, 1] ✓)")$
 
-/* ΠΡΟΣΟΧΗ: δεν υποθέτουμε ποια θέση έχει η λ=1 — την ΨΑΧΝΟΥΜΕ. */
+/* NOTE: we do not assume the position of lam=1 — we SEARCH for it. */
 idx : 0$
 for i : 1 thru length(valsP[1]) do
     if valsP[1][i] = 1 then idx : i$
-print("Η ιδιοτιμή λ=1 βρίσκεται στη θέση:", idx)$
+print("The eigenvalue lam=1 is found at position:", idx)$
 
 v : transpose(matrix(vecsP[idx][1]))$
-print("Ιδιοδιάνυσμα για λ=1 (πριν την κανονικοποίηση):", transpose(v))$
+print("Eigenvector for lam=1 (before normalization):", transpose(v))$
 
 s : v[1,1] + v[2,1]$
-print("Άθροισμα συνιστωσών:", s, " (πρέπει να είναι ≠ 0)")$
+print("Sum of the components:", s, " (must be ≠ 0)")$
 pist : v / s$
-print("Στάσιμη κατανομή π =", transpose(pist), " (= [2/3, 1/3] ✓)")$
-print("  αριθμητικά:", float(transpose(pist)), " (= [0,6667 ; 0,3333] ✓)")$
-print("Έλεγχος P.π = π :", is(ratsimp(Pm . pist - pist) = matrix([0],[0])),
+print("Stationary distribution pi =", transpose(pist), " (= [2/3, 1/3] ✓)")$
+print("  numerically:", float(transpose(pist)), " (= [0.6667 ; 0.3333] ✓)")$
+print("Check P.pi = pi :", is(ratsimp(Pm . pist - pist) = matrix([0],[0])),
       "  (true ✓)")$
-print("Έλεγχος αθροίσματος = 1 :", is(pist[1,1] + pist[2,1] = 1), "  (true ✓)")$
+print("Check that the sum = 1 :", is(pist[1,1] + pist[2,1] = 1), "  (true ✓)")$
 
-/* ── Δ. (δ) Κλειστός τύπος για το A^k μέσω διαγωνιοποίησης ─── */
-print("════ Δ. A^k σε κλειστή μορφή (διαγωνιοποίηση) ════")$
+/* ── D. (d) Closed form for A^k through diagonalization ───── */
+print("════ D. A^k in closed form (diagonalization) ════")$
 
-kill(k)$   /* το k πρέπει να είναι ελεύθερο σύμβολο */
+kill(k)$   /* k must be a free symbol */
 
 [valsA, vecsA] : eigenvectors(A)$
-/* Συγκεντρώνουμε ΟΛΑ τα ιδιοδιανύσματα σε στήλες του S.        */
+/* We collect ALL the eigenvectors as columns of S.            */
 lam  : []$
 cols : []$
 for i : 1 thru length(valsA[1]) do
@@ -210,28 +210,28 @@ Dm : apply(matrix, makelist(makelist(if i = j then lam[i] else 0,
                                      j, 1, length(lam)),
                             i, 1, length(lam)))$
 print("S =", S, "   D =", Dm)$
-print("Έλεγχος A = S.D.S^(-1):",
+print("Check A = S.D.S^(-1):",
       is(ratsimp(S . Dm . invert(S) - A) = matrix([0,0],[0,0])), " (true ✓)")$
 
 Dk : apply(matrix, makelist(makelist(if i = j then lam[i]^k else 0,
                                      j, 1, length(lam)),
                             i, 1, length(lam)))$
 Ak : ratsimp(S . Dk . invert(S))$
-print("A^k =", Ak, "   δηλαδή A^k = diag((4/5)^k, (3/5)^k) ✓")$
+print("A^k =", Ak, "   that is A^k = diag((4/5)^k, (3/5)^k) ✓")$
 
-/* Επαλήθευση του κλειστού τύπου για k = 10.                    */
-print("A^10 από τον τύπο:", float(subst(10, k, Ak)))$
-print("A^10 απευθείας   :", float(A^^10), "  (ταυτίζονται ✓)")$
+/* Verification of the closed form for k = 10.                 */
+print("A^10 from the formula:", float(subst(10, k, Ak)))$
+print("A^10 directly     :", float(A^^10), "  (they agree ✓)")$
 print("x_k = A^k x0 =", transpose(ratsimp(Ak . x0)))$
 
-/* ── Γραφική εποπτεία: οι συνιστώσες φθίνουν γεωμετρικά ────── */
+/* ── Graphical insight: the components decay geometrically ── */
 kill(t)$
 plot2d([(4/5)^t, (3/5)^t], [t, 0, 20],
-       [legend, "x1(k) = 0,8^k", "x2(k) = 0,6^k"],
-       [xlabel, "k"], [ylabel, "συνιστώσα"],
-       [title, "Ασυμπτωτική ευστάθεια: ρ(A) = 0,8 &lt; 1"])$
+       [legend, "x1(k) = 0.8^k", "x2(k) = 0.6^k"],
+       [xlabel, "k"], [ylabel, "component"],
+       [title, "Asymptotic stability: rho(A) = 0.8 &lt; 1"])$
 
-print("── Τέλος maxima_dynamics.mac ──")$
+print("── End of maxima_dynamics.mac ──")$
 </code></pre>
     </div>
   </div>
@@ -240,71 +240,71 @@ print("── Τέλος maxima_dynamics.mac ──")$
     <div class="code-card">
       <div class="code-header python">
         <span>python_dynamics.py</span>
-        <a class="download-btn" href="python_dynamics.py" download>⬇ Λήψη .py</a>
+        <a class="download-btn" href="python_dynamics.py" download>⬇ Download .py</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0;">
-        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <strong>Libraries / commands:</strong>
         <code>np.linalg.eigvals(A)</code> &nbsp;
         <code>A @ x</code> &nbsp;
         <code>np.linalg.eig(P)</code> &nbsp;
         <code>matplotlib.pyplot</code>
       </div>
             <div class="py-toolbar">
-        <button class="run-btn" id="py-run">▶ Τρέξε</button>
-        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
-        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
       </div>
       <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
 # python_dynamics.py
-# Κεφάλαιο 7 — Δυναμικά Συστήματα: Τροχιές και Φασικά Πορτρέτα
-# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# Chapter 7 — Dynamical Systems: Orbits and Phase Portraits
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
 # ============================================================
 #
-# ΒΙΒΛΙΟΘΗΚΕΣ:
-#   numpy      -&gt; πίνακες, ιδιοτιμές, επαναλήψεις
-#   matplotlib -&gt; τροχιές και φασικά πορτρέτα
+# LIBRARIES:
+#   numpy      -&gt; matrices, eigenvalues, iterations
+#   matplotlib -&gt; orbits and phase portraits
 #
-# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
-#   np.linalg.eigvals(A)  -&gt; ιδιοτιμές
-#   A @ x                 -&gt; πολλαπλασιασμός πίνακα επί διάνυσμα
-#   np.linalg.eig(P)      -&gt; ιδιοτιμές ΚΑΙ ιδιοδιανύσματα
-#   matplotlib.pyplot     -&gt; γραφήματα
+# BASIC COMMANDS:
+#   np.linalg.eigvals(A)  -&gt; eigenvalues
+#   A @ x                 -&gt; matrix times vector
+#   np.linalg.eig(P)      -&gt; eigenvalues AND eigenvectors
+#   matplotlib.pyplot     -&gt; plots
 # ============================================================
 
 import numpy as np
 import matplotlib.pyplot as plt
 
 print("=" * 60)
-print(" Κεφάλαιο 7: Δυναμικά Συστήματα — Τροχιές &amp; Φασικά Πορτρέτα")
+print(" Chapter 7: Dynamical Systems — Orbits &amp; Phase Portraits")
 print("=" * 60)
 
 
 def spectral_radius(M):
-    """Φασματική ακτίνα ρ(M) = max |λ_i|."""
+    """Spectral radius rho(M) = max |lam_i|."""
     return float(np.max(np.abs(np.linalg.eigvals(M))))
 
 
 def stability_verdict(rho, tol=1e-12):
-    """Το συμπέρασμα ΠΡΟΚΥΠΤΕΙ από τον έλεγχο — δεν είναι σταθερό κείμενο."""
+    """The conclusion FOLLOWS from the test — it is not fixed text."""
     if rho &lt; 1 - tol:
-        return ("ρ &lt; 1  -&gt;  ασυμπτωτικά ΕΥΣΤΑΘΕΣ: x_k -&gt; 0")
+        return ("rho &lt; 1  -&gt;  asymptotically STABLE: x_k -&gt; 0")
     elif abs(rho - 1) &lt;= tol:
-        return ("ρ = 1  -&gt;  ΟΡΙΑΚΗ περίπτωση: η τροχιά παραμένει φραγμένη "
-                "και συγκλίνει σε ΜΗ ΜΗΔΕΝΙΚΗ στάσιμη κατάσταση, όχι στο 0")
+        return ("rho = 1  -&gt;  BORDERLINE case: the orbit stays bounded "
+                "and converges to a NONZERO steady state, not to 0")
     else:
-        return ("ρ &gt; 1  -&gt;  ΑΣΤΑΘΕΣ: η τροχιά απομακρύνεται (|x_k| -&gt; ∞)")
+        return ("rho &gt; 1  -&gt;  UNSTABLE: the orbit moves away (|x_k| -&gt; ∞)")
 
 
 def trajectory(M, x0, steps):
-    """Τροχιά x_{n+1} = M x_n, επιστρέφει πίνακα σχήματος (steps+1, 2)."""
+    """Orbit x_{n+1} = M x_n, returns an array of shape (steps+1, 2)."""
     out = [np.asarray(x0, dtype=float)]
     for _ in range(steps):
         out.append(M @ out[-1])
     return np.array(out)
 
 
-# ── Α. (α) Τροχιά 50 βημάτων, ιδιοτιμές και ευστάθεια ────────
-print("\n[Α] Τροχιά x_{n+1} = A x_n και ευστάθεια μέσω ρ(A)")
+# ── A. (a) Orbit of 50 steps, eigenvalues and stability ──────
+print("\n[A] Orbit x_{n+1} = A x_n and stability through rho(A)")
 
 A  = np.array([[0.9, 0.1],
                [0.1, 0.9]])
@@ -314,103 +314,103 @@ evals = np.linalg.eigvals(A)
 rhoA  = spectral_radius(A)
 print("  A =", A.tolist())
 print("  x0 =", x0.tolist())
-print("  Ιδιοτιμές:", np.round(np.real_if_close(evals), 10).tolist(),
-      " (= [1,0 ; 0,8] ✓)")
-print("  ρ(A) =", round(rhoA, 12), " (= 1,0 ✓)")
+print("  Eigenvalues:", np.round(np.real_if_close(evals), 10).tolist(),
+      " (= [1.0 ; 0.8] ✓)")
+print("  rho(A) =", round(rhoA, 12), " (= 1.0 ✓)")
 print("  ", stability_verdict(rhoA))
 
 traj = trajectory(A, x0, 50)
 for k in range(1, 6):
     print(f"  x_{k} = {np.round(traj[k], 6).tolist()}")
 print("  x_50 =", np.round(traj[50], 6).tolist(),
-      " (-&gt; [0,5 ; 0,5] ✓ — ΟΧΙ στο μηδέν)")
+      " (-&gt; [0.5 ; 0.5] ✓ — NOT to zero)")
 
-# Το άθροισμα x1+x2 διατηρείται, επειδή το (1,1) είναι αριστερό
-# ιδιοδιάνυσμα του A για λ = 1:  1^T A = 1^T.
-print("  Διατηρούμενο άθροισμα x1+x2:",
+# The sum x1+x2 is preserved, because (1,1) is a left
+# eigenvector of A for lam = 1:  1^T A = 1^T.
+print("  Conserved sum x1+x2:",
       np.round(traj[:, 0] + traj[:, 1], 10)[[0, 1, 25, 50]].tolist(),
-      " (σταθερό = 1 ✓)")
-print("  Οριακή κατάσταση θεωρητικά = ((x1+x2)/2, (x1+x2)/2) = [0.5, 0.5] ✓")
+      " (constant = 1 ✓)")
+print("  Limit state theoretically = ((x1+x2)/2, (x1+x2)/2) = [0.5, 0.5] ✓")
 
-# ── Β. (β) Στάσιμη κατανομή αλυσίδας Markov, έλεγχος Pπ = π ──
-print("\n[Β] Αλυσίδα Markov: στάσιμη κατανομή π")
+# ── B. (b) Stationary distribution of a Markov chain, check P·pi = pi ──
+print("\n[B] Markov chain: stationary distribution pi")
 
 P = np.array([[0.9, 0.2],
               [0.1, 0.8]])
-print("  P =", P.tolist(), " (στήλες με άθροισμα 1)")
+print("  P =", P.tolist(), " (columns summing to 1)")
 
 vals, vecs = np.linalg.eig(P)
-print("  Ιδιοτιμές του P:", np.round(np.real_if_close(vals), 10).tolist(),
-      " (= [1,0 ; 0,7] ✓)")
+print("  Eigenvalues of P:", np.round(np.real_if_close(vals), 10).tolist(),
+      " (= [1.0 ; 0.7] ✓)")
 
-# Εντοπίζουμε ΠΟΙΑ ιδιοτιμή ισούται με 1 — δεν υποθέτουμε θέση.
+# We locate WHICH eigenvalue equals 1 — we do not assume a position.
 i = int(np.argmin(np.abs(vals - 1.0)))
-print("  Η λ = 1 βρίσκεται στη θέση:", i, " (λ =", round(float(np.real(vals[i])), 10), ")")
+print("  lam = 1 is found at position:", i, " (lam =", round(float(np.real(vals[i])), 10), ")")
 
 pi = np.real(vecs[:, i])
-pi = pi / pi.sum()                      # κανονικοποίηση: άθροισμα 1
-print("  π =", np.round(pi, 6).tolist(), " (= [2/3 ; 1/3] = [0,666667 ; 0,333333] ✓)")
-print("  Έλεγχος P π = π :", bool(np.allclose(P @ pi, pi)), " (True ✓)")
-print("  Έλεγχος Σπ_i = 1 :", bool(np.isclose(pi.sum(), 1.0)), " (True ✓)")
-print("  Σφάλμα ||Pπ - π||:", float(np.linalg.norm(P @ pi - pi)))
+pi = pi / pi.sum()                      # normalization: sum equal to 1
+print("  pi =", np.round(pi, 6).tolist(), " (= [2/3 ; 1/3] = [0.666667 ; 0.333333] ✓)")
+print("  Check P·pi = pi :", bool(np.allclose(P @ pi, pi)), " (True ✓)")
+print("  Check sum(pi_i) = 1 :", bool(np.isclose(pi.sum(), 1.0)), " (True ✓)")
+print("  Error ||P·pi - pi||:", float(np.linalg.norm(P @ pi - pi)))
 
-# ── Γ. (γ) Τροχιά στον χώρο κατάστασης και συνιστώσες ────────
-print("\n[Γ] Γραφήματα: χώρος κατάστασης (x1,x2) και συνιστώσες x1(k), x2(k)")
+# ── C. (c) Orbit in state space and the components ───────────
+print("\n[C] Plots: state space (x1,x2) and components x1(k), x2(k)")
 
 fig1, ax = plt.subplots(1, 2, figsize=(10, 4))
 
 ax[0].plot(traj[:, 0], traj[:, 1], 'o-', ms=3, lw=1, color='tab:blue',
-           label='τροχιά')
+           label='orbit')
 ax[0].plot(traj[0, 0], traj[0, 1], 's', color='tab:green', ms=9, label='$x_0=(1,0)$')
 ax[0].plot(traj[-1, 0], traj[-1, 1], '*', color='tab:red', ms=14,
-           label='οριακό $(0{,}5\\,;\\,0{,}5)$')
+           label='limit $(0.5\\,;\\,0.5)$')
 ax[0].set_xlabel('$x_1$'); ax[0].set_ylabel('$x_2$')
-ax[0].set_title('Τροχιά στον χώρο κατάστασης  (ρ(A)=1)')
+ax[0].set_title('Orbit in state space  (rho(A)=1)')
 ax[0].grid(alpha=.3); ax[0].legend(fontsize=8)
 
 ax[1].plot(traj[:, 0], label='$x_1(k)$')
 ax[1].plot(traj[:, 1], label='$x_2(k)$')
-ax[1].axhline(0.5, color='k', ls='--', lw=.8, label='όριο 0,5')
-ax[1].set_xlabel('$k$'); ax[1].set_ylabel('τιμή συνιστώσας')
-ax[1].set_title('Συνιστώσες ανά βήμα')
+ax[1].axhline(0.5, color='k', ls='--', lw=.8, label='limit 0.5')
+ax[1].set_xlabel('$k$'); ax[1].set_ylabel('value of the component')
+ax[1].set_title('Components per step')
 ax[1].grid(alpha=.3); ax[1].legend(fontsize=8)
 fig1.tight_layout()
 
-# ── Δ. (δ) ΠΡΟΑΙΡΕΤΙΚΟ: ασταθές σύστημα &amp; σύγκριση πορτρέτων ─
-print("\n[Δ] Προαιρετικό: ασταθές σύστημα και σύγκριση φασικών πορτρέτων")
+# ── D. (d) OPTIONAL: unstable system &amp; comparison of portraits ─
+print("\n[D] Optional: unstable system and comparison of phase portraits")
 
 B = np.array([[1.1, 0.2],
               [0.1, 0.9]])
 rhoB = spectral_radius(B)
 print("  B =", B.tolist())
-print("  Ιδιοτιμές του B:", np.round(np.linalg.eigvals(B), 6).tolist(),
-      " (= [1,173205 ; 0,826795] ✓)")
-print("  ρ(B) =", round(rhoB, 12), " (= 1,173205080757 ✓)")
+print("  Eigenvalues of B:", np.round(np.linalg.eigvals(B), 6).tolist(),
+      " (= [1.173205 ; 0.826795] ✓)")
+print("  rho(B) =", round(rhoB, 12), " (= 1.173205080757 ✓)")
 print("  ", stability_verdict(rhoB))
 
 trB = trajectory(B, x0, 20)
 for k in (5, 10, 20):
     print(f"  B^{k} x0 = {np.round(trB[k], 6).tolist()}")
-print("  ||x_20|| για A:", round(float(np.linalg.norm(traj[20])), 6),
-      " | για B:", round(float(np.linalg.norm(trB[20])), 6),
-      " (η δεύτερη πολύ μεγαλύτερη ✓)")
+print("  ||x_20|| for A:", round(float(np.linalg.norm(traj[20])), 6),
+      " | for B:", round(float(np.linalg.norm(trB[20])), 6),
+      " (the second one much larger ✓)")
 
-# Ένα τρίτο, γνήσια ευσταθές σύστημα για πλήρη σύγκριση.
+# A third, genuinely stable system for a complete comparison.
 C = np.array([[0.8, 0.0],
               [0.0, 0.6]])
-print("  C =", C.tolist(), " ρ(C) =", round(spectral_radius(C), 12), " (= 0,8 ✓)")
+print("  C =", C.tolist(), " rho(C) =", round(spectral_radius(C), 12), " (= 0.8 ✓)")
 print("  ", stability_verdict(spectral_radius(C)))
 
-# Φασικά πορτρέτα: πολλές αρχικές συνθήκες πάνω στον μοναδιαίο κύκλο.
+# Phase portraits: many initial conditions on the unit circle.
 theta  = np.linspace(0, 2 * np.pi, 12, endpoint=False)
 starts = np.stack([np.cos(theta), np.sin(theta)], axis=1)
 
 fig2, axs = plt.subplots(1, 3, figsize=(13, 4.2))
 for axi, (M, name, steps) in zip(
         axs,
-        [(C, 'C: ρ=0,8 &lt; 1 — ευσταθές', 25),
-         (A, 'A: ρ=1 — οριακό', 40),
-         (B, 'B: ρ=1,173 &gt; 1 — ασταθές', 12)]):
+        [(C, 'C: rho=0.8 &lt; 1 — stable', 25),
+         (A, 'A: rho=1 — borderline', 40),
+         (B, 'B: rho=1.173 &gt; 1 — unstable', 12)]):
     for s in starts:
         t = trajectory(M, s, steps)
         axi.plot(t[:, 0], t[:, 1], '-', lw=1, alpha=.85)
@@ -421,16 +421,16 @@ for axi, (M, name, steps) in zip(
     axi.set_xlabel('$x_1$'); axi.set_ylabel('$x_2$')
     axi.set_aspect('equal', adjustable='datalim')
     axi.grid(alpha=.3)
-fig2.suptitle('Φασικά πορτρέτα: πράσινο = αρχή, κόκκινο = τέλος τροχιάς',
+fig2.suptitle('Phase portraits: green = start, red = end of the orbit',
               fontsize=10)
 fig2.tight_layout()
 
-print("\n  Σύγκριση: στο C οι τροχιές καταρρέουν στο 0· στο A συρρέουν")
-print("  στην ευθεία x1 = x2 (ιδιοχώρος της λ=1)· στο B εκτοξεύονται")
-print("  κατά τη διεύθυνση του ιδιοδιανύσματος της λ = 1,1732.")
+print("\n  Comparison: for C the orbits collapse to 0; for A they converge")
+print("  to the line x1 = x2 (the eigenspace of lam=1); for B they are")
+print("  shot out along the eigenvector of lam = 1.1732.")
 
 plt.show()
-print("\n✓ Ολοκληρώθηκε.")
+print("\n✓ Done.")
 </textarea>
       <pre class="py-output" id="py-output"></pre>
       <div class="py-plots" id="py-plots"></div>
@@ -440,7 +440,7 @@ print("\n✓ Ολοκληρώθηκε.")
 </div>
 
 <footer>
-  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
@@ -462,7 +462,7 @@ function loadCode(file, elementId, lang) {
     })
     .catch(err => {
       document.getElementById(elementId).textContent =
-        '⚠ Αδυναμία φόρτωσης (' + err + '). Χρησιμοποιήστε "Λήψη".';
+        '⚠ Could not load the file (' + err + '). Please use "Download".';
     });
 }
 
@@ -476,7 +476,7 @@ $('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output'
 async function ensurePyodide(setStatus){
   if (pyodideReady) return pyodideReady;
   pyodideReady = (async () => {
-    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
     if (!window.loadPyodide){
       await new Promise((res, rej) => {
         const sc = document.createElement('script');
@@ -498,9 +498,9 @@ $('py-run').onclick = async function(){
     py.setStdout({ batched: s => { out.textContent += s; } });
     py.setStderr({ batched: s => { out.textContent += s; } });
     const code = $('py-editor').value;
-    setStatus('Φόρτωση βιβλιοθηκών…');
+    setStatus('Loading libraries…');
     await py.loadPackagesFromImports(code);
-    setStatus('Εκτέλεση…');
+    setStatus('Running…');
     await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
     py.globals.set('__user_src__', code);
     await py.runPythonAsync(`
@@ -526,10 +526,10 @@ _imgs
 `);
     const arr = figs.toJs(); if (figs.destroy) figs.destroy();
     arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
-    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
   } catch (e) {
-    out.textContent += '\n⚠ Σφάλμα: ' + e;
-    setStatus('Σφάλμα');
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
   } finally { btn.disabled = false; }
 };
 </script>

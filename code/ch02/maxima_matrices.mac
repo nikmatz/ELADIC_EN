@@ -1,34 +1,34 @@
 /* ============================================================
    maxima_matrices.mac
-   Κεφάλαιο 2 — Πράξεις Πινάκων: Γινόμενο, Αντίστροφος, LU
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού & Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 2 — Matrix Operations: Product, Inverse, LU
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
    ============================================================
 
-   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
-     A . B                 → γινόμενο πινάκων (τελεστής ".")
-     A + B,  k * A         → πρόσθεση / πολλαπλασιασμός με βαθμωτό
-     transpose(A)          → ανάστροφος πίνακας Aᵀ
-     determinant(A)        → ορίζουσα det(A)
-     invert(A)             → αντίστροφος πίνακας A⁻¹
-     ident(n)              → μοναδιαίος πίνακας n×n
-     zeromatrix(m,n)       → μηδενικός πίνακας m×n
-     echelon(A)            → κλιμακωτή μορφή (η Maxima ΔΕΝ έχει rref)
-     triangularize(A)      → άνω τριγωνοποίηση (χωρίς διαίρεση)
-     lu_factor / get_lu_factors  → αποσύνθεση A = P·L·U (linearalgebra)
+   COMMANDS USED:
+     A . B                 → matrix product (the "." operator)
+     A + B,  k * A         → addition / multiplication by a scalar
+     transpose(A)          → transpose matrix Aᵀ
+     determinant(A)        → determinant det(A)
+     invert(A)             → inverse matrix A⁻¹
+     ident(n)              → n×n identity matrix
+     zeromatrix(m,n)       → m×n zero matrix
+     echelon(A)            → row echelon form (Maxima does NOT have rref)
+     triangularize(A)      → upper triangularization (without division)
+     lu_factor / get_lu_factors  → decomposition A = P·L·U (linearalgebra)
 
-   Δραστηριότητα βιβλίου: (α) πράξεις, (β) ορίζουσες,
-                          (γ) αντίστροφος, (δ) επίλυση A·x = b.
+   Book activity: (a) operations, (b) determinants,
+                          (c) the inverse, (d) solving A·x = b.
 
-   Εκτελέστε με: wxMaxima (Load/File) ή
+   Run with: wxMaxima (Load/File) or
                  maxima -b maxima_matrices.mac
    ============================================================ */
 
 load(linearalgebra)$
 
-/* Βοηθητικό: έλεγχος ισότητας πινάκων μέσω της διαφοράς τους */
+/* Helper: test equality of matrices through their difference */
 mat_equal(M, N) := is( ratsimp(M - N) = zeromatrix(length(M), length(M[1])) )$
 
-/* Δεδομένα της δραστηριότητας */
+/* Data of the activity */
 A : matrix([1, 2, 3],
            [0, 1, 4],
            [5, 6, 0]);
@@ -43,91 +43,91 @@ print("A ="); print(A);
 print("B ="); print(B);
 print("b ="); print(b_vec);
 
-/* ── Α. (α) A+B, 3A, A·B, B·A  και  A·B ≠ B·A ───────────── */
-print("════ Α. (α) Πράξεις πινάκων ════");
+/* ── A. (a) A+B, 3A, A·B, B·A  and  A·B ≠ B·A ──────────── */
+print("════ A. (a) Matrix operations ════");
 
 print("A + B ="); print(A + B);
-print("  [Αναμένεται: matrix([3,1,3],[1,4,5],[5,8,4]) ✓]");
+print("  [Expected: matrix([3,1,3],[1,4,5],[5,8,4]) ✓]");
 
 print("3·A ="); print(3 * A);
-print("  [Αναμένεται: matrix([3,6,9],[0,3,12],[15,18,0]) ✓]");
+print("  [Expected: matrix([3,6,9],[0,3,12],[15,18,0]) ✓]");
 
 AB : A . B;
 BA : B . A;
 print("A·B ="); print(AB);
-print("  [Αναμένεται: matrix([4,11,14],[1,11,17],[16,13,6]) ✓]");
+print("  [Expected: matrix([4,11,14],[1,11,17],[16,13,6]) ✓]");
 print("B·A ="); print(BA);
-print("  [Αναμένεται: matrix([2,3,2],[6,11,15],[20,26,8]) ✓]");
+print("  [Expected: matrix([2,3,2],[6,11,15],[20,26,8]) ✓]");
 
 print("A·B - B·A ="); print(AB - BA);
-print("A·B = B·A ;  Έλεγχος:", mat_equal(AB, BA));
-print("  → false: ο πολλαπλασιασμός πινάκων ΔΕΝ είναι αντιμεταθετικός");
+print("A·B = B·A ;  Check:", mat_equal(AB, BA));
+print("  → false: matrix multiplication is NOT commutative");
 
-/* Ανάστροφος (χρήσιμος και στα επόμενα) */
+/* Transpose (also useful below) */
 print("Aᵀ ="); print(transpose(A));
-print("(Aᵀ)ᵀ = A ;  Έλεγχος:", mat_equal(transpose(transpose(A)), A));
-print("(A·B)ᵀ = Bᵀ·Aᵀ ;  Έλεγχος:",
+print("(Aᵀ)ᵀ = A ;  Check:", mat_equal(transpose(transpose(A)), A));
+print("(A·B)ᵀ = Bᵀ·Aᵀ ;  Check:",
       mat_equal(transpose(AB), transpose(B) . transpose(A)));
 
-/* ── Β. (β) Ορίζουσες και det(A·B) = det(A)·det(B) ──────── */
-print("════ Β. (β) Ορίζουσες ════");
+/* ── B. (b) Determinants and det(A·B) = det(A)·det(B) ──── */
+print("════ B. (b) Determinants ════");
 
 det_A : determinant(A);
 det_B : determinant(B);
 det_AB : determinant(AB);
 
-print("det(A) =", det_A, "  [Αναμένεται 1]");
-print("det(B) =", det_B, "  [Αναμένεται 24]");
-print("det(A·B) =", det_AB, "  [Αναμένεται 24]");
+print("det(A) =", det_A, "  [Expected 1]");
+print("det(B) =", det_B, "  [Expected 24]");
+print("det(A·B) =", det_AB, "  [Expected 24]");
 print("det(A)·det(B) =", det_A * det_B);
-print("det(A·B) = det(A)·det(B) ;  Έλεγχος:", is(det_AB = det_A * det_B));
+print("det(A·B) = det(A)·det(B) ;  Check:", is(det_AB = det_A * det_B));
 
-/* ── Γ. (γ) Αντίστροφος A⁻¹ και A·A⁻¹ = I₃ ──────────────── */
-print("════ Γ. (γ) Αντίστροφος ════");
+/* ── C. (c) The inverse A⁻¹ and A·A⁻¹ = I₃ ─────────────── */
+print("════ C. (c) The inverse ════");
 
 if det_A # 0 then (
     A_inv : invert(A),
     print("A⁻¹ ="),
     print(A_inv),
-    print("  [Αναμένεται: matrix([-24,18,5],[20,-15,-4],[-5,4,1]) ✓]"),
+    print("  [Expected: matrix([-24,18,5],[20,-15,-4],[-5,4,1]) ✓]"),
     print("A·A⁻¹ ="),
     print(ratsimp(A . A_inv)),
-    print("A·A⁻¹ = I₃ ;  Έλεγχος:", mat_equal(A . A_inv, ident(3))),
-    print("A⁻¹·A = I₃ ;  Έλεγχος:", mat_equal(A_inv . A, ident(3))),
-    print("det(A⁻¹) =", determinant(A_inv), " = 1/det(A) ;  Έλεγχος:",
+    print("A·A⁻¹ = I₃ ;  Check:", mat_equal(A . A_inv, ident(3))),
+    print("A⁻¹·A = I₃ ;  Check:", mat_equal(A_inv . A, ident(3))),
+    print("det(A⁻¹) =", determinant(A_inv), " = 1/det(A) ;  Check:",
           is(determinant(A_inv) = 1/det_A))
 ) else (
     A_inv : 'undefined,
-    print("det(A) = 0  →  ο A δεν αντιστρέφεται")
+    print("det(A) = 0  →  A is not invertible")
 );
 
-/* ── Δ. (δ) Επίλυση A·x = b με invert(A) ────────────────── */
-print("════ Δ. (δ) Επίλυση A·x = b ════");
+/* ── D. (d) Solving A·x = b with invert(A) ─────────────── */
+print("════ D. (d) Solving A·x = b ════");
 
 x_sol : ratsimp(A_inv . b_vec);
 print("x = A⁻¹·b ="); print(x_sol);
-print("  [Αναμένεται: x = (27, -22, 6)ᵀ ✓]");
+print("  [Expected: x = (27, -22, 6)ᵀ ✓]");
 
-print("Επαλήθευση A·x ="); print(ratsimp(A . x_sol));
-print("A·x = b ;  Έλεγχος:", mat_equal(A . x_sol, b_vec));
+print("Check A·x ="); print(ratsimp(A . x_sol));
+print("A·x = b ;  Check:", mat_equal(A . x_sol, b_vec));
 
-/* Σύγκριση με τον απευθείας επιλυτή linsolve */
+/* Comparison with the direct solver linsolve */
 sol_ls : linsolve([   x1 + 2*x2 + 3*x3 = 1,
                             x2 + 4*x3 = 2,
                    5*x1 + 6*x2        = 3], [x1, x2, x3]);
-print("linsolve →", sol_ls, "  [ίδιο αποτέλεσμα ✓]");
+print("linsolve →", sol_ls, "  [same result ✓]");
 
-/* ── Ε. Συμπλήρωμα: κλιμακωτή μορφή και αποσύνθεση LU ───── */
-print("════ Ε. Κλιμακωτή μορφή & LU ════");
+/* ── E. Supplement: row echelon form and LU decomposition ─ */
+print("════ E. Row echelon form & LU ════");
 
-/* ΠΡΟΣΟΧΗ: η Maxima δεν διαθέτει rref(). Το αντίστοιχο είναι
-   η echelon(A) (κλιμακωτή μορφή με ηγετικά 1) ή η triangularize(A). */
+/* NOTE: Maxima does not provide rref(). The counterparts are
+   echelon(A) (echelon form with leading 1s) or triangularize(A). */
 print("echelon(A) ="); print(echelon(A));
 print("triangularize(A) ="); print(triangularize(A));
-print("rank(A) =", rank(A), "  [πλήρης τάξη 3, άρα A αντιστρέψιμος ✓]");
+print("rank(A) =", rank(A), "  [full rank 3, hence A is invertible ✓]");
 
-/* Αποσύνθεση LU: lu_factor + get_lu_factors (πακέτο linearalgebra).
-   Με generalring παίρνουμε ΑΚΡΙΒΕΙΣ (ρητούς) συντελεστές. */
+/* LU decomposition: lu_factor + get_lu_factors (linearalgebra package).
+   With generalring we get EXACT (rational) coefficients. */
 lu_data : lu_factor(A, generalring)$
 lu_PLU  : get_lu_factors(lu_data)$
 P_lu : lu_PLU[1];
@@ -135,11 +135,11 @@ L_lu : lu_PLU[2];
 U_lu : lu_PLU[3];
 
 print("P ="); print(P_lu);
-print("L (κάτω τριγωνικός) ="); print(L_lu);
-print("U (άνω τριγωνικός) ="); print(U_lu);
+print("L (lower triangular) ="); print(L_lu);
+print("U (upper triangular) ="); print(U_lu);
 print("P·L·U ="); print(ratsimp(P_lu . L_lu . U_lu));
-print("P·L·U = A ;  Έλεγχος:", mat_equal(P_lu . L_lu . U_lu, A));
+print("P·L·U = A ;  Check:", mat_equal(P_lu . L_lu . U_lu, A));
 print("det(A) = det(L)·det(U) =", determinant(L_lu) * determinant(U_lu),
-      ";  Έλεγχος:", is(determinant(L_lu)*determinant(U_lu) = det_A));
+      ";  Check:", is(determinant(L_lu)*determinant(U_lu) = det_A));
 
-print("════ Τέλος ════");
+print("════ End ════");

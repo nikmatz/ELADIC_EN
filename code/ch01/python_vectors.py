@@ -1,22 +1,22 @@
 # ============================================================
 # python_vectors.py
-# Κεφάλαιο 1 — Γραμμικοί Διανυσματικοί Χώροι
-# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού & Ολοκληρωτικού Λογισμού. NewTech Publications.
+# Chapter 1 — Linear Vector Spaces
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
 # ============================================================
 #
-# ΒΙΒΛΙΟΘΗΚΕΣ:
-#   numpy    → γραμμική άλγεβρα (rank, det, SVD, null space)
-#   scipy    → επιπλέον εργαλεία (null_space)
-#   sympy    → ακριβείς υπολογισμοί (rref, GS συμβολικά)
-#   matplotlib → οπτικοποίηση διανυσμάτων στο R²/R³
+# LIBRARIES:
+#   numpy    → linear algebra (rank, det, SVD, null space)
+#   scipy    → additional tools (null_space)
+#   sympy    → exact computations (rref, symbolic GS)
+#   matplotlib → visualization of vectors in R²/R³
 #
-# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
-#   np.linalg.det(A)        → ορίζουσα
-#   np.linalg.matrix_rank(A)→ τάξη
-#   np.linalg.svd(A)        → SVD ανάλυση
-#   sympy.Matrix(A).rref()  → ανηγμένη κλιμακωτή (RREF)
-#   sympy.Matrix(A).nullspace()  → μηδενόχωρος
-#   sympy.Matrix(A).columnspace()→ χώρος στηλών
+# BASIC COMMANDS:
+#   np.linalg.det(A)        → determinant
+#   np.linalg.matrix_rank(A)→ rank
+#   np.linalg.svd(A)        → SVD decomposition
+#   sympy.Matrix(A).rref()  → reduced row echelon form (RREF)
+#   sympy.Matrix(A).nullspace()  → null space
+#   sympy.Matrix(A).columnspace()→ column space
 # ============================================================
 
 import numpy as np
@@ -25,23 +25,23 @@ from mpl_toolkits.mplot3d import Axes3D
 from sympy import Matrix, Rational, sqrt, symbols, pprint
 
 print("=" * 55)
-print(" Κεφάλαιο 1: Γραμμικοί Διανυσματικοί Χώροι — Python")
+print(" Chapter 1: Linear Vector Spaces — Python")
 print("=" * 55)
 
-# ── Α. Πίνακας, Ορίζουσα, Τάξη ───────────────────────────
-print("\n── Α. Ανάλυση Πίνακα ──")
+# ── A. Matrix, Determinant, Rank ─────────────────────────
+print("\n── A. Analysis of a Matrix ──")
 
 A = np.array([[1, 2, 1],
               [2, 1, 3],
               [1, 3, -1]], dtype=float)
 
-print("Πίνακας A:")
+print("Matrix A:")
 print(A)
 print(f"\ndet(A) = {np.linalg.det(A):.4f}")
 print(f"rank(A) = {np.linalg.matrix_rank(A)}")
 
-# ── Β. RREF και Χώροι (SymPy — ακριβής) ──────────────────
-print("\n── Β. RREF & Χώροι (SymPy) ──")
+# ── B. RREF and Spaces (SymPy — exact) ───────────────────
+print("\n── B. RREF & Spaces (SymPy) ──")
 
 A_sym = Matrix([[1, 2, 1],
                 [2, 1, 3],
@@ -50,29 +50,29 @@ A_sym = Matrix([[1, 2, 1],
 rref_A, pivots = A_sym.rref()
 print("RREF(A):")
 pprint(rref_A)
-print(f"Pivot στήλες: {pivots}")
+print(f"Pivot columns: {pivots}")
 
-print("\nNull space (Μηδενόχωρος) — Ax=0:")
+print("\nNull space — Ax=0:")
 ns = A_sym.nullspace()
 if ns:
     for i, v in enumerate(ns):
         print(f"  v{i+1} =", end=" ")
         pprint(v.T)
 else:
-    print("  Τετριμμένος (μηδέν) — A αντιστρέψιμος")
+    print("  Trivial (zero) — A is invertible")
 
-print("\nColumn space (Χώρος Στηλών):")
+print("\nColumn space:")
 cs = A_sym.columnspace()
 for i, v in enumerate(cs):
     print(f"  c{i+1} =", end=" ")
     pprint(v.T)
 
-# ── Γ. Γραμμική Ανεξαρτησία ───────────────────────────────
-print("\n── Γ. Γραμμική Ανεξαρτησία ──")
+# ── C. Linear Independence ────────────────────────────────
+print("\n── C. Linear Independence ──")
 
 v1 = np.array([1, 0, 1])
 v2 = np.array([0, 1, 1])
-v3 = np.array([1, 1, 2])   # v3 = v1 + v2  → εξαρτημένα
+v3 = np.array([1, 1, 2])   # v3 = v1 + v2  → dependent
 
 M = np.column_stack([v1, v2, v3])
 r = np.linalg.matrix_rank(M)
@@ -81,64 +81,64 @@ print(f"v₁ = {v1}")
 print(f"v₂ = {v2}")
 print(f"v₃ = {v3}  ← v₃ = v₁ + v₂")
 print(f"\nrank([v₁|v₂|v₃]) = {r}")
-print(f"→ rank = {r} < 3  ⇒  γραμμικά ΕΞΑΡΤΗΜΕΝΑ ✓")
+print(f"→ rank = {r} < 3  ⇒  linearly DEPENDENT ✓")
 
-# Ανεξάρτητα σύνολα
+# Independent sets
 w1 = np.array([1, 1, 0])
 w2 = np.array([1, 0, 1])
 w3 = np.array([0, 1, 1])
 N = np.column_stack([w1, w2, w3])
 print(f"\nw₁={w1}, w₂={w2}, w₃={w3}")
 print(f"rank([w₁|w₂|w₃]) = {np.linalg.matrix_rank(N)}")
-print(f"→ rank = 3  ⇒  γραμμικά ΑΝΕΞΑΡΤΗΤΑ ✓")
+print(f"→ rank = 3  ⇒  linearly INDEPENDENT ✓")
 
-# ── Δ. Gram-Schmidt Ορθοκανονικοποίηση ────────────────────
-print("\n── Δ. Gram-Schmidt ──")
+# ── D. Gram-Schmidt Orthonormalization ────────────────────
+print("\n── D. Gram-Schmidt ──")
 
 def gram_schmidt(vectors):
-    """Gram-Schmidt ορθοκανονικοποίηση συνόλου διανυσμάτων."""
+    """Gram-Schmidt orthonormalization of a set of vectors."""
     orthonormal = []
     for v in vectors:
         w = v.copy().astype(float)
         for e in orthonormal:
-            w -= np.dot(w, e) * e   # αφαιρούμε προβολή
+            w -= np.dot(w, e) * e   # subtract the projection
         norm = np.linalg.norm(w)
-        if norm > 1e-10:            # αν δεν είναι μηδέν
+        if norm > 1e-10:            # if it is not zero
             orthonormal.append(w / norm)
     return orthonormal
 
 basis = [w1.astype(float), w2.astype(float), w3.astype(float)]
 ONB   = gram_schmidt(basis)
 
-print("Αρχική βάση: w₁, w₂, w₃")
-print("Ορθοκανονική βάση {e₁, e₂, e₃}:")
+print("Initial basis: w₁, w₂, w₃")
+print("Orthonormal basis {e₁, e₂, e₃}:")
 for i, e in enumerate(ONB):
     print(f"  e{i+1} = {np.round(e, 6)}")
 
-# Επαλήθευση ορθογωνιότητας
-print("\nΕπαλήθευση εσωτερικών γινομένων:")
+# Verification of orthogonality
+print("\nVerification of the inner products:")
 print(f"  e₁·e₂ = {ONB[0] @ ONB[1]:.10f}  (≈ 0 ✓)")
 print(f"  e₁·e₃ = {ONB[0] @ ONB[2]:.10f}  (≈ 0 ✓)")
 print(f"  e₂·e₃ = {ONB[1] @ ONB[2]:.10f}  (≈ 0 ✓)")
 print(f"  |e₁|  = {np.linalg.norm(ONB[0]):.6f}  (= 1 ✓)")
 
-# Κατασκευή πίνακα Q και επαλήθευση Q·Qᵀ = I
+# Building the matrix Q and verifying Q·Qᵀ = I
 Q = np.column_stack(ONB)
 QQT = Q @ Q.T
 print("\nQ·Qᵀ ≈ I₃:")
 print(np.round(QQT, 8))
-print("✓ Ορθοκανονικός πίνακας επαληθεύεται")
+print("✓ Orthonormal matrix verified")
 
-# ── Ε. Γραφική Απεικόνιση ──────────────────────────────────
-print("\n── Ε. Γραφική Απεικόνιση ──")
+# ── E. Graphical Representation ────────────────────────────
+print("\n── E. Graphical Representation ──")
 
 fig = plt.figure(figsize=(13, 5))
-fig.suptitle("Γραμμικοί Διανυσματικοί Χώροι — Διανύσματα στο ℝ³",
+fig.suptitle("Linear Vector Spaces — Vectors in ℝ³",
              fontsize=13, fontweight='bold')
 
-# --- Αριστερά: Γραμμική εξάρτηση ---
+# --- Left: Linear dependence ---
 ax1 = fig.add_subplot(121, projection='3d')
-ax1.set_title("Γραμμική Εξάρτηση\n$v_3 = v_1 + v_2$")
+ax1.set_title("Linear Dependence\n$v_3 = v_1 + v_2$")
 origin = [0, 0, 0]
 vecs  = [v1, v2, v3]
 colors = ['royalblue', 'tomato', 'forestgreen']
@@ -150,9 +150,9 @@ ax1.set_xlim([0, 1.5]); ax1.set_ylim([0, 1.5]); ax1.set_zlim([0, 2.5])
 ax1.set_xlabel('x'); ax1.set_ylabel('y'); ax1.set_zlabel('z')
 ax1.legend(fontsize=8, loc='upper left')
 
-# --- Δεξιά: Ορθοκανονική βάση Gram-Schmidt ---
+# --- Right: Gram-Schmidt orthonormal basis ---
 ax2 = fig.add_subplot(122, projection='3d')
-ax2.set_title("Ορθοκανονική Βάση (Gram-Schmidt)")
+ax2.set_title("Orthonormal Basis (Gram-Schmidt)")
 colors2 = ['royalblue', 'tomato', 'forestgreen']
 labels2 = ['$e_1$', '$e_2$', '$e_3$']
 for e, col, lbl in zip(ONB, colors2, labels2):

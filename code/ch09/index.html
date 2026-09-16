@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Κώδικας Κεφ. 9 — Όρια και Συνέχεια · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<title>Code Ch. 9 — Limits and Continuity · Elements of Linear Algebra &amp; Calculus</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 <style>
   :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
@@ -53,17 +53,17 @@
 </head>
 <body>
 <header>
-  <h1>📐 Κεφάλαιο 9 — Όρια και Συνέχεια</h1>
-  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+  <h1>📐 Chapter 9 — Limits and Continuity</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
 </header>
 <div class="breadcrumb">
-  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 9
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 9
 </div>
 <div class="container">
   <div class="info-box">
-    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
-    <p><strong>Αντικείμενο:</strong> άρση αοριστίας, μονόπλευρα όρια, συνέχεια και άρσιμη ασυνέχεια, αναπτύγματα Maclaurin και πολυώνυμα Taylor<br><br>
-    Επιλέξτε γλώσσα από τις καρτέλες. Τον κώδικα <strong>Python</strong> μπορείτε να τον <strong>τρέξετε εδώ μέσα στη σελίδα</strong> (κουμπί «▶ Τρέξε») — μπορείτε και να τον επεξεργαστείτε. Ο κώδικας <strong>Maxima</strong> εκτελείται στο <strong>wxMaxima</strong>.</p>
+    <h2>📋 Contents of the Activities</h2>
+    <p><strong>Topic:</strong> resolving indeterminate forms, one-sided limits, continuity and removable discontinuity, Maclaurin expansions and Taylor polynomials<br><br>
+    Choose a language from the tabs. The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.</p>
   </div>
   <div class="tabs">
     <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
@@ -73,10 +73,10 @@
     <div class="code-card">
       <div class="code-header maxima">
         <span>maxima_oria.mac</span>
-        <a class="download-btn" href="maxima_oria.mac" download>⬇ Λήψη .mac</a>
+        <a class="download-btn" href="maxima_oria.mac" download>⬇ Download .mac</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0">
-        <strong>Βασικές εντολές:</strong>
+        <strong>Basic commands:</strong>
         <code>limit(f,x,a)</code> &nbsp;
         <code>limit(f,x,a,plus/minus)</code> &nbsp;
         <code>limit(f,x,inf)</code> &nbsp;
@@ -84,19 +84,19 @@
       </div>
       <pre><code class="language-maxima" id="maxima-code">/* ============================================================
    maxima_oria.mac
-   Κεφάλαιο 9 — Όρια: Άρση Αοριστίας και Ασύμπτωτες
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 9 — Limits: Indeterminate Forms and Asymptotes
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
    ============================================================
-   ΕΝΤΟΛΕΣ:
+   COMMANDS:
      limit(f, x, a)          -&gt; lim_{x-&gt;a} f(x)
-     limit(f, x, a, plus)    -&gt; δεξιό (πλευρικό) όριο
-     limit(f, x, a, minus)   -&gt; αριστερό (πλευρικό) όριο
-     limit(f, x, inf)        -&gt; όριο στο +άπειρο
-     taylor(f, x, 0, n)      -&gt; ανάπτυγμα Maclaurin τάξης n
+     limit(f, x, a, plus)    -&gt; right-hand (one-sided) limit
+     limit(f, x, a, minus)   -&gt; left-hand (one-sided) limit
+     limit(f, x, inf)        -&gt; limit at +infinity
+     taylor(f, x, 0, n)      -&gt; Maclaurin expansion of order n
    ============================================================ */
 
-/* ═══ Α. (α) Τα τέσσερα όρια της δραστηριότητας ═════════════ */
-print("════ Α. Υπολογισμός ορίων ════")$
+/* ═══ A. (a) The four limits of the activity ════════════════ */
+print("════ A. Computing limits ════")$
 
 L1 : limit((x^2-9)/(x-3), x, 3)$
 L2 : limit(sin(x)/x, x, 0)$
@@ -104,65 +104,65 @@ L3 : limit((exp(x)-1)/x, x, 0)$
 L4 : limit((3*x^2-2*x+1)/(x^2+5), x, inf)$
 
 print("  lim x-&gt;3   (x^2-9)/(x-3)        =", L1, "  (= 6 ✓)")$
-print("     με χαρτί: (x^2-9)/(x-3) = (x-3)(x+3)/(x-3) = x+3 -&gt; 3+3 = 6")$
+print("     by hand: (x^2-9)/(x-3) = (x-3)(x+3)/(x-3) = x+3 -&gt; 3+3 = 6")$
 
 print("  lim x-&gt;0   sin(x)/x             =", L2, "  (= 1 ✓)")$
-print("     με χαρτί: θεμελιώδες τριγωνομετρικό όριο (κριτήριο παρεμβολής)")$
+print("     by hand: fundamental trigonometric limit (squeeze theorem)")$
 
 print("  lim x-&gt;0   (e^x-1)/x            =", L3, "  (= 1 ✓)")$
-print("     με χαρτί: e^x = 1 + x + x^2/2 + ... -&gt; (e^x-1)/x = 1 + x/2 + ...")$
+print("     by hand: e^x = 1 + x + x^2/2 + ... -&gt; (e^x-1)/x = 1 + x/2 + ...")$
 
 print("  lim x-&gt;+oo (3x^2-2x+1)/(x^2+5)  =", L4, "  (= 3 ✓)")$
-print("     με χαρτί: διαιρούμε με x^2 -&gt; (3-2/x+1/x^2)/(1+5/x^2) -&gt; 3/1 = 3")$
+print("     by hand: divide by x^2 -&gt; (3-2/x+1/x^2)/(1+5/x^2) -&gt; 3/1 = 3")$
 
-/* Αριθμητική επιβεβαίωση του τελευταίου ορίου.                 */
+/* Numerical confirmation of the last limit.                    */
 for a in [10, 100, 1000, 100000] do
     print("     x =", a, " -&gt; ", float(subst(a, x, (3*x^2-2*x+1)/(x^2+5))))$
 
-/* ═══ Β. (β) Ύπαρξη ορίου στο 0 για f(x) = |x|/x ═══════════ */
-print("════ Β. Ύπαρξη ορίου: f(x) = |x|/x στο x=0 ════")$
+/* ═══ B. (b) Existence of the limit at 0 for f(x) = |x|/x ══ */
+print("════ B. Existence of the limit: f(x) = |x|/x at x=0 ════")$
 
 define(u(x), abs(x)/x)$
-print("  u(x) =", u(x), "  (ορίζεται για κάθε x ≠ 0)")$
+print("  u(x) =", u(x), "  (defined for every x ≠ 0)")$
 
 Rp : limit(u(x), x, 0, plus)$
 Rm : limit(u(x), x, 0, minus)$
-print("  limit(u, x, 0, plus)  =", Rp, "  (= +1 ✓, αφού |x| = x για x&gt;0)")$
-print("  limit(u, x, 0, minus) =", Rm, "  (= -1 ✓, αφού |x| = -x για x&lt;0)")$
-print("  Αριθμητικά: u(0.001) =", float(u(0.001)),
-      " και u(-0.001) =", float(u(-0.001)))$
+print("  limit(u, x, 0, plus)  =", Rp, "  (= +1 ✓, since |x| = x for x&gt;0)")$
+print("  limit(u, x, 0, minus) =", Rm, "  (= -1 ✓, since |x| = -x for x&lt;0)")$
+print("  Numerically: u(0.001) =", float(u(0.001)),
+      " and u(-0.001) =", float(u(-0.001)))$
 
-/* Το συμπέρασμα ΠΡΟΚΥΠΤΕΙ από τη σύγκριση των πλευρικών ορίων. */
+/* The conclusion FOLLOWS from comparing the one-sided limits.  */
 if Rp = Rm then
-   print("  Τα πλευρικά όρια συμπίπτουν -&gt; το όριο ΥΠΑΡΧΕΙ και ισούται με", Rp)
+   print("  The one-sided limits agree -&gt; the limit EXISTS and equals", Rp)
 else
-   print("  Τα πλευρικά όρια ΔΙΑΦΕΡΟΥΝ (", Rm, "≠", Rp,
-         ") -&gt; το lim x-&gt;0 |x|/x ΔΕΝ ΥΠΑΡΧΕΙ ✓ (άλμα πηδήματος)")$
+   print("  The one-sided limits DIFFER (", Rm, "≠", Rp,
+         ") -&gt; lim x-&gt;0 |x|/x DOES NOT EXIST ✓ (jump discontinuity)")$
 
-print("  Επιβεβαίωση από το ίδιο το Maxima: limit(|x|/x, x, 0) =",
+print("  Confirmation from Maxima itself: limit(|x|/x, x, 0) =",
       limit(u(x), x, 0), "  (und = undefined ✓)")$
 
-/* Το διάστημα δίνεται σε ΑΥΞΟΥΣΑ σειρά και επιλέγεται ώστε      */
-/* το πλέγμα δειγματοληψίας να ΜΗΝ πέσει ακριβώς πάνω στο x=0    */
-/* (εκεί η |x|/x δεν ορίζεται και θα προέκυπτε διαίρεση με 0).   */
+/* The interval is given in INCREASING order and is chosen so that */
+/* the sampling grid does NOT fall exactly on x=0                  */
+/* (there |x|/x is undefined and we would divide by 0).            */
 plot2d(u(x), [x, -2, 2.1], [y, -2, 2],
        [xlabel, "x"], [ylabel, "|x|/x"],
-       [title, "|x|/x: alma apo -1 se +1 sto x=0 (to orio den yparxei)"])$
+       [title, "|x|/x: jump from -1 to +1 at x=0 (the limit does not exist)"])$
 
-/* ═══ Γ. (γ) Συνέχεια της f(x)=(x^2-4)/(x-2) με f(2)=4 ═════ */
-print("════ Γ. Συνέχεια της f(x)=(x^2-4)/(x-2) με f(2)=4 ════")$
+/* ═══ C. (c) Continuity of f(x)=(x^2-4)/(x-2) with f(2)=4 ══ */
+print("════ C. Continuity of f(x)=(x^2-4)/(x-2) with f(2)=4 ════")$
 
-/* Η αρχική παράσταση ΔΕΝ ορίζεται στο 2 (μορφή 0/0)· την       */
-/* «επιδιορθώνουμε» ορίζοντας f(2) = 4.                         */
+/* The original expression is NOT defined at 2 (form 0/0); we   */
+/* "repair" it by defining f(2) = 4.                            */
 fexpr : (x^2-4)/(x-2)$
-print("  Παράσταση:", fexpr, " — στο x=2 δίνει 0/0, άρα ΔΕΝ ορίζεται εκεί")$
-print("  Απλοποίηση: ratsimp(", fexpr, ") =", ratsimp(fexpr),
-      "  (= x+2 για x ≠ 2)")$
+print("  Expression:", fexpr, " — at x=2 it gives 0/0, so it is NOT defined there")$
+print("  Simplification: ratsimp(", fexpr, ") =", ratsimp(fexpr),
+      "  (= x+2 for x ≠ 2)")$
 
-/* ΠΡΟΣΟΧΗ: εδώ χρησιμοποιούμε := και ΟΧΙ define, γιατί το define */
-/* αποτιμά αμέσως το σώμα και η (x^2-4)/(x-2) θα έδινε 0/0.       */
+/* NOTE: here we use := and NOT define, because define evaluates  */
+/* the body immediately and (x^2-4)/(x-2) would give 0/0.         */
 fc(x) := if x = 2 then 4 else (x^2-4)/(x-2)$
-print("  Ορίζουμε f(2) := 4.  f(2) =", fc(2), " (= 4 ✓)")$
+print("  We define f(2) := 4.  f(2) =", fc(2), " (= 4 ✓)")$
 print("  f(1) =", fc(1), " (= 3 ✓),  f(3) =", fc(3), " (= 5 ✓)")$
 
 Lf : limit(fexpr, x, 2)$
@@ -173,62 +173,62 @@ print("  lim x-&gt;2^+  f(x) =", Lfp, " (= 4 ✓)")$
 print("  lim x-&gt;2    f(x) =", Lf,  " (= 4 ✓)")$
 
 if Lfm = Lfp and Lf = fc(2) then
-   print("  lim_{x-&gt;2} f(x) = f(2) = 4  -&gt;  η f ΕΙΝΑΙ ΣΥΝΕΧΗΣ στο x=2 ✓")
+   print("  lim_{x-&gt;2} f(x) = f(2) = 4  -&gt;  f IS CONTINUOUS at x=2 ✓")
 else
-   print("  lim_{x-&gt;2} f(x) ≠ f(2)  -&gt;  η f ΔΕΝ είναι συνεχής στο x=2")$
+   print("  lim_{x-&gt;2} f(x) ≠ f(2)  -&gt;  f is NOT continuous at x=2")$
 
-print("  ΧΑΡΑΚΤΗΡΙΣΜΟΣ: η αρχική (x^2-4)/(x-2) είχε ΑΡΣΙΜΗ (αφαιρετή)")$
-print("  ασυνέχεια στο 2· με την τιμή f(2)=4 η ασυνέχεια ΑΙΡΕΤΑΙ και η f")$
-print("  ταυτίζεται με την πολυωνυμική x+2, που είναι συνεχής παντού.")$
+print("  CLASSIFICATION: the original (x^2-4)/(x-2) had a REMOVABLE")$
+print("  discontinuity at 2; with the value f(2)=4 the discontinuity is removed")$
+print("  and f coincides with the polynomial x+2, which is continuous everywhere.")$
 
-/* Σχεδιάζουμε τη ΣΥΝΕΧΗ ΕΠΕΚΤΑΣΗ x+2 (ταυτίζεται με την f για    */
-/* x ≠ 2) και σημειώνουμε ξεχωριστά το σημείο (2, 4) = (2, f(2)). */
+/* We plot the CONTINUOUS EXTENSION x+2 (it coincides with f for  */
+/* x ≠ 2) and mark separately the point (2, 4) = (2, f(2)).       */
 plot2d([x+2, [discrete, [[2, 4]]]], [x, -1, 5], [y, 0, 8],
        [style, [lines, 2], [points, 3, 2, 7]],
-       [legend, "x+2 (synexhs epektash)", "f(2) = 4"],
+       [legend, "x+2 (continuous extension)", "f(2) = 4"],
        [xlabel, "x"], [ylabel, "y"],
-       [title, "Arsimh asynexeia: h timh f(2)=4 epidiorthwnei thn f"])$
+       [title, "Removable discontinuity: the value f(2)=4 repairs f"])$
 
-/* ═══ Δ. (δ) Σειρές Maclaurin έως 5η τάξη ══════════════════ */
-print("════ Δ. Αναπτύγματα Maclaurin έως 5η τάξη ════")$
+/* ═══ D. (d) Maclaurin series up to order 5 ════════════════ */
+print("════ D. Maclaurin expansions up to order 5 ════")$
 
 T_sin : taylor(sin(x), x, 0, 5)$
 T_exp : taylor(exp(x), x, 0, 5)$
 T_log : taylor(log(1+x), x, 0, 5)$
 
 print("  sin(x)    ~", T_sin)$
-print("     αναμενόμενο: x - x^3/6 + x^5/120 ✓")$
+print("     expected: x - x^3/6 + x^5/120 ✓")$
 print("  e^x       ~", T_exp)$
-print("     αναμενόμενο: 1 + x + x^2/2 + x^3/6 + x^4/24 + x^5/120 ✓")$
+print("     expected: 1 + x + x^2/2 + x^3/6 + x^4/24 + x^5/120 ✓")$
 print("  ln(1+x)   ~", T_log)$
-print("     αναμενόμενο: x - x^2/2 + x^3/3 - x^4/4 + x^5/5 ✓")$
+print("     expected: x - x^2/2 + x^3/3 - x^4/4 + x^5/5 ✓")$
 
-/* Οι συντελεστές ελέγχονται και αριθμητικά.                     */
-print("  Συντελεστές του sin(x): ",
+/* The coefficients are checked numerically as well.             */
+print("  Coefficients of sin(x): ",
       makelist(ratcoef(ratexpand(taylor(sin(x), x, 0, 5)), x, n), n, 0, 5),
       "  (= [0, 1, 0, -1/6, 0, 1/120] ✓)")$
-print("  Συντελεστές του e^x:    ",
+print("  Coefficients of e^x:    ",
       makelist(ratcoef(ratexpand(taylor(exp(x), x, 0, 5)), x, n), n, 0, 5),
       "  (= [1, 1, 1/2, 1/6, 1/24, 1/120] ✓)")$
-print("  Συντελεστές του ln(1+x):",
+print("  Coefficients of ln(1+x):",
       makelist(ratcoef(ratexpand(taylor(log(1+x), x, 0, 5)), x, n), n, 0, 5),
       "  (= [0, 1, -1/2, 1/3, -1/4, 1/5] ✓)")$
 
-/* Τα αναπτύγματα εξηγούν ΓΙΑΤΙ προκύπτουν τα όρια του (α).      */
+/* The expansions explain WHY the limits of (a) come out as they do. */
 T_sinc : taylor(sin(x)/x, x, 0, 4)$
 print("  sin(x)/x    ~", T_sinc,
-      "  -&gt;  όριο στο 0 =", limit(sin(x)/x, x, 0), " (= 1 ✓)")$
+      "  -&gt;  limit at 0 =", limit(sin(x)/x, x, 0), " (= 1 ✓)")$
 print("  (e^x-1)/x   ~", taylor((exp(x)-1)/x, x, 0, 4),
-      "  -&gt;  όριο στο 0 =", limit((exp(x)-1)/x, x, 0), " (= 1 ✓)")$
+      "  -&gt;  limit at 0 =", limit((exp(x)-1)/x, x, 0), " (= 1 ✓)")$
 
-/* Πάλι διάστημα σε αύξουσα σειρά, ελαφρώς ασύμμετρο ώστε το      */
-/* πλέγμα να μην πέσει πάνω στο x=0 (όπου sin(x)/x -&gt; 0/0).       */
+/* Again the interval is in increasing order, slightly asymmetric  */
+/* so that the grid does not fall on x=0 (where sin(x)/x -&gt; 0/0).  */
 plot2d([sin(x)/x, ratexpand(T_sinc)], [x, -6.2, 6.3], [y, -0.5, 1.5],
-       [legend, "sin(x)/x", "Taylor 4hs takshs"],
+       [legend, "sin(x)/x", "Taylor order 4"],
        [xlabel, "x"], [ylabel, "y"],
-       [title, "sin(x)/x kai to polywnymo Taylor 4hs takshs"])$
+       [title, "sin(x)/x and the Taylor polynomial of order 4"])$
 
-print("── Τέλος maxima_oria.mac ──")$
+print("── End of maxima_oria.mac ──")$
 </code></pre>
     </div>
   </div>
@@ -236,39 +236,39 @@ print("── Τέλος maxima_oria.mac ──")$
     <div class="code-card">
       <div class="code-header python">
         <span>python_oria.py</span>
-        <a class="download-btn" href="python_oria.py" download>⬇ Λήψη .py</a>
+        <a class="download-btn" href="python_oria.py" download>⬇ Download .py</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0">
-        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <strong>Libraries / commands:</strong>
         <code>sympy.limit()</code> &nbsp;
         <code>sympy.series()</code> &nbsp;
         <code>sympy.oo</code> &nbsp;
         <code>matplotlib.pyplot</code> &nbsp;
-        <code>np.where() (τμηματικές συναρτήσεις)</code>
+        <code>np.where() (piecewise functions)</code>
       </div>
             <div class="py-toolbar">
-        <button class="run-btn" id="py-run">▶ Τρέξε</button>
-        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
-        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
       </div>
       <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
 # python_oria.py
-# Κεφάλαιο 9 — Όρια, Συνέχεια, Taylor: SymPy &amp; Matplotlib
-# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# Chapter 9 — Limits, Continuity, Taylor: SymPy &amp; Matplotlib
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
 # ============================================================
 #
-# ΒΙΒΛΙΟΘΗΚΕΣ:
-#   sympy      -&gt; συμβολικά όρια και αναπτύγματα σειράς
-#   numpy      -&gt; αριθμητική αποτίμηση, np.where για τμηματικές
-#   matplotlib -&gt; γραφήματα προσέγγισης και σφάλματος
+# LIBRARIES:
+#   sympy      -&gt; symbolic limits and series expansions
+#   numpy      -&gt; numerical evaluation, np.where for piecewise definitions
+#   matplotlib -&gt; plots of the approximation and of the error
 #
-# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
+# BASIC COMMANDS:
 #   sympy.limit(f, x, a)        -&gt; lim_{x-&gt;a} f(x)
-#   sympy.limit(f, x, a, '+')   -&gt; δεξιό όριο
-#   sympy.limit(f, x, a, '-')   -&gt; αριστερό όριο
-#   sympy.oo                    -&gt; το άπειρο
-#   sympy.series(f, x, 0, n)    -&gt; ανάπτυγμα γύρω από το 0
-#   np.where(cond, a, b)        -&gt; τμηματικός ορισμός χωρίς 0/0
+#   sympy.limit(f, x, a, '+')   -&gt; right-hand limit
+#   sympy.limit(f, x, a, '-')   -&gt; left-hand limit
+#   sympy.oo                    -&gt; infinity
+#   sympy.series(f, x, 0, n)    -&gt; expansion about 0
+#   np.where(cond, a, b)        -&gt; piecewise definition without 0/0
 # ============================================================
 
 import numpy as np
@@ -279,11 +279,11 @@ from sympy import symbols, limit, series, oo, sin, exp, log, Abs, lambdify
 x = symbols('x')
 
 print("=" * 62)
-print(" Κεφάλαιο 9: Όρια, Συνέχεια και Πολυώνυμα Taylor")
+print(" Chapter 9: Limits, Continuity and Taylor Polynomials")
 print("=" * 62)
 
-# ── Α. (α) Τα όρια της δραστηριότητας Maxima ─────────────────
-print("\n[Α] Όρια με sympy.limit — σύγκριση με τα αποτελέσματα του Maxima")
+# ── A. (a) The limits of the Maxima activity ────────────────
+print("\n[A] Limits with sympy.limit — comparison with the Maxima results")
 
 cases = [
     ("lim x-&gt;3   (x^2-9)/(x-3)",       (x**2 - 9) / (x - 3),          3,  6),
@@ -296,28 +296,28 @@ for desc, expr, pt, expected in cases:
     mark = "✓" if sp.simplify(val - expected) == 0 else "✗"
     print(f"  {desc:34s} = {val}   (Maxima: {expected} {mark})")
 
-print("  -&gt; SymPy και Maxima δίνουν ΤΑ ΙΔΙΑ αποτελέσματα: 6, 1, 1, 3.")
+print("  -&gt; SymPy and Maxima give THE SAME results: 6, 1, 1, 3.")
 
-# Αριθμητική επιβεβαίωση του ορίου στο άπειρο.
+# Numerical confirmation of the limit at infinity.
 r = lambdify(x, (3*x**2 - 2*x + 1)/(x**2 + 5), 'numpy')
-print("  Αριθμητικά για το τελευταίο:",
+print("  Numerically for the last one:",
       {int(v): round(float(r(v)), 6) for v in (10, 100, 1000, 100000)},
       " (-&gt; 3 ✓)")
 
-# Μονόπλευρα όρια της |x|/x (ερώτημα (β) του Maxima).
+# One-sided limits of |x|/x (part (b) of the Maxima activity).
 print("  lim x-&gt;0+ |x|/x =", limit(Abs(x)/x, x, 0, '+'), " (= 1 ✓)")
 print("  lim x-&gt;0- |x|/x =", limit(Abs(x)/x, x, 0, '-'), " (= -1 ✓)")
-print("  -&gt; διαφορετικά πλευρικά όρια: το lim x-&gt;0 |x|/x ΔΕΝ υπάρχει ✓")
+print("  -&gt; different one-sided limits: lim x-&gt;0 |x|/x does NOT exist ✓")
 
-# ── Β. (β) Συνάρτηση check_continuity(f, a, f_at_a) ──────────
-print("\n[Β] check_continuity(f, a, f_at_a)")
+# ── B. (b) The function check_continuity(f, a, f_at_a) ──────
+print("\n[B] check_continuity(f, a, f_at_a)")
 
 
 def check_continuity(f, a, f_at_a, var=x):
-    """Ελέγχει τη συνέχεια της f στο a, όταν ορίζουμε f(a) = f_at_a.
+    """Checks the continuity of f at a, when we define f(a) = f_at_a.
 
-    Επιστρέφει (αριστερό όριο, δεξιό όριο, συνεχής;). Το συμπέρασμα
-    προκύπτει ΑΠΟ ΤΟΝ ΕΛΕΓΧΟ και δεν είναι σταθερό κείμενο.
+    Returns (left limit, right limit, continuous?). The conclusion
+    FOLLOWS FROM THE TEST and is not fixed text.
     """
     Lm = limit(f, var, a, '-')
     Lp = limit(f, var, a, '+')
@@ -327,22 +327,22 @@ def check_continuity(f, a, f_at_a, var=x):
 
 
 tests = [
-    ("f(x)=(x^2-4)/(x-2) με f(2)=4", (x**2 - 4)/(x - 2), 2, sp.Integer(4), True),
-    ("g(x)=sin(x)/x     με g(0)=1",  sin(x)/x,           0, sp.Integer(1), True),
-    ("h(x)=|x|/x        με h(0)=0",  Abs(x)/x,           0, sp.Integer(0), False),
+    ("f(x)=(x^2-4)/(x-2) with f(2)=4", (x**2 - 4)/(x - 2), 2, sp.Integer(4), True),
+    ("g(x)=sin(x)/x     with g(0)=1",  sin(x)/x,           0, sp.Integer(1), True),
+    ("h(x)=|x|/x        with h(0)=0",  Abs(x)/x,           0, sp.Integer(0), False),
 ]
 for name, f, a, fa, expected in tests:
     Lm, Lp, cont = check_continuity(f, a, fa)
     mark = "✓" if cont == expected else "✗"
     print(f"  {name}")
-    print(f"    lim x-&gt;{a}^- = {Lm} | lim x-&gt;{a}^+ = {Lp} | τιμή = {fa}"
-          f" -&gt; συνεχής: {cont}  (αναμενόμενο: {expected} {mark})")
+    print(f"    lim x-&gt;{a}^- = {Lm} | lim x-&gt;{a}^+ = {Lp} | value = {fa}"
+          f" -&gt; continuous: {cont}  (expected: {expected} {mark})")
 
-print("  ΧΑΡΑΚΤΗΡΙΣΜΟΣ: οι δύο πρώτες είχαν ΑΡΣΙΜΗ ασυνέχεια, που αίρεται")
-print("  με τη σωστή τιμή· η |x|/x έχει ασυνέχεια ΑΛΜΑΤΟΣ, που δεν αίρεται.")
+print("  CLASSIFICATION: the first two had a REMOVABLE discontinuity, which is")
+print("  removed by the right value; |x|/x has a JUMP discontinuity, which is not.")
 
-# ── Γ. (γ) Αναπτύγματα σειράς γύρω από το 0 ──────────────────
-print("\n[Γ] Αναπτύγματα με sympy.series γύρω από το 0")
+# ── C. (c) Series expansions about 0 ────────────────────────
+print("\n[C] Expansions with sympy.series about 0")
 
 series_cases = [
     ("sin(x)",   sin(x),      "x - x^3/6 + x^5/120"),
@@ -352,13 +352,13 @@ series_cases = [
 ]
 for name, expr, expected in series_cases:
     print(f"  {name:9s} ~ {series(expr, x, 0, 6)}")
-    print(f"  {'':9s}   αναμενόμενο (5η τάξη): {expected} ✓")
+    print(f"  {'':9s}   expected (order 5): {expected} ✓")
 
-print("  Σημείωση: η 1/(1-x) είναι η γεωμετρική σειρά Σ x^n, με ακτίνα")
-print("  σύγκλισης 1 — συγκλίνει μόνο για |x| &lt; 1.")
+print("  Note: 1/(1-x) is the geometric series sum(x^n), with radius of")
+print("  convergence 1 — it converges only for |x| &lt; 1.")
 
-# ── Δ. (δ) Πολυώνυμα Taylor της sin(x)/x και σφάλμα ──────────
-print("\n[Δ] Πολυώνυμα Taylor τάξης 1, 3, 5, 7 της sin(x)/x στο [-2π, 2π]")
+# ── D. (d) Taylor polynomials of sin(x)/x and the error ─────
+print("\n[D] Taylor polynomials of order 1, 3, 5, 7 of sin(x)/x on [-2pi, 2pi]")
 
 orders = [1, 3, 5, 7]
 polys  = {}
@@ -366,11 +366,11 @@ for n in orders:
     T = sp.expand(series(sin(x)/x, x, 0, n + 1).removeO())
     polys[n] = T
     print(f"  T{n}(x) = {T}")
-print("  (αναμενόμενα: 1 · 1-x^2/6 · 1-x^2/6+x^4/120 · 1-x^2/6+x^4/120-x^6/5040 ✓)")
+print("  (expected: 1 · 1-x^2/6 · 1-x^2/6+x^4/120 · 1-x^2/6+x^4/120-x^6/5040 ✓)")
 
-# Αριθμητικό πλέγμα — np.where για να αποφύγουμε τη διαίρεση 0/0.
+# Numerical grid — np.where so as to avoid the 0/0 division.
 xs   = np.linspace(-2 * np.pi, 2 * np.pi, 801)
-safe = np.where(np.abs(xs) &lt; 1e-12, 1.0, xs)          # ποτέ 0 στον παρονομαστή
+safe = np.where(np.abs(xs) &lt; 1e-12, 1.0, xs)          # never 0 in the denominator
 ys   = np.where(np.abs(xs) &lt; 1e-12, 1.0, np.sin(safe) / safe)
 
 fig, axs = plt.subplots(1, 2, figsize=(12, 4.6))
@@ -380,37 +380,37 @@ colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red']
 errs = {}
 for n, c in zip(orders, colors):
     p = lambdify(x, polys[n], 'numpy')
-    # Το T1 είναι η σταθερά 1: το lambdify επιστρέφει βαθμωτό, οπότε το
-    # «απλώνουμε» σε πίνακα ίδιου σχήματος με το xs.
+    # T1 is the constant 1: lambdify returns a scalar, so we
+    # "spread" it into an array with the same shape as xs.
     yp = np.asarray(p(xs), dtype=float) * np.ones_like(xs)
-    axs[0].plot(xs, yp, '--', lw=1.6, color=c, label=f'Taylor τάξης {n}')
+    axs[0].plot(xs, yp, '--', lw=1.6, color=c, label=f'Taylor of order {n}')
     errs[n] = np.abs(yp - ys)
 axs[0].set_ylim(-1.5, 2.0)
 axs[0].axhline(0, color='k', lw=.5)
 axs[0].set_xlabel('x'); axs[0].set_ylabel('y')
-axs[0].set_title(r'$\sin(x)/x$ και τα πολυώνυμα Taylor', fontsize=11)
+axs[0].set_title(r'$\sin(x)/x$ and its Taylor polynomials', fontsize=11)
 axs[0].grid(alpha=.3); axs[0].legend(fontsize=8)
 
 for n, c in zip(orders, colors):
     axs[1].semilogy(xs, np.maximum(errs[n], 1e-18), lw=1.5, color=c,
-                    label=f'|σφάλμα| τάξης {n}')
-axs[1].set_xlabel('x'); axs[1].set_ylabel('|σφάλμα| (λογαριθμική κλίμακα)')
-axs[1].set_title('Σφάλμα προσέγγισης στο $[-2\\pi,\\,2\\pi]$', fontsize=11)
+                    label=f'|error| of order {n}')
+axs[1].set_xlabel('x'); axs[1].set_ylabel('|error| (logarithmic scale)')
+axs[1].set_title('Approximation error on $[-2\\pi,\\,2\\pi]$', fontsize=11)
 axs[1].grid(alpha=.3, which='both'); axs[1].legend(fontsize=8)
 fig.tight_layout()
 
-print("\n  Μέγιστο |σφάλμα| στο [-2π, 2π]:")
+print("\n  Maximum |error| on [-2pi, 2pi]:")
 for n in orders:
-    print(f"    τάξη {n}: {errs[n].max():.6f}")
-print("  Μέγιστο |σφάλμα| στο μικρότερο διάστημα [-π/2, π/2]:")
+    print(f"    order {n}: {errs[n].max():.6f}")
+print("  Maximum |error| on the smaller interval [-pi/2, pi/2]:")
 mask = np.abs(xs) &lt;= np.pi / 2
 for n in orders:
-    print(f"    τάξη {n}: {errs[n][mask].max():.8f}")
-print("  -&gt; Κοντά στο 0 το σφάλμα μειώνεται ΔΡΑΜΑΤΙΚΑ με την τάξη· μακριά")
-print("  από το 0 (κοντά στο ±2π) τα πολυώνυμα αποκλίνουν από τη συνάρτηση.")
+    print(f"    order {n}: {errs[n][mask].max():.8f}")
+print("  -&gt; Near 0 the error decreases DRAMATICALLY with the order; far")
+print("  from 0 (near ±2pi) the polynomials diverge from the function.")
 
 plt.show()
-print("\n✓ Ολοκληρώθηκε.")
+print("\n✓ Done.")
 </textarea>
       <pre class="py-output" id="py-output"></pre>
       <div class="py-plots" id="py-plots"></div>
@@ -418,7 +418,7 @@ print("\n✓ Ολοκληρώθηκε.")
   </div>
 </div>
 <footer>
-  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
@@ -437,7 +437,7 @@ function loadCode(file, elementId, lang) {
       el.textContent=text; el.className='language-'+lang;
       Prism.highlightElement(el);
     })
-    .catch(err=>{document.getElementById(elementId).textContent='⚠ Αδυναμία φόρτωσης ('+err+'). Χρήση κουμπιού Λήψη.';});
+    .catch(err=>{document.getElementById(elementId).textContent='⚠ Could not load the file ('+err+'). Please use the Download button.';});
 }
 
 /* ── In-browser Python runner (Pyodide) ── */
@@ -450,7 +450,7 @@ $('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output'
 async function ensurePyodide(setStatus){
   if (pyodideReady) return pyodideReady;
   pyodideReady = (async () => {
-    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
     if (!window.loadPyodide){
       await new Promise((res, rej) => {
         const sc = document.createElement('script');
@@ -472,9 +472,9 @@ $('py-run').onclick = async function(){
     py.setStdout({ batched: s => { out.textContent += s; } });
     py.setStderr({ batched: s => { out.textContent += s; } });
     const code = $('py-editor').value;
-    setStatus('Φόρτωση βιβλιοθηκών…');
+    setStatus('Loading libraries…');
     await py.loadPackagesFromImports(code);
-    setStatus('Εκτέλεση…');
+    setStatus('Running…');
     await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
     py.globals.set('__user_src__', code);
     await py.runPythonAsync(`
@@ -500,10 +500,10 @@ _imgs
 `);
     const arr = figs.toJs(); if (figs.destroy) figs.destroy();
     arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
-    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
   } catch (e) {
-    out.textContent += '\n⚠ Σφάλμα: ' + e;
-    setStatus('Σφάλμα');
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
   } finally { btn.disabled = false; }
 };
 </script>

@@ -1,34 +1,34 @@
 /* ============================================================
    maxima_lintrans.mac
-   Κεφάλαιο 4 — Γραμμικοί Μετασχηματισμοί
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού & Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 4 — Linear Transformations
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
    ============================================================
 
-   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
-     A . v            → εφαρμογή μετασχηματισμού σε διάνυσμα
-     A . B            → σύνθεση μετασχηματισμών (γινόμενο πινάκων)
-     invert(A)        → αντίστροφος μετασχηματισμός
-     nullspace(A)     → πυρήνας (kernel) T
-     columnspace(A)   → εικόνα (image) T
-     rank(A)          → διάσταση εικόνας
-     determinant(A)   → έλεγχος αντιστρεψιμότητας
+   COMMANDS USED:
+     A . v            → apply the transformation to a vector
+     A . B            → composition of transformations (matrix product)
+     invert(A)        → inverse transformation
+     nullspace(A)     → kernel of T
+     columnspace(A)   → image of T
+     rank(A)          → dimension of the image
+     determinant(A)   → test for invertibility
 
-   Εκτελέστε με: wxMaxima (Load/File) ή
+   Run with: wxMaxima (Load/File) or
                  maxima -b maxima_lintrans.mac
    ============================================================ */
 
-/* ── Μέρος Α: Ορισμός Γραμμικού Μετασχηματισμού ─────────── */
-print("════ Α. Γραμμικός Μετασχηματισμός T: ℝ³ → ℝ³ ════");
+/* ── Part A: Definition of a Linear Transformation ─────── */
+print("════ A. Linear Transformation T: ℝ³ → ℝ³ ════");
 
 /* T(x,y,z) = (x+2y, 3x-y+z, 2y-z) */
 A : matrix([1, 2, 0],
            [3,-1, 1],
            [0, 2,-1]);
 
-print("Πίνακας μετασχηματισμού A =");
+print("Matrix of the transformation A =");
 print(A);
 
-/* Εφαρμογή σε συγκεκριμένα διανύσματα */
+/* Applying it to specific vectors */
 v1 : matrix([1], [0], [0]);
 v2 : matrix([0], [1], [0]);
 v3 : matrix([0], [0], [1]);
@@ -37,23 +37,23 @@ print("T(e₁) = A·e₁ ="); print(A . v1);
 print("T(e₂) = A·e₂ ="); print(A . v2);
 print("T(e₃) = A·e₃ ="); print(A . v3);
 
-/* Γενικό διάνυσμα */
+/* A general vector */
 u : matrix([2], [-1], [3]);
 print("T([2,-1,3]ᵀ) = A·u ="); print(A . u);
 
-/* Έλεγχος γραμμικότητας: T(αu + βv) = αT(u) + βT(v) */
+/* Test of linearity: T(au + bv) = a·T(u) + b·T(v) */
 print("");
 alpha : 2; beta : -1;
 w : matrix([1], [1], [1]);
 lhs_lin : A . (alpha * u + beta * w);
 rhs_lin : alpha * (A . u) + beta * (A . w);
-print("Έλεγχος γραμμικότητας:");
+print("Test of linearity:");
 print("T(2u - w) =", lhs_lin);
 print("2T(u) - T(w) =", rhs_lin);
-print("Ισότητα:", is(lhs_lin = rhs_lin));
+print("Equality:", is(lhs_lin = rhs_lin));
 
-/* ── Μέρος Β: Πυρήνας (Kernel) και Εικόνα (Image) ─────────── */
-print("════ Β. Πυρήνας (Ker) & Εικόνα (Im) ════");
+/* ── Part B: Kernel and Image ─────────────────────────────── */
+print("════ B. Kernel (Ker) & Image (Im) ════");
 
 print("Ker(T) = Null space:");
 print(nullspace(A));
@@ -63,50 +63,50 @@ print(columnspace(A));
 
 print("dim(Im) = rank(A) =", rank(A));
 print("dim(Ker) = nullity =", 3 - rank(A));
-print("Θεώρημα rank-nullity: rank + nullity =", rank(A) + (3 - rank(A)), "= n = 3  ✓");
+print("Rank-nullity theorem: rank + nullity =", rank(A) + (3 - rank(A)), "= n = 3  ✓");
 
-/* ── Μέρος Γ: Γεωμετρικοί Μετασχηματισμοί στο ℝ² ─────────── */
-print("════ Γ. Γεωμετρικοί Μετασχηματισμοί ════");
+/* ── Part C: Geometric Transformations in ℝ² ────────────── */
+print("════ C. Geometric Transformations ════");
 
-/* Στροφή κατά γωνία θ */
+/* Rotation through an angle t */
 theta : %pi / 4;   /* 45° */
 R_45 : matrix([cos(theta), -sin(theta)],
               [sin(theta),  cos(theta)]);
 R_45_s : trigsimp(R_45);
-print("Στροφή 45°: R ="); print(float(R_45_s));
+print("Rotation by 45°: R ="); print(float(R_45_s));
 
-p : matrix([1], [0]);   /* σημείο (1,0) */
+p : matrix([1], [0]);   /* the point (1,0) */
 print("R₄₅·(1,0)ᵀ ="); print(float(R_45_s . p));
-print("[Αναμένεται: (cos45°, sin45°) = (√2/2, √2/2) ✓]");
+print("[Expected: (cos45°, sin45°) = (√2/2, √2/2) ✓]");
 
-/* det(R) = 1 (διατηρεί εμβαδόν) */
+/* det(R) = 1 (area preserving) */
 print("det(R₄₅) =", trigsimp(determinant(R_45_s)));
 
-/* Ανακλαστικοί μετασχηματισμοί */
-Ref_x : matrix([1, 0], [0,-1]);   /* ανάκλαση ως προς x-άξονα */
-Ref_y : matrix([-1,0], [0, 1]);   /* ανάκλαση ως προς y-άξονα */
-Ref_d : matrix([0, 1], [1, 0]);   /* ανάκλαση ως προς y=x */
+/* Reflections */
+Ref_x : matrix([1, 0], [0,-1]);   /* reflection in the x-axis */
+Ref_y : matrix([-1,0], [0, 1]);   /* reflection in the y-axis */
+Ref_d : matrix([0, 1], [1, 0]);   /* reflection in the line y=x */
 
-print("Ανάκλαση ως προς x-άξονα:");
+print("Reflection in the x-axis:");
 q : matrix([3], [4]);
 print("  (3,4) →", Ref_x . q);
 
-/* Ομοιοθεσία (scaling) */
+/* Scaling */
 S : matrix([2, 0], [0, 3]);
-print("Κλιμάκωση sx=2, sy=3:");
+print("Scaling sx=2, sy=3:");
 print("  (1,1) →", S . matrix([1],[1]));
 
-/* ── Μέρος Δ: Σύνθεση Μετασχηματισμών ─────────────────────── */
-print("════ Δ. Σύνθεση Μετασχηματισμών ════");
+/* ── Part D: Composition of Transformations ───────────────── */
+print("════ D. Composition of Transformations ════");
 
-/* Στροφή 90° ακολουθούμενη από ανάκλαση ως προς x */
+/* Rotation by 90° followed by reflection in the x-axis */
 R_90 : matrix([0,-1],[1, 0]);
 print("R₉₀·Ref_x ="); print(R_90 . Ref_x);
 print("Ref_x·R₉₀ ="); print(Ref_x . R_90);
-print("R₉₀·Ref_x ≠ Ref_x·R₉₀  (μη αντιμεταθετικότητα)");
+print("R₉₀·Ref_x ≠ Ref_x·R₉₀  (non-commutativity)");
 
-/* ── Μέρος Ε: Αντίστροφος Μετασχηματισμός ──────────────────── */
-print("════ Ε. Αντίστροφος Μετασχηματισμός ════");
+/* ── Part E: Inverse Transformation ────────────────────────── */
+print("════ E. Inverse Transformation ════");
 
 print("det(A) =", determinant(A));
 if determinant(A) # 0 then (
@@ -114,6 +114,6 @@ if determinant(A) # 0 then (
     print("A⁻¹ ="), print(A_inv),
     print("A·A⁻¹ = I:"), print(ratsimp(A . A_inv))
 ) else
-    print("det(A) = 0  →  T δεν είναι αντιστρέψιμος");
+    print("det(A) = 0  →  T is not invertible");
 
-print("════ Τέλος ════");
+print("════ End ════");

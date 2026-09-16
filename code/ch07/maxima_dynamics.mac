@@ -1,21 +1,21 @@
 /* ============================================================
    maxima_dynamics.mac
-   Κεφάλαιο 7 — Δυναμικά Συστήματα: Εξέλιξη, Ευστάθεια, Markov
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού & Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 7 — Dynamical Systems: Evolution, Stability, Markov
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
    ============================================================
-   ΕΝΤΟΛΕΣ:
-     eigenvalues(A)     -> [[ιδιοτιμές],[πολλαπλότητες]]
-     eigenvectors(P)    -> ιδιοτιμές μαζί με ιδιοδιανύσματα
-     A^^k . x0          -> δύναμη πίνακα (^^) επί διάνυσμα
-     invert(M)          -> αντίστροφος πίνακας
-     float(expr)        -> δεκαδική μορφή
+   COMMANDS:
+     eigenvalues(A)     -> [[eigenvalues],[multiplicities]]
+     eigenvectors(P)    -> eigenvalues together with eigenvectors
+     A^^k . x0          -> power of a matrix (^^) times a vector
+     invert(M)          -> inverse matrix
+     float(expr)        -> decimal form
    ------------------------------------------------------------
-   Δουλεύουμε με ΡΗΤΟΥΣ (8/10 αντί 0.8) ώστε οι ιδιοτιμές να
-   βγαίνουν ακριβείς· τυπώνουμε με float() όπου χρειάζεται.
+   We work with RATIONAL numbers (8/10 instead of 0.8) so that the
+   eigenvalues come out exact; we print with float() where needed.
    ============================================================ */
 
-/* ── Α. (α) Εξέλιξη x_{k+1} = A x_k, ιδιοτιμές, ευστάθεια ──── */
-print("════ Α. Εξέλιξη του συστήματος x_{k+1} = A x_k ════")$
+/* ── A. (a) Evolution x_{k+1} = A x_k, eigenvalues, stability ─ */
+print("════ A. Evolution of the system x_{k+1} = A x_k ════")$
 
 A  : matrix([8/10, 0], [0, 6/10])$
 x0 : matrix([1], [1])$
@@ -25,82 +25,82 @@ print("x0 =", transpose(x0))$
 x1  : A . x0$
 x2  : A . x1$
 x10 : A^^10 . x0$
-print("x1  =", transpose(x1),  " = (0,8 ; 0,6)  (= [4/5, 3/5] ✓)")$
-print("x2  =", transpose(x2),  " = (0,64 ; 0,36) (= [16/25, 9/25] ✓)")$
+print("x1  =", transpose(x1),  " = (0.8 ; 0.6)  (= [4/5, 3/5] ✓)")$
+print("x2  =", transpose(x2),  " = (0.64 ; 0.36) (= [16/25, 9/25] ✓)")$
 print("x10 =", float(transpose(x10)),
-      " = (0,8^10 ; 0,6^10) = (0,1073741824 ; 0,0060466176) ✓")$
+      " = (0.8^10 ; 0.6^10) = (0.1073741824 ; 0.0060466176) ✓")$
 
 evA : eigenvalues(A)$
-print("Ιδιοτιμές του A:", evA[1], " (= [4/5, 3/5] ✓)")$
+print("Eigenvalues of A:", evA[1], " (= [4/5, 3/5] ✓)")$
 rhoA : lmax(map(abs, evA[1]))$
-print("Φασματική ακτίνα ρ(A) =", rhoA, "=", float(rhoA), " (= 0,8 ✓)")$
+print("Spectral radius rho(A) =", rhoA, "=", float(rhoA), " (= 0.8 ✓)")$
 
-/* Το συμπέρασμα ΔΕΝ γράφεται σταθερά: προκύπτει από σύγκριση.  */
+/* The conclusion is NOT hard-coded: it follows from a comparison. */
 if rhoA < 1 then
-   print("ρ(A) < 1  =>  x_k -> 0 : ασυμπτωτικά ΕΥΣΤΑΘΕΣ")
+   print("rho(A) < 1  =>  x_k -> 0 : asymptotically STABLE")
 elseif rhoA = 1 then
-   print("ρ(A) = 1  =>  οριακή περίπτωση: φραγμένες τροχιές, όχι -> 0")
+   print("rho(A) = 1  =>  borderline case: bounded orbits, not -> 0")
 else
-   print("ρ(A) > 1  =>  ΑΣΤΑΘΕΣ: οι τροχιές απομακρύνονται")$
+   print("rho(A) > 1  =>  UNSTABLE: the orbits move away")$
 
-/* ── Β. (β) Το σύστημα με B είναι ασταθές, μέσω ρ(B) ───────── */
-print("════ Β. Αστάθεια για τον πίνακα B ════")$
+/* ── B. (b) The system with B is unstable, through rho(B) ──── */
+print("════ B. Instability for the matrix B ════")$
 
 B : matrix([11/10, 2/10], [1/10, 9/10])$
 print("B =", B)$
 evB : eigenvalues(B)$
-print("Ιδιοτιμές του B:", evB[1])$
-print("  αριθμητικά:", float(evB[1]),
-      " (= 1 - sqrt(3)/10 = 0,82679... και 1 + sqrt(3)/10 = 1,17320... ✓)")$
+print("Eigenvalues of B:", evB[1])$
+print("  numerically:", float(evB[1]),
+      " (= 1 - sqrt(3)/10 = 0.82679... and 1 + sqrt(3)/10 = 1.17320... ✓)")$
 rhoB : lmax(map(abs, float(evB[1])))$
-print("ρ(B) =", rhoB, " (= 1,1732050807568877 ✓)")$
+print("rho(B) =", rhoB, " (= 1.1732050807568877 ✓)")$
 
 if rhoB < 1 then
-   print("ρ(B) < 1  =>  ευσταθές")
+   print("rho(B) < 1  =>  stable")
 elseif rhoB = 1 then
-   print("ρ(B) = 1  =>  οριακή περίπτωση")
+   print("rho(B) = 1  =>  borderline case")
 else
-   print("ρ(B) > 1  =>  ΑΣΤΑΘΕΣ ✓ (όπως ζητά το ερώτημα)")$
+   print("rho(B) > 1  =>  UNSTABLE ✓ (as the question asks)")$
 
-/* Επιβεβαίωση: η τροχιά του B απομακρύνεται (οι όροι μεγαλώνουν). */
+/* Confirmation: the orbit of B moves away (the terms grow). */
 y0 : matrix([1], [1])$
 for m : 5 thru 20 step 5 do
     print("  B^", m, ". y0 =", float(transpose(B^^m . y0)))$
 
-/* ── Γ. (γ) Αλυσίδα Markov: στάσιμη κατανομή π ─────────────── */
-print("════ Γ. Στάσιμη κατανομή αλυσίδας Markov ════")$
+/* ── C. (c) Markov chain: stationary distribution pi ───────── */
+print("════ C. Stationary distribution of a Markov chain ════")$
 
 Pm : matrix([9/10, 2/10], [1/10, 8/10])$
-print("P =", Pm, "  (στήλες με άθροισμα 1)")$
+print("P =", Pm, "  (columns summing to 1)")$
 
 [valsP, vecsP] : eigenvectors(Pm)$
-print("Ιδιοτιμές του P:", valsP[1], " (= [7/10, 1] ✓)")$
+print("Eigenvalues of P:", valsP[1], " (= [7/10, 1] ✓)")$
 
-/* ΠΡΟΣΟΧΗ: δεν υποθέτουμε ποια θέση έχει η λ=1 — την ΨΑΧΝΟΥΜΕ. */
+/* NOTE: we do not assume the position of lam=1 — we SEARCH for it. */
 idx : 0$
 for i : 1 thru length(valsP[1]) do
     if valsP[1][i] = 1 then idx : i$
-print("Η ιδιοτιμή λ=1 βρίσκεται στη θέση:", idx)$
+print("The eigenvalue lam=1 is found at position:", idx)$
 
 v : transpose(matrix(vecsP[idx][1]))$
-print("Ιδιοδιάνυσμα για λ=1 (πριν την κανονικοποίηση):", transpose(v))$
+print("Eigenvector for lam=1 (before normalization):", transpose(v))$
 
 s : v[1,1] + v[2,1]$
-print("Άθροισμα συνιστωσών:", s, " (πρέπει να είναι ≠ 0)")$
+print("Sum of the components:", s, " (must be ≠ 0)")$
 pist : v / s$
-print("Στάσιμη κατανομή π =", transpose(pist), " (= [2/3, 1/3] ✓)")$
-print("  αριθμητικά:", float(transpose(pist)), " (= [0,6667 ; 0,3333] ✓)")$
-print("Έλεγχος P.π = π :", is(ratsimp(Pm . pist - pist) = matrix([0],[0])),
+print("Stationary distribution pi =", transpose(pist), " (= [2/3, 1/3] ✓)")$
+print("  numerically:", float(transpose(pist)), " (= [0.6667 ; 0.3333] ✓)")$
+print("Check P.pi = pi :", is(ratsimp(Pm . pist - pist) = matrix([0],[0])),
       "  (true ✓)")$
-print("Έλεγχος αθροίσματος = 1 :", is(pist[1,1] + pist[2,1] = 1), "  (true ✓)")$
+print("Check that the sum = 1 :", is(pist[1,1] + pist[2,1] = 1), "  (true ✓)")$
 
-/* ── Δ. (δ) Κλειστός τύπος για το A^k μέσω διαγωνιοποίησης ─── */
-print("════ Δ. A^k σε κλειστή μορφή (διαγωνιοποίηση) ════")$
+/* ── D. (d) Closed form for A^k through diagonalization ───── */
+print("════ D. A^k in closed form (diagonalization) ════")$
 
-kill(k)$   /* το k πρέπει να είναι ελεύθερο σύμβολο */
+kill(k)$   /* k must be a free symbol */
 
 [valsA, vecsA] : eigenvectors(A)$
-/* Συγκεντρώνουμε ΟΛΑ τα ιδιοδιανύσματα σε στήλες του S.        */
+/* We collect ALL the eigenvectors as columns of S.            */
 lam  : []$
 cols : []$
 for i : 1 thru length(valsA[1]) do
@@ -112,25 +112,25 @@ Dm : apply(matrix, makelist(makelist(if i = j then lam[i] else 0,
                                      j, 1, length(lam)),
                             i, 1, length(lam)))$
 print("S =", S, "   D =", Dm)$
-print("Έλεγχος A = S.D.S^(-1):",
+print("Check A = S.D.S^(-1):",
       is(ratsimp(S . Dm . invert(S) - A) = matrix([0,0],[0,0])), " (true ✓)")$
 
 Dk : apply(matrix, makelist(makelist(if i = j then lam[i]^k else 0,
                                      j, 1, length(lam)),
                             i, 1, length(lam)))$
 Ak : ratsimp(S . Dk . invert(S))$
-print("A^k =", Ak, "   δηλαδή A^k = diag((4/5)^k, (3/5)^k) ✓")$
+print("A^k =", Ak, "   that is A^k = diag((4/5)^k, (3/5)^k) ✓")$
 
-/* Επαλήθευση του κλειστού τύπου για k = 10.                    */
-print("A^10 από τον τύπο:", float(subst(10, k, Ak)))$
-print("A^10 απευθείας   :", float(A^^10), "  (ταυτίζονται ✓)")$
+/* Verification of the closed form for k = 10.                 */
+print("A^10 from the formula:", float(subst(10, k, Ak)))$
+print("A^10 directly     :", float(A^^10), "  (they agree ✓)")$
 print("x_k = A^k x0 =", transpose(ratsimp(Ak . x0)))$
 
-/* ── Γραφική εποπτεία: οι συνιστώσες φθίνουν γεωμετρικά ────── */
+/* ── Graphical insight: the components decay geometrically ── */
 kill(t)$
 plot2d([(4/5)^t, (3/5)^t], [t, 0, 20],
-       [legend, "x1(k) = 0,8^k", "x2(k) = 0,6^k"],
-       [xlabel, "k"], [ylabel, "συνιστώσα"],
-       [title, "Ασυμπτωτική ευστάθεια: ρ(A) = 0,8 < 1"])$
+       [legend, "x1(k) = 0.8^k", "x2(k) = 0.6^k"],
+       [xlabel, "k"], [ylabel, "component"],
+       [title, "Asymptotic stability: rho(A) = 0.8 < 1"])$
 
-print("── Τέλος maxima_dynamics.mac ──")$
+print("── End of maxima_dynamics.mac ──")$

@@ -1,22 +1,22 @@
 # ============================================================
 # python_lintrans.py
-# Κεφάλαιο 4 — Γραμμικοί Μετασχηματισμοί
-# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού & Ολοκληρωτικού Λογισμού. NewTech Publications.
+# Chapter 4 — Linear Transformations
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
 # ============================================================
 #
-# ΒΙΒΛΙΟΘΗΚΕΣ:
-#   numpy      → εφαρμογή μετασχηματισμών (@ operator)
-#   sympy      → πυρήνας, εικόνα, ακριβής λύση
-#   matplotlib → γεωμετρική οπτικοποίηση (μοναδιαίος κύκλος,
-#                μετασχηματισμός πολυγώνων)
+# LIBRARIES:
+#   numpy      → applying transformations (@ operator)
+#   sympy      → kernel, image, exact solution
+#   matplotlib → geometric visualization (unit circle,
+#                transformation of polygons)
 #
-# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
-#   A @ v                    → T(v) = εφαρμογή μετασχηματισμού
-#   A @ B                    → σύνθεση T₂∘T₁
-#   np.linalg.inv(A)         → αντίστροφος μετασχηματισμός
-#   sympy.Matrix.nullspace() → πυρήνας
-#   sympy.Matrix.columnspace()→ εικόνα
-#   np.linalg.det(A)         → det (αντιστρεψιμότητα, εμβαδόν)
+# BASIC COMMANDS:
+#   A @ v                    → T(v) = applying the transformation
+#   A @ B                    → composition T₂∘T₁
+#   np.linalg.inv(A)         → inverse transformation
+#   sympy.Matrix.nullspace() → kernel
+#   sympy.Matrix.columnspace()→ image
+#   np.linalg.det(A)         → det (invertibility, area)
 # ============================================================
 
 import numpy as np
@@ -26,11 +26,11 @@ from matplotlib.patches import FancyArrowPatch
 from sympy import Matrix, pi, cos, sin, sqrt, Rational, pprint
 
 print("=" * 55)
-print(" Κεφάλαιο 4: Γραμμικοί Μετασχηματισμοί — Python")
+print(" Chapter 4: Linear Transformations — Python")
 print("=" * 55)
 
-# ── Α. Ορισμός & Εφαρμογή Μετασχηματισμού ────────────────
-print("\n── Α. Μετασχηματισμός T: ℝ³ → ℝ³ ──")
+# ── A. Definition & Application of a Transformation ──────
+print("\n── A. Transformation T: ℝ³ → ℝ³ ──")
 
 A = np.array([[ 1,  2,  0],
               [ 3, -1,  1],
@@ -38,7 +38,7 @@ A = np.array([[ 1,  2,  0],
 
 print("A =\n", A)
 
-# Εφαρμογή σε βασικά διανύσματα
+# Applying it to the basis vectors
 e1, e2, e3 = np.eye(3)
 print(f"\nT(e₁) = {A @ e1}")
 print(f"T(e₂) = {A @ e2}")
@@ -47,17 +47,17 @@ print(f"T(e₃) = {A @ e3}")
 u = np.array([2, -1, 3])
 print(f"\nT([2,-1,3]ᵀ) = {A @ u}")
 
-# Έλεγχος γραμμικότητας
+# Test of linearity
 w = np.array([1, 1, 1])
 alpha, beta = 2, -1
 lhs = A @ (alpha*u + beta*w)
 rhs = alpha*(A @ u) + beta*(A @ w)
-print(f"\nΈλεγχος: T(2u-w) = {lhs}")
+print(f"\nTest: T(2u-w) = {lhs}")
 print(f"         2T(u)-T(w) = {rhs}")
-print(f"Ισότητα: {np.allclose(lhs, rhs)}  ✓")
+print(f"Equality: {np.allclose(lhs, rhs)}  ✓")
 
-# ── Β. Πυρήνας (Kernel) & Εικόνα (Image) ─────────────────
-print("\n── Β. Ker(T) & Im(T) ──")
+# ── B. Kernel & Image ────────────────────────────────────
+print("\n── B. Ker(T) & Im(T) ──")
 
 A_sym = Matrix([[ 1,  2,  0],
                 [ 3, -1,  1],
@@ -73,16 +73,16 @@ print("\nKer(T):")
 if ker:
     for v in ker: pprint(v.T)
 else:
-    print("  {0}  (μόνο το μηδενικό διάνυσμα)")
+    print("  {0}  (only the zero vector)")
 
-print("\nIm(T) — βάση:")
+print("\nIm(T) — basis:")
 for v in A_sym.columnspace(): pprint(v.T)
 
-# ── Γ. Γεωμετρικοί Μετασχηματισμοί στο ℝ² ───────────────
-print("\n── Γ. Γεωμετρικοί Μετασχηματισμοί ──")
+# ── C. Geometric Transformations in ℝ² ──────────────────
+print("\n── C. Geometric Transformations ──")
 
 def rot(theta_deg):
-    """Πίνακας στροφής κατά θ μοίρες."""
+    """Rotation matrix through t degrees."""
     t = np.radians(theta_deg)
     return np.array([[np.cos(t), -np.sin(t)],
                      [np.sin(t),  np.cos(t)]])
@@ -94,7 +94,7 @@ def scale(sx, sy):
     return np.array([[sx, 0], [0, sy]])
 
 def shear(k):
-    """Διάτμηση ως προς x."""
+    """Shear along x."""
     return np.array([[1, k], [0, 1]])
 
 R45  = rot(45)
@@ -105,38 +105,38 @@ Sh   = shear(1)
 
 print(f"R₄₅·(1,0)ᵀ = {np.round(R45 @ [1,0], 6)}")
 print(f"  (= (√2/2, √2/2) ≈ (0.7071, 0.7071) ✓)")
-print(f"det(R₄₅) = {np.linalg.det(R45):.6f}  (= 1 → διατηρεί εμβαδόν ✓)")
-print(f"det(Ref_x) = {np.linalg.det(Refx):.1f}  (= -1 → αντιστρέφει προσανατολισμό)")
+print(f"det(R₄₅) = {np.linalg.det(R45):.6f}  (= 1 → area preserving ✓)")
+print(f"det(Ref_x) = {np.linalg.det(Refx):.1f}  (= -1 → reverses orientation)")
 print(f"det(Scale(2,0.5)) = {np.linalg.det(Sc):.4f}  (= 2·0.5 = 1)")
 
-# Σύνθεση: μη αντιμεταθετική
+# Composition: non-commutative
 print(f"\nR₉₀∘Ref_x =\n{np.round(R90 @ Refx, 6)}")
 print(f"Ref_x∘R₉₀ =\n{np.round(Refx @ R90, 6)}")
-print("Διαφορετικά!  →  μη αντιμεταθετικότητα ✓")
+print("Different!  →  non-commutativity ✓")
 
-# ── Δ. Γραφική Απεικόνιση ──────────────────────────────────
-print("\n── Δ. Γραφική Απεικόνιση ──")
+# ── D. Graphical Representation ────────────────────────────
+print("\n── D. Graphical Representation ──")
 
-# Τετράγωνο μοναδιαίας πλευράς (+ κλειστό)
+# Unit square (+ closed)
 sq = np.array([[0,1,1,0,0],
                [0,0,1,1,0]], dtype=float)
 
 fig, axes = plt.subplots(2, 3, figsize=(13, 8))
-fig.suptitle("Γεωμετρικοί Γραμμικοί Μετασχηματισμοί", fontsize=13, fontweight='bold')
+fig.suptitle("Geometric Linear Transformations", fontsize=13, fontweight='bold')
 
 transforms = [
-    (np.eye(2),  "Ταυτοτικός $I$"),
-    (R45,        "Στροφή $45°$"),
-    (R90,        "Στροφή $90°$"),
-    (Refx,       "Ανάκλαση ως προς $x$"),
-    (Sc,         "Κλιμάκωση\n$s_x=2, s_y=0.5$"),
-    (Sh,         "Διάτμηση $k=1$"),
+    (np.eye(2),  "Identity $I$"),
+    (R45,        "Rotation $45°$"),
+    (R90,        "Rotation $90°$"),
+    (Refx,       "Reflection in $x$"),
+    (Sc,         "Scaling\n$s_x=2, s_y=0.5$"),
+    (Sh,         "Shear $k=1$"),
 ]
 
 for ax, (T, title) in zip(axes.flat, transforms):
     sq_t = T @ sq
-    ax.fill(sq[0], sq[1], alpha=0.25, color='royalblue', label='Αρχικό')
-    ax.fill(sq_t[0], sq_t[1], alpha=0.35, color='tomato', label='Μετά T')
+    ax.fill(sq[0], sq[1], alpha=0.25, color='royalblue', label='Original')
+    ax.fill(sq_t[0], sq_t[1], alpha=0.35, color='tomato', label='After T')
     ax.plot(sq[0], sq[1], 'royalblue', lw=1.5)
     ax.plot(sq_t[0], sq_t[1], 'tomato', lw=2)
     ax.axhline(0, color='k', lw=0.5); ax.axvline(0, color='k', lw=0.5)

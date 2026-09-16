@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Κώδικας Κεφ. 10 — Παράγωγος Συνάρτησης · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<title>Code Ch. 10 — The Derivative of a Function · Elements of Linear Algebra &amp; Calculus</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 <style>
   :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
@@ -53,17 +53,17 @@
 </head>
 <body>
 <header>
-  <h1>📐 Κεφάλαιο 10 — Παράγωγος Συνάρτησης</h1>
-  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+  <h1>📐 Chapter 10 — The Derivative of a Function</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
 </header>
 <div class="breadcrumb">
-  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 10
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 10
 </div>
 <div class="container">
   <div class="info-box">
-    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
-    <p><strong>Αντικείμενο:</strong> κανόνες παραγώγισης, παράγωγοι ανώτερης τάξης, εφαπτομένη ευθεία, ορισμός μέσω ορίου, άρρητη και λογαριθμική παραγώγιση<br><br>
-    Επιλέξτε γλώσσα από τις καρτέλες. Τον κώδικα <strong>Python</strong> μπορείτε να τον <strong>τρέξετε εδώ μέσα στη σελίδα</strong> (κουμπί «▶ Τρέξε») — μπορείτε και να τον επεξεργαστείτε. Ο κώδικας <strong>Maxima</strong> εκτελείται στο <strong>wxMaxima</strong>.</p>
+    <h2>📋 Contents of the Activities</h2>
+    <p><strong>Topic:</strong> differentiation rules, higher-order derivatives, the tangent line, the limit definition, implicit and logarithmic differentiation<br><br>
+    Choose a language from the tabs. The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.</p>
   </div>
   <div class="tabs">
     <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
@@ -73,10 +73,10 @@
     <div class="code-card">
       <div class="code-header maxima">
         <span>maxima_paragogos.mac</span>
-        <a class="download-btn" href="maxima_paragogos.mac" download>⬇ Λήψη .mac</a>
+        <a class="download-btn" href="maxima_paragogos.mac" download>⬇ Download .mac</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0">
-        <strong>Βασικές εντολές:</strong>
+        <strong>Basic commands:</strong>
         <code>diff(f,x)</code> &nbsp;
         <code>diff(f,x,n)</code> &nbsp;
         <code>at(diff(f,x),x=a)</code> &nbsp;
@@ -85,149 +85,149 @@
       </div>
       <pre><code class="language-maxima" id="maxima-code">/* ============================================================
    maxima_paragogos.mac
-   Κεφάλαιο 10 — Παράγωγος: Κανόνες, Ανώτερης Τάξης, Εφαπτόμενη
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 10 — The Derivative: Rules, Higher Order, Tangent Line
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
    ============================================================
 
-   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
+   COMMANDS USED:
      diff(f, x)                     -&gt; f'(x)
-     diff(f, x, n)                  -&gt; n-οστή παράγωγος
-     at(diff(f,x), x=a)             -&gt; τιμή της παραγώγου στο a
-     subst(a, x, expr)              -&gt; αντικατάσταση x -&gt; a
-     trigsimp(...) , ratsimp(...)   -&gt; απλοποίηση
-     limit((f(x+h)-f(x))/h, h, 0)   -&gt; παράγωγος από τον ΟΡΙΣΜΟ
+     diff(f, x, n)                  -&gt; nth derivative
+     at(diff(f,x), x=a)             -&gt; value of the derivative at a
+     subst(a, x, expr)              -&gt; substitution x -&gt; a
+     trigsimp(...) , ratsimp(...)   -&gt; simplification
+     limit((f(x+h)-f(x))/h, h, 0)   -&gt; derivative from the DEFINITION
 
-   Εκτελέστε με: wxMaxima (File/Batch) ή
+   Run with: wxMaxima (File/Batch) or
                  maxima -b maxima_paragogos.mac
    ============================================================ */
 
-/* ── Α. Βασικοί κανόνες παραγώγισης ─────────────────────── */
-print("════ Α. Βασικοί κανόνες ════")$
+/* ── A. Basic differentiation rules ─────────────────────── */
+print("════ A. Basic rules ════")$
 
 fA1 : 3*x^4 - 5*x^2 + 2*x - 7$
 fA2 : sin(x)$
 fA3 : exp(3*x)$
 fA4 : log(x^2 + 1)$
 
-print("(3x^4-5x^2+2x-7)' =", diff(fA1, x), "   (αναμ. 12x^3-10x+2)")$
-print("(sin x)'          =", diff(fA2, x), "   (αναμ. cos x)")$
-print("(e^(3x))'         =", diff(fA3, x), "   (αναμ. 3e^(3x))")$
-print("(ln(x^2+1))'      =", diff(fA4, x), "   (αναμ. 2x/(x^2+1))")$
+print("(3x^4-5x^2+2x-7)' =", diff(fA1, x), "   (expected 12x^3-10x+2)")$
+print("(sin x)'          =", diff(fA2, x), "   (expected cos x)")$
+print("(e^(3x))'         =", diff(fA3, x), "   (expected 3e^(3x))")$
+print("(ln(x^2+1))'      =", diff(fA4, x), "   (expected 2x/(x^2+1))")$
 
-/* Επαλήθευση με χαρτί και μολύβι: δύναμη, αλυσίδα, λογάριθμος. */
-print("Έλεγχος (διαφορά από το αναμενόμενο, πρέπει 0):",
+/* Check by hand: power rule, chain rule, logarithm. */
+print("Check (difference from the expected value, must be 0):",
       ratsimp(diff(fA1,x) - (12*x^3-10*x+2)),
       ratsimp(diff(fA2,x) - cos(x)),
       ratsimp(diff(fA3,x) - 3*exp(3*x)),
       ratsimp(diff(fA4,x) - 2*x/(x^2+1)))$
 
-/* ── Β. Γινόμενο, πηλίκο, αλυσίδα ───────────────────────── */
+/* ── B. Product, quotient, chain ────────────────────────── */
 print("")$
-print("════ Β. Γινόμενο — Πηλίκο — Αλυσίδα ════")$
+print("════ B. Product — Quotient — Chain ════")$
 
-/* Κανόνας γινομένου: (uv)' = u'v + uv' */
+/* Product rule: (uv)' = u'v + uv' */
 gB : x^2*sin(x)$
-print("(x^2 sin x)' =", diff(gB, x), "   (αναμ. 2x sin x + x^2 cos x)")$
+print("(x^2 sin x)' =", diff(gB, x), "   (expected 2x sin x + x^2 cos x)")$
 
-/* Κανόνας πηλίκου: (u/v)' = (u'v - uv')/v^2 */
+/* Quotient rule: (u/v)' = (u'v - uv')/v^2 */
 hB : (x^3 + 1)/(x^2 - 1)$
 print("((x^3+1)/(x^2-1))' =", factor(ratsimp(diff(hB, x))),
-      "   (αναμ. x(x-2)/(x-1)^2)")$
+      "   (expected x(x-2)/(x-1)^2)")$
 
-/* Κανόνας αλυσίδας: [f(g(x))]' = f'(g(x)) g'(x) */
+/* Chain rule: [f(g(x))]' = f'(g(x)) g'(x) */
 kB : sin(x^2 + 1)$
-print("[sin(x^2+1)]' =", diff(kB, x), "   (αναμ. 2x cos(x^2+1))")$
+print("[sin(x^2+1)]' =", diff(kB, x), "   (expected 2x cos(x^2+1))")$
 
-print("Έλεγχοι (πρέπει 0,0,0):",
+print("Checks (must be 0,0,0):",
       ratsimp(diff(gB,x) - (2*x*sin(x) + x^2*cos(x))),
       ratsimp(diff(hB,x) - x*(x-2)/(x-1)^2),
       ratsimp(diff(kB,x) - 2*x*cos(x^2+1)))$
 
-/* ── Γ. Ανώτερης τάξης: f(x) = e^x cos x ────────────────── */
+/* ── C. Higher order: f(x) = e^x cos x ──────────────────── */
 print("")$
-print("════ Γ. Παράγωγοι ανώτερης τάξης: f(x)=e^x cos(x) ════")$
+print("════ C. Higher-order derivatives: f(x)=e^x cos(x) ════")$
 
 fC : exp(x)*cos(x)$
 for n:1 thru 4 do
     print("  f^(", n, ")(x) =", expand(diff(fC, x, n)))$
 
-/* Η ζητούμενη ταυτότητα: f^(4) = -4 f  */
+/* The required identity: f^(4) = -4 f  */
 print("  f^(4) + 4 f =", expand(diff(fC, x, 4) + 4*fC),
-      "  =&gt;  f^(4) = -4f  (επαληθεύεται)")$
+      "  =&gt;  f^(4) = -4f  (verified)")$
 
-/* Ανώτερης τάξης και για το sin: κύκλος περιόδου 4 */
-print("  Για σύγκριση, sin^(n)(x):")$
+/* Higher order for sin as well: a cycle of period 4 */
+print("  For comparison, sin^(n)(x):")$
 for n:1 thru 4 do print("    n =", n, "-&gt;", diff(sin(x), x, n))$
 
-/* ── Δ. Εφαπτόμενη ευθεία: f(x)=x^3-2x+1 στο x0=1 ───────── */
+/* ── D. Tangent line: f(x)=x^3-2x+1 at x0=1 ─────────────── */
 print("")$
-print("════ Δ. Εφαπτόμενη της f(x)=x^3-2x+1 στο x0=1 ════")$
+print("════ D. Tangent to f(x)=x^3-2x+1 at x0=1 ════")$
 
 fD : x^3 - 2*x + 1$
 x0 : 1$
 y0 : subst(x0, x, fD)$
-m  : at(diff(fD, x), x = x0)$          /* at(): τιμή παραγώγου στο x0 */
+m  : at(diff(fD, x), x = x0)$          /* at(): value of the derivative at x0 */
 tang : expand(y0 + m*(x - x0))$
 
 print("  f(1) =", y0, "   f'(x) =", diff(fD,x), "   f'(1) =", m)$
-print("  Εφαπτόμενη: y =", tang, "   (αναμ. y = x - 1)")$
-print("  Έλεγχος (πρέπει 0):", ratsimp(tang - (x - 1)))$
+print("  Tangent: y =", tang, "   (expected y = x - 1)")$
+print("  Check (must be 0):", ratsimp(tang - (x - 1)))$
 
-/* Γράφημα f, f', f'' και της εφαπτομένης στο [-2, 2.5] */
+/* Plot of f, f', f'' and of the tangent line on [-2, 2.5] */
 plot2d([fD, diff(fD,x), diff(fD,x,2), tang], [x, -2, 2.5],
-       [legend, "f", "f'", "f''", "εφαπτόμενη στο x0=1"],
-       [title, "f(x)=x^3-2x+1 : f, f', f'' και εφαπτόμενη"])$
+       [legend, "f", "f'", "f''", "tangent at x0=1"],
+       [title, "f(x)=x^3-2x+1 : f, f', f'' and the tangent"])$
 
-/* ── Ε. Η παράγωγος από τον ΟΡΙΣΜΟ (όριο) ──────────────── */
+/* ── E. The derivative from the DEFINITION (a limit) ────── */
 print("")$
-print("════ Ε. Ορισμός: f'(x) = lim_{h-&gt;0} (f(x+h)-f(x))/h ════")$
+print("════ E. Definition: f'(x) = lim_{h-&gt;0} (f(x+h)-f(x))/h ════")$
 
 /* f(x) = x^2 */
-print("  x^2 : λόγος μεταβολής =", ratsimp(((x+h)^2 - x^2)/h))$
-print("        όριο h-&gt;0        =", limit(((x+h)^2 - x^2)/h, h, 0),
+print("  x^2 : difference quotient =", ratsimp(((x+h)^2 - x^2)/h))$
+print("        limit h-&gt;0          =", limit(((x+h)^2 - x^2)/h, h, 0),
       "   (diff: ", diff(x^2, x), ")")$
 
 /* f(x) = sqrt(x) */
-print("  sqrt(x) : όριο h-&gt;0    =", limit((sqrt(x+h) - sqrt(x))/h, h, 0),
+print("  sqrt(x) : limit h-&gt;0     =", limit((sqrt(x+h) - sqrt(x))/h, h, 0),
       "   (diff: ", diff(sqrt(x), x), ")")$
 
-/* Ένα ακόμη: f(x)=sin x — ο ορισμός δίνει cos x */
-print("  sin(x)  : όριο h-&gt;0    =", limit((sin(x+h) - sin(x))/h, h, 0))$
+/* One more: f(x)=sin x — the definition gives cos x */
+print("  sin(x)  : limit h-&gt;0     =", limit((sin(x+h) - sin(x))/h, h, 0))$
 
-/* Πλευρικά όρια: η |x| ΔΕΝ είναι παραγωγίσιμη στο 0 */
+/* One-sided limits: |x| is NOT differentiable at 0 */
 print("")$
-print("  |x| στο 0 — από δεξιά   :", limit((abs(0+h) - abs(0))/h, h, 0, plus))$
-print("  |x| στο 0 — από αριστερά:", limit((abs(0+h) - abs(0))/h, h, 0, minus))$
-print("  Τα πλευρικά όρια διαφέρουν =&gt; δεν υπάρχει παράγωγος στο 0.")$
+print("  |x| at 0 — from the right:", limit((abs(0+h) - abs(0))/h, h, 0, plus))$
+print("  |x| at 0 — from the left :", limit((abs(0+h) - abs(0))/h, h, 0, minus))$
+print("  The one-sided limits differ =&gt; there is no derivative at 0.")$
 
-/* ── ΣΤ. Άρρητη παραγώγιση: x^2 + y^2 = 25 ──────────────── */
+/* ── F. Implicit differentiation: x^2 + y^2 = 25 ────────── */
 print("")$
-print("════ ΣΤ. Άρρητη παραγώγιση: x^2 + y^2 = 25 ════")$
+print("════ F. Implicit differentiation: x^2 + y^2 = 25 ════")$
 
-/* Θεώρημα πεπλεγμένης: dy/dx = -F_x / F_y  (μερικές παράγωγοι).
-   ΠΡΟΣΟΧΗ: χωρίς depends(y,x) η diff είναι μερική — αυτό θέλουμε. */
+/* Implicit function theorem: dy/dx = -F_x / F_y  (partial derivatives).
+   NOTE: without depends(y,x) diff is partial — which is what we want. */
 eq : x^2 + y^2 - 25$
 dy_dx : ratsimp(-diff(eq, x)/diff(eq, y))$
 print("  F_x =", diff(eq,x), "   F_y =", diff(eq,y))$
-print("  dy/dx =", dy_dx, "   (αναμ. -x/y)")$
-print("  Έλεγχος (πρέπει 0):", ratsimp(dy_dx + x/y))$
+print("  dy/dx =", dy_dx, "   (expected -x/y)")$
+print("  Check (must be 0):", ratsimp(dy_dx + x/y))$
 
-/* Εναλλακτικά, με depends(y,x) λύνουμε ως προς 'diff(y,x) */
+/* Alternatively, with depends(y,x) we solve for 'diff(y,x) */
 depends(y, x)$
-print("  Με depends(y,x):", solve(diff(x^2 + y^2 - 25, x) = 0, 'diff(y,x)))$
+print("  With depends(y,x):", solve(diff(x^2 + y^2 - 25, x) = 0, 'diff(y,x)))$
 remove(y, dependency)$
 
-/* ── Ζ. Προαιρετικό: λογαριθμική παραγώγιση (x^x)' ──────── */
+/* ── G. Optional: logarithmic differentiation (x^x)' ────── */
 print("")$
-print("════ Ζ. Λογαριθμική παραγώγιση: (x^x)' ════")$
+print("════ G. Logarithmic differentiation: (x^x)' ════")$
 
-assume(x &gt; 0)$                          /* ώστε να ορίζεται το ln x */
-print("  (x^x)' =", ratsimp(diff(x^x, x)), "   (αναμ. x^x (ln x + 1))")$
-print("  Έλεγχος (πρέπει 0):", ratsimp(diff(x^x, x) - x^x*(log(x) + 1)))$
+assume(x &gt; 0)$                          /* so that ln x is defined */
+print("  (x^x)' =", ratsimp(diff(x^x, x)), "   (expected x^x (ln x + 1))")$
+print("  Check (must be 0):", ratsimp(diff(x^x, x) - x^x*(log(x) + 1)))$
 forget(x &gt; 0)$
 
 print("")$
-print("Ολοκληρώθηκε το Κεφάλαιο 10.")$
+print("Chapter 10 completed.")$
 </code></pre>
     </div>
   </div>
@@ -235,10 +235,10 @@ print("Ολοκληρώθηκε το Κεφάλαιο 10.")$
     <div class="code-card">
       <div class="code-header python">
         <span>python_paragogos.py</span>
-        <a class="download-btn" href="python_paragogos.py" download>⬇ Λήψη .py</a>
+        <a class="download-btn" href="python_paragogos.py" download>⬇ Download .py</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0">
-        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <strong>Libraries / commands:</strong>
         <code>sympy.diff()</code> &nbsp;
         <code>sympy.lambdify()</code> &nbsp;
         <code>np.gradient()</code> &nbsp;
@@ -246,27 +246,27 @@ print("Ολοκληρώθηκε το Κεφάλαιο 10.")$
         <code>matplotlib.pyplot</code>
       </div>
             <div class="py-toolbar">
-        <button class="run-btn" id="py-run">▶ Τρέξε</button>
-        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
-        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
       </div>
       <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
 # python_paragogos.py
-# Κεφάλαιο 10 — Παράγωγος: SymPy, NumPy, Γραφικά
-# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# Chapter 10 — The Derivative: SymPy, NumPy, Graphics
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
 # ============================================================
 #
-# ΒΙΒΛΙΟΘΗΚΕΣ:
-#   sympy       → συμβολική παραγώγιση
-#   numpy       → αριθμητική παράγωγος από δείγμα τιμών
-#   matplotlib  → γραφήματα f, f', f'' και εφαπτομένης
+# LIBRARIES:
+#   sympy       → symbolic differentiation
+#   numpy       → numerical derivative from sampled values
+#   matplotlib  → plots of f, f', f'' and of the tangent line
 #
-# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
+# BASIC COMMANDS:
 #   sympy.diff(f, x)        → f'(x)
-#   sympy.diff(f, x, n)     → n-οστή παράγωγος
-#   f.subs(x, a)            → τιμή στο a
-#   sympy.lambdify(x, f)    → συμβολικό → αριθμητικό
-#   np.gradient(y, x)       → αριθμητική παράγωγος (κεντρικές διαφορές)
+#   sympy.diff(f, x, n)     → nth derivative
+#   f.subs(x, a)            → value at a
+#   sympy.lambdify(x, f)    → symbolic → numerical
+#   np.gradient(y, x)       → numerical derivative (central differences)
 # ============================================================
 
 import numpy as np
@@ -277,13 +277,13 @@ from sympy import (symbols, diff, simplify, factor, expand, lambdify,
 x, h = symbols('x h')
 
 print("=" * 58)
-print(" Κεφάλαιο 10: Παράγωγος Συνάρτησης — Python")
+print(" Chapter 10: The Derivative of a Function — Python")
 print("=" * 58)
 
-# ── Α. Παράγωγοι με sympy.diff — σύγκριση με τη Maxima ─────
-print("\n── Α. Βασικοί κανόνες (sympy.diff) ──")
+# ── A. Derivatives with sympy.diff — comparison with Maxima ─
+print("\n── A. Basic rules (sympy.diff) ──")
 
-# Ίδιες συναρτήσεις με τη δραστηριότητα Maxima.
+# The same functions as in the Maxima activity.
 casesA = [
     ("3x^4-5x^2+2x-7", 3*x**4 - 5*x**2 + 2*x - 7, 12*x**3 - 10*x + 2),
     ("sin(x)",          sin(x),                    cos(x)),
@@ -294,10 +294,10 @@ for name, f_, expected in casesA:
     d = simplify(diff(f_, x))
     same = simplify(d - expected) == 0
     print(f"  ({name})' = {d}")
-    print(f"      αναμενόμενο: {expected}   ταυτίζονται: {same}")
+    print(f"      expected: {expected}   identical: {same}")
 
-# ── Β. Γινόμενο — Πηλίκο — Αλυσίδα ────────────────────────
-print("\n── Β. Γινόμενο, πηλίκο, αλυσίδα ──")
+# ── B. Product — Quotient — Chain ─────────────────────────
+print("\n── B. Product, quotient, chain ──")
 
 casesB = [
     ("x^2 sin(x)",        x**2*sin(x),             2*x*sin(x) + x**2*cos(x)),
@@ -308,26 +308,26 @@ for name, f_, expected in casesB:
     d = factor(simplify(diff(f_, x)))
     same = simplify(diff(f_, x) - expected) == 0
     print(f"  ({name})' = {d}")
-    print(f"      αναμενόμενο: {expected}   ταυτίζονται: {same}")
+    print(f"      expected: {expected}   identical: {same}")
 
-# ── Γ. Ανώτερης τάξης: f(x)=e^x cos(x), f^(4) = -4f ───────
-print("\n── Γ. Ανώτερης τάξης: f(x)=e^x·cos(x) ──")
+# ── C. Higher order: f(x)=e^x cos(x), f^(4) = -4f ─────────
+print("\n── C. Higher order: f(x)=e^x·cos(x) ──")
 
 fC = exp(x)*cos(x)
 for n in range(1, 5):
     print(f"  f^({n})(x) = {expand(diff(fC, x, n))}")
 print(f"  f^(4) + 4f = {simplify(diff(fC, x, 4) + 4*fC)}   "
-      f"→ ισχύει f^(4) = -4f: {simplify(diff(fC, x, 4) + 4*fC) == 0}")
+      f"→ f^(4) = -4f holds: {simplify(diff(fC, x, 4) + 4*fC) == 0}")
 
-# ── Δ. f(x)=x^3-2x+1: lambdify και γράφημα f, f', f'' ─────
-print("\n── Δ. f(x)=x^3-2x+1 στο [-2, 2.5] (lambdify) ──")
+# ── D. f(x)=x^3-2x+1: lambdify and plot of f, f', f'' ─────
+print("\n── D. f(x)=x^3-2x+1 on [-2, 2.5] (lambdify) ──")
 
 fD  = x**3 - 2*x + 1
 f1D = diff(fD, x)
 f2D = diff(fD, x, 2)
 print(f"  f(x)   = {fD}")
-print(f"  f'(x)  = {f1D}      (αναμ. 3x^2-2)")
-print(f"  f''(x) = {f2D}      (αναμ. 6x)")
+print(f"  f'(x)  = {f1D}      (expected 3x^2-2)")
+print(f"  f''(x) = {f2D}      (expected 6x)")
 
 f_num  = lambdify(x, fD,  'numpy')
 f1_num = lambdify(x, f1D, 'numpy')
@@ -340,104 +340,104 @@ plt.plot(xs, f1_num(xs), 'g--', lw=1.8, label=r"$f'(x)=3x^2-2$")
 plt.plot(xs, f2_num(xs), 'r:',  lw=1.8, label=r"$f''(x)=6x$")
 plt.axhline(0, color='k', lw=0.6)
 plt.grid(alpha=0.3); plt.legend(); plt.xlabel('x')
-plt.title("Κεφ. 10 — f, f' και f'' στο [-2, 2.5]")
+plt.title("Ch. 10 — f, f' and f'' on [-2, 2.5]")
 plt.tight_layout()
 
-# Έλεγχος: lambdify και sympy δίνουν την ίδια τιμή.
-print(f"  Έλεγχος lambdify στο x=2: f'(2) = {f1_num(2.0)} "
+# Check: lambdify and sympy give the same value.
+print(f"  Check of lambdify at x=2: f'(2) = {f1_num(2.0)} "
       f"(sympy: {f1D.subs(x, 2)})")
 
-# ── Ε. Αριθμητική παράγωγος με np.gradient ────────────────
-print("\n── Ε. Αριθμητική παράγωγος: np.gradient για sin(x) ──")
+# ── E. Numerical derivative with np.gradient ──────────────
+print("\n── E. Numerical derivative: np.gradient for sin(x) ──")
 
 xg = np.linspace(0, 2*np.pi, 400)
 yg = np.sin(xg)
-dyg = np.gradient(yg, xg)               # κεντρικές διαφορές
+dyg = np.gradient(yg, xg)               # central differences
 err = np.max(np.abs(dyg - np.cos(xg)))
 print(f"  max |np.gradient(sin) - cos| = {err:.3e}")
 
-# Εμπρόσθια διαφορά (ο ορισμός, με πεπερασμένο h):
+# Forward difference (the definition, with a finite h):
 for hh in (1e-1, 1e-3, 1e-5):
     fd = (np.sin(1.0 + hh) - np.sin(1.0))/hh
     print(f"  h={hh:&lt;8g} (f(1+h)-f(1))/h = {fd:.8f}   "
-          f"σφάλμα vs cos(1)={abs(fd - np.cos(1.0)):.2e}")
+          f"error vs cos(1)={abs(fd - np.cos(1.0)):.2e}")
 print(f"  cos(1) = {np.cos(1.0):.8f}")
 
-# Δεύτερη παράγωγος: np.gradient δύο φορές
+# Second derivative: np.gradient applied twice
 d2g = np.gradient(dyg, xg)
-print(f"  max |δεύτερη παράγωγος + sin| (εσωτερικά σημεία) = "
+print(f"  max |second derivative + sin| (interior points) = "
       f"{np.max(np.abs(d2g + np.sin(xg))[5:-5]):.3e}")
 
 plt.figure(figsize=(7, 4))
 plt.plot(xg, dyg, 'b-', lw=2.5, label=r"np.gradient$(\sin x)$")
-plt.plot(xg, np.cos(xg), 'r--', lw=1.5, label=r"$\cos x$ (ακριβής)")
+plt.plot(xg, np.cos(xg), 'r--', lw=1.5, label=r"$\cos x$ (exact)")
 plt.axhline(0, color='k', lw=0.6)
 plt.grid(alpha=0.3); plt.legend(); plt.xlabel('x')
-plt.title("Αριθμητική vs αναλυτική παράγωγος του sin")
+plt.title("Numerical vs analytic derivative of sin")
 plt.tight_layout()
 
-# ── ΣΤ. Εφαπτόμενη στο x0=1 — γεωμετρική ερμηνεία ─────────
-print("\n── ΣΤ. Εφαπτόμενη της f(x)=x^3-2x+1 στο x0=1 ──")
+# ── F. Tangent line at x0=1 — geometric interpretation ────
+print("\n── F. Tangent to f(x)=x^3-2x+1 at x0=1 ──")
 
 x0 = 1
 y0 = fD.subs(x, x0)
 m  = f1D.subs(x, x0)
 tangent = expand(y0 + m*(x - x0))
 print(f"  f(1) = {y0},  f'(1) = {m}")
-print(f"  Εφαπτόμενη: y = {tangent}   (αναμ. y = x - 1)")
-print(f"  Ταυτίζεται με x-1: {simplify(tangent - (x - 1)) == 0}")
+print(f"  Tangent: y = {tangent}   (expected y = x - 1)")
+print(f"  Identical with x-1: {simplify(tangent - (x - 1)) == 0}")
 
 t_num = lambdify(x, tangent, 'numpy')
 xs2 = np.linspace(-2, 2.5, 400)
 
 plt.figure(figsize=(7, 4.5))
 plt.plot(xs2, f_num(xs2), 'b-', lw=2, label=r"$f(x)=x^3-2x+1$")
-plt.plot(xs2, t_num(xs2), 'r--', lw=1.8, label=f"εφαπτόμενη: y = {tangent}")
+plt.plot(xs2, t_num(xs2), 'r--', lw=1.8, label=f"tangent: y = {tangent}")
 plt.scatter([float(x0)], [float(y0)], color='red', s=70, zorder=5,
-            label=f"σημείο επαφής ({x0}, {y0})")
-# Τέμνουσες που "πλησιάζουν" την εφαπτόμενη καθώς h→0:
+            label=f"point of tangency ({x0}, {y0})")
+# Secants that "approach" the tangent as h→0:
 for hh, col in [(1.0, '0.75'), (0.5, '0.55'), (0.25, '0.35')]:
     xa, xb = 1.0, 1.0 + hh
     ya, yb = float(f_num(xa)), float(f_num(xb))
     ms = (yb - ya)/hh
     plt.plot(xs2, ya + ms*(xs2 - xa), color=col, lw=1,
-             label=f"τέμνουσα h={hh} (κλίση {ms:.2f})")
+             label=f"secant h={hh} (slope {ms:.2f})")
 plt.axhline(0, color='k', lw=0.6)
 plt.ylim(-4, 8); plt.grid(alpha=0.3); plt.legend(fontsize=8)
-plt.xlabel('x'); plt.title("Η εφαπτόμενη ως όριο τεμνουσών (x₀=1)")
+plt.xlabel('x'); plt.title("The tangent as a limit of secants (x₀=1)")
 plt.tight_layout()
 
-print("  Κλίσεις τεμνουσών (h→0) — συγκλίνουν στο f'(1)=1:")
+print("  Slopes of the secants (h→0) — they converge to f'(1)=1:")
 for hh in (1.0, 0.5, 0.25, 0.1, 0.01):
     ms = (float(f_num(1.0 + hh)) - float(f_num(1.0)))/hh
-    print(f"    h={hh:&lt;6g} κλίση = {ms:.6f}")
+    print(f"    h={hh:&lt;6g} slope = {ms:.6f}")
 
-# ── Ζ. Παράγωγος από τον ορισμό (συμβολικό όριο) ──────────
-print("\n── Ζ. Ο ορισμός: lim_{h→0} (f(x+h)-f(x))/h ──")
+# ── G. The derivative from the definition (symbolic limit) ─
+print("\n── G. The definition: lim_{h→0} (f(x+h)-f(x))/h ──")
 print(f"  x^2     → {limit(((x + h)**2 - x**2)/h, h, 0)}      "
       f"(diff: {diff(x**2, x)})")
 print(f"  sqrt(x) → {limit((sqrt(x + h) - sqrt(x))/h, h, 0)}   "
       f"(diff: {diff(sqrt(x), x)})")
 
-# ── Η. Προαιρετικό: λογαριθμική παραγώγιση (x^x)' ─────────
-print("\n── Η. Προαιρετικό: λογαριθμική παραγώγιση (x^x)' ──")
+# ── H. Optional: logarithmic differentiation (x^x)' ───────
+print("\n── H. Optional: logarithmic differentiation (x^x)' ──")
 
 xp = symbols('x', positive=True)
 fH = xp**xp
 dH = simplify(diff(fH, xp))
 expected_H = xp**xp*(log(xp) + 1)
 print(f"  (x^x)' = {dH}")
-print(f"  αναμενόμενο: x^x·(ln x + 1) = {expand(expected_H)}")
-print(f"  Διαφορά: {simplify(dH - expected_H)}  "
-      f"→ ταυτίζονται: {simplify(dH - expected_H) == 0}")
-# Αριθμητικός έλεγχος στο x=2:  (x^x)'(2) = 4(ln2+1)
+print(f"  expected: x^x·(ln x + 1) = {expand(expected_H)}")
+print(f"  Difference: {simplify(dH - expected_H)}  "
+      f"→ identical: {simplify(dH - expected_H) == 0}")
+# Numerical check at x=2:  (x^x)'(2) = 4(ln2+1)
 val_sym = float(dH.subs(xp, 2))
 val_num = 2.0**2.0*(np.log(2.0) + 1.0)
-print(f"  Στο x=2: συμβολικά {val_sym:.10f}, τύπος {val_num:.10f}, "
-      f"διαφορά {abs(val_sym - val_num):.2e}")
+print(f"  At x=2: symbolically {val_sym:.10f}, formula {val_num:.10f}, "
+      f"difference {abs(val_sym - val_num):.2e}")
 
 plt.show()
-print("\nΟλοκληρώθηκε το Κεφάλαιο 10.")
+print("\nChapter 10 completed.")
 </textarea>
       <pre class="py-output" id="py-output"></pre>
       <div class="py-plots" id="py-plots"></div>
@@ -445,7 +445,7 @@ print("\nΟλοκληρώθηκε το Κεφάλαιο 10.")
   </div>
 </div>
 <footer>
-  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
@@ -464,7 +464,7 @@ function loadCode(file, elementId, lang) {
       el.textContent=text; el.className='language-'+lang;
       Prism.highlightElement(el);
     })
-    .catch(err=>{document.getElementById(elementId).textContent='⚠ Αδυναμία φόρτωσης ('+err+'). Χρήση κουμπιού Λήψη.';});
+    .catch(err=>{document.getElementById(elementId).textContent='⚠ Could not load the file ('+err+'). Please use the Download button.';});
 }
 
 /* ── In-browser Python runner (Pyodide) ── */
@@ -477,7 +477,7 @@ $('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output'
 async function ensurePyodide(setStatus){
   if (pyodideReady) return pyodideReady;
   pyodideReady = (async () => {
-    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
     if (!window.loadPyodide){
       await new Promise((res, rej) => {
         const sc = document.createElement('script');
@@ -499,9 +499,9 @@ $('py-run').onclick = async function(){
     py.setStdout({ batched: s => { out.textContent += s; } });
     py.setStderr({ batched: s => { out.textContent += s; } });
     const code = $('py-editor').value;
-    setStatus('Φόρτωση βιβλιοθηκών…');
+    setStatus('Loading libraries…');
     await py.loadPackagesFromImports(code);
-    setStatus('Εκτέλεση…');
+    setStatus('Running…');
     await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
     py.globals.set('__user_src__', code);
     await py.runPythonAsync(`
@@ -527,10 +527,10 @@ _imgs
 `);
     const arr = figs.toJs(); if (figs.destroy) figs.destroy();
     arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
-    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
   } catch (e) {
-    out.textContent += '\n⚠ Σφάλμα: ' + e;
-    setStatus('Σφάλμα');
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
   } finally { btn.disabled = false; }
 };
 </script>

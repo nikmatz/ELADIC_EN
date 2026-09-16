@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Κώδικας Κεφ. 8 — Συναρτήσεις Πραγματικής Μεταβλητής · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<title>Code Ch. 8 — Functions of One Real Variable · Elements of Linear Algebra &amp; Calculus</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 <style>
   :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
@@ -53,17 +53,17 @@
 </head>
 <body>
 <header>
-  <h1>📐 Κεφάλαιο 8 — Συναρτήσεις Πραγματικής Μεταβλητής</h1>
-  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+  <h1>📐 Chapter 8 — Functions of One Real Variable</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
 </header>
 <div class="breadcrumb">
-  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 8
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 8
 </div>
 <div class="container">
   <div class="info-box">
-    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
-    <p><strong>Αντικείμενο:</strong> πεδίο ορισμού, αρτιότητα και περιττότητα, σύνθεση, 1–1 και αντίστροφη, μετασχηματισμοί γραφημάτων, τμηματικές συναρτήσεις<br><br>
-    Επιλέξτε γλώσσα από τις καρτέλες. Τον κώδικα <strong>Python</strong> μπορείτε να τον <strong>τρέξετε εδώ μέσα στη σελίδα</strong> (κουμπί «▶ Τρέξε») — μπορείτε και να τον επεξεργαστείτε. Ο κώδικας <strong>Maxima</strong> εκτελείται στο <strong>wxMaxima</strong>.</p>
+    <h2>📋 Contents of the Activities</h2>
+    <p><strong>Topic:</strong> domain, even and odd functions, composition, one-to-one functions and the inverse, transformations of graphs, piecewise functions<br><br>
+    Choose a language from the tabs. The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.</p>
   </div>
   <div class="tabs">
     <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
@@ -73,10 +73,10 @@
     <div class="code-card">
       <div class="code-header maxima">
         <span>maxima_synartiseis.mac</span>
-        <a class="download-btn" href="maxima_synartiseis.mac" download>⬇ Λήψη .mac</a>
+        <a class="download-btn" href="maxima_synartiseis.mac" download>⬇ Download .mac</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0">
-        <strong>Βασικές εντολές:</strong>
+        <strong>Basic commands:</strong>
         <code>solve(ineq,x)</code> &nbsp;
         <code>define(f(x),expr)</code> &nbsp;
         <code>plot2d([f,g],[x,a,b])</code> &nbsp;
@@ -86,69 +86,69 @@
       </div>
       <pre><code class="language-maxima" id="maxima-code">/* ============================================================
    maxima_synartiseis.mac
-   Κεφάλαιο 8 — Συναρτήσεις: Πεδίο Ορισμού και Γραφικές Παραστάσεις
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 8 — Functions: Domain and Graphs
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
    ============================================================
-   ΕΝΤΟΛΕΣ:
-     define(f(x), expr)     -&gt; ορισμός συνάρτησης
-     solve(eq, x)           -&gt; λύση ΕΞΙΣΩΣΗΣ (όρια/εξαιρετέα σημεία)
-     fourier_elim([ineq],[x]) -&gt; λύση ΑΝΙΣΩΣΗΣ (το solve δεν λύνει ανισώσεις)
-     plot2d([f,g],[x,a,b])  -&gt; κοινό γράφημα
-     subst(-x, x, f)        -&gt; αντικατάσταση x -&gt; -x (συμμετρίες)
-     charfun(συνθήκη)       -&gt; 1 αν ισχύει, αλλιώς 0 (τμηματικές)
-     ratsimp(expr)          -&gt; απλοποίηση ρητής παράστασης
+   COMMANDS:
+     define(f(x), expr)     -&gt; definition of a function
+     solve(eq, x)           -&gt; solution of an EQUATION (endpoints/excluded points)
+     fourier_elim([ineq],[x]) -&gt; solution of an INEQUALITY (solve does not do inequalities)
+     plot2d([f,g],[x,a,b])  -&gt; common graph
+     subst(-x, x, f)        -&gt; substitution x -&gt; -x (symmetries)
+     charfun(condition)     -&gt; 1 if it holds, otherwise 0 (piecewise)
+     ratsimp(expr)          -&gt; simplification of a rational expression
    ============================================================ */
 
-load(fourier_elim)$   /* το solve ΔΕΝ λύνει ανισώσεις — φορτώνουμε εργαλείο */
+load(fourier_elim)$   /* solve does NOT handle inequalities — we load a tool */
 
-/* ═══ Α. (α) ΠΕΔΙΟ ΟΡΙΣΜΟΥ ══════════════════════════════════ */
-print("════ Α. Πεδίο ορισμού ════")$
+/* ═══ A. (a) DOMAIN ═════════════════════════════════════════ */
+print("════ A. Domain ════")$
 
-/* f(x) = sqrt(x-2)/(x^2-9):  x-2 &gt;= 0  ΚΑΙ  x^2-9 # 0            */
+/* f(x) = sqrt(x-2)/(x^2-9):  x-2 &gt;= 0  AND  x^2-9 # 0            */
 define(f(x), sqrt(x-2)/(x^2-9))$
 print("f(x) =", f(x))$
-print("  Υπόρριζο:  x-2 &gt;= 0  -&gt;", fourier_elim([x-2 &gt;= 0], [x]),
-      "  δηλαδή x &gt;= 2")$
-print("  Παρονομαστής = 0 στα:", solve(x^2-9 = 0, x), " (x = -3, x = 3)")$
-print("  ΠΕΔΙΟ ΟΡΙΣΜΟΥ f: [2,3) ∪ (3,+∞)   (το -3 δεν ανήκει ήδη στο x&gt;=2) ✓")$
-print("  Έλεγχος: f(2) =", f(2), " (= 0 ✓),  f(6) =", f(6), " = ",
-      float(f(6)), " (= 2/27 = 0,074074 ✓)")$
+print("  Radicand:  x-2 &gt;= 0  -&gt;", fourier_elim([x-2 &gt;= 0], [x]),
+      "  that is x &gt;= 2")$
+print("  Denominator = 0 at:", solve(x^2-9 = 0, x), " (x = -3, x = 3)")$
+print("  DOMAIN of f: [2,3) ∪ (3,+∞)   (-3 is already excluded by x&gt;=2) ✓")$
+print("  Check: f(2) =", f(2), " (= 0 ✓),  f(6) =", f(6), " = ",
+      float(f(6)), " (= 2/27 = 0.074074 ✓)")$
 
 /* g(x) = ln(4-x^2):  4-x^2 &gt; 0                                   */
 define(g(x), log(4-x^2))$
 print("g(x) =", g(x))$
-print("  Απαίτηση 4-x^2 &gt; 0  -&gt;", fourier_elim([4-x^2 &gt; 0], [x]))$
-print("  Άκρα από solve(4-x^2=0,x):", solve(4-x^2 = 0, x))$
-print("  ΠΕΔΙΟ ΟΡΙΣΜΟΥ g: (-2,2) ✓")$
-print("  Έλεγχος: g(0) =", g(0), " (= log(4) = ", float(g(0)), " ✓)")$
+print("  Requirement 4-x^2 &gt; 0  -&gt;", fourier_elim([4-x^2 &gt; 0], [x]))$
+print("  Endpoints from solve(4-x^2=0,x):", solve(4-x^2 = 0, x))$
+print("  DOMAIN of g: (-2,2) ✓")$
+print("  Check: g(0) =", g(0), " (= log(4) = ", float(g(0)), " ✓)")$
 
-/* h(x) = 1/sqrt(1-x^2):  1-x^2 &gt; 0 (γνήσια, όχι &gt;=)              */
+/* h(x) = 1/sqrt(1-x^2):  1-x^2 &gt; 0 (strictly, not &gt;=)            */
 define(h(x), 1/sqrt(1-x^2))$
 print("h(x) =", h(x))$
-print("  Απαίτηση 1-x^2 &gt; 0  -&gt;", fourier_elim([1-x^2 &gt; 0], [x]))$
-print("  Άκρα από solve(1-x^2=0,x):", solve(1-x^2 = 0, x))$
-print("  ΠΕΔΙΟ ΟΡΙΣΜΟΥ h: (-1,1) ✓")$
-print("  Έλεγχος: h(0) =", h(0), " (= 1 ✓)")$
+print("  Requirement 1-x^2 &gt; 0  -&gt;", fourier_elim([1-x^2 &gt; 0], [x]))$
+print("  Endpoints from solve(1-x^2=0,x):", solve(1-x^2 = 0, x))$
+print("  DOMAIN of h: (-1,1) ✓")$
+print("  Check: h(0) =", h(0), " (= 1 ✓)")$
 
-/* Γραφική επιβεβαίωση — τα διαστήματα δίνονται ΠΑΝΤΑ σε αύξουσα  */
-/* σειρά και αποφεύγουμε τα σημεία όπου μηδενίζεται ο παρονομαστής */
+/* Graphical confirmation — the intervals are ALWAYS given in       */
+/* increasing order and we avoid the zeros of the denominator       */
 plot2d(f(x), [x, 2, 2.9], [y, -3, 1],
        [xlabel, "x"], [ylabel, "f(x)"],
-       [title, "f(x)=sqrt(x-2)/(x^2-9) στο [2,3)"])$
+       [title, "f(x)=sqrt(x-2)/(x^2-9) on [2,3)"])$
 plot2d(f(x), [x, 3.1, 8], [y, 0, 3],
        [xlabel, "x"], [ylabel, "f(x)"],
-       [title, "f(x)=sqrt(x-2)/(x^2-9) στο (3,+oo)"])$
+       [title, "f(x)=sqrt(x-2)/(x^2-9) on (3,+oo)"])$
 plot2d(g(x), [x, -1.98, 1.98], [y, -5, 2],
        [xlabel, "x"], [ylabel, "g(x)"],
-       [title, "g(x)=ln(4-x^2), πεδίο (-2,2)"])$
+       [title, "g(x)=ln(4-x^2), domain (-2,2)"])$
 plot2d(h(x), [x, -0.98, 0.98], [y, 0, 6],
        [xlabel, "x"], [ylabel, "h(x)"],
-       [title, "h(x)=1/sqrt(1-x^2), πεδίο (-1,1)"])$
+       [title, "h(x)=1/sqrt(1-x^2), domain (-1,1)"])$
 
-/* ═══ Β. (β) ΣΥΜΜΕΤΡΙΕΣ ΚΑΙ ΣΥΝΘΕΣΕΙΣ ══════════════════════ */
-print("════ Β. Συμμετρίες και πράξεις ════")$
+/* ═══ B. (b) SYMMETRIES AND COMPOSITIONS ═══════════════════ */
+print("════ B. Symmetries and operations ════")$
 
-/* Άρτια: f(-x) - f(x) = 0.  Περιττή: f(-x) + f(x) = 0.           */
+/* Even: f(-x) - f(x) = 0.  Odd: f(-x) + f(x) = 0.                */
 u1 : x^4 - 3*x^2$
 u2 : x^3 - x$
 u3 : exp(x) + exp(-x)$
@@ -157,108 +157,108 @@ for e in [u1, u2, u3] do block([em, ep],
     ep : ratsimp(subst(-x, x, e) + e),
     print("  ", e),
     print("     f(-x)-f(x) =", em, " | f(-x)+f(x) =", ep),
-    if em = 0 then print("     -&gt; ΑΡΤΙΑ (συμμετρία ως προς τον άξονα y)")
-    elseif ep = 0 then print("     -&gt; ΠΕΡΙΤΤΗ (συμμετρία ως προς την αρχή)")
-    else print("     -&gt; ούτε άρτια ούτε περιττή") )$
-print("  Αναμενόμενα: x^4-3x^2 ΑΡΤΙΑ ✓, x^3-x ΠΕΡΙΤΤΗ ✓, e^x+e^-x ΑΡΤΙΑ ✓")$
+    if em = 0 then print("     -&gt; EVEN (symmetric about the y-axis)")
+    elseif ep = 0 then print("     -&gt; ODD (symmetric about the origin)")
+    else print("     -&gt; neither even nor odd") )$
+print("  Expected: x^4-3x^2 EVEN ✓, x^3-x ODD ✓, e^x+e^-x EVEN ✓")$
 
 plot2d([u1, u2], [x, -2, 2], [y, -3, 3],
-       [legend, "x^4-3x^2 (άρτια)", "x^3-x (περιττή)"],
-       [xlabel, "x"], [title, "Συμμετρίες"])$
+       [legend, "x^4-3x^2 (even)", "x^3-x (odd)"],
+       [xlabel, "x"], [title, "Symmetries"])$
 
-/* Συνθέσεις με f(x)=x^2+1 και g(x)=sqrt(x-1)                     */
+/* Compositions with f(x)=x^2+1 and g(x)=sqrt(x-1)                */
 define(F(x), x^2 + 1)$
 define(G(x), sqrt(x-1))$
 print("F(x) =", F(x), ",  G(x) =", G(x))$
 print("  (F o G)(x) = F(G(x)) =", ratsimp(F(G(x))), "  (= x ✓)")$
-print("  (G o F)(x) = G(F(x)) =", ratsimp(G(F(x))), "  (= |x| ✓ — το Maxima το απλοποιεί σε abs(x))")$
-print("  Αριθμητικά στο x = -3:")$
-print("     F(G(-3)) : το G(-3)=sqrt(-4) ΔΕΝ ορίζεται στο R (πεδίο G: x&gt;=1)")$
-print("     G(F(-3)) =", G(F(-3)), " (= 3 = |-3| ✓, ΟΧΙ -3)")$
-print("  ΓΙΑΤΙ ΔΕΝ ΣΥΜΠΙΠΤΟΥΝ: η F o G ορίζεται μόνο για x&gt;=1 και δίνει x,")$
-print("  ενώ η G o F ορίζεται για κάθε x και δίνει |x|. Η σύνθεση δεν είναι")$
-print("  αντιμεταθετική και το πεδίο ορισμού της αλλάζει με τη σειρά.")$
+print("  (G o F)(x) = G(F(x)) =", ratsimp(G(F(x))), "  (= |x| ✓ — Maxima simplifies it to abs(x))")$
+print("  Numerically at x = -3:")$
+print("     F(G(-3)) : G(-3)=sqrt(-4) is NOT defined in R (domain of G: x&gt;=1)")$
+print("     G(F(-3)) =", G(F(-3)), " (= 3 = |-3| ✓, NOT -3)")$
+print("  WHY THEY DIFFER: F o G is defined only for x&gt;=1 and gives x,")$
+print("  while G o F is defined for every x and gives |x|. Composition is not")$
+print("  commutative and its domain changes with the order.")$
 
 plot2d([x, sqrt(x^2)], [x, -3, 3], [y, -3, 3],
-       [legend, "(FoG)(x) = x  (μόνο για x&gt;=1)", "(GoF)(x) = |x|"],
-       [xlabel, "x"], [title, "F o G  έναντι  G o F"])$
+       [legend, "(FoG)(x) = x  (only for x&gt;=1)", "(GoF)(x) = |x|"],
+       [xlabel, "x"], [title, "F o G  versus  G o F"])$
 
-/* ═══ Γ. (γ) 1-1 ΚΑΙ ΑΝΤΙΣΤΡΟΦΗ ════════════════════════════ */
-print("════ Γ. Η f(x)=(2x+1)/(x-3): 1-1 και αντίστροφη ════")$
+/* ═══ C. (c) ONE-TO-ONE AND INVERSE ════════════════════════ */
+print("════ C. f(x)=(2x+1)/(x-3): one-to-one and its inverse ════")$
 
 define(q(x), (2*x+1)/(x-3))$
-print("q(x) =", q(x), "  (πεδίο ορισμού: R \\ {3})")$
+print("q(x) =", q(x), "  (domain: R \\ {3})")$
 
-/* 1-1: από q(a)=q(b) πρέπει να προκύπτει a=b.                    */
+/* One-to-one: q(a)=q(b) must imply a=b.                          */
 print("  solve(q(a)=q(b), a) =", solve(q(aa) = q(bb), aa),
-      "  -&gt;  a = b, άρα ΕΙΝΑΙ 1-1 ✓")$
-print("  Εναλλακτικά q'(x) =", ratsimp(diff(q(x), x)),
-      " = -7/(x-3)^2 &lt; 0 παντού -&gt; γνησίως φθίνουσα σε κάθε κλάδο ✓")$
+      "  -&gt;  a = b, hence it IS one-to-one ✓")$
+print("  Alternatively q'(x) =", ratsimp(diff(q(x), x)),
+      " = -7/(x-3)^2 &lt; 0 everywhere -&gt; strictly decreasing on each branch ✓")$
 
-/* Αντίστροφη: λύνουμε την y = q(x) ως προς x.                    */
+/* Inverse: we solve y = q(x) for x.                              */
 solq : solve(y = q(x), x)$
 print("  solve(y = q(x), x) =", solq)$
 define(qinv(x), subst(x, y, rhs(solq[1])))$
 print("  q^(-1)(x) =", qinv(x), "  (= (3x+1)/(x-2) ✓)")$
-print("  Επαλήθευση q(q^(-1)(x)) =", ratsimp(q(qinv(x))), "  (= x ✓)")$
-print("  Επαλήθευση q^(-1)(q(x)) =", ratsimp(qinv(q(x))), "  (= x ✓)")$
-print("  Αριθμητικά: q(5) =", q(5), " (= 11/2) και q^(-1)(11/2) =",
+print("  Check q(q^(-1)(x)) =", ratsimp(q(qinv(x))), "  (= x ✓)")$
+print("  Check q^(-1)(q(x)) =", ratsimp(qinv(q(x))), "  (= x ✓)")$
+print("  Numerically: q(5) =", q(5), " (= 11/2) and q^(-1)(11/2) =",
       qinv(11/2), " (= 5 ✓)")$
 
-/* Κοινό διάγραμμα q, q^(-1), y = x : συμμετρία ως προς την y=x.  */
+/* Common plot of q, q^(-1), y = x : symmetry about y = x.        */
 plot2d([q(x), qinv(x), x], [x, -7, 10], [y, -7, 10],
        [legend, "q(x)=(2x+1)/(x-3)", "q^(-1)(x)=(3x+1)/(x-2)", "y = x"],
        [xlabel, "x"], [ylabel, "y"],
-       [title, "Συμμετρία της q και της αντίστροφής της ως προς την y=x"])$
-print("  Παρατήρηση: η κατακόρυφη ασύμπτωτος x=3 της q γίνεται οριζόντια")$
-print("  ασύμπτωτος y=3 της q^(-1) — ακριβώς η κατοπτρική συμμετρία ως προς y=x.")$
+       [title, "Symmetry of q and of its inverse about y=x"])$
+print("  Remark: the vertical asymptote x=3 of q becomes the horizontal")$
+print("  asymptote y=3 of q^(-1) — exactly the mirror symmetry about y=x.")$
 
-/* ═══ Δ. (δ) ΜΕΤΑΣΧΗΜΑΤΙΣΜΟΙ ΚΑΙ ΤΜΗΜΑΤΙΚΕΣ ═══════════════ */
-print("════ Δ. Μετασχηματισμοί της f(x)=x^2 και τμηματική p ════")$
+/* ═══ D. (d) TRANSFORMATIONS AND PIECEWISE FUNCTIONS ═══════ */
+print("════ D. Transformations of f(x)=x^2 and the piecewise p ════")$
 
 define(s(x), x^2)$
-print("Βάση: s(x) = x^2")$
+print("Base: s(x) = x^2")$
 print("  s(x-2) =", expand(s(x-2)),
-      "  -&gt; ΟΡΙΖΟΝΤΙΑ μετατόπιση 2 μονάδες ΔΕΞΙΑ (κορυφή στο x=2)")$
+      "  -&gt; HORIZONTAL shift 2 units to the RIGHT (vertex at x=2)")$
 print("  s(x)+3 =", s(x)+3,
-      "  -&gt; ΚΑΤΑΚΟΡΥΦΗ μετατόπιση 3 μονάδες ΠΑΝΩ (κορυφή στο (0,3))")$
+      "  -&gt; VERTICAL shift 3 units UP (vertex at (0,3))")$
 print("  2*s(x) =", 2*s(x),
-      "  -&gt; ΚΑΤΑΚΟΡΥΦΗ επιμήκυνση x2 (στενότερη παραβολή)")$
+      "  -&gt; VERTICAL stretch by 2 (narrower parabola)")$
 print("  s(2x)  =", expand(s(2*x)),
-      "  -&gt; ΟΡΙΖΟΝΤΙΑ συστολή με συντελεστή 1/2 (και αυτή στενότερη)")$
+      "  -&gt; HORIZONTAL compression by a factor 1/2 (also narrower)")$
 print("  -s(x)  =", -s(x),
-      "  -&gt; ΑΝΑΚΛΑΣΗ ως προς τον άξονα x (ανοίγει προς τα κάτω)")$
-print("  Έλεγχος στο x=3: s(3)=", s(3), "(=9), s(3-2)=", s(3-2), "(=1),")$
+      "  -&gt; REFLECTION in the x-axis (opens downward)")$
+print("  Check at x=3: s(3)=", s(3), "(=9), s(3-2)=", s(3-2), "(=1),")$
 print("     s(3)+3=", s(3)+3, "(=12), 2*s(3)=", 2*s(3), "(=18), s(2*3)=",
       s(2*3), "(=36), -s(3)=", -s(3), "(=-9) ✓")$
 
 plot2d([s(x), s(x-2), s(x)+3, 2*s(x), s(2*x), -s(x)], [x, -4, 5], [y, -6, 14],
        [legend, "f(x)=x^2", "f(x-2)", "f(x)+3", "2f(x)", "f(2x)", "-f(x)"],
        [xlabel, "x"], [ylabel, "y"],
-       [title, "Μετασχηματισμοί της f(x)=x^2"])$
+       [title, "Transformations of f(x)=x^2"])$
 
-/* Τμηματική p(x) = x^2 για x&lt;1,  2x-1 για x&gt;=1, με charfun.      */
+/* Piecewise p(x) = x^2 for x&lt;1,  2x-1 for x&gt;=1, with charfun.    */
 p(x) := x^2*charfun(x &lt; 1) + (2*x-1)*charfun(x &gt;= 1)$
 print("p(x) = x^2*charfun(x&lt;1) + (2x-1)*charfun(x&gt;=1)")$
 for a in [-1, 0, 0.5, 0.9, 1, 1.5, 3] do
     print("   p(", a, ") =", p(a))$
 
-/* Συνέχεια στο x=1: σύγκριση πλευρικών ορίων με την τιμή p(1).   */
+/* Continuity at x=1: comparison of the one-sided limits with p(1). */
 lm : limit(x^2, x, 1, minus)$
 lp : limit(2*x-1, x, 1, plus)$
 print("  lim x-&gt;1^-  x^2   =", lm, " (= 1 ✓)")$
 print("  lim x-&gt;1^+  2x-1  =", lp, " (= 1 ✓)")$
 print("  p(1) =", p(1), " (= 1 ✓)")$
 if lm = lp and lp = p(1) then
-   print("  -&gt; Τα δύο πλευρικά όρια και η τιμή συμπίπτουν: η p ΕΙΝΑΙ ΣΥΝΕΧΗΣ στο x=1")
+   print("  -&gt; The two one-sided limits and the value agree: p IS CONTINUOUS at x=1")
 else
-   print("  -&gt; Η p ΔΕΝ είναι συνεχής στο x=1")$
+   print("  -&gt; p is NOT continuous at x=1")$
 
 plot2d(p(x), [x, -2, 3], [y, -1, 6],
        [xlabel, "x"], [ylabel, "p(x)"],
-       [title, "p(x): x^2 για x&lt;1, 2x-1 για x&gt;=1 — χωρίς άλμα στο x=1"])$
+       [title, "p(x): x^2 for x&lt;1, 2x-1 for x&gt;=1 — no jump at x=1"])$
 
-print("── Τέλος maxima_synartiseis.mac ──")$
+print("── End of maxima_synartiseis.mac ──")$
 </code></pre>
     </div>
   </div>
@@ -266,10 +266,10 @@ print("── Τέλος maxima_synartiseis.mac ──")$
     <div class="code-card">
       <div class="code-header python">
         <span>python_synartiseis.py</span>
-        <a class="download-btn" href="python_synartiseis.py" download>⬇ Λήψη .py</a>
+        <a class="download-btn" href="python_synartiseis.py" download>⬇ Download .py</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0">
-        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <strong>Libraries / commands:</strong>
         <code>sympy.solveset()</code> &nbsp;
         <code>sympy.lambdify()</code> &nbsp;
         <code>sympy.Piecewise()</code> &nbsp;
@@ -278,28 +278,28 @@ print("── Τέλος maxima_synartiseis.mac ──")$
         <code>matplotlib.pyplot</code>
       </div>
             <div class="py-toolbar">
-        <button class="run-btn" id="py-run">▶ Τρέξε</button>
-        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
-        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
       </div>
       <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
 # python_synartiseis.py
-# Κεφάλαιο 8 — Συναρτήσεις, SymPy &amp; Matplotlib
-# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# Chapter 8 — Functions, SymPy &amp; Matplotlib
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
 # ============================================================
 #
-# ΒΙΒΛΙΟΘΗΚΕΣ:
-#   sympy      -&gt; συμβολικοί υπολογισμοί (πεδίο ορισμού, αντίστροφη)
-#   numpy      -&gt; αριθμητική αποτίμηση για τα γραφήματα
-#   matplotlib -&gt; γραφικές παραστάσεις
+# LIBRARIES:
+#   sympy      -&gt; symbolic computations (domain, inverse)
+#   numpy      -&gt; numerical evaluation for the plots
+#   matplotlib -&gt; graphs
 #
-# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
-#   sympy.calculus.util.continuous_domain(expr, x, S.Reals) -&gt; ΠΕΔΙΟ ΟΡΙΣΜΟΥ
-#   sympy.solveset(expr, x, domain=S.Reals)                 -&gt; ΡΙΖΕΣ (όχι πεδίο!)
-#   sympy.solve(Eq(y, f), x)   -&gt; αντίστροφη συνάρτηση
-#   sympy.lambdify(x, expr)    -&gt; μετατροπή σε αριθμητική f(x)
-#   sympy.Piecewise(...)       -&gt; τμηματικά ορισμένη συνάρτηση
-#   sympy.simplify(...)        -&gt; απλοποίηση (έλεγχος αρτιότητας)
+# BASIC COMMANDS:
+#   sympy.calculus.util.continuous_domain(expr, x, S.Reals) -&gt; DOMAIN
+#   sympy.solveset(expr, x, domain=S.Reals)                 -&gt; ROOTS (not the domain!)
+#   sympy.solve(Eq(y, f), x)   -&gt; inverse function
+#   sympy.lambdify(x, expr)    -&gt; conversion to a numerical f(x)
+#   sympy.Piecewise(...)       -&gt; piecewise defined function
+#   sympy.simplify(...)        -&gt; simplification (test for evenness)
 #   np.linspace(), matplotlib.pyplot
 # ============================================================
 
@@ -312,22 +312,22 @@ from sympy.calculus.util import continuous_domain
 x, y = symbols('x y', real=True)
 
 print("=" * 62)
-print(" Κεφάλαιο 8: Συναρτήσεις — SymPy &amp; Matplotlib")
+print(" Chapter 8: Functions — SymPy &amp; Matplotlib")
 print("=" * 62)
 
 
-# ── Α. (α) Πεδίο ορισμού με continuous_domain ────────────────
+# ── A. (a) Domain with continuous_domain ────────────────────
 def domain(expr, var=x):
-    """Επιστρέφει το ΠΕΔΙΟ ΟΡΙΣΜΟΥ της expr στο R.
+    """Returns the DOMAIN of expr in R.
 
-    ΠΡΟΣΟΧΗ: το solveset(expr, x) δίνει τις ΡΙΖΕΣ (πού μηδενίζεται η
-    συνάρτηση) και ΟΧΙ το πεδίο ορισμού. Για το πεδίο ορισμού
-    χρησιμοποιούμε την continuous_domain.
+    NOTE: solveset(expr, x) gives the ROOTS (where the function
+    vanishes) and NOT the domain. For the domain we
+    use continuous_domain.
     """
     return continuous_domain(expr, var, S.Reals)
 
 
-print("\n[Α] Πεδίο ορισμού — domain(expr) με continuous_domain")
+print("\n[A] Domain — domain(expr) with continuous_domain")
 
 funcs_a = [
     ("sqrt(x-2)/(x^2-9)", sqrt(x - 2) / (x**2 - 9), "[2,3) ∪ (3,+∞)"),
@@ -336,45 +336,45 @@ funcs_a = [
 ]
 for name, expr, expected in funcs_a:
     print(f"  {name:20s} -&gt; {domain(expr)}")
-    print(f"  {'':20s}    αναμενόμενο (και από το Maxima): {expected} ✓")
+    print(f"  {'':20s}    expected (and from Maxima): {expected} ✓")
 
-# Αντιπαράδειγμα: τι ΔΙΝΕΙ πράγματι το solveset — τις ρίζες.
-print("\n  Σύγκριση για τη sqrt(x-2)/(x^2-9):")
-print("    ρίζες  solveset(expr, x, S.Reals) =",
+# Counterexample: what solveset actually gives — the roots.
+print("\n  Comparison for sqrt(x-2)/(x^2-9):")
+print("    roots   solveset(expr, x, S.Reals) =",
       solveset(sqrt(x - 2) / (x**2 - 9), x, domain=S.Reals), " (= {2} ✓)")
-print("    πεδίο  continuous_domain(...)     =",
+print("    domain  continuous_domain(...)     =",
       domain(sqrt(x - 2) / (x**2 - 9)))
-print("    -&gt; τα δύο σύνολα είναι ΔΙΑΦΟΡΕΤΙΚΑ πράγματα.")
+print("    -&gt; the two sets are DIFFERENT things.")
 
-# Αριθμητικός έλεγχος τιμών και άκρων.
+# Numerical check of values and endpoints.
 fa = sqrt(x - 2) / (x**2 - 9)
-print("  Έλεγχος τιμών: f(2) =", fa.subs(x, 2), " (= 0 ✓)")
+print("  Check of values: f(2) =", fa.subs(x, 2), " (= 0 ✓)")
 print("                 f(6) =", fa.subs(x, 6), "=", float(fa.subs(x, 6)),
-      " (= 2/27 = 0,0740741 ✓)")
-print("                 2 ∈ πεδίο;", domain(fa).contains(2), " (True ✓)")
-print("                 3 ∈ πεδίο;", domain(fa).contains(3),
-      " (False ✓ — μηδενίζεται ο παρονομαστής)")
-print("                 1 ∈ πεδίο;", domain(fa).contains(1),
-      " (False ✓ — αρνητικό υπόρριζο)")
+      " (= 2/27 = 0.0740741 ✓)")
+print("                 2 ∈ domain?", domain(fa).contains(2), " (True ✓)")
+print("                 3 ∈ domain?", domain(fa).contains(3),
+      " (False ✓ — the denominator vanishes)")
+print("                 1 ∈ domain?", domain(fa).contains(1),
+      " (False ✓ — negative radicand)")
 
-# ── Β. (β) Αρτιότητα / περιττότητα, προγραμματιστικά ─────────
-print("\n[Β] Αρτιότητα / περιττότητα με simplify(f(-x) ∓ f(x))")
+# ── B. (b) Even / odd, programmatically ─────────────────────
+print("\n[B] Even / odd with simplify(f(-x) ∓ f(x))")
 
 funcs_b = [
-    ("x^4 - 3x^2",   x**4 - 3 * x**2,   "ΑΡΤΙΑ"),
-    ("x^3 - x",      x**3 - x,          "ΠΕΡΙΤΤΗ"),
-    ("e^x + e^(-x)", exp(x) + exp(-x),  "ΑΡΤΙΑ"),
-    ("x^2 + x",      x**2 + x,          "ΟΥΤΕ"),
+    ("x^4 - 3x^2",   x**4 - 3 * x**2,   "EVEN"),
+    ("x^3 - x",      x**3 - x,          "ODD"),
+    ("e^x + e^(-x)", exp(x) + exp(-x),  "EVEN"),
+    ("x^2 + x",      x**2 + x,          "NEITHER"),
 ]
 
 
 def parity(expr, var=x):
-    """Το συμπέρασμα προκύπτει από τον έλεγχο, δεν είναι σταθερό κείμενο."""
+    """The conclusion follows from the test, it is not fixed text."""
     if simplify(expr.subs(var, -var) - expr) == 0:
-        return "ΑΡΤΙΑ"
+        return "EVEN"
     if simplify(expr.subs(var, -var) + expr) == 0:
-        return "ΠΕΡΙΤΤΗ"
-    return "ΟΥΤΕ"
+        return "ODD"
+    return "NEITHER"
 
 
 for name, expr, expected in funcs_b:
@@ -383,7 +383,7 @@ for name, expr, expected in funcs_b:
     got  = parity(expr)
     mark = "✓" if got == expected else "✗"
     print(f"  {name:14s} f(-x)-f(x) = {str(d):18s} f(-x)+f(x) = {str(s):22s}"
-          f" -&gt; {got}  (αναμενόμενο: {expected} {mark})")
+          f" -&gt; {got}  (expected: {expected} {mark})")
 
 fig1, axs1 = plt.subplots(2, 2, figsize=(9, 6))
 xs_b = np.linspace(-2, 2, 400)
@@ -394,26 +394,26 @@ for axi, (name, expr, _) in zip(axs1.ravel(), funcs_b):
     axi.axvline(0, color='k', lw=.6)
     axi.set_title(f"{name}  —  {parity(expr)}", fontsize=10)
     axi.grid(alpha=.3)
-fig1.suptitle("Άρτια: συμμετρία ως προς τον άξονα y · Περιττή: ως προς την αρχή",
+fig1.suptitle("Even: symmetric about the y-axis · Odd: about the origin",
               fontsize=10)
 fig1.tight_layout()
 
-# ── Γ. (γ) Η f(x)=(2x+1)/(x-3): 1-1 και αντίστροφη ───────────
-print("\n[Γ] Η f(x) = (2x+1)/(x-3): 1-1 και αντίστροφη")
+# ── C. (c) f(x)=(2x+1)/(x-3): one-to-one and its inverse ────
+print("\n[C] f(x) = (2x+1)/(x-3): one-to-one and its inverse")
 
 f_expr = (2 * x + 1) / (x - 3)
-print("  f(x) =", f_expr, "  (πεδίο ορισμού: R \\ {3})")
+print("  f(x) =", f_expr, "  (domain: R \\ {3})")
 print("  f'(x) =", sp.simplify(sp.diff(f_expr, x)),
-      " = -7/(x-3)^2 &lt; 0 -&gt; γνησίως φθίνουσα σε κάθε κλάδο, άρα 1-1 ✓")
+      " = -7/(x-3)^2 &lt; 0 -&gt; strictly decreasing on each branch, hence 1-1 ✓")
 
 sol = solve(Eq(y, f_expr), x)
 print("  solve(Eq(y, f), x) =", sol, " (= [(3y+1)/(y-2)] ✓)")
 
 finv_expr = sol[0].subs(y, x)
 print("  f^(-1)(x) =", finv_expr, "  (= (3x+1)/(x-2) ✓)")
-print("  Επαλήθευση f(f^(-1)(x)) =", simplify(f_expr.subs(x, finv_expr)), " (= x ✓)")
-print("  Επαλήθευση f^(-1)(f(x)) =", simplify(finv_expr.subs(x, f_expr)), " (= x ✓)")
-print("  Αριθμητικά: f(5) =", f_expr.subs(x, 5), "(= 11/2) και f^(-1)(11/2) =",
+print("  Check f(f^(-1)(x)) =", simplify(f_expr.subs(x, finv_expr)), " (= x ✓)")
+print("  Check f^(-1)(f(x)) =", simplify(finv_expr.subs(x, f_expr)), " (= x ✓)")
+print("  Numerically: f(5) =", f_expr.subs(x, 5), "(= 11/2) and f^(-1)(11/2) =",
       finv_expr.subs(x, sp.Rational(11, 2)), "(= 5 ✓)")
 
 f_num    = lambdify(x, f_expr, 'numpy')
@@ -421,7 +421,7 @@ finv_num = lambdify(x, finv_expr, 'numpy')
 
 
 def masked(fn, xs, pole, eps=0.15):
-    """Αποκόπτει τιμές κοντά στην κατακόρυφη ασύμπτωτο (αποφυγή 1/0)."""
+    """Clips values near the vertical asymptote (avoids 1/0)."""
     xs = xs[np.abs(xs - pole) &gt; eps]
     return xs, fn(xs)
 
@@ -437,26 +437,26 @@ for lo, hi, pole in [(-8, 2, 2), (2, 12, 2)]:
              label='$f^{-1}(x)=\\frac{3x+1}{x-2}$' if lo &lt; 0 else None)
 xs_line = np.linspace(-8, 12, 200)
 ax2.plot(xs_line, xs_line, 'k--', lw=1, label='$y = x$')
-ax2.axhline(2, color='tab:blue', ls=':', lw=.9)   # οριζόντια ασύμπτωτος της f
-ax2.axvline(3, color='tab:blue', ls=':', lw=.9)   # κατακόρυφη ασύμπτωτος της f
-ax2.axhline(3, color='tab:red', ls=':', lw=.9)    # οριζόντια ασύμπτωτος της f^-1
-ax2.axvline(2, color='tab:red', ls=':', lw=.9)    # κατακόρυφη ασύμπτωτος της f^-1
+ax2.axhline(2, color='tab:blue', ls=':', lw=.9)   # horizontal asymptote of f
+ax2.axvline(3, color='tab:blue', ls=':', lw=.9)   # vertical asymptote of f
+ax2.axhline(3, color='tab:red', ls=':', lw=.9)    # horizontal asymptote of f^-1
+ax2.axvline(2, color='tab:red', ls=':', lw=.9)    # vertical asymptote of f^-1
 ax2.set_xlim(-8, 12); ax2.set_ylim(-8, 12)
-ax2.set_aspect('equal')          # ΑΠΑΡΑΙΤΗΤΟ για να φανεί η συμμετρία
+ax2.set_aspect('equal')          # ESSENTIAL for the symmetry to be visible
 ax2.grid(alpha=.3); ax2.legend(loc='lower right', fontsize=9)
-ax2.set_title("$f$, $f^{-1}$ και η $y=x$: κατοπτρική συμμετρία", fontsize=11)
+ax2.set_title("$f$, $f^{-1}$ and $y=x$: mirror symmetry", fontsize=11)
 fig2.tight_layout()
-print("  Στο γράφημα: η x=3 (ασύμπτωτος της f) γίνεται y=3 για την f^(-1).")
+print("  In the plot: x=3 (asymptote of f) becomes y=3 for f^(-1).")
 
-# ── Δ. (δ) Μετασχηματισμοί a·f(b(x-c))+d και τμηματική p ─────
-print("\n[Δ] Μετασχηματισμοί a·f(b(x-c))+d της f(x)=x^2")
+# ── D. (d) Transformations a·f(b(x-c))+d and the piecewise p ─
+print("\n[D] Transformations a·f(b(x-c))+d of f(x)=x^2")
 
 base = x**2
 params = [
-    (1, 1, 2, 0, "f(x-2): μετατόπιση 2 ΔΕΞΙΑ"),
-    (1, 1, 0, 3, "f(x)+3: μετατόπιση 3 ΠΑΝΩ"),
-    (2, 1, 0, 0, "2f(x): κατακόρυφη επιμήκυνση ×2"),
-    (1, 2, 0, 0, "f(2x): οριζόντια συστολή ×1/2"),
+    (1, 1, 2, 0, "f(x-2): shift 2 to the RIGHT"),
+    (1, 1, 0, 3, "f(x)+3: shift 3 UP"),
+    (2, 1, 0, 0, "2f(x): vertical stretch ×2"),
+    (1, 2, 0, 0, "f(2x): horizontal compression ×1/2"),
 ]
 xs_d = np.linspace(-4, 5, 500)
 base_num = lambdify(x, base, 'numpy')
@@ -472,10 +472,10 @@ for axi, (a, b, c, d, descr) in zip(axs3.ravel(), params):
     axi.set_ylim(-2, 16); axi.grid(alpha=.3)
     axi.legend(fontsize=8, loc='upper center')
     axi.set_title(descr, fontsize=9)
-# Η ανάκλαση -f(x) ζητείται επίσης από το βιβλίο:
+# The reflection -f(x) is also asked for in the book:
 refl = -base
-print("  a=-1, b=1, c=0, d=0 -&gt;", refl, "  [-f(x): ανάκλαση ως προς τον άξονα x]")
-fig3.suptitle("Μετασχηματισμοί της $f(x)=x^2$", fontsize=11)
+print("  a=-1, b=1, c=0, d=0 -&gt;", refl, "  [-f(x): reflection in the x-axis]")
+fig3.suptitle("Transformations of $f(x)=x^2$", fontsize=11)
 fig3.tight_layout()
 
 fig3b, ax3b = plt.subplots(figsize=(6, 4))
@@ -483,11 +483,11 @@ ax3b.plot(xs_d, base_num(xs_d), 'k--', lw=1.2, label='$f(x)=x^2$')
 ax3b.plot(xs_d, -base_num(xs_d), lw=2, color='tab:purple', label='$-f(x)$')
 ax3b.axhline(0, color='k', lw=.6)
 ax3b.set_ylim(-16, 16); ax3b.grid(alpha=.3); ax3b.legend(fontsize=9)
-ax3b.set_title("Ανάκλαση ως προς τον άξονα $x$", fontsize=10)
+ax3b.set_title("Reflection in the $x$-axis", fontsize=10)
 fig3b.tight_layout()
 
-# Τμηματική p(x) = x^2 για x&lt;1,  2x-1 για x&gt;=1
-print("\n  Τμηματική p(x) = x^2 (x&lt;1),  2x-1 (x&gt;=1)  με sympy.Piecewise")
+# Piecewise p(x) = x^2 for x&lt;1,  2x-1 for x&gt;=1
+print("\n  Piecewise p(x) = x^2 (x&lt;1),  2x-1 (x&gt;=1)  with sympy.Piecewise")
 p = sp.Piecewise((x**2, x &lt; 1), (2 * x - 1, x &gt;= 1))
 print("  p(x) =", p)
 for v in (-1, 0, sp.Rational(1, 2), 1, sp.Rational(3, 2), 3):
@@ -499,22 +499,22 @@ pa = p.subs(x, 1)
 print("  lim x-&gt;1^- p(x) =", lm, " (= 1 ✓)")
 print("  lim x-&gt;1^+ p(x) =", lp, " (= 1 ✓)")
 print("  p(1) =", pa, " (= 1 ✓)")
-print("  Συνεχής στο x=1;", bool(lm == lp == pa), " (True ✓)")
+print("  Continuous at x=1?", bool(lm == lp == pa), " (True ✓)")
 
 p_num = lambdify(x, p, 'numpy')
 xs_p = np.linspace(-2, 3, 600)
 fig4, ax4 = plt.subplots(figsize=(6.5, 4.2))
 ax4.plot(xs_p, p_num(xs_p), lw=2, color='tab:green', label='$p(x)$')
 ax4.plot([1], [float(pa)], 'o', color='tab:red', ms=9, zorder=5,
-         label='$x=1$: $p(1)=1$, χωρίς άλμα')
+         label='$x=1$: $p(1)=1$, no jump')
 ax4.axvline(1, color='k', ls=':', lw=.9)
 ax4.grid(alpha=.3); ax4.legend(fontsize=9)
 ax4.set_xlabel('x'); ax4.set_ylabel('p(x)')
-ax4.set_title("Τμηματική $p$: συνεχής στο σημείο ραφής $x=1$", fontsize=10)
+ax4.set_title("Piecewise $p$: continuous at the joining point $x=1$", fontsize=10)
 fig4.tight_layout()
 
 plt.show()
-print("\n✓ Ολοκληρώθηκε.")
+print("\n✓ Done.")
 </textarea>
       <pre class="py-output" id="py-output"></pre>
       <div class="py-plots" id="py-plots"></div>
@@ -522,7 +522,7 @@ print("\n✓ Ολοκληρώθηκε.")
   </div>
 </div>
 <footer>
-  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
@@ -541,7 +541,7 @@ function loadCode(file, elementId, lang) {
       el.textContent=text; el.className='language-'+lang;
       Prism.highlightElement(el);
     })
-    .catch(err=>{document.getElementById(elementId).textContent='⚠ Αδυναμία φόρτωσης ('+err+'). Χρήση κουμπιού Λήψη.';});
+    .catch(err=>{document.getElementById(elementId).textContent='⚠ Could not load the file ('+err+'). Please use the Download button.';});
 }
 
 /* ── In-browser Python runner (Pyodide) ── */
@@ -554,7 +554,7 @@ $('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output'
 async function ensurePyodide(setStatus){
   if (pyodideReady) return pyodideReady;
   pyodideReady = (async () => {
-    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
     if (!window.loadPyodide){
       await new Promise((res, rej) => {
         const sc = document.createElement('script');
@@ -576,9 +576,9 @@ $('py-run').onclick = async function(){
     py.setStdout({ batched: s => { out.textContent += s; } });
     py.setStderr({ batched: s => { out.textContent += s; } });
     const code = $('py-editor').value;
-    setStatus('Φόρτωση βιβλιοθηκών…');
+    setStatus('Loading libraries…');
     await py.loadPackagesFromImports(code);
-    setStatus('Εκτέλεση…');
+    setStatus('Running…');
     await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
     py.globals.set('__user_src__', code);
     await py.runPythonAsync(`
@@ -604,10 +604,10 @@ _imgs
 `);
     const arr = figs.toJs(); if (figs.destroy) figs.destroy();
     arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
-    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
   } catch (e) {
-    out.textContent += '\n⚠ Σφάλμα: ' + e;
-    setStatus('Σφάλμα');
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
   } finally { btn.disabled = false; }
 };
 </script>

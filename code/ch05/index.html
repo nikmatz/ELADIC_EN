@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Κώδικας Κεφ. 5 — Ιδιοτιμές & Ιδιοδιανύσματα · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<title>Code Ch. 5 — Eigenvalues &amp; Eigenvectors · Elements of Linear Algebra &amp; Calculus</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 <style>
   :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
@@ -61,21 +61,21 @@
 <body>
 
 <header>
-  <h1>📐 Κεφάλαιο 5 — Ιδιοτιμές και Ιδιοδιανύσματα</h1>
-  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+  <h1>📐 Chapter 5 — Eigenvalues and Eigenvectors</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
 </header>
 
 <div class="breadcrumb">
-  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 5
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 5
 </div>
 
 <div class="container">
 
   <div class="info-box">
-    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
+    <h2>📋 Contents of the Activities</h2>
     <p>
-      <strong>Αντικείμενο:</strong> χαρακτηριστικό πολυώνυμο, ιδιοτιμές και ιδιόχωροι, αλγεβρική έναντι γεωμετρικής πολλαπλότητας, ελαττωματικές ιδιοτιμές, στάσιμη κατανομή Markov<br><br>
-      Τον κώδικα <strong>Python</strong> μπορείτε να τον <strong>τρέξετε εδώ μέσα στη σελίδα</strong> (κουμπί «▶ Τρέξε») — μπορείτε και να τον επεξεργαστείτε. Ο κώδικας <strong>Maxima</strong> εκτελείται στο <strong>wxMaxima</strong>.
+      <strong>Topic:</strong> characteristic polynomial, eigenvalues and eigenspaces, algebraic versus geometric multiplicity, defective eigenvalues, the Markov stationary distribution<br><br>
+      The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.
     </p>
   </div>
 
@@ -88,49 +88,49 @@
     <div class="code-card">
       <div class="code-header maxima">
         <span>maxima_eigen.mac</span>
-        <a class="download-btn" href="maxima_eigen.mac" download>⬇ Λήψη .mac</a>
-        <a class="download-btn" href="maxima_eigen.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Λήψη .wxmx</a>
+        <a class="download-btn" href="maxima_eigen.mac" download>⬇ Download .mac</a>
+        <a class="download-btn" href="maxima_eigen.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Download .wxmx</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0;">
-        <strong>Βασικές εντολές:</strong>
+        <strong>Basic commands:</strong>
         <code>load(&quot;eigen&quot;)</code> &nbsp;
         <code>eigenvalues(A)</code> &nbsp;
         <code>eigenvectors(A)</code> &nbsp;
-        <code>charpoly(A,λ)</code> &nbsp;
-        <code>nullspace(A-λ*I)</code>
+        <code>charpoly(A,lam)</code> &nbsp;
+        <code>nullspace(A-lam*I)</code>
       </div>
       <pre><code class="language-maxima" id="maxima-code">/* ============================================================
    maxima_eigen.mac
-   Κεφάλαιο 5 — Ιδιοτιμές, Χαρακτηριστικό Πολυώνυμο, Ιδιόχωροι
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 5 — Eigenvalues, Characteristic Polynomial, Eigenspaces
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
    ============================================================
 
-   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
-     load("eigen")           → φόρτωση πακέτου ιδιοτιμών
-     charpoly(A, lam)        → χαρακτηριστικό πολυώνυμο det(A - λI)
-     solve(p = 0, lam)       → ρίζες του χαρακτηριστικού πολυωνύμου
-     eigenvalues(A)          → [[ιδιοτιμές], [πολλαπλότητες]]
-     eigenvectors(A)         → ιδιοτιμές + πολλαπλότητες + ιδιοδιανύσματα
-     nullspace(A - lam*I)    → ιδιόχωρος (πυρήνας) της ιδιοτιμής λ
-     ident(n), rank(M)       → μοναδιαίος πίνακας, τάξη
+   COMMANDS USED:
+     load("eigen")           → load the eigenvalue package
+     charpoly(A, lam)        → characteristic polynomial det(A - lam·I)
+     solve(p = 0, lam)       → roots of the characteristic polynomial
+     eigenvalues(A)          → [[eigenvalues], [multiplicities]]
+     eigenvectors(A)         → eigenvalues + multiplicities + eigenvectors
+     nullspace(A - lam*I)    → eigenspace (kernel) of the eigenvalue lam
+     ident(n), rank(M)       → identity matrix, rank
 
-   Δραστηριότητα βιβλίου: (α) χαρ. πολυώνυμο &amp; tr/det,
-     (β) ιδιόχωροι του A, (γ) ιδιοτιμές τριγωνικού C,
-     (δ) αλγεβρική vs γεωμετρική πολλαπλότητα.
+   Book activity: (a) characteristic polynomial &amp; tr/det,
+     (b) the eigenspaces of A, (c) eigenvalues of the triangular C,
+     (d) algebraic vs geometric multiplicity.
 
-   Εκτελέστε με: wxMaxima (Load/File) ή
+   Run with: wxMaxima (Load/File) or
                  maxima -b maxima_eigen.mac
    ============================================================ */
 
 load("eigen")$
 
-/* Βοηθητικό: ισότητα πινάκων μέσω της διαφοράς τους */
+/* Helper: equality of matrices through their difference */
 mat_equal(M, N) := is( ratsimp(M - N) = zeromatrix(length(M), length(M[1])) )$
 
-/* Βοηθητικό: λίστα ιδιοτιμών ΜΕ τις πολλαπλότητές τους.
-   Η eigenvalues() επιστρέφει [[λ₁,λ₂,...],[m₁,m₂,...]] — η
-   solve() θα έδινε μόνο τις ΔΙΑΚΡΙΤΕΣ ρίζες, οπότε τα αθροίσματα
-   και τα γινόμενα θα ήταν λανθασμένα για πολλαπλές ιδιοτιμές. */
+/* Helper: list of the eigenvalues WITH their multiplicities.
+   eigenvalues() returns [[lam1,lam2,...],[m1,m2,...]] —
+   solve() would give only the DISTINCT roots, so the sums
+   and the products would be wrong for repeated eigenvalues. */
 eigs_with_mult(M) := block([ev, vals, mults, out],
     ev : eigenvalues(M),
     vals : ev[1], mults : ev[2], out : [],
@@ -138,88 +138,88 @@ eigs_with_mult(M) := block([ev, vals, mults, out],
         for k : 1 thru mults[i] do out : endcons(vals[i], out),
     out)$
 
-/* ── Α. (α) Χαρακτηριστικό πολυώνυμο, tr(A)=Σλ, det(A)=Πλ ─ */
-print("════ Α. (α) Χαρακτηριστικό Πολυώνυμο ════");
+/* ── A. (a) Characteristic polynomial, tr(A)=sum, det(A)=prod ─ */
+print("════ A. (a) Characteristic Polynomial ════");
 
 A : matrix([4, 1],
            [2, 3]);
 print("A ="); print(A);
 
 p_A : expand(charpoly(A, lam));
-print("p(λ) = det(A - λI) =", p_A);
-print("  σε παραγοντοποιημένη μορφή:", factor(p_A));
-print("  [Αναμένεται: (λ-5)(λ-2) ✓]");
+print("p(lam) = det(A - lam·I) =", p_A);
+print("  in factored form:", factor(p_A));
+print("  [Expected: (lam-5)(lam-2) ✓]");
 
-print("Ρίζες: solve(p(λ)=0, λ) →", solve(p_A = 0, lam));
+print("Roots: solve(p(lam)=0, lam) →", solve(p_A = 0, lam));
 
-/* Ιδιοτιμές ΜΕ πολλαπλότητες (σωστό για tr/det) */
+/* Eigenvalues WITH multiplicities (needed for tr/det) */
 print("eigenvalues(A) =", eigenvalues(A));
 evA : eigs_with_mult(A);
-print("Ιδιοτιμές με πολλαπλότητες: λ =", evA, "  [Αναμένεται [2,5]]");
+print("Eigenvalues with multiplicities: lam =", evA, "  [Expected [2,5]]");
 
 tr_A : A[1][1] + A[2][2];
 sum_A : apply("+", evA);
 det_A : determinant(A);
 prod_A : apply("*", evA);
-print("tr(A) =", tr_A, " | Σλᵢ =", sum_A, " | Ισότητα:", is(tr_A = sum_A));
-print("det(A) =", det_A, " | Πλᵢ =", prod_A, " | Ισότητα:", is(det_A = prod_A));
+print("tr(A) =", tr_A, " | sum(lam_i) =", sum_A, " | Equality:", is(tr_A = sum_A));
+print("det(A) =", det_A, " | prod(lam_i) =", prod_A, " | Equality:", is(det_A = prod_A));
 
-/* Επαλήθευση det(A - λᵢI) = 0 για κάθε ιδιοτιμή */
+/* Check that det(A - lam_i·I) = 0 for every eigenvalue */
 for lv in evA do
-    print("  λ =", lv, "→ det(A - λI) =", ratsimp(determinant(A - lv*ident(2))));
+    print("  lam =", lv, "→ det(A - lam·I) =", ratsimp(determinant(A - lv*ident(2))));
 
-/* ── Β. (β) Ιδιόχωροι του A και επαλήθευση A·v = λ·v ─────── */
-print("════ Β. (β) Ιδιόχωροι — nullspace(A - λI) ════");
+/* ── B. (b) Eigenspaces of A and check A·v = lam·v ──────── */
+print("════ B. (b) Eigenspaces — nullspace(A - lam·I) ════");
 
 for lv in listify(setify(evA)) do block([Mk, ns, basis, v],
     Mk : A - lv*ident(2),
-    print("─ λ =", lv, ": A - λI ="), print(Mk),
+    print("─ lam =", lv, ": A - lam·I ="), print(Mk),
     ns : nullspace(Mk),
-    print("  nullspace(A - λI) =", ns),
+    print("  nullspace(A - lam·I) =", ns),
     basis : args(ns),
-    print("  διάσταση ιδιόχωρου (γεωμετρική πολλαπλότητα) =", length(basis)),
+    print("  dimension of the eigenspace (geometric multiplicity) =", length(basis)),
     for v in basis do (
         print("  v =", transpose(v), "ᵀ"),
         print("  A·v =", transpose(ratsimp(A . v)), "ᵀ",
-              " | λ·v =", transpose(ratsimp(lv * v)), "ᵀ"),
-        print("  A·v = λ·v ;  Έλεγχος:", mat_equal(A . v, lv * v))
+              " | lam·v =", transpose(ratsimp(lv * v)), "ᵀ"),
+        print("  A·v = lam·v ;  Check:", mat_equal(A . v, lv * v))
     )
 );
 
 print("eigenvectors(A) =", eigenvectors(A));
 
-/* ── Γ. (γ) Κάτω τριγωνικός C — γιατί λ = διαγώνια στοιχεία ─ */
-print("════ Γ. (γ) Τριγωνικός πίνακας C ════");
+/* ── C. (c) Lower triangular C — why lam = the diagonal entries ─ */
+print("════ C. (c) Triangular matrix C ════");
 
 C : matrix([2, 0, 0],
            [1, 3, 0],
            [0, 1, 2]);
 print("C ="); print(C);
 
-print("C - λI ="); print(C - lam*ident(3));
+print("C - lam·I ="); print(C - lam*ident(3));
 p_C : charpoly(C, lam);
-print("p(λ) = det(C - λI) =", factor(expand(p_C)));
-print("  [Αναμένεται: (λ-2)²(λ-3) ✓]");
-print("Γιατί; Η ορίζουσα ΤΡΙΓΩΝΙΚΟΥ πίνακα είναι το γινόμενο των");
-print("διαγώνιων στοιχείων. Ο C - λI παραμένει κάτω τριγωνικός, άρα");
-print("det(C - λI) = (2-λ)(3-λ)(2-λ) → ρίζες ΑΚΡΙΒΩΣ τα διαγώνια 2, 3, 2.");
-print("Γινόμενο διαγώνιων του C - λI:",
+print("p(lam) = det(C - lam·I) =", factor(expand(p_C)));
+print("  [Expected: (lam-2)²(lam-3) ✓]");
+print("Why? The determinant of a TRIANGULAR matrix is the product of");
+print("its diagonal entries. C - lam·I is still lower triangular, so");
+print("det(C - lam·I) = (2-lam)(3-lam)(2-lam) → the roots are EXACTLY 2, 3, 2.");
+print("Product of the diagonal entries of C - lam·I:",
       factor(expand((C[1][1]-lam)*(C[2][2]-lam)*(C[3][3]-lam))));
-print("Ταυτίζεται με το p(λ) ;  Έλεγχος:",
+print("Identical with p(lam) ;  Check:",
       is(ratsimp(expand(p_C) - expand((C[1][1]-lam)*(C[2][2]-lam)*(C[3][3]-lam))) = 0));
 
 print("eigenvectors(C) ="); print(eigenvectors(C));
 
 evC : eigs_with_mult(C);
-print("Ιδιοτιμές με πολλαπλότητες:", evC, "  [Αναμένεται [2,2,3]]");
+print("Eigenvalues with multiplicities:", evC, "  [Expected [2,2,3]]");
 tr_C : C[1][1] + C[2][2] + C[3][3];
-print("tr(C) =", tr_C, " | Σλᵢ =", apply("+", evC),
-      " | Ισότητα:", is(tr_C = apply("+", evC)));
-print("det(C) =", determinant(C), " | Πλᵢ =", apply("*", evC),
-      " | Ισότητα:", is(determinant(C) = apply("*", evC)));
+print("tr(C) =", tr_C, " | sum(lam_i) =", apply("+", evC),
+      " | Equality:", is(tr_C = apply("+", evC)));
+print("det(C) =", determinant(C), " | prod(lam_i) =", apply("*", evC),
+      " | Equality:", is(determinant(C) = apply("*", evC)));
 
-/* ── Δ. (δ) Αλγεβρική vs γεωμετρική πολλαπλότητα του C ───── */
-print("════ Δ. (δ) Αλγεβρική vs Γεωμετρική Πολλαπλότητα ════");
+/* ── D. (d) Algebraic vs geometric multiplicity of C ────── */
+print("════ D. (d) Algebraic vs Geometric Multiplicity ════");
 
 evsC : eigenvalues(C)$
 valsC : evsC[1]$
@@ -232,24 +232,24 @@ for i : 1 thru length(valsC) do block([lv, ma, Mk, ns, mg],
     Mk : C - lv*ident(3),
     ns : nullspace(Mk),
     mg : length(args(ns)),
-    print("─ λ =", lv),
-    print("  αλγεβρική πολλαπλότητα m_a =", ma),
-    print("  nullspace(C - λI) =", ns),
-    print("  γεωμετρική πολλαπλότητα m_g = dim ker = n - rank =",
+    print("─ lam =", lv),
+    print("  algebraic multiplicity m_a =", ma),
+    print("  nullspace(C - lam·I) =", ns),
+    print("  geometric multiplicity m_g = dim ker = n - rank =",
           3 - rank(Mk), " = ", mg),
     if mg &lt; ma then (
         defective : true,
-        print("  m_g &lt; m_a  →  ΕΛΑΤΤΩΜΑΤΙΚΗ ιδιοτιμή")
+        print("  m_g &lt; m_a  →  DEFECTIVE eigenvalue")
     ) else
-        print("  m_g = m_a  →  κανονική ιδιοτιμή")
+        print("  m_g = m_a  →  regular eigenvalue")
 );
 
-print("Σύνολο γεωμετρικών πολλαπλοτήτων =",
+print("Sum of the geometric multiplicities =",
       sum(3 - rank(C - valsC[i]*ident(3)), i, 1, length(valsC)),
-      "( &lt; 3 → ο C ΔΕΝ είναι διαγωνιοποιήσιμος )");
-print("Υπάρχει ελαττωματική ιδιοτιμή:", defective);
+      "( &lt; 3 → C is NOT diagonalizable )");
+print("There is a defective eigenvalue:", defective);
 
-print("════ Τέλος ════");
+print("════ End ════");
 </code></pre>
     </div>
   </div>
@@ -258,10 +258,10 @@ print("════ Τέλος ════");
     <div class="code-card">
       <div class="code-header python">
         <span>python_eigen.py</span>
-        <a class="download-btn" href="python_eigen.py" download>⬇ Λήψη .py</a>
+        <a class="download-btn" href="python_eigen.py" download>⬇ Download .py</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0;">
-        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <strong>Libraries / commands:</strong>
         <code>np.linalg.eig()</code> &nbsp;
         <code>sympy.Matrix.eigenvects()</code> &nbsp;
         <code>sympy.Matrix.charpoly()</code> &nbsp;
@@ -269,31 +269,31 @@ print("════ Τέλος ════");
         <code>np.diag()</code>
       </div>
             <div class="py-toolbar">
-        <button class="run-btn" id="py-run">▶ Τρέξε</button>
-        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
-        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
       </div>
       <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
 # python_eigen.py
-# Κεφάλαιο 5 — Ιδιοτιμές, NumPy, Ιδιόχωροι, Markov
-# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# Chapter 5 — Eigenvalues, NumPy, Eigenspaces, Markov
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
 # ============================================================
 #
-# ΒΙΒΛΙΟΘΗΚΕΣ:
-#   numpy         → αριθμητικές ιδιοτιμές (eig), δυνάμεις πινάκων
-#   sympy         → ακριβείς ιδιοτιμές, ιδιόχωροι, χαρ. πολυώνυμο
-#   matplotlib    → σύγκλιση power iteration &amp; αλυσίδας Markov
+# LIBRARIES:
+#   numpy         → numerical eigenvalues (eig), powers of matrices
+#   sympy         → exact eigenvalues, eigenspaces, characteristic polynomial
+#   matplotlib    → convergence of power iteration &amp; of a Markov chain
 #
-# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
-#   sympy.Matrix.eigenvects()  → (λ, m_a, [ιδιοδιανύσματα]) ακριβώς
-#   sympy.Matrix.charpoly()    → χαρακτηριστικό πολυώνυμο
-#   np.linalg.eig(A)           → ιδιοτιμές + ιδιοδιανύσματα (αριθμητικά)
+# BASIC COMMANDS:
+#   sympy.Matrix.eigenvects()  → (lam, m_a, [eigenvectors]) exactly
+#   sympy.Matrix.charpoly()    → characteristic polynomial
+#   np.linalg.eig(A)           → eigenvalues + eigenvectors (numerically)
 #   np.linalg.matrix_power(M,n)→ Mⁿ
-#   np.diag(v)                 → διαγώνιος πίνακας
+#   np.diag(v)                 → diagonal matrix
 #
-# Δραστηριότητα βιβλίου: (α) ακριβείς ιδιοτιμές/ιδιοδιανύσματα του A,
-#   (β) αριθμητική επαλήθευση A·v = λ·v, (γ) ελαττωματικός πίνακας
-#   [[3,1],[0,3]], (δ) στάσιμη κατανομή Markov, (ε) γραφήματα.
+# Book activity: (a) exact eigenvalues/eigenvectors of A,
+#   (b) numerical check of A·v = lam·v, (c) the defective matrix
+#   [[3,1],[0,3]], (d) Markov stationary distribution, (e) plots.
 # ============================================================
 
 import numpy as np
@@ -301,48 +301,48 @@ import matplotlib.pyplot as plt
 from sympy import Matrix, Symbol, Rational, factor
 
 print("=" * 58)
-print(" Κεφάλαιο 5: Ιδιοτιμές &amp; Ιδιόχωροι — Python")
+print(" Chapter 5: Eigenvalues &amp; Eigenspaces — Python")
 print("=" * 58)
 
-# ── Α. (α) Ακριβείς ιδιοτιμές/ιδιοδιανύσματα με SymPy ─────
-print("\n── Α. (α) SymPy: eigenvects, trace, det ──")
+# ── A. (a) Exact eigenvalues/eigenvectors with SymPy ──────
+print("\n── A. (a) SymPy: eigenvects, trace, det ──")
 
 A_sym = Matrix([[4, 1],
                 [2, 3]])
 lam = Symbol('lambda')
 
 print("A =", A_sym.tolist())
-print("p(λ) = det(A - λI) =", factor(A_sym.charpoly(lam).as_expr()))
-print("  [Αναμένεται: (λ-5)(λ-2) ✓]")
+print("p(lam) = det(A - lam·I) =", factor(A_sym.charpoly(lam).as_expr()))
+print("  [Expected: (lam-5)(lam-2) ✓]")
 
 print("\neigenvects(A):")
-eig_list = []          # λίστα ιδιοτιμών ΜΕ τις πολλαπλότητές τους
+eig_list = []          # list of the eigenvalues WITH their multiplicities
 for eigval, m_a, vecs in A_sym.eigenvects():
     eig_list.extend([eigval] * m_a)
-    print(f"  λ = {eigval}   (αλγεβρική πολλαπλότητα m_a = {m_a},"
-          f" γεωμετρική m_g = {len(vecs)})")
+    print(f"  lam = {eigval}   (algebraic multiplicity m_a = {m_a},"
+          f" geometric m_g = {len(vecs)})")
     for v in vecs:
-        print("    ιδιοδιάνυσμα vᵀ =", list(v))
-        print("    A·v = λ·v ;  Έλεγχος:", (A_sym * v) == (eigval * v))
+        print("    eigenvector vᵀ =", list(v))
+        print("    A·v = lam·v ;  Check:", (A_sym * v) == (eigval * v))
 
 tr_A, det_A = A_sym.trace(), A_sym.det()
-sum_l = sum(eig_list)             # άθροισμα ΜΕ τις πολλαπλότητες
+sum_l = sum(eig_list)             # sum WITH the multiplicities
 prod_l = 1
 for e in eig_list:
     prod_l *= e
 
-print(f"\ntr(A) = {tr_A} | Σλᵢ = {sum_l} | Ισότητα: {tr_A == sum_l}")
-print(f"det(A) = {det_A} | Πλᵢ = {prod_l} | Ισότητα: {det_A == prod_l}")
-print("  [Αναμένονται tr = 7 = 5+2, det = 10 = 5·2 ✓]")
+print(f"\ntr(A) = {tr_A} | sum(lam_i) = {sum_l} | Equality: {tr_A == sum_l}")
+print(f"det(A) = {det_A} | prod(lam_i) = {prod_l} | Equality: {det_A == prod_l}")
+print("  [Expected tr = 7 = 5+2, det = 10 = 5·2 ✓]")
 
-# ── Β. (β) Αριθμητική επαλήθευση A·v = λ·v (NumPy) ────────
-print("\n── Β. (β) NumPy: np.linalg.eig και A·v = λ·v ──")
+# ── B. (b) Numerical check of A·v = lam·v (NumPy) ─────────
+print("\n── B. (b) NumPy: np.linalg.eig and A·v = lam·v ──")
 
 A = np.array([[4, 1],
               [2, 3]], dtype=float)
 
 vals, vecs = np.linalg.eig(A)
-print("Ιδιοτιμές:", np.round(vals, 10))
+print("Eigenvalues:", np.round(vals, 10))
 
 all_ok = True
 for i in range(len(vals)):
@@ -350,88 +350,88 @@ for i in range(len(vals)):
     res = A @ v - lv * v
     ok = bool(np.allclose(res, 0))
     all_ok = all_ok and ok
-    print(f"  λ{i+1} = {lv:.6f}  v{i+1} = {np.round(v, 6)}")
-    print(f"    A·v = {np.round(A @ v, 6)}   λ·v = {np.round(lv * v, 6)}")
-    print(f"    ‖A·v - λ·v‖ = {np.linalg.norm(res):.2e}  →  {ok}")
-print("Όλες οι σχέσεις A·v = λ·v επαληθεύονται:", all_ok)
+    print(f"  lam{i+1} = {lv:.6f}  v{i+1} = {np.round(v, 6)}")
+    print(f"    A·v = {np.round(A @ v, 6)}   lam·v = {np.round(lv * v, 6)}")
+    print(f"    ‖A·v - lam·v‖ = {np.linalg.norm(res):.2e}  →  {ok}")
+print("All the relations A·v = lam·v are verified:", all_ok)
 
-# Διαγωνιοποίηση: A = P·D·P⁻¹ (χρήσιμη στο (ε))
+# Diagonalization: A = P·D·P⁻¹ (useful in (e))
 P = vecs
 D = np.diag(vals)
-print("P·D·P⁻¹ == A ;  Έλεγχος:",
+print("P·D·P⁻¹ == A ;  Check:",
       bool(np.allclose(P @ D @ np.linalg.inv(P), A)))
 
-# ── Γ. (γ) Ελαττωματικός πίνακας [[3,1],[0,3]] ────────────
-print("\n── Γ. (γ) Ελαττωματική ιδιοτιμή: B = [[3,1],[0,3]] ──")
+# ── C. (c) The defective matrix [[3,1],[0,3]] ─────────────
+print("\n── C. (c) Defective eigenvalue: B = [[3,1],[0,3]] ──")
 
 B_sym = Matrix([[3, 1],
                 [0, 3]])
 print("B =", B_sym.tolist())
-print("p(λ) =", factor(B_sym.charpoly(lam).as_expr()),
-      "  [Αναμένεται: (λ-3)² ✓]")
-print("eigenvals(B) =", B_sym.eigenvals(), "  → λ = 3 με m_a = 2")
+print("p(lam) =", factor(B_sym.charpoly(lam).as_expr()),
+      "  [Expected: (lam-3)² ✓]")
+print("eigenvals(B) =", B_sym.eigenvals(), "  → lam = 3 with m_a = 2")
 
 for eigval, m_a, vecs_b in B_sym.eigenvects():
     m_g = len(vecs_b)
-    print(f"\n  λ = {eigval}")
-    print(f"  αλγεβρική πολλαπλότητα  m_a = {m_a}")
-    print(f"  ιδιόχωρος ker(B - λI) = span{[list(v) for v in vecs_b]}")
-    print(f"  γεωμετρική πολλαπλότητα m_g = dim ker = {m_g}")
-    print(f"  m_g &lt; m_a ;  Έλεγχος: {m_g &lt; m_a}"
+    print(f"\n  lam = {eigval}")
+    print(f"  algebraic multiplicity  m_a = {m_a}")
+    print(f"  eigenspace ker(B - lam·I) = span{[list(v) for v in vecs_b]}")
+    print(f"  geometric multiplicity m_g = dim ker = {m_g}")
+    print(f"  m_g &lt; m_a ;  Check: {m_g &lt; m_a}"
           f"  ({m_g} &lt; {m_a})")
     if m_g &lt; m_a:
-        print("  → Η ιδιοτιμή είναι ΕΛΑΤΤΩΜΑΤΙΚΗ (defective)")
+        print("  → The eigenvalue is DEFECTIVE")
 
-# Ο ιδιόχωρος και μέσω nullspace του B - 3I
+# The eigenspace also through the null space of B - 3I
 N = (B_sym - 3 * Matrix.eye(2)).nullspace()
 print("\nnullspace(B - 3I) =", [list(v) for v in N],
-      " | διάσταση =", len(N))
+      " | dimension =", len(N))
 print("rank(B - 3I) =", (B_sym - 3 * Matrix.eye(2)).rank(),
       " → dim ker = 2 - rank =", 2 - (B_sym - 3 * Matrix.eye(2)).rank())
-print("Ο B είναι διαγωνιοποιήσιμος:", B_sym.is_diagonalizable(),
-      " (χρειάζονταν 2 γραμμικά ανεξάρτητα ιδιοδιανύσματα, υπάρχει 1)")
+print("B is diagonalizable:", B_sym.is_diagonalizable(),
+      " (2 linearly independent eigenvectors were needed, there is 1)")
 
-# ── Δ. (δ) Αλυσίδα Markov: στάσιμη κατανομή ───────────────
-print("\n── Δ. (δ) Αλυσίδα Markov — στάσιμη κατανομή π ──")
+# ── D. (d) Markov chain: stationary distribution ──────────
+print("\n── D. (d) Markov chain — stationary distribution pi ──")
 
 M = np.array([[0.8, 0.3],
               [0.2, 0.7]])
 print("M =\n", M)
-print("Στοχαστικός κατά στήλες (άθροισμα στηλών = 1):",
+print("Column stochastic (columns sum to 1):",
       bool(np.allclose(M.sum(axis=0), 1.0)))
 
 M_vals, M_vecs = np.linalg.eig(M)
-print("Ιδιοτιμές M:", np.round(M_vals, 10),
-      " → υπάρχει λ = 1:", bool(np.any(np.isclose(M_vals, 1.0))))
+print("Eigenvalues of M:", np.round(M_vals, 10),
+      " → there is lam = 1:", bool(np.any(np.isclose(M_vals, 1.0))))
 
 idx = int(np.argmin(np.abs(M_vals - 1.0)))
 pi = M_vecs[:, idx].real
-pi = pi / pi.sum()                     # κανονικοποίηση σε κατανομή
-print("π =", np.round(pi, 10), "  [Αναμένεται (0.6, 0.4)]")
-print("Άθροισμα π = ", round(float(pi.sum()), 10))
-print("M·π =", np.round(M @ pi, 10))
-print("M·π == π ;  Έλεγχος:", bool(np.allclose(M @ pi, pi)))
+pi = pi / pi.sum()                     # normalization to a distribution
+print("pi =", np.round(pi, 10), "  [Expected (0.6, 0.4)]")
+print("Sum of pi = ", round(float(pi.sum()), 10))
+print("M·pi =", np.round(M @ pi, 10))
+print("M·pi == pi ;  Check:", bool(np.allclose(M @ pi, pi)))
 
-# Ακριβής υπολογισμός με SymPy (ρητοί αριθμοί)
+# Exact computation with SymPy (rational numbers)
 M_sym = Matrix([[Rational(8, 10), Rational(3, 10)],
                 [Rational(2, 10), Rational(7, 10)]])
 ns = (M_sym - Matrix.eye(2)).nullspace()[0]
 pi_exact = ns / sum(ns)
-print("π (ακριβώς, SymPy) =", list(pi_exact), "  [= (3/5, 2/5) ✓]")
-print("M·π = π (ακριβώς) ;  Έλεγχος:", (M_sym * pi_exact) == pi_exact)
+print("pi (exact, SymPy) =", list(pi_exact), "  [= (3/5, 2/5) ✓]")
+print("M·pi = pi (exactly) ;  Check:", (M_sym * pi_exact) == pi_exact)
 
-# Σύγκλιση Mⁿ → [π | π]
+# Convergence Mⁿ → [pi | pi]
 M50 = np.linalg.matrix_power(M, 50)
 print("\nM⁵⁰ =\n", np.round(M50, 10))
-print("Κάθε στήλη του M⁵⁰ ισούται με π ;  Έλεγχος:",
+print("Every column of M⁵⁰ equals pi ;  Check:",
       bool(np.allclose(M50, np.column_stack([pi, pi]))))
 
-# ── Ε. (ε) Προαιρετικό: power iteration &amp; Markov (γραφικά) ─
-print("\n── Ε. (ε) Προαιρετικό: γραφήματα σύγκλισης ──")
+# ── E. (e) Optional: power iteration &amp; Markov (plots) ─────
+print("\n── E. (e) Optional: convergence plots ──")
 
 
 def power_iteration(Mat, num_iter=25, seed=42):
-    """Μέθοδος δύναμης: εκτίμηση της κυρίαρχης ιδιοτιμής (πηλίκο Rayleigh)."""
+    """Power method: estimate of the dominant eigenvalue (Rayleigh quotient)."""
     rng = np.random.default_rng(seed)
     x = rng.normal(size=Mat.shape[0])
     x = x / np.linalg.norm(x)
@@ -439,35 +439,35 @@ def power_iteration(Mat, num_iter=25, seed=42):
     for _ in range(num_iter):
         y = Mat @ x
         x = y / np.linalg.norm(y)
-        estimates.append(float(x @ (Mat @ x)))   # πηλίκο Rayleigh
+        estimates.append(float(x @ (Mat @ x)))   # Rayleigh quotient
     return x, estimates
 
 
 v_est, history = power_iteration(A)
 lam_max = float(np.max(vals))
 lam_est = history[-1]
-print(f"Κυρίαρχη ιδιοτιμή (power iteration, 25 βήματα): {lam_est:.10f}")
-print(f"Ακριβής τιμή λ_max = {lam_max:.10f}"
-      f"  | σφάλμα = {abs(lam_est - lam_max):.2e}"
-      f"  | σύγκλιση: {abs(lam_est - lam_max) &lt; 1e-8}")
+print(f"Dominant eigenvalue (power iteration, 25 steps): {lam_est:.10f}")
+print(f"Exact value lam_max = {lam_max:.10f}"
+      f"  | error = {abs(lam_est - lam_max):.2e}"
+      f"  | convergence: {abs(lam_est - lam_max) &lt; 1e-8}")
 
-# Πορεία της αλυσίδας Markov από την κατάσταση (1, 0)
+# Trajectory of the Markov chain from the state (1, 0)
 state = np.array([1.0, 0.0])
 traj = [state.copy()]
 for _ in range(25):
     state = M @ state
     traj.append(state.copy())
 traj = np.array(traj)
-print(f"Κατάσταση μετά από 25 βήματα: {np.round(traj[-1], 8)}"
-      f"  | ταυτίζεται με π: {bool(np.allclose(traj[-1], pi))}")
+print(f"State after 25 steps: {np.round(traj[-1], 8)}"
+      f"  | identical with pi: {bool(np.allclose(traj[-1], pi))}")
 
 fig, axes = plt.subplots(1, 3, figsize=(14, 4.5))
-fig.suptitle("Κεφ. 5 — Ιδιοδιανύσματα, Power Iteration, Markov",
+fig.suptitle("Ch. 5 — Eigenvectors, Power Iteration, Markov",
              fontsize=13, fontweight='bold')
 
-# (1) Ιδιοδιανύσματα του A στο επίπεδο
+# (1) Eigenvectors of A in the plane
 ax1 = axes[0]
-ax1.set_title("Ιδιοδιανύσματα του $A$")
+ax1.set_title("Eigenvectors of $A$")
 colors = ['royalblue', 'tomato']
 for i in range(2):
     vn = vecs[:, i] / np.linalg.norm(vecs[:, i])
@@ -481,33 +481,33 @@ ax1.axhline(0, color='k', lw=0.5); ax1.axvline(0, color='k', lw=0.5)
 ax1.grid(True, alpha=0.3); ax1.set_aspect('equal')
 ax1.set_xlabel('x'); ax1.set_ylabel('y')
 
-# (2) Σύγκλιση power iteration
+# (2) Convergence of power iteration
 ax2 = axes[1]
-ax2.set_title("Σύγκλιση Power Iteration")
+ax2.set_title("Convergence of Power Iteration")
 ax2.plot(range(1, len(history) + 1), history, 'o-', color='royalblue',
-         lw=1.8, ms=3, label='πηλίκο Rayleigh')
+         lw=1.8, ms=3, label='Rayleigh quotient')
 ax2.axhline(lam_max, color='tomato', ls='--', lw=1.5,
             label=f'$\\lambda_{{max}}={lam_max:.0f}$')
-ax2.set_xlabel("Επανάληψη"); ax2.set_ylabel("Εκτίμηση $\\lambda$")
+ax2.set_xlabel("Iteration"); ax2.set_ylabel("Estimate of $\\lambda$")
 ax2.legend(fontsize=9); ax2.grid(True, alpha=0.3)
 
-# (3) Σύγκλιση αλυσίδας Markov προς π
+# (3) Convergence of the Markov chain to pi
 ax3 = axes[2]
-ax3.set_title("Αλυσίδα Markov → στάσιμη $\\pi$")
-ax3.plot(traj[:, 0], color='royalblue', lw=2, label='Κατάσταση 1')
-ax3.plot(traj[:, 1], color='tomato', lw=2, label='Κατάσταση 2')
+ax3.set_title("Markov chain → stationary $\\pi$")
+ax3.plot(traj[:, 0], color='royalblue', lw=2, label='State 1')
+ax3.plot(traj[:, 1], color='tomato', lw=2, label='State 2')
 ax3.axhline(pi[0], color='royalblue', ls='--', lw=1, alpha=0.7)
 ax3.axhline(pi[1], color='tomato', ls='--', lw=1, alpha=0.7)
 ax3.text(14, pi[0] + 0.03, f'$\\pi_1={pi[0]:.1f}$', color='royalblue',
          fontsize=9)
 ax3.text(14, pi[1] - 0.07, f'$\\pi_2={pi[1]:.1f}$', color='tomato',
          fontsize=9)
-ax3.set_xlabel("Βήματα"); ax3.set_ylabel("Πιθανότητα")
+ax3.set_xlabel("Steps"); ax3.set_ylabel("Probability")
 ax3.set_ylim(0, 1.05)
 ax3.legend(fontsize=9); ax3.grid(True, alpha=0.3)
 
 plt.tight_layout()
-print("Δημιουργήθηκαν τα γραφήματα σύγκλισης.")
+print("The convergence plots have been created.")
 plt.show()
 </textarea>
       <pre class="py-output" id="py-output"></pre>
@@ -518,7 +518,7 @@ plt.show()
 </div>
 
 <footer>
-  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
@@ -540,7 +540,7 @@ function loadCode(file, elementId, lang) {
     })
     .catch(err => {
       document.getElementById(elementId).textContent =
-        '⚠ Αδυναμία φόρτωσης (' + err + '). Χρησιμοποιήστε "Λήψη".';
+        '⚠ Could not load the file (' + err + '). Please use "Download".';
     });
 }
 
@@ -554,7 +554,7 @@ $('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output'
 async function ensurePyodide(setStatus){
   if (pyodideReady) return pyodideReady;
   pyodideReady = (async () => {
-    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
     if (!window.loadPyodide){
       await new Promise((res, rej) => {
         const sc = document.createElement('script');
@@ -576,9 +576,9 @@ $('py-run').onclick = async function(){
     py.setStdout({ batched: s => { out.textContent += s; } });
     py.setStderr({ batched: s => { out.textContent += s; } });
     const code = $('py-editor').value;
-    setStatus('Φόρτωση βιβλιοθηκών…');
+    setStatus('Loading libraries…');
     await py.loadPackagesFromImports(code);
-    setStatus('Εκτέλεση…');
+    setStatus('Running…');
     await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
     py.globals.set('__user_src__', code);
     await py.runPythonAsync(`
@@ -604,10 +604,10 @@ _imgs
 `);
     const arr = figs.toJs(); if (figs.destroy) figs.destroy();
     arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
-    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
   } catch (e) {
-    out.textContent += '\n⚠ Σφάλμα: ' + e;
-    setStatus('Σφάλμα');
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
   } finally { btn.disabled = false; }
 };
 </script>

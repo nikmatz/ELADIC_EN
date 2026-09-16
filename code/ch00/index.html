@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Κώδικας Κεφ. 0 — Μαθηματικό Υπόβαθρο · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<title>Code Ch. 0 — Mathematical Background · Elements of Linear Algebra &amp; Calculus</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 <style>
   :root {
@@ -142,24 +142,24 @@
 <body>
 
 <header>
-  <h1>📐 Κεφάλαιο 0 — Μαθηματικό Υπόβαθρο</h1>
-  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+  <h1>📐 Chapter 0 — Mathematical Background</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
 </header>
 
 <div class="breadcrumb">
-  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 0
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 0
 </div>
 
 <div class="container">
 
   <div class="info-box">
-    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
+    <h2>📋 Contents of the Activities</h2>
     <p>
-      <strong>Αντικείμενο:</strong> μιγαδικοί αριθμοί — ορθογώνια &amp; εκθετική μορφή, φάσορες, θεώρημα De Moivre, n-ιοστές ρίζες, διάγραμμα Argand<br><br>
-      Επιλέξτε γλώσσα από τις καρτέλες παρακάτω.
-      Τον κώδικα <strong>Python</strong> μπορείτε να τον <strong>τρέξετε εδώ μέσα στη σελίδα</strong>
-      (κουμπί «▶ Τρέξε») — μπορείτε και να τον επεξεργαστείτε. Ο κώδικας <strong>Maxima</strong>
-      εκτελείται στο <strong>wxMaxima</strong>.
+      <strong>Topic:</strong> complex numbers — rectangular &amp; exponential form, phasors, De Moivre's theorem, nth roots, the Argand diagram<br><br>
+      Choose a language from the tabs below.
+      The <strong>Python</strong> code can be <strong>run right here on the page</strong>
+      (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code
+      runs in <strong>wxMaxima</strong>.
     </p>
   </div>
 
@@ -175,12 +175,12 @@
       <div class="code-header maxima">
         <span>maxima_complex.mac</span>
         <a class="download-btn"
-           href="maxima_complex.mac" download>⬇ Λήψη .mac</a>
-        <a class="download-btn" href="maxima_complex.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Λήψη .wxmx</a>
+           href="maxima_complex.mac" download>⬇ Download .mac</a>
+        <a class="download-btn" href="maxima_complex.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Download .wxmx</a>
       </div>
 
       <div class="commands-box" style="margin:12px 16px 0;">
-        <strong>Βασικές εντολές:</strong>
+        <strong>Basic commands:</strong>
         <code>rectform(z)</code> &nbsp;
         <code>abs(z)</code> &nbsp;
         <code>carg(z)</code> &nbsp;
@@ -190,65 +190,65 @@
 
       <pre><code class="language-maxima" id="maxima-code">/* ============================================================
    maxima_complex.mac
-   Κεφάλαιο 0 — Μαθηματικό Υπόβαθρο: Μιγαδικοί Αριθμοί
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 0 — Mathematical Background: Complex Numbers
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
    ============================================================
 
-   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
-     rectform(z)      → ορθογώνια μορφή  a + b·i
-     polarform(z)     → πολική μορφή     r·(cosθ + i·sinθ)
-     abs(z)           → μέτρο  |z|
-     carg(z)          → όρισμα (argument)  arg(z)  σε rad
-     simplify(expr)   → απλοποίηση
-     expand(expr)     → ανάπτυξη
-     solve(eq, x)     → επίλυση εξίσωσης
+   COMMANDS USED:
+     rectform(z)      → rectangular form  a + b·i
+     polarform(z)     → polar form       r·(cos(t) + i·sin(t))
+     abs(z)           → modulus  |z|
+     carg(z)          → argument  arg(z)  in rad
+     simplify(expr)   → simplification
+     expand(expr)     → expansion
+     solve(eq, x)     → solving an equation
 
-   Εκτελέστε με: wxMaxima (Load/File) ή
+   Run with: wxMaxima (Load/File) or
                  maxima -b maxima_complex.mac
    ============================================================ */
 
-/* ── Μέρος Α: Βασικές Πράξεις με Μιγαδικούς ─────────────── */
-print("════ Α. Βασικές Πράξεις ════");
+/* ── Part A: Basic Operations with Complex Numbers ──────── */
+print("════ A. Basic Operations ════");
 
 z1 : 3 + 4*%i;          /* z₁ = 3 + 4i */
 z2 : 1 - 2*%i;          /* z₂ = 1 - 2i */
 
 print("z₁ =", z1, "   z₂ =", z2);
-print("Πρόσθεση:       z₁ + z₂ =", expand(z1 + z2));
-print("Αφαίρεση:       z₁ - z₂ =", expand(z1 - z2));
-print("Πολλαπλασιασμός: z₁·z₂  =", expand(z1 * z2));
-print("Διαίρεση:        z₁/z₂  =", rectform(z1 / z2));
+print("Addition:        z₁ + z₂ =", expand(z1 + z2));
+print("Subtraction:     z₁ - z₂ =", expand(z1 - z2));
+print("Multiplication:  z₁·z₂  =", expand(z1 * z2));
+print("Division:        z₁/z₂  =", rectform(z1 / z2));
 
-/* Μέτρο και Όρισμα */
+/* Modulus and Argument */
 print("");
-print("Μέτρο  |z₁| =", abs(z1),    " (= √(3²+4²) = 5)");
-print("Μέτρο  |z₂| =", abs(z2));
-print("Όρισμα arg(z₁) =", carg(z1), "rad =",
+print("Modulus  |z₁| =", abs(z1),    " (= √(3²+4²) = 5)");
+print("Modulus  |z₂| =", abs(z2));
+print("Argument arg(z₁) =", carg(z1), "rad =",
       float(carg(z1)) * 180 / %pi, "°");
 
-/* ── Μέρος Β: Εκθετική Μορφή — Φάσορες AC Κυκλώματος ───── */
-print("════ Β. Εκθετική Μορφή — Φάσορες ════");
+/* ── Part B: Exponential Form — AC Circuit Phasors ─────── */
+print("════ B. Exponential Form — Phasors ════");
 
-/* Δύο φάσορες ηλεκτρικού κυκλώματος */
-z_A : 5 * exp(%i * %pi / 3);   /* |z_A| = 5, γωνία = 60° */
-z_B : 2 * exp(%i * %pi / 6);   /* |z_B| = 2, γωνία = 30° */
+/* Two phasors of an electrical circuit */
+z_A : 5 * exp(%i * %pi / 3);   /* |z_A| = 5, angle = 60° */
+z_B : 2 * exp(%i * %pi / 6);   /* |z_B| = 2, angle = 30° */
 
-print("Φάσορας A: z_A = 5·e^(iπ/3)  →  ορθογώνια:", rectform(z_A));
-print("Φάσορας B: z_B = 2·e^(iπ/6)  →  ορθογώνια:", rectform(z_B));
-
-print("");
-print("(β1) Γινόμενο z_A·z_B  = ", simplify(z_A * z_B));
-print("     Ορθογώνια:        = ", rectform(simplify(z_A * z_B)));
-print("     [Μέτρο = 5·2 = 10, Γωνία = 60°+30° = 90°  →  10i ✓]");
+print("Phasor A: z_A = 5·e^(i·pi/3)  →  rectangular:", rectform(z_A));
+print("Phasor B: z_B = 2·e^(i·pi/6)  →  rectangular:", rectform(z_B));
 
 print("");
-print("(β2) Πηλίκο z_A/z_B    = ", simplify(z_A / z_B));
-print("     Ορθογώνια:        = ", rectform(simplify(z_A / z_B)));
-print("     [Μέτρο = 5/2 = 2.5, Γωνία = 60°−30° = 30°]");
+print("(b1) Product z_A·z_B   = ", simplify(z_A * z_B));
+print("     Rectangular:      = ", rectform(simplify(z_A * z_B)));
+print("     [Modulus = 5·2 = 10, Angle = 60°+30° = 90°  →  10i ✓]");
 
-/* ── Μέρος Γ: Θεώρημα De Moivre ─────────────────────────── */
-print("════ Γ. Θεώρημα De Moivre ════");
-/* (cos θ + i sin θ)^n = cos(nθ) + i sin(nθ) */
+print("");
+print("(b2) Quotient z_A/z_B  = ", simplify(z_A / z_B));
+print("     Rectangular:      = ", rectform(simplify(z_A / z_B)));
+print("     [Modulus = 5/2 = 2.5, Angle = 60°−30° = 30°]");
+
+/* ── Part C: De Moivre's Theorem ────────────────────────── */
+print("════ C. De Moivre's Theorem ════");
+/* (cos t + i sin t)^n = cos(nt) + i sin(nt) */
 
 theta : %pi / 3;   /* 60° */
 n     : 3;
@@ -258,42 +258,42 @@ rhs : cos(n * theta) + %i * sin(n * theta);
 
 print("(cos 60° + i sin 60°)³ =", float(lhs));
 print("cos 180° + i sin 180°  =", float(rhs));
-print("Ισότητα:", is(float(lhs) = float(rhs)));   /* true */
+print("Equality:", is(float(lhs) = float(rhs)));   /* true */
 
-/* Εφαρμογή: (5e^(iπ/3))³ */
+/* Application: (5e^(i·pi/3))³ */
 print("");
 z_cubed : simplify((5 * exp(%i * %pi / 3))^3);
-print("(5·e^(iπ/3))³ =", z_cubed, "=", rectform(z_cubed));
-print("[Αναμένεται: μέτρο = 5³=125, γωνία = 3·60°=180°  →  −125 ✓]");
+print("(5·e^(i·pi/3))³ =", z_cubed, "=", rectform(z_cubed));
+print("[Expected: modulus = 5³=125, angle = 3·60°=180°  →  −125 ✓]");
 
-/* ── Μέρος Δ: Ρίζες Μιγαδικών Αριθμών ──────────────────── */
-print("════ Δ. n-ιοστές Ρίζες Μιγαδικών ════");
-/* z^n = w  έχει ακριβώς n ρίζες:
-   z_k = r^(1/n) · e^(i(θ+2kπ)/n),  k = 0,1,...,n-1  */
+/* ── Part D: Roots of Complex Numbers ───────────────────── */
+print("════ D. nth Roots of Complex Numbers ════");
+/* z^n = w  has exactly n roots:
+   z_k = r^(1/n) · e^(i(t+2k·pi)/n),  k = 0,1,...,n-1  */
 
-/* Τετραγωνικές ρίζες του −1 */
-print("Ρίζες x² = -1:");
+/* Square roots of −1 */
+print("Roots of x² = -1:");
 sol : solve(x^2 = -1, x);
 print("  x =", sol);
 
-/* Κυβικές ρίζες του 8 */
-print("Ρίζες x³ = 8:");
+/* Cube roots of 8 */
+print("Roots of x³ = 8:");
 sol3 : solve(x^3 = 8, x);
 print("  x =", sol3);
-/* Εμφάνιση αριθμητικά */
-print("  Αριθμητικά:", float(sol3));
+/* Display numerically */
+print("  Numerically:", float(sol3));
 
-/* ── Μέρος Ε: Διαίρεση Μιγαδικών — Επαλήθευση ──────────── */
-print("════ Ε. Χρήσιμες Ταυτότητες ════");
+/* ── Part E: Division of Complex Numbers — Verification ── */
+print("════ E. Useful Identities ════");
 
-z : a + %i * b;   /* γενικός μιγαδικός */
+z : a + %i * b;   /* a general complex number */
 conj_z : a - %i * b;
 
 print("z·conj(z) =", expand(z * conj_z), " (= a² + b² = |z|²  ✓)");
 print("z + conj(z) =", expand(z + conj_z), " (= 2a = 2·Re(z)  ✓)");
 print("z - conj(z) =", expand(z - conj_z), " (= 2bi = 2i·Im(z) ✓)");
 
-print("════ Τέλος ════");
+print("════ End ════");
 </code></pre>
     </div>
   </div>
@@ -304,42 +304,42 @@ print("════ Τέλος ════");
       <div class="code-header python">
         <span>python_complex.py</span>
         <a class="download-btn"
-           href="python_complex.py" download>⬇ Λήψη .py</a>
+           href="python_complex.py" download>⬇ Download .py</a>
       </div>
 
       <div class="commands-box" style="margin:12px 16px 0;">
-        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <strong>Libraries / commands:</strong>
         <code>cmath.polar(z)</code> &nbsp;
-        <code>cmath.rect(r,θ)</code> &nbsp;
+        <code>cmath.rect(r,t)</code> &nbsp;
         <code>cmath.phase(z)</code> &nbsp;
         <code>sympy.solve()</code> &nbsp;
         <code>matplotlib.pyplot</code>
       </div>
 
       <div class="py-toolbar">
-        <button class="run-btn" id="py-run">▶ Τρέξε</button>
-        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
-        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
       </div>
       <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
 # python_complex.py
-# Κεφάλαιο 0 — Μαθηματικό Υπόβαθρο: Μιγαδικοί Αριθμοί
-# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# Chapter 0 — Mathematical Background: Complex Numbers
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
 # ============================================================
 #
-# ΒΙΒΛΙΟΘΗΚΕΣ:
-#   cmath    → αριθμητικοί υπολογισμοί με μιγαδικούς
-#   sympy    → συμβολικοί υπολογισμοί (ακριβείς)
-#   numpy    → αριθμητικές πράξεις πινάκων
-#   matplotlib → γραφικές παραστάσεις (Argand diagram)
+# LIBRARIES:
+#   cmath    → numerical computations with complex numbers
+#   sympy    → symbolic computations (exact)
+#   numpy    → numerical operations on arrays
+#   matplotlib → plots (Argand diagram)
 #
-# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
-#   cmath.polar(z)      → (r, θ)  πολικές συντεταγμένες
-#   cmath.rect(r, θ)    → z = r·e^(iθ)  ορθογώνιες
-#   cmath.sqrt(z)       → τετραγωνική ρίζα
-#   cmath.phase(z)      → γωνία arg(z) σε [-π, π]
-#   sympy.simplify(expr)→ συμβολική απλοποίηση
-#   sympy.solve(eq, x)  → επίλυση εξίσωσης
+# BASIC COMMANDS:
+#   cmath.polar(z)      → (r, t)  polar coordinates
+#   cmath.rect(r, t)    → z = r·e^(i·t)  rectangular
+#   cmath.sqrt(z)       → square root
+#   cmath.phase(z)      → angle arg(z) in [-pi, pi]
+#   sympy.simplify(expr)→ symbolic simplification
+#   sympy.solve(eq, x)  → solving an equation
 # ============================================================
 
 import cmath
@@ -353,11 +353,11 @@ from sympy import (symbols, I, pi, sqrt, exp, cos, sin,
                    N, Rational, pretty_print as pprint)
 
 print("=" * 55)
-print(" Κεφάλαιο 0: Μιγαδικοί Αριθμοί — Python")
+print(" Chapter 0: Complex Numbers — Python")
 print("=" * 55)
 
-# ── Α. Βασικές Πράξεις (cmath — αριθμητικό) ──────────────
-print("\n── Α. Βασικές Πράξεις (cmath) ──")
+# ── A. Basic Operations (cmath — numerical) ──────────────
+print("\n── A. Basic Operations (cmath) ──")
 
 z1 = 3 + 4j       # z₁ = 3 + 4i
 z2 = 1 - 2j       # z₂ = 1 - 2i
@@ -372,53 +372,53 @@ r1, theta1 = cmath.polar(z1)
 print(f"\n|z₁| = {r1:.4f}  (= √(3²+4²) = 5 ✓)")
 print(f"arg(z₁) = {theta1:.4f} rad = {math.degrees(theta1):.2f}°")
 
-# Επαλήθευση: z · conj(z) = |z|²
+# Verification: z · conj(z) = |z|²
 print(f"z₁ · conj(z₁) = {z1 * z1.conjugate():.1f}  (= |z₁|² = 25 ✓)")
 
-# ── Β. Φάσορες AC — Εκθετική Μορφή ───────────────────────
-print("\n── Β. Φάσορες AC — Εκθετική Μορφή ──")
+# ── B. AC Phasors — Exponential Form ─────────────────────
+print("\n── B. AC Phasors — Exponential Form ──")
 
-zA = cmath.rect(5, math.pi / 3)   # 5·e^(iπ/3),  |zA|=5, θ=60°
-zB = cmath.rect(2, math.pi / 6)   # 2·e^(iπ/6),  |zB|=2, θ=30°
+zA = cmath.rect(5, math.pi / 3)   # 5·e^(i·pi/3),  |zA|=5, angle=60°
+zB = cmath.rect(2, math.pi / 6)   # 2·e^(i·pi/6),  |zB|=2, angle=30°
 
-print(f"z_A = 5·e^(iπ/3) = {zA.real:.4f} + {zA.imag:.4f}i")
-print(f"z_B = 2·e^(iπ/6) = {zB.real:.4f} + {zB.imag:.4f}i")
+print(f"z_A = 5·e^(i·pi/3) = {zA.real:.4f} + {zA.imag:.4f}i")
+print(f"z_B = 2·e^(i·pi/6) = {zB.real:.4f} + {zB.imag:.4f}i")
 
 prod = zA * zB
 print(f"\nz_A · z_B = {prod:.4f}")
-print(f"  Μέτρο:  {abs(prod):.4f}  (= 5·2 = 10 ✓)")
-print(f"  Γωνία:  {math.degrees(cmath.phase(prod)):.1f}°  (= 60°+30° = 90° ✓)")
+print(f"  Modulus: {abs(prod):.4f}  (= 5·2 = 10 ✓)")
+print(f"  Angle:   {math.degrees(cmath.phase(prod)):.1f}°  (= 60°+30° = 90° ✓)")
 
 quot = zA / zB
 print(f"\nz_A / z_B = {quot.real:.4f} + {quot.imag:.4f}i")
-print(f"  Μέτρο:  {abs(quot):.4f}  (= 5/2 = 2.5 ✓)")
-print(f"  Γωνία:  {math.degrees(cmath.phase(quot)):.1f}°  (= 60°-30° = 30° ✓)")
+print(f"  Modulus: {abs(quot):.4f}  (= 5/2 = 2.5 ✓)")
+print(f"  Angle:   {math.degrees(cmath.phase(quot)):.1f}°  (= 60°-30° = 30° ✓)")
 
-# ── Γ. Θεώρημα De Moivre ──────────────────────────────────
-print("\n── Γ. Θεώρημα De Moivre ──")
-# (r·e^(iθ))^n = r^n · e^(inθ)
+# ── C. De Moivre's Theorem ────────────────────────────────
+print("\n── C. De Moivre's Theorem ──")
+# (r·e^(i·t))^n = r^n · e^(i·n·t)
 
-base = cmath.rect(5, math.pi / 3)   # 5·e^(iπ/3)
+base = cmath.rect(5, math.pi / 3)   # 5·e^(i·pi/3)
 z_cubed = base ** 3
-print(f"(5·e^(iπ/3))³ = {z_cubed:.6f}")
-print(f"  Μέτρο:  {abs(z_cubed):.1f}  (= 5³ = 125 ✓)")
-print(f"  Γωνία:  {math.degrees(cmath.phase(z_cubed)):.1f}°  (= 3·60° = 180° ✓)")
-print(f"  Άρα:    = -125  (= 125·(cos180° + i·sin180°) ✓)")
+print(f"(5·e^(i·pi/3))³ = {z_cubed:.6f}")
+print(f"  Modulus: {abs(z_cubed):.1f}  (= 5³ = 125 ✓)")
+print(f"  Angle:   {math.degrees(cmath.phase(z_cubed)):.1f}°  (= 3·60° = 180° ✓)")
+print(f"  Hence:   = -125  (= 125·(cos180° + i·sin180°) ✓)")
 
-# Επαλήθευση De Moivre με SymPy (συμβολικά)
+# Verification of De Moivre with SymPy (symbolically)
 theta_s = pi / 3
 z_sym   = cos(theta_s) + I * sin(theta_s)
 z_sym_3 = simplify(expand(z_sym**3))
 expected = cos(3 * theta_s) + I * sin(3 * theta_s)
-print(f"\nΕπαλήθευση (SymPy):")
-print(f"  (cosθ + i·sinθ)³ - (cos3θ + i·sin3θ) = {simplify(z_sym_3 - expected)}")
-print(f"  (= 0, άρα De Moivre ✓)")
+print(f"\nVerification (SymPy):")
+print(f"  (cos t + i·sin t)³ - (cos 3t + i·sin 3t) = {simplify(z_sym_3 - expected)}")
+print(f"  (= 0, hence De Moivre ✓)")
 
-# ── Δ. Ρίζες Μιγαδικών Αριθμών ───────────────────────────
-print("\n── Δ. Ρίζες Μιγαδικών Αριθμών ──")
+# ── D. Roots of Complex Numbers ──────────────────────────
+print("\n── D. Roots of Complex Numbers ──")
 
 def complex_roots(w, n):
-    """Βρίσκει όλες τις n-ιοστές ρίζες του w = r·e^(iθ)."""
+    """Finds all the nth roots of w = r·e^(i·t)."""
     r, theta = cmath.polar(w)
     roots = []
     for k in range(n):
@@ -427,31 +427,31 @@ def complex_roots(w, n):
         roots.append(cmath.rect(r_k, theta_k))
     return roots
 
-# Τετραγωνικές ρίζες του -1
-print("Ρίζες x² = -1:")
+# Square roots of -1
+print("Roots of x² = -1:")
 for k, root in enumerate(complex_roots(-1, 2)):
-    print(f"  x_{k} = {root:.4f}  (επαλήθευση: x²={root**2:.1f} ✓)")
+    print(f"  x_{k} = {root:.4f}  (check: x²={root**2:.1f} ✓)")
 
-# Τετραγωνικές ρίζες του 1+i
+# Square roots of 1+i
 w = 1 + 1j
-print(f"\nΡίζες x² = 1+i:")
+print(f"\nRoots of x² = 1+i:")
 for k, root in enumerate(complex_roots(w, 2)):
-    print(f"  x_{k} = {root:.4f}  (επαλήθευση: x²={root**2:.4f} ✓)")
+    print(f"  x_{k} = {root:.4f}  (check: x²={root**2:.4f} ✓)")
 
-# Κυβικές ρίζες του 8
-print(f"\nΡίζες x³ = 8:")
+# Cube roots of 8
+print(f"\nRoots of x³ = 8:")
 for k, root in enumerate(complex_roots(8, 3)):
-    print(f"  x_{k} = {root.real:.4f} + {root.imag:.4f}i  (επαλήθευση: x³={root**3:.2f})")
+    print(f"  x_{k} = {root.real:.4f} + {root.imag:.4f}i  (check: x³={root**3:.2f})")
 
-# ── Ε. Γραφική Απεικόνιση — Διάγραμμα Argand ─────────────
-print("\n── Ε. Γραφική Απεικόνιση ──")
+# ── E. Graphical Representation — Argand Diagram ─────────
+print("\n── E. Graphical Representation ──")
 
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-fig.suptitle("Μιγαδικοί Αριθμοί — Διάγραμμα Argand", fontsize=13, fontweight='bold')
+fig.suptitle("Complex Numbers — Argand Diagram", fontsize=13, fontweight='bold')
 
-# --- Αριστερά: βασικές πράξεις ---
+# --- Left: basic operations ---
 ax1 = axes[0]
-ax1.set_title("Βασικές Πράξεις")
+ax1.set_title("Basic Operations")
 points = {'$z_1=3+4i$': z1, '$z_2=1-2i$': z2,
           '$z_1+z_2$': z1+z2, '$z_1·z_2$': z1*z2}
 colors  = ['royalblue', 'tomato', 'forestgreen', 'darkorchid']
@@ -463,15 +463,15 @@ for (lbl, z), col in zip(points.items(), colors):
                  xytext=(6, 6), fontsize=9, color=col)
 ax1.axhline(0, color='k', lw=0.5); ax1.axvline(0, color='k', lw=0.5)
 ax1.grid(True, alpha=0.3); ax1.set_aspect('equal')
-ax1.set_xlabel("Πραγματικός άξονας"); ax1.set_ylabel("Φανταστικός άξονας")
+ax1.set_xlabel("Real axis"); ax1.set_ylabel("Imaginary axis")
 
-# --- Δεξιά: ρίζες z³=8 στον μοναδιαίο κύκλο ×2 ---
+# --- Right: roots of z³=8 on the circle of radius 2 ---
 ax2 = axes[1]
-ax2.set_title("Κυβικές ρίζες x³ = 8")
+ax2.set_title("Cube roots of x³ = 8")
 roots_8 = complex_roots(8, 3)
 theta_plot = np.linspace(0, 2*np.pi, 300)
 ax2.plot(2*np.cos(theta_plot), 2*np.sin(theta_plot), 'k--', lw=0.8, alpha=0.4,
-         label='Κύκλος r=2')
+         label='Circle r=2')
 for k, root in enumerate(roots_8):
     ax2.plot(root.real, root.imag, 'o', ms=10, label=f'$x_{k}$')
     ax2.annotate(f'$x_{k}$', (root.real, root.imag),
@@ -479,7 +479,7 @@ for k, root in enumerate(roots_8):
 ax2.axhline(0, color='k', lw=0.5); ax2.axvline(0, color='k', lw=0.5)
 ax2.grid(True, alpha=0.3); ax2.set_aspect('equal')
 ax2.legend(fontsize=9)
-ax2.set_xlabel("Πραγματικός άξονας"); ax2.set_ylabel("Φανταστικός άξονας")
+ax2.set_xlabel("Real axis"); ax2.set_ylabel("Imaginary axis")
 
 plt.tight_layout()
 plt.show()
@@ -492,7 +492,7 @@ plt.show()
 </div><!-- /container -->
 
 <footer>
-  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
@@ -517,8 +517,8 @@ function loadCode(file, elementId, lang) {
     })
     .catch(err => {
       document.getElementById(elementId).textContent =
-        '⚠ Αδυναμία φόρτωσης αρχείου (' + err + ').\n' +
-        'Χρησιμοποιήστε το κουμπί "Λήψη" για να κατεβάσετε.';
+        '⚠ Could not load the file (' + err + ').\n' +
+        'Please use the "Download" button to get it.';
     });
 }
 
@@ -527,14 +527,14 @@ const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
 let pyodideReady = null, originalPy = '';
 const $ = id => document.getElementById(id);
 
-originalPy = $('py-editor').value;  // κώδικας ενσωματωμένος στο textarea (δουλεύει & τοπικά)
+originalPy = $('py-editor').value;  // code embedded in the textarea (works offline too)
 
 $('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
 
 async function ensurePyodide(setStatus){
   if (pyodideReady) return pyodideReady;
   pyodideReady = (async () => {
-    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
     if (!window.loadPyodide){
       await new Promise((res, rej) => {
         const sc = document.createElement('script');
@@ -543,7 +543,7 @@ async function ensurePyodide(setStatus){
       });
     }
     const py = await loadPyodide();
-    setStatus('Φόρτωση βιβλιοθηκών (numpy, sympy, matplotlib)…');
+    setStatus('Loading libraries (numpy, sympy, matplotlib)…');
     await py.loadPackage(['numpy','sympy','matplotlib']);
     return py;
   })();
@@ -558,7 +558,7 @@ $('py-run').onclick = async function(){
     const py = await ensurePyodide(setStatus);
     py.setStdout({ batched: s => { out.textContent += s; } });
     py.setStderr({ batched: s => { out.textContent += s; } });
-    setStatus('Εκτέλεση…');
+    setStatus('Running…');
     await py.runPythonAsync("import matplotlib; matplotlib.use('AGG')");
     py.globals.set('__user_src__', $('py-editor').value);
     await py.runPythonAsync(`
@@ -581,10 +581,10 @@ _imgs
 `);
     const arr = figs.toJs(); if (figs.destroy) figs.destroy();
     arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
-    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
   } catch (e) {
-    out.textContent += '\n⚠ Σφάλμα: ' + e;
-    setStatus('Σφάλμα');
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
   } finally { btn.disabled = false; }
 };
 </script>

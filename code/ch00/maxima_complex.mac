@@ -1,64 +1,64 @@
 /* ============================================================
    maxima_complex.mac
-   Κεφάλαιο 0 — Μαθηματικό Υπόβαθρο: Μιγαδικοί Αριθμοί
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού & Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 0 — Mathematical Background: Complex Numbers
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
    ============================================================
 
-   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
-     rectform(z)      → ορθογώνια μορφή  a + b·i
-     polarform(z)     → πολική μορφή     r·(cosθ + i·sinθ)
-     abs(z)           → μέτρο  |z|
-     carg(z)          → όρισμα (argument)  arg(z)  σε rad
-     simplify(expr)   → απλοποίηση
-     expand(expr)     → ανάπτυξη
-     solve(eq, x)     → επίλυση εξίσωσης
+   COMMANDS USED:
+     rectform(z)      → rectangular form  a + b·i
+     polarform(z)     → polar form       r·(cos(t) + i·sin(t))
+     abs(z)           → modulus  |z|
+     carg(z)          → argument  arg(z)  in rad
+     simplify(expr)   → simplification
+     expand(expr)     → expansion
+     solve(eq, x)     → solving an equation
 
-   Εκτελέστε με: wxMaxima (Load/File) ή
+   Run with: wxMaxima (Load/File) or
                  maxima -b maxima_complex.mac
    ============================================================ */
 
-/* ── Μέρος Α: Βασικές Πράξεις με Μιγαδικούς ─────────────── */
-print("════ Α. Βασικές Πράξεις ════");
+/* ── Part A: Basic Operations with Complex Numbers ──────── */
+print("════ A. Basic Operations ════");
 
 z1 : 3 + 4*%i;          /* z₁ = 3 + 4i */
 z2 : 1 - 2*%i;          /* z₂ = 1 - 2i */
 
 print("z₁ =", z1, "   z₂ =", z2);
-print("Πρόσθεση:       z₁ + z₂ =", expand(z1 + z2));
-print("Αφαίρεση:       z₁ - z₂ =", expand(z1 - z2));
-print("Πολλαπλασιασμός: z₁·z₂  =", expand(z1 * z2));
-print("Διαίρεση:        z₁/z₂  =", rectform(z1 / z2));
+print("Addition:        z₁ + z₂ =", expand(z1 + z2));
+print("Subtraction:     z₁ - z₂ =", expand(z1 - z2));
+print("Multiplication:  z₁·z₂  =", expand(z1 * z2));
+print("Division:        z₁/z₂  =", rectform(z1 / z2));
 
-/* Μέτρο και Όρισμα */
+/* Modulus and Argument */
 print("");
-print("Μέτρο  |z₁| =", abs(z1),    " (= √(3²+4²) = 5)");
-print("Μέτρο  |z₂| =", abs(z2));
-print("Όρισμα arg(z₁) =", carg(z1), "rad =",
+print("Modulus  |z₁| =", abs(z1),    " (= √(3²+4²) = 5)");
+print("Modulus  |z₂| =", abs(z2));
+print("Argument arg(z₁) =", carg(z1), "rad =",
       float(carg(z1)) * 180 / %pi, "°");
 
-/* ── Μέρος Β: Εκθετική Μορφή — Φάσορες AC Κυκλώματος ───── */
-print("════ Β. Εκθετική Μορφή — Φάσορες ════");
+/* ── Part B: Exponential Form — AC Circuit Phasors ─────── */
+print("════ B. Exponential Form — Phasors ════");
 
-/* Δύο φάσορες ηλεκτρικού κυκλώματος */
-z_A : 5 * exp(%i * %pi / 3);   /* |z_A| = 5, γωνία = 60° */
-z_B : 2 * exp(%i * %pi / 6);   /* |z_B| = 2, γωνία = 30° */
+/* Two phasors of an electrical circuit */
+z_A : 5 * exp(%i * %pi / 3);   /* |z_A| = 5, angle = 60° */
+z_B : 2 * exp(%i * %pi / 6);   /* |z_B| = 2, angle = 30° */
 
-print("Φάσορας A: z_A = 5·e^(iπ/3)  →  ορθογώνια:", rectform(z_A));
-print("Φάσορας B: z_B = 2·e^(iπ/6)  →  ορθογώνια:", rectform(z_B));
-
-print("");
-print("(β1) Γινόμενο z_A·z_B  = ", simplify(z_A * z_B));
-print("     Ορθογώνια:        = ", rectform(simplify(z_A * z_B)));
-print("     [Μέτρο = 5·2 = 10, Γωνία = 60°+30° = 90°  →  10i ✓]");
+print("Phasor A: z_A = 5·e^(i·pi/3)  →  rectangular:", rectform(z_A));
+print("Phasor B: z_B = 2·e^(i·pi/6)  →  rectangular:", rectform(z_B));
 
 print("");
-print("(β2) Πηλίκο z_A/z_B    = ", simplify(z_A / z_B));
-print("     Ορθογώνια:        = ", rectform(simplify(z_A / z_B)));
-print("     [Μέτρο = 5/2 = 2.5, Γωνία = 60°−30° = 30°]");
+print("(b1) Product z_A·z_B   = ", simplify(z_A * z_B));
+print("     Rectangular:      = ", rectform(simplify(z_A * z_B)));
+print("     [Modulus = 5·2 = 10, Angle = 60°+30° = 90°  →  10i ✓]");
 
-/* ── Μέρος Γ: Θεώρημα De Moivre ─────────────────────────── */
-print("════ Γ. Θεώρημα De Moivre ════");
-/* (cos θ + i sin θ)^n = cos(nθ) + i sin(nθ) */
+print("");
+print("(b2) Quotient z_A/z_B  = ", simplify(z_A / z_B));
+print("     Rectangular:      = ", rectform(simplify(z_A / z_B)));
+print("     [Modulus = 5/2 = 2.5, Angle = 60°−30° = 30°]");
+
+/* ── Part C: De Moivre's Theorem ────────────────────────── */
+print("════ C. De Moivre's Theorem ════");
+/* (cos t + i sin t)^n = cos(nt) + i sin(nt) */
 
 theta : %pi / 3;   /* 60° */
 n     : 3;
@@ -68,39 +68,39 @@ rhs : cos(n * theta) + %i * sin(n * theta);
 
 print("(cos 60° + i sin 60°)³ =", float(lhs));
 print("cos 180° + i sin 180°  =", float(rhs));
-print("Ισότητα:", is(float(lhs) = float(rhs)));   /* true */
+print("Equality:", is(float(lhs) = float(rhs)));   /* true */
 
-/* Εφαρμογή: (5e^(iπ/3))³ */
+/* Application: (5e^(i·pi/3))³ */
 print("");
 z_cubed : simplify((5 * exp(%i * %pi / 3))^3);
-print("(5·e^(iπ/3))³ =", z_cubed, "=", rectform(z_cubed));
-print("[Αναμένεται: μέτρο = 5³=125, γωνία = 3·60°=180°  →  −125 ✓]");
+print("(5·e^(i·pi/3))³ =", z_cubed, "=", rectform(z_cubed));
+print("[Expected: modulus = 5³=125, angle = 3·60°=180°  →  −125 ✓]");
 
-/* ── Μέρος Δ: Ρίζες Μιγαδικών Αριθμών ──────────────────── */
-print("════ Δ. n-ιοστές Ρίζες Μιγαδικών ════");
-/* z^n = w  έχει ακριβώς n ρίζες:
-   z_k = r^(1/n) · e^(i(θ+2kπ)/n),  k = 0,1,...,n-1  */
+/* ── Part D: Roots of Complex Numbers ───────────────────── */
+print("════ D. nth Roots of Complex Numbers ════");
+/* z^n = w  has exactly n roots:
+   z_k = r^(1/n) · e^(i(t+2k·pi)/n),  k = 0,1,...,n-1  */
 
-/* Τετραγωνικές ρίζες του −1 */
-print("Ρίζες x² = -1:");
+/* Square roots of −1 */
+print("Roots of x² = -1:");
 sol : solve(x^2 = -1, x);
 print("  x =", sol);
 
-/* Κυβικές ρίζες του 8 */
-print("Ρίζες x³ = 8:");
+/* Cube roots of 8 */
+print("Roots of x³ = 8:");
 sol3 : solve(x^3 = 8, x);
 print("  x =", sol3);
-/* Εμφάνιση αριθμητικά */
-print("  Αριθμητικά:", float(sol3));
+/* Display numerically */
+print("  Numerically:", float(sol3));
 
-/* ── Μέρος Ε: Διαίρεση Μιγαδικών — Επαλήθευση ──────────── */
-print("════ Ε. Χρήσιμες Ταυτότητες ════");
+/* ── Part E: Division of Complex Numbers — Verification ── */
+print("════ E. Useful Identities ════");
 
-z : a + %i * b;   /* γενικός μιγαδικός */
+z : a + %i * b;   /* a general complex number */
 conj_z : a - %i * b;
 
 print("z·conj(z) =", expand(z * conj_z), " (= a² + b² = |z|²  ✓)");
 print("z + conj(z) =", expand(z + conj_z), " (= 2a = 2·Re(z)  ✓)");
 print("z - conj(z) =", expand(z - conj_z), " (= 2bi = 2i·Im(z) ✓)");
 
-print("════ Τέλος ════");
+print("════ End ════");

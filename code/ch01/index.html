@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Κώδικας Κεφ. 1 — Γραμμικοί Διανυσματικοί Χώροι · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<title>Code Ch. 1 — Linear Vector Spaces · Elements of Linear Algebra &amp; Calculus</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 <style>
   :root {
@@ -142,22 +142,22 @@
 <body>
 
 <header>
-  <h1>📐 Κεφάλαιο 1 — Γραμμικοί Διανυσματικοί Χώροι</h1>
-  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+  <h1>📐 Chapter 1 — Linear Vector Spaces</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
 </header>
 
 <div class="breadcrumb">
-  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 1
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 1
 </div>
 
 <div class="container">
 
   <div class="info-box">
-    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
+    <h2>📋 Contents of the Activities</h2>
     <p>
-      <strong>Αντικείμενο:</strong> ορίζουσα &amp; τάξη, κλιμακωτή μορφή, μηδενόχωρος και χώρος στηλών, γραμμική ανεξαρτησία, Gram–Schmidt<br><br>
-      Επιλέξτε γλώσσα από τις καρτέλες παρακάτω.
-      Τον κώδικα <strong>Python</strong> μπορείτε να τον <strong>τρέξετε εδώ μέσα στη σελίδα</strong> (κουμπί «▶ Τρέξε») — μπορείτε και να τον επεξεργαστείτε. Ο κώδικας <strong>Maxima</strong> εκτελείται στο <strong>wxMaxima</strong>.
+      <strong>Topic:</strong> determinant &amp; rank, row echelon form, null space and column space, linear independence, Gram–Schmidt<br><br>
+      Choose a language from the tabs below.
+      The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.
     </p>
   </div>
 
@@ -173,12 +173,12 @@
       <div class="code-header maxima">
         <span>maxima_vectors.mac</span>
         <a class="download-btn"
-           href="maxima_vectors.mac" download>⬇ Λήψη .mac</a>
-        <a class="download-btn" href="maxima_vectors.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Λήψη .wxmx</a>
+           href="maxima_vectors.mac" download>⬇ Download .mac</a>
+        <a class="download-btn" href="maxima_vectors.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Download .wxmx</a>
       </div>
 
       <div class="commands-box" style="margin:12px 16px 0;">
-        <strong>Βασικές εντολές:</strong>
+        <strong>Basic commands:</strong>
         <code>determinant(A)</code> &nbsp;
         <code>rank(A)</code> &nbsp;
         <code>echelon(A)</code> &nbsp;
@@ -188,133 +188,133 @@
 
       <pre><code class="language-maxima" id="maxima-code">/* ============================================================
    maxima_vectors.mac
-   Κεφάλαιο 1 — Γραμμικοί Διανυσματικοί Χώροι
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 1 — Linear Vector Spaces
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
    ============================================================
 
-   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
-     determinant(A)   → ορίζουσα τετραγωνικού πίνακα
-     rank(A)          → τάξη πίνακα
-     echelon(A)       → κλιμακωτή μορφή (η Maxima ΔΕΝ διαθέτει rref)
-     nullspace(A)     → μηδενόχωρος (null space)
-     columnspace(A)   → χώρος στηλών
-     invert(A)        → αντίστροφος πίνακας
-     load("eigen")    → φόρτωση πακέτου ιδιοτιμών
+   COMMANDS USED:
+     determinant(A)   → determinant of a square matrix
+     rank(A)          → rank of a matrix
+     echelon(A)       → row echelon form (Maxima does NOT provide rref)
+     nullspace(A)     → null space
+     columnspace(A)   → column space
+     invert(A)        → inverse matrix
+     load("eigen")    → load the eigenvalue package
 
-   Εκτελέστε με: wxMaxima (Load/File) ή
+   Run with: wxMaxima (Load/File) or
                  maxima -b maxima_vectors.mac
    ============================================================ */
 
-/* ── Μέρος Α: Ορισμός και Πράξεις Πινάκων ───────────────── */
-print("════ Α. Πράξεις Πινάκων ════");
+/* ── Part A: Definition and Matrix Operations ──────────── */
+print("════ A. Matrix Operations ════");
 
-/* Πίνακας A 3×3 */
+/* A 3×3 matrix A */
 A : matrix([1, 2, 1],
            [2, 1, 3],
            [1, 3, -1]);
 
-print("Πίνακας A =");
+print("Matrix A =");
 print(A);
 
-/* Ορίζουσα */
+/* Determinant */
 det_A : determinant(A);
 print("det(A) =", det_A);
 
-/* Τάξη */
+/* Rank */
 r : rank(A);
 print("rank(A) =", r);
 
-/* ── Μέρος Β: Κλιμακωτή Μορφή &amp; Μηδενόχωρος ────────────── */
-print("════ Β. Κλιμακωτή Μορφή &amp; Χώροι ════");
+/* ── Part B: Row Echelon Form &amp; Null Space ─────────────── */
+print("════ B. Row Echelon Form &amp; Spaces ════");
 
-/* Κλιμακωτή μορφή — τα οδηγά στοιχεία φαίνονται κατευθείαν */
+/* Row echelon form — the pivots are immediately visible */
 A_ech : echelon(A);
-print("Κλιμακωτή(A) =");
+print("Echelon(A) =");
 print(A_ech);
 
-/* Μηδενόχωρος: Ax = 0 */
+/* Null space: Ax = 0 */
 ns : nullspace(A);
-print("Null space (Μηδενόχωρος) του A:");
+print("Null space of A:");
 print(ns);
 
-/* Χώρος στηλών */
+/* Column space */
 cs : columnspace(A);
-print("Column space (Χώρος Στηλών) του A:");
+print("Column space of A:");
 print(cs);
 
-/* ── Μέρος Γ: Γραμμική Ανεξαρτησία ─────────────────────── */
-print("════ Γ. Γραμμική Ανεξαρτησία ════");
+/* ── Part C: Linear Independence ───────────────────────── */
+print("════ C. Linear Independence ════");
 
-/* Διανύσματα v1, v2, v3 */
+/* Vectors v1, v2, v3 */
 v1 : matrix([1], [0], [1]);
 v2 : matrix([0], [1], [1]);
-v3 : matrix([1], [1], [2]);    /* v3 = v1 + v2  (γραμμικά εξαρτημένα) */
+v3 : matrix([1], [1], [2]);    /* v3 = v1 + v2  (linearly dependent) */
 
-/* Ελέγχουμε αν {v1, v2, v3} είναι γραμμικά ανεξάρτητα
-   σχηματίζοντας πίνακα με τα v ως στήλες */
+/* We check whether {v1, v2, v3} are linearly independent
+   by forming a matrix with the v's as columns */
 M : addcol(v1, v2, v3);
-print("Πίνακας [v1|v2|v3] =");
+print("Matrix [v1|v2|v3] =");
 print(M);
 print("rank([v1|v2|v3]) =", rank(M));
-print("→ Αν rank &lt; 3  ⇒  γραμμικά ΕΞΑΡΤΗΜΕΝΑ");
-print("  Εδώ rank =", rank(M), "&lt; 3, άρα εξαρτημένα ✓");
+print("→ If rank &lt; 3  ⇒  linearly DEPENDENT");
+print("  Here rank =", rank(M), "&lt; 3, hence dependent ✓");
 
-/* Επαλήθευση: v3 = v1 + v2 */
-print("Επαλήθευση: v3 - v1 - v2 =", expand(v3 - v1 - v2));
+/* Check: v3 = v1 + v2 */
+print("Check: v3 - v1 - v2 =", expand(v3 - v1 - v2));
 
-/* ── Μέρος Δ: Αλγόριθμος Gram-Schmidt ───────────────────── */
-print("════ Δ. Gram-Schmidt Ορθοκανονικοποίηση ════");
+/* ── Part D: The Gram-Schmidt Algorithm ────────────────── */
+print("════ D. Gram-Schmidt Orthonormalization ════");
 
-/* Ξεκινάμε με γραμμικά ανεξάρτητα διανύσματα */
+/* We start from linearly independent vectors */
 u1 : matrix([1], [1], [0]);
 u2 : matrix([1], [0], [1]);
 u3 : matrix([0], [1], [1]);
 
 /* Gram-Schmidt: e1, e2, e3 */
-/* Βήμα 1: e1 = u1 / |u1| */
+/* Step 1: e1 = u1 / |u1| */
 e1_unnorm : u1;
 e1 : e1_unnorm / sqrt(e1_unnorm . e1_unnorm);
 e1 : ratsimp(e1);
 print("e₁ =", e1);
 
-/* Βήμα 2: αφαιρούμε τη συνιστώσα παράλληλα στο e1 */
+/* Step 2: subtract the component parallel to e1 */
 e2_unnorm : u2 - (u2 . e1) * e1;
 e2_unnorm : ratsimp(e2_unnorm);
 e2 : e2_unnorm / sqrt(e2_unnorm . e2_unnorm);
 e2 : ratsimp(e2);
 print("e₂ =", e2);
 
-/* Βήμα 3 */
+/* Step 3 */
 e3_unnorm : u3 - (u3 . e1) * e1 - (u3 . e2) * e2;
 e3_unnorm : ratsimp(e3_unnorm);
 e3 : e3_unnorm / sqrt(e3_unnorm . e3_unnorm);
 e3 : ratsimp(e3);
 print("e₃ =", e3);
 
-/* Επαλήθευση: e1·e2 = 0, e2·e3 = 0, e1·e3 = 0 */
-print("Ορθογωνιότητα:");
+/* Check: e1·e2 = 0, e2·e3 = 0, e1·e3 = 0 */
+print("Orthogonality:");
 print("  e₁·e₂ =", ratsimp(e1 . e2));
 print("  e₁·e₃ =", ratsimp(e1 . e3));
 print("  e₂·e₃ =", ratsimp(e2 . e3));
 
-/* Επαλήθευση μοναδιαίων νορμών */
-print("Νόρμες:");
+/* Check that the norms are unit */
+print("Norms:");
 print("  |e₁|² =", ratsimp(e1 . e1));
 print("  |e₂|² =", ratsimp(e2 . e2));
 print("  |e₃|² =", ratsimp(e3 . e3));
 
-/* ── Μέρος Ε: Βάση και Διάσταση ─────────────────────────── */
-print("════ Ε. Βάση και Διάσταση ════");
+/* ── Part E: Basis and Dimension ───────────────────────── */
+print("════ E. Basis and Dimension ════");
 
-/* Βρίσκουμε βάση του χώρου στηλών του A */
-print("Βάση του χώρου στηλών (column space) του A:");
+/* We find a basis of the column space of A */
+print("Basis of the column space of A:");
 print(columnspace(A));
-print("Διάσταση (rank) =", rank(A));
+print("Dimension (rank) =", rank(A));
 
 /* Nullity */
 print("Nullity = n - rank = 3 -", rank(A), "=", 3 - rank(A));
 
-print("════ Τέλος ════");
+print("════ End ════");
 </code></pre>
     </div>
   </div>
@@ -325,11 +325,11 @@ print("════ Τέλος ════");
       <div class="code-header python">
         <span>python_vectors.py</span>
         <a class="download-btn"
-           href="python_vectors.py" download>⬇ Λήψη .py</a>
+           href="python_vectors.py" download>⬇ Download .py</a>
       </div>
 
       <div class="commands-box" style="margin:12px 16px 0;">
-        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <strong>Libraries / commands:</strong>
         <code>np.linalg.matrix_rank()</code> &nbsp;
         <code>sympy.Matrix.rref()</code> &nbsp;
         <code>sympy.Matrix.nullspace()</code> &nbsp;
@@ -338,29 +338,29 @@ print("════ Τέλος ════");
       </div>
 
             <div class="py-toolbar">
-        <button class="run-btn" id="py-run">▶ Τρέξε</button>
-        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
-        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
       </div>
       <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
 # python_vectors.py
-# Κεφάλαιο 1 — Γραμμικοί Διανυσματικοί Χώροι
-# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# Chapter 1 — Linear Vector Spaces
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
 # ============================================================
 #
-# ΒΙΒΛΙΟΘΗΚΕΣ:
-#   numpy    → γραμμική άλγεβρα (rank, det, SVD, null space)
-#   scipy    → επιπλέον εργαλεία (null_space)
-#   sympy    → ακριβείς υπολογισμοί (rref, GS συμβολικά)
-#   matplotlib → οπτικοποίηση διανυσμάτων στο R²/R³
+# LIBRARIES:
+#   numpy    → linear algebra (rank, det, SVD, null space)
+#   scipy    → additional tools (null_space)
+#   sympy    → exact computations (rref, symbolic GS)
+#   matplotlib → visualization of vectors in R²/R³
 #
-# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
-#   np.linalg.det(A)        → ορίζουσα
-#   np.linalg.matrix_rank(A)→ τάξη
-#   np.linalg.svd(A)        → SVD ανάλυση
-#   sympy.Matrix(A).rref()  → ανηγμένη κλιμακωτή (RREF)
-#   sympy.Matrix(A).nullspace()  → μηδενόχωρος
-#   sympy.Matrix(A).columnspace()→ χώρος στηλών
+# BASIC COMMANDS:
+#   np.linalg.det(A)        → determinant
+#   np.linalg.matrix_rank(A)→ rank
+#   np.linalg.svd(A)        → SVD decomposition
+#   sympy.Matrix(A).rref()  → reduced row echelon form (RREF)
+#   sympy.Matrix(A).nullspace()  → null space
+#   sympy.Matrix(A).columnspace()→ column space
 # ============================================================
 
 import numpy as np
@@ -369,23 +369,23 @@ from mpl_toolkits.mplot3d import Axes3D
 from sympy import Matrix, Rational, sqrt, symbols, pprint
 
 print("=" * 55)
-print(" Κεφάλαιο 1: Γραμμικοί Διανυσματικοί Χώροι — Python")
+print(" Chapter 1: Linear Vector Spaces — Python")
 print("=" * 55)
 
-# ── Α. Πίνακας, Ορίζουσα, Τάξη ───────────────────────────
-print("\n── Α. Ανάλυση Πίνακα ──")
+# ── A. Matrix, Determinant, Rank ─────────────────────────
+print("\n── A. Analysis of a Matrix ──")
 
 A = np.array([[1, 2, 1],
               [2, 1, 3],
               [1, 3, -1]], dtype=float)
 
-print("Πίνακας A:")
+print("Matrix A:")
 print(A)
 print(f"\ndet(A) = {np.linalg.det(A):.4f}")
 print(f"rank(A) = {np.linalg.matrix_rank(A)}")
 
-# ── Β. RREF και Χώροι (SymPy — ακριβής) ──────────────────
-print("\n── Β. RREF &amp; Χώροι (SymPy) ──")
+# ── B. RREF and Spaces (SymPy — exact) ───────────────────
+print("\n── B. RREF &amp; Spaces (SymPy) ──")
 
 A_sym = Matrix([[1, 2, 1],
                 [2, 1, 3],
@@ -394,29 +394,29 @@ A_sym = Matrix([[1, 2, 1],
 rref_A, pivots = A_sym.rref()
 print("RREF(A):")
 pprint(rref_A)
-print(f"Pivot στήλες: {pivots}")
+print(f"Pivot columns: {pivots}")
 
-print("\nNull space (Μηδενόχωρος) — Ax=0:")
+print("\nNull space — Ax=0:")
 ns = A_sym.nullspace()
 if ns:
     for i, v in enumerate(ns):
         print(f"  v{i+1} =", end=" ")
         pprint(v.T)
 else:
-    print("  Τετριμμένος (μηδέν) — A αντιστρέψιμος")
+    print("  Trivial (zero) — A is invertible")
 
-print("\nColumn space (Χώρος Στηλών):")
+print("\nColumn space:")
 cs = A_sym.columnspace()
 for i, v in enumerate(cs):
     print(f"  c{i+1} =", end=" ")
     pprint(v.T)
 
-# ── Γ. Γραμμική Ανεξαρτησία ───────────────────────────────
-print("\n── Γ. Γραμμική Ανεξαρτησία ──")
+# ── C. Linear Independence ────────────────────────────────
+print("\n── C. Linear Independence ──")
 
 v1 = np.array([1, 0, 1])
 v2 = np.array([0, 1, 1])
-v3 = np.array([1, 1, 2])   # v3 = v1 + v2  → εξαρτημένα
+v3 = np.array([1, 1, 2])   # v3 = v1 + v2  → dependent
 
 M = np.column_stack([v1, v2, v3])
 r = np.linalg.matrix_rank(M)
@@ -425,64 +425,64 @@ print(f"v₁ = {v1}")
 print(f"v₂ = {v2}")
 print(f"v₃ = {v3}  ← v₃ = v₁ + v₂")
 print(f"\nrank([v₁|v₂|v₃]) = {r}")
-print(f"→ rank = {r} &lt; 3  ⇒  γραμμικά ΕΞΑΡΤΗΜΕΝΑ ✓")
+print(f"→ rank = {r} &lt; 3  ⇒  linearly DEPENDENT ✓")
 
-# Ανεξάρτητα σύνολα
+# Independent sets
 w1 = np.array([1, 1, 0])
 w2 = np.array([1, 0, 1])
 w3 = np.array([0, 1, 1])
 N = np.column_stack([w1, w2, w3])
 print(f"\nw₁={w1}, w₂={w2}, w₃={w3}")
 print(f"rank([w₁|w₂|w₃]) = {np.linalg.matrix_rank(N)}")
-print(f"→ rank = 3  ⇒  γραμμικά ΑΝΕΞΑΡΤΗΤΑ ✓")
+print(f"→ rank = 3  ⇒  linearly INDEPENDENT ✓")
 
-# ── Δ. Gram-Schmidt Ορθοκανονικοποίηση ────────────────────
-print("\n── Δ. Gram-Schmidt ──")
+# ── D. Gram-Schmidt Orthonormalization ────────────────────
+print("\n── D. Gram-Schmidt ──")
 
 def gram_schmidt(vectors):
-    """Gram-Schmidt ορθοκανονικοποίηση συνόλου διανυσμάτων."""
+    """Gram-Schmidt orthonormalization of a set of vectors."""
     orthonormal = []
     for v in vectors:
         w = v.copy().astype(float)
         for e in orthonormal:
-            w -= np.dot(w, e) * e   # αφαιρούμε προβολή
+            w -= np.dot(w, e) * e   # subtract the projection
         norm = np.linalg.norm(w)
-        if norm &gt; 1e-10:            # αν δεν είναι μηδέν
+        if norm &gt; 1e-10:            # if it is not zero
             orthonormal.append(w / norm)
     return orthonormal
 
 basis = [w1.astype(float), w2.astype(float), w3.astype(float)]
 ONB   = gram_schmidt(basis)
 
-print("Αρχική βάση: w₁, w₂, w₃")
-print("Ορθοκανονική βάση {e₁, e₂, e₃}:")
+print("Initial basis: w₁, w₂, w₃")
+print("Orthonormal basis {e₁, e₂, e₃}:")
 for i, e in enumerate(ONB):
     print(f"  e{i+1} = {np.round(e, 6)}")
 
-# Επαλήθευση ορθογωνιότητας
-print("\nΕπαλήθευση εσωτερικών γινομένων:")
+# Verification of orthogonality
+print("\nVerification of the inner products:")
 print(f"  e₁·e₂ = {ONB[0] @ ONB[1]:.10f}  (≈ 0 ✓)")
 print(f"  e₁·e₃ = {ONB[0] @ ONB[2]:.10f}  (≈ 0 ✓)")
 print(f"  e₂·e₃ = {ONB[1] @ ONB[2]:.10f}  (≈ 0 ✓)")
 print(f"  |e₁|  = {np.linalg.norm(ONB[0]):.6f}  (= 1 ✓)")
 
-# Κατασκευή πίνακα Q και επαλήθευση Q·Qᵀ = I
+# Building the matrix Q and verifying Q·Qᵀ = I
 Q = np.column_stack(ONB)
 QQT = Q @ Q.T
 print("\nQ·Qᵀ ≈ I₃:")
 print(np.round(QQT, 8))
-print("✓ Ορθοκανονικός πίνακας επαληθεύεται")
+print("✓ Orthonormal matrix verified")
 
-# ── Ε. Γραφική Απεικόνιση ──────────────────────────────────
-print("\n── Ε. Γραφική Απεικόνιση ──")
+# ── E. Graphical Representation ────────────────────────────
+print("\n── E. Graphical Representation ──")
 
 fig = plt.figure(figsize=(13, 5))
-fig.suptitle("Γραμμικοί Διανυσματικοί Χώροι — Διανύσματα στο ℝ³",
+fig.suptitle("Linear Vector Spaces — Vectors in ℝ³",
              fontsize=13, fontweight='bold')
 
-# --- Αριστερά: Γραμμική εξάρτηση ---
+# --- Left: Linear dependence ---
 ax1 = fig.add_subplot(121, projection='3d')
-ax1.set_title("Γραμμική Εξάρτηση\n$v_3 = v_1 + v_2$")
+ax1.set_title("Linear Dependence\n$v_3 = v_1 + v_2$")
 origin = [0, 0, 0]
 vecs  = [v1, v2, v3]
 colors = ['royalblue', 'tomato', 'forestgreen']
@@ -494,9 +494,9 @@ ax1.set_xlim([0, 1.5]); ax1.set_ylim([0, 1.5]); ax1.set_zlim([0, 2.5])
 ax1.set_xlabel('x'); ax1.set_ylabel('y'); ax1.set_zlabel('z')
 ax1.legend(fontsize=8, loc='upper left')
 
-# --- Δεξιά: Ορθοκανονική βάση Gram-Schmidt ---
+# --- Right: Gram-Schmidt orthonormal basis ---
 ax2 = fig.add_subplot(122, projection='3d')
-ax2.set_title("Ορθοκανονική Βάση (Gram-Schmidt)")
+ax2.set_title("Orthonormal Basis (Gram-Schmidt)")
 colors2 = ['royalblue', 'tomato', 'forestgreen']
 labels2 = ['$e_1$', '$e_2$', '$e_3$']
 for e, col, lbl in zip(ONB, colors2, labels2):
@@ -517,7 +517,7 @@ plt.show()
 </div><!-- /container -->
 
 <footer>
-  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
@@ -542,8 +542,8 @@ function loadCode(file, elementId, lang) {
     })
     .catch(err => {
       document.getElementById(elementId).textContent =
-        '⚠ Αδυναμία φόρτωσης αρχείου (' + err + ').\n' +
-        'Χρησιμοποιήστε το κουμπί "Λήψη" για να κατεβάσετε.';
+        '⚠ Could not load the file (' + err + ').\n' +
+        'Please use the "Download" button to get it.';
     });
 }
 
@@ -558,7 +558,7 @@ $('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output'
 async function ensurePyodide(setStatus){
   if (pyodideReady) return pyodideReady;
   pyodideReady = (async () => {
-    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
     if (!window.loadPyodide){
       await new Promise((res, rej) => {
         const sc = document.createElement('script');
@@ -580,9 +580,9 @@ $('py-run').onclick = async function(){
     py.setStdout({ batched: s => { out.textContent += s; } });
     py.setStderr({ batched: s => { out.textContent += s; } });
     const code = $('py-editor').value;
-    setStatus('Φόρτωση βιβλιοθηκών…');
+    setStatus('Loading libraries…');
     await py.loadPackagesFromImports(code);
-    setStatus('Εκτέλεση…');
+    setStatus('Running…');
     await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
     py.globals.set('__user_src__', code);
     await py.runPythonAsync(`
@@ -608,10 +608,10 @@ _imgs
 `);
     const arr = figs.toJs(); if (figs.destroy) figs.destroy();
     arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
-    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
   } catch (e) {
-    out.textContent += '\n⚠ Σφάλμα: ' + e;
-    setStatus('Σφάλμα');
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
   } finally { btn.disabled = false; }
 };
 </script>

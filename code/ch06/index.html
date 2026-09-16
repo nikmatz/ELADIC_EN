@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Κώδικας Κεφ. 6 — Διαγωνιοποίηση · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<title>Code Ch. 6 — Diagonalization · Elements of Linear Algebra &amp; Calculus</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 <style>
   :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
@@ -61,21 +61,21 @@
 <body>
 
 <header>
-  <h1>📐 Κεφάλαιο 6 — Διαγωνιοποίηση Πινάκων</h1>
-  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+  <h1>📐 Chapter 6 — Diagonalization of Matrices</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
 </header>
 
 <div class="breadcrumb">
-  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 6
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 6
 </div>
 
 <div class="container">
 
   <div class="info-box">
-    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
+    <h2>📋 Contents of the Activities</h2>
     <p>
-      <strong>Αντικείμενο:</strong> διαγωνιοποίηση PDP⁻¹ και δυνάμεις πίνακα, ορθογώνια διαγωνιοποίηση και φασματικό θεώρημα, SVD, εκθετικός πίνακας, τετραγωνικές μορφές<br><br>
-      Τον κώδικα <strong>Python</strong> μπορείτε να τον <strong>τρέξετε εδώ μέσα στη σελίδα</strong> (κουμπί «▶ Τρέξε») — μπορείτε και να τον επεξεργαστείτε. Ο κώδικας <strong>Maxima</strong> εκτελείται στο <strong>wxMaxima</strong>.
+      <strong>Topic:</strong> PDP⁻¹ diagonalization and powers of a matrix, orthogonal diagonalization and the spectral theorem, SVD, the matrix exponential, quadratic forms<br><br>
+      The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.
     </p>
   </div>
 
@@ -88,11 +88,11 @@
     <div class="code-card">
       <div class="code-header maxima">
         <span>maxima_diag.mac</span>
-        <a class="download-btn" href="maxima_diag.mac" download>⬇ Λήψη .mac</a>
-        <a class="download-btn" href="maxima_diag.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Λήψη .wxmx</a>
+        <a class="download-btn" href="maxima_diag.mac" download>⬇ Download .mac</a>
+        <a class="download-btn" href="maxima_diag.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Download .wxmx</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0;">
-        <strong>Βασικές εντολές:</strong>
+        <strong>Basic commands:</strong>
         <code>eigenvectors(A)</code> &nbsp;
         <code>invert(P)</code> &nbsp;
         <code>transpose(Q)</code> &nbsp;
@@ -101,41 +101,41 @@
       </div>
       <pre><code class="language-maxima" id="maxima-code">/* ============================================================
    maxima_diag.mac
-   Κεφάλαιο 6 — Διαγωνιοποίηση, PDP⁻¹, Ορθογώνια Διαγωνιοποίηση,
-                 Τετραγωνικές Μορφές
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 6 — Diagonalization, PDP⁻¹, Orthogonal Diagonalization,
+                 Quadratic Forms
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
    ============================================================
 
-   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
-     load("eigen")             → πακέτο ιδιοτιμών
-     eigenvectors(A)           → ιδιοτιμές, πολλαπλότητες, ιδιοδιανύσματα
-     invert(P)                 → αντίστροφος του πίνακα ιδιοδιανυσμάτων
-     transpose(Q)              → για ορθοκανονικό Q ισχύει Q⁻¹ = Qᵀ
-     ratsimp(P . D . invert(P))→ απλοποίηση του γινομένου
-     nullspace(B - 3*ident(2)) → ιδιόχωρος της διπλής ιδιοτιμής
-     gramschmidt(M)            → ορθογωνοποίηση Gram–Schmidt
-     A^^n                      → n-οστή δύναμη πίνακα
+   COMMANDS USED:
+     load("eigen")             → eigenvalue package
+     eigenvectors(A)           → eigenvalues, multiplicities, eigenvectors
+     invert(P)                 → inverse of the eigenvector matrix
+     transpose(Q)              → for an orthonormal Q we have Q⁻¹ = Qᵀ
+     ratsimp(P . D . invert(P))→ simplification of the product
+     nullspace(B - 3*ident(2)) → eigenspace of the double eigenvalue
+     gramschmidt(M)            → Gram–Schmidt orthogonalization
+     A^^n                      → nth power of a matrix
 
-   Δραστηριότητα βιβλίου: (α) διαγωνιοποίηση του A και A¹⁰,
-     (β) γιατί ο B δεν διαγωνιοποιείται, (γ) φασματικό θεώρημα για τον S,
-     (δ) τετραγωνική μορφή xᵀSx και ταξινόμηση.
+   Book activity: (a) diagonalization of A and A¹⁰,
+     (b) why B is not diagonalizable, (c) the spectral theorem for S,
+     (d) the quadratic form xᵀSx and its classification.
 
-   Εκτελέστε με: wxMaxima (Load/File) ή
+   Run with: wxMaxima (Load/File) or
                  maxima -b maxima_diag.mac
    ============================================================ */
 
 load("eigen")$
 
-/* Βοηθητικό: ισότητα πινάκων μέσω της διαφοράς τους */
+/* Helper: equality of matrices through their difference */
 mat_equal(M, N) := is( ratsimp(M - N) = zeromatrix(length(M), length(M[1])) )$
 
-/* Βοηθητικό: το γινόμενο xᵀ·S·x μπορεί να επιστραφεί είτε ως 1×1
-   πίνακας είτε ήδη ως βαθμωτό — εδώ παίρνουμε πάντα το βαθμωτό. */
+/* Helper: the product xᵀ·S·x may be returned either as a 1×1
+   matrix or already as a scalar — here we always take the scalar. */
 scal(M) := if matrixp(M) then M[1][1] else M$
 
-/* Βοηθητικό: λίστα ιδιοτιμών (με πολλαπλότητες) και λίστα
-   ιδιοδιανυσμάτων ως ΓΡΑΜΜΩΝ, όπως τα δίνει η eigenvectors().
-   ΔΕΝ γράφουμε ιδιοδιανύσματα «με το χέρι»: τα παίρνουμε από τη Maxima. */
+/* Helper: list of the eigenvalues (with multiplicities) and list
+   of the eigenvectors as ROWS, exactly as eigenvectors() returns them.
+   We do NOT write eigenvectors "by hand": we get them from Maxima. */
 eig_pairs(M) := block([ev, vals, mults, vecs, lv, lw, i, k],
     ev : eigenvectors(M),
     vals : ev[1][1], mults : ev[1][2], vecs : ev[2],
@@ -147,8 +147,8 @@ eig_pairs(M) := block([ev, vals, mults, vecs, lv, lw, i, k],
         ),
     [lv, lw])$
 
-/* ── Α. (α) Διαγωνιοποίηση του A: P, D, PDP⁻¹ = A, A¹⁰ ───── */
-print("════ Α. (α) Διαγωνιοποίηση A = P·D·P⁻¹ ════");
+/* ── A. (a) Diagonalization of A: P, D, PDP⁻¹ = A, A¹⁰ ──── */
+print("════ A. (a) Diagonalization A = P·D·P⁻¹ ════");
 
 A : matrix([5, 4],
            [1, 2]);
@@ -157,23 +157,23 @@ print("A ="); print(A);
 print("eigenvectors(A) ="); print(eigenvectors(A));
 
 pairsA : eig_pairs(A)$
-lamA : pairsA[1]$        /* ιδιοτιμές */
-vecA : pairsA[2]$        /* ιδιοδιανύσματα ως γραμμές */
-print("Ιδιοτιμές λ =", lamA, "  [Αναμένεται {6, 1}]");
-print("Ιδιοδιανύσματα (γραμμές) =", vecA);
+lamA : pairsA[1]$        /* eigenvalues */
+vecA : pairsA[2]$        /* eigenvectors as rows */
+print("Eigenvalues lam =", lamA, "  [Expected {6, 1}]");
+print("Eigenvectors (rows) =", vecA);
 
 P : transpose(apply(matrix, vecA));
 D : apply(diag_matrix, lamA);
 print("P = [v₁|v₂] ="); print(P);
-print("D = diag(λ₁,λ₂) ="); print(D);
+print("D = diag(lam1,lam2) ="); print(D);
 
 print("det(P) =", determinant(P),
-      " ≠ 0 → τα ιδιοδιανύσματα είναι γραμμικά ανεξάρτητα:",
+      " ≠ 0 → the eigenvectors are linearly independent:",
       is(determinant(P) # 0));
 
 print("P⁻¹ ="); print(invert(P));
 print("P·D·P⁻¹ ="); print(ratsimp(P . D . invert(P)));
-print("P·D·P⁻¹ = A ;  Έλεγχος:", mat_equal(P . D . invert(P), A));
+print("P·D·P⁻¹ = A ;  Check:", mat_equal(P . D . invert(P), A));
 
 /* A¹⁰ = P·D¹⁰·P⁻¹ */
 n_pow : 10;
@@ -181,20 +181,20 @@ D10 : apply(diag_matrix, map(lambda([t], t^n_pow), lamA));
 A10 : ratsimp(P . D10 . invert(P));
 print("D¹⁰ ="); print(D10);
 print("A¹⁰ = P·D¹⁰·P⁻¹ ="); print(A10);
-print("  [Αναμένεται: matrix([48372941,48372940],[12093235,12093236])]");
-print("Σύγκριση με την άμεση δύναμη A^^10 ;  Έλεγχος:",
+print("  [Expected: matrix([48372941,48372940],[12093235,12093236])]");
+print("Comparison with the direct power A^^10 ;  Check:",
       mat_equal(A10, A^^n_pow));
 
-/* ── Β. (β) Ο B δεν είναι διαγωνιοποιήσιμος ──────────────── */
-print("════ Β. (β) B = [[3,1],[0,3]] — μη διαγωνιοποιήσιμος ════");
+/* ── B. (b) B is not diagonalizable ─────────────────────── */
+print("════ B. (b) B = [[3,1],[0,3]] — not diagonalizable ════");
 
 B : matrix([3, 1],
            [0, 3]);
 print("B ="); print(B);
-print("charpoly(B, λ) =", factor(expand(charpoly(B, lam))),
-      "  [Αναμένεται (λ-3)²]");
+print("charpoly(B, lam) =", factor(expand(charpoly(B, lam))),
+      "  [Expected (lam-3)²]");
 print("eigenvalues(B) =", eigenvalues(B),
-      "  → λ = 3 με αλγεβρική πολλαπλότητα m_a = 2");
+      "  → lam = 3 with algebraic multiplicity m_a = 2");
 
 B3 : B - 3*ident(2);
 print("B - 3·I ="); print(B3);
@@ -202,110 +202,110 @@ nsB : nullspace(B3);
 print("nullspace(B - 3*ident(2)) =", nsB);
 m_g : length(args(nsB));
 m_a : eigenvalues(B)[2][1];
-print("γεωμετρική πολλαπλότητα m_g = 2 - rank(B-3I) =", 2 - rank(B3),
+print("geometric multiplicity m_g = 2 - rank(B-3I) =", 2 - rank(B3),
       " = ", m_g);
-print("αλγεβρική πολλαπλότητα m_a =", m_a);
-print("m_g &lt; m_a ;  Έλεγχος:", is(m_g &lt; m_a));
-print("Συμπέρασμα: ο B είναι διαγωνιοποιήσιμος;", is(m_g = 2));
-print("Γιατί: για διαγωνιοποίηση χρειάζονται 2 γραμμικά ανεξάρτητα");
-print("ιδιοδιανύσματα, ώστε ο P = [v₁|v₂] να είναι αντιστρέψιμος.");
-print("Ο ιδιόχωρος της λ=3 είναι ΜΟΝΟΔΙΑΣΤΑΤΟΣ, άρα δεν υπάρχει");
-print("βάση του R² από ιδιοδιανύσματα (ελαττωματική ιδιοτιμή).");
+print("algebraic multiplicity m_a =", m_a);
+print("m_g &lt; m_a ;  Check:", is(m_g &lt; m_a));
+print("Conclusion: is B diagonalizable?", is(m_g = 2));
+print("Why: diagonalization requires 2 linearly independent");
+print("eigenvectors, so that P = [v₁|v₂] is invertible.");
+print("The eigenspace of lam=3 is ONE-DIMENSIONAL, so there is no");
+print("basis of R² consisting of eigenvectors (defective eigenvalue).");
 
-/* ── Γ. (γ) Φασματικό θεώρημα για τον συμμετρικό S ──────── */
-print("════ Γ. (γ) Ορθογώνια Διαγωνιοποίηση S = Q·Λ·Qᵀ ════");
+/* ── C. (c) Spectral theorem for the symmetric S ───────── */
+print("════ C. (c) Orthogonal Diagonalization S = Q·Lambda·Qᵀ ════");
 
 S : matrix([4, 2],
            [2, 1]);
 print("S ="); print(S);
-print("S = Sᵀ ;  Έλεγχος:", mat_equal(S, transpose(S)));
+print("S = Sᵀ ;  Check:", mat_equal(S, transpose(S)));
 
 print("eigenvectors(S) ="); print(eigenvectors(S));
 
 pairsS : eig_pairs(S)$
 lamS : pairsS[1]$
 vecS : pairsS[2]$
-print("Ιδιοτιμές λ =", lamS, "  [Αναμένεται {0, 5}]");
-print("Ιδιοδιανύσματα (γραμμές, από τη Maxima) =", vecS);
+print("Eigenvalues lam =", lamS, "  [Expected {0, 5}]");
+print("Eigenvectors (rows, from Maxima) =", vecS);
 
-/* Έλεγχος ορθογωνιότητας ΠΡΙΝ το Gram–Schmidt:
-   για συμμετρικό πίνακα με διακριτές ιδιοτιμές είναι ήδη ορθογώνια */
+/* Test of orthogonality BEFORE Gram–Schmidt:
+   for a symmetric matrix with distinct eigenvalues they are already orthogonal */
 print("v₁ · v₂ =", ratsimp(vecS[1] . vecS[2]),
-      " → ήδη ορθογώνια:", is(ratsimp(vecS[1] . vecS[2]) = 0));
+      " → already orthogonal:", is(ratsimp(vecS[1] . vecS[2]) = 0));
 
-/* Gram–Schmidt και κανονικοποίηση */
+/* Gram–Schmidt and normalization */
 gs  : gramschmidt(apply(matrix, vecS))$
 gsn : map(lambda([u], ratsimp(u / sqrt(u . u))), gs)$
 print("Gram–Schmidt →", gs);
-print("Ορθοκανονικά →", gsn);
+print("Orthonormal →", gsn);
 
 Q  : transpose(apply(matrix, gsn));
 LS : apply(diag_matrix, lamS);
 print("Q ="); print(Q);
-print("Q (δεκαδικά) ="); print(float(Q));
-print("Λ ="); print(LS);
+print("Q (decimal) ="); print(float(Q));
+print("Lambda ="); print(LS);
 
 print("QᵀQ ="); print(ratsimp(transpose(Q) . Q));
-print("QᵀQ = I₂ ;  Έλεγχος:", mat_equal(transpose(Q) . Q, ident(2)));
-print("Q⁻¹ = Qᵀ ;  Έλεγχος:", mat_equal(invert(Q), transpose(Q)));
-print("det(Q) =", ratsimp(determinant(Q)), " (±1 για ορθογώνιο πίνακα)");
+print("QᵀQ = I₂ ;  Check:", mat_equal(transpose(Q) . Q, ident(2)));
+print("Q⁻¹ = Qᵀ ;  Check:", mat_equal(invert(Q), transpose(Q)));
+print("det(Q) =", ratsimp(determinant(Q)), " (±1 for an orthogonal matrix)");
 
-print("Q·Λ·Qᵀ ="); print(ratsimp(Q . LS . transpose(Q)));
-print("Q·Λ·Qᵀ = S ;  Έλεγχος:", mat_equal(Q . LS . transpose(Q), S));
-print("  [Φασματικό θεώρημα: κάθε συμμετρικός γράφεται ως QΛQᵀ ✓]");
+print("Q·Lambda·Qᵀ ="); print(ratsimp(Q . LS . transpose(Q)));
+print("Q·Lambda·Qᵀ = S ;  Check:", mat_equal(Q . LS . transpose(Q), S));
+print("  [Spectral theorem: every symmetric matrix is Q·Lambda·Qᵀ ✓]");
 
-/* ── Δ. (δ) Τετραγωνική μορφή Q(x) = xᵀSx και ταξινόμηση ── */
-print("════ Δ. (δ) Τετραγωνική Μορφή Q(x) = xᵀ·S·x ════");
+/* ── D. (d) Quadratic form Q(x) = xᵀSx and classification ─ */
+print("════ D. (d) Quadratic Form Q(x) = xᵀ·S·x ════");
 
 xv : matrix([x], [y]);
 qf : expand( scal(transpose(xv) . S . xv) );
 print("Q(x,y) = xᵀSx =", qf);
-print("  σε παραγοντοποιημένη μορφή:", factor(qf));
-print("  [Αναμένεται: 4x² + 4xy + y² = (2x+y)² ✓]");
+print("  in factored form:", factor(qf));
+print("  [Expected: 4x² + 4xy + y² = (2x+y)² ✓]");
 
-/* Στις νέες (κύριες) συντεταγμένες x = Q·u η μορφή γίνεται Σλᵢuᵢ² */
+/* In the new (principal) coordinates x = Q·u the form becomes sum(lam_i·u_i²) */
 uv : matrix([u1], [u2]);
 qf_diag : expand( scal(transpose(uv) . LS . uv) );
-print("Σε κύριους άξονες (x = Q·u): Q =", qf_diag, "  [= Σλᵢuᵢ²]");
-print("Ταυτότητα Q(Q·u) = Σλᵢuᵢ² ;  Έλεγχος:",
+print("In principal axes (x = Q·u): Q =", qf_diag, "  [= sum(lam_i·u_i²)]");
+print("Identity Q(Q·u) = sum(lam_i·u_i²) ;  Check:",
       is( ratsimp( expand(scal(transpose(Q . uv) . S . (Q . uv))) - qf_diag ) = 0 ));
 
-/* Ταξινόμηση ΑΠΟΚΛΕΙΣΤΙΚΑ από τα πρόσημα των ιδιοτιμών */
+/* Classification EXCLUSIVELY from the signs of the eigenvalues */
 n_pos : length(sublist(lamS, lambda([t], is(t &gt; 0))))$
 n_neg : length(sublist(lamS, lambda([t], is(t &lt; 0))))$
 n_zero : length(sublist(lamS, lambda([t], is(t = 0))))$
-print("Ιδιοτιμές:", lamS, " → θετικές:", n_pos,
-      ", αρνητικές:", n_neg, ", μηδενικές:", n_zero);
+print("Eigenvalues:", lamS, " → positive:", n_pos,
+      ", negative:", n_neg, ", zero:", n_zero);
 
 classification :
-  if n_neg = 0 and n_zero = 0 then "θετικά ορισμένη"
-  elseif n_pos = 0 and n_zero = 0 then "αρνητικά ορισμένη"
-  elseif n_neg = 0 then "θετικά ημιορισμένη"
-  elseif n_pos = 0 then "αρνητικά ημιορισμένη"
-  else "αόριστη (indefinite)"$
-print("Ταξινόμηση της Q:", classification);
+  if n_neg = 0 and n_zero = 0 then "positive definite"
+  elseif n_pos = 0 and n_zero = 0 then "negative definite"
+  elseif n_neg = 0 then "positive semidefinite"
+  elseif n_pos = 0 then "negative semidefinite"
+  else "indefinite"$
+print("Classification of Q:", classification);
 
-/* Επαλήθευση του συμπεράσματος. Πηλίκο Rayleigh: για ‖x‖ = 1 ισχύει
-   λ_min ≤ Q(x) ≤ λ_max, με τα άκρα στα αντίστοιχα ιδιοδιανύσματα. */
+/* Verification of the conclusion. Rayleigh quotient: for ‖x‖ = 1 we have
+   lam_min ≤ Q(x) ≤ lam_max, with the extremes at the corresponding eigenvectors. */
 samples : float( makelist( subst([x = cos(2*%pi*k/360), y = sin(2*%pi*k/360)],
                                  qf), k, 0, 359) )$
-print("Δείγμα 360 σημείων του μοναδιαίου κύκλου:");
+print("Sample of 360 points of the unit circle:");
 print("  min Q =", lmin(samples), " | max Q =", lmax(samples));
-print("  Καμία αρνητική τιμή:", is(lmin(samples) &gt;= 0),
-      " | max ≤ λ_max = 5:", is(lmax(samples) &lt;= 5));
+print("  No negative value:", is(lmin(samples) &gt;= 0),
+      " | max ≤ lam_max = 5:", is(lmax(samples) &lt;= 5));
 
-/* Ακριβή άκρα: στις στήλες του Q (ορθοκανονικά ιδιοδιανύσματα) */
+/* Exact extremes: at the columns of Q (orthonormal eigenvectors) */
 for j : 1 thru 2 do block([cj, qj],
     cj : col(Q, j),
     qj : ratsimp( scal(transpose(cj) . S . cj) ),
-    print("  Q(q", j, ") =", qj, " = λ", j, " =", lamS[j],
-          " | Ισότητα:", is(qj = lamS[j]))
+    print("  Q(q", j, ") =", qj, " = lam", j, " =", lamS[j],
+          " | Equality:", is(qj = lamS[j]))
 );
-print("Υπάρχει x ≠ 0 με Q(x) = 0 (π.χ. x = (1,-2)ᵀ):",
+print("There is x ≠ 0 with Q(x) = 0 (e.g. x = (1,-2)ᵀ):",
       subst([x = 1, y = -2], qf),
-      "→ άρα ΗΜΙ-ορισμένη και όχι (γνησίως) θετικά ορισμένη.");
+      "→ hence SEMI-definite and not (strictly) positive definite.");
 
-print("════ Τέλος ════");
+print("════ End ════");
 </code></pre>
     </div>
   </div>
@@ -314,10 +314,10 @@ print("════ Τέλος ════");
     <div class="code-card">
       <div class="code-header python">
         <span>python_diag.py</span>
-        <a class="download-btn" href="python_diag.py" download>⬇ Λήψη .py</a>
+        <a class="download-btn" href="python_diag.py" download>⬇ Download .py</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0;">
-        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <strong>Libraries / commands:</strong>
         <code>np.linalg.eigh()</code> &nbsp;
         <code>np.linalg.svd()</code> &nbsp;
         <code>scipy.linalg.expm()</code> &nbsp;
@@ -325,33 +325,33 @@ print("════ Τέλος ════");
         <code>plt.contour()</code>
       </div>
             <div class="py-toolbar">
-        <button class="run-btn" id="py-run">▶ Τρέξε</button>
-        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
-        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
       </div>
       <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
 # python_diag.py
-# Κεφάλαιο 6 — Διαγωνιοποίηση, SVD, e^A, Τετραγωνικές Μορφές
-# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# Chapter 6 — Diagonalization, SVD, e^A, Quadratic Forms
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
 # ============================================================
 #
-# ΒΙΒΛΙΟΘΗΚΕΣ:
+# LIBRARIES:
 #   numpy         → eig, eigh, svd, matrix_power
-#   scipy.linalg  → expm (εκθετική πίνακα)
-#   sympy         → ακριβής έλεγχος διαγωνιοποιησιμότητας
-#   matplotlib    → ισοσταθμικές τετραγωνικής μορφής, SVD, στροφή
+#   scipy.linalg  → expm (matrix exponential)
+#   sympy         → exact test of diagonalizability
+#   matplotlib    → level curves of a quadratic form, SVD, rotation
 #
-# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
-#   np.linalg.eig(A)         → διαγωνιοποίηση (γενική): A = P·D·P⁻¹
-#   np.linalg.eigh(S)        → συμμετρικοί: ΟΡΘΟΚΑΝΟΝΙΚΑ ιδιοδιανύσματα
-#   np.linalg.svd(M)         → SVD: M = U·Σ·Vᵀ
-#   scipy.linalg.expm(A)     → εκθετική e^A
-#   np.linalg.matrix_power   → Aⁿ άμεσα (για σύγκριση)
-#   plt.contour(...)         → ισοσταθμικές καμπύλες
+# BASIC COMMANDS:
+#   np.linalg.eig(A)         → diagonalization (general): A = P·D·P⁻¹
+#   np.linalg.eigh(S)        → symmetric matrices: ORTHONORMAL eigenvectors
+#   np.linalg.svd(M)         → SVD: M = U·Sigma·Vᵀ
+#   scipy.linalg.expm(A)     → matrix exponential e^A
+#   np.linalg.matrix_power   → Aⁿ directly (for comparison)
+#   plt.contour(...)         → level curves
 #
-# Δραστηριότητα βιβλίου: (α) διαγωνιοποίηση του A και A¹⁰,
-#   (β) φασματικό θεώρημα για τον S, (γ) SVD &amp; προσέγγιση rank-1,
-#   (δ) e^(π/2·A₀) = R(π/2), (ε) ισοσταθμικές της xᵀSx.
+# Book activity: (a) diagonalization of A and A¹⁰,
+#   (b) the spectral theorem for S, (c) SVD &amp; rank-1 approximation,
+#   (d) e^(pi/2·A₀) = R(pi/2), (e) level curves of xᵀSx.
 # ============================================================
 
 import numpy as np
@@ -360,11 +360,11 @@ import matplotlib.pyplot as plt
 from sympy import Matrix, nsimplify
 
 print("=" * 58)
-print(" Κεφάλαιο 6: Διαγωνιοποίηση, SVD, e^A — Python")
+print(" Chapter 6: Diagonalization, SVD, e^A — Python")
 print("=" * 58)
 
-# ── Α. (α) Διαγωνιοποίηση A = P·D·P⁻¹ και A¹⁰ ──────────────
-print("\n── Α. (α) Διαγωνιοποίηση A = P·D·P⁻¹ ──")
+# ── A. (a) Diagonalization A = P·D·P⁻¹ and A¹⁰ ─────────────
+print("\n── A. (a) Diagonalization A = P·D·P⁻¹ ──")
 
 A = np.array([[5, 4],
               [1, 2]], dtype=float)
@@ -374,82 +374,82 @@ vals, P = np.linalg.eig(A)
 D = np.diag(vals)
 P_inv = np.linalg.inv(P)
 
-print("Ιδιοτιμές:", np.round(vals, 10), "  [Αναμένονται 6 και 1]")
-print("P (στήλες = ιδιοδιανύσματα) =\n", np.round(P, 6))
-print(f"det(P) = {np.linalg.det(P):.6f} ≠ 0 → ο P αντιστρέφεται:",
+print("Eigenvalues:", np.round(vals, 10), "  [Expected 6 and 1]")
+print("P (columns = eigenvectors) =\n", np.round(P, 6))
+print(f"det(P) = {np.linalg.det(P):.6f} ≠ 0 → P is invertible:",
       bool(not np.isclose(np.linalg.det(P), 0)))
 print("P·D·P⁻¹ =\n", np.round(P @ D @ P_inv, 10))
-print("P·D·P⁻¹ == A ;  Έλεγχος:", bool(np.allclose(P @ D @ P_inv, A)))
+print("P·D·P⁻¹ == A ;  Check:", bool(np.allclose(P @ D @ P_inv, A)))
 
 n_pow = 10
 A_pow_diag = P @ np.diag(vals ** n_pow) @ P_inv
 A_pow_direct = np.linalg.matrix_power(A, n_pow)
 print("\nA¹⁰ = P·D¹⁰·P⁻¹ =\n", np.round(A_pow_diag, 4))
 print("A¹⁰ = np.linalg.matrix_power(A,10) =\n", A_pow_direct)
-print("  [Αναμένεται: [[48372941, 48372940], [12093235, 12093236]]]")
-print("Οι δύο υπολογισμοί συμπίπτουν ;  Έλεγχος:",
+print("  [Expected: [[48372941, 48372940], [12093235, 12093236]]]")
+print("The two computations agree ;  Check:",
       bool(np.allclose(A_pow_diag, A_pow_direct)))
-print("Ταυτίζονται με την αναμενόμενη τιμή:",
+print("They match the expected value:",
       bool(np.allclose(A_pow_direct,
                        [[48372941, 48372940], [12093235, 12093236]])))
 
-# Συμπλήρωμα (αντιστοιχεί στο ερώτημα (β) της δραστηριότητας Maxima):
-# γιατί ο B = [[3,1],[0,3]] ΔΕΝ διαγωνιοποιείται.
-print("\nΣυμπλήρωμα: έλεγχος διαγωνιοποιησιμότητας")
+# Supplement (corresponds to part (b) of the Maxima activity):
+# why B = [[3,1],[0,3]] is NOT diagonalizable.
+print("\nSupplement: test of diagonalizability")
 
 
 def diagonalizability_report(M, name):
-    """Συγκρίνει αλγεβρική και γεωμετρική πολλαπλότητα κάθε ιδιοτιμής.
-    Διαγωνιοποιήσιμος ⇔ Σ m_g = n (ΟΧΙ από την τάξη ενός μόνο M - λI).
-    ΠΡΟΣΟΧΗ: ο έλεγχος γίνεται ΑΚΡΙΒΩΣ (nsimplify), γιατί με δεκαδικούς
-    η SymPy «σπάει» μια διπλή ιδιοτιμή σε δύο απλές λόγω στρογγύλευσης."""
+    """Compares the algebraic and geometric multiplicity of each eigenvalue.
+    Diagonalizable ⇔ sum(m_g) = n (NOT from the rank of a single M - lam·I).
+    NOTE: the test is carried out EXACTLY (nsimplify), because with decimals
+    SymPy "splits" a double eigenvalue into two simple ones due to rounding."""
     Ms = Matrix(M.tolist()).applyfunc(nsimplify)
     n = M.shape[0]
     total_geo = 0
     for eigval, m_a, vecs in Ms.eigenvects():
         m_g = len(vecs)
         total_geo += m_g
-        print(f"  {name}: λ = {eigval}  m_a = {m_a}  m_g = {m_g}"
-              f"  {'(ελαττωματική)' if m_g &lt; m_a else ''}")
+        print(f"  {name}: lam = {eigval}  m_a = {m_a}  m_g = {m_g}"
+              f"  {'(defective)' if m_g &lt; m_a else ''}")
     ok = (total_geo == n)
-    print(f"  Σ m_g = {total_geo} (n = {n}) → διαγωνιοποιήσιμος: {ok}")
-    # Διασταύρωση με τον ελεγκτή της SymPy
+    print(f"  sum(m_g) = {total_geo} (n = {n}) → diagonalizable: {ok}")
+    # Cross-check with SymPy's own tester
     print(f"  SymPy is_diagonalizable(): {Ms.is_diagonalizable()}"
-          f"  | συμφωνία: {ok == Ms.is_diagonalizable()}")
+          f"  | agreement: {ok == Ms.is_diagonalizable()}")
     return ok
 
 
-B = np.array([[3, 1], [0, 3]], dtype=float)     # μπλοκ Jordan
+B = np.array([[3, 1], [0, 3]], dtype=float)     # Jordan block
 diagonalizability_report(A, "A")
 diagonalizability_report(B, "B")
 
-# ── Β. (β) Φασματικό θεώρημα: S = Q·Λ·Qᵀ με eigh ──────────
-print("\n── Β. (β) Ορθογώνια διαγωνιοποίηση του συμμετρικού S ──")
+# ── B. (b) Spectral theorem: S = Q·Lambda·Qᵀ with eigh ────
+print("\n── B. (b) Orthogonal diagonalization of the symmetric S ──")
 
 S = np.array([[4, 2],
               [2, 1]], dtype=float)
 print("S =\n", S)
-print("S == Sᵀ ;  Έλεγχος:", bool(np.allclose(S, S.T)))
+print("S == Sᵀ ;  Check:", bool(np.allclose(S, S.T)))
 
-eigvals, Q = np.linalg.eigh(S)      # eigh → ορθοκανονικά ιδιοδιανύσματα
+eigvals, Q = np.linalg.eigh(S)      # eigh → orthonormal eigenvectors
 Lam = np.diag(eigvals)
 
-print("Ιδιοτιμές Λ:", np.round(eigvals, 10), "  [Αναμένονται 0 και 5]")
-print("Q (ορθοκανονικός) =\n", np.round(Q, 6))
-print("  [στήλες: ±(1,-2)/√5 για λ=0 και ±(2,1)/√5 για λ=5]")
-print("QᵀQ == I ;  Έλεγχος:", bool(np.allclose(Q.T @ Q, np.eye(2))))
-print("Q⁻¹ == Qᵀ ;  Έλεγχος:", bool(np.allclose(np.linalg.inv(Q), Q.T)))
-print(f"det(Q) = {np.linalg.det(Q):.6f}  (±1 για ορθογώνιο)")
-print("Q·Λ·Qᵀ =\n", np.round(Q @ Lam @ Q.T, 10))
-print("Q·Λ·Qᵀ == S ;  Έλεγχος:", bool(np.allclose(Q @ Lam @ Q.T, S)))
+print("Eigenvalues Lambda:", np.round(eigvals, 10), "  [Expected 0 and 5]")
+print("Q (orthonormal) =\n", np.round(Q, 6))
+print("  [columns: ±(1,-2)/√5 for lam=0 and ±(2,1)/√5 for lam=5]")
+print("QᵀQ == I ;  Check:", bool(np.allclose(Q.T @ Q, np.eye(2))))
+print("Q⁻¹ == Qᵀ ;  Check:", bool(np.allclose(np.linalg.inv(Q), Q.T)))
+print(f"det(Q) = {np.linalg.det(Q):.6f}  (±1 for an orthogonal matrix)")
+print("Q·Lambda·Qᵀ =\n", np.round(Q @ Lam @ Q.T, 10))
+print("Q·Lambda·Qᵀ == S ;  Check:", bool(np.allclose(Q @ Lam @ Q.T, S)))
 
-# Επαλήθευση S·q = λ·q για κάθε στήλη
+# Check S·q = lam·q for every column
 for j in range(2):
-    print(f"  S·q{j+1} - λ{j+1}·q{j+1} ‖·‖ ="
+    print(f"  S·q{j+1} - lam{j+1}·q{j+1} ‖·‖ ="
           f" {np.linalg.norm(S @ Q[:, j] - eigvals[j] * Q[:, j]):.2e}")
 
-# ── Γ. (γ) SVD και προσέγγιση rank-1 ──────────────────────
-print("\n── Γ. (γ) SVD: M = U·Σ·Vᵀ ──")
+# ── C. (c) SVD and rank-1 approximation ──────────────────
+print("\n── C. (c) SVD: M = U·Sigma·Vᵀ ──")
 
 M = np.array([[1, 2, 0],
               [0, 1, 3],
@@ -459,73 +459,73 @@ print("M =\n", M)
 U, sigma, Vt = np.linalg.svd(M)
 Sigma = np.diag(sigma)
 
-print("Μοναδιαίες τιμές σ:", np.round(sigma, 6))
-print("U ορθογώνιος (UᵀU = I):", bool(np.allclose(U.T @ U, np.eye(3))))
-print("V ορθογώνιος (VᵀV = I):", bool(np.allclose(Vt @ Vt.T, np.eye(3))))
-print("U·Σ·Vᵀ == M ;  Έλεγχος:", bool(np.allclose(U @ Sigma @ Vt, M)))
+print("Singular values sigma:", np.round(sigma, 6))
+print("U orthogonal (UᵀU = I):", bool(np.allclose(U.T @ U, np.eye(3))))
+print("V orthogonal (VᵀV = I):", bool(np.allclose(Vt @ Vt.T, np.eye(3))))
+print("U·Sigma·Vᵀ == M ;  Check:", bool(np.allclose(U @ Sigma @ Vt, M)))
 print("rank(M) =", int(np.linalg.matrix_rank(M)),
-      "= πλήθος μη μηδενικών σ:", int(np.sum(sigma &gt; 1e-10)))
-print(f"σ₁ = ‖M‖₂ = {sigma[0]:.6f}  Έλεγχος:",
+      "= number of nonzero sigma:", int(np.sum(sigma &gt; 1e-10)))
+print(f"sigma_1 = ‖M‖₂ = {sigma[0]:.6f}  Check:",
       bool(np.isclose(sigma[0], np.linalg.norm(M, 2))))
 
-M1 = sigma[0] * np.outer(U[:, 0], Vt[0, :])     # προσέγγιση rank-1
+M1 = sigma[0] * np.outer(U[:, 0], Vt[0, :])     # rank-1 approximation
 err = np.linalg.norm(M - M1, 'fro')
-err_theory = np.sqrt(np.sum(sigma[1:] ** 2))    # θεώρημα Eckart–Young
+err_theory = np.sqrt(np.sum(sigma[1:] ** 2))    # Eckart–Young theorem
 
-print("\nΠροσέγγιση rank-1  M₁ = σ₁·u₁·v₁ᵀ =\n", np.round(M1, 6))
+print("\nRank-1 approximation  M₁ = sigma_1·u₁·v₁ᵀ =\n", np.round(M1, 6))
 print("rank(M₁) =", int(np.linalg.matrix_rank(M1)))
-print(f"Σφάλμα Frobenius ‖M - M₁‖_F = {err:.6f}")
-print(f"Θεωρητική τιμή √(σ₂²+σ₃²)   = {err_theory:.6f}")
-print("Ισότητα (Eckart–Young) ;  Έλεγχος:", bool(np.isclose(err, err_theory)))
-print(f"Σχετικό σφάλμα = {err / np.linalg.norm(M, 'fro'):.4f}")
+print(f"Frobenius error ‖M - M₁‖_F = {err:.6f}")
+print(f"Theoretical value √(sigma_2²+sigma_3²) = {err_theory:.6f}")
+print("Equality (Eckart–Young) ;  Check:", bool(np.isclose(err, err_theory)))
+print(f"Relative error = {err / np.linalg.norm(M, 'fro'):.4f}")
 
-# ── Δ. (δ) Εκθετική πίνακα: e^(π/2·A₀) = R(π/2) ───────────
-print("\n── Δ. (δ) Εκθετική πίνακα e^(π/2·A₀) ──")
+# ── D. (d) Matrix exponential: e^(pi/2·A₀) = R(pi/2) ──────
+print("\n── D. (d) Matrix exponential e^(pi/2·A₀) ──")
 
 A0 = np.array([[0, -1],
-               [1,  0]], dtype=float)    # γεννήτορας στροφής
+               [1,  0]], dtype=float)    # generator of rotation
 t = np.pi / 2
 
-print("A₀ =\n", A0, "\n(αντισυμμετρικός: A₀ᵀ = -A₀ →",
+print("A₀ =\n", A0, "\n(skew-symmetric: A₀ᵀ = -A₀ →",
       bool(np.allclose(A0.T, -A0)), ")")
 
 E = sla.expm(t * A0)
 R = np.array([[np.cos(t), -np.sin(t)],
-              [np.sin(t),  np.cos(t)]])   # R(π/2) αναλυτικά
+              [np.sin(t),  np.cos(t)]])   # R(pi/2) analytically
 
-print(f"\ne^(π/2·A₀) (scipy.linalg.expm) =\n{np.round(E, 10)}")
-print(f"R(π/2) (αναλυτικά) =\n{np.round(R, 10)}")
-print("  [Αναμένεται: [[0, -1], [1, 0]] — στροφή κατά 90°]")
-print("e^(π/2·A₀) == R(π/2) ;  Έλεγχος:", bool(np.allclose(E, R)))
-print("Ορθογώνιος (EᵀE = I):", bool(np.allclose(E.T @ E, np.eye(2))),
-      f"| det = {np.linalg.det(E):.10f} (= 1 → γνήσια στροφή)")
-print("e^(π/2·A₀)·(1,0)ᵀ =", np.round(E @ np.array([1.0, 0.0]), 10),
-      "  [το (1,0) πάει στο (0,1) ✓]")
-print("(e^(π/2·A₀))⁴ = I ;  Έλεγχος:",
+print(f"\ne^(pi/2·A₀) (scipy.linalg.expm) =\n{np.round(E, 10)}")
+print(f"R(pi/2) (analytically) =\n{np.round(R, 10)}")
+print("  [Expected: [[0, -1], [1, 0]] — rotation by 90°]")
+print("e^(pi/2·A₀) == R(pi/2) ;  Check:", bool(np.allclose(E, R)))
+print("Orthogonal (EᵀE = I):", bool(np.allclose(E.T @ E, np.eye(2))),
+      f"| det = {np.linalg.det(E):.10f} (= 1 → proper rotation)")
+print("e^(pi/2·A₀)·(1,0)ᵀ =", np.round(E @ np.array([1.0, 0.0]), 10),
+      "  [(1,0) is mapped to (0,1) ✓]")
+print("(e^(pi/2·A₀))⁴ = I ;  Check:",
       bool(np.allclose(np.linalg.matrix_power(E, 4), np.eye(2))))
 
-# ── Ε. (ε) Προαιρετικό: ισοσταθμικές της Q(x,y) = xᵀSx ────
-print("\n── Ε. (ε) Προαιρετικό: ισοσταθμικές της τετραγωνικής μορφής ──")
+# ── E. (e) Optional: level curves of Q(x,y) = xᵀSx ───────
+print("\n── E. (e) Optional: level curves of the quadratic form ──")
 
 xx, yy = np.meshgrid(np.linspace(-3, 3, 400), np.linspace(-3, 3, 400))
 Qvals = 4 * xx ** 2 + 4 * xx * yy + yy ** 2      # = xᵀSx
 pts = np.stack([xx.ravel(), yy.ravel()])
 Qvals_mat = np.sum(pts * (S @ pts), axis=0).reshape(xx.shape)
 print("Q(x,y) = 4x² + 4xy + y² = (2x+y)²")
-print("Ταυτίζεται με τον υπολογισμό xᵀSx ;  Έλεγχος:",
+print("Identical with the computation xᵀSx ;  Check:",
       bool(np.allclose(Qvals, Qvals_mat)))
-print("Επειδή λ_min = 0, οι ισοσταθμικές ΔΕΝ είναι ελλείψεις αλλά")
-print("ζεύγη παράλληλων ευθειών 2x + y = ±√c (εκφυλισμένη μορφή).")
-print("Q ≥ 0 παντού στο δείγμα:", bool(Qvals.min() &gt;= -1e-12),
+print("Since lam_min = 0, the level curves are NOT ellipses but")
+print("pairs of parallel lines 2x + y = ±√c (degenerate form).")
+print("Q ≥ 0 everywhere in the sample:", bool(Qvals.min() &gt;= -1e-12),
       f"| min = {Qvals.min():.2e}")
 
 fig, axes = plt.subplots(1, 3, figsize=(14, 4.6))
-fig.suptitle("Κεφ. 6 — Τετραγωνική μορφή, SVD, στροφή $e^{tA_0}$",
+fig.suptitle("Ch. 6 — Quadratic form, SVD, rotation $e^{tA_0}$",
              fontsize=13, fontweight='bold')
 
-# (1) Ισοσταθμικές της Q(x,y) = xᵀSx με τους κύριους άξονες
+# (1) Level curves of Q(x,y) = xᵀSx with the principal axes
 ax1 = axes[0]
-ax1.set_title("Ισοσταθμικές $Q(x,y)=x^\\top S x$")
+ax1.set_title("Level curves $Q(x,y)=x^\\top S x$")
 cs = ax1.contour(xx, yy, Qvals, levels=[1, 4, 9, 16], colors='royalblue')
 ax1.clabel(cs, fontsize=8)
 for j, col in zip(range(2), ['forestgreen', 'tomato']):
@@ -539,9 +539,9 @@ ax1.set_xlim(-3, 3); ax1.set_ylim(-3, 3)
 ax1.set_aspect('equal'); ax1.grid(True, alpha=0.3)
 ax1.set_xlabel('x'); ax1.set_ylabel('y')
 
-# (2) SVD: μοναδιαίες τιμές και σφάλμα προσέγγισης κατά τάξη
+# (2) SVD: singular values and approximation error by rank
 ax2 = axes[1]
-ax2.set_title("SVD: $\\sigma_i$ και σφάλμα rank-$k$")
+ax2.set_title("SVD: $\\sigma_i$ and rank-$k$ error")
 ks = [1, 2, 3]
 errs = [np.linalg.norm(M - sum(sigma[i] * np.outer(U[:, i], Vt[i, :])
                                for i in range(k)), 'fro') for k in ks]
@@ -552,12 +552,12 @@ ax2.bar(np.array(ks) + 0.18, errs, width=0.36,
 for k, e in zip(ks, errs):
     ax2.text(k + 0.18, e + 0.06, f'{e:.2f}', ha='center', fontsize=8,
              color='tomato')
-ax2.set_xticks([1, 2, 3]); ax2.set_xlabel("i  (ή τάξη k)")
+ax2.set_xticks([1, 2, 3]); ax2.set_xlabel("i  (or rank k)")
 ax2.legend(fontsize=9); ax2.grid(True, alpha=0.3, axis='y')
 
-# (3) e^(tA₀): στροφή του (1,0) για t ∈ [0, π/2]
+# (3) e^(tA₀): rotation of (1,0) for t ∈ [0, pi/2]
 ax3 = axes[2]
-ax3.set_title("$e^{tA_0}\\,(1,0)^\\top$ για $t\\in[0,\\pi/2]$")
+ax3.set_title("$e^{tA_0}\\,(1,0)^\\top$ for $t\\in[0,\\pi/2]$")
 ts = np.linspace(0, np.pi / 2, 60)
 curve = np.array([sla.expm(tk * A0) @ np.array([1.0, 0.0]) for tk in ts])
 ax3.plot(curve[:, 0], curve[:, 1], color='royalblue', lw=2.5)
@@ -572,7 +572,7 @@ ax3.axhline(0, color='k', lw=0.5); ax3.axvline(0, color='k', lw=0.5)
 ax3.set_aspect('equal'); ax3.grid(True, alpha=0.3)
 
 plt.tight_layout()
-print("Δημιουργήθηκαν τα γραφήματα (ισοσταθμικές, SVD, στροφή).")
+print("The plots have been created (level curves, SVD, rotation).")
 plt.show()
 </textarea>
       <pre class="py-output" id="py-output"></pre>
@@ -583,7 +583,7 @@ plt.show()
 </div>
 
 <footer>
-  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
@@ -605,7 +605,7 @@ function loadCode(file, elementId, lang) {
     })
     .catch(err => {
       document.getElementById(elementId).textContent =
-        '⚠ Αδυναμία φόρτωσης (' + err + '). Χρησιμοποιήστε "Λήψη".';
+        '⚠ Could not load the file (' + err + '). Please use "Download".';
     });
 }
 
@@ -619,7 +619,7 @@ $('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output'
 async function ensurePyodide(setStatus){
   if (pyodideReady) return pyodideReady;
   pyodideReady = (async () => {
-    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
     if (!window.loadPyodide){
       await new Promise((res, rej) => {
         const sc = document.createElement('script');
@@ -641,9 +641,9 @@ $('py-run').onclick = async function(){
     py.setStdout({ batched: s => { out.textContent += s; } });
     py.setStderr({ batched: s => { out.textContent += s; } });
     const code = $('py-editor').value;
-    setStatus('Φόρτωση βιβλιοθηκών…');
+    setStatus('Loading libraries…');
     await py.loadPackagesFromImports(code);
-    setStatus('Εκτέλεση…');
+    setStatus('Running…');
     await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
     py.globals.set('__user_src__', code);
     await py.runPythonAsync(`
@@ -669,10 +669,10 @@ _imgs
 `);
     const arr = figs.toJs(); if (figs.destroy) figs.destroy();
     arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
-    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
   } catch (e) {
-    out.textContent += '\n⚠ Σφάλμα: ' + e;
-    setStatus('Σφάλμα');
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
   } finally { btn.disabled = false; }
 };
 </script>

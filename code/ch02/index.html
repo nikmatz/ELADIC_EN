@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Κώδικας Κεφ. 2 — Άλγεβρα Πινάκων · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<title>Code Ch. 2 — Matrix Algebra · Elements of Linear Algebra &amp; Calculus</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 <style>
   :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
@@ -61,21 +61,21 @@
 <body>
 
 <header>
-  <h1>📐 Κεφάλαιο 2 — Άλγεβρα Πινάκων</h1>
-  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+  <h1>📐 Chapter 2 — Matrix Algebra</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
 </header>
 
 <div class="breadcrumb">
-  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 2
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 2
 </div>
 
 <div class="container">
 
   <div class="info-box">
-    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
+    <h2>📋 Contents of the Activities</h2>
     <p>
-      <strong>Αντικείμενο:</strong> πράξεις πινάκων, ορίζουσες, αντίστροφος, επίλυση Ax=b, αποσύνθεση LU, θετικά ορισμένος πίνακας<br><br>
-      Τον κώδικα <strong>Python</strong> μπορείτε να τον <strong>τρέξετε εδώ μέσα στη σελίδα</strong> (κουμπί «▶ Τρέξε») — μπορείτε και να τον επεξεργαστείτε. Ο κώδικας <strong>Maxima</strong> εκτελείται στο <strong>wxMaxima</strong>.
+      <strong>Topic:</strong> matrix operations, determinants, the inverse, solving Ax=b, LU decomposition, positive definite matrices<br><br>
+      The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.
     </p>
   </div>
 
@@ -88,11 +88,11 @@
     <div class="code-card">
       <div class="code-header maxima">
         <span>maxima_matrices.mac</span>
-        <a class="download-btn" href="maxima_matrices.mac" download>⬇ Λήψη .mac</a>
-        <a class="download-btn" href="maxima_matrices.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Λήψη .wxmx</a>
+        <a class="download-btn" href="maxima_matrices.mac" download>⬇ Download .mac</a>
+        <a class="download-btn" href="maxima_matrices.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Download .wxmx</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0;">
-        <strong>Βασικές εντολές:</strong>
+        <strong>Basic commands:</strong>
         <code>transpose(A)</code> &nbsp;
         <code>determinant(A)</code> &nbsp;
         <code>invert(A)</code> &nbsp;
@@ -101,35 +101,35 @@
       </div>
       <pre><code class="language-maxima" id="maxima-code">/* ============================================================
    maxima_matrices.mac
-   Κεφάλαιο 2 — Πράξεις Πινάκων: Γινόμενο, Αντίστροφος, LU
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 2 — Matrix Operations: Product, Inverse, LU
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
    ============================================================
 
-   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
-     A . B                 → γινόμενο πινάκων (τελεστής ".")
-     A + B,  k * A         → πρόσθεση / πολλαπλασιασμός με βαθμωτό
-     transpose(A)          → ανάστροφος πίνακας Aᵀ
-     determinant(A)        → ορίζουσα det(A)
-     invert(A)             → αντίστροφος πίνακας A⁻¹
-     ident(n)              → μοναδιαίος πίνακας n×n
-     zeromatrix(m,n)       → μηδενικός πίνακας m×n
-     echelon(A)            → κλιμακωτή μορφή (η Maxima ΔΕΝ έχει rref)
-     triangularize(A)      → άνω τριγωνοποίηση (χωρίς διαίρεση)
-     lu_factor / get_lu_factors  → αποσύνθεση A = P·L·U (linearalgebra)
+   COMMANDS USED:
+     A . B                 → matrix product (the "." operator)
+     A + B,  k * A         → addition / multiplication by a scalar
+     transpose(A)          → transpose matrix Aᵀ
+     determinant(A)        → determinant det(A)
+     invert(A)             → inverse matrix A⁻¹
+     ident(n)              → n×n identity matrix
+     zeromatrix(m,n)       → m×n zero matrix
+     echelon(A)            → row echelon form (Maxima does NOT have rref)
+     triangularize(A)      → upper triangularization (without division)
+     lu_factor / get_lu_factors  → decomposition A = P·L·U (linearalgebra)
 
-   Δραστηριότητα βιβλίου: (α) πράξεις, (β) ορίζουσες,
-                          (γ) αντίστροφος, (δ) επίλυση A·x = b.
+   Book activity: (a) operations, (b) determinants,
+                          (c) the inverse, (d) solving A·x = b.
 
-   Εκτελέστε με: wxMaxima (Load/File) ή
+   Run with: wxMaxima (Load/File) or
                  maxima -b maxima_matrices.mac
    ============================================================ */
 
 load(linearalgebra)$
 
-/* Βοηθητικό: έλεγχος ισότητας πινάκων μέσω της διαφοράς τους */
+/* Helper: test equality of matrices through their difference */
 mat_equal(M, N) := is( ratsimp(M - N) = zeromatrix(length(M), length(M[1])) )$
 
-/* Δεδομένα της δραστηριότητας */
+/* Data of the activity */
 A : matrix([1, 2, 3],
            [0, 1, 4],
            [5, 6, 0]);
@@ -144,91 +144,91 @@ print("A ="); print(A);
 print("B ="); print(B);
 print("b ="); print(b_vec);
 
-/* ── Α. (α) A+B, 3A, A·B, B·A  και  A·B ≠ B·A ───────────── */
-print("════ Α. (α) Πράξεις πινάκων ════");
+/* ── A. (a) A+B, 3A, A·B, B·A  and  A·B ≠ B·A ──────────── */
+print("════ A. (a) Matrix operations ════");
 
 print("A + B ="); print(A + B);
-print("  [Αναμένεται: matrix([3,1,3],[1,4,5],[5,8,4]) ✓]");
+print("  [Expected: matrix([3,1,3],[1,4,5],[5,8,4]) ✓]");
 
 print("3·A ="); print(3 * A);
-print("  [Αναμένεται: matrix([3,6,9],[0,3,12],[15,18,0]) ✓]");
+print("  [Expected: matrix([3,6,9],[0,3,12],[15,18,0]) ✓]");
 
 AB : A . B;
 BA : B . A;
 print("A·B ="); print(AB);
-print("  [Αναμένεται: matrix([4,11,14],[1,11,17],[16,13,6]) ✓]");
+print("  [Expected: matrix([4,11,14],[1,11,17],[16,13,6]) ✓]");
 print("B·A ="); print(BA);
-print("  [Αναμένεται: matrix([2,3,2],[6,11,15],[20,26,8]) ✓]");
+print("  [Expected: matrix([2,3,2],[6,11,15],[20,26,8]) ✓]");
 
 print("A·B - B·A ="); print(AB - BA);
-print("A·B = B·A ;  Έλεγχος:", mat_equal(AB, BA));
-print("  → false: ο πολλαπλασιασμός πινάκων ΔΕΝ είναι αντιμεταθετικός");
+print("A·B = B·A ;  Check:", mat_equal(AB, BA));
+print("  → false: matrix multiplication is NOT commutative");
 
-/* Ανάστροφος (χρήσιμος και στα επόμενα) */
+/* Transpose (also useful below) */
 print("Aᵀ ="); print(transpose(A));
-print("(Aᵀ)ᵀ = A ;  Έλεγχος:", mat_equal(transpose(transpose(A)), A));
-print("(A·B)ᵀ = Bᵀ·Aᵀ ;  Έλεγχος:",
+print("(Aᵀ)ᵀ = A ;  Check:", mat_equal(transpose(transpose(A)), A));
+print("(A·B)ᵀ = Bᵀ·Aᵀ ;  Check:",
       mat_equal(transpose(AB), transpose(B) . transpose(A)));
 
-/* ── Β. (β) Ορίζουσες και det(A·B) = det(A)·det(B) ──────── */
-print("════ Β. (β) Ορίζουσες ════");
+/* ── B. (b) Determinants and det(A·B) = det(A)·det(B) ──── */
+print("════ B. (b) Determinants ════");
 
 det_A : determinant(A);
 det_B : determinant(B);
 det_AB : determinant(AB);
 
-print("det(A) =", det_A, "  [Αναμένεται 1]");
-print("det(B) =", det_B, "  [Αναμένεται 24]");
-print("det(A·B) =", det_AB, "  [Αναμένεται 24]");
+print("det(A) =", det_A, "  [Expected 1]");
+print("det(B) =", det_B, "  [Expected 24]");
+print("det(A·B) =", det_AB, "  [Expected 24]");
 print("det(A)·det(B) =", det_A * det_B);
-print("det(A·B) = det(A)·det(B) ;  Έλεγχος:", is(det_AB = det_A * det_B));
+print("det(A·B) = det(A)·det(B) ;  Check:", is(det_AB = det_A * det_B));
 
-/* ── Γ. (γ) Αντίστροφος A⁻¹ και A·A⁻¹ = I₃ ──────────────── */
-print("════ Γ. (γ) Αντίστροφος ════");
+/* ── C. (c) The inverse A⁻¹ and A·A⁻¹ = I₃ ─────────────── */
+print("════ C. (c) The inverse ════");
 
 if det_A # 0 then (
     A_inv : invert(A),
     print("A⁻¹ ="),
     print(A_inv),
-    print("  [Αναμένεται: matrix([-24,18,5],[20,-15,-4],[-5,4,1]) ✓]"),
+    print("  [Expected: matrix([-24,18,5],[20,-15,-4],[-5,4,1]) ✓]"),
     print("A·A⁻¹ ="),
     print(ratsimp(A . A_inv)),
-    print("A·A⁻¹ = I₃ ;  Έλεγχος:", mat_equal(A . A_inv, ident(3))),
-    print("A⁻¹·A = I₃ ;  Έλεγχος:", mat_equal(A_inv . A, ident(3))),
-    print("det(A⁻¹) =", determinant(A_inv), " = 1/det(A) ;  Έλεγχος:",
+    print("A·A⁻¹ = I₃ ;  Check:", mat_equal(A . A_inv, ident(3))),
+    print("A⁻¹·A = I₃ ;  Check:", mat_equal(A_inv . A, ident(3))),
+    print("det(A⁻¹) =", determinant(A_inv), " = 1/det(A) ;  Check:",
           is(determinant(A_inv) = 1/det_A))
 ) else (
     A_inv : 'undefined,
-    print("det(A) = 0  →  ο A δεν αντιστρέφεται")
+    print("det(A) = 0  →  A is not invertible")
 );
 
-/* ── Δ. (δ) Επίλυση A·x = b με invert(A) ────────────────── */
-print("════ Δ. (δ) Επίλυση A·x = b ════");
+/* ── D. (d) Solving A·x = b with invert(A) ─────────────── */
+print("════ D. (d) Solving A·x = b ════");
 
 x_sol : ratsimp(A_inv . b_vec);
 print("x = A⁻¹·b ="); print(x_sol);
-print("  [Αναμένεται: x = (27, -22, 6)ᵀ ✓]");
+print("  [Expected: x = (27, -22, 6)ᵀ ✓]");
 
-print("Επαλήθευση A·x ="); print(ratsimp(A . x_sol));
-print("A·x = b ;  Έλεγχος:", mat_equal(A . x_sol, b_vec));
+print("Check A·x ="); print(ratsimp(A . x_sol));
+print("A·x = b ;  Check:", mat_equal(A . x_sol, b_vec));
 
-/* Σύγκριση με τον απευθείας επιλυτή linsolve */
+/* Comparison with the direct solver linsolve */
 sol_ls : linsolve([   x1 + 2*x2 + 3*x3 = 1,
                             x2 + 4*x3 = 2,
                    5*x1 + 6*x2        = 3], [x1, x2, x3]);
-print("linsolve →", sol_ls, "  [ίδιο αποτέλεσμα ✓]");
+print("linsolve →", sol_ls, "  [same result ✓]");
 
-/* ── Ε. Συμπλήρωμα: κλιμακωτή μορφή και αποσύνθεση LU ───── */
-print("════ Ε. Κλιμακωτή μορφή &amp; LU ════");
+/* ── E. Supplement: row echelon form and LU decomposition ─ */
+print("════ E. Row echelon form &amp; LU ════");
 
-/* ΠΡΟΣΟΧΗ: η Maxima δεν διαθέτει rref(). Το αντίστοιχο είναι
-   η echelon(A) (κλιμακωτή μορφή με ηγετικά 1) ή η triangularize(A). */
+/* NOTE: Maxima does not provide rref(). The counterparts are
+   echelon(A) (echelon form with leading 1s) or triangularize(A). */
 print("echelon(A) ="); print(echelon(A));
 print("triangularize(A) ="); print(triangularize(A));
-print("rank(A) =", rank(A), "  [πλήρης τάξη 3, άρα A αντιστρέψιμος ✓]");
+print("rank(A) =", rank(A), "  [full rank 3, hence A is invertible ✓]");
 
-/* Αποσύνθεση LU: lu_factor + get_lu_factors (πακέτο linearalgebra).
-   Με generalring παίρνουμε ΑΚΡΙΒΕΙΣ (ρητούς) συντελεστές. */
+/* LU decomposition: lu_factor + get_lu_factors (linearalgebra package).
+   With generalring we get EXACT (rational) coefficients. */
 lu_data : lu_factor(A, generalring)$
 lu_PLU  : get_lu_factors(lu_data)$
 P_lu : lu_PLU[1];
@@ -236,14 +236,14 @@ L_lu : lu_PLU[2];
 U_lu : lu_PLU[3];
 
 print("P ="); print(P_lu);
-print("L (κάτω τριγωνικός) ="); print(L_lu);
-print("U (άνω τριγωνικός) ="); print(U_lu);
+print("L (lower triangular) ="); print(L_lu);
+print("U (upper triangular) ="); print(U_lu);
 print("P·L·U ="); print(ratsimp(P_lu . L_lu . U_lu));
-print("P·L·U = A ;  Έλεγχος:", mat_equal(P_lu . L_lu . U_lu, A));
+print("P·L·U = A ;  Check:", mat_equal(P_lu . L_lu . U_lu, A));
 print("det(A) = det(L)·det(U) =", determinant(L_lu) * determinant(U_lu),
-      ";  Έλεγχος:", is(determinant(L_lu)*determinant(U_lu) = det_A));
+      ";  Check:", is(determinant(L_lu)*determinant(U_lu) = det_A));
 
-print("════ Τέλος ════");
+print("════ End ════");
 </code></pre>
     </div>
   </div>
@@ -252,10 +252,10 @@ print("════ Τέλος ════");
     <div class="code-card">
       <div class="code-header python">
         <span>python_matrices.py</span>
-        <a class="download-btn" href="python_matrices.py" download>⬇ Λήψη .py</a>
+        <a class="download-btn" href="python_matrices.py" download>⬇ Download .py</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0;">
-        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <strong>Libraries / commands:</strong>
         <code>A @ B</code> &nbsp;
         <code>np.linalg.det()</code> &nbsp;
         <code>np.linalg.inv()</code> &nbsp;
@@ -264,33 +264,33 @@ print("════ Τέλος ════");
         <code>np.linalg.eigh()</code>
       </div>
             <div class="py-toolbar">
-        <button class="run-btn" id="py-run">▶ Τρέξε</button>
-        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
-        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
       </div>
       <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
 # python_matrices.py
-# Κεφάλαιο 2 — Πίνακες, NumPy, Αποσύνθεση LU, Heatmaps
-# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# Chapter 2 — Matrices, NumPy, LU Decomposition, Heatmaps
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
 # ============================================================
 #
-# ΒΙΒΛΙΟΘΗΚΕΣ:
-#   numpy         → αριθμητικές πράξεις πινάκων
-#   scipy.linalg  → αποσύνθεση LU
-#   sympy         → ακριβείς υπολογισμοί (κλάσματα)
-#   matplotlib    → οπτικοποίηση (heatmaps πινάκων)
+# LIBRARIES:
+#   numpy         → numerical matrix operations
+#   scipy.linalg  → LU decomposition
+#   sympy         → exact computations (fractions)
+#   matplotlib    → visualization (matrix heatmaps)
 #
-# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
-#   A @ B                  → γινόμενο πινάκων
-#   A.T                    → ανάστροφος
-#   np.linalg.det(A)       → ορίζουσα
-#   np.linalg.inv(A)       → αντίστροφος
-#   np.linalg.solve(A, b)  → λύση A·x = b
-#   scipy.linalg.lu(A)     → αποσύνθεση A = P·L·U
-#   np.linalg.eigh(S)      → ιδιοτιμές συμμετρικού πίνακα
+# BASIC COMMANDS:
+#   A @ B                  → matrix product
+#   A.T                    → transpose
+#   np.linalg.det(A)       → determinant
+#   np.linalg.inv(A)       → inverse
+#   np.linalg.solve(A, b)  → solution of A·x = b
+#   scipy.linalg.lu(A)     → decomposition A = P·L·U
+#   np.linalg.eigh(S)      → eigenvalues of a symmetric matrix
 #
-# Δραστηριότητα βιβλίου: (α) πράξεις NumPy, (β) επίλυση A·x = b,
-#   (γ) A = P·L·U, (δ) θετική οριστικότητα του S, (ε) heatmaps.
+# Book activity: (a) NumPy operations, (b) solving A·x = b,
+#   (c) A = P·L·U, (d) positive definiteness of S, (e) heatmaps.
 # ============================================================
 
 import numpy as np
@@ -300,10 +300,10 @@ import matplotlib.colors as mcolors
 from sympy import Matrix, pprint
 
 print("=" * 58)
-print(" Κεφάλαιο 2: Πίνακες, LU, Heatmaps — Python")
+print(" Chapter 2: Matrices, LU, Heatmaps — Python")
 print("=" * 58)
 
-# Δεδομένα της δραστηριότητας Maxima (ίδια A, B, b)
+# Data of the Maxima activity (same A, B, b)
 A = np.array([[1, 2, 3],
               [0, 1, 4],
               [5, 6, 0]], dtype=float)
@@ -318,8 +318,8 @@ print("\nA =\n", A)
 print("\nB =\n", B)
 print("\nb =", b)
 
-# ── Α. (α) Πράξεις με NumPy — σύγκριση με Maxima ──────────
-print("\n── Α. (α) Πράξεις με NumPy ──")
+# ── A. (a) Operations with NumPy — comparison with Maxima ─
+print("\n── A. (a) Operations with NumPy ──")
 
 AB = A @ B
 BA = B @ A
@@ -328,11 +328,11 @@ print("A @ B =\n", AB)
 print("  [Maxima: matrix([4,11,14],[1,11,17],[16,13,6])] →",
       np.allclose(AB, [[4, 11, 14], [1, 11, 17], [16, 13, 6]]))
 print("\nB @ A =\n", BA)
-print("A@B == B@A ;  Έλεγχος:", np.allclose(AB, BA))
-print("  → False: ο πολλαπλασιασμός πινάκων δεν είναι αντιμεταθετικός")
+print("A@B == B@A ;  Check:", np.allclose(AB, BA))
+print("  → False: matrix multiplication is not commutative")
 
 print("\nAᵀ =\n", A.T)
-print("(A@B)ᵀ == Bᵀ@Aᵀ ;  Έλεγχος:", np.allclose(AB.T, B.T @ A.T))
+print("(A@B)ᵀ == Bᵀ@Aᵀ ;  Check:", np.allclose(AB.T, B.T @ A.T))
 
 det_A = np.linalg.det(A)
 det_B = np.linalg.det(B)
@@ -340,7 +340,7 @@ det_AB = np.linalg.det(AB)
 print(f"\ndet(A)  = {det_A:.10f}   [Maxima: 1]")
 print(f"det(B)  = {det_B:.10f}   [Maxima: 24]")
 print(f"det(AB) = {det_AB:.10f}   [Maxima: 24]")
-print("det(A·B) == det(A)·det(B) ;  Έλεγχος:",
+print("det(A·B) == det(A)·det(B) ;  Check:",
       np.isclose(det_AB, det_A * det_B))
 
 A_inv = np.linalg.inv(A)
@@ -348,98 +348,98 @@ print("\nA⁻¹ =\n", np.round(A_inv, 10))
 print("  [Maxima: matrix([-24,18,5],[20,-15,-4],[-5,4,1])] →",
       np.allclose(A_inv, [[-24, 18, 5], [20, -15, -4], [-5, 4, 1]]))
 print("A @ A⁻¹ =\n", np.round(A @ A_inv, 10))
-print("A·A⁻¹ == I₃ ;  Έλεγχος:", np.allclose(A @ A_inv, np.eye(3)))
+print("A·A⁻¹ == I₃ ;  Check:", np.allclose(A @ A_inv, np.eye(3)))
 
-# Ακριβής (ρητός) υπολογισμός με SymPy — σύγκριση με το Maxima
+# Exact (rational) computation with SymPy — comparison with Maxima
 A_sym = Matrix([[1, 2, 3], [0, 1, 4], [5, 6, 0]])
-print("\nΑκριβής A⁻¹ (SymPy):")
+print("\nExact A⁻¹ (SymPy):")
 pprint(A_sym.inv())
 
-# ── Β. (β) Επίλυση A·x = b ────────────────────────────────
-print("\n── Β. (β) Επίλυση A·x = b ──")
+# ── B. (b) Solving A·x = b ────────────────────────────────
+print("\n── B. (b) Solving A·x = b ──")
 
 x = np.linalg.solve(A, b)
 print("x = np.linalg.solve(A, b) =", np.round(x, 10))
-print("  [Αναμένεται: (27, -22, 6)] →", np.allclose(x, [27, -22, 6]))
+print("  [Expected: (27, -22, 6)] →", np.allclose(x, [27, -22, 6]))
 print("A @ x =", np.round(A @ x, 10))
-print("A·x == b ;  Έλεγχος:", np.allclose(A @ x, b))
-print(f"Υπόλοιπο ‖A·x - b‖ = {np.linalg.norm(A @ x - b):.2e}")
+print("A·x == b ;  Check:", np.allclose(A @ x, b))
+print(f"Residual ‖A·x - b‖ = {np.linalg.norm(A @ x - b):.2e}")
 
-# Ακριβής λύση με SymPy
-print("\nx (SymPy, ακριβής):",
+# Exact solution with SymPy
+print("\nx (SymPy, exact):",
       list(A_sym.solve(Matrix([1, 2, 3]))))
 
-# ── Γ. (γ) Αποσύνθεση A = P·L·U ───────────────────────────
-print("\n── Γ. (γ) Αποσύνθεση LU ──")
+# ── C. (c) Decomposition A = P·L·U ────────────────────────
+print("\n── C. (c) LU Decomposition ──")
 
 P, L, U = la.lu(A)
 
-print("P (πίνακας μετάθεσης) =\n", P)
-print("\nL (κάτω τριγωνικός, μονάδες στη διαγώνιο) =\n", np.round(L, 6))
-print("\nU (άνω τριγωνικός) =\n", np.round(U, 6))
+print("P (permutation matrix) =\n", P)
+print("\nL (lower triangular, ones on the diagonal) =\n", np.round(L, 6))
+print("\nU (upper triangular) =\n", np.round(U, 6))
 print("\nP @ L @ U =\n", np.round(P @ L @ U, 10))
-print("P·L·U == A ;  Έλεγχος:", np.allclose(P @ L @ U, A))
-print("L κάτω τριγωνικός:", np.allclose(L, np.tril(L)),
-      "| U άνω τριγωνικός:", np.allclose(U, np.triu(U)))
+print("P·L·U == A ;  Check:", np.allclose(P @ L @ U, A))
+print("L lower triangular:", np.allclose(L, np.tril(L)),
+      "| U upper triangular:", np.allclose(U, np.triu(U)))
 print(f"det(A) = ±det(U) = {np.linalg.det(P) * np.prod(np.diag(U)):.10f}",
-      "  Έλεγχος:",
+      "  Check:",
       np.isclose(np.linalg.det(P) * np.prod(np.diag(U)), det_A))
 
-# ── Δ. (δ) Συμμετρικός S: ιδιοτιμές &amp; θετική οριστικότητα ─
-print("\n── Δ. (δ) Συμμετρικός S — np.linalg.eigh ──")
+# ── D. (d) Symmetric S: eigenvalues &amp; positive definiteness ─
+print("\n── D. (d) Symmetric S — np.linalg.eigh ──")
 
 S = np.array([[4, 2, 1],
               [2, 5, 3],
               [1, 3, 6]], dtype=float)
 
 print("S =\n", S)
-print("S == Sᵀ ;  Έλεγχος:", np.allclose(S, S.T))
+print("S == Sᵀ ;  Check:", np.allclose(S, S.T))
 
-eigvals, eigvecs = np.linalg.eigh(S)     # eigh: συμμετρικός → πραγματικές λ
-print("\nΙδιοτιμές (eigh):", np.round(eigvals, 6))
-print("Ιδιοδιανύσματα (στήλες Q):\n", np.round(eigvecs, 6))
-print("QᵀQ == I ;  Έλεγχος:", np.allclose(eigvecs.T @ eigvecs, np.eye(3)))
-print("QΛQᵀ == S ;  Έλεγχος:",
+eigvals, eigvecs = np.linalg.eigh(S)     # eigh: symmetric → real eigenvalues
+print("\nEigenvalues (eigh):", np.round(eigvals, 6))
+print("Eigenvectors (columns of Q):\n", np.round(eigvecs, 6))
+print("QᵀQ == I ;  Check:", np.allclose(eigvecs.T @ eigvecs, np.eye(3)))
+print("Q·D·Qᵀ == S ;  Check:",
       np.allclose(eigvecs @ np.diag(eigvals) @ eigvecs.T, S))
 
-# Κριτήριο 1: όλες οι ιδιοτιμές &gt; 0
+# Criterion 1: all eigenvalues &gt; 0
 pd_eig = bool(np.all(eigvals &gt; 0))
-# Κριτήριο 2 (Sylvester): όλα τα ηγετικά κύρια ελάσσονα &gt; 0
+# Criterion 2 (Sylvester): all leading principal minors &gt; 0
 minors = [float(np.linalg.det(S[:k, :k])) for k in (1, 2, 3)]
 pd_minors = all(m &gt; 0 for m in minors)
-# Κριτήριο 3: υπάρχει ανάλυση Cholesky
+# Criterion 3: a Cholesky factorization exists
 try:
     np.linalg.cholesky(S)
     pd_chol = True
 except np.linalg.LinAlgError:
     pd_chol = False
 
-print(f"\nΗγετικά κύρια ελάσσονα: {[round(m, 6) for m in minors]}"
-      "   [Αναμένονται 4, 16, 67]")
-print(f"Κριτήριο ιδιοτιμών  (όλες λᵢ &gt; 0): {pd_eig}")
-print(f"Κριτήριο Sylvester  (ελάσσονα &gt; 0): {pd_minors}")
-print(f"Κριτήριο Cholesky   (υπάρχει L):    {pd_chol}")
-print("→ Ο S είναι θετικά ορισμένος:",
+print(f"\nLeading principal minors: {[round(m, 6) for m in minors]}"
+      "   [Expected 4, 16, 67]")
+print(f"Eigenvalue criterion (all eigenvalues &gt; 0): {pd_eig}")
+print(f"Sylvester criterion  (minors &gt; 0):          {pd_minors}")
+print(f"Cholesky criterion   (L exists):            {pd_chol}")
+print("→ S is positive definite:",
       pd_eig and pd_minors and pd_chol)
-print("ΠΡΟΣΟΧΗ: το det(S) &gt; 0 ΜΟΝΟ του δεν αρκεί "
-      "(π.χ. ο -I₂ έχει det = 1 &gt; 0 αλλά είναι αρνητικά ορισμένος).")
+print("NOTE: det(S) &gt; 0 ALONE is not enough "
+      "(e.g. -I₂ has det = 1 &gt; 0 but is negative definite).")
 
-# Έλεγχος με τυχαία διανύσματα: xᵀSx &gt; 0 για κάθε x ≠ 0
+# Test with random vectors: xᵀSx &gt; 0 for every x ≠ 0
 rng = np.random.default_rng(0)
 X = rng.normal(size=(3, 200))
 qvals = np.sum(X * (S @ X), axis=0)
-print(f"min(xᵀSx) σε 200 τυχαία x: {qvals.min():.6f} &gt; 0 →",
+print(f"min(xᵀSx) over 200 random x: {qvals.min():.6f} &gt; 0 →",
       bool(qvals.min() &gt; 0))
 
-# ── Ε. (ε) Προαιρετικό: Heatmaps των A, A·B και L ─────────
-print("\n── Ε. (ε) Heatmaps (προαιρετικό) ──")
+# ── E. (e) Optional: Heatmaps of A, A·B and L ─────────────
+print("\n── E. (e) Heatmaps (optional) ──")
 
 fig, axes = plt.subplots(1, 3, figsize=(13, 4))
-fig.suptitle("Κεφ. 2 — Heatmaps πινάκων", fontsize=13, fontweight='bold')
+fig.suptitle("Ch. 2 — Matrix heatmaps", fontsize=13, fontweight='bold')
 
 
 def plot_matrix(ax, M, title, fmt=".1f"):
-    """Εμφάνιση πίνακα ως heatmap με τις αριθμητικές τιμές."""
+    """Display a matrix as a heatmap with the numerical values."""
     vmax = max(abs(M.min()), abs(M.max()), 1e-9)
     im = ax.imshow(M, cmap='RdBu_r', aspect='auto',
                    norm=mcolors.TwoSlopeNorm(vcenter=0,
@@ -454,12 +454,12 @@ def plot_matrix(ax, M, title, fmt=".1f"):
     plt.colorbar(im, ax=ax, shrink=0.8)
 
 
-plot_matrix(axes[0], A,  "Πίνακας A")
+plot_matrix(axes[0], A,  "Matrix A")
 plot_matrix(axes[1], AB, "A · B")
-plot_matrix(axes[2], L,  "L (από την A = P·L·U)")
+plot_matrix(axes[2], L,  "L (from A = P·L·U)")
 
 plt.tight_layout()
-print("Δημιουργήθηκε heatmap για A, A·B και L.")
+print("Created a heatmap for A, A·B and L.")
 plt.show()
 </textarea>
       <pre class="py-output" id="py-output"></pre>
@@ -470,7 +470,7 @@ plt.show()
 </div>
 
 <footer>
-  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
@@ -493,7 +493,7 @@ function loadCode(file, elementId, lang) {
     })
     .catch(err => {
       document.getElementById(elementId).textContent =
-        '⚠ Αδυναμία φόρτωσης (' + err + '). Χρησιμοποιήστε "Λήψη".';
+        '⚠ Could not load the file (' + err + '). Please use "Download".';
     });
 }
 
@@ -507,7 +507,7 @@ $('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output'
 async function ensurePyodide(setStatus){
   if (pyodideReady) return pyodideReady;
   pyodideReady = (async () => {
-    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
     if (!window.loadPyodide){
       await new Promise((res, rej) => {
         const sc = document.createElement('script');
@@ -529,9 +529,9 @@ $('py-run').onclick = async function(){
     py.setStdout({ batched: s => { out.textContent += s; } });
     py.setStderr({ batched: s => { out.textContent += s; } });
     const code = $('py-editor').value;
-    setStatus('Φόρτωση βιβλιοθηκών…');
+    setStatus('Loading libraries…');
     await py.loadPackagesFromImports(code);
-    setStatus('Εκτέλεση…');
+    setStatus('Running…');
     await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
     py.globals.set('__user_src__', code);
     await py.runPythonAsync(`
@@ -557,10 +557,10 @@ _imgs
 `);
     const arr = figs.toJs(); if (figs.destroy) figs.destroy();
     arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
-    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
   } catch (e) {
-    out.textContent += '\n⚠ Σφάλμα: ' + e;
-    setStatus('Σφάλμα');
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
   } finally { btn.disabled = false; }
 };
 </script>

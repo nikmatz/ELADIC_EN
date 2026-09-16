@@ -1,18 +1,18 @@
 /* ============================================================
    maxima_oria.mac
-   Κεφάλαιο 9 — Όρια: Άρση Αοριστίας και Ασύμπτωτες
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού & Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 9 — Limits: Indeterminate Forms and Asymptotes
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
    ============================================================
-   ΕΝΤΟΛΕΣ:
+   COMMANDS:
      limit(f, x, a)          -> lim_{x->a} f(x)
-     limit(f, x, a, plus)    -> δεξιό (πλευρικό) όριο
-     limit(f, x, a, minus)   -> αριστερό (πλευρικό) όριο
-     limit(f, x, inf)        -> όριο στο +άπειρο
-     taylor(f, x, 0, n)      -> ανάπτυγμα Maclaurin τάξης n
+     limit(f, x, a, plus)    -> right-hand (one-sided) limit
+     limit(f, x, a, minus)   -> left-hand (one-sided) limit
+     limit(f, x, inf)        -> limit at +infinity
+     taylor(f, x, 0, n)      -> Maclaurin expansion of order n
    ============================================================ */
 
-/* ═══ Α. (α) Τα τέσσερα όρια της δραστηριότητας ═════════════ */
-print("════ Α. Υπολογισμός ορίων ════")$
+/* ═══ A. (a) The four limits of the activity ════════════════ */
+print("════ A. Computing limits ════")$
 
 L1 : limit((x^2-9)/(x-3), x, 3)$
 L2 : limit(sin(x)/x, x, 0)$
@@ -20,65 +20,65 @@ L3 : limit((exp(x)-1)/x, x, 0)$
 L4 : limit((3*x^2-2*x+1)/(x^2+5), x, inf)$
 
 print("  lim x->3   (x^2-9)/(x-3)        =", L1, "  (= 6 ✓)")$
-print("     με χαρτί: (x^2-9)/(x-3) = (x-3)(x+3)/(x-3) = x+3 -> 3+3 = 6")$
+print("     by hand: (x^2-9)/(x-3) = (x-3)(x+3)/(x-3) = x+3 -> 3+3 = 6")$
 
 print("  lim x->0   sin(x)/x             =", L2, "  (= 1 ✓)")$
-print("     με χαρτί: θεμελιώδες τριγωνομετρικό όριο (κριτήριο παρεμβολής)")$
+print("     by hand: fundamental trigonometric limit (squeeze theorem)")$
 
 print("  lim x->0   (e^x-1)/x            =", L3, "  (= 1 ✓)")$
-print("     με χαρτί: e^x = 1 + x + x^2/2 + ... -> (e^x-1)/x = 1 + x/2 + ...")$
+print("     by hand: e^x = 1 + x + x^2/2 + ... -> (e^x-1)/x = 1 + x/2 + ...")$
 
 print("  lim x->+oo (3x^2-2x+1)/(x^2+5)  =", L4, "  (= 3 ✓)")$
-print("     με χαρτί: διαιρούμε με x^2 -> (3-2/x+1/x^2)/(1+5/x^2) -> 3/1 = 3")$
+print("     by hand: divide by x^2 -> (3-2/x+1/x^2)/(1+5/x^2) -> 3/1 = 3")$
 
-/* Αριθμητική επιβεβαίωση του τελευταίου ορίου.                 */
+/* Numerical confirmation of the last limit.                    */
 for a in [10, 100, 1000, 100000] do
     print("     x =", a, " -> ", float(subst(a, x, (3*x^2-2*x+1)/(x^2+5))))$
 
-/* ═══ Β. (β) Ύπαρξη ορίου στο 0 για f(x) = |x|/x ═══════════ */
-print("════ Β. Ύπαρξη ορίου: f(x) = |x|/x στο x=0 ════")$
+/* ═══ B. (b) Existence of the limit at 0 for f(x) = |x|/x ══ */
+print("════ B. Existence of the limit: f(x) = |x|/x at x=0 ════")$
 
 define(u(x), abs(x)/x)$
-print("  u(x) =", u(x), "  (ορίζεται για κάθε x ≠ 0)")$
+print("  u(x) =", u(x), "  (defined for every x ≠ 0)")$
 
 Rp : limit(u(x), x, 0, plus)$
 Rm : limit(u(x), x, 0, minus)$
-print("  limit(u, x, 0, plus)  =", Rp, "  (= +1 ✓, αφού |x| = x για x>0)")$
-print("  limit(u, x, 0, minus) =", Rm, "  (= -1 ✓, αφού |x| = -x για x<0)")$
-print("  Αριθμητικά: u(0.001) =", float(u(0.001)),
-      " και u(-0.001) =", float(u(-0.001)))$
+print("  limit(u, x, 0, plus)  =", Rp, "  (= +1 ✓, since |x| = x for x>0)")$
+print("  limit(u, x, 0, minus) =", Rm, "  (= -1 ✓, since |x| = -x for x<0)")$
+print("  Numerically: u(0.001) =", float(u(0.001)),
+      " and u(-0.001) =", float(u(-0.001)))$
 
-/* Το συμπέρασμα ΠΡΟΚΥΠΤΕΙ από τη σύγκριση των πλευρικών ορίων. */
+/* The conclusion FOLLOWS from comparing the one-sided limits.  */
 if Rp = Rm then
-   print("  Τα πλευρικά όρια συμπίπτουν -> το όριο ΥΠΑΡΧΕΙ και ισούται με", Rp)
+   print("  The one-sided limits agree -> the limit EXISTS and equals", Rp)
 else
-   print("  Τα πλευρικά όρια ΔΙΑΦΕΡΟΥΝ (", Rm, "≠", Rp,
-         ") -> το lim x->0 |x|/x ΔΕΝ ΥΠΑΡΧΕΙ ✓ (άλμα πηδήματος)")$
+   print("  The one-sided limits DIFFER (", Rm, "≠", Rp,
+         ") -> lim x->0 |x|/x DOES NOT EXIST ✓ (jump discontinuity)")$
 
-print("  Επιβεβαίωση από το ίδιο το Maxima: limit(|x|/x, x, 0) =",
+print("  Confirmation from Maxima itself: limit(|x|/x, x, 0) =",
       limit(u(x), x, 0), "  (und = undefined ✓)")$
 
-/* Το διάστημα δίνεται σε ΑΥΞΟΥΣΑ σειρά και επιλέγεται ώστε      */
-/* το πλέγμα δειγματοληψίας να ΜΗΝ πέσει ακριβώς πάνω στο x=0    */
-/* (εκεί η |x|/x δεν ορίζεται και θα προέκυπτε διαίρεση με 0).   */
+/* The interval is given in INCREASING order and is chosen so that */
+/* the sampling grid does NOT fall exactly on x=0                  */
+/* (there |x|/x is undefined and we would divide by 0).            */
 plot2d(u(x), [x, -2, 2.1], [y, -2, 2],
        [xlabel, "x"], [ylabel, "|x|/x"],
-       [title, "|x|/x: alma apo -1 se +1 sto x=0 (to orio den yparxei)"])$
+       [title, "|x|/x: jump from -1 to +1 at x=0 (the limit does not exist)"])$
 
-/* ═══ Γ. (γ) Συνέχεια της f(x)=(x^2-4)/(x-2) με f(2)=4 ═════ */
-print("════ Γ. Συνέχεια της f(x)=(x^2-4)/(x-2) με f(2)=4 ════")$
+/* ═══ C. (c) Continuity of f(x)=(x^2-4)/(x-2) with f(2)=4 ══ */
+print("════ C. Continuity of f(x)=(x^2-4)/(x-2) with f(2)=4 ════")$
 
-/* Η αρχική παράσταση ΔΕΝ ορίζεται στο 2 (μορφή 0/0)· την       */
-/* «επιδιορθώνουμε» ορίζοντας f(2) = 4.                         */
+/* The original expression is NOT defined at 2 (form 0/0); we   */
+/* "repair" it by defining f(2) = 4.                            */
 fexpr : (x^2-4)/(x-2)$
-print("  Παράσταση:", fexpr, " — στο x=2 δίνει 0/0, άρα ΔΕΝ ορίζεται εκεί")$
-print("  Απλοποίηση: ratsimp(", fexpr, ") =", ratsimp(fexpr),
-      "  (= x+2 για x ≠ 2)")$
+print("  Expression:", fexpr, " — at x=2 it gives 0/0, so it is NOT defined there")$
+print("  Simplification: ratsimp(", fexpr, ") =", ratsimp(fexpr),
+      "  (= x+2 for x ≠ 2)")$
 
-/* ΠΡΟΣΟΧΗ: εδώ χρησιμοποιούμε := και ΟΧΙ define, γιατί το define */
-/* αποτιμά αμέσως το σώμα και η (x^2-4)/(x-2) θα έδινε 0/0.       */
+/* NOTE: here we use := and NOT define, because define evaluates  */
+/* the body immediately and (x^2-4)/(x-2) would give 0/0.         */
 fc(x) := if x = 2 then 4 else (x^2-4)/(x-2)$
-print("  Ορίζουμε f(2) := 4.  f(2) =", fc(2), " (= 4 ✓)")$
+print("  We define f(2) := 4.  f(2) =", fc(2), " (= 4 ✓)")$
 print("  f(1) =", fc(1), " (= 3 ✓),  f(3) =", fc(3), " (= 5 ✓)")$
 
 Lf : limit(fexpr, x, 2)$
@@ -89,59 +89,59 @@ print("  lim x->2^+  f(x) =", Lfp, " (= 4 ✓)")$
 print("  lim x->2    f(x) =", Lf,  " (= 4 ✓)")$
 
 if Lfm = Lfp and Lf = fc(2) then
-   print("  lim_{x->2} f(x) = f(2) = 4  ->  η f ΕΙΝΑΙ ΣΥΝΕΧΗΣ στο x=2 ✓")
+   print("  lim_{x->2} f(x) = f(2) = 4  ->  f IS CONTINUOUS at x=2 ✓")
 else
-   print("  lim_{x->2} f(x) ≠ f(2)  ->  η f ΔΕΝ είναι συνεχής στο x=2")$
+   print("  lim_{x->2} f(x) ≠ f(2)  ->  f is NOT continuous at x=2")$
 
-print("  ΧΑΡΑΚΤΗΡΙΣΜΟΣ: η αρχική (x^2-4)/(x-2) είχε ΑΡΣΙΜΗ (αφαιρετή)")$
-print("  ασυνέχεια στο 2· με την τιμή f(2)=4 η ασυνέχεια ΑΙΡΕΤΑΙ και η f")$
-print("  ταυτίζεται με την πολυωνυμική x+2, που είναι συνεχής παντού.")$
+print("  CLASSIFICATION: the original (x^2-4)/(x-2) had a REMOVABLE")$
+print("  discontinuity at 2; with the value f(2)=4 the discontinuity is removed")$
+print("  and f coincides with the polynomial x+2, which is continuous everywhere.")$
 
-/* Σχεδιάζουμε τη ΣΥΝΕΧΗ ΕΠΕΚΤΑΣΗ x+2 (ταυτίζεται με την f για    */
-/* x ≠ 2) και σημειώνουμε ξεχωριστά το σημείο (2, 4) = (2, f(2)). */
+/* We plot the CONTINUOUS EXTENSION x+2 (it coincides with f for  */
+/* x ≠ 2) and mark separately the point (2, 4) = (2, f(2)).       */
 plot2d([x+2, [discrete, [[2, 4]]]], [x, -1, 5], [y, 0, 8],
        [style, [lines, 2], [points, 3, 2, 7]],
-       [legend, "x+2 (synexhs epektash)", "f(2) = 4"],
+       [legend, "x+2 (continuous extension)", "f(2) = 4"],
        [xlabel, "x"], [ylabel, "y"],
-       [title, "Arsimh asynexeia: h timh f(2)=4 epidiorthwnei thn f"])$
+       [title, "Removable discontinuity: the value f(2)=4 repairs f"])$
 
-/* ═══ Δ. (δ) Σειρές Maclaurin έως 5η τάξη ══════════════════ */
-print("════ Δ. Αναπτύγματα Maclaurin έως 5η τάξη ════")$
+/* ═══ D. (d) Maclaurin series up to order 5 ════════════════ */
+print("════ D. Maclaurin expansions up to order 5 ════")$
 
 T_sin : taylor(sin(x), x, 0, 5)$
 T_exp : taylor(exp(x), x, 0, 5)$
 T_log : taylor(log(1+x), x, 0, 5)$
 
 print("  sin(x)    ~", T_sin)$
-print("     αναμενόμενο: x - x^3/6 + x^5/120 ✓")$
+print("     expected: x - x^3/6 + x^5/120 ✓")$
 print("  e^x       ~", T_exp)$
-print("     αναμενόμενο: 1 + x + x^2/2 + x^3/6 + x^4/24 + x^5/120 ✓")$
+print("     expected: 1 + x + x^2/2 + x^3/6 + x^4/24 + x^5/120 ✓")$
 print("  ln(1+x)   ~", T_log)$
-print("     αναμενόμενο: x - x^2/2 + x^3/3 - x^4/4 + x^5/5 ✓")$
+print("     expected: x - x^2/2 + x^3/3 - x^4/4 + x^5/5 ✓")$
 
-/* Οι συντελεστές ελέγχονται και αριθμητικά.                     */
-print("  Συντελεστές του sin(x): ",
+/* The coefficients are checked numerically as well.             */
+print("  Coefficients of sin(x): ",
       makelist(ratcoef(ratexpand(taylor(sin(x), x, 0, 5)), x, n), n, 0, 5),
       "  (= [0, 1, 0, -1/6, 0, 1/120] ✓)")$
-print("  Συντελεστές του e^x:    ",
+print("  Coefficients of e^x:    ",
       makelist(ratcoef(ratexpand(taylor(exp(x), x, 0, 5)), x, n), n, 0, 5),
       "  (= [1, 1, 1/2, 1/6, 1/24, 1/120] ✓)")$
-print("  Συντελεστές του ln(1+x):",
+print("  Coefficients of ln(1+x):",
       makelist(ratcoef(ratexpand(taylor(log(1+x), x, 0, 5)), x, n), n, 0, 5),
       "  (= [0, 1, -1/2, 1/3, -1/4, 1/5] ✓)")$
 
-/* Τα αναπτύγματα εξηγούν ΓΙΑΤΙ προκύπτουν τα όρια του (α).      */
+/* The expansions explain WHY the limits of (a) come out as they do. */
 T_sinc : taylor(sin(x)/x, x, 0, 4)$
 print("  sin(x)/x    ~", T_sinc,
-      "  ->  όριο στο 0 =", limit(sin(x)/x, x, 0), " (= 1 ✓)")$
+      "  ->  limit at 0 =", limit(sin(x)/x, x, 0), " (= 1 ✓)")$
 print("  (e^x-1)/x   ~", taylor((exp(x)-1)/x, x, 0, 4),
-      "  ->  όριο στο 0 =", limit((exp(x)-1)/x, x, 0), " (= 1 ✓)")$
+      "  ->  limit at 0 =", limit((exp(x)-1)/x, x, 0), " (= 1 ✓)")$
 
-/* Πάλι διάστημα σε αύξουσα σειρά, ελαφρώς ασύμμετρο ώστε το      */
-/* πλέγμα να μην πέσει πάνω στο x=0 (όπου sin(x)/x -> 0/0).       */
+/* Again the interval is in increasing order, slightly asymmetric  */
+/* so that the grid does not fall on x=0 (where sin(x)/x -> 0/0).  */
 plot2d([sin(x)/x, ratexpand(T_sinc)], [x, -6.2, 6.3], [y, -0.5, 1.5],
-       [legend, "sin(x)/x", "Taylor 4hs takshs"],
+       [legend, "sin(x)/x", "Taylor order 4"],
        [xlabel, "x"], [ylabel, "y"],
-       [title, "sin(x)/x kai to polywnymo Taylor 4hs takshs"])$
+       [title, "sin(x)/x and the Taylor polynomial of order 4"])$
 
-print("── Τέλος maxima_oria.mac ──")$
+print("── End of maxima_oria.mac ──")$

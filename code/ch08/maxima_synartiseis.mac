@@ -1,68 +1,68 @@
 /* ============================================================
    maxima_synartiseis.mac
-   Κεφάλαιο 8 — Συναρτήσεις: Πεδίο Ορισμού και Γραφικές Παραστάσεις
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού & Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 8 — Functions: Domain and Graphs
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
    ============================================================
-   ΕΝΤΟΛΕΣ:
-     define(f(x), expr)     -> ορισμός συνάρτησης
-     solve(eq, x)           -> λύση ΕΞΙΣΩΣΗΣ (όρια/εξαιρετέα σημεία)
-     fourier_elim([ineq],[x]) -> λύση ΑΝΙΣΩΣΗΣ (το solve δεν λύνει ανισώσεις)
-     plot2d([f,g],[x,a,b])  -> κοινό γράφημα
-     subst(-x, x, f)        -> αντικατάσταση x -> -x (συμμετρίες)
-     charfun(συνθήκη)       -> 1 αν ισχύει, αλλιώς 0 (τμηματικές)
-     ratsimp(expr)          -> απλοποίηση ρητής παράστασης
+   COMMANDS:
+     define(f(x), expr)     -> definition of a function
+     solve(eq, x)           -> solution of an EQUATION (endpoints/excluded points)
+     fourier_elim([ineq],[x]) -> solution of an INEQUALITY (solve does not do inequalities)
+     plot2d([f,g],[x,a,b])  -> common graph
+     subst(-x, x, f)        -> substitution x -> -x (symmetries)
+     charfun(condition)     -> 1 if it holds, otherwise 0 (piecewise)
+     ratsimp(expr)          -> simplification of a rational expression
    ============================================================ */
 
-load(fourier_elim)$   /* το solve ΔΕΝ λύνει ανισώσεις — φορτώνουμε εργαλείο */
+load(fourier_elim)$   /* solve does NOT handle inequalities — we load a tool */
 
-/* ═══ Α. (α) ΠΕΔΙΟ ΟΡΙΣΜΟΥ ══════════════════════════════════ */
-print("════ Α. Πεδίο ορισμού ════")$
+/* ═══ A. (a) DOMAIN ═════════════════════════════════════════ */
+print("════ A. Domain ════")$
 
-/* f(x) = sqrt(x-2)/(x^2-9):  x-2 >= 0  ΚΑΙ  x^2-9 # 0            */
+/* f(x) = sqrt(x-2)/(x^2-9):  x-2 >= 0  AND  x^2-9 # 0            */
 define(f(x), sqrt(x-2)/(x^2-9))$
 print("f(x) =", f(x))$
-print("  Υπόρριζο:  x-2 >= 0  ->", fourier_elim([x-2 >= 0], [x]),
-      "  δηλαδή x >= 2")$
-print("  Παρονομαστής = 0 στα:", solve(x^2-9 = 0, x), " (x = -3, x = 3)")$
-print("  ΠΕΔΙΟ ΟΡΙΣΜΟΥ f: [2,3) ∪ (3,+∞)   (το -3 δεν ανήκει ήδη στο x>=2) ✓")$
-print("  Έλεγχος: f(2) =", f(2), " (= 0 ✓),  f(6) =", f(6), " = ",
-      float(f(6)), " (= 2/27 = 0,074074 ✓)")$
+print("  Radicand:  x-2 >= 0  ->", fourier_elim([x-2 >= 0], [x]),
+      "  that is x >= 2")$
+print("  Denominator = 0 at:", solve(x^2-9 = 0, x), " (x = -3, x = 3)")$
+print("  DOMAIN of f: [2,3) ∪ (3,+∞)   (-3 is already excluded by x>=2) ✓")$
+print("  Check: f(2) =", f(2), " (= 0 ✓),  f(6) =", f(6), " = ",
+      float(f(6)), " (= 2/27 = 0.074074 ✓)")$
 
 /* g(x) = ln(4-x^2):  4-x^2 > 0                                   */
 define(g(x), log(4-x^2))$
 print("g(x) =", g(x))$
-print("  Απαίτηση 4-x^2 > 0  ->", fourier_elim([4-x^2 > 0], [x]))$
-print("  Άκρα από solve(4-x^2=0,x):", solve(4-x^2 = 0, x))$
-print("  ΠΕΔΙΟ ΟΡΙΣΜΟΥ g: (-2,2) ✓")$
-print("  Έλεγχος: g(0) =", g(0), " (= log(4) = ", float(g(0)), " ✓)")$
+print("  Requirement 4-x^2 > 0  ->", fourier_elim([4-x^2 > 0], [x]))$
+print("  Endpoints from solve(4-x^2=0,x):", solve(4-x^2 = 0, x))$
+print("  DOMAIN of g: (-2,2) ✓")$
+print("  Check: g(0) =", g(0), " (= log(4) = ", float(g(0)), " ✓)")$
 
-/* h(x) = 1/sqrt(1-x^2):  1-x^2 > 0 (γνήσια, όχι >=)              */
+/* h(x) = 1/sqrt(1-x^2):  1-x^2 > 0 (strictly, not >=)            */
 define(h(x), 1/sqrt(1-x^2))$
 print("h(x) =", h(x))$
-print("  Απαίτηση 1-x^2 > 0  ->", fourier_elim([1-x^2 > 0], [x]))$
-print("  Άκρα από solve(1-x^2=0,x):", solve(1-x^2 = 0, x))$
-print("  ΠΕΔΙΟ ΟΡΙΣΜΟΥ h: (-1,1) ✓")$
-print("  Έλεγχος: h(0) =", h(0), " (= 1 ✓)")$
+print("  Requirement 1-x^2 > 0  ->", fourier_elim([1-x^2 > 0], [x]))$
+print("  Endpoints from solve(1-x^2=0,x):", solve(1-x^2 = 0, x))$
+print("  DOMAIN of h: (-1,1) ✓")$
+print("  Check: h(0) =", h(0), " (= 1 ✓)")$
 
-/* Γραφική επιβεβαίωση — τα διαστήματα δίνονται ΠΑΝΤΑ σε αύξουσα  */
-/* σειρά και αποφεύγουμε τα σημεία όπου μηδενίζεται ο παρονομαστής */
+/* Graphical confirmation — the intervals are ALWAYS given in       */
+/* increasing order and we avoid the zeros of the denominator       */
 plot2d(f(x), [x, 2, 2.9], [y, -3, 1],
        [xlabel, "x"], [ylabel, "f(x)"],
-       [title, "f(x)=sqrt(x-2)/(x^2-9) στο [2,3)"])$
+       [title, "f(x)=sqrt(x-2)/(x^2-9) on [2,3)"])$
 plot2d(f(x), [x, 3.1, 8], [y, 0, 3],
        [xlabel, "x"], [ylabel, "f(x)"],
-       [title, "f(x)=sqrt(x-2)/(x^2-9) στο (3,+oo)"])$
+       [title, "f(x)=sqrt(x-2)/(x^2-9) on (3,+oo)"])$
 plot2d(g(x), [x, -1.98, 1.98], [y, -5, 2],
        [xlabel, "x"], [ylabel, "g(x)"],
-       [title, "g(x)=ln(4-x^2), πεδίο (-2,2)"])$
+       [title, "g(x)=ln(4-x^2), domain (-2,2)"])$
 plot2d(h(x), [x, -0.98, 0.98], [y, 0, 6],
        [xlabel, "x"], [ylabel, "h(x)"],
-       [title, "h(x)=1/sqrt(1-x^2), πεδίο (-1,1)"])$
+       [title, "h(x)=1/sqrt(1-x^2), domain (-1,1)"])$
 
-/* ═══ Β. (β) ΣΥΜΜΕΤΡΙΕΣ ΚΑΙ ΣΥΝΘΕΣΕΙΣ ══════════════════════ */
-print("════ Β. Συμμετρίες και πράξεις ════")$
+/* ═══ B. (b) SYMMETRIES AND COMPOSITIONS ═══════════════════ */
+print("════ B. Symmetries and operations ════")$
 
-/* Άρτια: f(-x) - f(x) = 0.  Περιττή: f(-x) + f(x) = 0.           */
+/* Even: f(-x) - f(x) = 0.  Odd: f(-x) + f(x) = 0.                */
 u1 : x^4 - 3*x^2$
 u2 : x^3 - x$
 u3 : exp(x) + exp(-x)$
@@ -71,105 +71,105 @@ for e in [u1, u2, u3] do block([em, ep],
     ep : ratsimp(subst(-x, x, e) + e),
     print("  ", e),
     print("     f(-x)-f(x) =", em, " | f(-x)+f(x) =", ep),
-    if em = 0 then print("     -> ΑΡΤΙΑ (συμμετρία ως προς τον άξονα y)")
-    elseif ep = 0 then print("     -> ΠΕΡΙΤΤΗ (συμμετρία ως προς την αρχή)")
-    else print("     -> ούτε άρτια ούτε περιττή") )$
-print("  Αναμενόμενα: x^4-3x^2 ΑΡΤΙΑ ✓, x^3-x ΠΕΡΙΤΤΗ ✓, e^x+e^-x ΑΡΤΙΑ ✓")$
+    if em = 0 then print("     -> EVEN (symmetric about the y-axis)")
+    elseif ep = 0 then print("     -> ODD (symmetric about the origin)")
+    else print("     -> neither even nor odd") )$
+print("  Expected: x^4-3x^2 EVEN ✓, x^3-x ODD ✓, e^x+e^-x EVEN ✓")$
 
 plot2d([u1, u2], [x, -2, 2], [y, -3, 3],
-       [legend, "x^4-3x^2 (άρτια)", "x^3-x (περιττή)"],
-       [xlabel, "x"], [title, "Συμμετρίες"])$
+       [legend, "x^4-3x^2 (even)", "x^3-x (odd)"],
+       [xlabel, "x"], [title, "Symmetries"])$
 
-/* Συνθέσεις με f(x)=x^2+1 και g(x)=sqrt(x-1)                     */
+/* Compositions with f(x)=x^2+1 and g(x)=sqrt(x-1)                */
 define(F(x), x^2 + 1)$
 define(G(x), sqrt(x-1))$
 print("F(x) =", F(x), ",  G(x) =", G(x))$
 print("  (F o G)(x) = F(G(x)) =", ratsimp(F(G(x))), "  (= x ✓)")$
-print("  (G o F)(x) = G(F(x)) =", ratsimp(G(F(x))), "  (= |x| ✓ — το Maxima το απλοποιεί σε abs(x))")$
-print("  Αριθμητικά στο x = -3:")$
-print("     F(G(-3)) : το G(-3)=sqrt(-4) ΔΕΝ ορίζεται στο R (πεδίο G: x>=1)")$
-print("     G(F(-3)) =", G(F(-3)), " (= 3 = |-3| ✓, ΟΧΙ -3)")$
-print("  ΓΙΑΤΙ ΔΕΝ ΣΥΜΠΙΠΤΟΥΝ: η F o G ορίζεται μόνο για x>=1 και δίνει x,")$
-print("  ενώ η G o F ορίζεται για κάθε x και δίνει |x|. Η σύνθεση δεν είναι")$
-print("  αντιμεταθετική και το πεδίο ορισμού της αλλάζει με τη σειρά.")$
+print("  (G o F)(x) = G(F(x)) =", ratsimp(G(F(x))), "  (= |x| ✓ — Maxima simplifies it to abs(x))")$
+print("  Numerically at x = -3:")$
+print("     F(G(-3)) : G(-3)=sqrt(-4) is NOT defined in R (domain of G: x>=1)")$
+print("     G(F(-3)) =", G(F(-3)), " (= 3 = |-3| ✓, NOT -3)")$
+print("  WHY THEY DIFFER: F o G is defined only for x>=1 and gives x,")$
+print("  while G o F is defined for every x and gives |x|. Composition is not")$
+print("  commutative and its domain changes with the order.")$
 
 plot2d([x, sqrt(x^2)], [x, -3, 3], [y, -3, 3],
-       [legend, "(FoG)(x) = x  (μόνο για x>=1)", "(GoF)(x) = |x|"],
-       [xlabel, "x"], [title, "F o G  έναντι  G o F"])$
+       [legend, "(FoG)(x) = x  (only for x>=1)", "(GoF)(x) = |x|"],
+       [xlabel, "x"], [title, "F o G  versus  G o F"])$
 
-/* ═══ Γ. (γ) 1-1 ΚΑΙ ΑΝΤΙΣΤΡΟΦΗ ════════════════════════════ */
-print("════ Γ. Η f(x)=(2x+1)/(x-3): 1-1 και αντίστροφη ════")$
+/* ═══ C. (c) ONE-TO-ONE AND INVERSE ════════════════════════ */
+print("════ C. f(x)=(2x+1)/(x-3): one-to-one and its inverse ════")$
 
 define(q(x), (2*x+1)/(x-3))$
-print("q(x) =", q(x), "  (πεδίο ορισμού: R \\ {3})")$
+print("q(x) =", q(x), "  (domain: R \\ {3})")$
 
-/* 1-1: από q(a)=q(b) πρέπει να προκύπτει a=b.                    */
+/* One-to-one: q(a)=q(b) must imply a=b.                          */
 print("  solve(q(a)=q(b), a) =", solve(q(aa) = q(bb), aa),
-      "  ->  a = b, άρα ΕΙΝΑΙ 1-1 ✓")$
-print("  Εναλλακτικά q'(x) =", ratsimp(diff(q(x), x)),
-      " = -7/(x-3)^2 < 0 παντού -> γνησίως φθίνουσα σε κάθε κλάδο ✓")$
+      "  ->  a = b, hence it IS one-to-one ✓")$
+print("  Alternatively q'(x) =", ratsimp(diff(q(x), x)),
+      " = -7/(x-3)^2 < 0 everywhere -> strictly decreasing on each branch ✓")$
 
-/* Αντίστροφη: λύνουμε την y = q(x) ως προς x.                    */
+/* Inverse: we solve y = q(x) for x.                              */
 solq : solve(y = q(x), x)$
 print("  solve(y = q(x), x) =", solq)$
 define(qinv(x), subst(x, y, rhs(solq[1])))$
 print("  q^(-1)(x) =", qinv(x), "  (= (3x+1)/(x-2) ✓)")$
-print("  Επαλήθευση q(q^(-1)(x)) =", ratsimp(q(qinv(x))), "  (= x ✓)")$
-print("  Επαλήθευση q^(-1)(q(x)) =", ratsimp(qinv(q(x))), "  (= x ✓)")$
-print("  Αριθμητικά: q(5) =", q(5), " (= 11/2) και q^(-1)(11/2) =",
+print("  Check q(q^(-1)(x)) =", ratsimp(q(qinv(x))), "  (= x ✓)")$
+print("  Check q^(-1)(q(x)) =", ratsimp(qinv(q(x))), "  (= x ✓)")$
+print("  Numerically: q(5) =", q(5), " (= 11/2) and q^(-1)(11/2) =",
       qinv(11/2), " (= 5 ✓)")$
 
-/* Κοινό διάγραμμα q, q^(-1), y = x : συμμετρία ως προς την y=x.  */
+/* Common plot of q, q^(-1), y = x : symmetry about y = x.        */
 plot2d([q(x), qinv(x), x], [x, -7, 10], [y, -7, 10],
        [legend, "q(x)=(2x+1)/(x-3)", "q^(-1)(x)=(3x+1)/(x-2)", "y = x"],
        [xlabel, "x"], [ylabel, "y"],
-       [title, "Συμμετρία της q και της αντίστροφής της ως προς την y=x"])$
-print("  Παρατήρηση: η κατακόρυφη ασύμπτωτος x=3 της q γίνεται οριζόντια")$
-print("  ασύμπτωτος y=3 της q^(-1) — ακριβώς η κατοπτρική συμμετρία ως προς y=x.")$
+       [title, "Symmetry of q and of its inverse about y=x"])$
+print("  Remark: the vertical asymptote x=3 of q becomes the horizontal")$
+print("  asymptote y=3 of q^(-1) — exactly the mirror symmetry about y=x.")$
 
-/* ═══ Δ. (δ) ΜΕΤΑΣΧΗΜΑΤΙΣΜΟΙ ΚΑΙ ΤΜΗΜΑΤΙΚΕΣ ═══════════════ */
-print("════ Δ. Μετασχηματισμοί της f(x)=x^2 και τμηματική p ════")$
+/* ═══ D. (d) TRANSFORMATIONS AND PIECEWISE FUNCTIONS ═══════ */
+print("════ D. Transformations of f(x)=x^2 and the piecewise p ════")$
 
 define(s(x), x^2)$
-print("Βάση: s(x) = x^2")$
+print("Base: s(x) = x^2")$
 print("  s(x-2) =", expand(s(x-2)),
-      "  -> ΟΡΙΖΟΝΤΙΑ μετατόπιση 2 μονάδες ΔΕΞΙΑ (κορυφή στο x=2)")$
+      "  -> HORIZONTAL shift 2 units to the RIGHT (vertex at x=2)")$
 print("  s(x)+3 =", s(x)+3,
-      "  -> ΚΑΤΑΚΟΡΥΦΗ μετατόπιση 3 μονάδες ΠΑΝΩ (κορυφή στο (0,3))")$
+      "  -> VERTICAL shift 3 units UP (vertex at (0,3))")$
 print("  2*s(x) =", 2*s(x),
-      "  -> ΚΑΤΑΚΟΡΥΦΗ επιμήκυνση x2 (στενότερη παραβολή)")$
+      "  -> VERTICAL stretch by 2 (narrower parabola)")$
 print("  s(2x)  =", expand(s(2*x)),
-      "  -> ΟΡΙΖΟΝΤΙΑ συστολή με συντελεστή 1/2 (και αυτή στενότερη)")$
+      "  -> HORIZONTAL compression by a factor 1/2 (also narrower)")$
 print("  -s(x)  =", -s(x),
-      "  -> ΑΝΑΚΛΑΣΗ ως προς τον άξονα x (ανοίγει προς τα κάτω)")$
-print("  Έλεγχος στο x=3: s(3)=", s(3), "(=9), s(3-2)=", s(3-2), "(=1),")$
+      "  -> REFLECTION in the x-axis (opens downward)")$
+print("  Check at x=3: s(3)=", s(3), "(=9), s(3-2)=", s(3-2), "(=1),")$
 print("     s(3)+3=", s(3)+3, "(=12), 2*s(3)=", 2*s(3), "(=18), s(2*3)=",
       s(2*3), "(=36), -s(3)=", -s(3), "(=-9) ✓")$
 
 plot2d([s(x), s(x-2), s(x)+3, 2*s(x), s(2*x), -s(x)], [x, -4, 5], [y, -6, 14],
        [legend, "f(x)=x^2", "f(x-2)", "f(x)+3", "2f(x)", "f(2x)", "-f(x)"],
        [xlabel, "x"], [ylabel, "y"],
-       [title, "Μετασχηματισμοί της f(x)=x^2"])$
+       [title, "Transformations of f(x)=x^2"])$
 
-/* Τμηματική p(x) = x^2 για x<1,  2x-1 για x>=1, με charfun.      */
+/* Piecewise p(x) = x^2 for x<1,  2x-1 for x>=1, with charfun.    */
 p(x) := x^2*charfun(x < 1) + (2*x-1)*charfun(x >= 1)$
 print("p(x) = x^2*charfun(x<1) + (2x-1)*charfun(x>=1)")$
 for a in [-1, 0, 0.5, 0.9, 1, 1.5, 3] do
     print("   p(", a, ") =", p(a))$
 
-/* Συνέχεια στο x=1: σύγκριση πλευρικών ορίων με την τιμή p(1).   */
+/* Continuity at x=1: comparison of the one-sided limits with p(1). */
 lm : limit(x^2, x, 1, minus)$
 lp : limit(2*x-1, x, 1, plus)$
 print("  lim x->1^-  x^2   =", lm, " (= 1 ✓)")$
 print("  lim x->1^+  2x-1  =", lp, " (= 1 ✓)")$
 print("  p(1) =", p(1), " (= 1 ✓)")$
 if lm = lp and lp = p(1) then
-   print("  -> Τα δύο πλευρικά όρια και η τιμή συμπίπτουν: η p ΕΙΝΑΙ ΣΥΝΕΧΗΣ στο x=1")
+   print("  -> The two one-sided limits and the value agree: p IS CONTINUOUS at x=1")
 else
-   print("  -> Η p ΔΕΝ είναι συνεχής στο x=1")$
+   print("  -> p is NOT continuous at x=1")$
 
 plot2d(p(x), [x, -2, 3], [y, -1, 6],
        [xlabel, "x"], [ylabel, "p(x)"],
-       [title, "p(x): x^2 για x<1, 2x-1 για x>=1 — χωρίς άλμα στο x=1"])$
+       [title, "p(x): x^2 for x<1, 2x-1 for x>=1 — no jump at x=1"])$
 
-print("── Τέλος maxima_synartiseis.mac ──")$
+print("── End of maxima_synartiseis.mac ──")$

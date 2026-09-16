@@ -1,129 +1,129 @@
 /* ============================================================
    maxima_vectors.mac
-   Κεφάλαιο 1 — Γραμμικοί Διανυσματικοί Χώροι
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού & Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 1 — Linear Vector Spaces
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
    ============================================================
 
-   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
-     determinant(A)   → ορίζουσα τετραγωνικού πίνακα
-     rank(A)          → τάξη πίνακα
-     echelon(A)       → κλιμακωτή μορφή (η Maxima ΔΕΝ διαθέτει rref)
-     nullspace(A)     → μηδενόχωρος (null space)
-     columnspace(A)   → χώρος στηλών
-     invert(A)        → αντίστροφος πίνακας
-     load("eigen")    → φόρτωση πακέτου ιδιοτιμών
+   COMMANDS USED:
+     determinant(A)   → determinant of a square matrix
+     rank(A)          → rank of a matrix
+     echelon(A)       → row echelon form (Maxima does NOT provide rref)
+     nullspace(A)     → null space
+     columnspace(A)   → column space
+     invert(A)        → inverse matrix
+     load("eigen")    → load the eigenvalue package
 
-   Εκτελέστε με: wxMaxima (Load/File) ή
+   Run with: wxMaxima (Load/File) or
                  maxima -b maxima_vectors.mac
    ============================================================ */
 
-/* ── Μέρος Α: Ορισμός και Πράξεις Πινάκων ───────────────── */
-print("════ Α. Πράξεις Πινάκων ════");
+/* ── Part A: Definition and Matrix Operations ──────────── */
+print("════ A. Matrix Operations ════");
 
-/* Πίνακας A 3×3 */
+/* A 3×3 matrix A */
 A : matrix([1, 2, 1],
            [2, 1, 3],
            [1, 3, -1]);
 
-print("Πίνακας A =");
+print("Matrix A =");
 print(A);
 
-/* Ορίζουσα */
+/* Determinant */
 det_A : determinant(A);
 print("det(A) =", det_A);
 
-/* Τάξη */
+/* Rank */
 r : rank(A);
 print("rank(A) =", r);
 
-/* ── Μέρος Β: Κλιμακωτή Μορφή & Μηδενόχωρος ────────────── */
-print("════ Β. Κλιμακωτή Μορφή & Χώροι ════");
+/* ── Part B: Row Echelon Form & Null Space ─────────────── */
+print("════ B. Row Echelon Form & Spaces ════");
 
-/* Κλιμακωτή μορφή — τα οδηγά στοιχεία φαίνονται κατευθείαν */
+/* Row echelon form — the pivots are immediately visible */
 A_ech : echelon(A);
-print("Κλιμακωτή(A) =");
+print("Echelon(A) =");
 print(A_ech);
 
-/* Μηδενόχωρος: Ax = 0 */
+/* Null space: Ax = 0 */
 ns : nullspace(A);
-print("Null space (Μηδενόχωρος) του A:");
+print("Null space of A:");
 print(ns);
 
-/* Χώρος στηλών */
+/* Column space */
 cs : columnspace(A);
-print("Column space (Χώρος Στηλών) του A:");
+print("Column space of A:");
 print(cs);
 
-/* ── Μέρος Γ: Γραμμική Ανεξαρτησία ─────────────────────── */
-print("════ Γ. Γραμμική Ανεξαρτησία ════");
+/* ── Part C: Linear Independence ───────────────────────── */
+print("════ C. Linear Independence ════");
 
-/* Διανύσματα v1, v2, v3 */
+/* Vectors v1, v2, v3 */
 v1 : matrix([1], [0], [1]);
 v2 : matrix([0], [1], [1]);
-v3 : matrix([1], [1], [2]);    /* v3 = v1 + v2  (γραμμικά εξαρτημένα) */
+v3 : matrix([1], [1], [2]);    /* v3 = v1 + v2  (linearly dependent) */
 
-/* Ελέγχουμε αν {v1, v2, v3} είναι γραμμικά ανεξάρτητα
-   σχηματίζοντας πίνακα με τα v ως στήλες */
+/* We check whether {v1, v2, v3} are linearly independent
+   by forming a matrix with the v's as columns */
 M : addcol(v1, v2, v3);
-print("Πίνακας [v1|v2|v3] =");
+print("Matrix [v1|v2|v3] =");
 print(M);
 print("rank([v1|v2|v3]) =", rank(M));
-print("→ Αν rank < 3  ⇒  γραμμικά ΕΞΑΡΤΗΜΕΝΑ");
-print("  Εδώ rank =", rank(M), "< 3, άρα εξαρτημένα ✓");
+print("→ If rank < 3  ⇒  linearly DEPENDENT");
+print("  Here rank =", rank(M), "< 3, hence dependent ✓");
 
-/* Επαλήθευση: v3 = v1 + v2 */
-print("Επαλήθευση: v3 - v1 - v2 =", expand(v3 - v1 - v2));
+/* Check: v3 = v1 + v2 */
+print("Check: v3 - v1 - v2 =", expand(v3 - v1 - v2));
 
-/* ── Μέρος Δ: Αλγόριθμος Gram-Schmidt ───────────────────── */
-print("════ Δ. Gram-Schmidt Ορθοκανονικοποίηση ════");
+/* ── Part D: The Gram-Schmidt Algorithm ────────────────── */
+print("════ D. Gram-Schmidt Orthonormalization ════");
 
-/* Ξεκινάμε με γραμμικά ανεξάρτητα διανύσματα */
+/* We start from linearly independent vectors */
 u1 : matrix([1], [1], [0]);
 u2 : matrix([1], [0], [1]);
 u3 : matrix([0], [1], [1]);
 
 /* Gram-Schmidt: e1, e2, e3 */
-/* Βήμα 1: e1 = u1 / |u1| */
+/* Step 1: e1 = u1 / |u1| */
 e1_unnorm : u1;
 e1 : e1_unnorm / sqrt(e1_unnorm . e1_unnorm);
 e1 : ratsimp(e1);
 print("e₁ =", e1);
 
-/* Βήμα 2: αφαιρούμε τη συνιστώσα παράλληλα στο e1 */
+/* Step 2: subtract the component parallel to e1 */
 e2_unnorm : u2 - (u2 . e1) * e1;
 e2_unnorm : ratsimp(e2_unnorm);
 e2 : e2_unnorm / sqrt(e2_unnorm . e2_unnorm);
 e2 : ratsimp(e2);
 print("e₂ =", e2);
 
-/* Βήμα 3 */
+/* Step 3 */
 e3_unnorm : u3 - (u3 . e1) * e1 - (u3 . e2) * e2;
 e3_unnorm : ratsimp(e3_unnorm);
 e3 : e3_unnorm / sqrt(e3_unnorm . e3_unnorm);
 e3 : ratsimp(e3);
 print("e₃ =", e3);
 
-/* Επαλήθευση: e1·e2 = 0, e2·e3 = 0, e1·e3 = 0 */
-print("Ορθογωνιότητα:");
+/* Check: e1·e2 = 0, e2·e3 = 0, e1·e3 = 0 */
+print("Orthogonality:");
 print("  e₁·e₂ =", ratsimp(e1 . e2));
 print("  e₁·e₃ =", ratsimp(e1 . e3));
 print("  e₂·e₃ =", ratsimp(e2 . e3));
 
-/* Επαλήθευση μοναδιαίων νορμών */
-print("Νόρμες:");
+/* Check that the norms are unit */
+print("Norms:");
 print("  |e₁|² =", ratsimp(e1 . e1));
 print("  |e₂|² =", ratsimp(e2 . e2));
 print("  |e₃|² =", ratsimp(e3 . e3));
 
-/* ── Μέρος Ε: Βάση και Διάσταση ─────────────────────────── */
-print("════ Ε. Βάση και Διάσταση ════");
+/* ── Part E: Basis and Dimension ───────────────────────── */
+print("════ E. Basis and Dimension ════");
 
-/* Βρίσκουμε βάση του χώρου στηλών του A */
-print("Βάση του χώρου στηλών (column space) του A:");
+/* We find a basis of the column space of A */
+print("Basis of the column space of A:");
 print(columnspace(A));
-print("Διάσταση (rank) =", rank(A));
+print("Dimension (rank) =", rank(A));
 
 /* Nullity */
 print("Nullity = n - rank = 3 -", rank(A), "=", 3 - rank(A));
 
-print("════ Τέλος ════");
+print("════ End ════");

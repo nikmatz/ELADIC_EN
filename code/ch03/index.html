@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Κώδικας Κεφ. 3 — Γραμμικά Συστήματα · Στοιχεία ΓΑ &amp; ΔΟΛ</title>
+<title>Code Ch. 3 — Linear Systems · Elements of Linear Algebra &amp; Calculus</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 <style>
   :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
@@ -61,21 +61,21 @@
 <body>
 
 <header>
-  <h1>📐 Κεφάλαιο 3 — Γραμμικά Συστήματα</h1>
-  <p>«Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού» &nbsp;|&nbsp; Ν. Ματζάκος</p>
+  <h1>📐 Chapter 3 — Linear Systems</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
 </header>
 
 <div class="breadcrumb">
-  <a href="../../index.html">🏠 Αρχική</a> › <a href="../">Κώδικας</a> › Κεφ. 3
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 3
 </div>
 
 <div class="container">
 
   <div class="info-box">
-    <h2>📋 Περιεχόμενα Δραστηριοτήτων</h2>
+    <h2>📋 Contents of the Activities</h2>
     <p>
-      <strong>Αντικείμενο:</strong> απαλοιφή Gauss και κλιμακωτή μορφή, θεώρημα Rouché–Capelli, κανόνας Cramer, ομογενή συστήματα και μηδενόχωρος<br><br>
-      Τον κώδικα <strong>Python</strong> μπορείτε να τον <strong>τρέξετε εδώ μέσα στη σελίδα</strong> (κουμπί «▶ Τρέξε») — μπορείτε και να τον επεξεργαστείτε. Ο κώδικας <strong>Maxima</strong> εκτελείται στο <strong>wxMaxima</strong>.
+      <strong>Topic:</strong> Gaussian elimination and row echelon form, the Rouché–Capelli theorem, Cramer's rule, homogeneous systems and the null space<br><br>
+      The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.
     </p>
   </div>
 
@@ -88,11 +88,11 @@
     <div class="code-card">
       <div class="code-header maxima">
         <span>maxima_linsys.mac</span>
-        <a class="download-btn" href="maxima_linsys.mac" download>⬇ Λήψη .mac</a>
-        <a class="download-btn" href="maxima_linsys.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Λήψη .wxmx</a>
+        <a class="download-btn" href="maxima_linsys.mac" download>⬇ Download .mac</a>
+        <a class="download-btn" href="maxima_linsys.wxmx" download style="margin-left:6px;background:rgba(255,255,255,.15);">⬇ Download .wxmx</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0;">
-        <strong>Βασικές εντολές:</strong>
+        <strong>Basic commands:</strong>
         <code>linsolve([eq,...],[x,y,z])</code> &nbsp;
         <code>echelon(A)</code> &nbsp;
         <code>rank(A)</code> &nbsp;
@@ -101,24 +101,24 @@
       </div>
       <pre><code class="language-maxima" id="maxima-code">/* ============================================================
    maxima_linsys.mac
-   Κεφάλαιο 3 — Γραμμικά Συστήματα
-   Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+   Chapter 3 — Linear Systems
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
    ============================================================
 
-   ΕΝΤΟΛΕΣ ΠΟΥ ΧΡΗΣΙΜΟΠΟΙΟΥΝΤΑΙ:
-     solve([eq1,eq2,...],[x,y,...])  → επίλυση συστήματος συμβολικά
-     linsolve([eq1,...],[x,y,...])   → γραμμικό σύστημα (αποδοτικότερο)
-     echelon(A)                      → κλιμακωτή μορφή (η Maxima ΔΕΝ διαθέτει rref)
-     rank(A)                         → τάξη πίνακα
-     determinant(A)                  → ορίζουσα (Cramer)
-     augmented_matrix(A,b)           → επαυξημένος πίνακας [A|b]
+   COMMANDS USED:
+     solve([eq1,eq2,...],[x,y,...])  → solve a system symbolically
+     linsolve([eq1,...],[x,y,...])   → linear system (more efficient)
+     echelon(A)                      → row echelon form (Maxima does NOT provide rref)
+     rank(A)                         → rank of a matrix
+     determinant(A)                  → determinant (Cramer)
+     augmented_matrix(A,b)           → augmented matrix [A|b]
 
-   Εκτελέστε με: wxMaxima (Load/File) ή
+   Run with: wxMaxima (Load/File) or
                  maxima -b maxima_linsys.mac
    ============================================================ */
 
-/* ── Μέρος Α: Σύστημα με Μοναδική Λύση ──────────────────── */
-print("════ Α. Μοναδική Λύση ════");
+/* ── Part A: System with a Unique Solution ──────────────── */
+print("════ A. Unique Solution ════");
 
 /* 2x + y - z  =  8
    -3x - y + 2z = -11
@@ -129,61 +129,61 @@ eq2 : -3*x -   y + 2*z = -11;
 eq3 :  -2*x +   y + 2*z = -3;
 
 sol : linsolve([eq1, eq2, eq3], [x, y, z]);
-print("Λύση:", sol);
+print("Solution:", sol);
 
-/* Επαλήθευση */
+/* Check */
 x0 : rhs(sol[1]);
 y0 : rhs(sol[2]);
 z0 : rhs(sol[3]);
-print("Επαλήθευση eq1:", ev(lhs(eq1), x=x0, y=y0, z=z0), "=", rhs(eq1));
-print("Επαλήθευση eq2:", ev(lhs(eq2), x=x0, y=y0, z=z0), "=", rhs(eq2));
+print("Check eq1:", ev(lhs(eq1), x=x0, y=y0, z=z0), "=", rhs(eq1));
+print("Check eq2:", ev(lhs(eq2), x=x0, y=y0, z=z0), "=", rhs(eq2));
 
-/* Μέσω κλιμακωτής μορφής */
+/* By means of the row echelon form */
 print("");
 A1 : matrix([2, 1, -1], [-3, -1, 2], [-2, 1, 2]);
 b1 : matrix([8], [-11], [-3]);
 Aug1 : addcol(A1, b1);
-print("Επαυξημένος [A|b] ="); print(Aug1);
-print("Κλιμακωτή([A|b]) ="); print(echelon(Aug1));
+print("Augmented [A|b] ="); print(Aug1);
+print("Echelon([A|b]) ="); print(echelon(Aug1));
 
-/* ── Μέρος Β: Σύστημα χωρίς Λύση (Ασύμβατο) ─────────────── */
-print("════ Β. Ασύμβατο Σύστημα ════");
+/* ── Part B: System with No Solution (Inconsistent) ────── */
+print("════ B. Inconsistent System ════");
 
 /*  x + y  = 3
-    2x + 2y = 5  (ασύμβατο: 2·(eq1) → 2x+2y=6 ≠ 5) */
+    2x + 2y = 5  (inconsistent: 2·(eq1) → 2x+2y=6 ≠ 5) */
 A2 : matrix([1, 1], [2, 2]);
 b2 : matrix([3], [5]);
 Aug2 : addcol(A2, b2);
-print("Κλιμακωτή([A|b]) ="); print(echelon(Aug2));
+print("Echelon([A|b]) ="); print(echelon(Aug2));
 print("rank(A) =", rank(A2), "  rank([A|b]) =", rank(Aug2));
-print("→ rank(A) &lt; rank([A|b])  ⇒  ΑΣΥΜΒΑΤΟ σύστημα (0 λύσεις)");
+print("→ rank(A) &lt; rank([A|b])  ⇒  INCONSISTENT system (0 solutions)");
 
-/* ── Μέρος Γ: Σύστημα με Άπειρες Λύσεις ─────────────────── */
-print("════ Γ. Άπειρες Λύσεις ════");
+/* ── Part C: System with Infinitely Many Solutions ─────── */
+print("════ C. Infinitely Many Solutions ════");
 
 /*  x  + 2y - z = 3
-    2x + 4y - 2z = 6   (= 2·eq1 → εξαρτημένες) */
+    2x + 4y - 2z = 6   (= 2·eq1 → dependent) */
 A3 : matrix([1, 2, -1], [2, 4, -2]);
 b3 : matrix([3], [6]);
 Aug3 : addcol(A3, b3);
-print("Κλιμακωτή([A|b]) ="); print(echelon(Aug3));
+print("Echelon([A|b]) ="); print(echelon(Aug3));
 print("rank(A) =", rank(A3), "  n =", 3);
-print("→ rank(A) = rank([A|b]) &lt; n  ⇒  ΑΠΕΙΡΕΣ λύσεις");
-print("  Ελεύθερες μεταβλητές:", 3 - rank(A3));
+print("→ rank(A) = rank([A|b]) &lt; n  ⇒  INFINITELY MANY solutions");
+print("  Free variables:", 3 - rank(A3));
 
 sol3 : linsolve([x + 2*y - z = 3, 2*x + 4*y - 2*z = 6], [x, y, z]);
-print("Λύση (SymPy-style):", sol3);
+print("Solution (SymPy-style):", sol3);
 
-/* ── Μέρος Δ: Κανόνας Cramer ─────────────────────────────── */
-print("════ Δ. Κανόνας Cramer ════");
-/* Μόνο για τετραγωνικά συστήματα με det ≠ 0 */
+/* ── Part D: Cramer's Rule ───────────────────────────────── */
+print("════ D. Cramer's Rule ════");
+/* Only for square systems with det ≠ 0 */
 
 A_cr : matrix([2, 1], [5, 3]);
 b_cr : matrix([4], [7]);
 det_A : determinant(A_cr);
 print("det(A) =", det_A);
 
-/* Αντικατάσταση στήλης για κάθε άγνωστο */
+/* Column replacement for each unknown */
 A_x : copymatrix(A_cr);
 A_x[1][1] : b_cr[1][1];   A_x[2][1] : b_cr[2][1];
 A_y : copymatrix(A_cr);
@@ -194,23 +194,23 @@ y_cr : determinant(A_y) / det_A;
 print("x = det(Ax)/det(A) =", x_cr);
 print("y = det(Ay)/det(A) =", y_cr);
 
-/* Επαλήθευση */
-print("Επαλήθευση:", 2*x_cr + y_cr, "=", 4, "  και  ", 5*x_cr + 3*y_cr, "=", 7);
+/* Check */
+print("Check:", 2*x_cr + y_cr, "=", 4, "  and  ", 5*x_cr + 3*y_cr, "=", 7);
 
-/* ── Μέρος Ε: Ομογενές Σύστημα ───────────────────────────── */
-print("════ Ε. Ομογενές Σύστημα Ax = 0 ════");
+/* ── Part E: Homogeneous System ──────────────────────────── */
+print("════ E. Homogeneous System Ax = 0 ════");
 
 A5 : matrix([1, -2,  1],
             [2, -3,  1],
             [0,  1, -1]);
 b5 : matrix([0], [0], [0]);
 Aug5 : addcol(A5, b5);
-print("Κλιμακωτή([A|0]) ="); print(echelon(Aug5));
+print("Echelon([A|0]) ="); print(echelon(Aug5));
 print("rank(A) =", rank(A5), "  nullity =", 3 - rank(A5));
-print("Μη τετριμμένες λύσεις (nullity =", 3-rank(A5), "&gt; 0):");
+print("Nontrivial solutions (nullity =", 3-rank(A5), "&gt; 0):");
 print(nullspace(A5));
 
-print("════ Τέλος ════");
+print("════ End ════");
 </code></pre>
     </div>
   </div>
@@ -219,10 +219,10 @@ print("════ Τέλος ════");
     <div class="code-card">
       <div class="code-header python">
         <span>python_linsys.py</span>
-        <a class="download-btn" href="python_linsys.py" download>⬇ Λήψη .py</a>
+        <a class="download-btn" href="python_linsys.py" download>⬇ Download .py</a>
       </div>
       <div class="commands-box" style="margin:12px 16px 0;">
-        <strong>Βιβλιοθήκες / εντολές:</strong>
+        <strong>Libraries / commands:</strong>
         <code>np.linalg.solve()</code> &nbsp;
         <code>np.linalg.matrix_rank()</code> &nbsp;
         <code>sympy.Matrix.rref()</code> &nbsp;
@@ -230,27 +230,27 @@ print("════ Τέλος ════");
         <code>matplotlib.pyplot</code>
       </div>
             <div class="py-toolbar">
-        <button class="run-btn" id="py-run">▶ Τρέξε</button>
-        <button class="reset-btn" id="py-reset">↺ Επαναφορά</button>
-        <span class="py-status" id="py-status">Ο κώδικας τρέχει στον browser (Pyodide).</span>
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
       </div>
       <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
 # python_linsys.py
-# Κεφάλαιο 3 — Γραμμικά Συστήματα
-# Ματζάκος, Ν. (2026). Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού. NewTech Publications.
+# Chapter 3 — Linear Systems
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
 # ============================================================
 #
-# ΒΙΒΛΙΟΘΗΚΕΣ:
-#   numpy         → αριθμητική επίλυση (solve, lstsq)
-#   sympy         → RREF, ακριβής λύση, έλεγχος τύπου συστήματος
-#   matplotlib    → γεωμετρική ερμηνεία (2D / 3D)
+# LIBRARIES:
+#   numpy         → numerical solution (solve, lstsq)
+#   sympy         → RREF, exact solution, classification of the system
+#   matplotlib    → geometric interpretation (2D / 3D)
 #
-# ΒΑΣΙΚΕΣ ΕΝΤΟΛΕΣ:
-#   np.linalg.solve(A, b)       → μοναδική λύση
-#   np.linalg.lstsq(A, b)       → ελάχιστα τετράγωνα
-#   np.linalg.matrix_rank(A)    → τάξη
-#   sympy.Matrix.rref()         → ανηγμένη κλιμακωτή
-#   sympy.linsolve()            → ακριβής λύση (άπειρες)
+# BASIC COMMANDS:
+#   np.linalg.solve(A, b)       → unique solution
+#   np.linalg.lstsq(A, b)       → least squares
+#   np.linalg.matrix_rank(A)    → rank
+#   sympy.Matrix.rref()         → reduced row echelon form
+#   sympy.linsolve()            → exact solution (infinitely many)
 # ============================================================
 
 import numpy as np
@@ -259,11 +259,11 @@ from mpl_toolkits.mplot3d import Axes3D
 from sympy import Matrix, symbols, linsolve, Rational, pprint
 
 print("=" * 55)
-print(" Κεφάλαιο 3: Γραμμικά Συστήματα — Python")
+print(" Chapter 3: Linear Systems — Python")
 print("=" * 55)
 
-# ── Α. Σύστημα με Μοναδική Λύση ──────────────────────────
-print("\n── Α. Μοναδική Λύση ──")
+# ── A. System with a Unique Solution ─────────────────────
+print("\n── A. Unique Solution ──")
 #  2x +  y -  z =  8
 # -3x -  y + 2z = -11
 #  -2x +  y + 2z = -3
@@ -274,61 +274,61 @@ A1 = np.array([[ 2,  1, -1],
 b1 = np.array([8, -11, -3], dtype=float)
 
 x1 = np.linalg.solve(A1, b1)
-print(f"Λύση: x={x1[0]:.4f}, y={x1[1]:.4f}, z={x1[2]:.4f}")
-print(f"Επαλήθευση A@x = {np.round(A1 @ x1, 10)}  ✓")
+print(f"Solution: x={x1[0]:.4f}, y={x1[1]:.4f}, z={x1[2]:.4f}")
+print(f"Check A@x = {np.round(A1 @ x1, 10)}  ✓")
 
-# RREF με SymPy
+# RREF with SymPy
 Aug1 = Matrix([[ 2,  1, -1,  8],
                [-3, -1,  2, -11],
                [-2,  1,  2, -3]])
 print("\nRREF([A|b]):")
 pprint(Aug1.rref()[0])
 
-# ── Β. Έλεγχος Τύπου Συστήματος (Θεώρημα Rouché–Capelli) ─
-print("\n── Β. Ταξινόμηση Συστημάτων (Rouché–Capelli) ──")
+# ── B. Classifying the System (Rouché–Capelli Theorem) ───
+print("\n── B. Classification of Systems (Rouché–Capelli) ──")
 
 def classify_system(A, b, label=""):
-    """Ταξινομεί γραμμικό σύστημα σε μοναδική/άπειρες/ασύμβατο."""
+    """Classifies a linear system as unique/infinite/inconsistent."""
     A_sym = Matrix(A.tolist())
     Aug   = A_sym.row_join(Matrix(b.reshape(-1,1).tolist()))
     rA    = A_sym.rank()
     rAug  = Aug.rank()
     n     = A.shape[1]
     if rA != rAug:
-        result = "ΑΣΥΜΒΑΤΟ (0 λύσεις)"
+        result = "INCONSISTENT (0 solutions)"
     elif rA == n:
-        result = "ΜΟΝΑΔΙΚΗ λύση"
+        result = "UNIQUE solution"
     else:
-        result = f"ΑΠΕΙΡΕΣ λύσεις  (ελεύθερες μεταβλητές: {n - rA})"
+        result = f"INFINITELY MANY solutions  (free variables: {n - rA})"
     print(f"  {label}: rank(A)={rA}, rank([A|b])={rAug}, n={n}  →  {result}")
 
-# Μοναδική λύση
-classify_system(A1, b1, "Σύστημα Α")
+# Unique solution
+classify_system(A1, b1, "System A")
 
-# Ασύμβατο
+# Inconsistent
 A2 = np.array([[1, 1], [2, 2]], dtype=float)
 b2 = np.array([3, 5], dtype=float)
-classify_system(A2, b2, "Σύστημα Β")
+classify_system(A2, b2, "System B")
 
-# Άπειρες λύσεις
+# Infinitely many solutions
 A3 = np.array([[1, 2, -1], [2, 4, -2]], dtype=float)
 b3 = np.array([3, 6], dtype=float)
-classify_system(A3, b3, "Σύστημα Γ")
+classify_system(A3, b3, "System C")
 
-# ── Γ. Άπειρες Λύσεις — Παραμετρική Μορφή ────────────────
-print("\n── Γ. Παραμετρική Λύση ──")
+# ── C. Infinitely Many Solutions — Parametric Form ───────
+print("\n── C. Parametric Solution ──")
 x, y, z = symbols('x y z')
 sys3 = Matrix([[1, 2, -1, 3],
                [2, 4, -2, 6]])
 rref3, pivots3 = sys3.rref()
 print("RREF:"); pprint(rref3)
-print(f"Pivots: {pivots3}  →  ελεύθερη μεταβλητή: y, z")
+print(f"Pivots: {pivots3}  →  free variables: y, z")
 
 sol3 = linsolve((Matrix([[1,2,-1],[2,4,-2]]), Matrix([3,6])), x, y, z)
-print("Παραμετρική λύση:"); pprint(sol3)
+print("Parametric solution:"); pprint(sol3)
 
-# ── Δ. Κανόνας Cramer ─────────────────────────────────────
-print("\n── Δ. Κανόνας Cramer ──")
+# ── D. Cramer's Rule ──────────────────────────────────────
+print("\n── D. Cramer's Rule ──")
 A_cr = np.array([[2, 1], [5, 3]], dtype=float)
 b_cr = np.array([4, 7], dtype=float)
 det_A = np.linalg.det(A_cr)
@@ -340,28 +340,28 @@ for i in range(2):
     xi = np.linalg.det(Ai) / det_A
     print(f"  {'xy'[i]} = det(A{i+1})/det(A) = {np.linalg.det(Ai):.4f}/{det_A:.4f} = {xi:.4f}")
 
-print(f"Επαλήθευση: {A_cr @ np.linalg.solve(A_cr, b_cr)} ≈ {b_cr}  ✓")
+print(f"Check: {A_cr @ np.linalg.solve(A_cr, b_cr)} ≈ {b_cr}  ✓")
 
-# ── Ε. Ομογενές Σύστημα ───────────────────────────────────
-print("\n── Ε. Ομογενές Σύστημα Ax = 0 ──")
+# ── E. Homogeneous System ─────────────────────────────────
+print("\n── E. Homogeneous System Ax = 0 ──")
 A5 = Matrix([[ 1, -2,  1],
              [ 2, -3,  1],
              [ 0,  1, -1]])
 print(f"rank(A) = {A5.rank()}, nullity = {3 - A5.rank()}")
-print("Μηδενόχωρος (μη τετριμμένες λύσεις):")
+print("Null space (nontrivial solutions):")
 for v in A5.nullspace():
     pprint(v.T)
 
-# ── Στ. Γεωμετρική Ερμηνεία (2D) ─────────────────────────
-print("\n── Στ. Γεωμετρική Ερμηνεία ──")
+# ── F. Geometric Interpretation (2D) ─────────────────────
+print("\n── F. Geometric Interpretation ──")
 
 fig, axes = plt.subplots(1, 3, figsize=(14, 4))
-fig.suptitle("Γεωμετρική Ερμηνεία Γραμμικών Συστημάτων (2D)",
+fig.suptitle("Geometric Interpretation of Linear Systems (2D)",
              fontsize=12, fontweight='bold')
 t = np.linspace(-1, 6, 300)
 
-# Μοναδική λύση: 2x+y=7, x+3y=11
-ax = axes[0]; ax.set_title("Μοναδική Λύση\n$2x+y=7$,  $x+3y=11$")
+# Unique solution: 2x+y=7, x+3y=11
+ax = axes[0]; ax.set_title("Unique Solution\n$2x+y=7$,  $x+3y=11$")
 ax.plot(t, 7 - 2*t, 'royalblue', lw=2, label='$2x+y=7$')
 ax.plot(t, (11 - t)/3, 'tomato', lw=2, label='$x+3y=11$')
 xs = np.linalg.solve([[2,1],[1,3]], [7,11])
@@ -370,22 +370,22 @@ ax.annotate(f'({xs[0]:.1f},{xs[1]:.1f})', xs, xytext=(xs[0]+0.3, xs[1]+0.3), fon
 ax.set_xlim(-1,6); ax.set_ylim(-1,6); ax.grid(True,alpha=0.3)
 ax.legend(fontsize=8); ax.set_xlabel('x'); ax.set_ylabel('y')
 
-# Ασύμβατο: x+y=3, x+y=5
-ax = axes[1]; ax.set_title("Ασύμβατο\n$x+y=3$,  $x+y=5$")
+# Inconsistent: x+y=3, x+y=5
+ax = axes[1]; ax.set_title("Inconsistent\n$x+y=3$,  $x+y=5$")
 ax.plot(t, 3 - t, 'royalblue', lw=2, label='$x+y=3$')
 ax.plot(t, 5 - t, 'tomato', lw=2, ls='--', label='$x+y=5$')
 ax.set_xlim(-1,6); ax.set_ylim(-1,6); ax.grid(True,alpha=0.3)
 ax.legend(fontsize=8); ax.set_xlabel('x'); ax.set_ylabel('y')
-ax.text(2, 2.5, 'Παράλληλες\n(κανένα κοινό σημείο)', fontsize=8,
+ax.text(2, 2.5, 'Parallel\n(no common point)', fontsize=8,
         ha='center', color='gray',
         bbox=dict(boxstyle='round', fc='white', alpha=0.8))
 
-# Άπειρες: x+y=3, 2x+2y=6
-ax = axes[2]; ax.set_title("Άπειρες Λύσεις\n$x+y=3$,  $2x+2y=6$")
+# Infinitely many: x+y=3, 2x+2y=6
+ax = axes[2]; ax.set_title("Infinitely Many Solutions\n$x+y=3$,  $2x+2y=6$")
 ax.plot(t, 3 - t, 'royalblue', lw=3, label='$x+y=3$ (= $2x+2y=6$)')
 ax.set_xlim(-1,6); ax.set_ylim(-1,6); ax.grid(True,alpha=0.3)
 ax.legend(fontsize=8); ax.set_xlabel('x'); ax.set_ylabel('y')
-ax.text(3, 1.5, 'Ταυτόσημες ευθείες\n(άπειρες λύσεις)', fontsize=8,
+ax.text(3, 1.5, 'Identical lines\n(infinitely many solutions)', fontsize=8,
         ha='center', color='gray',
         bbox=dict(boxstyle='round', fc='white', alpha=0.8))
 
@@ -393,34 +393,34 @@ plt.tight_layout()
 plt.show()
 
 # ============================================================
-# ΣΥΜΠΛΗΡΩΜΑ — Πίνακας Vandermonde &amp; προσαρμογή πολυωνύμου
+# SUPPLEMENT — Vandermonde matrix &amp; polynomial fitting
 #   np.vander, np.polyfit, np.polyval
 # ============================================================
 import numpy as np
 
-# Παρεμβολή: βρίσκουμε το πολυώνυμο 2ου βαθμού από 3 σημεία,
-# λύνοντας το γραμμικό σύστημα V c = y με πίνακα Vandermonde.
+# Interpolation: we find the second-degree polynomial through 3 points,
+# by solving the linear system V c = y with a Vandermonde matrix.
 xi = np.array([0.0, 1.0, 2.0])
 yi = np.array([1.0, 3.0, 9.0])
-V  = np.vander(xi, 3)          # στήλες: x^2, x^1, x^0
-c  = np.linalg.solve(V, yi)    # συντελεστές (a, b, c) του ax^2+bx+c
+V  = np.vander(xi, 3)          # columns: x^2, x^1, x^0
+c  = np.linalg.solve(V, yi)    # coefficients (a, b, c) of ax^2+bx+c
 print("Vandermonde V =\n", V)
-print("Συντελεστές (από np.linalg.solve):", np.round(c, 6))
+print("Coefficients (from np.linalg.solve):", np.round(c, 6))
 
-# Το ίδιο αποτέλεσμα με np.polyfit (ελάχιστα τετράγωνα):
+# The same result with np.polyfit (least squares):
 c2 = np.polyfit(xi, yi, 2)
-print("Συντελεστές (από np.polyfit)     :", np.round(c2, 6))
+print("Coefficients (from np.polyfit)     :", np.round(c2, 6))
 
-# Αποτίμηση του πολυωνύμου με np.polyval:
+# Evaluating the polynomial with np.polyval:
 for x0 in (0.0, 1.0, 1.5, 2.0):
     print(f"  p({x0}) = {np.polyval(c, x0):.4f}")
 
-# Υπερκαθορισμένο σύστημα (περισσότερα σημεία από αγνώστους):
+# Overdetermined system (more points than unknowns):
 xs = np.array([0., 1., 2., 3., 4.])
 ys = np.array([1.1, 2.9, 9.2, 19.1, 32.8])
-cls = np.polyfit(xs, ys, 2)    # βέλτιστη προσαρμογή κατά ελάχιστα τετράγωνα
-print("Ελάχιστα τετράγωνα, βαθμός 2:", np.round(cls, 4))
-print("Υπόλοιπα:", np.round(ys - np.polyval(cls, xs), 4))
+cls = np.polyfit(xs, ys, 2)    # best least-squares fit
+print("Least squares, degree 2:", np.round(cls, 4))
+print("Residuals:", np.round(ys - np.polyval(cls, xs), 4))
 </textarea>
       <pre class="py-output" id="py-output"></pre>
       <div class="py-plots" id="py-plots"></div>
@@ -430,7 +430,7 @@ print("Υπόλοιπα:", np.round(ys - np.polyval(cls, xs), 4))
 </div>
 
 <footer>
-  <small>Συνοδευτικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</small>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
@@ -452,7 +452,7 @@ function loadCode(file, elementId, lang) {
     })
     .catch(err => {
       document.getElementById(elementId).textContent =
-        '⚠ Αδυναμία φόρτωσης (' + err + '). Χρησιμοποιήστε "Λήψη".';
+        '⚠ Could not load the file (' + err + '). Please use "Download".';
     });
 }
 
@@ -466,7 +466,7 @@ $('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output'
 async function ensurePyodide(setStatus){
   if (pyodideReady) return pyodideReady;
   pyodideReady = (async () => {
-    setStatus('Λήψη περιβάλλοντος Python… (πρώτη φορά ~15–25 MB)');
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
     if (!window.loadPyodide){
       await new Promise((res, rej) => {
         const sc = document.createElement('script');
@@ -488,9 +488,9 @@ $('py-run').onclick = async function(){
     py.setStdout({ batched: s => { out.textContent += s; } });
     py.setStderr({ batched: s => { out.textContent += s; } });
     const code = $('py-editor').value;
-    setStatus('Φόρτωση βιβλιοθηκών…');
+    setStatus('Loading libraries…');
     await py.loadPackagesFromImports(code);
-    setStatus('Εκτέλεση…');
+    setStatus('Running…');
     await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
     py.globals.set('__user_src__', code);
     await py.runPythonAsync(`
@@ -516,10 +516,10 @@ _imgs
 `);
     const arr = figs.toJs(); if (figs.destroy) figs.destroy();
     arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
-    setStatus(arr.length ? ('Ολοκληρώθηκε ✓ — ' + arr.length + ' γράφημα/τα') : 'Ολοκληρώθηκε ✓');
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
   } catch (e) {
-    out.textContent += '\n⚠ Σφάλμα: ' + e;
-    setStatus('Σφάλμα');
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
   } finally { btn.disabled = false; }
 };
 </script>
