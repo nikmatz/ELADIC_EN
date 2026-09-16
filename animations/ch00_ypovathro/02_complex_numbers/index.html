@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Μιγαδικοί Αριθμοί — Διάγραμμα Argand</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
+    header{background:linear-gradient(135deg,#004080,#0060a0);color:#fff;padding:1.2rem 1.5rem;border-bottom:3px solid #c85000}
+    header h1{font-size:1.3rem}
+    header p{font-size:.85rem;opacity:.85;margin-top:.3rem}
+    .container{max-width:900px;margin:0 auto;padding:1.5rem 1rem}
+    .layout{display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-start}
+    canvas{border:2px solid #dde3ea;border-radius:10px;background:#fff;cursor:crosshair;touch-action:none}
+    .panel{flex:1;min-width:240px}
+    .panel h2{color:#004080;font-size:1rem;margin-bottom:.8rem;border-bottom:2px solid #dde3ea;padding-bottom:.3rem}
+    .info-box{background:#fff;border:1.5px solid #dde3ea;border-radius:8px;padding:1rem;margin-bottom:.8rem;font-size:.9rem}
+    .info-box .label{color:#888;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.3rem}
+    .info-box .value{color:#004080;font-size:1.1rem;font-weight:bold}
+    .slider-group{margin-bottom:.9rem}
+    .slider-group label{display:block;font-size:.85rem;color:#444;margin-bottom:.3rem}
+    input[type=range]{width:100%;accent-color:#c85000}
+    .formula{background:#fffbf0;border-left:4px solid #c85000;padding:.7rem 1rem;border-radius:0 8px 8px 0;font-size:.9rem;margin-bottom:.8rem;font-style:italic}
+    .btn{background:#004080;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:6px;cursor:pointer;font-size:.88rem;margin:.2rem}
+    .btn:hover{background:#003060}
+    .btn.orange{background:#c85000}
+    .btn.orange:hover{background:#a54000}
+    .ops{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.8rem}
+    .author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;font-family:Georgia,serif;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+    .stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+  
+    .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+    .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+  </style>
+</head>
+<body>
+<header>
+  <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div><h1>Μιγαδικοί Αριθμοί — Διάγραμμα Argand</h1>
+  <p>Κεφάλαιο 0 · Μαθηματικό Υπόβαθρο · Γεωμετρική αναπαράσταση μιγαδικών</p>
+</header>
+<div class="container">
+  <div class="layout">
+    <canvas id="cv" width="450" height="450"></canvas>
+    <div class="panel">
+      <h2>Ορισμός Μιγαδικού</h2>
+      <div class="formula">z = a + bi</div>
+      <div class="slider-group">
+        <label>Πραγματικό μέρος &nbsp;<strong id="aVal">3</strong></label>
+        <input type="range" id="slA" min="-5" max="5" step="0.1" value="3">
+      </div>
+      <div class="slider-group">
+        <label>Φανταστικό μέρος &nbsp;<strong id="bVal">2</strong></label>
+        <input type="range" id="slB" min="-5" max="5" step="0.1" value="2">
+      </div>
+      <div class="info-box">
+        <div class="label">Μιγαδικός z</div>
+        <div class="value" id="zDisplay">3 + 2i</div>
+      </div>
+      <div class="info-box">
+        <div class="label">Μέτρο |z|</div>
+        <div class="value" id="modDisplay">√13 ≈ 3.61</div>
+      </div>
+      <div class="info-box">
+        <div class="label">Όρισμα arg(z)</div>
+        <div class="value" id="argDisplay">33.7°</div>
+      </div>
+      <div class="ops">
+        <button class="btn orange" id="btnConj">Συζυγής z̄</button>
+        <button class="btn" id="btnInv">Αντίστροφος 1/z</button>
+        <button class="btn" id="btnReset">Επαναφορά</button>
+      </div>
+      <div class="formula" id="polarForm">Πολική: 3.61·(cos33.7° + i·sin33.7°)</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cv = document.getElementById('cv');
+const ctx = cv.getContext('2d');
+const W = cv.width, H = cv.height;
+const CX = W/2, CY = H/2;
+const SCALE = 40;
+
+let a = 3, b = 2, showConj = false, showInv = false;
+
+function toScreen(x,y){ return [CX + x*SCALE, CY - y*SCALE]; }
+
+function drawGrid(){
+  ctx.clearRect(0,0,W,H);
+  // Grid lines
+  ctx.strokeStyle='#eef0f5'; ctx.lineWidth=1;
+  for(let i=-10;i<=10;i++){
+    let [x1,y1]=toScreen(i,-10), [x2,y2]=toScreen(i,10);
+    ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+    let [x3,y3]=toScreen(-10,i), [x4,y4]=toScreen(10,i);
+    ctx.beginPath(); ctx.moveTo(x3,y3); ctx.lineTo(x4,y4); ctx.stroke();
+  }
+  // Axes
+  ctx.strokeStyle='#888'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(0,CY); ctx.lineTo(W,CY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(CX,0); ctx.lineTo(CX,H); ctx.stroke();
+  // Axis labels
+  ctx.fillStyle='#666'; ctx.font='11px Georgia'; ctx.textAlign='center';
+  for(let i=-5;i<=5;i++){
+    if(i===0) continue;
+    let [x]=toScreen(i,0); ctx.fillText(i,x,CY+14);
+    let [,y]=toScreen(0,i); ctx.textAlign='right'; ctx.fillText(i,CX-5,y+4); ctx.textAlign='center';
+  }
+  ctx.fillStyle='#444'; ctx.font='13px Georgia';
+  ctx.fillText('Re',W-18,CY-8);
+  ctx.textAlign='right'; ctx.fillText('Im',CX+18,12); ctx.textAlign='center';
+}
+
+function drawVector(x,y,color,label,dashed=false){
+  let [sx,sy]=toScreen(x,y);
+  ctx.strokeStyle=color; ctx.lineWidth=2.5;
+  if(dashed){ctx.setLineDash([6,4]);}else{ctx.setLineDash([]);}
+  ctx.beginPath(); ctx.moveTo(CX,CY); ctx.lineTo(sx,sy); ctx.stroke();
+  ctx.setLineDash([]);
+  // Arrowhead
+  let angle=Math.atan2(-(sy-CY),(sx-CX));
+  ctx.fillStyle=color;
+  ctx.beginPath();
+  ctx.moveTo(sx,sy);
+  ctx.lineTo(sx-12*Math.cos(angle-0.3),sy+12*Math.sin(angle-0.3));
+  ctx.lineTo(sx-12*Math.cos(angle+0.3),sy+12*Math.sin(angle+0.3));
+  ctx.closePath(); ctx.fill();
+  // Dot
+  ctx.beginPath(); ctx.arc(sx,sy,5,0,2*Math.PI);
+  ctx.fillStyle=color; ctx.fill();
+  // Label
+  ctx.fillStyle=color; ctx.font='bold 13px Georgia'; ctx.textAlign='left';
+  let lx=sx+10, ly=sy-10;
+  if(x<0) lx=sx-55;
+  if(y<0) ly=sy+20;
+  ctx.fillText(label,lx,ly);
+}
+
+function drawAngle(x,y){
+  let r=30, angle=Math.atan2(-y,x);
+  ctx.strokeStyle='#c85000'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.arc(CX,CY,r,-angle,0,angle>0);
+  ctx.stroke();
+  // Dashed projection lines
+  let [sx,sy]=toScreen(x,y), [sx0]=toScreen(x,0), [,sy0]=toScreen(0,y);
+  ctx.strokeStyle='#aaa'; ctx.lineWidth=1; ctx.setLineDash([4,3]);
+  ctx.beginPath(); ctx.moveTo(sx,sy); ctx.lineTo(sx,CY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(sx,sy); ctx.lineTo(CX,sy); ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+function draw(){
+  drawGrid();
+  drawAngle(a,b);
+  drawVector(a,b,'#004080','z = '+fmt(a,b));
+  if(showConj) drawVector(a,-b,'#c85000','z̄ = '+fmt(a,-b),true);
+  if(showInv){
+    let d=a*a+b*b;
+    if(d>0.001) drawVector(a/d,-b/d,'#008c46','1/z',true);
+  }
+}
+
+function fmt(re,im){
+  let rs=re%1===0?re.toFixed(0):re.toFixed(2);
+  let is=Math.abs(im)%1===0?Math.abs(im).toFixed(0):Math.abs(im).toFixed(2);
+  if(im>=0) return rs+' + '+is+'i';
+  return rs+' − '+is+'i';
+}
+
+function update(){
+  a=parseFloat(document.getElementById('slA').value);
+  b=parseFloat(document.getElementById('slB').value);
+  document.getElementById('aVal').textContent=a.toFixed(1);
+  document.getElementById('bVal').textContent=b.toFixed(1);
+  let mod=Math.sqrt(a*a+b*b);
+  let arg=Math.atan2(b,a)*180/Math.PI;
+  document.getElementById('zDisplay').textContent=fmt(a,b);
+  document.getElementById('modDisplay').textContent='√'+((a*a+b*b)%1===0?(a*a+b*b).toFixed(0):(a*a+b*b).toFixed(2))+' ≈ '+mod.toFixed(2);
+  document.getElementById('argDisplay').textContent=arg.toFixed(1)+'°';
+  document.getElementById('polarForm').textContent='Πολική: '+mod.toFixed(2)+'·(cos'+arg.toFixed(1)+'° + i·sin'+arg.toFixed(1)+'°)';
+  draw();
+}
+
+document.getElementById('slA').addEventListener('input',update);
+document.getElementById('slB').addEventListener('input',update);
+document.getElementById('btnConj').addEventListener('click',()=>{showConj=!showConj;showInv=false;update();});
+document.getElementById('btnInv').addEventListener('click',()=>{showInv=!showInv;showConj=false;update();});
+document.getElementById('btnReset').addEventListener('click',()=>{
+  showConj=false;showInv=false;
+  document.getElementById('slA').value=3;
+  document.getElementById('slB').value=2;
+  update();
+});
+
+// Click on canvas to set point
+cv.addEventListener('click',e=>{
+  let rect=cv.getBoundingClientRect();
+  let px=e.clientX-rect.left, py=e.clientY-rect.top;
+  let scaleX=cv.width/rect.width, scaleY=cv.height/rect.height;
+  let cx=px*scaleX, cy=py*scaleY;
+  a=parseFloat(((cx-CX)/SCALE).toFixed(1));
+  b=parseFloat(((CY-cy)/SCALE).toFixed(1));
+  a=Math.max(-5,Math.min(5,a));
+  b=Math.max(-5,Math.min(5,b));
+  document.getElementById('slA').value=a;
+  document.getElementById('slB').value=b;
+  update();
+});
+
+update();
+</script>
+
+
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Θεωρία & Αιτιολόγηση — Μιγαδικοί Αριθμοί & Αναπαράσταση Argand ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>Μιγαδικοί Αριθμοί & Αναπαράσταση Argand</h3>
+    <p>Κάθε μιγαδικός z = a + bi αναπαρίσταται ως σημείο (a, b) στο επίπεδο Argand.</p>
+    <div class="formula">|z| = √(a²+b²) &nbsp;·&nbsp; arg(z) = atan2(b, a) &nbsp;(δηλ. arctan(b/a) διορθωμένο κατά τεταρτημόριο) &nbsp;·&nbsp; Πολική: z = |z|·(cosθ + i·sinθ)</div>
+    <p>Ο <strong>συζυγής</strong> z̄ = a−bi είναι ανακλαστής ως προς τον πραγματικό άξονα. Ο <strong>αντίστροφος</strong> 1/z = z̄/|z|² βρίσκεται διαιρώντας με |z|².</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');
+  var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Θεωρία & Αιτιολόγηση — Μιγαδικοί Αριθμοί & Αναπαράσταση Argand ▲':'📐 Θεωρία & Αιτιολόγηση — Μιγαδικοί Αριθμοί & Αναπαράσταση Argand ▼';
+});
+</script>
+
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Συμπληρωματικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</footer>
+</body>
+</html>
