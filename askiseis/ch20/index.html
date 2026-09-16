@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Power Series and Taylor Series</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">⊕ Additional Exercises</div>
+  <h1>Power Series and Taylor Series</h1>
+  <p class="chapter-label">Chapter 20 · Power Series and Taylor Series</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by topic</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">For every power series you should always make three things clear: the center, the radius of convergence and
+  the behavior at the two endpoints, which are examined separately. Every expansion you find
+  you can check numerically, by substituting a small value of $x$ and comparing
+  the partial sum with the value of the function.</p>
+</div>
+
+<div class="grp"><h2>A. Radius and interval of convergence</h2>
+<p class="lead">The ratio test gives the radius; the endpoints always require a separate check.</p></div>
+
+<div class="ex"><div class="num">20E.1 <span class="lvl l1">BASIC</span></div>
+<p>Find the radius and the interval of convergence of $\displaystyle\sum_{n=1}^{\infty}\frac{x^{n}}{3^{n}\sqrt{n}}$, examining both endpoints separately.</p>
+<p class="ypod">Hint: at the endpoints you obtain a $p$-series and an alternating series.</p></div>
+
+<div class="ex"><div class="num">20E.2 <span class="lvl l1">BASIC</span></div>
+<p>Find the radius and the interval of convergence of $\displaystyle\sum_{n=1}^{\infty}\frac{(-1)^{n}\,2^{n}x^{n}}{n}$ and make clear at which endpoint the convergence is conditional and not absolute.</p></div>
+
+<div class="ex"><div class="num">20E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For the series $\displaystyle\sum_{n=1}^{\infty}\frac{(3x-1)^{n}}{n^{2}}$ determine the center, the radius and the set of convergence with respect to $x$.</p>
+<p class="ypod">Hint: first write $3x-1=3\left(x-\tfrac13\right)$; the radius with respect to $x$ does not coincide with the radius with respect to the quantity $3x-1$.</p></div>
+
+<div class="grp"><h2>B. Taylor and Maclaurin expansions</h2>
+<p class="lead">Instead of successive differentiations, start wherever possible from a known series.</p></div>
+
+<div class="ex"><div class="num">20E.4 <span class="lvl l1">BASIC</span></div>
+<p>Find the Maclaurin series of $f(x)=x^{2}\sin x$ in general-term form, write the first three nonzero terms and give the radius of convergence.</p></div>
+
+<div class="ex"><div class="num">20E.5 <span class="lvl l1">BASIC</span></div>
+<p>Find the first four nonzero terms of the Maclaurin series of $f(x)=\ln(1+2x)$, as well as the radius of convergence and the behavior at the endpoints.</p>
+<p class="ypod">Hint: substitute $u=2x$ in the already known series of $\ln(1+u)$.</p></div>
+
+<div class="ex"><div class="num">20E.6 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find the Taylor expansion of $f(x)=e^{-x}$ about $a=2$ in general-term form and justify why its radius of convergence is infinite.</p></div>
+
+<div class="grp"><h2>C. Operations with power series</h2>
+<p class="lead">Substitution and multiplication of series save you from computing endless derivatives.</p></div>
+
+<div class="ex"><div class="num">20E.7 <span class="lvl l1">BASIC</span></div>
+<p>By a suitable substitution in a known series, find the Maclaurin series of $f(x)=\cos\!\left(x^{2}\right)$ and its radius of convergence.</p></div>
+
+<div class="ex"><div class="num">20E.8 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>By multiplying the Maclaurin series of $e^{x}$ and $\cos x$, find all the terms up to and including $x^{3}$ of the expansion of $g(x)=e^{x}\cos x$.</p>
+<p class="ypod">Hint: the coefficient of $x^{k}$ in the product is obtained by summing all the products of coefficients whose indices add up to $k$.</p></div>
+
+<div class="ex"><div class="num">20E.9 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find the terms up to and including $x^{3}$ of the Maclaurin series of $\displaystyle h(x)=\frac{\sin x}{1-x}$ and justify why the radius of convergence is $R=1$.</p>
+<p class="ypod">Hint: write the factor $\frac{1}{1-x}$ as a geometric series and multiply by the Cauchy product.</p></div>
+
+<div class="grp"><h2>D. Differentiation and integration of power series</h2>
+<p class="lead">Inside the open interval of convergence, term-by-term differentiation and integration are allowed and preserve the radius.</p></div>
+
+<div class="ex"><div class="num">20E.10 <span class="lvl l1">BASIC</span></div>
+<p>By expanding $\dfrac{1}{1+t^{3}}$ in a geometric series and integrating term by term, express $\displaystyle\int_{0}^{x}\frac{dt}{1+t^{3}}$ as a power series and give its radius of convergence.</p>
+<p class="ypod">Hint: watch the sign — the denominator is $1+t^{3}$, so the expansion is alternating.</p></div>
+
+<div class="ex"><div class="num">20E.11 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Identify the sum $\displaystyle\sum_{n=1}^{\infty}\frac{(-1)^{n-1}}{n\,3^{n}}$ as the value of a known power series at a suitable point and compute it in closed form. First check that the point belongs to the interval of convergence.</p></div>
+
+<div class="ex"><div class="num">20E.12 <span class="lvl l3">ADVANCED</span></div>
+<p>Consider the function $\displaystyle f(x)=\sum_{n=0}^{\infty}\frac{x^{2n+1}}{2n+1}$ for $|x|&lt;1$.
+(α) Show, by differentiating term by term, that $f'(x)=\dfrac{1}{1-x^{2}}$.
+(β) By integration and the condition $f(0)=0$, find a closed form for $f$.
+(γ) Examine the behavior of the series at the endpoints $x=\pm1$.</p>
+<p class="ypod">Hint: in (β) use a decomposition into partial fractions — note that here the denominator is $1-x^{2}$ and not $1+x^{2}$.</p></div>
+
+<div class="grp"><h2>E. The Lagrange remainder and error estimation</h2>
+<p class="lead">An approximation without an error bound is not an engineering result.</p></div>
+
+<div class="ex"><div class="num">20E.13 <span class="lvl l1">BASIC</span></div>
+<p>Bound by the Lagrange remainder the error of the approximation $e^{x}\approx 1+x+\dfrac{x^{2}}{2}$ for $0\le x\le \tfrac12$.</p>
+<p class="ypod">Hint: the exponential is increasing, so $e^{\xi}$ is bounded by its value at the right endpoint.</p></div>
+
+<div class="ex"><div class="num">20E.14 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Show that for every $x\in[0,1]$ we have
+$\displaystyle\left|\cos x-\left(1-\frac{x^{2}}{2}+\frac{x^{4}}{24}\right)\right|\le\frac{1}{720}$,
+using the Lagrange remainder.</p>
+<p class="ypod">Hint: all the derivatives of the cosine are bounded in absolute value by one.</p></div>
+
+<div class="ex"><div class="num">20E.15 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $f(x)=\ln(1+x)$.
+(α) Write the Lagrange remainder $R_n(x)$ of the expansion about $0$, first expressing $f^{(n+1)}$.
+(β) Show that for $0\le x\le1$ we have $|R_n(x)|\le\dfrac{1}{n+1}$.
+(γ) Conclude that the Maclaurin series converges to $\ln(1+x)$ on all of $[0,1]$.</p>
+<p class="ypod">Hint: in (β) use the fact that $\xi$ lies between $0$ and $x$, so that $1+\xi\ge1$.</p></div>
+
+<div class="grp"><h2>F. Linearization in engineering</h2>
+<p class="lead">Every &ldquo;small-quantity formula&rdquo; of engineering consists of the first terms of a Taylor expansion.</p></div>
+
+<div class="ex"><div class="num">20E.16 <span class="lvl l1">BASIC</span></div>
+<p>The thermal expansion of a rod is described exactly by $L(T)=L_{0}e^{\alpha(T-T_{0})}$. Expand in a series with respect to $u=\alpha(T-T_{0})$ and show that the linearization gives the usual formula $L\approx L_{0}\left[1+\alpha(T-T_{0})\right]$. Estimate the relative error of the linearization when $u=10^{-2}$.</p></div>
+
+<div class="ex"><div class="num">20E.17 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The exact period of a simple pendulum with amplitude $\theta_{0}$ is given by
+$T=T_{0}\left[1+\tfrac14\sin^{2}\tfrac{\theta_{0}}{2}+\cdots\right]$, where $T_{0}=2\pi\sqrt{L/g}$.
+By replacing the sine with its expansion, show that for small amplitudes $T\approx T_{0}\left(1+\tfrac{\theta_{0}^{2}}{16}\right)$ and compute the relative increase of the period for $\theta_{0}=20^{\circ}$.</p>
+<p class="ypod">Hint: first convert the angle into radians.</p></div>
+
+<div class="ex"><div class="num">20E.18 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The curvature of the elastic curve of a beam is
+$\displaystyle\kappa=\frac{y''}{\left(1+(y')^{2}\right)^{3/2}}$.
+Using the binomial series show that for small slopes
+$\kappa\approx y''\left(1-\tfrac{3}{2}(y')^{2}\right)$ and explain why the linear theory of beams adopts the further simplification $\kappa\approx y''$.</p>
+<p class="ypod">Hint: set $u=(y')^{2}$ and expand $(1+u)^{-3/2}$.</p></div>
+
+<div class="grp"><h2>G. Fourier series</h2>
+<p class="lead">The symmetry of the function makes half of the coefficients vanish in advance.</p></div>
+
+<div class="ex"><div class="num">20E.19 <span class="lvl l1">BASIC</span></div>
+<p>For the $2\pi$-periodic function with $f(x)=x$ for $-\pi&lt;x&lt;\pi$, justify from the symmetry that $a_{n}=0$ for every $n$ and compute the coefficients $b_{n}$.</p>
+<p class="ypod">Hint: the integral $\int_{0}^{\pi}x\sin(nx)\,dx$ is computed by parts.</p></div>
+
+<div class="ex"><div class="num">20E.20 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Consider the $2\pi$-periodic extension of $f(x)=|x|$, $-\pi\le x\le\pi$.
+(α) Explain why $b_{n}=0$ for every $n$ and compute $a_{0}$ and $a_{n}$.
+(β) By setting $x=0$ in the expansion, find the sum of $\displaystyle\sum_{k=0}^{\infty}\frac{1}{(2k+1)^{2}}$.</p>
+<p class="ypod">Hint: in (β) $x=0$ is a point of continuity, so the Dirichlet conditions guarantee equality.</p></div>
+
+<div class="ex"><div class="num">20E.21 <span class="lvl l3">ADVANCED</span></div>
+<p>A periodic square pulse of period $2L$ is defined by $f(x)=1$ for $|x|&lt;c$ and $f(x)=0$ for $c&lt;|x|&lt;L$, with $0&lt;c&lt;L$.
+(α) Explain why $b_{n}=0$.
+(β) Compute $a_{0}$ and $a_{n}$ as functions of $c$ and $L$.
+(γ) To which value does the Fourier series converge at the point $x=c$?</p>
+<p class="ypod">Hint: in (γ) refer to the statement of the Dirichlet conditions at a point of discontinuity.</p></div>
+
+<div class="grp"><h2>H. Mixed / composite problems</h2>
+<p class="lead">Here the method is not given: first identify which known series is hidden behind the expression.</p></div>
+
+<div class="ex"><div class="num">20E.22 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Compute the limit $\displaystyle\lim_{x\to0}\frac{\tan x-\sin x}{x^{3}}$ by replacing each function with its Maclaurin expansion.</p>
+<p class="ypod">Hint: we have $\tan u=u+\tfrac{u^{3}}{3}+\cdots$; the terms up to and including $x^{3}$ suffice.</p></div>
+
+<div class="ex"><div class="num">20E.23 <span class="lvl l3">ADVANCED</span></div>
+<p>Find the first three nonzero terms of the Maclaurin series of $f(x)=\ln(\cos x)$ and use them to compute the limit $\displaystyle\lim_{x\to0}\frac{\ln(\cos x)}{x^{2}}$.</p>
+<p class="ypod">Hint: write $\cos x=1-u$ with $u=\tfrac{x^{2}}{2}-\tfrac{x^{4}}{24}+\cdots$ and expand $\ln(1-u)$, keeping all the terms that contribute up to the order you need.</p></div>
+
+<div class="ex"><div class="num">20E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>Consider the function $\displaystyle y(x)=\sum_{n=0}^{\infty}\frac{(-1)^{n}x^{2n}}{4^{n}\,(n!)^{2}}$.
+(α) Show by the ratio test that the radius of convergence is infinite.
+(β) By differentiating term by term and shifting the index suitably, verify that $y$ satisfies the equation $x\,y''+y'+x\,y=0$.</p>
+<p class="ypod">Hint: in (β) collect all the terms with the same power of $x$ and require that every coefficient vanish.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">20E.25</div>
+<p>Find the radius and the interval of convergence of $\displaystyle\sum_{n=1}^{\infty}\frac{x^{n}}{n^{2}+1}$, examining both endpoints.</p></div>
+<div class="ex from-book"><div class="num">20E.26</div>
+<p>Find the radius of convergence of $\displaystyle\sum_{n=1}^{\infty}\frac{n!\,x^{n}}{n^{n}}$ (hint: $\left(1+\tfrac1n\right)^{n}\to e$).</p></div>
+<div class="ex from-book"><div class="num">20E.27</div>
+<p>Using the Cauchy–Hadamard formula ($R=1/\limsup\sqrt[n]{|c_n|}$) find the radius of convergence of $\displaystyle\sum_{n=1}^{\infty}\frac{x^{n}}{n^{n}}$.</p></div>
+<div class="ex from-book"><div class="num">20E.28</div>
+<p>Find the Maclaurin expansion of $f(x)=\dfrac{x}{1+x^{2}}$ and its radius of convergence.</p></div>
+<div class="ex from-book"><div class="num">20E.29</div>
+<p>Find the first three nonzero terms of the Maclaurin series of $f(x)=\sin x\cdot\cos x$ (hint: $\sin x\cos x=\tfrac12\sin 2x$).</p></div>
+<div class="ex from-book"><div class="num">20E.30</div>
+<p>Find the first four terms of the Taylor expansion of $f(x)=e^{x}$ about $a=1$.</p></div>
+<div class="ex from-book"><div class="num">20E.31</div>
+<p>Using the second-order Taylor expansion of $\sqrt{1+x}$ about $0$, approximate $\sqrt{1.1}$ and estimate the error by the Lagrange remainder.</p></div>
+<div class="ex from-book"><div class="num">20E.32</div>
+<p>Find the second-order Taylor expansion of $f(x)=\sqrt{x}$ about $a=4$ and use it to approximate $\sqrt{4.2}$.</p></div>
+<div class="ex from-book"><div class="num">20E.33</div>
+<p>Compute the limit $\displaystyle\lim_{x\to0}\frac{e^{x^{2}}-1-x^{2}}{x^{4}}$ by expanding in a Maclaurin series.</p></div>
+<div class="ex from-book"><div class="num">20E.34</div>
+<p>Find the third-order Taylor expansion of $f(x)=\sin x$ about $a=\pi/4$.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">20E.35</div>
+<p>$e$ is computed from the series $\displaystyle\sum_{n=0}^{\infty}\frac{1}{n!}$. How many terms must you keep so that the error is less than $10^{-5}$?</p></div>
+<div class="ex from-book"><div class="num">20E.36</div>
+<p>$\sum_{n=0}^\infty\frac{(x-1)^n}{2^n}$: radius, interval and set of convergence.</p></div>
+<div class="ex from-book"><div class="num">20E.37</div>
+<p>Find the Maclaurin series of $f(x)=\dfrac{1}{(1-x)^2}$ by differentiating the geometric series and use it to compute the sum $\displaystyle\sum_{n=1}^{\infty}\frac{n}{2^n}$.</p></div>
+<div class="ex from-book"><div class="num">20E.38</div>
+<p>Taylor approximation of $\sin(x)$ with three nonzero terms and an error estimate for $x=0.2$.</p></div>
+<div class="ex from-book"><div class="num">20E.39</div>
+<p>Find the Taylor expansion of $f(x)=\dfrac{1}{x}$ about $a=2$ and its radius of convergence.</p></div>
+<div class="ex from-book"><div class="num">20E.40</div>
+<p>Compute $\displaystyle\int_0^{0.1} e^{-x^2}\,dx$ by means of series, to an accuracy of at least four decimal places.</p></div>
+<div class="ex from-book"><div class="num">20E.41</div>
+<p>Find the first four nonzero terms of the Maclaurin expansion of: (α) $e^{2x}$, \ (β) $\sin(2x)$.</p></div>
+<div class="ex from-book"><div class="num">20E.42</div>
+<p>Compute the limit $\displaystyle\lim_{x\to0}\frac{\ln(1+x)-x+x^{2}/2}{x^{3}}$ using the Maclaurin series of $\ln(1+x)$.</p></div>
+<div class="ex from-book"><div class="num">20E.43</div>
+<p>The catenary is given by $y=a\cosh(x/a)$. For $a=3$ compute $y(0)$ and $y(3)$ and find the <em>sag</em> $y(3)-y(0)$ of the cable.</p></div>
+<div class="ex from-book"><div class="num">20E.44</div>
+<p>Compute the arc length of the catenary $y=2\cosh(x/2)$ from $x=-2$ to $x=2$ using $s=\int\sqrt{1+y'^{\,2}}\,dx$.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 20.1 – Power Series and Taylor Expansions</h3></div>
+<div class="ex from-book"><div class="num">20E.45</div>
+<p>Find the Maclaurin series of $f(x)=e^{-x^{2}}$ and its radius of convergence&middot; compute the first four nonzero terms.</p></div>
+<div class="ex from-book"><div class="num">20E.46</div>
+<p>Show that the series $\displaystyle\sum_{n=0}^{\infty}n!\,x^{n}$ has radius of convergence $R=0$: it converges only for $x=0$.</p></div>
+<div class="grp2"><h3>Exercises for Section 20.2 – Linearization and Taylor Series Approximations in Engineering</h3></div>
+<div class="ex from-book"><div class="num">20E.47</div>
+<p>How many <em>nonzero</em> terms of the Maclaurin series of $\cos x$ must you keep so that the computation of $\cos(0.5)$ has an error less than $10^{-6}$?</p></div>
+<div class="ex from-book"><div class="num">20E.48</div>
+<p><strong>Application:</strong> For a beam under an axial compressive load, the critical buckling load is corrected by the factor $\bigl(1-\tfrac{P}{P_{cr}}\bigr)^{-1}$. Expand the factor in a geometric series with respect to $P/P_{cr}$ and explain what happens as $P\to P_{cr}$.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">20E.49</div>
+<p>The Taylor error: prove that the Lagrange remainder $R_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}x^{n+1}$ tends to zero for $e^x$, $\sin x$, $\cos x$. Estimate how many terms you need for $\sin(0.1)$ with an error $&lt;10^{-8}$.</p></div>
+<div class="ex from-book"><div class="num">20E.50</div>
+<p>Expand $\cosh u$ in a Maclaurin series up to the term $u^{4}$ and show that, for small $x/a$, the catenary is approximated by the parabola $y\approx a+\dfrac{x^{2}}{2a}$.</p></div>
+<div class="ex from-book"><div class="num">20E.51</div>
+<p>Show that $\cosh^{2}u-\sinh^{2}u=1$ and that $\dfrac{d}{du}\sinh u=\cosh u$&middot; using these, verify that $y=a\cosh(x/a)$ satisfies the equation $a\,y''=\sqrt{1+(y')^{2}}$.</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

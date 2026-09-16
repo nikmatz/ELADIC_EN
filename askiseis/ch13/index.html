@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: The Indefinite Integral</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">⊕ Additional Exercises</div>
+  <h1>The Indefinite Integral</h1>
+  <p class="chapter-label">Chapter 13 · The Indefinite Integral</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged
+  <em>by type of integral</em> and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p>You need only the tools of Chapters 0&ndash;13: the table of basic
+  integrals, linearity, the linear substitution $\displaystyle\int f(ax+b)\,dx$,
+  the logarithmic rule $\displaystyle\int \frac{f'(x)}{f(x)}\,dx$ and simple $u$-substitution.
+  In several cases an algebraic or trigonometric simplification <em>before</em>
+  integrating makes every technique unnecessary.</p>
+  <p class="ypod">In every indefinite integral the constant $+C$ is understood. The result of every exercise
+  is always checked by differentiating: if the derivative of your antiderivative gives the
+  integrand, the solution is correct. You do not need an answer key.</p>
+</div>
+
+<div class="grp"><h2>A. Basic formulas and linearity</h2>
+<p class="lead">Split the integral into separate terms and read the table of derivatives backwards.</p></div>
+
+<div class="ex"><div class="num">13E.1 <span class="lvl l1">BASIC</span></div>
+<p>Evaluate $\displaystyle\int \left(6x^{5}-8x^{3}+5\right)dx$.</p></div>
+
+<div class="ex"><div class="num">13E.2 <span class="lvl l1">BASIC</span></div>
+<p>Evaluate $\displaystyle\int \left(2\sec^{2}x+\frac{5}{1+x^{2}}-3e^{x}\right)dx$.</p></div>
+
+<div class="ex"><div class="num">13E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Evaluate $\displaystyle\int 2^{x}\,3^{x}\,dx$.</p>
+<p class="ypod">Hint: first write the product as a power of a single base and then apply the table formula for $a^{x}$.</p></div>
+
+<div class="grp"><h2>B. Powers, roots and fractions</h2>
+<p class="lead">Convert every root and every fraction into a power $x^{n}$ and then apply the power rule.</p></div>
+
+<div class="ex"><div class="num">13E.4 <span class="lvl l1">BASIC</span></div>
+<p>Evaluate $\displaystyle\int \left(\frac{5}{x^{3}}+4\sqrt[3]{x}\right)dx$, for $x&gt;0$.</p></div>
+
+<div class="ex"><div class="num">13E.5 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Evaluate $\displaystyle\int \frac{x^{3}-2\sqrt{x}+1}{x^{2}}\,dx$, for $x&gt;0$.</p>
+<p class="ypod">Hint: split the fraction into three terms and subtract the exponents; watch the half-integer exponent of the middle term.</p></div>
+
+<div class="ex"><div class="num">13E.6 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Evaluate $\displaystyle\int \frac{x^{4}+2x^{2}+1}{x^{2}+1}\,dx$.</p>
+<p class="ypod">Hint: the numerator is a perfect square; simplifying makes every integration technique unnecessary.</p></div>
+
+<div class="grp"><h2>C. Exponential and logarithmic</h2>
+<p class="lead">Direct formulas from the table, combined with the linear substitution $ax+b$ where needed.</p></div>
+
+<div class="ex"><div class="num">13E.7 <span class="lvl l1">BASIC</span></div>
+<p>Evaluate $\displaystyle\int \left(3e^{x}-e^{-2x}\right)dx$.</p></div>
+
+<div class="ex"><div class="num">13E.8 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Evaluate $\displaystyle\int \frac{1+\ln x}{x}\,dx$, for $x&gt;0$.</p>
+<p class="ypod">Hint: set $u=\ln x$ and notice which factor is $du$.</p></div>
+
+<div class="ex"><div class="num">13E.9 <span class="lvl l3">ADVANCED</span></div>
+<p>Evaluate $\displaystyle\int \frac{dx}{e^{x}+e^{-x}}$.</p>
+<p class="ypod">Hint: multiply numerator and denominator by $e^{x}$ and then set $u=e^{x}$; you will recognize a formula from the basic table.</p></div>
+
+<div class="grp"><h2>D. Trigonometric</h2>
+<p class="lead">Before integrating, check whether some trigonometric identity reduces the integrand to a term of the table.</p></div>
+
+<div class="ex"><div class="num">13E.10 <span class="lvl l1">BASIC</span></div>
+<p>Evaluate $\displaystyle\int \left(3\sin x-\frac{2}{\cos^{2}x}\right)dx$.</p></div>
+
+<div class="ex"><div class="num">13E.11 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Evaluate $\displaystyle\int \left(\sin x+\cos x\right)^{2}dx$.</p>
+<p class="ypod">Hint: expand the square and use the fundamental identity together with the double-angle identity.</p></div>
+
+<div class="ex"><div class="num">13E.12 <span class="lvl l3">ADVANCED</span></div>
+<p>Evaluate $\displaystyle\int \frac{\cos 2x}{\cos x-\sin x}\,dx$, on an interval where $\cos x\neq\sin x$.</p>
+<p class="ypod">Hint: write $\cos 2x$ as a difference of squares and simplify the fraction.</p></div>
+
+<div class="grp"><h2>E. Simple substitution</h2>
+<p class="lead">Look inside the integral for the pair “function &ndash; its derivative” and take $u$ to be the inner function.</p></div>
+
+<div class="ex"><div class="num">13E.13 <span class="lvl l1">BASIC</span></div>
+<p>Evaluate $\displaystyle\int x^{2}e^{-x^{3}}\,dx$.</p></div>
+
+<div class="ex"><div class="num">13E.14 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Evaluate $\displaystyle\int \frac{dx}{x\sqrt{\ln x}}$, for $x&gt;1$.</p>
+<p class="ypod">Hint: with $u=\ln x$ the integral reduces to a simple power rule with a negative half-integer exponent.</p></div>
+
+<div class="ex"><div class="num">13E.15 <span class="lvl l3">ADVANCED</span></div>
+<p>Evaluate $\displaystyle\int \frac{dx}{1+\sqrt{x+1}}$, for $x&gt;-1$.</p>
+<p class="ypod">Hint: set $u=\sqrt{x+1}$, so that $x=u^{2}-1$ and $dx=2u\,du$; then carry out the division $\dfrac{u}{1+u}$, writing it as $1-\dfrac{1}{1+u}$.</p></div>
+
+<div class="grp"><h2>F. Antiderivative with an initial condition</h2>
+<p class="lead">First the general antiderivative with its constant, then the initial condition, which determines that constant.</p></div>
+
+<div class="ex"><div class="num">13E.16 <span class="lvl l1">BASIC</span></div>
+<p>Find the function $f$ for which $f'(x)=6x^{2}-4\sin x$ and $f(0)=3$.</p></div>
+
+<div class="ex"><div class="num">13E.17 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Solve the initial value problem $y'=\dfrac{x}{\sqrt{x^{2}+9}}$ with $y(0)=5$.</p>
+<p class="ypod">Hint: the substitution $u=x^{2}+9$ gives the general solution; the initial condition is applied at the end.</p></div>
+
+<div class="ex"><div class="num">13E.18 <span class="lvl l3">ADVANCED</span></div>
+<p>Find the function $f$ for which $f''(x)=4e^{2x}$, $f'(0)=1$ and $f(0)=0$.</p>
+<p class="ypod">Hint: two successive integrations with two different constants are required; each condition determines one of them.</p></div>
+
+<div class="grp"><h2>G. Engineering applications (motion, rates)</h2>
+<p class="lead">The rate of change is given and the quantity itself is asked for: integrate, then determine the constant from the initial state.</p></div>
+
+<div class="ex"><div class="num">13E.19 <span class="lvl l1">BASIC</span></div>
+<p>A disk rotates with angular acceleration $\alpha(t)=6t$ (in $\mathrm{rad/s^{2}}$), with initial
+angular velocity $\omega(0)=2$ $\mathrm{rad/s}$ and initial angle $\theta(0)=0$ $\mathrm{rad}$.
+Find the functions $\omega(t)$ and $\theta(t)$.</p></div>
+
+<div class="ex"><div class="num">13E.20 <span class="lvl l1">BASIC</span></div>
+<p>A particle moves along a straight line with velocity $v(t)=\sqrt{t+4}$ (in $\mathrm{m/s}$) and starts from
+the position $s(0)=0$ $\mathrm{m}$. Find the position function $s(t)$ and the position at time
+$t=5$ $\mathrm{s}$.</p>
+<p class="ypod">Hint: apply the linear-substitution formula to the root.</p></div>
+
+<div class="ex"><div class="num">13E.21 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>A body of mass $m$ moves under a periodic force, so that
+$m\,v'(t)=F_{0}\sin(\omega t)$, with $F_{0}$, $\omega$ positive constants and $v(0)=0$.
+Find the velocity function $v(t)$ and the maximum value of its magnitude.</p>
+<p class="ypod">Hint: the constants $m$, $F_{0}$, $\omega$ are treated as numbers when integrating with respect to $t$.</p></div>
+
+<div class="grp"><h2>H. Mixed / composite</h2>
+<p class="lead">The method is not given here: first identify the structure of the integrand, then evaluate.</p></div>
+
+<div class="ex"><div class="num">13E.22 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Evaluate $\displaystyle\int \frac{x+1}{x^{2}+1}\,dx$.</p>
+<p class="ypod">Hint: split into two integrals; one is handled by the logarithmic rule and the other is a table formula.</p></div>
+
+<div class="ex"><div class="num">13E.23 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Evaluate $\displaystyle\int \frac{x^{2}}{x^{2}+1}\,dx$.</p>
+<p class="ypod">Hint: add and subtract $1$ in the numerator, so that an integer part plus a familiar fraction appears.</p></div>
+
+<div class="ex"><div class="num">13E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>Evaluate $\displaystyle\int \frac{dx}{1+\cos x}$, on an interval where $\cos x\neq-1$.</p>
+<p class="ypod">Hint: multiply numerator and denominator by $1-\cos x$ and use the fundamental trigonometric identity; two table integrals will appear.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">13E.25</div>
+<p>Using the power rule: (α) $\displaystyle\int x^5\,dx$, (β) $\displaystyle\int x^{-4}\,dx$, (γ) $\displaystyle\int x^{2/3}\,dx$.</p></div>
+<div class="ex from-book"><div class="num">13E.26</div>
+<p>From the basic table: (α) $\displaystyle\int e^x\,dx$, (β) $\displaystyle\int 3^x\,dx$, (γ) $\displaystyle\int\frac{dx}{x}$ ($x&gt;0$).</p></div>
+<div class="ex from-book"><div class="num">13E.27</div>
+<p>From the basic table: (α) $\displaystyle\int\sin x\,dx$, (β) $\displaystyle\int\cos x\,dx$, (γ) $\displaystyle\int\sec^2 x\,dx$, (δ) $\displaystyle\int\csc^2 x\,dx$.</p></div>
+<div class="ex from-book"><div class="num">13E.28</div>
+<p>Evaluate $\displaystyle\int\sec x\tan x\,dx$ and $\displaystyle\int\csc x\cot x\,dx$ and verify by differentiating.</p></div>
+<div class="ex from-book"><div class="num">13E.29</div>
+<p>$\displaystyle\int (5x^4-3x^2+2)\,dx$</p></div>
+<div class="ex from-book"><div class="num">13E.30</div>
+<p>$\displaystyle\int\!\left(\sqrt{x}+\frac{1}{\sqrt{x}}\right)dx$</p></div>
+<div class="ex from-book"><div class="num">13E.31</div>
+<p>$\displaystyle\int\!\left(\frac{1}{x^2}-\frac{1}{x^3}\right)dx$</p></div>
+<div class="ex from-book"><div class="num">13E.32</div>
+<p>$\displaystyle\int\frac{x^2+2x-3}{x}\,dx$ and $\displaystyle\int\frac{x^3+1}{x}\,dx$</p></div>
+<div class="ex from-book"><div class="num">13E.33</div>
+<p>$\displaystyle\int(\sin x-2\cos x)\,dx$ and $\displaystyle\int(e^x+2^x)\,dx$</p></div>
+<div class="ex from-book"><div class="num">13E.34</div>
+<p>$\displaystyle\int\!\left(\frac{3}{x}+2\sqrt{x}\right)dx$, $x&gt;0$</p></div>
+<div class="ex from-book"><div class="num">13E.35</div>
+<p>$\displaystyle\int\sin(5x-2)\,dx$</p></div>
+<div class="ex from-book"><div class="num">13E.36</div>
+<p>$\displaystyle\int e^{-x/2}\,dx$ and $\displaystyle\int e^{5-2x}\,dx$</p></div>
+<div class="ex from-book"><div class="num">13E.37</div>
+<p>$\displaystyle\int(1-2x)^7\,dx$ and $\displaystyle\int\frac{dx}{(2x+1)^2}$</p></div>
+<div class="ex from-book"><div class="num">13E.38</div>
+<p>$\displaystyle\int\sec^2(4x)\,dx$ and $\displaystyle\int\sin\!\left(\frac{x}{3}\right)dx$</p></div>
+<div class="ex from-book"><div class="num">13E.39</div>
+<p>$\displaystyle\int\frac{x}{x^2+1}\,dx$</p></div>
+<div class="ex from-book"><div class="num">13E.40</div>
+<p>$\displaystyle\int\frac{3x^2-2}{x^3-2x+7}\,dx$</p></div>
+<div class="ex from-book"><div class="num">13E.41</div>
+<p>$\displaystyle\int\frac{dx}{x\ln x}$</p></div>
+<div class="ex from-book"><div class="num">13E.42</div>
+<p>$\displaystyle\int\frac{2x+1}{x^2+x}\,dx$ and $\displaystyle\int\frac{4x-1}{2x^2-x+3}\,dx$</p></div>
+<div class="ex from-book"><div class="num">13E.43</div>
+<p>$\displaystyle\int\frac{x}{(x^2+4)^3}\,dx$ ($u=x^2+4$).</p></div>
+<div class="ex from-book"><div class="num">13E.44</div>
+<p>$\displaystyle\int\frac{\cos x}{\sin^2 x}\,dx$</p></div>
+<div class="ex from-book"><div class="num">13E.45</div>
+<p>$\displaystyle\int x^2(x^3+1)^4\,dx$</p></div>
+<div class="ex from-book"><div class="num">13E.46</div>
+<p>$\displaystyle\int\frac{e^{\sqrt{x}}}{\sqrt{x}}\,dx$</p></div>
+<div class="ex from-book"><div class="num">13E.47</div>
+<p>$\displaystyle\int\frac{x}{\sqrt{1-x^2}}\,dx$</p></div>
+<div class="ex from-book"><div class="num">13E.48</div>
+<p>$\displaystyle\int \sec^2 x\,\tan^3 x\,dx$</p></div>
+<div class="ex from-book"><div class="num">13E.49</div>
+<p>$\displaystyle\int\sin(2x)\cos(2x)\,dx$ (two ways: $u=\sin 2x$ or the double-angle identity).</p></div>
+<div class="ex from-book"><div class="num">13E.50</div>
+<p>Find $F$ if $F'(x)=x^2-x$ and $F(0)=2$.</p></div>
+<div class="ex from-book"><div class="num">13E.51</div>
+<p>Find $f$ if $f''(x)=6x-2$, $f'(0)=1$ and $f(0)=3$.</p></div>
+<div class="ex from-book"><div class="num">13E.52</div>
+<p>Solve $y'=\dfrac{1}{x}$ with $y(1)=3$ ($x&gt;0$).</p></div>
+<div class="ex from-book"><div class="num">13E.53</div>
+<p>Solve $y'=\sin x+\cos x$ with $y(0)=0$ and evaluate $y(\pi/2)$.</p></div>
+<div class="ex from-book"><div class="num">13E.54</div>
+<p>Solve $f''(x)=\sin x$ with $f'(0)=0$ and $f(0)=1$.</p></div>
+<div class="ex from-book"><div class="num">13E.55</div>
+<p>A tank is filled at a rate $r(t)=4+2t$ (L/min) and initially contains $10$ L. Find the volume $V(t)$ and the volume after $5$ min.</p></div>
+<div class="ex from-book"><div class="num">13E.56</div>
+<p>The rate of change of the temperature of a body is $T'(t)=-5e^{-0.1t}$ ($^{\circ}$C/min) with $T(0)=80\,^{\circ}$C. Find $T(t)$ and the equilibrium temperature $\lim_{t\to\infty}T(t)$.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">13E.57</div>
+<p>$\displaystyle\int\frac{x+1}{\sqrt{x^2+2x+5}}\,dx$ (hint: $u=x^2+2x+5$).</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 13.1 – Antiderivatives &amp; the Basic Table of Integrals</h3></div>
+<div class="ex from-book"><div class="num">13E.58</div>
+<p>Verify by differentiating: (α)&nbsp;$\displaystyle\int\frac{dx}{(x+1)^2}=-\frac{1}{x+1}+C$, (β)&nbsp;$\displaystyle\int 2x\,e^{x^2}\,dx=e^{x^2}+C$, (γ)&nbsp;$\displaystyle\int\frac{dx}{x\ln x}=\ln|\ln x|+C$.</p></div>
+<div class="grp2"><h3>Exercises for Section 13.1.1 – $u$-Substitution</h3></div>
+<div class="ex from-book"><div class="num">13E.59</div>
+<p>$\displaystyle\int x(2x-3)^5\,dx$ &nbsp;&nbsp; ($u=2x-3$; express $x$ in terms of $u$).</p></div>
+<div class="grp2"><h3>Exercises for Section 13.2 – Applications</h3></div>
+<div class="ex from-book"><div class="num">13E.60</div>
+<p><strong>Marginal cost:</strong> The marginal cost of production is $C'(x)=3x^2-60x+400$ (€/unit) and the fixed cost is $C(0)=500$&nbsp;€. Find the cost function $C(x)$ and $C(10)$.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">13E.61</div>
+<p>Solve the initial value problem $y''=x+\sin x$ with $y'(0)=1$ and $y(0)=0$.</p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group C)</h3></div>
+<div class="grp2"><h3>Exercises for Section 13.1 – Antiderivatives &amp; the Basic Table of Integrals</h3></div>
+<div class="ex from-book"><div class="num">13E.62</div>
+<p>Explain why the power rule $\displaystyle\int x^n\,dx=\frac{x^{n+1}}{n+1}+C$ does not hold for $n=-1$ and which formula replaces it.</p></div>
+<div class="grp2"><h3>Exercises for Section 13.1 – Linear Substitution $ f(ax+b)\,dx$</h3></div>
+<div class="ex from-book"><div class="num">13E.63</div>
+<p>$\displaystyle\int\frac{dx}{9+x^2}$ &nbsp;&nbsp; and &nbsp;&nbsp; $\displaystyle\int\frac{dx}{\sqrt{4-x^2}}$ &nbsp;&nbsp; (generalized $\arctan$ and $\arcsin$ formulas with parameter $a$).</p></div>
+<div class="grp2"><h3>Exercises for Section 13.1.1 – $u$-Substitution</h3></div>
+<div class="ex from-book"><div class="num">13E.64</div>
+<p>$\displaystyle\int\frac{\arctan x}{1+x^2}\,dx$</p></div>
+<div class="grp2"><h3>Exercises for Section 13.1.2 – Initial Value Problems</h3></div>
+<div class="ex from-book"><div class="num">13E.65</div>
+<p>The slope of the tangent line to a curve at each of its points is $2x-4$ and the curve passes through the point $(3,1)$. Find its equation.</p></div>
+<div class="grp2"><h3>Exercises for Section 13.2 – Applications</h3></div>
+<div class="ex from-book"><div class="num">13E.66</div>
+<p><strong>Elastic curve:</strong> A cantilever of length $L$ is loaded by a force $P$ at its free end, so that $EI\,y''(x)=P(L-x)$. With $y(0)=0$ and $y'(0)=0$, find $y(x)$ and the deflection $y(L)$.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">13E.67</div>
+<p>Evaluate $\displaystyle\int\sin x\cos x\,dx$ in three ways ($u=\sin x$, $u=\cos x$, the identity $\sin 2x$) and show that the three answers differ only by a constant.</p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group D)</h3></div>
+<div class="grp2"><h3>Exercises for Section 13.1 – Antiderivatives &amp; the Basic Table of Integrals</h3></div>
+<div class="ex from-book"><div class="num">13E.68</div>
+<p>Evaluate $\displaystyle\int\frac{dx}{\sqrt{1-x^2}}$ and $\displaystyle\int\frac{dx}{1+x^2}$, naming the corresponding inverse trigonometric functions.</p></div>
+<div class="grp2"><h3>Exercises for Section 13.1 – Linearity &amp; Direct Integration</h3></div>
+<div class="ex from-book"><div class="num">13E.69</div>
+<p>$\displaystyle\int\tan^2 x\,dx$ &nbsp;&nbsp; (hint: $\tan^2 x=\sec^2 x-1$).</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

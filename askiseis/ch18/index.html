@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Improper Integrals</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">⊕ Additional Exercises</div>
+  <h1>Improper Integrals</h1>
+  <p class="chapter-label">Chapter 18 · Improper Integrals</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by type of singularity
+  and by convergence test</em> and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">Before every computation locate exactly where the singularity lies: an infinite limit
+  of integration, an unbounded integrand, or both. Then write the improper
+  integral as a limit of definite integrals over bounded intervals, where the function is continuous,
+  and answer the question of convergence first; the numerical value has meaning only if the limit exists.</p>
+</div>
+
+<div class="grp"><h2>A. Infinite limits of integration</h2>
+<p class="lead">Replace the infinite limit by a finite $b$ and examine whether the limit exists as $b\to+\infty$.</p></div>
+
+<div class="ex"><div class="num">18E.1 <span class="lvl l1">BASIC</span></div>
+<p>Examine the convergence and compute the value of $\displaystyle\int_0^{+\infty}e^{-3x}\,dx$.</p></div>
+
+<div class="ex"><div class="num">18E.2 <span class="lvl l1">BASIC</span></div>
+<p>Examine the convergence and compute the value of $\displaystyle\int_0^{+\infty}\frac{dx}{(x+1)^2}$.</p></div>
+
+<div class="ex"><div class="num">18E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Examine the convergence and compute the value of $\displaystyle\int_{-\infty}^{+\infty}\frac{dx}{x^2+2x+2}$.</p>
+<p class="ypod">Hint: first complete the square in the denominator and split the integral into two improper integrals, each with only one infinite limit.</p></div>
+
+<div class="ex"><div class="num">18E.4 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Show that $\displaystyle\int_0^{+\infty}\cos x\,dx$ diverges, although the integrand is bounded on all of $[0,+\infty)$.</p>
+<p class="ypod">Hint: compute $\displaystyle\int_0^{b}\cos x\,dx$ as a function of $b$ and examine its behavior for $b\to+\infty$. Which property of the limit is violated?</p></div>
+
+<div class="grp"><h2>B. Unbounded integrands</h2>
+<p class="lead">Locate the point at which the function blows up and approach it by a limit from the interior of the interval.</p></div>
+
+<div class="ex"><div class="num">18E.5 <span class="lvl l1">BASIC</span></div>
+<p>Examine the convergence and compute the value of $\displaystyle\int_0^{4}\frac{dx}{\sqrt{4-x}}$.</p>
+<p class="ypod">Hint: the singularity is at the upper limit.</p></div>
+
+<div class="ex"><div class="num">18E.6 <span class="lvl l1">BASIC</span></div>
+<p>Examine the convergence and compute the value of $\displaystyle\int_0^{1}\frac{x}{\sqrt{1-x^2}}\,dx$.</p></div>
+
+<div class="ex"><div class="num">18E.7 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Examine the convergence and compute the value of $\displaystyle\int_0^{1}\ln x\,dx$.</p>
+<p class="ypod">Hint: find an antiderivative by integration by parts and examine separately the limit of the boundary term as the lower limit tends to $0^{+}$.</p></div>
+
+<div class="ex"><div class="num">18E.8 <span class="lvl l3">ADVANCED</span></div>
+<p>Examine the convergence and, if it converges, compute the value of $\displaystyle\int_{-1}^{8}\frac{dx}{\sqrt[3]{x^2}}$.</p>
+<p class="ypod">Hint: the singularity is interior. Split at $0$ and require that <em>both</em> improper integrals converge separately; the integrand is defined for negative $x$ as well.</p></div>
+
+<div class="grp"><h2>C. The $p$-integrals</h2>
+<p class="lead">The test for $p$-integrals answers the question of convergence without any computation — it is enough to see which limit creates the problem.</p></div>
+
+<div class="ex"><div class="num">18E.9 <span class="lvl l1">BASIC</span></div>
+<p>Classify as convergent or divergent, without computing any value: (α) $\displaystyle\int_1^{+\infty}\frac{dx}{x^{5/4}}$, (β) $\displaystyle\int_0^{1}\frac{dx}{x^{5/4}}$, (γ) $\displaystyle\int_0^{1}\frac{dx}{x^{4/5}}$.</p>
+<p class="ypod">Hint: in each case first identify whether it is an integral of Type I or of Type II; the condition on $p$ is reversed.</p></div>
+
+<div class="ex"><div class="num">18E.10 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Show that $\displaystyle\int_0^{+\infty}\frac{dx}{x^{p}}$ diverges for <em>every</em> value of $p$.</p>
+<p class="ypod">Hint: split at $1$ and write the convergence condition imposed separately by each of the two pieces. Can the two conditions hold simultaneously?</p></div>
+
+<div class="ex"><div class="num">18E.11 <span class="lvl l3">ADVANCED</span></div>
+<p>Examine the convergence and compute the value of $\displaystyle\int_0^{1/2}\frac{dx}{x\,(\ln x)^2}$.</p>
+<p class="ypod">Hint: the singularity is at $0^{+}$ and lies in the borderline case $p=1$, where the power of $x$ does not by itself decide. Try the substitution $u=\ln x$ and note where the limits go.</p></div>
+
+<div class="grp"><h2>D. The comparison test</h2>
+<p class="lead">Find a simpler function that bounds the integrand from above (for convergence) or from below (for divergence) over the whole interval.</p></div>
+
+<div class="ex"><div class="num">18E.12 <span class="lvl l1">BASIC</span></div>
+<p>Show that $\displaystyle\int_1^{+\infty}\frac{dx}{x^3+x}$ converges, without computing it.</p>
+<p class="ypod">Hint: for $x\ge 1$ we have $x^3+x&gt;x^3$.</p></div>
+
+<div class="ex"><div class="num">18E.13 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Show that $\displaystyle\int_1^{+\infty}\frac{2+\sin x}{x^2}\,dx$ converges.</p>
+<p class="ypod">Hint: bound the numerator and confirm that the integrand is nonnegative, so that the comparison test applies.</p></div>
+
+<div class="ex"><div class="num">18E.14 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Show that $\displaystyle\int_1^{+\infty}\frac{dx}{x+\ln x}$ diverges.</p>
+<p class="ypod">Hint: for $x\ge 1$ we have $0\le\ln x\le x$; bound the denominator from above and compare with an integral of type $p$ with $p=1$.</p></div>
+
+<div class="grp"><h2>E. The limit comparison test</h2>
+<p class="lead">Identify the dominant behavior of the integrand near the singularity and compare it in the limit with a suitable power.</p></div>
+
+<div class="ex"><div class="num">18E.15 <span class="lvl l1">BASIC</span></div>
+<p>Examine the convergence of $\displaystyle\int_1^{+\infty}\frac{x+1}{x^3+2}\,dx$ by the limit comparison test.</p>
+<p class="ypod">Hint: keep the highest-degree terms of the numerator and the denominator in order to guess the comparison function.</p></div>
+
+<div class="ex"><div class="num">18E.16 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Examine the convergence of $\displaystyle\int_1^{+\infty}\frac{x^2+3}{x^3+x+1}\,dx$ and justify fully the choice of the comparison function.</p>
+<p class="ypod">Hint: first confirm that the denominator does not vanish for $x\ge 1$, so that the integral is improper only because of the infinite limit.</p></div>
+
+<div class="ex"><div class="num">18E.17 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Examine the convergence of $\displaystyle\int_0^{1}\frac{dx}{e^{x}-1}$.</p>
+<p class="ypod">Hint: the singularity is at $0^{+}$. Compute $\displaystyle\lim_{x\to 0^{+}}\frac{e^{x}-1}{x}$ and compare in the limit with an integral of type $p$ on $(0,1]$.</p></div>
+
+<div class="grp"><h2>F. Absolute convergence</h2>
+<p class="lead">If the integral of the absolute value converges, then the original one converges too — and indeed absolutely.</p></div>
+
+<div class="ex"><div class="num">18E.18 <span class="lvl l1">BASIC</span></div>
+<p>Show that $\displaystyle\int_0^{+\infty}e^{-x}\cos(2x)\,dx$ converges absolutely, without computing its value.</p>
+<p class="ypod">Hint: bound $|\cos(2x)|$ and compare with an exponential integral.</p></div>
+
+<div class="ex"><div class="num">18E.19 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Show that $\displaystyle\int_1^{+\infty}\frac{\sin x}{x^{3/2}}\,dx$ converges absolutely and explain why the comparison test <em>cannot</em> be applied directly to the integrand itself.</p>
+<p class="ypod">Hint: the comparison test requires nonnegative functions; what sign does $\sin x$ have on $[1,+\infty)$?</p></div>
+
+<div class="grp"><h2>G. The gamma function and the Laplace transform</h2>
+<p class="lead">The $\Gamma$ and the Laplace transform are improper integrals that depend on a parameter; the convergence must be stated together with the result.</p></div>
+
+<div class="ex"><div class="num">18E.20 <span class="lvl l1">BASIC</span></div>
+<p>Express by means of the $\Gamma$ function and compute $\displaystyle\int_0^{+\infty}x^{4}e^{-x}\,dx$.</p>
+<p class="ypod">Hint: identify the exponent with the form $t^{x-1}$ of the definition and use the relation $\Gamma(n+1)=n!$.</p></div>
+
+<div class="ex"><div class="num">18E.21 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>With the substitution $t=x^2$, express $\displaystyle\int_0^{+\infty}e^{-x^2}\,dx$ by means of the $\Gamma$ function and, accepting that $\Gamma(1/2)=\sqrt{\pi}$, find its value.</p>
+<p class="ypod">Hint: from $t=x^2$ we get $x=\sqrt{t}$ and $dx=\frac{1}{2}t^{-1/2}\,dt$; the new integral is improper at both limits, so justify its convergence.</p></div>
+
+<div class="ex"><div class="num">18E.22 <span class="lvl l3">ADVANCED</span></div>
+<p>Compute from the definition the Laplace transform $\displaystyle\mathcal{L}\{\cos(\omega t)\}=\int_0^{+\infty}e^{-st}\cos(\omega t)\,dt$, where $\omega\in\mathbb{R}$ is a constant, determining for which values of $s$ the integral converges.</p>
+<p class="ypod">Hint: two successive integrations by parts bring back the original integral; treat it as an equation. Justify separately the vanishing of the boundary terms.</p></div>
+
+<div class="grp"><h2>H. Mixed — composite singularities</h2>
+<p class="lead">Here there is more than one singularity: split correctly before every computation.</p></div>
+
+<div class="ex"><div class="num">18E.23 <span class="lvl l3">ADVANCED</span></div>
+<p>Examine the convergence and compute the value of $\displaystyle\int_1^{+\infty}\frac{dx}{x\sqrt{x^2-1}}$.</p>
+<p class="ypod">Hint: the integral is improper at <em>both</em> limits; split it at an interior point, e.g. at $x=2$. For the antiderivative try the trigonometric substitution $x=\sec\theta$ and watch the new limits.</p></div>
+
+<div class="ex"><div class="num">18E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>Examine the convergence and compute the value of $\displaystyle\int_0^{+\infty}\frac{dx}{\sqrt{x}\,(1+x)}$.</p>
+<p class="ypod">Hint: before any substitution, examine separately the behavior of the integrand near $0^{+}$ and for $x\to+\infty$ by means of integrals of type $p$. Then try $u=\sqrt{x}$.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">18E.25</div>
+<p>Examine whether $\displaystyle\int_1^{+\infty}\frac{dx}{x^3}$ converges and, if so, compute its value.</p></div>
+<div class="ex from-book"><div class="num">18E.26</div>
+<p>Examine the convergence and compute the value of $\displaystyle\int_0^{+\infty}\frac{dx}{x^2+9}$.</p></div>
+<div class="ex from-book"><div class="num">18E.27</div>
+<p>Examine whether $\displaystyle\int_0^{8}\frac{dx}{\sqrt[3]{x}}$ converges and, if so, compute its value.</p></div>
+<div class="ex from-book"><div class="num">18E.28</div>
+<p>Apply the test for $p$-integrals: (α) $\displaystyle\int_1^{+\infty}\frac{dx}{x\sqrt{x}}$, (β) $\displaystyle\int_1^{+\infty}\frac{dx}{\sqrt{x}}$.</p></div>
+<div class="ex from-book"><div class="num">18E.29</div>
+<p>Show that $\displaystyle\int_1^{+\infty}\frac{\sin x}{x^2}\,dx$ converges (absolutely) and find a bound for its value.</p></div>
+<div class="ex from-book"><div class="num">18E.30</div>
+<p>Examine the convergence of $\displaystyle\int_1^{+\infty}\frac{dx}{x+e^{x}}$.</p></div>
+<div class="ex from-book"><div class="num">18E.31</div>
+<p>Compute $\displaystyle\int_0^{+\infty}x^2e^{-2x}\,dx$ by a suitable change of variable and the $\Gamma$ function.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">18E.32</div>
+<p>Compute by integration by parts $\displaystyle\int_0^{+\infty}e^{-x}\cos x\,dx$ (bringing back the original integral) and explain why the boundary terms vanish at the upper limit ($x\to+\infty$), while the contribution at $x=0$ is equal to $1$.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 18.1.1 – Type I Integrals (Infinite Limits)</h3></div>
+<div class="ex from-book"><div class="num">18E.33</div>
+<p>Show that $\displaystyle\int_{-\infty}^{+\infty}x\,dx$ <em>diverges</em>, although $\displaystyle\lim_{R\to+\infty}\int_{-R}^{R}x\,dx=0$. Explain why the symmetry argument is not enough.</p></div>
+<div class="grp2"><h3>Exercises for Section 18.1.1 – Type II Integrals (Unbounded Function)</h3></div>
+<div class="ex from-book"><div class="num">18E.34</div>
+<p>Examine the convergence of the integrals with an <em>interior</em> singularity and compute them where they converge: <ol class="grk"><li>$\displaystyle\int_0^{3}\frac{dx}{(x-1)^{2/3}}$ </li><li>$\displaystyle\int_0^{2}\frac{dx}{x-1}$ </li><li>$\displaystyle\int_{-1}^{1}\frac{dx}{\sqrt[3]{x}}$</li></ol></p></div>
+<div class="grp2"><h3>Exercises for Section 18.1.2 – The $p$-Integrals</h3></div>
+<div class="ex from-book"><div class="num">18E.35</div>
+<p>Show that $\displaystyle\int_2^{+\infty}\frac{dx}{x(\ln x)^2}$ <em>converges</em> and compute its value. Comment on the difference from $\displaystyle\int_2^{+\infty}\frac{dx}{x\ln x}$ (exercise 18E.41).</p></div>
+<div class="grp2"><h3>Exercises for Section 18.1.3 – Comparison Tests</h3></div>
+<div class="ex from-book"><div class="num">18E.36</div>
+<p>Show that $\displaystyle\int_{-\infty}^{+\infty}e^{-x^2}\,dx$ converges, by comparing with $e^{-|x|}$ for $|x|\geq 1$.</p></div>
+<div class="grp2"><h3>Exercises for Section 18.1.4 – The Gamma Function &amp; the Laplace Transform</h3></div>
+<div class="ex from-book"><div class="num">18E.37</div>
+<p>Compute from the definition the Laplace transforms: (α) $\mathcal{L}\{1\}$, (β) $\mathcal{L}\{e^{at}\}$, (γ) $\mathcal{L}\{t^n\}$, determining in each case for which $s$ the integral converges.</p></div>
+<div class="grp2"><h3>Exercises for Section 18.2 – Applications</h3></div>
+<div class="ex from-book"><div class="num">18E.38</div>
+<p><strong>The exponential distribution:</strong> for $f(x)=\lambda e^{-\lambda x}$, $x\geq 0$ and $\lambda&gt;0$, show that $\displaystyle\int_0^{+\infty}f(x)\,dx=1$ and that the mean value is $\displaystyle\int_0^{+\infty}x\,f(x)\,dx=\frac{1}{\lambda}$.</p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group C)</h3></div>
+<div class="grp2"><h3>Exercises for Section 18.1.1 – Type I Integrals (Infinite Limits)</h3></div>
+<div class="ex from-book"><div class="num">18E.39</div>
+<p>By decomposition into partial fractions, examine the convergence and compute $\displaystyle\int_2^{+\infty}\frac{dx}{x^2-1}$.</p></div>
+<div class="grp2"><h3>Exercises for Section 18.1.1 – Type II Integrals (Unbounded Function)</h3></div>
+<div class="ex from-book"><div class="num">18E.40</div>
+<p>Compute $\displaystyle\int_0^{1}x\ln x\,dx$ by integration by parts and explain why the boundary term vanishes.</p></div>
+<div class="grp2"><h3>Exercises for Section 18.1.2 – The $p$-Integrals</h3></div>
+<div class="ex from-book"><div class="num">18E.41</div>
+<p>Examine whether $\displaystyle\int_2^{+\infty}\frac{dx}{x\ln x}$ converges or diverges (the borderline case $p=1$).</p></div>
+<div class="grp2"><h3>Exercises for Section 18.1.3 – Comparison Tests</h3></div>
+<div class="ex from-book"><div class="num">18E.42</div>
+<p>Examine the <em>absolute</em> convergence of $\displaystyle\int_1^{+\infty}\frac{\cos x}{x^2}\,dx$ and justify the choice of the comparison function.</p></div>
+<div class="grp2"><h3>Exercises for Section 18.1.4 – The Gamma Function &amp; the Laplace Transform</h3></div>
+<div class="ex from-book"><div class="num">18E.43</div>
+<p><strong>The Laplace transform:</strong> Show, by integration by parts, that $\displaystyle\int_0^{+\infty}t\,e^{-st}\,dt=\frac{1}{s^2}$ for $s&gt;0$ and explain why the integral diverges when $s\le 0$.</p></div>
+<div class="grp2"><h3>Exercises for Section 18.2 – Applications</h3></div>
+<div class="ex from-book"><div class="num">18E.44</div>
+<p><strong>The normal distribution:</strong> verify the normalization condition $\displaystyle\int_{-\infty}^{+\infty}\frac{1}{\sqrt{2\pi}}e^{-x^2/2}\,dx=1$, accepting that $\displaystyle\int_{-\infty}^{+\infty}e^{-u^2}\,du=\sqrt{\pi}$.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">18E.45</div>
+<p>Show that $\displaystyle\int_0^{+\infty}\frac{dx}{1+x^{n}}$ converges for every integer $n\ge 2$ and compute it for $n=2$ and $n=3$.</p></div>
+<div class="ex from-book"><div class="num">18E.46</div>
+<p><strong>The Cauchy distribution:</strong> for $f(x)=\dfrac{1}{\pi(1+x^2)}$ show that $\displaystyle\int_{-\infty}^{+\infty}f(x)\,dx=1$, but that $\displaystyle\int_{-\infty}^{+\infty}x\,f(x)\,dx$ does not converge: the mean value of the distribution is not defined.</p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group D)</h3></div>
+<div class="grp2"><h3>Exercises for Section 18.1.4 – The Gamma Function &amp; the Laplace Transform</h3></div>
+<div class="ex from-book"><div class="num">18E.47</div>
+<p>Accepting that $\Gamma(1/2)=\sqrt{\pi}$, express by means of $\Gamma$ and compute $\displaystyle\int_0^{+\infty}x^{3/2}e^{-x}\,dx$.</p></div>
+<div class="grp2"><h3>Exercises for Section 18.2 – Applications</h3></div>
+<div class="ex from-book"><div class="num">18E.48</div>
+<p><strong>Application:</strong> The energy of a damped signal is given by $E=\displaystyle\int_0^{+\infty}e^{-2t}\sin^2 t\,dt$. Show that the improper integral converges and compute its value.</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

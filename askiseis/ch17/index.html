@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Applications of the Integral</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">⊕ Additional Exercises</div>
+  <h1>Applications of the Integral</h1>
+  <p class="chapter-label">Chapter 17 · Applications of the Integral</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by application</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">You always draw the region first and mark the axis of revolution: that is what decides
+  the choice between disks, washers and shells. In the physical applications you work in the International
+  System of Units, with $\rho=1000\,\mathrm{kg/m^3}$ for water and $g=9.81\,\mathrm{m/s^2}$. Every
+  numerical result you check by an order-of-magnitude estimate before you accept it.</p>
+</div>
+
+<div class="grp"><h2>A. Numerical integration (the trapezoidal rule)</h2>
+<p class="lead">The trapezoidal rule replaces the curve by chords; the error is controlled by the second derivative.</p></div>
+
+<div class="ex"><div class="num">17E.1 <span class="lvl l1">BASIC</span></div>
+<p>Apply the trapezoidal rule with $n=4$ to $\displaystyle\int_0^2 x^3\,dx$ and compare the estimate with the exact value of the integral.</p>
+<p class="ypod">Hint: the step is $h=\dfrac{b-a}{n}$ and the interior nodes are weighted by a factor $2$.</p></div>
+
+<div class="ex"><div class="num">17E.2 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The velocity of a vehicle moving in a straight line was recorded every $5\,\mathrm{s}$:</p>
+<p>$t\,(\mathrm{s}):\ 0,\ 5,\ 10,\ 15,\ 20,\ 25,\ 30$</p>
+<p>$v\,(\mathrm{m/s}):\ 0.0;\ 7.5;\ 13.0;\ 17.5;\ 20.0;\ 19.5;\ 16.0$</p>
+<p>Estimate by the trapezoidal rule ($n=6$) the distance traveled in the $30\,\mathrm{s}$ and compute the average velocity of the vehicle.</p>
+<p class="ypod">Hint: the distance is the integral of the velocity with respect to time; you do not have a formula for $v(t)$, only values at equally spaced nodes.</p></div>
+
+<div class="ex"><div class="num">17E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Using the bound $|E_T|\le\dfrac{(b-a)^3}{12n^2}M_2$, with $M_2=\max_{[a,b]}|f''|$, find the least number of subintervals $n$ for which the trapezoidal rule computes $\displaystyle\int_0^1 e^{x}\,dx$ with an error (α) $|E_T|&lt;10^{-3}$ and (β) $|E_T|&lt;10^{-5}$. Comment on how $n$ changes when you require a hundred times better accuracy.</p>
+<p class="ypod">Hint: first locate at which endpoint of $[0,1]$ the quantity $|f''|$ is maximized.</p></div>
+
+<div class="ex"><div class="num">17E.4 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $f$ be twice differentiable and convex on $[a,b]$, that is $f''(x)\ge 0$ for every $x\in[a,b]$. Prove that for every $n$ we have $\displaystyle T_n\ \ge\ \int_a^b f(x)\,dx$, that is, the trapezoidal rule always overestimates the integral. Interpret the conclusion geometrically and state the corresponding result for a concave $f$.</p>
+<p class="ypod">Hint: it is enough to show that on each subinterval $[x_{i-1},x_i]$ the chord joining the endpoints of the graph lies above the graph.</p></div>
+
+<div class="grp"><h2>B. Simpson's rule and error estimation</h2>
+<p class="lead">Simpson's rule passes a parabola through three successive points and requires an even number of subintervals.</p></div>
+
+<div class="ex"><div class="num">17E.5 <span class="lvl l1">BASIC</span></div>
+<p>Apply Simpson's rule with $n=4$ to $\displaystyle\int_0^2 \frac{dx}{1+x}$ and compare with the exact value $\ln 3$. Give the absolute error to four decimal places.</p>
+<p class="ypod">Hint: the weights of the interior nodes alternate, $4$ at the odd and $2$ at the even indices.</p></div>
+
+<div class="ex"><div class="num">17E.6 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>On the basis of the bound $|E_S|\le\dfrac{(b-a)^5}{180n^4}M_4$, where $M_4=\max_{[a,b]}|f^{(4)}|$, find the least <em>even</em> $n$ for which Simpson's rule computes $\displaystyle\int_0^1 e^{-x}\,dx$ with an error $|E_S|&lt;10^{-5}$. Compare the $n$ you have found with the corresponding one for the trapezoidal rule for the same accuracy requirement.</p>
+<p class="ypod">Hint: for the exponential function the fourth derivative is computed immediately; note that $n$ must be even.</p></div>
+
+<div class="ex"><div class="num">17E.7 <span class="lvl l3">ADVANCED</span></div>
+<p>The integral $\displaystyle\int_0^1 \sqrt{1+x^3}\,dx$ cannot be expressed in terms of elementary functions. (α) Estimate it by Simpson's rule for $n=4$, giving four decimal places. (β) Repeat the estimate with the trapezoidal rule for the same $n$. (γ) Which of the two estimates do you expect to be more accurate, and by what argument, given that the exact value is not available?</p>
+<p class="ypod">Hint: keep at least six decimal places in the intermediate values $f(x_i)$, so that the rounding does not corrupt the fourth decimal.</p></div>
+
+<div class="grp"><h2>C. Volumes by disks and washers</h2>
+<p class="lead">Every strip perpendicular to the axis of revolution generates a disk or, when the region has a hole, a washer.</p></div>
+
+<div class="ex"><div class="num">17E.8 <span class="lvl l1">BASIC</span></div>
+<p>The curve $y=e^{x}$, $x\in[0,1]$, is revolved about the $x$ axis. Find the volume of the solid by the method of disks.</p></div>
+
+<div class="ex"><div class="num">17E.9 <span class="lvl l1">BASIC</span></div>
+<p>The region bounded by the curve $x=y^{2}$, the $y$ axis and the lines $y=0$, $y=2$ is revolved about the $y$ axis. Find the volume by integrating with respect to $y$.</p>
+<p class="ypod">Hint: here the disks are horizontal and their radius is $x=y^2$.</p></div>
+
+<div class="ex"><div class="num">17E.10 <span class="lvl l2">INTERMEDIATE</span></div>
+<p><em>Method of washers:</em> the region enclosed by the parabola $y=4-x^{2}$ and the line $y=x+2$ is revolved about the $x$ axis. Compute the volume of the solid.</p>
+<p class="ypod">Hint: first find the points of intersection of the two curves and determine which of them gives the outer radius over the whole interval of integration.</p></div>
+
+<div class="grp"><h2>D. Volumes by cylindrical shells</h2>
+<p class="lead">A vertical strip at distance $x$ from the axis unrolls into a rectangle of area $2\pi x\,f(x)\,dx$.</p></div>
+
+<div class="ex"><div class="num">17E.11 <span class="lvl l1">BASIC</span></div>
+<p>The region under the curve $y=x^{2}+1$, $x\in[0,2]$, is revolved about the $y$ axis. Find the volume by the method of cylindrical shells.</p></div>
+
+<div class="ex"><div class="num">17E.12 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The region between $y=\sin x$ and the $x$ axis, for $x\in[0,\pi]$, is revolved about the $y$ axis. Compute the volume by shells and explain why the method of disks would here be clearly more difficult.</p>
+<p class="ypod">Hint: the integral $\displaystyle\int x\sin x\,dx$ is handled by integration by parts.</p></div>
+
+<div class="ex"><div class="num">17E.13 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The region enclosed by the curves $y=x$ and $y=x^{3}$ for $x\in[0,1]$ is revolved about the $y$ axis. Find the volume by the method of shells.</p>
+<p class="ypod">Hint: the height of the shell at position $x$ is the difference of the two functions; check which one is larger on $[0,1]$.</p></div>
+
+<div class="grp"><h2>E. Arc length</h2>
+<p class="lead">The root $\sqrt{1+[f'(x)]^{2}}$ becomes manageable only when the quantity under the root is a perfect square.</p></div>
+
+<div class="ex"><div class="num">17E.14 <span class="lvl l1">BASIC</span></div>
+<p>Find the length of the arc of the curve $y=\dfrac{2}{3}(x-1)^{3/2}$ from $x=1$ to $x=4$.</p>
+<p class="ypod">Hint: after squaring, the quantity $1+[f'(x)]^{2}$ simplifies to a monomial.</p></div>
+
+<div class="ex"><div class="num">17E.15 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find the length of the arc of the curve $y=\dfrac{x^{3}}{3}+\dfrac{1}{4x}$ from $x=1$ to $x=2$.</p>
+<p class="ypod">Hint: $1+[f'(x)]^{2}$ is a perfect square; write it as $\bigl(A(x)+B(x)\bigr)^{2}$ before taking the root.</p></div>
+
+<div class="ex"><div class="num">17E.16 <span class="lvl l3">ADVANCED</span></div>
+<p>The astroid is given in parametric form by $x=a\cos^{3}t$, $y=a\sin^{3}t$, with $a&gt;0$ and $t\in[0,2\pi]$. Find its total length.</p>
+<p class="ypod">Hint: use the symmetry and compute only the part $t\in[0,\pi/2]$. Note that $\sqrt{u^{2}}=|u|$ in simplifying the root.</p></div>
+
+<div class="grp"><h2>F. The area of a surface of revolution</h2>
+<p class="lead">Every elementary arc $ds$ generates a thin band of area $2\pi f(x)\,ds$.</p></div>
+
+<div class="ex"><div class="num">17E.17 <span class="lvl l1">BASIC</span></div>
+<p>The line segment $y=\dfrac{x}{3}+1$, $x\in[0,3]$, is revolved about the $x$ axis. Find the area of the resulting surface and verify it with the geometric formula for the lateral surface of a frustum of a cone, $S=\pi(r_{1}+r_{2})\ell$, where $\ell$ is the slant height.</p></div>
+
+<div class="ex"><div class="num">17E.18 <span class="lvl l2">INTERMEDIATE</span></div>
+<p><em>A zone of a sphere.</em> The curve $y=\sqrt{R^{2}-x^{2}}$ is revolved about the $x$ axis for $x\in[a,b]$, where $-R&lt;a&lt;b&lt;R$. Show that the area of the resulting zone is $S=2\pi R\,(b-a)$, that is, it depends only on the height of the zone and not on its position. Check that for $a\to -R$ and $b\to R$ the formula $S=4\pi R^{2}$ is recovered.</p>
+<p class="ypod">Hint: first compute the product $f(x)\sqrt{1+[f'(x)]^{2}}$ and observe what simplifies.</p></div>
+
+<div class="grp"><h2>G. Center of mass and moments</h2>
+<p class="lead">The center of mass is a ratio of moment to mass, while the moment of inertia weights each elementary mass by the square of its distance from the axis.</p></div>
+
+<div class="ex"><div class="num">17E.19 <span class="lvl l1">BASIC</span></div>
+<p>A thin rod occupies the interval $[0,2]$ (in $\mathrm{m}$) and has linear density $\rho(x)=3-x$ (in $\mathrm{kg/m}$). Find (α) the total mass, in $\mathrm{kg}$, and (β) the position $\overline{x}$ of the center of mass.</p>
+<p class="ypod">Hint: before computing, explain why $\overline{x}$ must be less than $1\,\mathrm{m}$.</p></div>
+
+<div class="ex"><div class="num">17E.20 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find the center of mass $(\overline{x},\overline{y})$ of the homogeneous plane region enclosed by $y=\sin x$ and the $x$ axis, for $x\in[0,\pi]$.</p>
+<p class="ypod">Hint: $\overline{x}$ follows at once from the symmetry about the line $x=\pi/2$; for $\overline{y}$ you need $\displaystyle\int_0^{\pi}\sin^{2}x\,dx$.</p></div>
+
+<div class="ex"><div class="num">17E.21 <span class="lvl l3">ADVANCED</span></div>
+<p>A homogeneous circular disk of radius $R$ has constant surface density $\rho$ and total mass $M=\rho\pi R^{2}$. Using the formula $I_x=\dfrac{\rho}{3}\displaystyle\int_a^b\bigl([f(x)]^{3}-[g(x)]^{3}\bigr)\,dx$, prove by integration that the moment of inertia of the disk about one of its diameters is $I=\dfrac{1}{4}MR^{2}$. Then find the radius of gyration $k=\sqrt{I/M}$ and comment on its position relative to $R$.</p>
+<p class="ypod">Hint: you will arrive at $\displaystyle\int_{-R}^{R}\bigl(R^{2}-x^{2}\bigr)^{3/2}\,dx$; handle it by a trigonometric substitution and a power-reduction identity.</p></div>
+
+<div class="grp"><h2>H. Work and hydrostatic pressure</h2>
+<p class="lead">The work of a variable force: $W=\displaystyle\int_a^b F(x)\,dx$; the hydrostatic force on a vertical wall: $F=\displaystyle\int_0^h \rho g\,y\,w(y)\,dy$.</p></div>
+
+<div class="ex"><div class="num">17E.22 <span class="lvl l1">BASIC</span></div>
+<p>A force of magnitude $F(x)=\dfrac{10}{(1+x)^{2}}$ (in $\mathrm{N}$) acts along the direction of motion of a body. Compute its work for a displacement from $x=0$ to $x=3\,\mathrm{m}$.</p>
+<p class="ypod">Hint: a simple substitution suffices; give the result in $\mathrm{J}$.</p></div>
+
+<div class="ex"><div class="num">17E.23 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>A conical tank with its vertex pointing downwards has height $4\,\mathrm{m}$ and top radius $2\,\mathrm{m}$, and is full of water ($\rho=1000\,\mathrm{kg/m^{3}}$, $g=9.81\,\mathrm{m/s^{2}}$). Compute the work required to pump all the water up to the rim of the tank.</p>
+<p class="ypod">Hint: if $y$ is the height above the vertex, the elementary layer of thickness $dy$ has radius $y/2$ and must be raised by $4-y$.</p></div>
+
+<div class="ex"><div class="num">17E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>A vertical dam wall has the shape of a trapezoid: its width is $8\,\mathrm{m}$ at the free surface of the water, $4\,\mathrm{m}$ at the bottom, and the depth of the water is $6\,\mathrm{m}$. With $\rho=1000\,\mathrm{kg/m^{3}}$ and $g=9.81\,\mathrm{m/s^{2}}$, find (α) the total hydrostatic force on the wall and (β) the depth $\overline{y}$ of the center of pressure. Check whether $\overline{y}$ coincides with the depth of the centroid of the trapezoid and comment.</p>
+<p class="ypod">Hint: first express the width $w(y)$ as a linear function of the depth $y$ and use $\overline{y}=\dfrac{\int_0^h y^{2}w(y)\,dy}{\int_0^h y\,w(y)\,dy}$.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">17E.25</div>
+<p>Apply the trapezoidal rule with $n=4$ to $\displaystyle\int_0^1 e^{-x^2}\,dx$.</p></div>
+<div class="ex from-book"><div class="num">17E.26</div>
+<p>Apply Simpson's rule ($n=4$) to $\displaystyle\int_0^1 \frac{dx}{1+x^2}$ and compare with the exact value $\pi/4$.</p></div>
+<div class="ex from-book"><div class="num">17E.27</div>
+<p>Compute numerically $\displaystyle\int_0^4 \sqrt{x}\,dx$ with $n=4$ (exact value $16/3$) and find the error.</p></div>
+<div class="ex from-book"><div class="num">17E.28</div>
+<p>Find the area of the region between $y=\sqrt{x}$ and $y=x^2$.</p></div>
+<div class="ex from-book"><div class="num">17E.29</div>
+<p>Find the area between $y=\sin x$ and $y=\cos x$ on $[0,\pi/2]$.</p></div>
+<div class="ex from-book"><div class="num">17E.30</div>
+<p>Find the area of the region bounded by $y=e^x$, $y=x$, $x=0$ and $x=1$.</p></div>
+<div class="ex from-book"><div class="num">17E.31</div>
+<p>Find the area of the region bounded by $f(x)=x^2-4$ and $g(x)=4-x^2$.</p></div>
+<div class="ex from-book"><div class="num">17E.32</div>
+<p>The curve $y=\sqrt{x+1}$, $x\in[0,3]$, is revolved about the $x$ axis. Find the volume.</p></div>
+<div class="ex from-book"><div class="num">17E.33</div>
+<p>The curve $y=\dfrac{1}{x}$, $x\in[1,3]$, is revolved about the $x$ axis. Compute the volume.</p></div>
+<div class="ex from-book"><div class="num">17E.34</div>
+<p><em>Method of washers:</em> revolve the region between $y=x$ and $y=x^2$ about the $x$ axis and find the volume.</p></div>
+<div class="ex from-book"><div class="num">17E.35</div>
+<p><em>A spherical cap:</em> find the volume of the solid obtained by revolving about the $x$ axis the arc $y=\sqrt{4-x^2}$ for $x\in[1,2]$.</p></div>
+<div class="ex from-book"><div class="num">17E.36</div>
+<p><em>Method of shells:</em> the region between $y=x$ and $y=x^2$ is revolved about the $y$ axis. Find the volume.</p></div>
+<div class="ex from-book"><div class="num">17E.37</div>
+<p>Find the length of the curve $y=\dfrac{x^2}{2}-\dfrac{\ln x}{4}$ from $x=1$ to $x=2$.</p></div>
+<div class="ex from-book"><div class="num">17E.38</div>
+<p>Find the length of $y=\cosh x$ from $x=0$ to $x=1$.</p></div>
+<div class="ex from-book"><div class="num">17E.39</div>
+<p>Find the arc length of $y=\ln(\cos x)$ from $x=0$ to $x=\dfrac{\pi}{4}$. <em>(Hint: $1+\tan^2x=\sec^2x$.)</em></p></div>
+<div class="ex from-book"><div class="num">17E.40</div>
+<p>Compute the area of the surface generated by revolving $y=2\sqrt{x}$, $x\in[0,3]$, about the $x$ axis.</p></div>
+<div class="ex from-book"><div class="num">17E.41</div>
+<p>Find the area of the surface generated by $y=x^3$, $x\in[0,1]$, revolved about the $x$ axis.</p></div>
+<div class="ex from-book"><div class="num">17E.42</div>
+<p>Find the average value of $f(x)=e^x$ on $[0,1]$.</p></div>
+<div class="ex from-book"><div class="num">17E.43</div>
+<p>Find the average value of $f(x)=\sin x$ on $[0,\pi]$ and interpret the result geometrically.</p></div>
+<div class="ex from-book"><div class="num">17E.44</div>
+<p>Find the area of the region $r=2\cos\theta$, $\theta\in[0,\pi]$ (a circle), and verify it geometrically.</p></div>
+<div class="ex from-book"><div class="num">17E.45</div>
+<p>Parametric curve $x=t^2$, $y=t^3$, $t\in[0,1]$: find the area of the region under the curve.</p></div>
+<div class="ex from-book"><div class="num">17E.46</div>
+<p>Find the area of one petal of the rose $r=\sin(2\theta)$, $\theta\in[0,\pi/2]$.</p></div>
+<div class="ex from-book"><div class="num">17E.47</div>
+<p>Find the area of the region common to the curves $r=1$ and $r=2\cos\theta$.</p></div>
+<div class="ex from-book"><div class="num">17E.48</div>
+<p>Find the length of the circle $r=a\cos\theta$ for $\theta\in[-\pi/2,\pi/2]$.</p></div>
+<div class="ex from-book"><div class="num">17E.49</div>
+<p>Find the length of the parametric curve $x=t^2$, $y=\dfrac{2}{3}t^3$, for $t\in[0,2\sqrt{2}]$.</p></div>
+<div class="ex from-book"><div class="num">17E.50</div>
+<p>Compute the center of mass ($\overline{x}$) of a thin rod $[0,2]$ with linear density $\rho(x)=x$.</p></div>
+<div class="ex from-book"><div class="num">17E.51</div>
+<p>The center of mass of a <em>non-homogeneous</em> rod $[0,3]$ with linear density $\rho(x)=x^2$ (in kg/m): find the mass and $\overline{x}$.</p></div>
+<div class="ex from-book"><div class="num">17E.52</div>
+<p>Find the center of mass of a homogeneous triangle with vertices $(0,0)$, $(1,0)$, $(0,1)$.</p></div>
+<div class="ex from-book"><div class="num">17E.53</div>
+<p>A spring of constant $k=500\,\mathrm{N/m}$ is stretched $0.2\,\mathrm{m}$ from its natural position. Compute the work required.</p></div>
+<div class="ex from-book"><div class="num">17E.54</div>
+<p>A force $F(x)=3x^2+2$ (in N) acts along an axis. Compute the work for a displacement from $x=0$ to $x=4\,\mathrm{m}$.</p></div>
+<div class="ex from-book"><div class="num">17E.55</div>
+<p>A rectangular wall of width $b=3\,\mathrm{m}$ is submerged vertically in water down to a depth $h=4\,\mathrm{m}$. Find the total hydrostatic force.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">17E.56</div>
+<p>A circular hatch of radius $1$ m has its center at a depth of $4$ m below the free surface. Compute the hydrostatic force ($\rho=1000$ kg/m$^3$, $g=9.81$ m/s$^2$) and verify the rule $F=\rho g\,\overline{y}_c A$.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 17.3 – Volumes of Solids of Revolution (Disks, Washers, Shells)</h3></div>
+<div class="ex from-book"><div class="num">17E.57</div>
+<p><em>Method of shells:</em> the curve $y=x^2$, $x\in[0,2]$, is revolved about the $y$ axis. Find the volume.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">17E.58</div>
+<p><strong>Hydrostatic pressure on a dam:</strong> a dam in the shape of the parabola $y=x^2/4$ ($-4\leq x\leq 4$, in meters), with the free surface at $y=4$ m. (α) Compute the total hydrostatic force ($\rho_w=1000$ kg/m$^3$). (β) Find its point of application.</p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group C)</h3></div>
+<div class="grp2"><h3>Exercises for Section 17.1 – Numerical Integration</h3></div>
+<div class="ex from-book"><div class="num">17E.59</div>
+<p><strong>Application:</strong> The depth of a river was measured every $2$&nbsp;m across a width of $8$&nbsp;m and was found to be $0$, $1.8$, $3.0$, $2.4$, $0$ (in m). Estimate the area of the cross-section by Simpson's rule ($n=4$) and the flow rate, if the average flow velocity is $0.5$&nbsp;m/s.</p></div>
+<div class="grp2"><h3>Exercises for Section 17.3 – Volumes of Solids of Revolution (Disks, Washers, Shells)</h3></div>
+<div class="ex from-book"><div class="num">17E.60</div>
+<p><em>Method of washers:</em> find the volume of the solid obtained by revolving about the $x$ axis the region between $y=x^2$ and $y=4$.</p></div>
+<div class="grp2"><h3>Exercises for Section 17.10 – Centers of Mass &amp; Moments of Inertia</h3></div>
+<div class="ex from-book"><div class="num">17E.61</div>
+<p>Find the center of mass of a homogeneous half-disk of radius $R$: use the symmetry for $\overline{x}=0$ and compute $\overline{y}$.</p></div>
+<div class="ex from-book"><div class="num">17E.62</div>
+<p>Show by integration that the moment of inertia of a homogeneous rod of length $L$ and mass $M$ is $I=\dfrac{ML^2}{12}$ about an axis through its midpoint and $I=\dfrac{ML^2}{3}$ about an axis through its end. Verify the result with the parallel axis theorem.</p></div>
+<div class="grp2"><h3>Exercises for Section 17.11 – Work, Hydrostatic Pressure &amp; Flow</h3></div>
+<div class="ex from-book"><div class="num">17E.63</div>
+<p>A triangular (isosceles) wall with base $b=2\,\mathrm{m}$ and height $H=3\,\mathrm{m}$ has its vertex at the free surface. Compute the total hydrostatic force.</p></div>
+<div class="ex from-book"><div class="num">17E.64</div>
+<p>A pipe of radius $R=0.05\,\mathrm{m}$ with the Poiseuille profile $v(r)=v_0(1-r^2/R^2)$, $v_0=0.4\,\mathrm{m/s}$. Compute the volumetric flow rate $Q=\displaystyle\int_0^R v(r)\,2\pi r\,dr$.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">17E.65</div>
+<p><strong>Pappus&ndash;Guldinus theorem:</strong> the torus created by revolving a circle of radius $r$ whose center is at distance $R&gt;r$ from the axis has volume $V=2\pi^2 Rr^2$ and surface area $S=4\pi^2 Rr$. Prove these relations by integration.</p></div>
+<div class="ex from-book"><div class="num">17E.66</div>
+<p><strong>A triangular beam:</strong> a triangle with vertices $(0,0)$, $(a,0)$, $(0,b)$ and homogeneous density $\rho$. Find $(\bar x,\bar y)$, the moment of inertia about the $x$ axis and the point of balance.</p></div>
+
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

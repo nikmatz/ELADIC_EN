@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Introduction to Dynamical Systems</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">⊕ Additional Exercises</div>
+  <h1>Introduction to Dynamical Systems</h1>
+  <p class="chapter-label">Chapter 7 · Introduction to Dynamical Systems</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by topic</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">Every result checks itself. An eigenpair is verified by a single
+  multiplication ($A\mathbf{v}=\lambda\mathbf{v}$), a closed formula for $\mathbf{x}_k$
+  is verified by setting $k=0$ and $k=1$, and a stationary distribution is verified by the relations
+  $P\boldsymbol{\pi}=\boldsymbol{\pi}$ and $\sum_i\pi_i=1$. You do not need a solutions manual.</p>
+</div>
+
+<div class="grp"><h2>A. Discrete linear systems</h2>
+<p class="lead">The solution is always $\mathbf{x}_k=A^k\mathbf{x}_0$; what is asked is to write it down <em>without</em> raising the matrix to a power.</p></div>
+
+<div class="ex"><div class="num">7E.1 <span class="lvl l1">BASIC</span></div>
+<p>For the system $\mathbf{x}_{k+1}=A\mathbf{x}_k$ with $A=\begin{bmatrix}0&amp;2\\1&amp;1\end{bmatrix}$ and $\mathbf{x}_0=\begin{bmatrix}1\\0\end{bmatrix}$, compute $\mathbf{x}_1$, $\mathbf{x}_2$ and $\mathbf{x}_3$ by successive multiplications. Then find the eigenvalues of $A$ and say whether the system decays, remains bounded or blows up.</p></div>
+
+<div class="ex"><div class="num">7E.2 <span class="lvl l1">BASIC</span></div>
+<p>Let $A=\begin{bmatrix}4&amp;1\\1&amp;4\end{bmatrix}$ and $\mathbf{x}_0=\begin{bmatrix}2\\0\end{bmatrix}$ be given. Find the eigenvalues and the eigenvectors of $A$, expand $\mathbf{x}_0$ in the basis of the eigenvectors and write a closed formula for $\mathbf{x}_k$.</p>
+<p class="ypod">Hint: for a symmetric matrix of the form $\begin{bmatrix}a&amp;b\\b&amp;a\end{bmatrix}$ the vectors $(1,1)^\top$ and $(1,-1)^\top$ are always eigenvectors.</p></div>
+
+<div class="ex"><div class="num">7E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $A=\begin{bmatrix}1&amp;1\\0&amp;1\end{bmatrix}$. (α) Show that $A$ has a double eigenvalue but only one linearly independent eigenvector, and therefore is not diagonalizable. (β) Prove by induction that $A^k=\begin{bmatrix}1&amp;k\\0&amp;1\end{bmatrix}$ for every $k\ge 1$. (γ) Find $\mathbf{x}_k$ for $\mathbf{x}_0=(0,1)^\top$ and describe the trajectory.</p></div>
+
+<div class="ex"><div class="num">7E.4 <span class="lvl l3">ADVANCED</span></div>
+<p>Consider the recursive sequence $a_{k+2}=a_{k+1}+2a_k$ with $a_0=1$ and $a_1=0$. Setting $\mathbf{x}_k=(a_k,a_{k+1})^\top$, write the recurrence in the form $\mathbf{x}_{k+1}=A\mathbf{x}_k$, find the eigenvalues and the eigenvectors of $A$ and give a closed formula for $a_k$. Verify the formula for $k=0,1,2$.</p>
+<p class="ypod">Hint: the companion matrix has first row $(0\ \ 1)$.</p></div>
+
+<div class="grp"><h2>B. The role of the eigenvalues</h2>
+<p class="lead">The fate of the system is read off from the term with the largest $|\lambda|$ — provided its coefficient is not zero.</p></div>
+
+<div class="ex"><div class="num">7E.5 <span class="lvl l1">BASIC</span></div>
+<p>The solution of a discrete system is $\displaystyle \mathbf{x}_k=2\,(0.8)^k\begin{bmatrix}1\\2\end{bmatrix}+(0.5)^k\begin{bmatrix}1\\-1\end{bmatrix}$. (α) Compute $\mathbf{x}_0$ and $\mathbf{x}_1$. (β) Find $\lim_{k\to\infty}\mathbf{x}_k$. (γ) Which of the two terms dies out faster and what is, consequently, the limiting <em>direction</em> of $\mathbf{x}_k$?</p></div>
+
+<div class="ex"><div class="num">7E.6 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For $A=\begin{bmatrix}6&amp;-2\\2&amp;1\end{bmatrix}$ and $\mathbf{x}_0=\begin{bmatrix}3\\3\end{bmatrix}$, write the solution $\mathbf{x}_k$ in closed form, determine the dominant term and compute $\displaystyle\lim_{k\to\infty}\frac{\mathbf{x}_k}{5^k}$.</p></div>
+
+<div class="ex"><div class="num">7E.7 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $A=\begin{bmatrix}2&amp;0\\0&amp;-2\end{bmatrix}$ and $\mathbf{x}_0=(1,1)^\top$. (α) Write $\mathbf{x}_k$. (β) Show that the sequence $\mathbf{x}_k/2^k$ does <em>not</em> converge and determine its two accumulation points. (γ) Which hypothesis of the conclusion &ldquo;the direction of $\mathbf{x}_k$ tends to the dominant eigendirection&rdquo; is violated here?</p>
+<p class="ypod">Hint: compare the absolute values of the two eigenvalues.</p></div>
+
+<div class="grp"><h2>C. Stability</h2>
+<p class="lead">One single number decides everything: the spectral radius $\rho(A)=\max_i|\lambda_i|$ relative to unity.</p></div>
+
+<div class="ex"><div class="num">7E.8 <span class="lvl l1">BASIC</span></div>
+<p>For each of the following matrices compute the spectral radius $\rho(A)$ and characterize the system $\mathbf{x}_{k+1}=A\mathbf{x}_k$ as asymptotically stable, bounded or unstable:
+(α) $\begin{bmatrix}0.4&amp;0\\0&amp;-0.9\end{bmatrix}$, (β) $\begin{bmatrix}1&amp;0.3\\0&amp;0.2\end{bmatrix}$, (γ) $\begin{bmatrix}-1.1&amp;0\\0.5&amp;0.3\end{bmatrix}$.</p></div>
+
+<div class="ex"><div class="num">7E.9 <span class="lvl l1">BASIC</span></div>
+<p>For $A=\begin{bmatrix}0&amp;-0.6\\0.6&amp;0\end{bmatrix}$ compute the (complex) eigenvalues and their absolute value, characterize the stability of $\mathbf{x}_{k+1}=A\mathbf{x}_k$ and describe qualitatively the trajectories in the plane.</p></div>
+
+<div class="ex"><div class="num">7E.10 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The system $\mathbf{x}_{k+1}=\begin{bmatrix}0&amp;1\\-b&amp;0\end{bmatrix}\mathbf{x}_k$ with $b\in\mathbb{R}$ is given. Determine for which values of $b$ the system is asymptotically stable and for which it is bounded. Distinguish the cases $b&gt;0$ (complex eigenvalues) and $b&lt;0$ (real ones).</p></div>
+
+<div class="ex"><div class="num">7E.11 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $A=\begin{bmatrix}0.5&amp;a\\0&amp;0.5\end{bmatrix}$ with $a\neq0$. (α) Show that $A$ is not diagonalizable. (β) Writing $A=0.5\,I+N$ with $N^2=O$, find a closed formula for $A^k$. (γ) Prove that $\mathbf{x}_k\to\mathbf{0}$ for every $\mathbf{x}_0$ and for every value of $a$, although the matrix is defective.</p>
+<p class="ypod">Hint: in (γ) you need the behavior of the sequence $k\,r^{k}$ when $0&lt;r&lt;1$.</p></div>
+
+<div class="grp"><h2>D. Markov chains</h2>
+<p class="lead">For a column-stochastic matrix the eigenvalue $1$ always exists; the corresponding eigenvector, normalized, is the stationary distribution.</p></div>
+
+<div class="ex"><div class="num">7E.12 <span class="lvl l1">BASIC</span></div>
+<p>Let $P=\begin{bmatrix}0.7&amp;0.4\\0.3&amp;0.6\end{bmatrix}$ be given. Verify that it is column-stochastic and find the stationary distribution $\boldsymbol{\pi}$ with $P\boldsymbol{\pi}=\boldsymbol{\pi}$ and $\pi_1+\pi_2=1$.</p></div>
+
+<div class="ex"><div class="num">7E.13 <span class="lvl l2">INTERMEDIATE</span></div>
+<p><strong>Application:</strong> A production machine is every day in one of two states: <em>in operation</em> or <em>out of operation</em>. A machine in operation breaks down within the day with probability $0.1$, while one out of operation is repaired with probability $0.6$. (α) Write the column-stochastic matrix $P$ of the chain. (β) Find the stationary distribution. (γ) Find the second eigenvalue of $P$ and explain what it determines about the speed of convergence.</p>
+<p class="ypod">Hint: for a $2\times2$ matrix we have $\lambda_1+\lambda_2=\mathrm{tr}(P)$ and you already know one eigenvalue.</p></div>
+
+<div class="ex"><div class="num">7E.14 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The column-stochastic matrix of three states
+$\displaystyle P=\begin{bmatrix}0.5&amp;0.2&amp;0\\0.5&amp;0.6&amp;0.3\\0&amp;0.2&amp;0.7\end{bmatrix}$ is given.
+Verify that the columns sum to one and find the stationary distribution $\boldsymbol{\pi}$ as exact fractions.</p>
+<p class="ypod">Hint: solve the homogeneous system $(P-I)\boldsymbol{\pi}=\mathbf{0}$ and normalize at the end; one of the three equations is redundant.</p></div>
+
+<div class="grp"><h2>E. Phase portraits</h2>
+<p class="lead">In continuous systems $\dot{\mathbf{x}}=A\mathbf{x}$ the place of the absolute value $|\lambda|$ is taken by the sign of $\operatorname{Re}\lambda$.</p></div>
+
+<div class="ex"><div class="num">7E.15 <span class="lvl l1">BASIC</span></div>
+<p>For each of the systems $\dot{\mathbf{x}}=A\mathbf{x}$ find the eigenvalues and classify the equilibrium point $(0,0)$:
+(α) $A=\begin{bmatrix}-4&amp;2\\1&amp;-3\end{bmatrix}$, (β) $A=\begin{bmatrix}1&amp;-2\\1&amp;3\end{bmatrix}$, (γ) $A=\begin{bmatrix}0&amp;3\\-3&amp;0\end{bmatrix}$.</p></div>
+
+<div class="ex"><div class="num">7E.16 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For $\dot{\mathbf{x}}=\begin{bmatrix}1&amp;2\\4&amp;3\end{bmatrix}\mathbf{x}$: find the eigenvalues and the eigenvectors, write the general solution, classify the equilibrium point and determine the <em>stable</em> and the <em>unstable</em> eigendirection. Finally give the solution with initial condition $\mathbf{x}(0)=(2,1)^\top$.</p></div>
+
+<div class="ex"><div class="num">7E.17 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For $\dot{\mathbf{x}}=\begin{bmatrix}-1&amp;-2\\2&amp;-1\end{bmatrix}\mathbf{x}$ compute the eigenvalues, classify the equilibrium point and determine (α) the rate at which the amplitude of the trajectory shrinks and (β) the period of one full revolution about the origin.</p>
+<p class="ypod">Hint: write $\lambda=\alpha\pm i\beta$; $\alpha$ controls the amplitude and $\beta$ the angular velocity.</p></div>
+
+<div class="ex"><div class="num">7E.18 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $\dot{\mathbf{x}}=A\mathbf{x}$ with $A=\begin{bmatrix}-2&amp;1\\0&amp;-2\end{bmatrix}$ be given. (α) Show that the eigenvalue $\lambda=-2$ is double with only one independent eigenvector $\mathbf{v}$. (β) Find a generalized eigenvector $\mathbf{w}$ with $(A-\lambda I)\mathbf{w}=\mathbf{v}$ and write the general solution. (γ) Classify the equilibrium point and explain why, despite the term $t\,e^{-2t}$, all the trajectories end at the origin.</p></div>
+
+<div class="grp"><h2>F. Applications</h2>
+<p class="lead">The same criterion appears in numerical methods, in populations and in vibrations of structures.</p></div>
+
+<div class="ex"><div class="num">7E.19 <span class="lvl l1">BASIC</span></div>
+<p><strong>Application:</strong> The error $\mathbf{e}_k$ of an iterative method for solving a linear system satisfies $\mathbf{e}_{k+1}=T\mathbf{e}_k$ with $T=\begin{bmatrix}0&amp;0.4\\0.4&amp;0\end{bmatrix}$. (α) Compute $\rho(T)$ and explain why the method converges. (β) Find the least number of iterations $k$ so that the magnitude of the error has been reduced below $10^{-3}$ of the initial one.</p></div>
+
+<div class="ex"><div class="num">7E.20 <span class="lvl l2">INTERMEDIATE</span></div>
+<p><strong>Application:</strong> A population of insects is divided into juveniles ($n_k$) and adults ($e_k$), with $n_{k+1}=3e_k$ and $e_{k+1}=0.5\,n_k+0.5\,e_k$. (α) Write the matrix $A$ of the system. (β) Find the eigenvalues and explain whether the total population grows or decreases in the long run, giving the rate of change per time step as a percentage. (γ) Find the limiting ratio of juveniles to adults.</p></div>
+
+<div class="ex"><div class="num">7E.21 <span class="lvl l2">INTERMEDIATE</span></div>
+<p><strong>Application:</strong> A single-degree-of-freedom system with mass $m=1000$ kg and stiffness $k=100\,000$ N/m is described by $m\ddot{x}+c\dot{x}+kx=0$. (α) Compute the natural frequency $\omega_n=\sqrt{k/m}$ and the critical damping $c_{cr}=2\sqrt{km}$. (β) For which values of $c$ is the response a decaying oscillation? (γ) For $c=12\,000$ N$\cdot$s/m write the first-order system, compute the eigenvalues and the damping ratio $\zeta=c/c_{cr}$ and classify the equilibrium point.</p></div>
+
+<div class="grp"><h2>G. Mixed and composite problems</h2>
+<p class="lead">Here the route is not given: first identify whether the system is discrete or continuous and which criterion applies.</p></div>
+
+<div class="ex"><div class="num">7E.22 <span class="lvl l1">BASIC</span></div>
+<p>For $A=\begin{bmatrix}2&amp;1\\1&amp;2\end{bmatrix}$ find the diagonalization $A=PDP^{-1}$ and give a closed formula for $A^k$ as a $2\times2$ matrix with entries in terms of $3^k$. Verify the result for $k=1$ and $k=2$.</p></div>
+
+<div class="ex"><div class="num">7E.23 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $A=\begin{bmatrix}0.5&amp;0\\1&amp;-0.9\end{bmatrix}$ be given. (α) Find the eigenvalues. (β) Characterize the stability of the <em>discrete</em> system $\mathbf{x}_{k+1}=A\mathbf{x}_k$. (γ) Characterize the stability of the <em>continuous</em> system $\dot{\mathbf{x}}=A\mathbf{x}$ and classify its equilibrium point. (δ) Explain why the two conclusions differ, referring to the two different criteria.</p></div>
+
+<div class="ex"><div class="num">7E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>Two tanks exchange liquid according to $\dot{\mathbf{x}}=A\mathbf{x}$, where $A=\begin{bmatrix}-2&amp;1\\2&amp;-1\end{bmatrix}$. (α) Observe that every column of $A$ sums to zero and show that the quantity $x_1(t)+x_2(t)$ remains constant. (β) Find the eigenvalues and the eigenvectors and explain why the zero eigenvalue was to be expected. (γ) For $\mathbf{x}(0)=(3,0)^\top$ write the solution $\mathbf{x}(t)$ and find $\lim_{t\to\infty}\mathbf{x}(t)$, checking that the limit is consistent with (α).</p>
+<p class="ypod">Hint: (α) follows by differentiating the sum and adding the two equations side by side.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">7E.25</div>
+<p>For the system $\mathbf{x}_{k+1}=A\mathbf{x}_k$ with $A=\begin{bmatrix}2&amp;0\\0&amp;3\end{bmatrix}$ and $\mathbf{x}_0=\begin{bmatrix}1\\2\end{bmatrix}$, compute $\mathbf{x}_1$, $\mathbf{x}_2$ and give a closed formula for $\mathbf{x}_k$.</p></div>
+<div class="ex from-book"><div class="num">7E.26</div>
+<p>Diagonalize $A=\dfrac{1}{4}\begin{bmatrix}5&amp;3\\3&amp;5\end{bmatrix}$ and compute the solution $\mathbf{x}_k=A^k\mathbf{x}_0$ for $\mathbf{x}_0=\begin{bmatrix}2\\0\end{bmatrix}$. What is the long-run behavior?</p></div>
+<div class="ex from-book"><div class="num">7E.27</div>
+<p><strong>Proof:</strong> If $A\mathbf{v}=\lambda\mathbf{v}$ and $\mathbf{x}_0=\mathbf{v}$, prove by induction that $\mathbf{x}_k=\lambda^k\mathbf{v}$ for every $k\ge0$.</p></div>
+<div class="ex from-book"><div class="num">7E.28</div>
+<p>For $A=\begin{bmatrix}2&amp;1\\0&amp;1\end{bmatrix}$ and $\mathbf{x}_0=\begin{bmatrix}2\\1\end{bmatrix}$, find the eigenvalues and the eigenvectors, expand $\mathbf{x}_0$ in a basis of eigenvectors and give a closed formula for $\mathbf{x}_k$.</p></div>
+<div class="ex from-book"><div class="num">7E.29</div>
+<p>For $A=\begin{bmatrix}3&amp;2\\2&amp;3\end{bmatrix}$ and $\mathbf{x}_0=\begin{bmatrix}4\\2\end{bmatrix}$, find the solution $\mathbf{x}_k$ and compute the limit of $\mathbf{x}_k/5^k$ as $k\to\infty$.</p></div>
+<div class="ex from-book"><div class="num">7E.30</div>
+<p>If the eigenvalues of a discrete system are $\lambda_1=0.8$ and $\lambda_2=-0.9$, is the system unstable, bounded or asymptotically stable? Justify your answer.</p></div>
+<div class="ex from-book"><div class="num">7E.31</div>
+<p>For the <em>discrete</em> system with $A=\begin{bmatrix}0&amp;1\\-0.5&amp;1\end{bmatrix}$ find the (complex) eigenvalues and characterize the stability.</p></div>
+<div class="ex from-book"><div class="num">7E.32</div>
+<p>For $A=\begin{bmatrix}0.5&amp;0.3\\0.2&amp;0.6\end{bmatrix}$: (α) find the eigenvalues, (β) examine whether $\mathbf{x}_{k}\to\mathbf{0}$, (γ) is there a nonzero constant vector $\mathbf{x}^\ast=A\mathbf{x}^\ast$? Give a physical interpretation.</p></div>
+<div class="ex from-book"><div class="num">7E.33</div>
+<p>For $P=\begin{bmatrix}0.85&amp;0.25\\0.15&amp;0.75\end{bmatrix}$ find the stationary distribution and the rate of convergence to it (by means of the second eigenvalue).</p></div>
+<div class="ex from-book"><div class="num">7E.34</div>
+<p>Show that $A=\begin{bmatrix}0.5&amp;0.3\\0.5&amp;0.7\end{bmatrix}$ is column-stochastic and find $\lim_{k\to\infty}\mathbf{x}_k$ for $\mathbf{x}_0=(1,0)^\top$.</p></div>
+<div class="ex from-book"><div class="num">7E.35</div>
+<p>For the system $\dot{\mathbf{x}}=A\mathbf{x}$ with $A=\begin{bmatrix}1&amp;2\\0&amp;-1\end{bmatrix}$, find the eigenvalues, the general solution and classify the equilibrium point.</p></div>
+<div class="ex from-book"><div class="num">7E.36</div>
+<p>For $\dot{\mathbf{x}}=\begin{bmatrix}-2&amp;0\\0&amp;-3\end{bmatrix}\mathbf{x}$ classify the equilibrium point, solve with initial condition $\mathbf{x}(0)=(1,2)^\top$ and find $\lim_{t\to\infty}\mathbf{x}(t)$.</p></div>
+<div class="ex from-book"><div class="num">7E.37</div>
+<p>Classify the equilibrium point of $\dot{\mathbf{x}}=\begin{bmatrix}1&amp;2\\2&amp;1\end{bmatrix}\mathbf{x}$ and sketch the phase portrait qualitatively.</p></div>
+<div class="ex from-book"><div class="num">7E.38</div>
+<p>For $A=\begin{bmatrix}-3&amp;1\\1&amp;-3\end{bmatrix}$ find the eigenvalues and the eigenvectors and write the solution $\mathbf{x}(t)$ with $\mathbf{x}(0)=(2,-1)^\top$. Classify the equilibrium point.</p></div>
+<div class="ex from-book"><div class="num">7E.39</div>
+<p><strong>Theoretical:</strong> When does a $2\times2$ linear system $\dot{\mathbf{x}}=A\mathbf{x}$ have a <em>center</em>? State the conditions in terms of the trace and the determinant of $A$ and give a numerical example.</p></div>
+<div class="ex from-book"><div class="num">7E.40</div>
+<p><strong>Application:</strong> A seismic damper with $m=500$ kg, $k=2000$ N/m and $b=100$ N$\cdot$s/m. Determine the type of damping and classify the equilibrium point of the phase portrait.</p></div>
+<div class="ex from-book"><div class="num">7E.41</div>
+<p><strong>Application:</strong> For a damping ratio $\zeta=0.05$ (typical for a concrete building) show that the eigenvalues are complex with negative real part and explain why the response is a decaying oscillation.</p></div>
+<div class="ex from-book"><div class="num">7E.42</div>
+<p>Explain why the phase portrait of a damped oscillator is a <em>stable focus</em>, whereas without damping it is a <em>center</em>. Connect your answer with the real part of the eigenvalues.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">7E.43</div>
+<p>The equation $\ddot{x}+5\dot{x}+6x=0$ is written as $\dot{\mathbf{x}}=A\mathbf{x}$. Find $A$, its eigenvalues, classify the equilibrium point and characterize the stability.</p></div>
+<div class="ex from-book"><div class="num">7E.44</div>
+<p>The equation $\ddot{x}+2\dot{x}+5x=0$: write it as a first-order system, find the eigenvalues and classify the equilibrium point. Is it stable?</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 7.1 – Discrete Linear Systems</h3></div>
+<div class="ex from-book"><div class="num">7E.45</div>
+<p><strong>Proof:</strong> If $\mathbf{x}_0=c_1\mathbf{v}_1+c_2\mathbf{v}_2$, where $\mathbf{v}_1$, $\mathbf{v}_2$ are eigenvectors of $A$ with eigenvalues $\lambda_1$, $\lambda_2$, prove that $\mathbf{x}_k=c_1\lambda_1^k\mathbf{v}_1+c_2\lambda_2^k\mathbf{v}_2$ (principle of superposition).</p></div>
+<div class="grp2"><h3>Exercises for Section 7.2 – The Role of the Eigenvalues</h3></div>
+<div class="ex from-book"><div class="num">7E.46</div>
+<p><strong>Proof:</strong> If $|\lambda_1|&gt;|\lambda_i|$ for $i=2,\ldots,n$ and $c_1\neq0$, prove that $\dfrac{\mathbf{x}_k}{\lambda_1^k}\to c_1\mathbf{v}_1$ as $k\to\infty$.</p></div>
+<div class="grp2"><h3>Exercises for Section 7.3 – Stability of a Linear System</h3></div>
+<div class="ex from-book"><div class="num">7E.47</div>
+<p><strong>Proof:</strong> On the basis of Theorem&nbsp;7.1, prove that the discrete system $\mathbf{x}_{k+1}=A\mathbf{x}_k$ with $A$ diagonalizable is asymptotically stable if and only if $\rho(A)&lt;1$.</p></div>
+<div class="grp2"><h3>Exercises for Section 7.4 – Markov Chains</h3></div>
+<div class="ex from-book"><div class="num">7E.48</div>
+<p>If $\lambda_1=1$ and $|\lambda_2|&lt;1$, explain (Theorem&nbsp;7.2) why $\mathbf{x}_k$ converges to the stationary distribution independently of the initial state and how the rate of convergence depends on $|\lambda_2|$.</p></div>
+<div class="grp2"><h3>Exercises for Section 7.5 – Phase Portraits of Linear Systems</h3></div>
+<div class="ex from-book"><div class="num">7E.49</div>
+<p>Making use of the relations $\lambda_1+\lambda_2=\mathrm{tr}(A)$ and $\lambda_1\lambda_2=\det(A)$, find the eigenvalues and classify the equilibrium point on the basis of Table&nbsp;7.1, when: (α)&nbsp;$\mathrm{tr}(A)=-2$, $\det(A)=5$&middot; (β)&nbsp;$\mathrm{tr}(A)=0$, $\det(A)=-3$&middot; (γ)&nbsp;$\mathrm{tr}(A)=3$, $\det(A)=1$.</p></div>
+<div class="grp2"><h3>Exercises for Section 7.6 – Applications: Seismic Response</h3></div>
+<div class="ex from-book"><div class="num">7E.50</div>
+<p><strong>Application:</strong> Show that in the model $m\ddot{x}+c\dot{x}+kx=0$ critical damping corresponds to a double real eigenvalue and explain when it is pursued as a response target in earthquake-resistant design (and why it is not a universal rule) (Example&nbsp;7.10).</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">7E.51</div>
+<p><strong>Combined:</strong> For $\dot{\mathbf{x}}=\begin{bmatrix}0&amp;1\\-3&amp;-4\end{bmatrix}\mathbf{x}$ with $\mathbf{x}(0)=(1,0)^\top$: find the eigenvalues, classify the equilibrium point, write the solution $\mathbf{x}(t)$ and sketch the trajectory in the phase plane.</p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group C)</h3></div>
+<div class="grp2"><h3>Exercises for Section 7.1 – Discrete Linear Systems</h3></div>
+<div class="ex from-book"><div class="num">7E.52</div>
+<p><strong>Application:</strong> Each year $80\%$ of the inhabitants of town A remain in it ($20\%$ move to B), while $70\%$ of the inhabitants of B remain ($30\%$ move to A). (α)&nbsp;Write the matrix $A$ of the system $\mathbf{x}_{k+1}=A\mathbf{x}_k$. (β)&nbsp;Show that its eigenvalues are $1$ and $\tfrac{1}{2}$. (γ)&nbsp;Find the long-run distribution for a total population of $1000$ inhabitants.</p></div>
+<div class="grp2"><h3>Exercises for Section 7.2 – The Role of the Eigenvalues</h3></div>
+<div class="ex from-book"><div class="num">7E.53</div>
+<p><strong>Geometric interpretation:</strong> For the matrix $A=\begin{bmatrix}3&amp;2\\2&amp;3\end{bmatrix}$ explain why, when $c_1\neq0$, the <em>direction</em> of $\mathbf{x}_k$ tends to the direction of the dominant eigenvector $\mathbf{v}_1=(1,1)^\top$. Give a specific initial condition with $c_1=0$ and describe what happens then.</p></div>
+<div class="grp2"><h3>Exercises for Section 7.3 – Stability of a Linear System</h3></div>
+<div class="ex from-book"><div class="num">7E.54</div>
+<p>For the rotation matrix
+\[A=\begin{bmatrix}\cos(\pi/4)&amp;-\sin(\pi/4)\\\sin(\pi/4)&amp;\cos(\pi/4)\end{bmatrix}\]
+compute the (complex) eigenvalues and their absolute value. Describe the trajectories of $\mathbf{x}_{k+1}=A\mathbf{x}_k$ and characterize the stability.</p></div>
+<div class="grp2"><h3>Exercises for Section 7.4 – Markov Chains</h3></div>
+<div class="ex from-book"><div class="num">7E.55</div>
+<p><strong>Proof:</strong> Show that the product of two column-stochastic matrices is a column-stochastic matrix.</p></div>
+<div class="grp2"><h3>Exercises for Section 7.5 – Phase Portraits of Linear Systems</h3></div>
+<div class="ex from-book"><div class="num">7E.56</div>
+<p>Construct a $2\times2$ matrix whose equilibrium point is an <em>unstable focus</em> and verify the classification by computing the eigenvalues.</p></div>
+<div class="grp2"><h3>Exercises for Section 7.6 – Applications: Seismic Response</h3></div>
+<div class="ex from-book"><div class="num">7E.57</div>
+<p><strong>Application:</strong> A two-story building with $m_1=m_2=1$&nbsp;t and $k_1=k_2=100$&nbsp;kN/m. Find the two natural frequencies $\omega_1$, $\omega_2$ and the corresponding mode shapes (Example&nbsp;7.9).</p></div>
+<div class="ex from-book"><div class="num">7E.58</div>
+<p><strong>Application:</strong> If the dominant period of an earthquake is $1$&nbsp;s and coincides with the natural period of a building, what phenomenon appears? How does damping affect the amplitude of the response?</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">7E.59</div>
+<p><strong>Proof:</strong> Show that if $A$ is <em>symmetric</em> $2\times2$, then the system $\dot{\mathbf{x}}=A\mathbf{x}$ can never have a spiral or a center as its equilibrium point.</p></div>
+<div class="ex from-book"><div class="num">7E.60</div>
+<p><strong>Theoretical:</strong> Compare the stability criteria for discrete ($|\lambda_i|&lt;1$) and continuous ($\operatorname{Re}\lambda_i&lt;0$) systems. Show that if $\dot{\mathbf{x}}=A\mathbf{x}$ is asymptotically stable, then the discretized $\mathbf{x}_{k+1}=e^{Ah}\mathbf{x}_k$ is also asymptotically stable for every $h&gt;0$.</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz: Mathematical Background</title>
+  <link rel="stylesheet" href="../../_shared/book.css">
+  <script>
+    MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    .quiz-question{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+    .q-num{font-size:.78rem;font-family:sans-serif;font-weight:700;color:#c85000;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}
+    .quiz-question p{font-size:1.05rem;margin-bottom:.8rem}
+    .quiz-question label{display:block;padding:.45rem .7rem;margin:.25rem 0;border-radius:6px;cursor:pointer;border:1px solid #e8edf2;transition:background .15s}
+    .quiz-question label:hover{background:#f0f4ff}
+    label.correct{background:#d4edda!important;border-color:#28a745!important}
+    label.wrong{background:#f8d7da!important;border-color:#dc3545!important}
+    .explanation{margin-top:.8rem;padding:.8rem 1rem;background:#fffbf0;border-left:4px solid #c85000;border-radius:0 6px 6px 0;font-size:.95rem}
+    .hidden{display:none}
+    .btn{background:#c85000;color:#fff;border:none;padding:.6rem 1.4rem;border-radius:6px;cursor:pointer;font-size:1rem;font-weight:600;margin:.4rem .3rem}
+    .btn:hover{background:#a54000}
+    .btn-secondary{background:#004080}
+    .btn-secondary:hover{background:#003060}
+    #score-box{background:#fff;border:2px solid #c85000;border-radius:10px;padding:1.5rem;text-align:center;margin-top:1.5rem;display:none}
+    #score-box h2{color:#c85000;font-size:1.6rem}
+    .progress-bar{background:#eee;border-radius:6px;height:10px;margin:1rem 0}
+    .progress-fill{background:#c85000;height:10px;border-radius:6px;transition:width .4s}
+    .info-card{background:#fff;border-left:4px solid #c85000;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+  
+  .author-stamp {
+    background: linear-gradient(135deg, #004080 0%, #003060 100%);
+    color: #fff;
+    padding: 0.8rem 1.4rem;
+    font-family: 'Georgia', serif;
+    font-size: 0.82rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    border-top: 3px solid #c85000;
+    margin-top: 2rem;
+  }
+  .author-stamp .stamp-book {
+    font-style: italic;
+    color: #ffd080;
+    font-weight: bold;
+  }
+  .author-stamp .stamp-author {
+    opacity: 0.9;
+  }
+
+  
+  .hint-btn{background:#eef;border:1px solid #99c;color:#225;border-radius:6px;padding:.25rem .6rem;font-size:.8rem;cursor:pointer;margin:.4rem 0 .2rem}
+  .hint-tip{background:#eef6ff;border-left:4px solid #3b82f6;border-radius:0 6px 6px 0;padding:.5rem .8rem;margin:.2rem 0 .4rem;font-size:.92rem;color:#234}
+  #retry-wrong{background:#004080}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#c85000 60%,#be5000)">
+  <div class="type-badge badge-quiz">✓ Quiz</div>
+  <h1>Mathematical Background</h1>
+  <p class="chapter-label">Chapter 0 · Prerequisites</p>
+</header>
+<main>
+  <div class="info-card">
+    <h2 style="margin-bottom:.4rem;color:#c85000">Self-Assessment</h2>
+    <p>12 questions on number sets, inequalities, polynomials, analytic geometry, trigonometry, complex numbers and linear systems.</p>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+  <div id="best-score" style="text-align:center;font-weight:600;color:#004080;margin:.3rem 0 .8rem"></div>
+  <form id="quiz-form">
+<div class="quiz-question" id="q1">
+  <div class="q-num">Question 1 / 12</div>
+  <p>Every rational number is a real number.</p>
+  <label><input type="radio" name="q1" value="1"> Correct</label>
+  <label><input type="radio" name="q1" value="0"> Incorrect</label>
+  <div class="explanation hidden" id="exp1"><strong>✓ Answer:</strong> Correct<br><em>The sets satisfy ℕ⊂ℤ⊂ℚ⊂ℝ. Every rational q = m/n belongs to ℝ.</em></div>
+</div>
+
+<div class="quiz-question" id="q2">
+  <div class="q-num">Question 2 / 12</div>
+  <p>Which of the following does NOT belong to ℚ?</p>
+  <label><input type="radio" name="q2" value="0"> a) 3/7</label>
+  <label><input type="radio" name="q2" value="1"> b) −5</label>
+  <label><input type="radio" name="q2" value="2"> c) $\sqrt{4}$</label>
+  <label><input type="radio" name="q2" value="3"> d) $\sqrt{2}$</label>
+  <div class="explanation hidden" id="exp2"><strong>✓ Answer:</strong> d) $\sqrt{2}$<br><em>$\sqrt{2}$ is irrational (proof by contradiction: if $\sqrt{2}=p/q$, then 2q²=p², a contradiction). The rest belong to ℚ.</em></div>
+</div>
+
+<div class="quiz-question" id="q3">
+  <div class="q-num">Question 3 / 12</div>
+  <p>The solution of the inequality $|x-3|&lt;2$ is:</p>
+  <label><input type="radio" name="q3" value="0"> a) $x&lt;5$</label>
+  <label><input type="radio" name="q3" value="1"> b) $1&lt;x&lt;5$</label>
+  <label><input type="radio" name="q3" value="2"> c) $-5&lt;x&lt;-1$</label>
+  <label><input type="radio" name="q3" value="3"> d) $x&gt;1$</label>
+  <div class="explanation hidden" id="exp3"><strong>✓ Answer:</strong> b) $1&lt;x&lt;5$<br><em>$|x-3|&lt;2 \Leftrightarrow -2&lt;x-3&lt;2 \Leftrightarrow 1&lt;x&lt;5$.</em></div>
+</div>
+
+<div class="quiz-question" id="q4">
+  <div class="q-num">Question 4 / 12</div>
+  <p>The equation of the line with slope $m=2$ passing through $(1,3)$ is:</p>
+  <label><input type="radio" name="q4" value="0"> a) $y=2x+1$</label>
+  <label><input type="radio" name="q4" value="1"> b) $y=2x-1$</label>
+  <label><input type="radio" name="q4" value="2"> c) $y=2x+3$</label>
+  <label><input type="radio" name="q4" value="3"> d) $y=x+2$</label>
+  <div class="explanation hidden" id="exp4"><strong>✓ Answer:</strong> a) $y=2x+1$<br><em>$y-3=2(x-1) \Rightarrow y=2x+1$.</em></div>
+</div>
+
+<div class="quiz-question" id="q5">
+  <div class="q-num">Question 5 / 12</div>
+  <p>The inner product $\mathbf{u}\cdot\mathbf{v}=|\mathbf{u}||\mathbf{v}|\cos\theta$ equals zero when the vectors are parallel.</p>
+  <label><input type="radio" name="q5" value="1"> Correct</label>
+  <label><input type="radio" name="q5" value="0"> Incorrect</label>
+  <div class="explanation hidden" id="exp5"><strong>✓ Answer:</strong> Incorrect<br><em>It vanishes when the vectors are perpendicular (θ=90°). For parallel vectors cosθ=±1, so the product is NOT zero.</em></div>
+</div>
+
+<div class="quiz-question" id="q6">
+  <div class="q-num">Question 6 / 12</div>
+  <p>The product $(x+3)(x-3)$ equals:</p>
+  <label><input type="radio" name="q6" value="0"> a) $x^2+9$</label>
+  <label><input type="radio" name="q6" value="1"> b) $x^2-6x-9$</label>
+  <label><input type="radio" name="q6" value="2"> c) $x^2-9$</label>
+  <label><input type="radio" name="q6" value="3"> d) $x^2+6x-9$</label>
+  <div class="explanation hidden" id="exp6"><strong>✓ Answer:</strong> c) $x^2-9$<br><em>$(a+b)(a-b)=a^2-b^2$, so $(x+3)(x-3)=x^2-9$.</em></div>
+</div>
+
+<div class="quiz-question" id="q7">
+  <div class="q-num">Question 7 / 12</div>
+  <p>How many roots, counted with multiplicity, does the polynomial $p(x)=x^3-3x+2$ have in ℝ?</p>
+  <label><input type="radio" name="q7" value="0"> a) 0</label>
+  <label><input type="radio" name="q7" value="1"> b) 1</label>
+  <label><input type="radio" name="q7" value="2"> c) 2</label>
+  <label><input type="radio" name="q7" value="3"> d) 3</label>
+  <div class="explanation hidden" id="exp7"><strong>✓ Answer:</strong> d) 3<br><em>$p(x)=(x-1)^2(x+2)$, so the roots are $x=1$ (double) and $x=-2$. A total of 3 roots (with multiplicity).</em></div>
+</div>
+
+<div class="quiz-question" id="q8">
+  <div class="q-num">Question 8 / 12</div>
+  <p>$\sin(\pi/6) = 1/2$.</p>
+  <label><input type="radio" name="q8" value="1"> Correct</label>
+  <label><input type="radio" name="q8" value="0"> Incorrect</label>
+  <div class="explanation hidden" id="exp8"><strong>✓ Answer:</strong> Correct<br><em>From the unit circle: $\sin 30° = \sin(\pi/6) = 1/2$.</em></div>
+</div>
+
+<div class="quiz-question" id="q9">
+  <div class="q-num">Question 9 / 12</div>
+  <p>The modulus of the complex number $z = 3-4i$ is:</p>
+  <label><input type="radio" name="q9" value="0"> a) 1</label>
+  <label><input type="radio" name="q9" value="1"> b) 5</label>
+  <label><input type="radio" name="q9" value="2"> c) 7</label>
+  <label><input type="radio" name="q9" value="3"> d) $\sqrt{7}$</label>
+  <div class="explanation hidden" id="exp9"><strong>✓ Answer:</strong> b) 5<br><em>$|z|=\sqrt{3^2+(-4)^2}=\sqrt{9+16}=\sqrt{25}=5$.</em></div>
+</div>
+
+<div class="quiz-question" id="q10">
+  <div class="q-num">Question 10 / 12</div>
+  <p>If $z=1+i$, what is $z^2$?</p>
+  <label><input type="radio" name="q10" value="0"> a) $2$</label>
+  <label><input type="radio" name="q10" value="1"> b) $2i$</label>
+  <label><input type="radio" name="q10" value="2"> c) $1+2i$</label>
+  <label><input type="radio" name="q10" value="3"> d) $-1+2i$</label>
+  <div class="explanation hidden" id="exp10"><strong>✓ Answer:</strong> b) $2i$<br><em>$z^2=(1+i)^2=1+2i+i^2=1+2i-1=2i$.</em></div>
+</div>
+
+<div class="quiz-question" id="q11">
+  <div class="q-num">Question 11 / 12</div>
+  <p>The solution of a $2\times2$ linear system whose coefficient matrix has determinant ≠ 0 is unique.</p>
+  <label><input type="radio" name="q11" value="1"> Correct</label>
+  <label><input type="radio" name="q11" value="0"> Incorrect</label>
+  <div class="explanation hidden" id="exp11"><strong>✓ Answer:</strong> Correct<br><em>If $\det A\neq 0$, the matrix is invertible and the system $Ax=b$ has the unique solution $x=A^{-1}b$.</em></div>
+</div>
+
+<div class="quiz-question" id="q12">
+  <div class="q-num">Question 12 / 12</div>
+  <p>What is the value of $\cos(2\pi/3)$?</p>
+  <label><input type="radio" name="q12" value="0"> a) $\dfrac{\sqrt{3}}{2}$</label>
+  <label><input type="radio" name="q12" value="1"> b) $-\dfrac{1}{2}$</label>
+  <label><input type="radio" name="q12" value="2"> c) $\dfrac{1}{2}$</label>
+  <label><input type="radio" name="q12" value="3"> d) $-\dfrac{\sqrt{3}}{2}$</label>
+  <div class="explanation hidden" id="exp12"><strong>✓ Answer:</strong> b) $-\dfrac{1}{2}$<br><em>$\cos(120°)=\cos(180°-60°)=-\cos(60°)=-1/2$.</em></div>
+</div>
+
+
+  </form>
+  <div style="text-align:center;margin:1.5rem 0">
+    <button class="btn" onclick="checkAll()">Check Answers</button>
+    <button class="btn btn-secondary" onclick="resetQuiz()">Try Again</button>
+  </div>
+  <div id="score-box">
+    <h2 id="score-text"></h2>
+    <p id="score-detail"></p>
+  </div>
+</main>
+<script>
+const ANSWERS = [1,3,1,0,0,2,3,1,1,1,1,1];
+const N = 12;
+
+function checkAll(){
+  let score=0;
+  for(let i=1;i<=N;i++){
+    const sel=document.querySelector(`input[name=q${i}]:checked`);
+    const expEl=document.getElementById(`exp${i}`);
+    const labels=document.querySelectorAll(`#q${i} label`);
+    labels.forEach(l=>l.classList.remove('correct','wrong'));
+    if(sel){
+      const correct=(parseInt(sel.value)===parseInt(ANSWERS[i-1]));
+      if(correct){score++;sel.parentElement.classList.add('correct');}
+      else{sel.parentElement.classList.add('wrong');
+            labels.forEach(l=>{
+              if(parseInt(l.querySelector('input').value)===parseInt(ANSWERS[i-1]))l.classList.add('correct');
+            });
+      }
+    }
+    expEl.classList.remove('hidden');
+  }
+  const pct=Math.round(score/N*100);
+  document.getElementById('prog').style.width=pct+'%';
+  const box=document.getElementById('score-box');
+  box.style.display='block';
+  const emoji=pct>=90?'🏆':pct>=70?'👍':pct>=50?'📚':'💪';
+  document.getElementById('score-text').textContent=emoji+' '+score+'/'+N+' ('+pct+'%)';
+  document.getElementById('score-detail').textContent=
+    pct>=90?'Excellent! Outstanding understanding.':
+    pct>=70?'Very good! Just a little review needed.':
+    pct>=50?'Fair, but you need more practice.':'Review the theory of the chapter.';
+  box.scrollIntoView({behavior:'smooth'});
+  if(typeof MathJax!=='undefined')MathJax.typesetPromise();
+}
+
+function resetQuiz(){
+  document.getElementById('quiz-form').reset();
+  document.querySelectorAll('.explanation').forEach(e=>e.classList.add('hidden'));
+  document.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+  document.getElementById('prog').style.width='0%';
+  document.getElementById('score-box').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// live progress
+document.addEventListener('change',function(e){
+  if(e.target.type==='radio'){
+    const answered=new Set([...document.querySelectorAll('input[type=radio]:checked')].map(r=>r.name)).size;
+    document.getElementById('prog').style.width=(answered/N*100)+'%';
+  }
+});
+
+/* ── Shuffle + best-score (added) ── */
+function _qShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function _qKey(){return 'quizbest:'+location.pathname;}
+function _qScore(){let s=0;for(let i=1;i<=N;i++){const sel=document.querySelector('input[name=q'+i+']:checked');if(sel&&parseInt(sel.value)===parseInt(ANSWERS[i-1]))s++;}return s;}
+function _qRenderBest(){const el=document.getElementById('best-score');if(!el)return;let b=null;try{b=localStorage.getItem(_qKey());}catch(e){}el.textContent=(b!==null)?('🏅 Best score: '+b+' / '+N):'';}
+function _qSaveBest(){try{const s=_qScore();const p=parseInt(localStorage.getItem(_qKey()));if(isNaN(p)||s>p)localStorage.setItem(_qKey(),String(s));}catch(e){}_qRenderBest();}
+(function(){const _o=checkAll;checkAll=function(){_o();_qSaveBest();};})();
+function _qShuffleQuiz(){
+  const form=document.getElementById('quiz-form');if(!form)return;
+  const qs=[...form.querySelectorAll('.quiz-question')];
+  qs.forEach(q=>{const exp=q.querySelector('.explanation');const labels=[...q.querySelectorAll('label')];_qShuffle(labels).forEach(l=>q.insertBefore(l,exp));});
+  _qShuffle(qs).forEach((q,idx)=>{form.appendChild(q);const num=q.querySelector('.q-num');if(num)num.textContent='Question '+(idx+1)+' / '+N;});
+}
+document.addEventListener('DOMContentLoaded',function(){_qShuffleQuiz();_qRenderBest();if(typeof MathJax!=='undefined'&&MathJax.typesetPromise)MathJax.typesetPromise();});
+
+/* ── Topic feedback + hints + retry-wrong (added) ── */
+const QTOPICS = ["number sets", "rational/irrational numbers", "absolute value", "equation of a line", "inner product", "algebraic identities", "roots of a polynomial", "trigonometric values", "modulus of a complex number", "powers of complex numbers", "linear systems", "trigonometric values"];
+const QHINTS = ["Recall the chain of inclusions ℕ⊂ℤ⊂ℚ⊂ℝ.", "Check which of the square roots does not give an integer or a fraction.", "|x-a|<δ is equivalent to a-δ<x<a+δ.", "Use the point-slope form y-y₀=m(x-x₀).", "Think about the angle for which cosθ vanishes.", "Apply the difference of squares (a+b)(a-b).", "Factor the polynomial and count with multiplicity.", "Look up the basic values at 30°, 45°, 60°.", "The modulus is the square root of the sum of the squares of the real and imaginary parts.", "Expand the square and use i²=-1.", "Think about what a nonzero determinant means.", "Reduce to a first-quadrant angle using a reduction formula."];
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.quiz-question').forEach(function(q){
+    const n=parseInt(q.id.replace('q',''));
+    const h=QHINTS[n-1]; if(!h) return;
+    if(q.querySelector('.hint-btn')) return;
+    const exp=q.querySelector('.explanation');
+    const btn=document.createElement('button'); btn.type='button'; btn.className='hint-btn'; btn.textContent='💡 Hint';
+    const tip=document.createElement('div'); tip.className='hint-tip hidden'; tip.textContent=h;
+    btn.addEventListener('click',function(){tip.classList.toggle('hidden');});
+    q.insertBefore(btn,exp); q.insertBefore(tip,exp);
+  });
+});
+function _qWrongAnswered(){const w=[];for(let i=1;i<=N;i++){const sel=document.querySelector('input[name=q'+i+']:checked');if(sel&&parseInt(sel.value)!==parseInt(ANSWERS[i-1]))w.push(i);}return w;}
+function _qTopicFeedback(){
+  const wrong=_qWrongAnswered();
+  const topics=[...new Set(wrong.map(i=>QTOPICS[i-1]).filter(Boolean))];
+  let el=document.getElementById('topic-fb');
+  if(!el){el=document.createElement('p');el.id='topic-fb';el.style.marginTop='.6rem';el.style.fontWeight='600';document.getElementById('score-box').appendChild(el);}
+  el.textContent= topics.length? ('📌 Topics to review: '+topics.join(' · ')) : '🎯 No weak spots — well done!';
+}
+function _qShowRetry(){
+  const wrong=_qWrongAnswered();
+  let btn=document.getElementById('retry-wrong');
+  if(!btn){
+    btn=document.createElement('button'); btn.id='retry-wrong'; btn.className='btn'; btn.textContent='↻ Retry the ones you missed'; btn.style.marginTop='.6rem';
+    btn.addEventListener('click',function(){
+      _qWrongAnswered().forEach(function(i){
+        document.querySelectorAll('input[name=q'+i+']').forEach(r=>r.checked=false);
+        const q=document.getElementById('q'+i); if(q) q.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+        const ex=document.getElementById('exp'+i); if(ex) ex.classList.add('hidden');
+      });
+      document.getElementById('score-box').style.display='none';
+      const first=document.querySelector('.quiz-question'); if(first) first.scrollIntoView({behavior:'smooth'});
+    });
+    document.getElementById('score-box').appendChild(btn);
+  }
+  btn.style.display= wrong.length? 'inline-block':'none';
+}
+(function(){const _o=checkAll;checkAll=function(){_o();_qTopicFeedback();_qShowRetry();};})();
+</script>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #c85000;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Linear Vector Spaces</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">⊕ Additional Exercises</div>
+  <h1>Linear Vector Spaces</h1>
+  <p class="chapter-label">Chapter 1 · Linear Vector Spaces</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by section</em>
+  of the chapter and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">All of them are solved using only the tools of Chapter 1 and Chapter 0:
+ definitions, linear combinations and the inner product. In every question about structure the answer is never
+ a plain “yes” or “no”: if the set has the required property, a full verification of the
+ corresponding conditions is needed; if it does not, one explicit counterexample suffices. Every computational result
+ can also be checked on your own: the coordinates by substituting into the linear combination, the orthonormality
+ by the inner products, the projection by checking that the residual is orthogonal to the subspace.
+ You do not need a solutions manual.</p>
+</div>
+
+<div class="grp"><h2>A. Vector space axioms</h2>
+<p class="lead">Check the axioms one by one; a single counterexample is enough to make the structure collapse.</p></div>
+
+<div class="ex"><div class="num">1E.1 <span class="lvl l1">BASIC</span></div>
+<p>On the set $\mathbb{R}^2$ we define the operations
+$(x_1,x_2)\oplus(y_1,y_2)=(x_1+y_1,\;x_2+y_2+1)$ and $\lambda\odot(x_1,x_2)=(\lambda x_1,\;\lambda x_2)$.
+(α) Show that $\oplus$ is commutative and associative and determine the identity element
+as well as the negative of each vector. (β) Examine whether $(\mathbb{R}^2,\oplus,\odot)$ is a vector
+space and, if not, identify explicitly an axiom that is violated.</p>
+<p class="ypod">Hint: do not take for granted that the identity element is $(0,0)$; find it from its definition.</p></div>
+
+<div class="ex"><div class="num">1E.2 <span class="lvl l1">BASIC</span></div>
+<p>On the set $V=(0,+\infty)$ we define $x\oplus y=xy$ and $\lambda\odot x=x^{\lambda}$, for $\lambda\in\mathbb{R}$.
+Show that $(V,\oplus,\odot)$ is a vector space over $\mathbb{R}$, determining the identity
+element and the negative of an $x\in V$. Then find a basis and its dimension.</p>
+<p class="ypod">Hint: every axiom reduces to a familiar property of powers.</p></div>
+
+<div class="ex"><div class="num">1E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $V$ be a vector space over $\mathbb{R}$. Prove, using only the axioms, that
+(α) $\lambda\mathbf{0}=\mathbf{0}$ for every $\lambda\in\mathbb{R}$ and
+(β) if $\lambda\mathbf{v}=\mathbf{0}$, then $\lambda=0$ or $\mathbf{v}=\mathbf{0}$.</p>
+<p class="ypod">Hint: in (β) distinguish the cases $\lambda=0$ and $\lambda\neq0$; in the second you have $\lambda^{-1}$.</p></div>
+
+<div class="grp"><h2>B. Subspaces</h2>
+<p class="lead">Three checks: the zero vector belongs, closure under addition, closure under scalar multiplication.</p></div>
+
+<div class="ex"><div class="num">1E.4 <span class="lvl l1">BASIC</span></div>
+<p>Examine, justifying fully, which of the following subsets of $\mathbb{R}^3$ are subspaces:
+(α) $U_1=\{(x,y,z):x-2y+3z=0\}$· (β) $U_2=\{(x,y,z):x\geq 0\}$· (γ) $U_3=\{(x,y,z):x=2z\ \text{and}\ y=-z\}$.
+For those that are subspaces, give a basis and their dimension.</p></div>
+
+<div class="ex"><div class="num">1E.5 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>In the space $\mathcal{C}[0,1]$ of continuous functions examine which of the following sets are subspaces:
+(α) $A=\{f:\,f(0)=f(1)\}$· (β) $B=\{f:\,f(0)=1\}$· (γ) $\Gamma=\{f:\,f(x)\geq 0\ \text{for every}\ x\in[0,1]\}$·
+(δ) $\Delta=\{f:\,f(\tfrac12)=0\}$.</p></div>
+
+<div class="ex"><div class="num">1E.6 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $V$ be a vector space and $S$ a nonempty subset of $V$. Prove that
+$\operatorname{span}(S)$ is a subspace of $V$ and that it is contained in every subspace $W$ with $S\subseteq W$;
+that is, that it is the smallest subspace containing $S$.</p>
+<p class="ypod">Hint: for the second part start from an arbitrary linear combination of elements of $S$ and use the closure of $W$.</p></div>
+
+<div class="grp"><h2>C. Linear independence</h2>
+<p class="lead">You always start from the relation $c_1\mathbf{v}_1+\cdots+c_k\mathbf{v}_k=\mathbf{0}$ and ask whether it forces $c_1=\cdots=c_k=0$.</p></div>
+
+<div class="ex"><div class="num">1E.7 <span class="lvl l1">BASIC</span></div>
+<p>Examine whether the vectors $\mathbf{v}_1=(1,-1,2)$, $\mathbf{v}_2=(2,0,1)$, $\mathbf{v}_3=(0,-2,3)$ of $\mathbb{R}^3$
+are linearly independent and, if they are not, write explicitly a dependence relation among them.</p></div>
+
+<div class="ex"><div class="num">1E.8 <span class="lvl l1">BASIC</span></div>
+<p>Prove that two vectors $\mathbf{u},\mathbf{v}$ of a vector space are linearly dependent
+if and only if at least one of them is a scalar multiple of the other. Apply the criterion
+to $(2,-4,6)$ and $(-3,6,-9)$ of $\mathbb{R}^3$.</p>
+<p class="ypod">Hint: be careful in the case where one of the two vectors is the zero vector.</p></div>
+
+<div class="ex"><div class="num">1E.9 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Examine whether the functions $f_1(t)=e^{t}$, $f_2(t)=e^{2t}$, $f_3(t)=e^{3t}$ are linearly independent
+as elements of the space $\mathcal{C}(\mathbb{R})$ of continuous functions.</p>
+<p class="ypod">Hint: with the substitution $x=e^{t}$ the relation $c_1f_1+c_2f_2+c_3f_3=0$ becomes a polynomial identity in $x>0$; when does a polynomial vanish identically?</p></div>
+
+<div class="grp"><h2>D. Basis and dimension</h2>
+<p class="lead">A basis means linear independence and spanning at the same time; the dimension is the number of its elements.</p></div>
+
+<div class="ex"><div class="num">1E.10 <span class="lvl l1">BASIC</span></div>
+<p>Let $W=\{p\in\mathcal{P}_3:\ p(-t)=p(t)\ \text{for every}\ t\in\mathbb{R}\}$. Show that $W$ is a
+subspace of $\mathcal{P}_3$ and find a basis and its dimension.</p>
+<p class="ypod">Hint: write $p(t)=a_0+a_1t+a_2t^2+a_3t^3$ and see what the condition imposes on the coefficients.</p></div>
+
+<div class="ex"><div class="num">1E.11 <span class="lvl l1">BASIC</span></div>
+<p>Show that the set $\mathcal{B}=\{1,\;1+t,\;1+t+t^2\}$ is a basis of $\mathcal{P}_2$ and find the
+coordinates with respect to $\mathcal{B}$ (α) of $p(t)=t^2$ and (β) of the general polynomial
+$p(t)=a_0+a_1t+a_2t^2$.</p></div>
+
+<div class="ex"><div class="num">1E.12 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>In $\mathbb{R}^4$ we are given $\mathbf{v}_1=(1,1,0,1)$, $\mathbf{v}_2=(2,1,1,0)$, $\mathbf{v}_3=(0,1,-1,2)$
+and $W=\operatorname{span}\{\mathbf{v}_1,\mathbf{v}_2,\mathbf{v}_3\}$. Find a basis and the dimension of $W$
+and then extend this basis to a basis of the whole of $\mathbb{R}^4$.</p>
+<p class="ypod">Hint: check first whether one of the three vectors can be written as a linear combination of the other two.</p></div>
+
+<div class="grp"><h2>E. Sum of subspaces</h2>
+<p class="lead">Grassmann's formula $\dim(U+W)=\dim U+\dim W-\dim(U\cap W)$ is the central tool; the sum is direct exactly when the intersection is trivial.</p></div>
+
+<div class="ex"><div class="num">1E.13 <span class="lvl l1">BASIC</span></div>
+<p>In $\mathbb{R}^4$ we are given $U=\operatorname{span}\{(1,0,0,0),(0,1,0,0)\}$ and
+$W=\operatorname{span}\{(1,1,0,0),(0,0,1,0)\}$. Find $U+W$ and $U\cap W$, verify Grassmann's
+formula and examine whether the sum is direct.</p></div>
+
+<div class="ex"><div class="num">1E.14 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>In $\mathcal{M}_{2\times2}(\mathbb{R})$ consider the set $\mathcal{S}$ of the symmetric matrices,
+that is, those with $a_{12}=a_{21}$, and the set $\mathcal{A}$ of the skew-symmetric ones, that is, those with
+$a_{11}=a_{22}=0$ and $a_{12}=-a_{21}$. (α) Show that $\mathcal{S}$ and $\mathcal{A}$ are subspaces
+and find a basis and the dimension of each. (β) Prove that
+$\mathcal{M}_{2\times2}(\mathbb{R})=\mathcal{S}\oplus\mathcal{A}$ and decompose into its two components the
+matrix $A=\begin{bmatrix}1&5\\-1&2\end{bmatrix}$.</p>
+<p class="ypod">Hint: for the intersection, ask yourself which matrix is simultaneously symmetric and skew-symmetric.</p></div>
+
+<div class="ex"><div class="num">1E.15 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $V$ be a vector space with $\dim V=7$ and $U,W$ subspaces of it with $\dim U=4$ and $\dim W=5$.
+Prove that $\dim(U\cap W)\geq 2$. Generalize: if $\dim V=n$, $\dim U=p$ and $\dim W=q$, what is the
+smallest possible $\dim(U\cap W)$?</p>
+<p class="ypod">Hint: combine Grassmann's formula with the restriction $\dim(U+W)\leq\dim V$.</p></div>
+
+<div class="grp"><h2>F. Inner product and orthogonality</h2>
+<p class="lead">The inner product measures lengths and angles; orthogonality simplifies drastically every computation of coordinates.</p></div>
+
+<div class="ex"><div class="num">1E.16 <span class="lvl l1">BASIC</span></div>
+<p>We are given $\mathbf{u}=(1,2,-2)$ and $\mathbf{v}=(3,0,4)$ in $\mathbb{R}^3$. Compute
+$\langle\mathbf{u},\mathbf{v}\rangle$, the lengths $\|\mathbf{u}\|$, $\|\mathbf{v}\|$ and the cosine of
+their angle. Then decompose $\mathbf{u}$ into a component parallel and a component perpendicular
+to $\mathbf{v}$ and verify that the two components are indeed orthogonal.</p></div>
+
+<div class="ex"><div class="num">1E.17 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Show that $\mathbf{w}_1=(1,2,1)$, $\mathbf{w}_2=(1,-1,1)$, $\mathbf{w}_3=(1,0,-1)$ form an
+orthogonal basis of $\mathbb{R}^3$, orthonormalize them and write $\mathbf{b}=(3,1,2)$ as a linear
+combination of them using the formula for the coordinates with respect to an orthogonal basis.</p>
+<p class="ypod">Hint: in an orthogonal basis the coefficient of $\mathbf{w}_i$ comes from a single inner product, without solving a system.</p></div>
+
+<div class="ex"><div class="num">1E.18 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Examine whether the map
+$\langle\mathbf{x},\mathbf{y}\rangle=2x_1y_1+x_1y_2+x_2y_1+x_2y_2$,
+where $\mathbf{x}=(x_1,x_2)$ and $\mathbf{y}=(y_1,y_2)$, defines an inner product on $\mathbb{R}^2$.
+If it does, compute with it the norm of $(1,-1)$ and examine whether $(1,0)$ and $(0,1)$ are orthogonal.</p>
+<p class="ypod">Hint: the critical axiom is positive definiteness; complete the square in the expression $\langle\mathbf{x},\mathbf{x}\rangle$.</p></div>
+
+<div class="grp"><h2>G. The Gram–Schmidt process and the orthogonal complement</h2>
+<p class="lead">Orthonormalization, orthogonal projection and decomposition with respect to the orthogonal complement are three aspects of the same idea.</p></div>
+
+<div class="ex"><div class="num">1E.19 <span class="lvl l1">BASIC</span></div>
+<p>Apply the Gram–Schmidt process to $\mathbf{v}_1=(1,1,1)$ and $\mathbf{v}_2=(1,1,0)$ of
+$\mathbb{R}^3$ and find an orthonormal basis $\{\mathbf{q}_1,\mathbf{q}_2\}$ of the plane
+$W=\operatorname{span}\{\mathbf{v}_1,\mathbf{v}_2\}$. Verify that
+$\langle\mathbf{q}_1,\mathbf{q}_2\rangle=0$ and $\|\mathbf{q}_1\|=\|\mathbf{q}_2\|=1$.</p></div>
+
+<div class="ex"><div class="num">1E.20 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>With the basis $\{\mathbf{q}_1,\mathbf{q}_2\}$ of the previous exercise, find the orthogonal projection of
+$\mathbf{b}=(2,1,3)$ onto the subspace $W$, the residual $\mathbf{b}-P_W(\mathbf{b})$ and the distance of
+$\mathbf{b}$ from $W$. Verify that the residual is orthogonal to both vectors that
+span $W$.</p></div>
+
+<div class="ex"><div class="num">1E.21 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>In $\mathbb{R}^4$ we are given $W=\{(x,y,z,w):\ x+y+z+w=0\ \text{and}\ x-y+z-w=0\}$.
+(α) Find a basis and the dimension of $W$. (β) Determine the orthogonal complement $W^{\perp}$ and
+verify that $\dim W+\dim W^{\perp}=4$. (γ) Decompose $\mathbf{b}=(4,1,2,3)$ in the form
+$\mathbf{b}=\mathbf{w}+\mathbf{w}^{\perp}$ with $\mathbf{w}\in W$ and $\mathbf{w}^{\perp}\in W^{\perp}$.</p>
+<p class="ypod">Hint: the basis you will find for $W$ in (α) is already orthogonal; use this in (γ).</p></div>
+
+<div class="ex"><div class="num">1E.22 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $\{\mathbf{q}_1,\ldots,\mathbf{q}_k\}$ be an orthonormal basis of a subspace $W$ of $\mathbb{R}^n$.
+Prove that for every $\mathbf{v}\in\mathbb{R}^n$ we have
+$\displaystyle\sum_{i=1}^{k}\langle\mathbf{v},\mathbf{q}_i\rangle^{2}\leq\|\mathbf{v}\|^{2}$
+and that equality holds if and only if $\mathbf{v}\in W$.</p>
+<p class="ypod">Hint: apply the Pythagorean theorem to the decomposition $\mathbf{v}=P_W(\mathbf{v})+\bigl(\mathbf{v}-P_W(\mathbf{v})\bigr)$.</p></div>
+
+<div class="grp"><h2>H. Mixed and composite problems</h2>
+<p class="lead">Here several concepts of the chapter are combined: first recognize the structure and then choose your tool.</p></div>
+
+<div class="ex"><div class="num">1E.23 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>In $\mathbb{R}^3$ consider the set $\mathcal{B}=\{(1,1,0),\,(0,1,1),\,(1,0,1)\}$.
+(α) Show that it is a basis. (β) Find the coordinates of $\mathbf{v}=(4,5,3)$ with respect to
+$\mathcal{B}$ and verify the result by substitution. (γ) Examine whether $\mathcal{B}$ is an
+orthogonal basis and explain why the formula for the coordinates via inner products does not apply here.</p></div>
+
+<div class="ex"><div class="num">1E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>In $\mathcal{P}_2$ we define $\langle p,q\rangle=p(-1)q(-1)+p(0)q(0)+p(1)q(1)$.
+(α) Prove that this is an inner product. (β) Show that $r_0(t)=1$, $r_1(t)=t$ and
+$r_2(t)=t^2-\tfrac{2}{3}$ form an orthogonal basis of $\mathcal{P}_2$ with respect to it.
+(γ) Write $p(t)=t^2+t+1$ as a linear combination of $r_0,r_1,r_2$.</p>
+<p class="ypod">Hint: for the positive definiteness in (α), think how many roots a nonzero polynomial of degree at most $2$.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">1E.25</div>
+<p>Examine whether $V=\{(x,y)\in\R^2 : x+y=1\}$ with the usual operations is a vector space. Justify fully.</p></div>
+<div class="ex from-book"><div class="num">1E.26</div>
+<p>Examine whether $V = \R^2$ with $\vecv \oplus \vecw = \vecv - \vecw$ and $\lambda \odot \vecv = \lambda\vecv$ is a vector space.</p></div>
+<div class="ex from-book"><div class="num">1E.27</div>
+<p>Which of the following sets is a vector space? (α) $\{p \in \mathcal{P}_2 : p(0)=1\}$, (β) $\{p \in \mathcal{P}_2 : p(0)=0\}$.</p></div>
+<div class="ex from-book"><div class="num">1E.28</div>
+<p>Prove that $(-1)\vecv = -\vecv$ for every $\vecv$ in a vector space.</p></div>
+<div class="ex from-book"><div class="num">1E.29</div>
+<p>Which of the following are subspaces of $\R^3$? (α) $W_1=\{(t,2t,3t):t\in\R\}$, (β) $W_2=\{(x,y,z):x^2+y^2=z\}$, (γ) $W_3=\{(x,y,z):x+y=0,\,y+z=0\}$.</p></div>
+<div class="ex from-book"><div class="num">1E.30</div>
+<p>Examine whether $W=\{(x,y)\in\R^2 : xy=0\}$ is a subspace. Justify your answer.</p></div>
+<div class="ex from-book"><div class="num">1E.31</div>
+<p>Examine whether $\{(1,2,3),(0,1,2),(1,0,-1)\}$ are linearly independent.</p></div>
+<div class="ex from-book"><div class="num">1E.32</div>
+<p>Find the values of $\lambda$ for which $\{(1,0,0),(0,1,\lambda),(\lambda,1,0)\}$ are linearly dependent.</p></div>
+<div class="ex from-book"><div class="num">1E.33</div>
+<p>Prove that if $\{\vecu,\vecv\}$ are linearly independent, then $\{\vecu+\vecv,\vecu-\vecv\}$ are linearly independent as well.</p></div>
+<div class="ex from-book"><div class="num">1E.34</div>
+<p>Examine whether $\{t+1,\ t^2-1,\ t^2+t\}$ are linearly independent in $\mathcal{P}_2$.</p></div>
+<div class="ex from-book"><div class="num">1E.35</div>
+<p>Find a basis and the dimension of $W=\{(x,y,z,w)\in\R^4:x+y=0,\;z-w=0\}$.</p></div>
+<div class="ex from-book"><div class="num">1E.36</div>
+<p>What is the dimension of $\mathcal{M}_{2\times3}(\R)$? Give a basis.</p></div>
+<div class="ex from-book"><div class="num">1E.37</div>
+<p>Find a basis and the dimension $\dim W$ of $W=\{(x,y,z):x-y+2z=0,\;2x+y-z=0\}$.</p></div>
+<div class="ex from-book"><div class="num">1E.38</div>
+<p><strong>(General – engineering)</strong> Show that two non-parallel forces of the plane form a basis of $\R^2$. Decompose the force $\vecF=(5,3)$ with respect to the basis $\{(2,1),(1,1)\}$ and confirm that the components are unique.</p></div>
+<div class="ex from-book"><div class="num">1E.39</div>
+<p>If $V=W_1\oplus W_2$ with $\dim V=n$ and $\dim W_1=k$, find $\dim W_2$. Justify your answer using the direct sum theorem.</p></div>
+<div class="ex from-book"><div class="num">1E.40</div>
+<p>Let $V = \R^2$ with $\vecx \cdot \vecy = (x_1 y_1,\, 0)$ for $\vecx=(x_1,x_2)$, $\vecy=(y_1,y_2)$. Examine whether this defines an algebra.</p></div>
+<div class="ex from-book"><div class="num">1E.41</div>
+<p>Compute $\langle \vecu,\vecv\rangle$, $\|\vecu\|$, $\|\vecv\|$ and the angle between $\vecu=(2,-1,3)$ and $\vecv=(1,2,1)$.</p></div>
+<div class="grp2"><h3>Cross Product and Scalar Triple Product</h3></div>
+<div class="ex from-book"><div class="num">1E.42</div>
+<p>Compute $\vecu\times\vecv$ for $\vecu=(1,2,3)$, $\vecv=(4,-1,2)$ and verify that $(\vecu\times\vecv)\perp\vecu$ and $(\vecu\times\vecv)\perp\vecv$.</p></div>
+<div class="ex from-book"><div class="num">1E.43</div>
+<p>Examine whether $\vecu=(1,2,3)$, $\vecv=(2,4,6)$, $\vecw=(1,0,-1)$ are coplanar. Justify your answer using the scalar triple product.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">1E.44</div>
+<p>Consider the plane $\Pi: x-2y+2z=5$. (α) Find the distance of $P(1,1,1)$ from it. (β) Find the <em>foot</em> of the perpendicular, that is, the projection of $P$ onto $\Pi$.</p></div>
+<div class="ex from-book"><div class="num">1E.45</div>
+<p>Find the parametric equation of the line of intersection of the planes $x+y+z=1$ and $2x-y+3z=4$. (Hint: $\mathbf{d}=\mathbf{n}_1\times\mathbf{n}_2$.)</p></div>
+<div class="ex from-book"><div class="num">1E.46</div>
+<p>Compute the distance of the point $P(1,2,3)$ from the line $\mathbf{p}(t)=(1,0,0)+t(0,1,1)$, in two ways: (α) by projection, (β) by the cross-product formula. Verify that they agree.</p></div>
+<div class="ex from-book"><div class="num">1E.47</div>
+<p>Find the angle between the planes $2x+y-z=3$ and $x-y+2z=1$ and check whether either of the lines $\mathbf{d}=(1,1,1)$ or $\mathbf{d}=(1,-3,-1)$ is parallel to the first one.</p></div>
+<div class="grp2"><h3>Orthogonality and Gram–Schmidt</h3></div>
+<div class="ex from-book"><div class="num">1E.48</div>
+<p>Check whether $\{(1,1,0),(1,-1,0),(0,0,2)\}$ form an orthogonal set and orthonormalize it.</p></div>
+<div class="ex from-book"><div class="num">1E.49</div>
+<p>Apply Gram–Schmidt to $\{1,t,t^2\}\subset\mathcal{C}[-1,1]$ with $\langle f,g\rangle=\int_{-1}^{1}f(t)g(t)\,dt$.</p></div>
+<div class="ex from-book"><div class="num">1E.50</div>
+<p>Prove that in the $QR$ factorization the matrix $R$ is <em>necessarily</em> upper triangular. (Hint: each $\veca_j$ is written only in terms of $\vecq_1,\ldots,\vecq_j$.)</p></div>
+<div class="grp2"><h3>Orthogonal Complement and Least Squares</h3></div>
+<div class="ex from-book"><div class="num">1E.51</div>
+<p>Find the orthogonal complement $W^\perp$ of $W=\{(x,y,z):x+y+z=0\}$ in $\R^3$.</p></div>
+<div class="ex from-book"><div class="num">1E.52</div>
+<p>Find the orthogonal projection of $\mathbf{b}=(1,2,3,4)^\top$ onto the subspace $W=\Span\{(1,1,0,0),(0,0,1,1)\}$ of $\R^4$ and verify that the residual $\mathbf{b}-\hat{\mathbf{b}}$ is orthogonal to $W$.</p></div>
+<div class="ex from-book"><div class="num">1E.53</div>
+<p>Let $W$ be a subspace of $\R^n$ and $P=A(A^\top A)^{-1}A^\top$ the matrix of orthogonal projection onto $W$ (the columns of $A$ form a basis of $W$). Prove that $I-P$ is the matrix of orthogonal projection onto $W^\perp$ and that $P(I-P)=O$.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">1E.54</div>
+<p>Show that $\vecu_1=(1,1,1,1)$, $\vecu_2=(1,1,-1,-1)$, $\vecu_3=(1,-1,1,-1)$ are pairwise orthogonal, orthonormalize them and complete them to an orthonormal basis of $\R^4$.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Orthogonality and Gram – Schmidt</h3></div>
+<div class="ex from-book"><div class="num">1E.55</div>
+<p>Solve the least squares problem for $A=\begin{bmatrix}1&amp;1\\1&amp;2\\1&amp;3\end{bmatrix}$, $\vecb=(1,2,2)^{T}$ <em>twice</em>: (α) with the normal equations $A^{T}A\hat{\vecx}=A^{T}\vecb$, (β) via $QR$ solving $R\hat{\vecx}=Q^{T}\vecb$. Compare the amount of computation.</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

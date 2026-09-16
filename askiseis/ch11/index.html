@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Monotonicity, Extrema and Convexity</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">⊕ Additional Exercises</div>
+  <h1>Monotonicity, Extrema and Convexity</h1>
+  <p class="chapter-label">Chapter 11 · Monotonicity, Extrema and Convexity</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by concept</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">In every exercise start from the domain and construct a sign table for
+  $f'$ (for monotonicity and extrema) or for $f''$ (for convexity and inflection points). The checking is
+  always done by yourselves: a test value in each interval confirms the sign, and a comparison of values
+  confirms the type of the extremum. You do not need a solutions manual.</p>
+</div>
+
+<div class="grp"><h2>A. Monotonicity and critical points</h2>
+<p class="lead">First the domain, then the roots and the points where $f'$ does not exist, and finally the sign table.</p></div>
+
+<div class="ex"><div class="num">11E.1 <span class="lvl l1">BASIC</span></div>
+<p>Find the critical points and the intervals of monotonicity of $f(x)=x^{3}-12x+5$.</p></div>
+
+<div class="ex"><div class="num">11E.2 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For the function $\displaystyle f(x)=\frac{x^{2}}{x-1}$ determine the domain, the critical points and the intervals of monotonicity.</p>
+<p class="ypod">Hint: $x=1$ is not a critical point, because it does not belong to the domain; the denominator of $f'$ keeps a constant sign.</p></div>
+
+<div class="ex"><div class="num">11E.3 <span class="lvl l3">ADVANCED</span></div>
+<p>Show that $f(x)=2x+\sin x$ is strictly increasing on $\mathbb{R}$ and conclude that the equation $2x+\sin x=1$ has exactly one real solution.</p>
+<p class="ypod">Hint: monotonicity gives uniqueness; for the existence use Bolzano’s theorem on a suitable closed interval.</p></div>
+
+<div class="grp"><h2>B. Local extrema</h2>
+<p class="lead">Every critical point is tested either by the first derivative test or by the second derivative test.</p></div>
+
+<div class="ex"><div class="num">11E.4 <span class="lvl l1">BASIC</span></div>
+<p>Find the local extrema of $\displaystyle f(x)=x^{2}+\frac{16}{x}$, $x\neq 0$, and verify their type by the second derivative test. What happens on the branch $x&lt;0$?</p></div>
+
+<div class="ex"><div class="num">11E.5 <span class="lvl l1">BASIC</span></div>
+<p>Find the local extremum of $f(x)=x^{4}-4x+1$ and determine its type.</p></div>
+
+<div class="ex"><div class="num">11E.6 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For $\displaystyle f(x)=\sin x+\tfrac{1}{2}\sin 2x$ on $[0,2\pi]$ find all the critical points and determine which of them are local extrema.</p>
+<p class="ypod">Hint: write $\cos 2x=2\cos^{2}x-1$ and factor $f'$ with respect to $\cos x$. One of the critical points gives a double root.</p></div>
+
+<div class="grp"><h2>C. Global extrema on a closed interval</h2>
+<p class="lead">On a closed and bounded interval compare the values at the critical points <em>and</em> at the two endpoints.</p></div>
+
+<div class="ex"><div class="num">11E.7 <span class="lvl l1">BASIC</span></div>
+<p>Find the global maximum and the global minimum of $f(x)=x^{3}-3x$ on $[-2,3]$.</p>
+<p class="ypod">Careful: the global minimum may be attained at more than one point.</p></div>
+
+<div class="ex"><div class="num">11E.8 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find the global extrema of $f(x)=x+2\cos x$ on $[0,\pi]$ and give their exact values.</p></div>
+
+<div class="ex"><div class="num">11E.9 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find the global extrema of $f(x)=(x-1)^{2/3}$ on $[0,9]$.</p>
+<p class="ypod">Hint: there is a point of the interval at which $f$ is not differentiable; this too is a candidate.</p></div>
+
+<div class="grp"><h2>D. Optimization problems</h2>
+<p class="lead">Figure, variable, constraint, function of one variable, domain — and only then differentiation.</p></div>
+
+<div class="ex"><div class="num">11E.10 <span class="lvl l1">BASIC</span></div>
+<p>A rectangular plot of area $800\ \mathrm{m^2}$ is to be fenced. One side borders a river and requires no fence. Find the dimensions that minimize the total length of the fence and compute this length.</p></div>
+
+<div class="ex"><div class="num">11E.11 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>From a square sheet of cardboard of side $12$ cm, four equal squares of side $x$ are cut from the corners and the sides are folded up, so as to form an open box. (α) Express the volume $V(x)$. (β) Find the domain of $V$. (γ) Find the $x$ that gives the maximum volume and compute it.</p></div>
+
+<div class="ex"><div class="num">11E.12 <span class="lvl l3">ADVANCED</span></div>
+<p>Find the points of the parabola $y=x^{2}$ that are at minimum distance from the point $\bigl(0,\tfrac{3}{2}\bigr)$ and compute the minimum distance.</p>
+<p class="ypod">Hint: minimize the square of the distance and set $u=x^{2}\geq 0$.</p></div>
+
+<div class="grp"><h2>E. Convexity and concavity</h2>
+<p class="lead">The sign of $f''$ determines the position of the curve relative to its tangent lines.</p></div>
+
+<div class="ex"><div class="num">11E.13 <span class="lvl l1">BASIC</span></div>
+<p>Find the intervals of convexity and concavity of $f(x)=\mathrm{e}^{x}-x^{2}$.</p></div>
+
+<div class="ex"><div class="num">11E.14 <span class="lvl l1">BASIC</span></div>
+<p>Study the convexity and the concavity of $f(x)=\tan x$ on $\left(-\tfrac{\pi}{2},\tfrac{\pi}{2}\right)$.</p></div>
+
+<div class="ex"><div class="num">11E.15 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Show that $f(x)=\sqrt{1+x^{2}}$ is convex on all of $\mathbb{R}$.</p>
+<p class="ypod">Hint: after simplification, $f''$ is written as a fraction with constant numerator.</p></div>
+
+<div class="grp"><h2>F. Inflection points</h2>
+<p class="lead">It is not enough that $f''=0$: a <em>change of sign</em> of $f''$ on either side of the point is required.</p></div>
+
+<div class="ex"><div class="num">11E.16 <span class="lvl l1">BASIC</span></div>
+<p>Find the inflection points and the intervals of convexity and concavity of $f(x)=x+\cos x$ on $[0,2\pi]$.</p></div>
+
+<div class="ex"><div class="num">11E.17 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Show that $(0,0)$ is an inflection point of $f(x)=\sqrt[3]{x}$, although $f$ is not differentiable at $0$. What is the position of the tangent there?</p></div>
+
+<div class="ex"><div class="num">11E.18 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Determine the constants $a,b\in\mathbb{R}$ so that $f(x)=x^{3}+ax^{2}+bx$ has $(1,3)$ as an inflection point. Then verify that it is indeed an inflection point.</p></div>
+
+<div class="grp"><h2>G. Taylor polynomials and error estimation</h2>
+<p class="lead">The polynomial gives the approximation; the Lagrange remainder gives the guarantee.</p></div>
+
+<div class="ex"><div class="num">11E.19 <span class="lvl l1">BASIC</span></div>
+<p>Find the Taylor polynomial $P_{2}(x)$ of $\displaystyle f(x)=\frac{1}{x}$ about $a=1$ and use it to approximate $\dfrac{1}{1.1}$.</p></div>
+
+<div class="ex"><div class="num">11E.20 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find the Taylor polynomial $P_{2}(x)$ of $f(x)=\sqrt[3]{x}$ about $a=8$ and approximate $\sqrt[3]{9}$.</p></div>
+
+<div class="ex"><div class="num">11E.21 <span class="lvl l3">ADVANCED</span></div>
+<p>It is required to approximate $f(x)=\mathrm{e}^{x}$ on $[0,1]$ by a Maclaurin polynomial $P_{n}(x)$, so that the error is less than $10^{-3}$ for every $x\in[0,1]$. Find the least degree $n$ that guarantees this accuracy.</p>
+<p class="ypod">Hint: first bound $\mathrm{e}^{\xi}$ for $\xi\in[0,1]$ by a simple integer and solve the inequality for $(n+1)!$.</p></div>
+
+<div class="grp"><h2>H. Mixed and composite problems</h2>
+<p class="lead">Here monotonicity, extrema and convexity are combined — often with parameters or with a physical interpretation.</p></div>
+
+<div class="ex"><div class="num">11E.22 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Determine the constants $a,b,c,d\in\mathbb{R}$ so that $f(x)=ax^{3}+bx^{2}+cx+d$ has a local maximum at the point $(-1,6)$ and a local minimum at the point $(1,2)$.</p>
+<p class="ypod">Hint: the four conditions are $f(-1)=6$, $f(1)=2$, $f'(-1)=0$, $f'(1)=0$.</p></div>
+
+<div class="ex"><div class="num">11E.23 <span class="lvl l3">ADVANCED</span></div>
+<p>Prove that $\displaystyle x-\frac{x^{2}}{2}&lt;\ln(1+x)&lt;x$ for every $x&gt;0$.</p>
+<p class="ypod">Hint: study separately the monotonicity of the auxiliary functions $g(x)=x-\ln(1+x)$ and $h(x)=\ln(1+x)-x+\dfrac{x^{2}}{2}$, observing that $g(0)=h(0)=0$.</p></div>
+
+<div class="ex"><div class="num">11E.24 <span class="lvl l3">ADVANCED</span></div>
+<p><strong>Beam.</strong> The elastic curve of a simply supported beam of length $L$ under a uniformly distributed load $q$ is given by
+$\displaystyle y(x)=-\frac{q}{24EI}\bigl(x^{4}-2Lx^{3}+L^{3}x\bigr)$, $0\leq x\leq L$, with $y$ measured upwards.
+(α) Show that the elastic curve is convex on all of $(0,L)$, and hence has no inflection point.
+(β) Find the position of the maximum deflection.
+(γ) Using the relation $EI\,y''=M$ find the position and the value of the maximum bending moment and comment on its sign.</p>
+<p class="ypod">Hint: in (β) verify that $x=L/2$ makes $y'$ vanish and justify this by the symmetry of the problem.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">11E.25</div>
+<p>Examine whether Rolle’s theorem holds for $f(x)=x^3-4x$ on $[-2,2]$ and find <em>all</em> the values of $c$.</p></div>
+<div class="ex from-book"><div class="num">11E.26</div>
+<p>Mean value theorem (Lagrange): For $f(x)=x^3-x$ on $[-1,1]$, (α) check the hypotheses, (β) find all the $c\in(-1,1)$ such that $f'(c) = \dfrac{f(1)-f(-1)}{1-(-1)}$.</p></div>
+<div class="ex from-book"><div class="num">11E.27</div>
+<p>For $f(x)=\sqrt{x}$ on $[1,4]$: apply the MVT and find $c$.</p></div>
+<div class="ex from-book"><div class="num">11E.28</div>
+<p>Inequality: Prove by the MVT that $\sqrt{x+1}&lt;1+\dfrac{x}{2}$ for $x&gt;0$. (Hint: apply the MVT to $f(x)=\sqrt{x+1}$ on $[0,x]$.)</p></div>
+<div class="ex from-book"><div class="num">11E.29</div>
+<p>Find all the local extrema of $f(x)=x^4-4x^3+4x^2$, using the first or the second derivative test.</p></div>
+<div class="ex from-book"><div class="num">11E.30</div>
+<p>Monotonicity and extrema: For $f(x)=x\mathrm{e}^{-x}$ on $\mathbb{R}$: (α) find $f'(x)$, (β) determine the intervals of monotonicity, (γ) find the local maximum.</p></div>
+<div class="ex from-book"><div class="num">11E.31</div>
+<p>Find the global extrema of $f(x)=\sin x+\cos x$ on $[0,2\pi]$.</p></div>
+<div class="ex from-book"><div class="num">11E.32</div>
+<p>Prove that $\ln x \leq x-1$ for every $x&gt;0$, by studying the monotonicity of a suitable auxiliary function.</p></div>
+<div class="ex from-book"><div class="num">11E.33</div>
+<p>Inequality: For $f(x)=\ln x - x + 1$: (α) compute $f'(x)$ and the critical points, (β) determine the intervals of monotonicity, (γ) find the absolute maximum, (δ) conclude that $f(x)\leq0$ for every $x&gt;0$.</p></div>
+<div class="ex from-book"><div class="num">11E.34</div>
+<p>$f(x)=x^4-8x^2+7$: study of monotonicity, extrema, convexity and inflection points; sketch.</p></div>
+<div class="ex from-book"><div class="num">11E.35</div>
+<p>Study the function $f(x)=2x^3+3x^2-12x+1$ completely: critical points, intervals of monotonicity, local extrema, convexity/concavity and inflection point.</p></div>
+<div class="ex from-book"><div class="num">11E.36</div>
+<p>Study $f(x)=\dfrac{x}{x^2+1}$ completely: parity, monotonicity, extrema, convexity and sketch.</p></div>
+<div class="ex from-book"><div class="num">11E.37</div>
+<p>Find the intervals of convexity/concavity and the inflection points of $f(x)=x^3-6x^2+9x+1$.</p></div>
+<div class="ex from-book"><div class="num">11E.38</div>
+<p>Find the intervals of convexity/concavity and the inflection points of $f(x)=x^4-6x^2+5$.</p></div>
+<div class="ex from-book"><div class="num">11E.39</div>
+<p>Convexity and inflection points: For $f(x)=2x^3-9x^2+12x$: (α) compute $f''(x)$, (β) find the intervals of convexity and concavity, (γ) determine the inflection point.</p></div>
+<div class="ex from-book"><div class="num">11E.40</div>
+<p><strong>Application:</strong> The elastic curve of a beam is given (in suitable units) by $y(x)=2x^3-3x^2$, $0\le x\le 2$. The sign of $y''$ determines the direction of the curvature (the sign of the bending moment). Find the point at which the direction of the curvature changes.</p></div>
+<div class="ex from-book"><div class="num">11E.41</div>
+<p>Taylor and approximation: Expand $f(x)=\ln(1+x)$ about $a=0$ up to $n=4$. Approximate $\ln(1.5)$ (set $x=0.5$). What error bound does the Lagrange remainder formula give?</p></div>
+<div class="ex from-book"><div class="num">11E.42</div>
+<p>Fourth-order Maclaurin polynomial of $f(x)=(1+x)^{1/2}$. Approximate $\sqrt{1.2}$ and compare with the exact value.</p></div>
+<div class="ex from-book"><div class="num">11E.43</div>
+<p>Find the Taylor polynomial $P_3(x)$ of $f(x)=\mathrm{e}^{-x}$ about $a=0$ and estimate the error $|R_3(x)|$ for $x\in[0,\,1]$ by the Lagrange remainder formula.</p></div>
+<div class="ex from-book"><div class="num">11E.44</div>
+<p>Third-order Taylor polynomial of $\sin x$ about $x_0=\pi/6$. Approximate $\sin(34^{\circ})$.</p></div>
+<div class="ex from-book"><div class="num">11E.45</div>
+<p>Find the Taylor polynomial $P_2(x)$ of $f(x)=\arctan x$ about $a=1$: $P_2(x) = f(1) + f'(1)(x-1) + \dfrac{f''(1)}{2!}(x-1)^2$.</p></div>
+<div class="ex from-book"><div class="num">11E.46</div>
+<p>A limit with Taylor: Compute $\lim_{x\to0}\dfrac{\tan x-x}{x^3}$ using the expansion $\tan x = x + \dfrac{x^3}{3} + \ldots$</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">11E.47</div>
+<p>Prove that $\sin x\geq x-\dfrac{x^3}{6}$ for every $x\geq0$, by studying successively the monotonicity of suitable auxiliary functions (use $\cos x\geq1-\tfrac{x^2}{2}$).</p></div>
+<div class="ex from-book"><div class="num">11E.48</div>
+<p>A rectangle inscribed in an ellipse $\dfrac{x^2}{9}+\dfrac{y^2}{4}=1$ (with sides parallel to the axes): find the dimensions that maximize the area.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 11.1 – The Derivative Theorems and the Behavior of Functions</h3></div>
+<div class="ex from-book"><div class="num">11E.49</div>
+<p>Using Rolle’s theorem, prove that the equation $x^5+2x+1=0$ has exactly one real root. (Hint: Bolzano for the existence, Rolle for the uniqueness.)</p></div>
+<div class="grp2"><h3>Exercises for Section 11.2 – Monotonicity and Extrema</h3></div>
+<div class="ex from-book"><div class="num">11E.50</div>
+<p>$f(x)=x^2\mathrm{e}^{-x}$: find the local maximum and the global maximum on $[0,4]$.</p></div>
+<div class="grp2"><h3>Exercises for Section 11.3 – Convexity, Concavity and Inflection Points</h3></div>
+<div class="ex from-book"><div class="num">11E.51</div>
+<p><strong>Proof:</strong> Prove that every cubic polynomial $f(x)=ax^3+bx^2+cx+d$, $a\neq0$, has exactly one inflection point and find it.</p></div>
+<div class="grp2"><h3>Exercises for Section 11.4 – Taylor Polynomials and Approximations</h3></div>
+<div class="ex from-book"><div class="num">11E.52</div>
+<p>Error estimation: For $f(x)=\sin x$ write the Taylor polynomial $P_2(x)$ about $0$ (careful: there is no $x^2$ term) and estimate the error $R_2(0.1)$ when you approximate $\sin(0.1)$.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">11E.53</div>
+<p><strong>(For engineers) Optimal cross-section.</strong> From a cylindrical log of radius $R$ a beam of rectangular cross-section of width $b$ and height $h$ is cut, with $b^2+h^2=4R^2$. The bending strength is proportional to $S=b\,h^2$. Find the dimensions $b$, $h$ that maximize the strength and show that $h=\sqrt{2}\,b$.</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

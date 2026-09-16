@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Applications of the Derivative and Curve Sketching</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">⊕ Additional Exercises</div>
+  <h1>Applications of the Derivative and Curve Sketching</h1>
+  <p class="chapter-label">Chapter 12 · Applications of the Derivative and Curve Sketching</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by topic</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">Before every application of L'Hôpital's rule you confirm that it is indeed an
+  indeterminate form $\frac{0}{0}$ or $\frac{\infty}{\infty}$; otherwise the rule leads to an error.
+  In the study of functions every finding is checked by another: the sign of $f'$ must agree
+  with the shape of the graph, the asymptotes with the limits at the ends of the domain and the inflection points
+  with the change of convexity. In Newton's method, the stabilization of the decimal digits from one iteration
+  to the next is itself the verification. You do not need a solutions manual.</p>
+</div>
+
+<div class="grp"><h2>A. L'Hôpital's rule</h2>
+<p class="lead">First you identify the form, then you differentiate numerator and denominator <em>separately</em>.</p></div>
+
+<div class="ex"><div class="num">12E.1 <span class="lvl l1">BASIC</span></div>
+<p>Compute the limit $\displaystyle\lim_{x\to 0}\frac{\sin 5x}{\sin 2x}$.</p>
+<p class="ypod">Hint: first confirm that it is a form $\frac{0}{0}$.</p></div>
+
+<div class="ex"><div class="num">12E.2 <span class="lvl l1">BASIC</span></div>
+<p>Compute the limit $\displaystyle\lim_{x\to 2}\frac{x^{3}-8}{x^{2}-4}$ by L'Hôpital's rule and
+verify the result by factoring the numerator and the denominator.</p></div>
+
+<div class="ex"><div class="num">12E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Compute the limit $\displaystyle\lim_{x\to+\infty}\frac{\ln\left(1+\mathrm{e}^{x}\right)}{x}$.</p>
+<p class="ypod">Hint: the form is $\frac{\infty}{\infty}$. After the first application, examine whether the new
+expression is still indeterminate or whether the limit follows directly.</p></div>
+
+<div class="grp"><h2>B. The indeterminate forms $0\cdot\infty$, $\infty-\infty$, $1^{\infty}$</h2>
+<p class="lead">None of these is handled directly: first you reduce them to $\frac{0}{0}$ or $\frac{\infty}{\infty}$.</p></div>
+
+<div class="ex"><div class="num">12E.4 <span class="lvl l1">BASIC</span></div>
+<p>Compute the limit $\displaystyle\lim_{x\to+\infty} x\,\sin\frac{3}{x}$.</p>
+<p class="ypod">Hint: form $\infty\cdot 0$. Move the factor $x$ to the denominator by writing
+it as $\frac{1}{x}$.</p></div>
+
+<div class="ex"><div class="num">12E.5 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Compute the limit $\displaystyle\lim_{x\to 1}\left(\frac{1}{\ln x}-\frac{1}{x-1}\right)$.</p>
+<p class="ypod">Hint: form $\infty-\infty$. Bring the two fractions to a common denominator; the rule
+will have to be applied twice.</p></div>
+
+<div class="ex"><div class="num">12E.6 <span class="lvl l3">ADVANCED</span></div>
+<p>Compute the limit $\displaystyle\lim_{x\to 0}\left(\cos x\right)^{1/x^{2}}$.</p>
+<p class="ypod">Hint: form $1^{\infty}$. Set $y=(\cos x)^{1/x^{2}}$, study $\ln y$ and
+return to the required limit by using the continuity of the exponential function.</p></div>
+
+<div class="grp"><h2>C. The tangent and the normal line</h2>
+<p class="lead">The tangent has slope $f'(x_{0})$ and the normal slope $-\dfrac{1}{f'(x_{0})}$, when $f'(x_{0})\neq 0$.</p></div>
+
+<div class="ex"><div class="num">12E.7 <span class="lvl l1">BASIC</span></div>
+<p>The function $f(x)=\sqrt{x}$ is given. Write the equations of the tangent and of the normal line at the point
+with $x_{0}=4$ and find the point at which the tangent meets the $x$ axis.</p></div>
+
+<div class="ex"><div class="num">12E.8 <span class="lvl l1">BASIC</span></div>
+<p>The function $f(x)=x^{3}-3x^{2}+2$ is given. Write the equations of the tangent and of the normal line at the
+point with $x_{0}=1$.</p></div>
+
+<div class="ex"><div class="num">12E.9 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find the equations of all the tangent lines to the parabola $y=x^{2}$ that pass through the point $(0,-1)$.</p>
+<p class="ypod">Hint: $(0,-1)$ does not lie on the parabola, so it is not a point of tangency. Call
+$a$ the abscissa of the point of tangency, write the tangent there and require that it be satisfied by the
+coordinates of $(0,-1)$.</p></div>
+
+<div class="grp"><h2>D. Newton's method</h2>
+<p class="lead">At each step you replace the curve by its tangent line: $x_{n+1}=x_{n}-\dfrac{f(x_{n})}{f'(x_{n})}$.</p></div>
+
+<div class="ex"><div class="num">12E.10 <span class="lvl l1">BASIC</span></div>
+<p>Approximate the number $\sqrt[3]{7}$ by Newton's method. (α) Choose a suitable function $f$ that
+has $\sqrt[3]{7}$ as a root. (β) Write the iterative formula and simplify it. (γ) Carry out two
+iterations starting from $x_{0}=2$ and compare with the value given by a calculator.</p></div>
+
+<div class="ex"><div class="num">12E.11 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $a&gt;0$. Apply Newton's method to the function $f(x)=\dfrac{1}{x}-a$.
+(α) Show that the iterative formula is written as $x_{n+1}=x_{n}\left(2-a\,x_{n}\right)$.
+(β) Explain why this formula computes $\dfrac{1}{a}$ without any division being carried out.
+(γ) With $a=3$ and $x_{0}=0.3$ carry out three iterations.</p>
+<p class="ypod">Hint: this algorithm is used in processors precisely because it requires
+only multiplications and subtractions. Observe how many correct digits are added at each step.</p></div>
+
+<div class="ex"><div class="num">12E.12 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The equation $x^{3}+2x-5=0$ is given. (α) Show, by studying the monotonicity, that it has exactly one
+real root and locate it in an interval of length $1$. (β) Carry out two iterations of Newton's
+method with $x_{0}=1.5$, keeping four decimal digits. (γ) Estimate the error by the criterion
+$\left|x_{n+1}-x_{n}\right|$.</p></div>
+
+<div class="grp"><h2>E. Asymptotes</h2>
+<p class="lead">Vertical ones from the infinite limits, horizontal and oblique ones from the behavior at $\pm\infty$.</p></div>
+
+<div class="ex"><div class="num">12E.13 <span class="lvl l1">BASIC</span></div>
+<p>Find the domain and all the asymptotes of $f(x)=\dfrac{2x-5}{x+3}$.</p></div>
+
+<div class="ex"><div class="num">12E.14 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The function $f(x)=\dfrac{x^{2}+x-2}{x^{2}-4}$ is given. (α) Find the domain. (β) Factor and
+simplify the fraction and explain why only one of the two roots of the denominator gives a vertical
+asymptote; what happens at the other one? (γ) Find the horizontal asymptote.</p></div>
+
+<div class="ex"><div class="num">12E.15 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The function $f(x)=\sqrt{x^{2}+4x}$ is given. (α) Find the domain. (β) Show that the graph
+has two <em>different</em> oblique asymptotes, one as $x\to+\infty$ and one as $x\to-\infty$.</p>
+<p class="ypod">Hint: write $\sqrt{x^{2}+4x}=|x|\sqrt{1+\frac{4}{x}}$ and note that $|x|=-x$ when
+$x&lt;0$. For the constant $\beta$ of each asymptote use the conjugate expression.</p></div>
+
+<div class="grp"><h2>F. Complete study and sketching of a graph</h2>
+<p class="lead">You always follow the same order: domain, symmetries, intercepts, asymptotes, $f'$, $f''$, table, figure.</p></div>
+
+<div class="ex"><div class="num">12E.16 <span class="lvl l1">BASIC</span></div>
+<p>Study completely and sketch the graph of $f(x)=x^{3}-6x^{2}+9x$: domain,
+points of intersection with the axes, monotonicity, local extrema, convexity and inflection point.</p></div>
+
+<div class="ex"><div class="num">12E.17 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Study completely and sketch the graph of $f(x)=\dfrac{x^{2}}{x^{2}+3}$: symmetry,
+sign, asymptotes, monotonicity, extrema, convexity and inflection points.</p>
+<p class="ypod">Hint: first write $f(x)=1-\dfrac{3}{x^{2}+3}$; the differentiations then become
+considerably shorter.</p></div>
+
+<div class="ex"><div class="num">12E.18 <span class="lvl l3">ADVANCED</span></div>
+<p>Study completely and sketch the graph of $f(x)=x\,\mathrm{e}^{-x^{2}/2}$: symmetry,
+limits at $\pm\infty$ and asymptotes, monotonicity, local extrema, convexity and inflection points.</p>
+<p class="ypod">Hint: both derivatives have the common factor $\mathrm{e}^{-x^{2}/2}&gt;0$, so the
+signs are determined exclusively by the polynomial factors that remain.</p></div>
+
+<div class="grp"><h2>G. Applications in engineering</h2>
+<p class="lead">You model first, restrict the domain to physically acceptable values and then optimize.</p></div>
+
+<div class="ex"><div class="num">12E.19 <span class="lvl l1">BASIC</span></div>
+<p>An open tank with a square base and without a lid has volume $32\ \mathrm{m^{3}}$.
+(α) Express the total surface area $S$ as a function of the side $x$ of the base, stating the
+domain. (β) Find the dimensions that minimize the surface area. (γ) Verify by the second
+derivative test.</p></div>
+
+<div class="ex"><div class="num">12E.20 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>A source with electromotive force $E$ and internal resistance $r$ feeds a load resistance
+$R&gt;0$. The power dissipated in the load is $\displaystyle P(R)=\frac{E^{2}R}{(R+r)^{2}}$.
+(α) Find the value of $R$ that maximizes $P$. (β) Compute the maximum power in terms of
+$E$ and $r$. (γ) Compute $\displaystyle\lim_{R\to+\infty}P(R)$ and interpret it physically.</p>
+<p class="ypod">Hint: $E$ and $r$ are constants; the only variable is $R$.</p></div>
+
+<div class="ex"><div class="num">12E.21 <span class="lvl l3">ADVANCED</span></div>
+<p>From a cylindrical log of diameter $d$ a beam of rectangular cross-section of width $w$ and height $h$ is cut.
+The bending strength of the beam is proportional to the product $w\,h^{2}$. (α) Express the strength as a
+function of $w$ alone, with $0&lt;w&lt;d$. (β) Find the dimensions of the cross-section of maximum strength.
+(γ) Show that the ratio $h/w$ of the optimal cross-section is constant, independent of the diameter $d$.</p>
+<p class="ypod">Hint: the rectangular cross-section is inscribed in the circle of diameter $d$, hence
+$w^{2}+h^{2}=d^{2}$.</p></div>
+
+<div class="grp"><h2>H. Mixed and composite problems</h2>
+<p class="lead">Here several tools of the chapter are combined; first identify what is being asked.</p></div>
+
+<div class="ex"><div class="num">12E.22 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Compute the limit $\displaystyle\lim_{x\to 0^{+}}\frac{\ln(\sin x)}{\ln x}$.</p>
+<p class="ypod">Hint: this is a form $\frac{-\infty}{-\infty}$. After applying the rule and
+a simplification you will recognize a basic limit of Chapter 9.</p></div>
+
+<div class="ex"><div class="num">12E.23 <span class="lvl l3">ADVANCED</span></div>
+<p>The function $f(x)=\dfrac{x^{2}+ax+b}{x-1}$ is given, with $a,b\in\mathbb{R}$. Determine $a$ and $b$ so that the
+graph of $f$ has the line $y=x+3$ as an oblique asymptote and a local extremum at the point
+with $x=3$. For the values you find, determine also the type of the extremum.</p>
+<p class="ypod">Hint: first carry out the polynomial division, so that $f$ is written as the sum of a
+linear polynomial and a fraction that tends to zero.</p></div>
+
+<div class="ex"><div class="num">12E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>The function $f(x)=x^{4}-4x+1$ is given. (α) Study the monotonicity of $f$ and show that the equation $f(x)=0$
+has exactly two real roots. (β) Locate each of them in an interval of length $1$ with the
+help of Bolzano's theorem. (γ) Approximate the larger root by two iterations of Newton's
+method, starting from $x_{0}=1.5$.</p>
+<p class="ypod">Hint: in (α) it is enough to see how many critical points $f$ has and what the
+sign of its minimum value is.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">12E.25</div>
+<p>L'Hôpital: $\displaystyle\lim_{x\to0}\frac{e^{2x}-1}{x}$. (α) Determine the indeterminate form. (β) Apply the rule.</p></div>
+<div class="ex from-book"><div class="num">12E.26</div>
+<p>L'Hôpital: $\displaystyle\lim_{x\to0}\frac{1-\cos x}{x^2}$. (α) Which form? (β) Apply L'Hôpital (it is needed twice). (γ) Verify with a Taylor expansion.</p></div>
+<div class="ex from-book"><div class="num">12E.27</div>
+<p>L'Hôpital: $\displaystyle\lim_{x\to1}\frac{\ln x}{x-1}$. (α) Which indeterminate form? (β) Apply the rule and compute.</p></div>
+<div class="ex from-book"><div class="num">12E.28</div>
+<p>L'Hôpital (several times): $\displaystyle\lim_{x\to0}\frac{x-\sin x}{x^3}$. (α) How many times is the rule required? (β) Apply it until the limit becomes finite.</p></div>
+<div class="ex from-book"><div class="num">12E.29</div>
+<p>L'Hôpital: $\displaystyle\lim_{x\to+\infty}\frac{\ln x}{\sqrt{x}}$ and $\displaystyle\lim_{x\to+\infty}\frac{\ln x}{x}$. What do you conclude about the rate of growth of the logarithm?</p></div>
+<div class="ex from-book"><div class="num">12E.30</div>
+<p>Compute: (α) $\displaystyle\lim_{x\to0}\frac{e^{2x}-1-2x}{x^2}$, (β) $\displaystyle\lim_{x\to\pi}\frac{\sin x}{x-\pi}$, (γ) $\displaystyle\lim_{x\to0}\frac{e^{x}-1-x}{x^2}$.</p></div>
+<div class="ex from-book"><div class="num">12E.31</div>
+<p>Compute: (α) $\displaystyle\lim_{x\to 0}\frac{e^x - 1 - x}{\sin^2 x}$, (β) $\displaystyle\lim_{x\to 1}\frac{x^3-3x+2}{x^2-1}$.</p></div>
+<div class="ex from-book"><div class="num">12E.32</div>
+<p>Find the tangent and the normal of $f(x)=\ln x$ at the point $x_0=\mathrm{e}$. Where does the tangent meet the $x$ axis?</p></div>
+<div class="ex from-book"><div class="num">12E.33</div>
+<p>Find the points of the curve $y=x^3-3x$ at which the tangent is parallel to the line $y=9x-1$ and write the equations of these tangent lines.</p></div>
+<div class="ex from-book"><div class="num">12E.34</div>
+<p>The normal of the parabola $y=x^2$ at the point $(1,1)$ meets the parabola again. Find the second point of intersection.</p></div>
+<div class="ex from-book"><div class="num">12E.35</div>
+<p>Solve numerically $\mathrm{e}^x=3$ (that is, $f(x)=\mathrm{e}^x-3=0$) by Newton's method with $x_0=1$. Carry out three iterations and compare with $\ln 3$.</p></div>
+<div class="ex from-book"><div class="num">12E.36</div>
+<p>Apply Newton's method to $f(x)=x^4-x-10$ with $x_0=2$: carry out two steps and estimate the error by the a posteriori criterion $|x_{n+1}-x_n|$.</p></div>
+<div class="ex from-book"><div class="num">12E.37</div>
+<p>Comparison of methods: Solve $x^2=3$ (that is, $f(x)=x^2-3=0$) by (α) the bisection method on $[1,2]$ and (β) Newton's method with $x_0=2$. Compare the number of iterations for an accuracy of $10^{-4}$.</p></div>
+<div class="ex from-book"><div class="num">12E.38</div>
+<p>Find all the asymptotes of $f(x)=\dfrac{x^2-1}{x-2}$.</p></div>
+<div class="ex from-book"><div class="num">12E.39</div>
+<p>For $f(x)=\dfrac{x^3}{x^2-4}$ find: (α) the vertical asymptotes, (β) the oblique asymptote. <em>Hint:</em> polynomial division.</p></div>
+<div class="ex from-book"><div class="num">12E.40</div>
+<p>Find all the asymptotes (vertical, horizontal, oblique) and sketch qualitatively: (α) $f(x)=\dfrac{x^2+4}{x-2}$, (β) $g(x)=\dfrac{2x^2-x}{x+3}$.</p></div>
+<div class="ex from-book"><div class="num">12E.41</div>
+<p>The function $f(x)=\dfrac{3x-6}{x+1}$ is given. Find the domain, the intercepts with the axes and the asymptotes (vertical and horizontal) and sketch the curve roughly.</p></div>
+<div class="ex from-book"><div class="num">12E.42</div>
+<p>The function $f(x)=\dfrac{x}{x^2+1}$ is given. (α) Domain. (β) Show that it is odd. (γ) Find the asymptotes. (δ) Sketch roughly.</p></div>
+<div class="ex from-book"><div class="num">12E.43</div>
+<p>The function $f(x)=\dfrac{x^2+3x+1}{x+1}$ is given. Find the domain, the intercepts with the axes, the vertical and the oblique asymptote and make a rough sketch of the graph. <em>Hint:</em> polynomial division.</p></div>
+<div class="ex from-book"><div class="num">12E.44</div>
+<p>Complete study of $f(x)=\dfrac{x^3}{x^2-4}$: domain, asymptotes, monotonicity, extrema, convexity, inflection points and sketch.</p></div>
+<div class="ex from-book"><div class="num">12E.45</div>
+<p>Study of a rational function: $f(x)=\dfrac{x^2-1}{x}=x-\dfrac{1}{x}$, $x\neq0$. (α) Domain. (β) Is it odd? (γ) Asymptotes (vertical and oblique). (δ) Monotonicity and extrema. (ε) Sketch it.</p></div>
+<div class="ex from-book"><div class="num">12E.46</div>
+<p>A rational function with a logarithm: $f(x)=\dfrac{\ln x}{x}$ ($x&gt;0$). (α) Asymptotes. (β) Monotonicity and extremum. (γ) Convexity. (δ) Sketch it.</p></div>
+<div class="ex from-book"><div class="num">12E.47</div>
+<p>Study and sketch $f(x)=2\sin x-x$ on $[-\pi,\pi]$. (α) Critical points. (β) Monotonicity and local extrema. (γ) Inflection point.</p></div>
+<div class="ex from-book"><div class="num">12E.48</div>
+<p>Complete study of a trigonometric function: $f(x)=\sin x+\frac{1}{2}\sin 2x$ on $[0,2\pi]$. (α) Zeros. (β) Critical points. (γ) Extrema. (δ) Convexity and inflections. (ε) Sketch it.</p></div>
+<div class="ex from-book"><div class="num">12E.49</div>
+<p><strong>A divided fence.</strong> A rectangular region is fenced and divided into two equal rectangles by an additional fence parallel to one side. The total available length of fencing is $200$ m. (α) Express the area as a function of one dimension. (β) Find the dimensions of maximum area. (γ) Verify by the second derivative test.</p></div>
+<div class="ex from-book"><div class="num">12E.50</div>
+<p>An inscribed triangle: A right triangle is inscribed in a circle of radius $R$ (the hypotenuse is a diameter). (α) Express its area in terms of a suitable angle. (β) Find the maximum area.</p></div>
+<div class="ex from-book"><div class="num">12E.51</div>
+<p>A cylindrical container: For a given volume of $V=1$ liter, find the dimensions (radius $r$ and height $h$) that minimize the total surface area. (Hint: $V = \pi r^2 h$, $S = 2\pi r^2 + 2\pi rh$.)</p></div>
+<div class="ex from-book"><div class="num">12E.52</div>
+<p>A cylindrical container open at the top, of capacity $V=500\pi\ \mathrm{cm^3}$: find the diameter and the height that minimize the surface area of the material.</p></div>
+<div class="ex from-book"><div class="num">12E.53</div>
+<p>A box open at the top is made from a square sheet of cardboard of side $a$, by cutting small squares of side $x$ from the corners. Show that the maximum volume is attained for $x=a/6$.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">12E.54</div>
+<p><strong>The Lagrange remainder.</strong> For $f(x)=\cos x$ about $x_0=0$: <ol class="sub"><li>Write the Taylor polynomial $P_4(x)$. </li><li>Estimate the error $|f(x)-P_4(x)|$ for $x\in[0;\,0.5]$ with $|R_4(x)|\le\frac{M_5}{5!}|x|^5$. </li><li>How many terms are enough so that the error is $&lt;10^{-6}$ on $x=0.5$? </li></ol></p></div>
+<div class="ex from-book"><div class="num">12E.55</div>
+<p>Find the third-order Maclaurin polynomial of $f(x)=\sqrt[3]{1+x}$ and use it to approximate $\sqrt[3]{1.03}$. Estimate the error.</p></div>
+<div class="ex from-book"><div class="num">12E.56</div>
+<p><strong>The minimum length of a beam.</strong> A horizontal beam must be carried from a corridor of width $a=2$ m into a perpendicular corridor of width $b=2$ m. (α) Express the length $L(\theta)$ of the part that touches the corner as a function of the angle $\theta$. (β) By minimizing $L(\theta)$, find the maximum length of beam that can turn the corner. (γ) Show that the minimum is attained for $\theta=\pi/4$.</p></div>
+<div class="ex from-book"><div class="num">12E.57</div>
+<p><strong>Optimization with a numerical solution.</strong> Let $f(x)=x^2+\mathrm{e}^{-x}$ be given. (α) Show that $f$ has a unique global minimum. (β) The condition $f'(x)=0$ gives $2x=\mathrm{e}^{-x}$, which cannot be solved analytically: carry out three steps of Newton's method with $x_0=0.5$ to approximate the solution. (γ) Compute the minimum value.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 12.1 – L&#x27;Hôpital's Rule – Indeterminate Forms</h3></div>
+<div class="ex from-book"><div class="num">12E.58</div>
+<p><strong>L'Hôpital (form $1^{\infty}$):</strong> $\displaystyle\lim_{x\to+\infty}\left(1+\dfrac{2}{x}\right)^{3x}$. (α) Take logarithms. (β) Reduce to the form $\frac{0}{0}$ and apply the rule. (γ) Return to the original limit.</p></div>
+<div class="grp2"><h3>Exercises for Section 12.3 – Newton's Method and Numerical Methods</h3></div>
+<div class="ex from-book"><div class="num">12E.59</div>
+<p><strong>Fixed-point iteration:</strong> For the equation $x=\cos x$ write the iteration $x_{n+1}=\cos x_n$. (α) With $x_0=1$, carry out several iterations and check whether it converges. (β) Analyze the convergence by the criterion $|g'(x)|&lt;1$, where $g(x)=\cos x$.</p></div>
+<div class="grp2"><h3>Exercises for Section 12.4 – Asymptotes – A Detailed Study</h3></div>
+<div class="ex from-book"><div class="num">12E.60</div>
+<p>Prove that $f(x)=\ln x$ has no horizontal asymptote, but does have a vertical one. Which one?</p></div>
+<div class="grp2"><h3>Exercises for Section 12.6 – Analytic Curve Sketching</h3></div>
+<div class="ex from-book"><div class="num">12E.61</div>
+<p>Prove that $f(x)=x^3-3x+1$ has three real roots, locating them in intervals with the help of the monotonicity and of Bolzano's theorem.</p></div>
+<div class="grp2"><h3>Exercises for Section 12.7 – Optimization</h3></div>
+<div class="ex from-book"><div class="num">12E.62</div>
+<p><strong>A demand model:</strong> The demand for a product (in units) when the price is $p$ euros is given by $Q(p)=200-2p$, $0&lt;p&lt;100$. The revenue is $R(p)=p\,Q(p)$. (α) Write $R(p)$. (β) Find the critical points. (γ) Which price maximizes the revenue and how many units are then sold?</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

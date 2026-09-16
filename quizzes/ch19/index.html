@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz: Sequences and Series</title>
+  <link rel="stylesheet" href="../../_shared/book.css">
+  <script>
+    MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    .quiz-question{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+    .q-num{font-size:.78rem;font-family:sans-serif;font-weight:700;color:#c85000;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}
+    .quiz-question p{font-size:1.05rem;margin-bottom:.8rem}
+    .quiz-question label{display:block;padding:.45rem .7rem;margin:.25rem 0;border-radius:6px;cursor:pointer;border:1px solid #e8edf2;transition:background .15s}
+    .quiz-question label:hover{background:#f0f4ff}
+    label.correct{background:#d4edda!important;border-color:#28a745!important}
+    label.wrong{background:#f8d7da!important;border-color:#dc3545!important}
+    .explanation{margin-top:.8rem;padding:.8rem 1rem;background:#fffbf0;border-left:4px solid #c85000;border-radius:0 6px 6px 0;font-size:.95rem}
+    .hidden{display:none}
+    .btn{background:#c85000;color:#fff;border:none;padding:.6rem 1.4rem;border-radius:6px;cursor:pointer;font-size:1rem;font-weight:600;margin:.4rem .3rem}
+    .btn:hover{background:#a54000}
+    .btn-secondary{background:#004080}
+    .btn-secondary:hover{background:#003060}
+    #score-box{background:#fff;border:2px solid #c85000;border-radius:10px;padding:1.5rem;text-align:center;margin-top:1.5rem;display:none}
+    #score-box h2{color:#c85000;font-size:1.6rem}
+    .progress-bar{background:#eee;border-radius:6px;height:10px;margin:1rem 0}
+    .progress-fill{background:#c85000;height:10px;border-radius:6px;transition:width .4s}
+    .info-card{background:#fff;border-left:4px solid #c85000;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+  
+  .author-stamp {
+    background: linear-gradient(135deg, #004080 0%, #003060 100%);
+    color: #fff;
+    padding: 0.8rem 1.4rem;
+    font-family: 'Georgia', serif;
+    font-size: 0.82rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    border-top: 3px solid #c85000;
+    margin-top: 2rem;
+  }
+  .author-stamp .stamp-book {
+    font-style: italic;
+    color: #ffd080;
+    font-weight: bold;
+  }
+  .author-stamp .stamp-author {
+    opacity: 0.9;
+  }
+
+  
+  .hint-btn{background:#eef;border:1px solid #99c;color:#225;border-radius:6px;padding:.25rem .6rem;font-size:.8rem;cursor:pointer;margin:.4rem 0 .2rem}
+  .hint-tip{background:#eef6ff;border-left:4px solid #3b82f6;border-radius:0 6px 6px 0;padding:.5rem .8rem;margin:.2rem 0 .4rem;font-size:.92rem;color:#234}
+  #retry-wrong{background:#004080}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#c85000 60%,#be5000)">
+  <div class="type-badge badge-quiz">✓ Quiz</div>
+  <h1>Sequences and Series</h1>
+  <p class="chapter-label">Chapter 19 · Sequences &amp; Series</p>
+</header>
+<main>
+  <div class="info-card">
+    <h2 style="margin-bottom:.4rem;color:#c85000">Self-Assessment</h2>
+    <p>10 questions on the convergence of sequences, series and convergence tests.</p>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+  <div id="best-score" style="text-align:center;font-weight:600;color:#004080;margin:.3rem 0 .8rem"></div>
+  <form id="quiz-form">
+<div class="quiz-question" id="q1">
+  <div class="q-num">Question 1 / 10</div>
+  <p>$\lim_{n\to\infty}\dfrac{1}{n}=$</p>
+  <label><input type="radio" name="q1" value="0"> a) 1</label>
+  <label><input type="radio" name="q1" value="1"> b) $\infty$</label>
+  <label><input type="radio" name="q1" value="2"> c) $-1$</label>
+  <label><input type="radio" name="q1" value="3"> d) 0</label>
+  <div class="explanation hidden" id="exp1"><strong>✓ Answer:</strong> d) 0<br><em>$1/n\to0$ as $n\to\infty$.</em></div>
+</div>
+
+<div class="quiz-question" id="q2">
+  <div class="q-num">Question 2 / 10</div>
+  <p>Every decreasing sequence that is bounded below converges.</p>
+  <label><input type="radio" name="q2" value="1"> Correct</label>
+  <label><input type="radio" name="q2" value="0"> Incorrect</label>
+  <div class="explanation hidden" id="exp2"><strong>✓ Answer:</strong> Correct<br><em>Monotone and bounded $\Rightarrow$ it converges (the monotone convergence theorem).</em></div>
+</div>
+
+<div class="quiz-question" id="q3">
+  <div class="q-num">Question 3 / 10</div>
+  <p>The geometric series $\sum_{n=0}^\infty ar^n$ converges if:</p>
+  <label><input type="radio" name="q3" value="0"> a) $r&gt;1$</label>
+  <label><input type="radio" name="q3" value="1"> b) $|r|&lt;1$</label>
+  <label><input type="radio" name="q3" value="2"> c) $r=1$</label>
+  <label><input type="radio" name="q3" value="3"> d) $a&gt;0$</label>
+  <div class="explanation hidden" id="exp3"><strong>✓ Answer:</strong> b) $|r|&lt;1$<br><em>Geometric series: it converges $\Leftrightarrow$ $|r|&lt;1$, and then $\sum=\dfrac{a}{1-r}$.</em></div>
+</div>
+
+<div class="quiz-question" id="q4">
+  <div class="q-num">Question 4 / 10</div>
+  <p>D'Alembert's test (ratio test): if $\lim_{n\to\infty}\left|\dfrac{a_{n+1}}{a_n}\right|=L&lt;1$, then $\sum a_n$:</p>
+  <label><input type="radio" name="q4" value="0"> a) diverges</label>
+  <label><input type="radio" name="q4" value="1"> b) converges absolutely</label>
+  <label><input type="radio" name="q4" value="2"> c) it is unknown</label>
+  <label><input type="radio" name="q4" value="3"> d) oscillates</label>
+  <div class="explanation hidden" id="exp4"><strong>✓ Answer:</strong> b) converges absolutely<br><em>D'Alembert: $L&lt;1\Rightarrow$ absolute convergence. $L&gt;1\Rightarrow$ divergence. $L=1\Rightarrow$ inconclusive.</em></div>
+</div>
+
+<div class="quiz-question" id="q5">
+  <div class="q-num">Question 5 / 10</div>
+  <p>If $\sum a_n$ converges, then $a_n\to0$.</p>
+  <label><input type="radio" name="q5" value="1"> Correct</label>
+  <label><input type="radio" name="q5" value="0"> Incorrect</label>
+  <div class="explanation hidden" id="exp5"><strong>✓ Answer:</strong> Correct<br><em>Necessary condition for convergence: $\lim_{n\to\infty}a_n=0$. If $a_n\not\to0$, the series diverges.</em></div>
+</div>
+
+<div class="quiz-question" id="q6">
+  <div class="q-num">Question 6 / 10</div>
+  <p>$\sum_{n=1}^\infty\dfrac{1}{n^2}$ is:</p>
+  <label><input type="radio" name="q6" value="0"> a) The harmonic series — diverges</label>
+  <label><input type="radio" name="q6" value="1"> b) A $p$-series with $p=2&gt;1$ — converges</label>
+  <label><input type="radio" name="q6" value="2"> c) Telescoping — converges to 1</label>
+  <label><input type="radio" name="q6" value="3"> d) Geometric</label>
+  <div class="explanation hidden" id="exp6"><strong>✓ Answer:</strong> b) A $p$-series with $p=2&gt;1$ — converges<br><em>$p$-series $\sum\frac{1}{n^p}$: it converges if $p&gt;1$. For $p=2$: $\sum\frac{1}{n^2}=\frac{\pi^2}{6}$.</em></div>
+</div>
+
+<div class="quiz-question" id="q7">
+  <div class="q-num">Question 7 / 10</div>
+  <p>The harmonic series $\sum_{n=1}^\infty\dfrac{1}{n}$:</p>
+  <label><input type="radio" name="q7" value="0"> a) Converges to $\ln 2$</label>
+  <label><input type="radio" name="q7" value="1"> b) Converges to 1</label>
+  <label><input type="radio" name="q7" value="2"> c) Diverges</label>
+  <label><input type="radio" name="q7" value="3"> d) Oscillates</label>
+  <div class="explanation hidden" id="exp7"><strong>✓ Answer:</strong> c) Diverges<br><em>The harmonic series $\sum\frac{1}{n}$ diverges (historical note: Oresme, 14th century).</em></div>
+</div>
+
+<div class="quiz-question" id="q8">
+  <div class="q-num">Question 8 / 10</div>
+  <p>Integral test: $\sum_{n=1}^\infty f(n)$ and $\int_1^\infty f(x)dx$ behave the same way (convergence/divergence).</p>
+  <label><input type="radio" name="q8" value="1"> Correct</label>
+  <label><input type="radio" name="q8" value="0"> Incorrect</label>
+  <div class="explanation hidden" id="exp8"><strong>✓ Answer:</strong> Correct<br><em>Integral test (Cauchy-Maclaurin): it holds if $f$ is positive, decreasing and continuous.</em></div>
+</div>
+
+<div class="quiz-question" id="q9">
+  <div class="q-num">Question 9 / 10</div>
+  <p>The alternating series $\sum_{n=1}^\infty\dfrac{(-1)^{n+1}}{n}$ converges to:</p>
+  <label><input type="radio" name="q9" value="0"> a) $\ln 2$</label>
+  <label><input type="radio" name="q9" value="1"> b) $\pi/4$</label>
+  <label><input type="radio" name="q9" value="2"> c) 0</label>
+  <label><input type="radio" name="q9" value="3"> d) 1</label>
+  <div class="explanation hidden" id="exp9"><strong>✓ Answer:</strong> a) $\ln 2$<br><em>Leibniz test + Taylor: $\sum_{n=1}^\infty\frac{(-1)^{n+1}}{n}=\ln 2$.</em></div>
+</div>
+
+<div class="quiz-question" id="q10">
+  <div class="q-num">Question 10 / 10</div>
+  <p>$\sum_{n=0}^\infty\dfrac{1}{2^n}=$</p>
+  <label><input type="radio" name="q10" value="0"> a) 1</label>
+  <label><input type="radio" name="q10" value="1"> b) 2</label>
+  <label><input type="radio" name="q10" value="2"> c) $\infty$</label>
+  <label><input type="radio" name="q10" value="3"> d) $1/2$</label>
+  <div class="explanation hidden" id="exp10"><strong>✓ Answer:</strong> b) 2<br><em>Geometric: $a=1$, $r=1/2$, $|r|&lt;1$: $\sum=\frac{1}{1-1/2}=2$.</em></div>
+</div>
+
+
+  </form>
+  <div style="text-align:center;margin:1.5rem 0">
+    <button class="btn" onclick="checkAll()">Check Answers</button>
+    <button class="btn btn-secondary" onclick="resetQuiz()">Try Again</button>
+  </div>
+  <div id="score-box">
+    <h2 id="score-text"></h2>
+    <p id="score-detail"></p>
+  </div>
+</main>
+<script>
+const ANSWERS = [3,1,1,1,1,1,2,1,0,1];
+const N = 10;
+
+function checkAll(){
+  let score=0;
+  for(let i=1;i<=N;i++){
+    const sel=document.querySelector(`input[name=q${i}]:checked`);
+    const expEl=document.getElementById(`exp${i}`);
+    const labels=document.querySelectorAll(`#q${i} label`);
+    labels.forEach(l=>l.classList.remove('correct','wrong'));
+    if(sel){
+      const correct=(parseInt(sel.value)===parseInt(ANSWERS[i-1]));
+      if(correct){score++;sel.parentElement.classList.add('correct');}
+      else{sel.parentElement.classList.add('wrong');
+            labels.forEach(l=>{
+              if(parseInt(l.querySelector('input').value)===parseInt(ANSWERS[i-1]))l.classList.add('correct');
+            });
+      }
+    }
+    expEl.classList.remove('hidden');
+  }
+  const pct=Math.round(score/N*100);
+  document.getElementById('prog').style.width=pct+'%';
+  const box=document.getElementById('score-box');
+  box.style.display='block';
+  const emoji=pct>=90?'🏆':pct>=70?'👍':pct>=50?'📚':'💪';
+  document.getElementById('score-text').textContent=emoji+' '+score+'/'+N+' ('+pct+'%)';
+  document.getElementById('score-detail').textContent=
+    pct>=90?'Excellent! Outstanding understanding.':
+    pct>=70?'Very good! Just a little review needed.':
+    pct>=50?'Fair, but you need more practice.':'Review the theory of the chapter.';
+  box.scrollIntoView({behavior:'smooth'});
+  if(typeof MathJax!=='undefined')MathJax.typesetPromise();
+}
+
+function resetQuiz(){
+  document.getElementById('quiz-form').reset();
+  document.querySelectorAll('.explanation').forEach(e=>e.classList.add('hidden'));
+  document.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+  document.getElementById('prog').style.width='0%';
+  document.getElementById('score-box').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// live progress
+document.addEventListener('change',function(e){
+  if(e.target.type==='radio'){
+    const answered=new Set([...document.querySelectorAll('input[type=radio]:checked')].map(r=>r.name)).size;
+    document.getElementById('prog').style.width=(answered/N*100)+'%';
+  }
+});
+
+/* ── Shuffle + best-score (added) ── */
+function _qShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function _qKey(){return 'quizbest:'+location.pathname;}
+function _qScore(){let s=0;for(let i=1;i<=N;i++){const sel=document.querySelector('input[name=q'+i+']:checked');if(sel&&parseInt(sel.value)===parseInt(ANSWERS[i-1]))s++;}return s;}
+function _qRenderBest(){const el=document.getElementById('best-score');if(!el)return;let b=null;try{b=localStorage.getItem(_qKey());}catch(e){}el.textContent=(b!==null)?('🏅 Best score: '+b+' / '+N):'';}
+function _qSaveBest(){try{const s=_qScore();const p=parseInt(localStorage.getItem(_qKey()));if(isNaN(p)||s>p)localStorage.setItem(_qKey(),String(s));}catch(e){}_qRenderBest();}
+(function(){const _o=checkAll;checkAll=function(){_o();_qSaveBest();};})();
+function _qShuffleQuiz(){
+  const form=document.getElementById('quiz-form');if(!form)return;
+  const qs=[...form.querySelectorAll('.quiz-question')];
+  qs.forEach(q=>{const exp=q.querySelector('.explanation');const labels=[...q.querySelectorAll('label')];_qShuffle(labels).forEach(l=>q.insertBefore(l,exp));});
+  _qShuffle(qs).forEach((q,idx)=>{form.appendChild(q);const num=q.querySelector('.q-num');if(num)num.textContent='Question '+(idx+1)+' / '+N;});
+}
+document.addEventListener('DOMContentLoaded',function(){_qShuffleQuiz();_qRenderBest();if(typeof MathJax!=='undefined'&&MathJax.typesetPromise)MathJax.typesetPromise();});
+
+/* ── Topic feedback + hints + retry-wrong (added) ── */
+const QTOPICS = ["Limit of a sequence", "Monotone and bounded", "Geometric series", "Ratio test", "Necessary condition", "p-series", "Harmonic series", "Integral test", "Alternating harmonic series", "Sum of a geometric series"];
+const QHINTS = ["The denominator tends to infinity.", "The monotone convergence theorem.", "A ratio whose absolute value is less than 1.", "The limit of the ratio of consecutive terms is below 1.", "The general term tends to zero.", "p=2>1; (the known value pi^2/6).", "A classic example of divergence despite a_n->0.", "Cauchy-Maclaurin, for a positive decreasing function.", "Leibniz; the Taylor series of ln(1+x) at 1.", "a=1, r=1/2, the formula a/(1-r)."];
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.quiz-question').forEach(function(q){
+    const n=parseInt(q.id.replace('q',''));
+    const h=QHINTS[n-1]; if(!h) return;
+    if(q.querySelector('.hint-btn')) return;
+    const exp=q.querySelector('.explanation');
+    const btn=document.createElement('button'); btn.type='button'; btn.className='hint-btn'; btn.textContent='💡 Hint';
+    const tip=document.createElement('div'); tip.className='hint-tip hidden'; tip.textContent=h;
+    btn.addEventListener('click',function(){tip.classList.toggle('hidden');});
+    q.insertBefore(btn,exp); q.insertBefore(tip,exp);
+  });
+});
+function _qWrongAnswered(){const w=[];for(let i=1;i<=N;i++){const sel=document.querySelector('input[name=q'+i+']:checked');if(sel&&parseInt(sel.value)!==parseInt(ANSWERS[i-1]))w.push(i);}return w;}
+function _qTopicFeedback(){
+  const wrong=_qWrongAnswered();
+  const topics=[...new Set(wrong.map(i=>QTOPICS[i-1]).filter(Boolean))];
+  let el=document.getElementById('topic-fb');
+  if(!el){el=document.createElement('p');el.id='topic-fb';el.style.marginTop='.6rem';el.style.fontWeight='600';document.getElementById('score-box').appendChild(el);}
+  el.textContent= topics.length? ('📌 Topics to review: '+topics.join(' · ')) : '🎯 No weak spots — well done!';
+}
+function _qShowRetry(){
+  const wrong=_qWrongAnswered();
+  let btn=document.getElementById('retry-wrong');
+  if(!btn){
+    btn=document.createElement('button'); btn.id='retry-wrong'; btn.className='btn'; btn.textContent='↻ Retry the ones you missed'; btn.style.marginTop='.6rem';
+    btn.addEventListener('click',function(){
+      _qWrongAnswered().forEach(function(i){
+        document.querySelectorAll('input[name=q'+i+']').forEach(r=>r.checked=false);
+        const q=document.getElementById('q'+i); if(q) q.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+        const ex=document.getElementById('exp'+i); if(ex) ex.classList.add('hidden');
+      });
+      document.getElementById('score-box').style.display='none';
+      const first=document.querySelector('.quiz-question'); if(first) first.scrollIntoView({behavior:'smooth'});
+    });
+    document.getElementById('score-box').appendChild(btn);
+  }
+  btn.style.display= wrong.length? 'inline-block':'none';
+}
+(function(){const _o=checkAll;checkAll=function(){_o();_qTopicFeedback();_qShowRetry();};})();
+</script>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #c85000;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

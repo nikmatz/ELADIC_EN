@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Mathematical Background</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">⊕ Additional Exercises</div>
+  <h1>Mathematical Background</h1>
+  <p class="chapter-label">Chapter 0 · Mathematical Background</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by section</em>
+  of the chapter and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">This is review material: every exercise is solved using only the tools
+  of the present chapter, without derivatives and without integrals. Before you start computing,
+  identify the structure of the expression; most solutions are short once the right
+  formula is chosen. Every result is checked by substituting back into the data.</p>
+</div>
+
+<div class="grp"><h2>A. Number sets, inequalities and absolute values</h2>
+<p class="lead">First restrict the domain, then study the sign; the solution set is always written as an interval or a union of intervals.</p></div>
+
+<div class="ex"><div class="num">0E.1 <span class="lvl l1">BASIC</span></div>
+<p>Solve the double inequality $-3\le 2x+1<7$ and write the solution set as an interval.</p></div>
+
+<div class="ex"><div class="num">0E.2 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Solve the inequalities:</p>
+<p>(α) $|2x-1|<|x+3|$,&nbsp;&nbsp;&nbsp; (β) $\displaystyle \frac{x^2-4}{x+1}\le 0$.</p>
+<p class="ypod">Hint: in (α) both sides are nonnegative, so the inequality is preserved if you square them. In (β) factor the numerator and construct a sign table; note carefully which point is excluded.</p></div>
+
+<div class="ex"><div class="num">0E.3 <span class="lvl l3">ADVANCED</span></div>
+<p>Prove that for all $a,b,c\in\mathbb{R}$ we have $a^2+b^2+c^2\ge ab+bc+ca$ and determine when equality holds.</p>
+<p class="ypod">Hint: examine the sum $(a-b)^2+(b-c)^2+(c-a)^2$.</p></div>
+
+<div class="grp"><h2>B. The coordinate plane and the straight line</h2>
+<p class="lead">Distance, midpoint and slope are enough to describe completely every line of the plane.</p></div>
+
+<div class="ex"><div class="num">0E.4 <span class="lvl l1">BASIC</span></div>
+<p>The points $A(-3,5)$ and $B(5,-1)$are given. Compute the length $|AB|$ and the coordinates of the midpoint $M$ of the segment $AB$.</p></div>
+
+<div class="ex"><div class="num">0E.5 <span class="lvl l1">BASIC</span></div>
+<p>Find the equation of the line through the point $(0,4)$ and parallel to the line $3x-y+2=0$.</p></div>
+
+<div class="ex"><div class="num">0E.6 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The points $A(1,1)$, $B(5,3)$ and $\Gamma(3,7)$are given. Show that the triangle $AB\Gamma$ is right-angled and compute its area.</p>
+<p class="ypod">Hint: compare the slopes of the sides or their lengths. At which vertex do you look for the right angle?</p></div>
+
+<div class="grp"><h2>C. Vectors in the plane and in space</h2>
+<p class="lead">The inner product measures lengths and angles at the same time; almost every question reduces to it.</p></div>
+
+<div class="ex"><div class="num">0E.7 <span class="lvl l1">BASIC</span></div>
+<p>The vectors $\vec{u}=(3,-4)$ and $\vec{v}=(-1,2)$ of the plane and the vector $\vec{w}=(2,-3,6)$ of space are given. Compute:</p>
+<p>(α) the vector $2\vec{u}-3\vec{v}$,&nbsp;&nbsp;&nbsp; (β) the magnitudes $\|\vec{u}\|$ and $\|\vec{w}\|$,&nbsp;&nbsp;&nbsp; (γ) the corresponding unit direction vectors.</p></div>
+
+<div class="ex"><div class="num">0E.8 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find all the unit vectors of the plane that are perpendicular to $\vec{v}=(3,4)$.</p>
+<p class="ypod">Hint: write the required vector as $(a,b)$ and combine the perpendicularity condition with the condition $\|(a,b)\|=1$. How many solutions do you expect geometrically?</p></div>
+
+<div class="ex"><div class="num">0E.9 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Prove the parallelogram law: for all $\vec{u},\vec{v}$ of the plane or of space we have
+$\|\vec{u}+\vec{v}\|^2+\|\vec{u}-\vec{v}\|^2=2\|\vec{u}\|^2+2\|\vec{v}\|^2$.</p>
+<p class="ypod">Hint: use the relation $\|\vec{w}\|^2=\vec{w}\cdot\vec{w}$ and the distributivity of the inner product.</p></div>
+
+<div class="grp"><h2>D. Algebraic formulas and factorization</h2>
+<p class="lead">Recognize the pattern (difference of squares, sum of cubes, perfect square) before carrying out any computation.</p></div>
+
+<div class="ex"><div class="num">0E.10 <span class="lvl l1">BASIC</span></div>
+<p>Factor completely in $\mathbb{R}$: (α) $x^3+27$,&nbsp;&nbsp;&nbsp; (β) $4x^2-12x+9$,&nbsp;&nbsp;&nbsp; (γ) $x^4-16$.</p></div>
+
+<div class="ex"><div class="num">0E.11 <span class="lvl l1">BASIC</span></div>
+<p>Simplify the expression $\displaystyle \frac{1}{x-1}-\frac{2}{x^2-1}$ for $x\neq\pm 1$.</p></div>
+
+<div class="ex"><div class="num">0E.12 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find the constant term, that is, the term that does not contain $x$, in the expansion $\displaystyle \left(x+\frac{1}{x}\right)^{6}$ (for $x\neq 0$).</p>
+<p class="ypod">Hint: write the general term of the Binomial Theorem and require that the exponent of $x$ vanish.</p></div>
+
+<div class="grp"><h2>E. Polynomial equations</h2>
+<p class="lead">The Rational Root Theorem for detecting the roots, Horner's method for lowering the degree.</p></div>
+
+<div class="ex"><div class="num">0E.13 <span class="lvl l1">BASIC</span></div>
+<p>Using Horner's method find the quotient and the remainder of the division of $p(x)=x^4-3x^3+2x-5$ by $x+1$.</p>
+<p class="ypod">Hint: do not forget the zero coefficient of $x^2$.</p></div>
+
+<div class="ex"><div class="num">0E.14 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Solve in $\mathbb{R}$ the equation $2x^3-x^2-8x+4=0$.</p>
+<p class="ypod">Hint: as an alternative to searching for rational roots, try grouping the terms in pairs.</p></div>
+
+<div class="ex"><div class="num">0E.15 <span class="lvl l3">ADVANCED</span></div>
+<p>The polynomial $p(x)=x^3+ax^2+bx-6$ has as roots the numbers $1$ and $-2$. Determine $a,b\in\mathbb{R}$ and find its third root.</p>
+<p class="ypod">Hint: two independent conditions follow from the relations $p(1)=0$ and $p(-2)=0$; the third root is then found by factorization.</p></div>
+
+<div class="grp"><h2>F. Trigonometry</h2>
+<p class="lead">Pythagorean identity, quadrant and transformation formulas: these three cover the whole group.</p></div>
+
+<div class="ex"><div class="num">0E.16 <span class="lvl l1">BASIC</span></div>
+<p>If $\cos\theta=-\dfrac{4}{5}$ and $\theta\in\left(\dfrac{\pi}{2},\pi\right)$, compute $\sin\theta$, $\tan\theta$ and $\cos 2\theta$.</p>
+<p class="ypod">Hint: the quadrant determines the sign of the square root.</p></div>
+
+<div class="ex"><div class="num">0E.17 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Solve on the interval $[0,2\pi)$ the equation $2\sin^2 x+\sin x-1=0$.</p>
+<p class="ypod">Hint: with the substitution $t=\sin x$ a quadratic equation results; factor it and return to the variable $x$.</p></div>
+
+<div class="ex"><div class="num">0E.18 <span class="lvl l3">ADVANCED</span></div>
+<p>Prove the identity $\displaystyle \frac{\cos x-\cos 3x}{\sin 3x-\sin x}=\tan 2x$, for every $x$ with $\sin x\neq 0$ and $\cos 2x\neq 0$.</p>
+<p class="ypod">Hint: convert numerator and denominator into products using the sum-to-product formulas.</p></div>
+
+<div class="grp"><h2>G. Complex numbers</h2>
+<p class="lead">Algebraic form for the operations, exponential form for powers and roots, the complex plane for the geometry.</p></div>
+
+<div class="ex"><div class="num">0E.19 <span class="lvl l1">BASIC</span></div>
+<p>Write in the form $a+bi$ the numbers $\displaystyle \frac{3-i}{1+2i}$ and $i^{2027}$.</p>
+<p class="ypod">Hint: for the quotient multiply numerator and denominator by the conjugate of the denominator; for the power use the periodicity of the powers of $i$.</p></div>
+
+<div class="ex"><div class="num">0E.20 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find all the fourth roots of $z=-16$ in exponential and in algebraic form and represent them in the complex plane.</p>
+<p class="ypod">Hint: first write $-16$ in trigonometric form. How are the roots distributed on the circle?</p></div>
+
+<div class="ex"><div class="num">0E.21 <span class="lvl l3">ADVANCED</span></div>
+<p>Show that the set of $z\in\mathbb{C}$ that satisfy the condition $|z-1|=2\,|z+1|$ is a circle, and determine its center and its radius.</p>
+<p class="ypod">Hint: set $z=x+iy$, square both sides and complete the square in $x$.</p></div>
+
+<div class="grp"><h2>H. Mixed problems</h2>
+<p class="lead">Exercises that combine several sections; here the method is not given, you choose it yourself.</p></div>
+
+<div class="ex"><div class="num">0E.22 <span class="lvl l1">BASIC</span></div>
+<p>Compute the value of the expression $\displaystyle \log_2 32-\log_2\sqrt{2}+\log_3\frac{1}{9}$.</p></div>
+
+<div class="ex"><div class="num">0E.23 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Starting from Euler's formula $e^{i\theta}=\cos\theta+i\sin\theta$ and the property $e^{i(\alpha+\beta)}=e^{i\alpha}\,e^{i\beta}$, prove the formulas
+$\cos(\alpha+\beta)=\cos\alpha\cos\beta-\sin\alpha\sin\beta$ and $\sin(\alpha+\beta)=\sin\alpha\cos\beta+\cos\alpha\sin\beta$.</p>
+<p class="ypod">Hint: carry out the multiplication and equate real and imaginary parts separately.</p></div>
+
+<div class="ex"><div class="num">0E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>Consider the polynomial $p(x)=x^4+1$.</p>
+<p>(α) Show that $p$ has no real roots.</p>
+<p>(β) Find its four complex roots in exponential form.</p>
+<p>(γ) By combining the conjugate roots in pairs, write $p(x)$ as a product of two quadratic trinomials with real coefficients.</p>
+<p class="ypod">Hint: in (γ) the product $(x-z)(x-\bar{z})$ is expressed in terms of $z+\bar{z}$ and $|z|^2$.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">0E.25</div>
+<p>Solve the inequality $|3x+2|\ge 4$ and write the solution as a union of intervals.</p></div>
+<div class="ex from-book"><div class="num">0E.26</div>
+<p>Find the $x$ for which $\dfrac{x-1}{x+2}\ge 0$.</p></div>
+<div class="ex from-book"><div class="num">0E.27</div>
+<p>Prove that $\bigl|\,|a|-|b|\,\bigr|\le |a-b|$ for every $a,b\in\mathbb{R}$.</p></div>
+<div class="ex from-book"><div class="num">0E.28</div>
+<p>Find the equation of the line through $(2,3)$ and perpendicular to $y=2x-1$.</p></div>
+<div class="ex from-book"><div class="num">0E.29</div>
+<p>Find the point of intersection of the lines $x+y=3$ and $2x-y=0$.</p></div>
+<div class="ex from-book"><div class="num">0E.30</div>
+<p>Find the slope and the intercepts with the axes of the line $2x+3y=6$.</p></div>
+<div class="ex from-book"><div class="num">0E.31</div>
+<p>Find the value of $\lambda$ so that $\vec{u}=(\lambda,2)$ and $\vec{v}=(4,-2)$ are perpendicular.</p></div>
+<div class="ex from-book"><div class="num">0E.32</div>
+<p>Compute the angle between $\vec{u}=(1,1,0)$ and $\vec{v}=(1,0,1)$.</p></div>
+<div class="ex from-book"><div class="num">0E.33</div>
+<p>For $\vec{F}_1=(2,1)\,$N and $\vec{F}_2=(1,3)\,$N, find the resultant $\vec{F}_1+\vec{F}_2$ and its magnitude.</p></div>
+<div class="ex from-book"><div class="num">0E.34</div>
+<p>Expand $(2x-3)^3$.</p></div>
+<div class="ex from-book"><div class="num">0E.35</div>
+<p>Factor $x^3-8$.</p></div>
+<div class="ex from-book"><div class="num">0E.36</div>
+<p>Find the coefficient of $x^2$ in the expansion $(1+x)^6$.</p></div>
+<div class="ex from-book"><div class="num">0E.37</div>
+<p>Using Horner's method divide the polynomial $x^3-2x+1$ by $x-1$.</p></div>
+<div class="ex from-book"><div class="num">0E.38</div>
+<p>Find all the rational roots of the polynomial $2x^3-3x^2-3x+2$.</p></div>
+<div class="ex from-book"><div class="num">0E.39</div>
+<p>If $x=2$ is a root of the polynomial $x^3-3x^2+kx-2$, find $k$.</p></div>
+<div class="ex from-book"><div class="num">0E.40</div>
+<p>Solve the equation $x^4-1=0$ in the reals.</p></div>
+<div class="ex from-book"><div class="num">0E.41</div>
+<p>Solve by substitution the system $\begin{cases}3x-2y=8\\ x+y=1\end{cases}$.</p></div>
+<div class="ex from-book"><div class="num">0E.42</div>
+<p>For which $\lambda$ does the system $\begin{cases}x+y=1\\ x+\lambda y=2\end{cases}$ have a unique solution?</p></div>
+<div class="ex from-book"><div class="num">0E.43</div>
+<p>Solve by Cramer's rule the system $\begin{cases}x+2y+z=4\\ 2x-y+3z=-3\\ 3x+y-z=6\end{cases}$.</p></div>
+<div class="ex from-book"><div class="num">0E.44</div>
+<p>In a triangle with $a=7$, $b=5$, $C=60^\circ$ find the side $c$ (law of cosines).</p></div>
+<div class="ex from-book"><div class="num">0E.45</div>
+<p>Solve the equation $2\cos^2 x-1=0$ on $[0,2\pi)$.</p></div>
+<div class="ex from-book"><div class="num">0E.46</div>
+<p>Compute $\sin 2\theta$ if $\sin\theta=\tfrac{3}{5}$ and $\theta$ is acute.</p></div>
+<div class="ex from-book"><div class="num">0E.47</div>
+<p>If $z=2e^{i\pi/4}$, compute $z^4$ and $\dfrac{1}{z}$ in algebraic form $a+bi$.</p></div>
+<div class="ex from-book"><div class="num">0E.48</div>
+<p>Write in polar form $z=1-i$ and compute $z^{6}$.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">0E.49</div>
+<p>Verify the identities: <ol class="sub"><li>$\dfrac{\sin 2x}{1+\cos 2x}=\tan x$ </li><li>$\dfrac{\sin 3x-\sin x}{\cos 3x+\cos x}=\tan x$ \ (for $\cos x\cdot\cos 2x\neq0$) </li><li>$\cos x+\cos 3x+\cos 5x=\cos 3x\,(1+2\cos 2x)$ </li></ol></p></div>
+<div class="ex from-book"><div class="num">0E.50</div>
+<p>Let $z_1=3+4i$ and $z_2=1-2i$. Compute: (α) $z_1+z_2$, (β) $z_1\cdot z_2$, (γ) $z_1/z_2$, (δ) $|z_1|$, (ε) $\bar{z}_2$, (ζ) $z_1^2$.</p></div>
+<div class="ex from-book"><div class="num">0E.51</div>
+<p>Find the cube roots of unity and represent them in the complex plane.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 0.6 – Systems of Linear Equations</h3></div>
+<div class="ex from-book"><div class="num">0E.52</div>
+<p>Solve by elimination the system
+\[\begin{cases}x+y+z=6\\ x-y+z=2\\ 2x+y-z=1\end{cases}\]</p></div>
+<div class="grp2"><h3>Exercises for Section 0.8 – Complex Numbers</h3></div>
+<div class="ex from-book"><div class="num">0E.53</div>
+<p>Solve the equation $z^2+z+1=0$ in $\mathbb{C}$.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">0E.54</div>
+<p>Numerical inequalities: prove that for $a,b&gt;0$: (α) $\frac{a+b}{2}\geq\sqrt{ab}$ (AM$\geq$GM), (β) $\sqrt{\frac{a^2+b^2}{2}}\geq\frac{a+b}{2}$ (QM$\geq$AM), (γ) $\frac{2ab}{a+b}\leq\sqrt{ab}\leq\frac{a+b}{2}\leq\sqrt{\frac{a^2+b^2}{2}}$ (the full chain).</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

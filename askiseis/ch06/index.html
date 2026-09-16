@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Diagonalization of Matrices</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">&#8853; Additional Exercises</div>
+  <h1>Diagonalization of Matrices</h1>
+  <p class="chapter-label">Chapter 6 &middot; Diagonalization of Matrices</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by section</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">Every result is checked by you yourselves: the diagonalization is verified by the
+  relation $AP=PD$ (without even computing $P^{-1}$), the orthogonal diagonalization by the relation
+  $Q^{\top}Q=I$, while the sum and the product of the eigenvalues must always give the trace
+  and the determinant of the matrix. You do not need a solutions manual.</p>
+</div>
+
+<div class="grp"><h2>A. Criteria for diagonalizability</h2>
+<p class="lead">First the question &ldquo;is it diagonalizable?&rdquo;: compare the algebraic and the geometric multiplicity, before you begin any lengthy computation.</p></div>
+
+<div class="ex"><div class="num">6E.1 <span class="lvl l1">BASIC</span></div>
+<p>Decide which of the following matrices are diagonalizable, justifying your answer on the basis of their eigenvalues and multiplicities:</p>
+<p>(α) $A=\begin{bmatrix}7&amp;-4\\0&amp;1\end{bmatrix}$, &nbsp; (β) $B=\begin{bmatrix}5&amp;0&amp;0\\1&amp;5&amp;0\\0&amp;0&amp;2\end{bmatrix}$, &nbsp; (γ) $C=\begin{bmatrix}0&amp;0&amp;3\\0&amp;2&amp;0\\3&amp;0&amp;0\end{bmatrix}$.</p>
+<p class="ypod">Hint: in one of the three cases the conclusion follows from the form of the matrix, without any computation.</p></div>
+
+<div class="ex"><div class="num">6E.2 <span class="lvl l1">BASIC</span></div>
+<p>A matrix $A$ of size $3\times3$ has characteristic polynomial $p(\lambda)=-(\lambda-2)^{2}(\lambda+1)$.</p>
+<p>(α) Which values can the geometric multiplicity of the eigenvalue $\lambda=2$ take?</p>
+<p>(β) Which condition exactly must be satisfied for $A$ to be diagonalizable?</p>
+<p>(γ) Compute the trace and the determinant of $A$ without knowing its entries.</p></div>
+
+<div class="ex"><div class="num">6E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Show that the matrix $A=\begin{bmatrix}4&amp;1&amp;0\\0&amp;4&amp;0\\0&amp;0&amp;c\end{bmatrix}$ is not diagonalizable for any value of $c\in\mathbb{R}$.</p>
+<p class="ypod">Hint: distinguish the cases $c=4$ and $c\neq4$ and compute in each one the dimension of the eigenspace of $\lambda=4$.</p></div>
+
+<div class="grp"><h2>B. Computing $P$ and $D$</h2>
+<p class="lead">The decomposition $A=PDP^{-1}$ step by step; the order of the columns of $P$ must correspond to the order of the eigenvalues in $D$.</p></div>
+
+<div class="ex"><div class="num">6E.4 <span class="lvl l1">BASIC</span></div>
+<p>Diagonalize $A=\begin{bmatrix}5&amp;-2\\0&amp;3\end{bmatrix}$: find $P$ and $D$ and verify your result by means of the relation $AP=PD$.</p></div>
+
+<div class="ex"><div class="num">6E.5 <span class="lvl l1">BASIC</span></div>
+<p>For $A=\begin{bmatrix}4&amp;2\\1&amp;3\end{bmatrix}$ find the eigenvalues, a basis of each eigenspace and the matrices $P$, $D$ with $A=PDP^{-1}$. Verify that $\mathrm{tr}(A)=\lambda_1+\lambda_2$ and $\det(A)=\lambda_1\lambda_2$.</p></div>
+
+<div class="ex"><div class="num">6E.6 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Diagonalize $A=\begin{bmatrix}2&amp;0&amp;0\\1&amp;3&amp;0\\-1&amp;1&amp;1\end{bmatrix}$, determining the eigenvalues, a basis of each eigenspace and $P$, $D$.</p>
+<p class="ypod">Hint: the matrix is lower triangular; the eigenvalues are read off directly from the diagonal.</p></div>
+
+<div class="grp"><h2>C. Symmetric matrices and orthogonal diagonalization</h2>
+<p class="lead">The spectral theorem guarantees an orthonormal basis of eigenvectors: $P$ becomes orthogonal $Q$ and $P^{-1}$ becomes $Q^{\top}$.</p></div>
+
+<div class="ex"><div class="num">6E.7 <span class="lvl l1">BASIC</span></div>
+<p>For $A=\begin{bmatrix}5&amp;-1\\-1&amp;5\end{bmatrix}$ write the orthogonal diagonalization $A=QDQ^{\top}$ with normalized eigenvectors and verify that $Q^{\top}Q=I_2$.</p></div>
+
+<div class="ex"><div class="num">6E.8 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let the symmetric matrix $A=\begin{bmatrix}1&amp;0&amp;2\\0&amp;3&amp;0\\2&amp;0&amp;1\end{bmatrix}$ be given. Find its eigenvalues, an orthonormal basis of eigenvectors and write it in the form $A=QDQ^{\top}$.</p>
+<p class="ypod">Hint: one eigenvalue is double; within its two-dimensional eigenspace you must choose two vectors that are <em>orthogonal</em> to each other.</p></div>
+
+<div class="ex"><div class="num">6E.9 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>A real symmetric matrix $A$ of size $3\times3$ has eigenvalues $2$, $2$ and $-3$, while $\mathbf{v}=(1,1,0)^{\top}$ is an eigenvector of $\lambda=-3$.</p>
+<p>(α) Explain why the eigenspace of $\lambda=2$ is the orthogonal complement of $\mathrm{span}\{\mathbf{v}\}$ and find an orthonormal basis of it.</p>
+<p>(β) Form $Q$ and $D$ and compute the entries of $A=QDQ^{\top}$.</p></div>
+
+<div class="grp"><h2>D. Powers and the matrix exponential</h2>
+<p class="lead">Diagonalization transfers every power and every exponential to the diagonal: $A^{k}=PD^{k}P^{-1}$ and $e^{At}=Pe^{Dt}P^{-1}$.</p></div>
+
+<div class="ex"><div class="num">6E.10 <span class="lvl l1">BASIC</span></div>
+<p>Compute $A^{6}$ for $A=\begin{bmatrix}1&amp;3\\0&amp;-2\end{bmatrix}$ by making use of the diagonalization.</p></div>
+
+<div class="ex"><div class="num">6E.11 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $A=\begin{bmatrix}2&amp;1\\0&amp;1\end{bmatrix}$ be given.</p>
+<p>(α) Diagonalize it. &nbsp; (β) Find a closed formula for $A^{n}$, $n\ge1$, and verify it for $n=2$.</p>
+<p>(γ) Compute the limit $\displaystyle\lim_{n\to\infty}\frac{1}{2^{n}}A^{n}$ and interpret it in terms of the dominant eigenvalue.</p></div>
+
+<div class="ex"><div class="num">6E.12 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For $A=\begin{bmatrix}-2&amp;1\\1&amp;-2\end{bmatrix}$ compute $e^{At}$ and solve the system $\dot{\mathbf{x}}=A\mathbf{x}$ with $\mathbf{x}(0)=(1,3)^{\top}$. Describe the behavior of the solution as $t\to+\infty$ and explain which eigenvalue determines it.</p></div>
+
+<div class="ex"><div class="num">6E.13 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $A=PDP^{-1}$ with $P$ invertible and $D=\mathrm{diag}\!\left(1,\tfrac{1}{2},-\tfrac{1}{3}\right)$.</p>
+<p>(α) Show that the limit $L=\displaystyle\lim_{k\to\infty}A^{k}$ exists and express it in terms of $P$ and $P^{-1}$.</p>
+<p>(β) Show that $L^{2}=L$ and that $AL=L$.</p>
+<p>(γ) Interpret $L$ geometrically as a projection and determine onto which subspace it projects.</p></div>
+
+<div class="grp"><h2>E. Quadratic forms</h2>
+<p class="lead">Every quadratic form is written as $\mathbf{x}^{\top}A\mathbf{x}$ with $A$ symmetric; the signs of the eigenvalues (or the leading principal minors) decide everything.</p></div>
+
+<div class="ex"><div class="num">6E.14 <span class="lvl l1">BASIC</span></div>
+<p>Write the quadratic form $Q(x,y,z)=3x^{2}+3y^{2}+3z^{2}+2xy+2yz$ in the form $\mathbf{x}^{\top}A\mathbf{x}$ with $A$ symmetric and examine by Sylvester’s criterion whether it is positive definite.</p></div>
+
+<div class="ex"><div class="num">6E.15 <span class="lvl l1">BASIC</span></div>
+<p>Let the curve $x^{2}+6xy+y^{2}=4$ be given.</p>
+<p>(α) Write it in the form $\mathbf{x}^{\top}A\mathbf{x}=4$ with $A$ symmetric. &nbsp; (β) Find the eigenvalues of $A$ and identify the kind of conic section.</p>
+<p>(γ) Determine the directions of its axes and the equations of its asymptotes in the system of the principal axes.</p></div>
+
+<div class="ex"><div class="num">6E.16 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For which values of $k\in\mathbb{R}$ is the quadratic form $Q(x,y,z)=x^{2}+y^{2}+kz^{2}+2xz$ positive definite? For which values does it become indefinite?</p>
+<p class="ypod">Hint: form the symmetric matrix and apply Sylvester’s criterion to all three leading principal minors.</p></div>
+
+<div class="grp"><h2>F. Singular value decomposition</h2>
+<p class="lead">When the matrix is not even square, the study is transferred to the symmetric $A^{\top}A$.</p></div>
+
+<div class="ex"><div class="num">6E.17 <span class="lvl l1">BASIC</span></div>
+<p>Compute the singular values of $A=\begin{bmatrix}1&amp;2\\0&amp;0\end{bmatrix}$ by means of the eigenvalues of $A^{\top}A$ and relate the number of nonzero singular values to the rank of $A$.</p></div>
+
+<div class="ex"><div class="num">6E.18 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $A=\begin{bmatrix}2&amp;2\\-1&amp;1\end{bmatrix}$ be given.</p>
+<p>(α) Compute $A^{\top}A$, the singular values and the right singular vectors.</p>
+<p>(β) Write the full decomposition $A=U\Sigma V^{\top}$ and verify that $U^{\top}U=V^{\top}V=I_2$.</p>
+<p>(γ) Find the lengths of the semi-axes of the ellipse onto which the unit circle is mapped.</p>
+<p class="ypod">Hint: the left singular vectors follow from the relation $\mathbf{u}_i=\dfrac{1}{\sigma_i}A\mathbf{v}_i$.</p></div>
+
+<div class="grp"><h2>G. Applications: principal component analysis and stresses</h2>
+<p class="lead">Two classic appearances of the spectral theorem outside mathematics: the covariance matrix and the stress tensor.</p></div>
+
+<div class="ex"><div class="num">6E.19 <span class="lvl l1">BASIC</span></div>
+<p>Data of two variables have covariance matrix $C=\begin{bmatrix}5&amp;2\\2&amp;2\end{bmatrix}$.</p>
+<p>(α) Find the principal components. &nbsp; (β) Compute the percentage of the total variance that each one explains.</p>
+<p>(γ) Explain why the projection of the data onto the first principal component retains the largest part of the information.</p></div>
+
+<div class="ex"><div class="num">6E.20 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>In a state of plane stress, the stress tensor at a point is $\boldsymbol{\sigma}=\begin{bmatrix}50&amp;20\\20&amp;80\end{bmatrix}$ (in MPa).</p>
+<p>(α) Find the principal stresses and the directions of the principal axes.</p>
+<p>(β) Explain why in the system of the principal axes the tensor becomes diagonal.</p>
+<p>(γ) Show that the quantity $\tfrac{1}{2}(\lambda_1-\lambda_2)$ does not change if the tensor is expressed in another orthonormal coordinate system.</p>
+<p class="ypod">Hint: for (γ) recall what happens to the characteristic polynomial under a change of basis.</p></div>
+
+<div class="ex"><div class="num">6E.21 <span class="lvl l3">ADVANCED</span></div>
+<p>Let the data matrix $X=\begin{bmatrix}2&amp;0\\0&amp;2\\-2&amp;0\\0&amp;-2\end{bmatrix}$ be given (four observations, two variables).</p>
+<p>(α) Verify that the data are centered and compute $C=\dfrac{1}{n-1}X^{\top}X$.</p>
+<p>(β) Show that every nonzero vector of $\mathbb{R}^{2}$ is an eigenvector of $C$ and explain why here principal component analysis does not single out any principal direction.</p>
+<p>(γ) Multiply the second variable by $3$ and repeat: what is now the first principal component and what do you conclude about the sensitivity of the method to the scale of the variables?</p></div>
+
+<div class="grp"><h2>H. Mixed and composite problems</h2>
+<p class="lead">Here the method is not given: first identify which tool of the chapter fits and then compute.</p></div>
+
+<div class="ex"><div class="num">6E.22 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $A=\begin{bmatrix}5&amp;4\\4&amp;5\end{bmatrix}$ be given.</p>
+<p>(α) Diagonalize it and construct a matrix $B$ with $B^{2}=A$.</p>
+<p>(β) How many different matrices $B$ arise in the same way and why?</p>
+<p class="ypod">Hint: work in the diagonal form and think about the choices you have for the square root of each eigenvalue.</p></div>
+
+<div class="ex"><div class="num">6E.23 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $A$ be a matrix of size $n\times n$ with $A^{2}=A$ (idempotent).</p>
+<p>(α) Show that every eigenvalue of $A$ belongs to the set $\{0,1\}$.</p>
+<p>(β) Prove that $A$ is diagonalizable.</p>
+<p>(γ) Conclude that $\mathrm{tr}(A)=\mathrm{rank}(A)$.</p>
+<p class="ypod">Hint: for (β) write $\mathbf{x}=A\mathbf{x}+(\mathbf{x}-A\mathbf{x})$ and examine to which eigenspace each of the two summands belongs.</p></div>
+
+<div class="ex"><div class="num">6E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>A real matrix $A$ of size $2\times2$ satisfies $\mathrm{tr}(A)=6$ and $\det(A)=5$.</p>
+<p>(α) Find its eigenvalues and justify whether it is diagonalizable.</p>
+<p>(β) Making use of the Cayley&ndash;Hamilton theorem, show that $A^{-1}=\tfrac{1}{5}\left(6I-A\right)$.</p>
+<p>(γ) Express $A^{3}$ as a linear combination of $A$ and $I$.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">6E.25</div>
+<p>Diagonalize $A=\begin{bmatrix}1&amp;2\\2&amp;1\end{bmatrix}$ and verify by computation that $PDP^{-1}=A$.</p></div>
+<div class="ex from-book"><div class="num">6E.26</div>
+<p>Diagonalize $A$ and, by means of $A=PDP^{-1}$, compute $A^4$ for $A=\begin{bmatrix}1&amp;2\\0&amp;3\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">6E.27</div>
+<p>Show that every matrix with $n$ distinct eigenvalues is diagonalizable and apply this to the triangular $A=\begin{bmatrix}1&amp;2&amp;3\\0&amp;2&amp;4\\0&amp;0&amp;5\end{bmatrix}$, writing down $P$ and $D$ without a full computation of $P^{-1}$.</p></div>
+<div class="ex from-book"><div class="num">6E.28</div>
+<p>Examine whether $A=\begin{bmatrix}2&amp;1&amp;0\\0&amp;2&amp;0\\0&amp;0&amp;3\end{bmatrix}$ is diagonalizable. If not, explain why on the basis of the relation between algebraic and geometric multiplicity.</p></div>
+<div class="ex from-book"><div class="num">6E.29</div>
+<p>Diagonalize $A=\begin{bmatrix}0&amp;2\\1&amp;1\end{bmatrix}$ (eigenvalues $2$ and $-1$) and find a closed formula for $A^n$. Verify it for $n=3$.</p></div>
+<div class="ex from-book"><div class="num">6E.30</div>
+<p>Diagonalize $A=\begin{bmatrix}3&amp;1\\0&amp;2\end{bmatrix}$ and use the diagonalization to compute $A^4$.</p></div>
+<div class="ex from-book"><div class="num">6E.31</div>
+<p>The matrix $A=\begin{bmatrix}4&amp;1\\0&amp;4\end{bmatrix}$ is not diagonalizable. Find its eigenvalues and eigenvectors and explain why, on the basis of the criterion for diagonalizability.</p></div>
+<div class="ex from-book"><div class="num">6E.32</div>
+<p>For the symmetric matrix $A=\begin{bmatrix}3&amp;1\\1&amp;3\end{bmatrix}$ find the eigenvalues and the eigenvectors and verify that the eigenvectors are orthogonal.</p></div>
+<div class="ex from-book"><div class="num">6E.33</div>
+<p>Write the orthogonal decomposition $A=QDQ^\top$ for the matrix of the preceding problem (normalize the eigenvectors) and verify that $Q^\top Q=I$.</p></div>
+<div class="ex from-book"><div class="num">6E.34</div>
+<p><strong>Proof:</strong> If $A=Q\Lambda Q^\top$ is symmetric with all its eigenvalues positive, prove that $\mathbf{x}^\top A\mathbf{x}&gt;0$ for every $\mathbf{x}\neq\mathbf{0}$.</p></div>
+<div class="ex from-book"><div class="num">6E.35</div>
+<p>Compute the SVD of $A=\begin{bmatrix}3&amp;0\\0&amp;2\end{bmatrix}$. What are its singular values and how are they related to its eigenvalues?</p></div>
+<div class="ex from-book"><div class="num">6E.36</div>
+<p>Find the singular values of $A=\begin{bmatrix}1&amp;1\\0&amp;1\end{bmatrix}$ by computing the eigenvalues of $A^\top A$.</p></div>
+<div class="ex from-book"><div class="num">6E.37</div>
+<p>For $A=\begin{bmatrix}1&amp;0\\0&amp;-1\end{bmatrix}$ write the SVD. Which geometric transformation does it express?</p></div>
+<div class="ex from-book"><div class="num">6E.38</div>
+<p>Describe geometrically the transformation $A=\frac{1}{\sqrt{2}}\begin{bmatrix}1&amp;-1\\1&amp;1\end{bmatrix}\begin{bmatrix}2&amp;0\\0&amp;1\end{bmatrix}\frac{1}{\sqrt{2}}\begin{bmatrix}1&amp;1\\-1&amp;1\end{bmatrix}$ as a sequence: rotation, scaling, rotation.</p></div>
+<div class="ex from-book"><div class="num">6E.39</div>
+<p><strong>Proof:</strong> If $A$ is square and invertible, prove that $A^{+}=A^{-1}$.</p></div>
+<div class="ex from-book"><div class="num">6E.40</div>
+<p>Compute $A^5$ for $A=\begin{bmatrix}3&amp;0\\0&amp;-2\end{bmatrix}$ and explain why raising a diagonal matrix to a power is immediate.</p></div>
+<div class="ex from-book"><div class="num">6E.41</div>
+<p>If $A=PDP^{-1}$ with $D=\mathrm{diag}(1,-1,2)$, compute $A^{100}$ concisely. Explain why diagonalization makes the computation of powers easy.</p></div>
+<div class="ex from-book"><div class="num">6E.42</div>
+<p>Using the Cayley–Hamilton theorem express $A^3$ as a linear combination of $A$ and $I$ for $A=\begin{bmatrix}1&amp;2\\3&amp;2\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">6E.43</div>
+<p>Compute $e^{At}$ for the diagonalizable $A=\begin{bmatrix}2&amp;1\\0&amp;3\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">6E.44</div>
+<p>Solve the system $\dot{\mathbf{x}}=A\mathbf{x}$ with $A=\begin{bmatrix}1&amp;2\\2&amp;1\end{bmatrix}$ and $\mathbf{x}(0)=(1,0)^\top$, by means of $e^{At}$.</p></div>
+<div class="ex from-book"><div class="num">6E.45</div>
+<p><strong>Proof:</strong> Show that $\det(e^{A})=e^{\mathrm{tr}(A)}$ for a diagonalizable $A$, using the formula $e^{A}=P\,\mathrm{diag}(e^{\lambda_i})\,P^{-1}$.</p></div>
+<div class="ex from-book"><div class="num">6E.46</div>
+<p>A covariance matrix $C=\begin{bmatrix}4&amp;2\\2&amp;3\end{bmatrix}$ is given. Find the principal components and the percentage of the variance that each one explains.</p></div>
+<div class="ex from-book"><div class="num">6E.47</div>
+<p>For a covariance matrix $3\times3$ with eigenvalues $[6,\,3,\,1]$: (α) compute the percentage of the variance of each component, (β) how many components must you keep in order to explain at least $90\%$ of the variance?</p></div>
+<div class="ex from-book"><div class="num">6E.48</div>
+<p>Explain why the spectral theorem guarantees that the covariance matrix always has an orthonormal basis of eigenvectors with real, nonnegative eigenvalues.</p></div>
+<div class="ex from-book"><div class="num">6E.49</div>
+<p>The quadratic form $Q(x,y)=x^2-2xy+2y^2$: is it positive definite?</p></div>
+<div class="ex from-book"><div class="num">6E.50</div>
+<p>Write $Q(x,y)=5x^2-4xy+2y^2$ in the form $\mathbf{x}^TA\mathbf{x}$ with $A$ symmetric and characterize its definiteness by Sylvester’s criterion.</p></div>
+<div class="ex from-book"><div class="num">6E.51</div>
+<p>For which values of $k\in\mathbb{R}$ is $Q(x,y)=x^2+2kxy+4y^2$ positive definite?</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">6E.52</div>
+<p><strong>Proof:</strong> Show that $A$ and $A^\top$ have the same eigenvalues. <em>Hint:</em> compare the characteristic polynomials $\det(A-\lambda I)$ and $\det(A^\top-\lambda I)$.</p></div>
+<div class="ex from-book"><div class="num">6E.53</div>
+<p><strong>Proof:</strong> If $A$ and $B$ are similar ($B=P^{-1}AP$), prove that they have the same characteristic polynomial, the same trace and the same determinant.</p></div>
+<div class="ex from-book"><div class="num">6E.54</div>
+<p>Show that a $2\times2$ real matrix with complex eigenvalues is not diagonalizable over the reals, but is diagonalizable over the complex numbers. Apply this to $A=\begin{bmatrix}1&amp;-1\\1&amp;1\end{bmatrix}$.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 6.1 – Definition – Diagonalizable Matrices</h3></div>
+<div class="ex from-book"><div class="num">6E.55</div>
+<p><strong>Proof:</strong> If $A=PDP^{-1}$ is invertible, show that $A^{-1}=PD^{-1}P^{-1}$ and that the eigenvalues of $A^{-1}$ are $1/\lambda_i$.</p></div>
+<div class="grp2"><h3>Exercises for Section 6.2 – Computing a Diagonalization</h3></div>
+<div class="ex from-book"><div class="num">6E.56</div>
+<p>For $A=\begin{bmatrix}0&amp;-1\\1&amp;0\end{bmatrix}$: (α)&nbsp;find the eigenvalues, (β)&nbsp;examine whether they are real or complex, (γ)&nbsp;justify whether $A$ is diagonalizable over $\mathbb{R}$ and over $\mathbb{C}$. Which geometric transformation does $A$ represent?</p></div>
+<div class="grp2"><h3>Exercises for Section 6.3 – Symmetric Matrices – Orthogonalization</h3></div>
+<div class="ex from-book"><div class="num">6E.57</div>
+<p><strong>Proof:</strong> Show that the eigenvalues of a real symmetric matrix are always real. <strong>Hint:</strong> consider $A\mathbf{v}=\lambda\mathbf{v}$ and take complex conjugates.</p></div>
+<div class="grp2"><h3>Exercises for Section 6.5 – Singular Value Decomposition (SVD)</h3></div>
+<div class="ex from-book"><div class="num">6E.58</div>
+<p><strong>Proof:</strong> Show that the nonzero singular values of $A$ and $A^\top$ coincide. <strong>Hint:</strong> $A^\top A$ and $AA^\top$ have the same nonzero eigenvalues (Theorem&nbsp;6.7).</p></div>
+<div class="grp2"><h3>Exercises for Section 6.6 – The Matrix Exponential $e^At$</h3></div>
+<div class="ex from-book"><div class="num">6E.59</div>
+<p><strong>Proof:</strong> Show that $e^{A+B}=e^{A}e^{B}$ when $AB=BA$ and give a counterexample for matrices that do not commute.</p></div>
+<div class="grp2"><h3>Exercises for Section 6.4 – Quadratic Forms</h3></div>
+<div class="ex from-book"><div class="num">6E.60</div>
+<p>Show that every quadratic form $\mathbf{x}^TA\mathbf{x}$ with $A$ <em>not</em> symmetric coincides with that of the symmetric $\tfrac12(A+A^T)$.</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

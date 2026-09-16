@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Matrix Algebra</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">&#8853; Additional Exercises</div>
+  <h1>Matrix Algebra</h1>
+  <p class="chapter-label">Chapter 2 &middot; Matrix Algebra</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by section of the chapter</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">Every numerical result is checked by you: the inverse is verified by the product
+  $AA^{-1}=I$, the eigenvalue by the relation $A\vec{v}=\lambda\vec{v}$, the sum of the eigenvalues by the trace and
+ their product by the determinant. You do not need a solutions manual. All the exercises are solved with the tools
+ of the present and of the preceding chapters.</p>
+</div>
+
+<div class="grp"><h2>A. Types of matrices and basic concepts</h2>
+<p class="lead">Recognize the structure of a matrix before carrying out the slightest computation.</p></div>
+
+<div class="ex"><div class="num">2E.1 <span class="lvl l1">BASIC</span></div>
+<p>Write out explicitly the matrix $A=[a_{ij}]\in\mathcal{M}_{3\times 3}$ with $a_{ij}=i-j$, compute the trace
+$\mathrm{tr}(A)$ and characterize the matrix by its relation to its transpose.</p></div>
+
+<div class="ex"><div class="num">2E.2 <span class="lvl l1">BASIC</span></div>
+<p>Find the values of $x,y\in\mathbb{R}$ for which the matrix
+$A=\begin{bmatrix}2 &amp; x+y &amp; 3\\ 1 &amp; 4 &amp; x-y\\ 3 &amp; 5 &amp; 6\end{bmatrix}$ is symmetric.</p>
+<p class="ypod">Hint: the condition $A^\top=A$ gives one equation for each pair of symmetric positions.</p></div>
+
+<div class="ex"><div class="num">2E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Prove that the trace is a linear map, that is, that
+$\mathrm{tr}(\alpha A+\beta B)=\alpha\,\mathrm{tr}(A)+\beta\,\mathrm{tr}(B)$ for all
+$A,B\in\mathcal{M}_{n\times n}$ and $\alpha,\beta\in\mathbb{R}$. Then, using also the
+relation $\mathrm{tr}(AB)=\mathrm{tr}(BA)$, prove that there exist no matrices $A,B\in\mathcal{M}_{n\times n}$
+with $AB-BA=I_n$.</p></div>
+
+<div class="grp"><h2>B. Matrix operations</h2>
+<p class="lead">Matrix multiplication is not commutative &mdash; always check the dimensions before you multiply.</p></div>
+
+<div class="ex"><div class="num">2E.4 <span class="lvl l1">BASIC</span></div>
+<p>For $A=\begin{bmatrix}1 &amp; -2 &amp; 0\\ 3 &amp; 1 &amp; 4\end{bmatrix}$ and
+$B=\begin{bmatrix}2 &amp; 1\\ 0 &amp; -3\\ 1 &amp; 5\end{bmatrix}$ compute the products $AB$ and $BA$
+and explain why they have different dimensions.</p></div>
+
+<div class="ex"><div class="num">2E.5 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Consider the matrix $N=\begin{bmatrix}0 &amp; 1 &amp; 2\\ 0 &amp; 0 &amp; 3\\ 0 &amp; 0 &amp; 0\end{bmatrix}$.
+Compute $N^2$ and $N^3$ and verify by direct multiplication that
+$(I_3-N)(I_3+N+N^2)=I_3$.</p>
+<p class="ypod">Hint: expand the product symbolically first, noting that $N$ commutes with $I_3$.</p></div>
+
+<div class="ex"><div class="num">2E.6 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Consider the set $\mathcal{C}=\left\{\begin{bmatrix}a &amp; -b\\ b &amp; a\end{bmatrix}: a,b\in\mathbb{R}\right\}$.
+Prove that the product of two elements of $\mathcal{C}$ also belongs to $\mathcal{C}$ and that
+multiplication within $\mathcal{C}$ is commutative.</p></div>
+
+<div class="grp"><h2>C. The determinant</h2>
+<p class="lead">Before you expand, look for a row or a column with many zeros.</p></div>
+
+<div class="ex"><div class="num">2E.7 <span class="lvl l1">BASIC</span></div>
+<p>Compute $\det\begin{bmatrix}3 &amp; 1 &amp; -2\\ 0 &amp; 2 &amp; 4\\ 1 &amp; -1 &amp; 5\end{bmatrix}$
+by Laplace expansion along the first column.</p></div>
+
+<div class="ex"><div class="num">2E.8 <span class="lvl l1">BASIC</span></div>
+<p>Let $A\in\mathcal{M}_{3\times 3}$ with $\det A=4$. Compute, without knowing the entries of $A$,
+the determinants: (α) $\det(2A)$, (β) $\det(A^\top)$, (γ) $\det(-A)$, (δ) $\det(A^3)$,
+(ε) $\det(A^\top A)$. Justify in each case which property you are using.</p></div>
+
+<div class="ex"><div class="num">2E.9 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Compute the determinant of the tridiagonal matrix
+$\begin{bmatrix}2 &amp; 1 &amp; 0 &amp; 0\\ 1 &amp; 2 &amp; 1 &amp; 0\\ 0 &amp; 1 &amp; 2 &amp; 1\\ 0 &amp; 0 &amp; 1 &amp; 2\end{bmatrix}$.</p>
+<p class="ypod">Hint: using elementary row operations bring the matrix to upper triangular form, keeping track of
+how the determinant changes at each step.</p></div>
+
+<div class="grp"><h2>D. The inverse matrix</h2>
+<p class="lead">The inverse exists exactly when $\det A\neq 0$&nbsp;&mdash; and it is always verified by multiplication.</p></div>
+
+<div class="ex"><div class="num">2E.10 <span class="lvl l1">BASIC</span></div>
+<p>For $A=\begin{bmatrix}4 &amp; 7\\ 1 &amp; 2\end{bmatrix}$ compute $\det A$, find $A^{-1}$ with the
+formula for $2\times 2$ matrices and verify that $AA^{-1}=A^{-1}A=I_2$.</p></div>
+
+<div class="ex"><div class="num">2E.11 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find the inverse of $A=\begin{bmatrix}2 &amp; -1 &amp; 0\\ -1 &amp; 2 &amp; -1\\ 0 &amp; -1 &amp; 2\end{bmatrix}$
+by the augmented matrix method $[A\,|\,I_3]$ and check whether $A^{-1}$ is symmetric as well.</p></div>
+
+<div class="ex"><div class="num">2E.12 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $A\in\mathcal{M}_{n\times n}$ satisfy the relation $A^2-3A+2I_n=O$. Prove that $A$ is
+invertible and express $A^{-1}$ as a first-degree polynomial in $A$.</p>
+<p class="ypod">Hint: isolate $I_n$ and write it as a product of $A$ with a suitable matrix.</p></div>
+
+<div class="grp"><h2>E. Rank of a matrix and the fundamental subspaces</h2>
+<p class="lead">The rank counts the genuinely independent rows &mdash; everything else follows from the rank&ndash;nullity theorem.</p></div>
+
+<div class="ex"><div class="num">2E.13 <span class="lvl l1">BASIC</span></div>
+<p>Find the rank of $A=\begin{bmatrix}1 &amp; 2 &amp; -1\\ 2 &amp; 4 &amp; -2\\ -1 &amp; -2 &amp; 1\end{bmatrix}$
+and give a basis of its column space.</p></div>
+
+<div class="ex"><div class="num">2E.14 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For $A=\begin{bmatrix}1 &amp; 2 &amp; 0 &amp; 3\\ 2 &amp; 4 &amp; 1 &amp; 7\\ 1 &amp; 2 &amp; 1 &amp; 4\end{bmatrix}$
+find the rank, a basis of the kernel $\ker A$ and verify the rank&ndash;nullity theorem.</p></div>
+
+<div class="ex"><div class="num">2E.15 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $B\in\mathcal{M}_{5\times 3}$ whose three columns are linearly independent. Determine
+the rank of $B$, show that the equation $B\vec{x}=\vec{0}$ has only the zero solution and find the
+dimension of the left kernel $\ker(B^\top)$.</p></div>
+
+<div class="grp"><h2>F. Orthogonal and symmetric matrices</h2>
+<p class="lead">For an orthogonal matrix inversion is simply transposition &mdash; and it preserves lengths and angles.</p></div>
+
+<div class="ex"><div class="num">2E.16 <span class="lvl l1">BASIC</span></div>
+<p>Examine whether $Q=\dfrac{1}{3}\begin{bmatrix}2 &amp; -2 &amp; 1\\ 1 &amp; 2 &amp; 2\\ 2 &amp; 1 &amp; -2\end{bmatrix}$
+is orthogonal, by checking the inner products of its columns, and write down $Q^{-1}$.</p></div>
+
+<div class="ex"><div class="num">2E.17 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $\vec{u}\in\mathbb{R}^n$ with $\|\vec{u}\|=1$ and $H=I_n-2\vec{u}\vec{u}^{\top}$. Prove that $H$
+is symmetric, that $H^2=I_n$ and that it is orthogonal. Then write out explicitly $H$ for
+$\vec{u}=\dfrac{1}{\sqrt{5}}\begin{bmatrix}1\\ 2\end{bmatrix}$.</p>
+<p class="ypod">Hint: the condition $\|\vec{u}\|=1$ can be written equivalently as $\vec{u}^{\top}\vec{u}=1$.</p></div>
+
+<div class="ex"><div class="num">2E.18 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $S\in\mathcal{M}_{n\times n}$ be skew-symmetric, that is $S^{\top}=-S$, with $n$ odd. Prove that
+$\det S=0$ and conclude that $S$ is not invertible.</p>
+<p class="ypod">Hint: combine the properties $\det(S^{\top})=\det S$ and $\det(cS)=c^{n}\det S$.</p></div>
+
+<div class="grp"><h2>G. A first encounter with eigenvalues</h2>
+<p class="lead">An eigenvector is any nonzero vector that the matrix merely stretches or contracts.</p></div>
+
+<div class="ex"><div class="num">2E.19 <span class="lvl l1">BASIC</span></div>
+<p>Find the characteristic polynomial, the eigenvalues and one eigenvector for each eigenvalue of
+$A=\begin{bmatrix}2 &amp; 2\\ 1 &amp; 3\end{bmatrix}$.</p></div>
+
+<div class="ex"><div class="num">2E.20 <span class="lvl l1">BASIC</span></div>
+<p>Consider $A=\begin{bmatrix}1 &amp; 4\\ 2 &amp; 3\end{bmatrix}$ and the vectors
+$\vec{v}_1=\begin{bmatrix}1\\ 1\end{bmatrix}$, $\vec{v}_2=\begin{bmatrix}2\\ -1\end{bmatrix}$,
+$\vec{v}_3=\begin{bmatrix}1\\ 0\end{bmatrix}$. Check which of them are eigenvectors of $A$ and
+determine the corresponding eigenvalue, without computing the characteristic polynomial.</p></div>
+
+<div class="ex"><div class="num">2E.21 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For $A=\begin{bmatrix}2 &amp; 0 &amp; 0\\ 1 &amp; 3 &amp; -1\\ 1 &amp; -1 &amp; 3\end{bmatrix}$ find the
+characteristic polynomial and the eigenvalues together with their algebraic multiplicities, and verify that
+the sum of the eigenvalues equals $\mathrm{tr}(A)$ and their product equals $\det A$.</p>
+<p class="ypod">Hint: expand $\det(A-\lambda I_3)$ along the first row.</p></div>
+
+<div class="grp"><h2>H. Mixed and composite problems</h2>
+<p class="lead">Here determinant, rank, inversion and eigenvalues are combined within one and the same exercise.</p></div>
+
+<div class="ex"><div class="num">2E.22 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $A\in\mathcal{M}_{n\times n}$ with $\mathrm{rank}(A)=n-1$. Prove that $\det A=0$, that the number $0$
+is an eigenvalue of $A$ and determine the dimension of the corresponding eigenspace.</p></div>
+
+<div class="ex"><div class="num">2E.23 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $P\in\mathcal{M}_{n\times n}$ with $P^2=P$. Prove that every eigenvalue of $P$ is $0$ or $1$, that
+$\ker P$ coincides with the column space of $I_n-P$ and that $\mathrm{rank}(P)+\mathrm{rank}(I_n-P)=n$.</p>
+<p class="ypod">Hint: for the last part combine the previous conclusion with the rank&ndash;nullity
+theorem for $P$.</p></div>
+
+<div class="ex"><div class="num">2E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>Prove that every $A\in\mathcal{M}_{2\times 2}$ satisfies the relation
+$A^2-\mathrm{tr}(A)\,A+\det(A)\,I_2=O$. Using this relation &mdash; and not successive
+multiplications &mdash; compute $A^4$ for $A=\begin{bmatrix}1 &amp; 1\\ 2 &amp; 0\end{bmatrix}$,
+by first expressing it in the form $\alpha A+\beta I_2$.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">2E.25</div>
+<p>Write the $3\times3$ matrix $A$ with $a_{ij}=i+j$ and its transpose $A^\top$. What do you observe?</p></div>
+<div class="ex from-book"><div class="num">2E.26</div>
+<p>Given $A=\begin{bmatrix}2&amp;3\\3&amp;5\end{bmatrix}$, check whether it is symmetric and compute $\mathrm{tr}(A)$.</p></div>
+<div class="ex from-book"><div class="num">2E.27</div>
+<p>Prove that for every square matrix $A$ the matrix $A+A^\top$ is symmetric.</p></div>
+<div class="ex from-book"><div class="num">2E.28</div>
+<p>Which $2\times2$ matrices satisfy $A^\top=A$? Describe their general form and determine how many independent parameters they have.</p></div>
+<div class="ex from-book"><div class="num">2E.29</div>
+<p>Find the matrix $X$ if $2X-A=B$, where $A=\begin{bmatrix}1&amp;-1\\2&amp;3\end{bmatrix}$ and $B=\begin{bmatrix}3&amp;1\\0&amp;5\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">2E.30</div>
+<p>Prove that for a diagonal $D=\mathrm{diag}(d_1,\ldots,d_n)$ we have $D^k=\mathrm{diag}(d_1^k,\ldots,d_n^k)$.</p></div>
+<div class="ex from-book"><div class="num">2E.31</div>
+<p>Without any computation, what is the determinant of a matrix with two equal rows? Justify your answer.</p></div>
+<div class="ex from-book"><div class="num">2E.32</div>
+<p>Prove that $\det(cA)=c^n\det(A)$ for $A\in\mathcal{M}_{n\times n}$ and $c\in\R$.</p></div>
+<div class="ex from-book"><div class="num">2E.33</div>
+<p>Find the values of $x$ for which $\det\begin{bmatrix}x&amp;1&amp;0\\2&amp;x&amp;1\\0&amp;1&amp;x\end{bmatrix}=0$.</p></div>
+<div class="ex from-book"><div class="num">2E.34</div>
+<p>Find the cofactor $A_{12}$ of $A=\begin{bmatrix}2&amp;1&amp;0\\3&amp;2&amp;1\\0&amp;1&amp;2\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">2E.35</div>
+<p>Find $A^{-1}$ for $A=\begin{bmatrix}1&amp;0&amp;2\\0&amp;1&amp;-1\\1&amp;-1&amp;4\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">2E.36</div>
+<p>For which values of $k$ is $A=\begin{bmatrix}k&amp;2\\3&amp;6\end{bmatrix}$ invertible?</p></div>
+<div class="ex from-book"><div class="num">2E.37</div>
+<p>Prove that $(A^\top)^{-1}=(A^{-1})^\top$.</p></div>
+<div class="ex from-book"><div class="num">2E.38</div>
+<p>Use $A^{-1}$ to solve $A\vecx=\vecb$ with $A=\begin{bmatrix}3&amp;2\\4&amp;3\end{bmatrix}$ and $\vecb=\begin{bmatrix}5\\7\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">2E.39</div>
+<p>Find the rank of $A=\begin{bmatrix}1&amp;1&amp;0&amp;2\\2&amp;1&amp;-1&amp;3\\1&amp;0&amp;-1&amp;1\end{bmatrix}$ and give a basis for each of its fundamental subspaces.</p></div>
+<div class="ex from-book"><div class="num">2E.40</div>
+<p>If $A\in\mathcal{M}_{3\times5}$ and $\mathrm{rank}(A)=2$, what is the dimension of $\ker A$?</p></div>
+<div class="ex from-book"><div class="num">2E.41</div>
+<p>Write the rotation matrix $R_\theta$ for $\theta=\pi/3$ and verify that it is orthogonal with $\det(R_\theta)=1$.</p></div>
+<div class="ex from-book"><div class="num">2E.42</div>
+<p>Show that $\begin{bmatrix}\cos\theta&amp;-\sin\theta\\\sin\theta&amp;\cos\theta\end{bmatrix}^{-1}=\begin{bmatrix}\cos\theta&amp;\sin\theta\\-\sin\theta&amp;\cos\theta\end{bmatrix}$ and interpret the result geometrically.</p></div>
+<div class="ex from-book"><div class="num">2E.43</div>
+<p>Show that if $Q_1,Q_2$ are orthogonal, then $Q_1Q_2$ is orthogonal as well.</p></div>
+<div class="ex from-book"><div class="num">2E.44</div>
+<p>Find the eigenvalues and the eigenvectors of $A=\begin{bmatrix}3&amp;1\\1&amp;3\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">2E.45</div>
+<p>Find the eigenvalues and the eigenvectors of $A=\begin{bmatrix}0&amp;1\\-2&amp;3\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">2E.46</div>
+<p>Prove that if $\lambda$ is an eigenvalue of $A$ with eigenvector $\vecv$, then $\lambda^2$ is an eigenvalue of $A^2$ with the same eigenvector.</p></div>
+<div class="ex from-book"><div class="num">2E.47</div>
+<p>For the resistance matrix $R=\begin{bmatrix}5&amp;-2\\-2&amp;4\end{bmatrix}$ and the voltage vector $\mathbf{V}=(10,8)^\top$, find the mesh currents from the relation $\mathbf{I}=R^{-1}\mathbf{V}$.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">2E.48</div>
+<p>For $A=\begin{bmatrix}-1&amp;0\\0&amp;4\end{bmatrix}$ compute $A^5$ directly and verify the result through its eigenvalues.</p></div>
+<div class="ex from-book"><div class="num">2E.49</div>
+<p>If $\vecv$ is an eigenvector of the invertible matrix $A$ for the eigenvalue $\lambda$, prove that $\vecv$ is an eigenvector of $A^{-1}$ and find the corresponding eigenvalue.</p></div>
+<div class="ex from-book"><div class="num">2E.50</div>
+<p>Prove that eigenvectors corresponding to distinct eigenvalues are linearly independent.</p></div>
+<div class="ex from-book"><div class="num">2E.51</div>
+<p>Find the eigenvalues of the symmetric matrix $A=\begin{bmatrix}5&amp;-4\\-4&amp;5\end{bmatrix}$ and construct an orthonormal basis of $\R^2$ from its eigenvectors.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 2.2 – Matrix Operations</h3></div>
+<div class="ex from-book"><div class="num">2E.52</div>
+<p>What is the geometric meaning of multiplying a vector by $R_\theta=\begin{bmatrix}\cos\theta&amp;-\sin\theta\\\sin\theta&amp;\cos\theta\end{bmatrix}$? Compute $R_\theta R_\varphi$ and interpret it.</p></div>
+<div class="grp2"><h3>Exercises for Section 2.3 – The Determinant</h3></div>
+<div class="ex from-book"><div class="num">2E.53</div>
+<p>Compute the determinant of the lower triangular matrix $\begin{bmatrix}2&amp;0&amp;0&amp;0\\1&amp;3&amp;0&amp;0\\0&amp;2&amp;4&amp;0\\1&amp;1&amp;1&amp;5\end{bmatrix}$ and state the general rule.</p></div>
+<div class="grp2"><h3>Exercises for Section 2.4 – The Inverse Matrix</h3></div>
+<div class="ex from-book"><div class="num">2E.54</div>
+<p>If $A^2=A$ (idempotent) and $A$ is invertible, prove that $A=I$. Give also an example of a non-invertible idempotent $2\times2$ matrix.</p></div>
+<div class="grp2"><h3>Exercises for Section 2.5 – Rank of a Matrix and the Fundamental Subspaces</h3></div>
+<div class="ex from-book"><div class="num">2E.55</div>
+<p>Prove that
+\[\mathrm{rank}(AB)\leq\min\{\mathrm{rank}(A),\mathrm{rank}(B)\}.\]</p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group C)</h3></div>
+<div class="grp2"><h3>Exercises for Section 2.1 – Definition and Basic Concepts</h3></div>
+<div class="ex from-book"><div class="num">2E.56</div>
+<p>Find $a,c,d$ so that $\begin{bmatrix}a&amp;2c\\d-1&amp;3\end{bmatrix}=\begin{bmatrix}5&amp;4\\2&amp;3\end{bmatrix}$, applying the definition of equality of matrices.</p></div>
+<div class="grp2"><h3>Exercises for Section 2.2 – Matrix Operations</h3></div>
+<div class="ex from-book"><div class="num">2E.57</div>
+<p>If $A=\begin{bmatrix}1&amp;1\\0&amp;1\end{bmatrix}$, find a formula for $A^n$ and prove it by mathematical induction.</p></div>
+<div class="ex from-book"><div class="num">2E.58</div>
+<p>Compute $(A+B)^2$ and $A^2+2AB+B^2$ for $A=\begin{bmatrix}1&amp;0\\0&amp;2\end{bmatrix}$, $B=\begin{bmatrix}0&amp;1\\0&amp;0\end{bmatrix}$. Are they equal? Explain why.</p></div>
+<div class="grp2"><h3>Exercises for Section 2.3 – The Determinant</h3></div>
+<div class="ex from-book"><div class="num">2E.59</div>
+<p>Prove that $\det(AB)=\det A\cdot\det B$ for $2\times2$ matrices.</p></div>
+<div class="grp2"><h3>Exercises for Section 2.4 – The Inverse Matrix</h3></div>
+<div class="ex from-book"><div class="num">2E.60</div>
+<p>Prove that $(AB)^{-1}=B^{-1}A^{-1}$ for invertible $A,B$.</p></div>
+<div class="grp2"><h3>Exercises for Section 2.5 – Rank of a Matrix and the Fundamental Subspaces</h3></div>
+<div class="ex from-book"><div class="num">2E.61</div>
+<p>Find all the solutions of $A\vecx=\veczero$ for $A=\begin{bmatrix}1&amp;2&amp;1\\2&amp;4&amp;2\\3&amp;6&amp;3\end{bmatrix}$ and verify the rank&ndash;nullity theorem.</p></div>
+<div class="grp2"><h3>Exercises for Section 2.6 – Orthogonal and Symmetric Matrices</h3></div>
+<div class="ex from-book"><div class="num">2E.62</div>
+<p>Express $A=\begin{bmatrix}3&amp;1\\-1&amp;2\end{bmatrix}$ in the form $A=S+K$, where $S$ symmetric and $K$ skew-symmetric. Prove that this decomposition is unique for every square matrix.</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

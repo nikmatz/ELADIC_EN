@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Techniques of Integration</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">⊕ Additional Exercises</div>
+  <h1>Techniques of Integration</h1>
+  <p class="chapter-label">Chapter 16 · Techniques of Integration</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by technique</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">In every indefinite integral the constant $+C$ is understood. The result of every exercise
+  is always checked by differentiating: if the derivative of your antiderivative gives the
+  integrand, the solution is correct. You do not need an answer key.</p>
+</div>
+
+<div class="grp"><h2>A. Substitution</h2>
+<p class="lead">Look for the pair “function – its derivative” inside the integral.</p></div>
+
+<div class="ex"><div class="num">16E.1 <span class="lvl l1">BASIC</span></div>
+<p>$\displaystyle\int x\,e^{x^2}\,dx$</p></div>
+
+<div class="ex"><div class="num">16E.2 <span class="lvl l1">BASIC</span></div>
+<p>$\displaystyle\int \frac{x}{\sqrt{x^2+1}}\,dx$</p></div>
+
+<div class="ex"><div class="num">16E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>$\displaystyle\int \tan x\,dx$</p>
+<p class="ypod">Hint: write $\tan x=\dfrac{\sin x}{\cos x}$.</p></div>
+
+<div class="ex"><div class="num">16E.4 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>$\displaystyle\int \frac{\ln x}{x}\,dx$</p></div>
+
+<div class="grp"><h2>B. Integration by parts</h2>
+<p class="lead">Choose as $u$ the factor that <em>simplifies</em> under differentiation (the LIATE rule).</p></div>
+
+<div class="ex"><div class="num">16E.5 <span class="lvl l1">BASIC</span></div>
+<p>$\displaystyle\int x\cos x\,dx$</p></div>
+
+<div class="ex"><div class="num">16E.6 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>$\displaystyle\int x^2 e^{x}\,dx$</p>
+<p class="ypod">How many successive applications are needed, and why?</p></div>
+
+<div class="ex"><div class="num">16E.7 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>$\displaystyle\int \arctan x\,dx$</p>
+<p class="ypod">Hint: write $\arctan x=\arctan x\cdot 1$.</p></div>
+
+<div class="ex"><div class="num">16E.8 <span class="lvl l3">ADVANCED</span></div>
+<p>$\displaystyle\int e^{x}\cos x\,dx$</p>
+<p class="ypod">After two applications the original integral reappears. Treat it as an equation.</p></div>
+
+<div class="grp"><h2>C. Trigonometric integrals</h2>
+<p class="lead">Odd exponent → substitution. Even exponents → reduction identities.</p></div>
+
+<div class="ex"><div class="num">16E.9 <span class="lvl l1">BASIC</span></div>
+<p>$\displaystyle\int \sin^3 x\,dx$</p></div>
+
+<div class="ex"><div class="num">16E.10 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>$\displaystyle\int \sin^2 x\cos^3 x\,dx$</p></div>
+
+<div class="ex"><div class="num">16E.11 <span class="lvl l1">BASIC</span></div>
+<p>$\displaystyle\int \cos^2 x\,dx$</p></div>
+
+<div class="grp"><h2>D. Trigonometric substitution &amp; completing the square</h2>
+<p class="lead">A root of the form $\sqrt{a^2-x^2}$, $\sqrt{a^2+x^2}$ or $\sqrt{x^2-a^2}$: a right triangle resolves the root.</p></div>
+
+<div class="ex"><div class="num">16E.12 <span class="lvl l1">BASIC</span></div>
+<p>$\displaystyle\int \frac{dx}{\sqrt{4-x^2}}$</p></div>
+
+<div class="ex"><div class="num">16E.13 <span class="lvl l3">ADVANCED</span></div>
+<p>$\displaystyle\int \sqrt{1-x^2}\,dx$</p>
+<p class="ypod">After the substitution an even power appears; a reduction step is also needed.</p></div>
+
+<div class="ex"><div class="num">16E.14 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>$\displaystyle\int \frac{dx}{x^2+2x+5}$</p>
+<p class="ypod">First complete the square in the denominator.</p></div>
+
+<div class="grp"><h2>E. Partial fractions</h2>
+<p class="lead">Factor the denominator first; an irreducible quadratic factor gives a logarithm and an arctangent.</p></div>
+
+<div class="ex"><div class="num">16E.15 <span class="lvl l1">BASIC</span></div>
+<p>$\displaystyle\int \frac{dx}{x^2-1}$</p></div>
+
+<div class="ex"><div class="num">16E.16 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>$\displaystyle\int \frac{3x+1}{(x-1)(x+2)}\,dx$</p></div>
+
+<div class="ex"><div class="num">16E.17 <span class="lvl l3">ADVANCED</span></div>
+<p>$\displaystyle\int \frac{dx}{x(x^2+1)}$</p>
+<p class="ypod">The factor $x^2+1$ is irreducible: what form must the corresponding numerator have?</p></div>
+
+<div class="grp"><h2>F. Mixed — choosing a method</h2>
+<p class="lead">The technique is not given here. First identify the structure, then evaluate.</p></div>
+
+<div class="ex"><div class="num">16E.18 <span class="lvl l1">BASIC</span></div>
+<p>$\displaystyle\int \frac{x}{x+1}\,dx$</p>
+<p class="ypod">Careful: partial fractions are not needed.</p></div>
+
+<div class="ex"><div class="num">16E.19 <span class="lvl l1">BASIC</span></div>
+<p>$\displaystyle\int x\ln x\,dx$</p></div>
+
+<div class="ex"><div class="num">16E.20 <span class="lvl l3">ADVANCED</span></div>
+<p>$\displaystyle\int e^{\sqrt{x}}\,dx$</p>
+<p class="ypod">Two techniques are needed, in this order.</p></div>
+
+<div class="ex"><div class="num">16E.21 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>$\displaystyle\int \frac{dx}{1+e^{x}}$</p>
+<p class="ypod">Hint: $\dfrac{1}{1+e^x}=1-\dfrac{e^x}{1+e^x}$.</p></div>
+
+<div class="ex"><div class="num">16E.22 <span class="lvl l3">ADVANCED</span></div>
+<p>$\displaystyle\int \sec^3 x\,dx$</p>
+<p class="ypod">The classic example of circular integration by parts.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">16E.23</div>
+<p>$\displaystyle\int x e^{-x}\,dx$</p></div>
+<div class="ex from-book"><div class="num">16E.24</div>
+<p>$\displaystyle\int x^2 e^{-2x}\,dx$ (two applications; each one lowers the degree of the polynomial).</p></div>
+<div class="ex from-book"><div class="num">16E.25</div>
+<p>$\displaystyle\int e^x\cos x\,dx$ (two applications and recurrence: solve for the required integral).</p></div>
+<div class="ex from-book"><div class="num">16E.26</div>
+<p>$\displaystyle\int\arctan x\,dx$</p></div>
+<div class="ex from-book"><div class="num">16E.27</div>
+<p>$\displaystyle\int x^3 e^{x^2}\,dx$ (first $u=x^2$, then integration by parts).</p></div>
+<div class="ex from-book"><div class="num">16E.28</div>
+<p>$\displaystyle\int x\sec^2 x\,dx$</p></div>
+<div class="ex from-book"><div class="num">16E.29</div>
+<p><strong>Application:</strong> The velocity of a particle is $v(t)=t^2e^{-t}$ (m/s). Compute the displacement $\displaystyle\int_0^1 v(t)\,dt$ by integration by parts (two applications).</p></div>
+<div class="ex from-book"><div class="num">16E.30</div>
+<p>$\displaystyle\int \frac{2x}{x^2+1}\,dx$ and $\displaystyle\int \sin(5x)\,dx$</p></div>
+<div class="ex from-book"><div class="num">16E.31</div>
+<p>$\displaystyle\int x\sqrt{x^2+4}\,dx$</p></div>
+<div class="ex from-book"><div class="num">16E.32</div>
+<p>$\displaystyle\int \frac{e^{\sqrt{x}}}{\sqrt{x}}\,dx$</p></div>
+<div class="ex from-book"><div class="num">16E.33</div>
+<p>$\displaystyle\int \frac{dx}{x\ln x}$ ($u=\ln x$).</p></div>
+<div class="ex from-book"><div class="num">16E.34</div>
+<p>$\displaystyle\int \frac{x}{\sqrt{x-1}}\,dx$ ($u=x-1$; express $x$ in terms of $u$).</p></div>
+<div class="ex from-book"><div class="num">16E.35</div>
+<p>$\displaystyle\int \sin^2 x\,dx$ (half-angle formula $\sin^2 x=\tfrac{1-\cos 2x}{2}$).</p></div>
+<div class="ex from-book"><div class="num">16E.36</div>
+<p>$\displaystyle\int \sin^3 x\,dx$ (write $\sin^3 x=\sin x\,(1-\cos^2 x)$ and set $u=\cos x$).</p></div>
+<div class="ex from-book"><div class="num">16E.37</div>
+<p>$\displaystyle\int \sin^2 x\cos^2 x\,dx$</p></div>
+<div class="ex from-book"><div class="num">16E.38</div>
+<p>$\displaystyle\int \cos^4 x\,dx$ (even exponents: successive reduction formulas).</p></div>
+<div class="ex from-book"><div class="num">16E.39</div>
+<p>$\displaystyle\int \sec^2 x\tan x\,dx$</p></div>
+<div class="ex from-book"><div class="num">16E.40</div>
+<p>$\displaystyle\int \frac{dx}{\sqrt{x^2+4}}$ ($x=2\tan\theta$).</p></div>
+<div class="ex from-book"><div class="num">16E.41</div>
+<p>$\displaystyle\int \frac{x^2}{\sqrt{4-x^2}}\,dx$</p></div>
+<div class="ex from-book"><div class="num">16E.42</div>
+<p>$\displaystyle\int \frac{dx}{(x^2+1)^{3/2}}$</p></div>
+<div class="ex from-book"><div class="num">16E.43</div>
+<p>$\displaystyle\int \frac{dx}{\sqrt{x^2+9}}$ and $\displaystyle\int \frac{\sqrt{x^2-9}}{x^2}\,dx$</p></div>
+<div class="ex from-book"><div class="num">16E.44</div>
+<p>$\displaystyle\int \frac{2x+1}{x^2+x-2}\,dx$ (factor the denominator).</p></div>
+<div class="ex from-book"><div class="num">16E.45</div>
+<p>$\displaystyle\int \frac{x}{(x-1)(x+2)}\,dx$</p></div>
+<div class="ex from-book"><div class="num">16E.46</div>
+<p>$\displaystyle\int \frac{5x-4}{x^2-x-2}\,dx$</p></div>
+<div class="ex from-book"><div class="num">16E.47</div>
+<p>$\displaystyle\int \frac{3x^2+2x-1}{x(x^2+1)}\,dx$ (irreducible quadratic factor).</p></div>
+<div class="ex from-book"><div class="num">16E.48</div>
+<p>$\displaystyle\int \frac{dx}{x^3+x}$</p></div>
+<div class="ex from-book"><div class="num">16E.49</div>
+<p>$\displaystyle\int \frac{x^3+1}{x^4-x^2}\,dx$</p></div>
+<div class="ex from-book"><div class="num">16E.50</div>
+<p>$\displaystyle\int \frac{x+3}{x^3-x}\,dx$ (factor $x^3-x=x(x-1)(x+1)$).</p></div>
+<div class="ex from-book"><div class="num">16E.51</div>
+<p>$\displaystyle\int \frac{4x-1}{2x^2-x+3}\,dx$ (observe that the numerator is a multiple of the derivative of the denominator).</p></div>
+<div class="ex from-book"><div class="num">16E.52</div>
+<p>$\displaystyle\int \frac{e^{2x}}{1+e^x}\,dx$</p></div>
+<div class="ex from-book"><div class="num">16E.53</div>
+<p>$\displaystyle\int \frac{dx}{1+\cos x}$ (multiply by $\dfrac{1-\cos x}{1-\cos x}$).</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">16E.54</div>
+<p>$\displaystyle\int x^2\sqrt{1-x^2}\,dx$ (trigonometric substitution, then reduction of an even power).</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 16.1.1 – Integration by Parts</h3></div>
+<div class="ex from-book"><div class="num">16E.55</div>
+<p><strong>Engineering application:</strong> The current in a circuit is $i(t)=e^{-2t}\sin(3t)$&nbsp;A and the charge satisfies $q'(t)=i(t)$ with $q(0)=0$. Find $q(t)$ by integration by parts.</p></div>
+<div class="grp2"><h3>Exercises for Section 16.1.2 – Substitution</h3></div>
+<div class="ex from-book"><div class="num">16E.56</div>
+<p>Evaluate by substitution: <ol class="grk"><li>$\displaystyle\int\frac{\cos(\ln x)}{x}\,dx$ </li><li>$\displaystyle\int\frac{e^x}{e^x+3}\,dx$ </li><li>$\displaystyle\int\frac{x^3}{x^2+1}\,dx$ (divide first)</li></ol></p></div>
+<div class="grp2"><h3>Exercises for Section 16.1.3 – Trigonometric Integrals</h3></div>
+<div class="ex from-book"><div class="num">16E.57</div>
+<p>$\displaystyle\int \sin 3x\cos 5x\,dx$ &nbsp;&nbsp; (product-to-sum formulas).</p></div>
+<div class="grp2"><h3>Exercises for Section 16.1.4 – Trigonometric Substitution</h3></div>
+<div class="ex from-book"><div class="num">16E.58</div>
+<p>$\displaystyle\int \frac{dx}{\sqrt{x^2+2x+5}}$ &nbsp;&nbsp; (first complete the square, then $x+1=2\tan\theta$).</p></div>
+<div class="grp2"><h3>Exercises for Section 16.1.5 – Integration of Rational Functions – Partial Fraction Decomposition</h3></div>
+<div class="ex from-book"><div class="num">16E.59</div>
+<p>$\displaystyle\int \frac{x}{x^2+2x+5}\,dx$ &nbsp;&nbsp; (completing the square: a logarithm and an arctangent appear).</p></div>
+<div class="grp2"><h3>Exercises for Section 16.1.6 – Choosing a Method</h3></div>
+<div class="ex from-book"><div class="num">16E.60</div>
+<p>$\displaystyle\int \ln(x^2+1)\,dx$</p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group C)</h3></div>
+<div class="grp2"><h3>Exercises for Section 16.1.1 – Integration by Parts</h3></div>
+<div class="ex from-book"><div class="num">16E.61</div>
+<p><strong>Reduction formula:</strong> Prove that $I_n=\displaystyle\int x^n e^x\,dx=x^n e^x-n\,I_{n-1}$ and use it to evaluate $\displaystyle\int x^4 e^x\,dx$.</p></div>
+<div class="grp2"><h3>Exercises for Section 16.1.3 – Trigonometric Integrals</h3></div>
+<div class="ex from-book"><div class="num">16E.62</div>
+<p>Prove that $\displaystyle\int \sec x\,dx=\ln|\sec x+\tan x|+C$, by multiplying numerator and denominator by $\sec x+\tan x$.</p></div>
+<div class="ex from-book"><div class="num">16E.63</div>
+<p>$\displaystyle\int \sec^3 x\,dx$ &nbsp;&nbsp; (by parts with $u=\sec x$, $dv=\sec^2 x\,dx$ and recurrence).</p></div>
+<div class="grp2"><h3>Exercises for Section 16.1.5 – Integration of Rational Functions – Partial Fraction Decomposition</h3></div>
+<div class="ex from-book"><div class="num">16E.64</div>
+<p>$\displaystyle\int \frac{x^2}{(x-1)(x+1)^2}\,dx$ &nbsp;&nbsp; (repeated linear factor).</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: The Derivative of a Function</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">&#8853; Additional Exercises</div>
+  <h1>The Derivative of a Function</h1>
+  <p class="chapter-label">Chapter 10 &middot; The Derivative of a Function</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by topic</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">Before every computation identify the structure of the function: sum, product, quotient or
+  composition. The result is usually checked numerically, by comparing the value of the derivative
+  at a point with the difference quotient $\dfrac{f(x_0+h)-f(x_0)}{h}$ for small $h$.</p>
+</div>
+
+<div class="grp"><h2>A. The definition and differentiability</h2>
+<p class="lead">Here you work exclusively with the limit of the difference quotient, without any differentiation rules.</p></div>
+
+<div class="ex"><div class="num">10E.1 <span class="lvl l1">BASIC</span></div>
+<p>Using the definition $f'(x)=\displaystyle\lim_{h\to0}\frac{f(x+h)-f(x)}{h}$ find the derivative:
+(α) $f(x)=4x-x^2$,&nbsp;&nbsp; (β) $g(x)=\dfrac{2}{3x-1}$,&nbsp;&nbsp; (γ) $h(x)=\sqrt{x+5}$.</p></div>
+
+<div class="ex"><div class="num">10E.2 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The function $f(x)=x\,|x|$ is given. (α) Examine by the definition whether $f$ is differentiable at $x=0$.
+(β) Find a formula for $f'(x)$ on all of $\mathbb{R}$. (γ) Examine whether $f'$ is in turn
+differentiable at $x=0$.</p>
+<p class="ypod">Hint: write $f$ piecewise and compute the two one-sided limits separately.</p></div>
+
+<div class="ex"><div class="num">10E.3 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $f$ be differentiable at the point $x_0$ and let $a,b$ be constants. Show, starting from the definition, that
+$$\lim_{h\to0}\frac{f(x_0+ah)-f(x_0+bh)}{h}=(a-b)\,f'(x_0).$$
+Then explain why the existence of the above limit does <em>not</em> by itself guarantee the
+differentiability of $f$ at $x_0$, by giving a suitable counterexample for $a=1$, $b=-1$.</p>
+<p class="ypod">Hint: add and subtract the term $f(x_0)$ in the numerator. For the counterexample think of an even function.</p></div>
+
+<div class="grp"><h2>B. The differentiation rules</h2>
+<p class="lead">Product, quotient and linearity &mdash; before you compute, check whether a simplification shortens the process.</p></div>
+
+<div class="ex"><div class="num">10E.4 <span class="lvl l1">BASIC</span></div>
+<p>Compute the derivative: (α) $f(x)=(2x^3-5)(x^2+x)$,&nbsp;&nbsp; (β) $g(x)=\dfrac{x^2-1}{x^2+1}$,&nbsp;&nbsp;
+(γ) $h(x)=\sqrt{x}\,(x+3)$, $x&gt;0$.</p></div>
+
+<div class="ex"><div class="num">10E.5 <span class="lvl l1">BASIC</span></div>
+<p>Compute the derivative and simplify the result as much as possible:
+(α) $f(x)=x\,\tan x$,&nbsp;&nbsp; (β) $g(x)=\dfrac{\sin x}{1+\cos x}$,&nbsp;&nbsp; (γ) $h(x)=\dfrac{\mathrm{e}^{x}}{x^2}$, $x\neq0$.</p></div>
+
+<div class="ex"><div class="num">10E.6 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The functions $u,v$ are differentiable and $u(1)=2$, $u'(1)=-1$, $v(1)=3$, $v'(1)=4$.
+Compute at $x=1$ the derivative of the functions:
+(α) $u\,v$,&nbsp;&nbsp; (β) $\dfrac{u}{v}$,&nbsp;&nbsp; (γ) $u^2v$,&nbsp;&nbsp; (δ) $\dfrac{3u-2v}{5}$.</p>
+<p class="ypod">You do not need to know the formulas of $u,v$: the differentiation rules suffice.</p></div>
+
+<div class="grp"><h2>C. The chain rule</h2>
+<p class="lead">First identify the outer and the inner function, and only then differentiate.</p></div>
+
+<div class="ex"><div class="num">10E.7 <span class="lvl l1">BASIC</span></div>
+<p>Find the derivative: (α) $f(x)=(3x^2-2x+1)^5$,&nbsp;&nbsp; (β) $g(x)=\mathrm{e}^{\cos x}$,&nbsp;&nbsp;
+(γ) $h(x)=\ln(1+x^2)$.</p></div>
+
+<div class="ex"><div class="num">10E.8 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find the derivative and determine its domain:
+(α) $f(x)=\sqrt{1+\sqrt{x}}$,&nbsp;&nbsp; (β) $g(x)=\tan^{2}(3x)$,&nbsp;&nbsp; (γ) $h(x)=\arcsin\!\left(\dfrac{x}{2}\right)$.</p>
+<p class="ypod">In (α) the rule is applied twice in succession.</p></div>
+
+<div class="ex"><div class="num">10E.9 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The function $f$ is differentiable with $f(2)=5$ and $f'(2)=-3$. We set $F(x)=f(x^2+1)$ and
+$G(x)=\bigl(f(x)\bigr)^{3}$. Compute $F'(1)$ and $G'(2)$.</p></div>
+
+<div class="grp"><h2>D. The tangent and the normal line</h2>
+<p class="lead">The derivative gives the slope&middot; the normal line has the negative reciprocal slope.</p></div>
+
+<div class="ex"><div class="num">10E.10 <span class="lvl l1">BASIC</span></div>
+<p>For the curve $y=\dfrac{1}{x}$ write the equation of the tangent and of the normal line at the
+point $\left(2,\dfrac12\right)$.</p></div>
+
+<div class="ex"><div class="num">10E.11 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find the equations of all the tangent lines to the curve $y=x^2-3x$ that pass through the point
+$(0,-4)$.</p>
+<p class="ypod">Hint: call $a$ the abscissa of the point of tangency, write the tangent at $a$ and require that it be satisfied by $(0,-4)$. Observe that the point does not lie on the curve.</p></div>
+
+<div class="ex"><div class="num">10E.12 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $a&gt;0$. The tangent to the hyperbola $y=\dfrac{1}{x}$ at the point $\left(a,\dfrac1a\right)$ meets
+the $x'x$ axis at $A$ and the $y'y$ axis at $B$. (α) Find the coordinates of $A$ and $B$.
+(β) Show that the area of the triangle $OAB$ is independent of $a$. (γ) Show that the point of tangency
+is the midpoint of the segment $AB$.</p></div>
+
+<div class="grp"><h2>E. Implicit and logarithmic differentiation</h2>
+<p class="lead">You differentiate both sides with respect to $x$, regarding $y$ as a function of $x$.</p></div>
+
+<div class="ex"><div class="num">10E.13 <span class="lvl l1">BASIC</span></div>
+<p>For the curve $x^3+y^3=6xy$ (folium of Descartes) find $\dfrac{dy}{dx}$ and compute the
+slope of the tangent at the point $(3,3)$.</p></div>
+
+<div class="ex"><div class="num">10E.14 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>By logarithmic differentiation find $f'(x)$ for
+$\displaystyle f(x)=\frac{\mathrm{e}^{2x}\sqrt{x^2+1}}{(x+3)^5}$, $x&gt;-3$, and compute the ratio
+$\dfrac{f'(0)}{f(0)}$.</p>
+<p class="ypod">Take logarithms first and use the properties of the logarithm, so that the differentiation becomes a sum of terms.</p></div>
+
+<div class="ex"><div class="num">10E.15 <span class="lvl l3">ADVANCED</span></div>
+<p>The curve $x^2-xy+y^2=3$ is given. (α) Find $\dfrac{dy}{dx}$ by implicit differentiation.
+(β) Determine all the points of the curve at which the tangent is horizontal.
+(γ) Determine all the points at which the tangent is vertical.</p>
+<p class="ypod">In (β) the condition is that the numerator vanishes&middot; in (γ) the denominator. In each case combine the condition with the equation of the curve.</p></div>
+
+<div class="grp"><h2>F. The derivative of a parametric and of a polar curve</h2>
+<p class="lead">The slope arises as a quotient of rates with respect to the parameter, without eliminating the parameter.</p></div>
+
+<div class="ex"><div class="num">10E.16 <span class="lvl l1">BASIC</span></div>
+<p>For the parametric curve $x=2t+1$, $y=t^2-3t$ find $\dfrac{dy}{dx}$ as a function of $t$,
+the slope at $t=2$ and the value of $t$ for which the tangent is horizontal.</p></div>
+
+<div class="ex"><div class="num">10E.17 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The polar curve $r=\theta$ (spiral of Archimedes), $\theta\ge 0$, is given. Find $\dfrac{dy}{dx}$
+for $\theta=\dfrac{\pi}{2}$ and write the equation of the tangent at the corresponding point.</p>
+<p class="ypod">Hint: first pass to parametric form with $x=r\cos\theta$, $y=r\sin\theta$.</p></div>
+
+<div class="ex"><div class="num">10E.18 <span class="lvl l3">ADVANCED</span></div>
+<p>The parametric curve $x=t-\dfrac{1}{t}$, $y=t+\dfrac{1}{t}$, with $t&gt;0$, is given.
+(α) Find $\dfrac{dy}{dx}$ as a function of $t$. (β) Find $\dfrac{d^2y}{dx^2}$ as a function
+of $t$. (γ) Show that the points of the curve satisfy the relation $y^2-x^2=4$ and verify the
+result of (α) by implicit differentiation of this relation.</p>
+<p class="ypod">In (β) recall that $\dfrac{d^2y}{dx^2}=\dfrac{\frac{d}{dt}\!\left(\frac{dy}{dx}\right)}{\frac{dx}{dt}}$.</p></div>
+
+<div class="grp"><h2>G. Mean value theorems</h2>
+<p class="lead">First you check the hypotheses, then you apply the conclusion &mdash; never the other way round.</p></div>
+
+<div class="ex"><div class="num">10E.19 <span class="lvl l1">BASIC</span></div>
+<p>For the function $f(x)=x^3-4x$ on the interval $[-2,2]$ verify the hypotheses of Rolle’s
+theorem and find all the values $c\in(-2,2)$ that satisfy its conclusion.</p></div>
+
+<div class="ex"><div class="num">10E.20 <span class="lvl l1">BASIC</span></div>
+<p>For the function $f(x)=\sqrt{x}$ on the interval $[0,4]$ check the hypotheses of the mean value
+theorem, find the $c\in(0,4)$ that satisfies it and interpret it geometrically.</p></div>
+
+<div class="ex"><div class="num">10E.21 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>By applying the mean value theorem to the function $f(t)=\ln(1+t)$ on the interval $[0,x]$, prove that
+$$\frac{x}{1+x}&lt;\ln(1+x)&lt;x\qquad \text{for every } x&gt;0 .$$
+Then use the inequality to bound the number $\ln(1.2)$ between two rational numbers.</p>
+<p class="ypod">Hint: the $c$ given by the theorem satisfies $0&lt;c&lt;x$&middot; bound the quantity $\dfrac{1}{1+c}$ from above and from below.</p></div>
+
+<div class="grp"><h2>H. Related rates of change</h2>
+<p class="lead">First write the relation that connects the quantities and then differentiate with respect to time.</p></div>
+
+<div class="ex"><div class="num">10E.22 <span class="lvl l1">BASIC</span></div>
+<p>The edge of a cube increases at a rate of $0.5$ cm/s. At what rate do (α) the volume and
+(β) the total surface area of the cube increase, at the moment when the edge is $10$ cm?</p></div>
+
+<div class="ex"><div class="num">10E.23 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>A ladder of length $5$ m leans against a vertical wall. Its base moves away from the wall at a constant
+speed of $0.6$ m/s. At what rate does the top of the ladder come down at the moment when the base is $3$ m
+from the wall? What sign does this rate have and why?</p>
+<p class="ypod">Hint: the Pythagorean theorem gives the relation between the two distances&middot; the length of the ladder is constant.</p></div>
+
+<div class="ex"><div class="num">10E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>A person of height $1.8$ m moves away at a speed of $1.5$ m/s from the base of a lamppost of height $5.4$ m.
+(α) At what rate does the length of their shadow increase? (β) At what rate does the tip of the shadow move
+along the ground? (γ) Explain why the two rates do not depend on the distance of the person from the
+lamppost.</p>
+<p class="ypod">Hint: call $x$ the distance from the lamppost and $s$ the length of the shadow&middot; the two similar triangles give a linear relation between $x$ and $s$.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">10E.25</div>
+<p>$f(x)=3x^4-8x^3+6x^2-5$: find $f'(x)$ and the points where $f'(x)=0$.</p></div>
+<div class="ex from-book"><div class="num">10E.26</div>
+<p>$f(x)=x^2\sin x$: find $f'(x)$ (product rule).</p></div>
+<div class="ex from-book"><div class="num">10E.27</div>
+<p>$f(x)=e^{x^2}\ln x$: find $f'(x)$.</p></div>
+<div class="ex from-book"><div class="num">10E.28</div>
+<p>$f(x)=\sqrt[3]{x}$: find $f'(0)$, does it exist? What happens geometrically at $x=0$?</p></div>
+<div class="ex from-book"><div class="num">10E.29</div>
+<p>Find the angle of intersection of the curves $y=x^2$ and $y=x^3$ at the points $(0,0)$ and $(1,1)$.</p></div>
+<div class="ex from-book"><div class="num">10E.30</div>
+<p>$f(x)=x^3-3x$: find the points where $f'(x_0)=0$ and write the corresponding (horizontal) tangent lines.</p></div>
+<div class="ex from-book"><div class="num">10E.31</div>
+<p>Find the equation of the tangent and of the normal at the indicated point: (α) $y=\ln x$ at $(1,0)$, (β) $y=\mathrm{e}^{-x}$ at $(0,1)$.</p></div>
+<div class="ex from-book"><div class="num">10E.32</div>
+<p>For $f(x)=x^3-3x^2$ find: (α) the points with a horizontal tangent, (β) the points at which the tangent is parallel to the line $y=9x+1$.</p></div>
+<div class="ex from-book"><div class="num">10E.33</div>
+<p>$f(x)=\sin(x^2+1)$: find $f'(x)$ (chain rule).</p></div>
+<div class="ex from-book"><div class="num">10E.34</div>
+<p>$f(x)=\arctan(2x)$: find $f'(x)$.</p></div>
+<div class="ex from-book"><div class="num">10E.35</div>
+<p>Find $f'(x)$ using the chain rule: (α) $f(x)=\sqrt{x^2-3x+2}$, (β) $f(x)=\arctan(e^x)$, (γ) $f(x)=\ln(\sin x)$.</p></div>
+<div class="ex from-book"><div class="num">10E.36</div>
+<p>Find the derivative: (α) $f(x)=\sin^3(2x)$, (β) $g(x)=e^{-x^2}$, (γ) $h(x)=\ln\bigl(x+\sqrt{x^2+1}\bigr)$ (simplify; what do you recognize?).</p></div>
+<div class="ex from-book"><div class="num">10E.37</div>
+<p>Find $dy/dx$ if $x^2+3y^2=12$ and compute the slope of the tangent at the point $(3,1)$.</p></div>
+<div class="ex from-book"><div class="num">10E.38</div>
+<p>Find the tangent to the ellipse $\dfrac{x^2}{4}+\dfrac{y^2}{9}=1$ at the point $\left(1,\dfrac{3\sqrt{3}}{2}\right)$.</p></div>
+<div class="ex from-book"><div class="num">10E.39</div>
+<p>Logarithmic differentiation: $f(x)=\dfrac{(x^2+1)^3\sqrt{x+1}}{(x-1)^2}$.</p></div>
+<div class="ex from-book"><div class="num">10E.40</div>
+<p>Differentiate by logarithmic differentiation: (α) $y=x^{\ln x}$ ($x&gt;0$), (β) $y=\dfrac{x^2\,\sqrt[3]{x+1}}{(2x-3)^4}$, (γ) $f(x)=(\sin x)^{x}$, $0&lt;x&lt;\pi$.</p></div>
+<div class="ex from-book"><div class="num">10E.41</div>
+<p>Higher-order derivatives: for $f(x)=x^3\ln x$ ($x&gt;0$) find $f'''(x)$.</p></div>
+<div class="ex from-book"><div class="num">10E.42</div>
+<p>Find a general formula for $f^{(n)}(x)$ when $f(x)=\dfrac{1}{1-x}$ and when $g(x)=\ln(1+x)$.</p></div>
+<div class="ex from-book"><div class="num">10E.43</div>
+<p><strong>Electric power.</strong> The power dissipated in a resistor is $W=RI^2$ (in W), where $R$ is the resistance (in $\Omega$) and $I$ the current (in A). For $R=10\,\Omega$ constant, the current increases from $3$ A to $3.1$ A. Estimate the change in the power by means of the differential and compare it with the exact change.</p></div>
+<div class="ex from-book"><div class="num">10E.44</div>
+<p>For the parametric curve $x=\mathrm{e}^{t}$, $y=t\,\mathrm{e}^{t}$: (α) find $\dfrac{dy}{dx}$ as a function of $t$, (β) write the equation of the tangent at $t=0$.</p></div>
+<div class="ex from-book"><div class="num">10E.45</div>
+<p>Find the points of horizontal and of vertical tangency of the curve $x=t^3-3t$, $y=t^2$.</p></div>
+<div class="ex from-book"><div class="num">10E.46</div>
+<p>Polar curve $r=1+\sin\theta$: find the points of horizontal tangency for $\theta\in[0,2\pi)$.</p></div>
+<div class="ex from-book"><div class="num">10E.47</div>
+<p><strong>Rolle’s theorem.</strong> Verify the hypotheses and find $c$: (α) $f(x)=x^2-4$ on $[-2,2]$, (β) $f(x)=\sin x$ on $[0,\pi]$.</p></div>
+<div class="ex from-book"><div class="num">10E.48</div>
+<p>A right triangle: one leg increases at $2$ cm/s, the other decreases at $1$ cm/s. At the moment when $a=6$ cm and $b=8$ cm, at what rate does the hypotenuse change?</p></div>
+<div class="ex from-book"><div class="num">10E.49</div>
+<p>Related rate: the area of a circle increases at $2\ \mathrm{cm^2/s}$; how fast does the radius increase when $r=5$ cm?</p></div>
+<div class="ex from-book"><div class="num">10E.50</div>
+<p>A circle has a radius that increases at a rate of $0.5$ cm/s. At what rate do the circumference and the area increase when $r=4$ cm?</p></div>
+<div class="ex from-book"><div class="num">10E.51</div>
+<p>A square has a side that increases at a rate of $3$ cm/s. At what rate does its diagonal increase when the side is $5$ cm?</p></div>
+<div class="ex from-book"><div class="num">10E.52</div>
+<p>A point moves along the curve $y=\sqrt{x}$ in such a way that $\dfrac{dx}{dt}=4$ cm/s. At what rate does the ordinate $y$ change when $x=4$ cm?</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">10E.53</div>
+<p>The population of a bacterial culture is given by $N(t)=100\,\mathrm{e}^{0.5t}$ ($t$ in hours). (α) Find the rate of growth $N'(t)$. (β) Show that $N'(t)=0.5\,N(t)$ and interpret the relation. (γ) When does the rate become $100$ bacteria per hour?</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 10.5 – Mean Value Theorems</h3></div>
+<div class="ex from-book"><div class="num">10E.54</div>
+<p>By combining Bolzano’s theorem and Rolle’s theorem, prove that the equation $x^3+x-1=0$ has exactly one real root.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">10E.55</div>
+<p><strong>Rate of change and a model:</strong> The temperature of a cooling body is given by $T(t)=T_{\pi}+\left(T_0-T_{\pi}\right)e^{-kt}$, where $T_{\pi}$ is the ambient temperature. (α) Find $T'(t)$. (β) Show that $T'(t)=-k\bigl(T(t)-T_{\pi}\bigr)$ (Newton’s law of cooling). (γ) What does the sign of $T'$ mean geometrically for the graph of $T$?</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

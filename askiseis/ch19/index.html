@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Sequences and Infinite Series</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">⊕ Additional Exercises</div>
+  <h1>Sequences and Infinite Series</h1>
+  <p class="chapter-label">Chapter 19 · Sequences and Infinite Series</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by topic</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">In every question about convergence state explicitly which test you are applying and check that
+  its hypotheses are satisfied. You can verify your results numerically:
+  compute enough partial sums $S_N$ or enough terms $a_n$ and compare with your conclusion.
+  If the ratio or the root test gives $L=1$, it does not decide: look for another tool.</p>
+</div>
+
+<div class="grp"><h2>A. Limits of sequences</h2>
+<p class="lead">Isolate the dominant term and choose the right tool: division, the conjugate expression or the squeeze theorem.</p></div>
+
+<div class="ex"><div class="num">19E.1 <span class="lvl l1">BASIC</span></div>
+<p>Compute $\displaystyle\lim_{n\to\infty}\frac{\sqrt{4n^{2}+n}}{n+3}$.</p></div>
+
+<div class="ex"><div class="num">19E.2 <span class="lvl l1">BASIC</span></div>
+<p>Compute $\displaystyle\lim_{n\to\infty}\frac{3^{n}-2^{n}}{3^{n}+2^{n}}$.</p>
+<p class="ypod">Hint: divide numerator and denominator by the fastest growing quantity.</p></div>
+
+<div class="ex"><div class="num">19E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Show by the squeeze theorem that the sequence $a_n=\sqrt[n]{2^{n}+3^{n}}$ converges and find its limit.</p>
+<p class="ypod">Hint: bound the expression $2^{n}+3^{n}$ between $3^{n}$ and $2\cdot 3^{n}$.</p></div>
+
+<div class="grp"><h2>B. Monotonicity and bounds</h2>
+<p class="lead">The Monotone Convergence Theorem guarantees the existence of a limit without computing it.</p></div>
+
+<div class="ex"><div class="num">19E.4 <span class="lvl l1">BASIC</span></div>
+<p>Examine whether the sequence $a_n=\dfrac{n}{n^{2}+1}$ is monotone and bounded and conclude whether it converges.</p>
+<p class="ypod">Hint: study the sign of the difference $a_n-a_{n+1}$.</p></div>
+
+<div class="ex"><div class="num">19E.5 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Consider the sequence $\displaystyle a_n=\frac{1\cdot 3\cdot 5\cdots(2n-1)}{2\cdot 4\cdot 6\cdots(2n)}$.
+Show that it is strictly decreasing and bounded below and conclude that it converges.</p>
+<p class="ypod">Hint: compute the ratio $a_{n+1}/a_n$; you do not need to find the limit.</p></div>
+
+<div class="ex"><div class="num">19E.6 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $H_n=\displaystyle\sum_{k=1}^{n}\frac{1}{k}$ and $c_n=H_n-\ln n$. Show that $(c_n)$ is decreasing
+and bounded below by $0$, and conclude that it converges.</p>
+<p class="ypod">Hint: write $\ln(n+1)-\ln n=\displaystyle\int_{n}^{n+1}\frac{dx}{x}$ and compare the integral
+with the values of $1/x$ at the endpoints of the interval. The limit is the Euler–Mascheroni constant.</p></div>
+
+<div class="grp"><h2>C. Recursive sequences</h2>
+<p class="lead">First a bound and monotonicity by induction, then the fixed-point equation for the limit.</p></div>
+
+<div class="ex"><div class="num">19E.7 <span class="lvl l1">BASIC</span></div>
+<p>Let $a_1=1$ and $a_{n+1}=\sqrt{3a_n}$ be given. Show by induction that $a_n&lt;3$ for every $n$, that the sequence
+is increasing, and find its limit.</p></div>
+
+<div class="ex"><div class="num">19E.8 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $a_1=0$ and $a_{n+1}=\dfrac{1}{2-a_n}$ be given. Show that $0\le a_n&lt;1$ for every $n$, that the sequence
+is increasing, and compute its limit.</p>
+<p class="ypod">Hint: for the monotonicity show that $a_{n+1}-a_n=\dfrac{(1-a_n)^{2}}{2-a_n}$.</p></div>
+
+<div class="ex"><div class="num">19E.9 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $x_1=1$ and $x_{n+1}=1+\dfrac{1}{x_n}$ be given. Show that $1\le x_n\le 2$ for every $n\ge 2$ and that,
+if the sequence converges to a limit $L&gt;0$, then $L^{2}=L+1$. Determine the value of $L$.</p>
+<p class="ypod">Hint: the terms do not form a monotone sequence; the convergence is assumed and you are not asked to prove it.</p></div>
+
+<div class="grp"><h2>D. Geometric and telescoping series</h2>
+<p class="lead">The only two families for which the sum is computed in closed form by means of $S_N$.</p></div>
+
+<div class="ex"><div class="num">19E.10 <span class="lvl l1">BASIC</span></div>
+<p>Examine the convergence and compute the sum of the series $\displaystyle\sum_{n=1}^{\infty}\frac{2^{n}+3^{n}}{6^{n}}$.</p>
+<p class="ypod">Hint: split it into two geometric series.</p></div>
+
+<div class="ex"><div class="num">19E.11 <span class="lvl l1">BASIC</span></div>
+<p>Compute the sum $\displaystyle\sum_{n=2}^{\infty}\frac{(-1)^{n}}{3^{n}}$, after first determining
+its first term and its ratio.</p>
+<p class="ypod">Careful with the starting index: the series does not begin at $n=0$.</p></div>
+
+<div class="ex"><div class="num">19E.12 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Show that the series $\displaystyle\sum_{n=1}^{\infty}\frac{2n+1}{n^{2}(n+1)^{2}}$ is telescoping,
+find the partial sum $S_N$ in closed form and compute its sum.</p>
+<p class="ypod">Hint: examine the difference $\dfrac{1}{n^{2}}-\dfrac{1}{(n+1)^{2}}$.</p></div>
+
+<div class="grp"><h2>E. The comparison and integral tests</h2>
+<p class="lead">Choose a reference series (a $p$-series or a geometric one) with a general term of the same order of magnitude.</p></div>
+
+<div class="ex"><div class="num">19E.13 <span class="lvl l1">BASIC</span></div>
+<p>Using the comparison test examine the convergence of the series $\displaystyle\sum_{n=1}^{\infty}\frac{1}{2^{n}+n}$.</p></div>
+
+<div class="ex"><div class="num">19E.14 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Using the limit comparison test examine the convergence of the series
+$\displaystyle\sum_{n=1}^{\infty}\frac{\sqrt{n+1}-\sqrt{n}}{n}$.</p>
+<p class="ypod">Hint: multiply by the conjugate expression and locate the appropriate $p$-series of reference.</p></div>
+
+<div class="ex"><div class="num">19E.15 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Using the integral test examine the convergence of the series
+$\displaystyle\sum_{n=1}^{\infty} n\,e^{-n^{2}}$.</p>
+<p class="ypod">Hint: first check that $f(x)=x e^{-x^{2}}$ is decreasing on $[1,+\infty)$ and then compute
+the improper integral by a substitution.</p></div>
+
+<div class="grp"><h2>F. The ratio and root tests</h2>
+<p class="lead">Factorials and $n$-th powers: the ratio test for the first, the root test for the second.</p></div>
+
+<div class="ex"><div class="num">19E.16 <span class="lvl l1">BASIC</span></div>
+<p>Using the ratio test examine the convergence of the series $\displaystyle\sum_{n=1}^{\infty}\frac{n^{2}}{3^{n}}$.</p></div>
+
+<div class="ex"><div class="num">19E.17 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Using the root test examine the convergence of the series
+$\displaystyle\sum_{n=2}^{\infty}\frac{n^{2}}{(\ln n)^{n}}$.</p>
+<p class="ypod">Hint: you will need the limit $\sqrt[n]{n}\to 1$.</p></div>
+
+<div class="ex"><div class="num">19E.18 <span class="lvl l3">ADVANCED</span></div>
+<p>Examine by the ratio test the series $\displaystyle\sum_{n=1}^{\infty}\frac{n^{n}}{3^{n}\,n!}$.</p>
+<p class="ypod">Hint: the ratio of successive terms reduces to the expression $\left(1+\frac{1}{n}\right)^{n}$;
+the conclusion is decided by comparing $e$ with $3$, so justify explicitly whether the test decides.</p></div>
+
+<div class="grp"><h2>G. Alternating series and absolute convergence</h2>
+<p class="lead">Two questions each time: does the series converge and does the series of absolute values converge?</p></div>
+
+<div class="ex"><div class="num">19E.19 <span class="lvl l1">BASIC</span></div>
+<p>Examine whether the series $\displaystyle\sum_{n=1}^{\infty}\frac{(-1)^{n-1}}{3n-1}$ converges and decide whether the
+convergence is absolute or conditional.</p></div>
+
+<div class="ex"><div class="num">19E.20 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Examine whether the series $\displaystyle\sum_{n=1}^{\infty}(-1)^{n}\,\frac{\sqrt{n}}{n+1}$ converges and decide
+whether the convergence is absolute or conditional.</p>
+<p class="ypod">Hint: for the monotonicity of $b_n=\dfrac{\sqrt{n}}{n+1}$ study the function
+$f(x)=\dfrac{\sqrt{x}}{x+1}$ on $[1,+\infty)$.</p></div>
+
+<div class="ex"><div class="num">19E.21 <span class="lvl l3">ADVANCED</span></div>
+<p>The series $\displaystyle\sum_{n=1}^{\infty}(-1)^{n}\bigl(\sqrt{n+1}-\sqrt{n}\bigr)$ is given.
+(α) Examine its convergence and decide whether it is absolute or conditional.
+(β) Find the least number of terms $N$ for which the partial sum $S_N$ approximates the sum
+with an error less than $0.05$.</p>
+<p class="ypod">Hint: write $\sqrt{n+1}-\sqrt{n}=\dfrac{1}{\sqrt{n+1}+\sqrt{n}}$ and use the
+error bound $|S-S_N|\le b_{N+1}$ of the Leibniz test.</p></div>
+
+<div class="grp"><h2>H. Mixed and composite problems</h2>
+<p class="lead">Here the tool is not given: first identify the structure and then choose a test.</p></div>
+
+<div class="ex"><div class="num">19E.22 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Compute the limit $\displaystyle\lim_{n\to\infty}\frac{\ln\!\left(n^{2}+1\right)}{\ln\!\left(n^{3}+n\right)}$.</p>
+<p class="ypod">Hint: write $\ln(n^{2}+1)=2\ln n+\ln\!\left(1+n^{-2}\right)$ and similarly for the denominator.</p></div>
+
+<div class="ex"><div class="num">19E.23 <span class="lvl l3">ADVANCED</span></div>
+<p>Examine the convergence of the series $\displaystyle\sum_{n=1}^{\infty}\left(\sqrt[n]{2}-1\right)$.</p>
+<p class="ypod">Hint: write $\sqrt[n]{2}=e^{(\ln 2)/n}$ and compare in the limit with the harmonic series,
+using the limit $\displaystyle\lim_{t\to 0}\frac{e^{t}-1}{t}=1$.</p></div>
+
+<div class="ex"><div class="num">19E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $a_n\ge 0$ for every $n$ and suppose that the series $\displaystyle\sum_{n=1}^{\infty}a_n$ converges.
+Prove that the series $\displaystyle\sum_{n=1}^{\infty}\frac{\sqrt{a_n}}{n}$ also converges.</p>
+<p class="ypod">Hint: from the arithmetic&ndash;geometric mean inequality, $\sqrt{xy}\le\frac{1}{2}(x+y)$ for
+$x,y\ge 0$; apply it with $x=a_n$ and $y=1/n^{2}$ and use the comparison test.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">19E.25</div>
+<p>Write the first five terms of the sequence $a_n=\dfrac{2n+1}{n+3}$ and compute its limit as $n\to\infty$.</p></div>
+<div class="ex from-book"><div class="num">19E.26</div>
+<p>Examine whether the sequence $a_n=(-1)^n\dfrac{1}{n}$ converges and, if so, find its limit.</p></div>
+<div class="ex from-book"><div class="num">19E.27</div>
+<p>Examine whether the sequence $a_n=\dfrac{n+1}{n+2}$ is monotone and bounded; then conclude its convergence by the Monotone Convergence Theorem (without computing the limit) and finally find the limit.</p></div>
+<div class="ex from-book"><div class="num">19E.28</div>
+<p>Show by the squeeze theorem that $a_n=\dfrac{\sin(n^2)}{\sqrt{n}}\to 0$.</p></div>
+<div class="ex from-book"><div class="num">19E.29</div>
+<p>Draw on the real axis the first 8 terms of $a_n=\dfrac{\sin(n\pi/4)}{n}$ and explain geometrically why the sequence converges to $0$.</p></div>
+<div class="ex from-book"><div class="num">19E.30</div>
+<p>Explain geometrically the $\varepsilon$-$N$ definition: what is the significance of $\varepsilon$ and of $N$?</p></div>
+<div class="ex from-book"><div class="num">19E.31</div>
+<p>For the sequence $a_n=\dfrac{1}{n}$ find the smallest index $N$ such that $|a_n-0|&lt;\varepsilon$ for every $n&gt;N$, when $\varepsilon=0.01$ and when $\varepsilon=0.001$.</p></div>
+<div class="ex from-book"><div class="num">19E.32</div>
+<p>Compute the sum $\displaystyle\sum_{n=0}^{\infty}\frac{2^{n}}{3^{n+1}}$, by first writing it as a geometric series.</p></div>
+<div class="ex from-book"><div class="num">19E.33</div>
+<p>Using the ratio test examine whether the series $\displaystyle\sum_{n=1}^{\infty}\frac{n!}{2^{n}}$ converges or diverges.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">19E.34</div>
+<p>Compute $\displaystyle\lim_{n\to\infty}\frac{4n-1}{2n+3}$ and prove the result from the definition ($\varepsilon$-$N$).</p></div>
+<div class="ex from-book"><div class="num">19E.35</div>
+<p>$\displaystyle\sum_{n=1}^\infty\frac{1}{n(n+2)}$: find the exact sum (telescoping, by means of partial fractions).</p></div>
+<div class="ex from-book"><div class="num">19E.36</div>
+<p>Examine whether the series $\displaystyle\sum_{n=2}^{\infty}\frac{(-1)^{n}}{n\ln n}$ converges absolutely, conditionally, or diverges.</p></div>
+<div class="ex from-book"><div class="num">19E.37</div>
+<p>Observing that $\cos(n\pi)=(-1)^{n}$, examine whether the series $\displaystyle\sum_{n=1}^{\infty}\frac{\cos(n\pi)}{n^{2}}$ converges absolutely.</p></div>
+<div class="ex from-book"><div class="num">19E.38</div>
+<p>Using the <em>limit comparison test</em> examine the convergence of $\displaystyle\sum_{n=1}^{\infty}\frac{2n+3}{n^3-n+4}$.</p></div>
+<div class="ex from-book"><div class="num">19E.39</div>
+<p>Compute the limit $\displaystyle\lim_{n\to\infty}\left(\frac{n+2}{n-1}\right)^{n}$ (hint: write it as $\left(1+\tfrac{3}{n-1}\right)^{n}$).</p></div>
+<div class="ex from-book"><div class="num">19E.40</div>
+<p>Examine the convergence and find the sum, <em>where it exists</em>: <ol class="sub"><li>$\displaystyle\sum_{n=1}^\infty\left(\frac{3}{5}\right)^n$ </li><li>$\displaystyle\sum_{n=0}^\infty(-1)^n 2^n$ </li><li>$\displaystyle\sum_{n=2}^\infty\frac{1}{n^2-1}$ </li></ol></p></div>
+<div class="ex from-book"><div class="num">19E.41</div>
+<p>Apply the ratio test: <ol class="sub"><li>$\displaystyle\sum_{n=1}^\infty\frac{(2n)!}{(n!)^2}$ </li><li>$\displaystyle\sum_{n=1}^\infty\frac{(-1)^n n}{2^n}$ </li><li>$\displaystyle\sum_{n=1}^\infty\frac{n^{100}}{n!}$ </li></ol></p></div>
+<div class="ex from-book"><div class="num">19E.42</div>
+<p>Examine the convergence: <ol class="sub"><li>$\displaystyle\sum_{n=1}^\infty\frac{n}{n^2+1}$ (integral test) </li><li>$\displaystyle\sum_{n=1}^\infty\frac{1}{n^2+3n+2}$ </li><li>$\displaystyle\sum_{n=1}^\infty\frac{\sin^2 n}{n^2}$ </li><li>$\displaystyle\sum_{n=1}^\infty\frac{\sqrt{n}}{n^2+1}$ </li></ol></p></div>
+<div class="ex from-book"><div class="num">19E.43</div>
+<p>A recursive sequence: $a_1=2$, $a_{n+1}=\dfrac{a_n+6}{2}$. Show that $a_n\to6$.</p></div>
+<div class="ex from-book"><div class="num">19E.44</div>
+<p>The alternating series $\displaystyle\sum_{n=1}^\infty\frac{(-1)^{n+1}}{\sqrt{n}}$: convergence and estimation of the error so that $|\text{error}|&lt;0.01$.</p></div>
+<div class="ex from-book"><div class="num">19E.45</div>
+<p>Examine the monotonicity and the boundedness of the sequence $a_n=\dfrac{3n-1}{n+2}$ and compute $\lim_{n\to\infty}a_n$.</p></div>
+<div class="ex from-book"><div class="num">19E.46</div>
+<p>Show that the sequence $a_n=\dfrac{2^{n}}{n!}$ converges to $0$, by examining the ratio $a_{n+1}/a_n$ of successive terms.</p></div>
+<div class="ex from-book"><div class="num">19E.47</div>
+<p>Apply the ratio test to the series $\displaystyle\sum_{n=1}^{\infty}\frac{(n!)^2}{(2n)!}$. Does it converge or diverge?</p></div>
+<div class="ex from-book"><div class="num">19E.48</div>
+<p>Apply the Leibniz test to the series $\displaystyle\sum_{n=1}^{\infty}\frac{(-1)^{n}\,n}{n^2+1}$ and decide whether the convergence is absolute or conditional.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 19.1 – Sequences of Real Numbers</h3></div>
+<div class="ex from-book"><div class="num">19E.49</div>
+<p>Let $a_1=\sqrt{2}$ and $a_{n+1}=\sqrt{2+a_n}$ be given. Show that the sequence is increasing and bounded above by $2$ and find its limit.</p></div>
+<div class="grp2"><h3>Exercises for Section 19.1.1 – Geometric Interpretation of the Convergence of a Sequence</h3></div>
+<div class="ex from-book"><div class="num">19E.50</div>
+<p>Draw the partial sums $S_N$ of the geometric series $\displaystyle\sum_{n=0}^{\infty}\left(\tfrac{1}{3}\right)^n$ for $N=0,1,\dots,6$ and interpret geometrically their convergence to $S=3/2$.</p></div>
+<div class="grp2"><h3>Exercises for Section 19.2 – Infinite Series</h3></div>
+<div class="ex from-book"><div class="num">19E.51</div>
+<p>Write the repeating decimal $2.3\overline{45}$ as a geometric series and compute its exact value as a fraction.</p></div>
+<div class="grp2"><h3>Exercises for Section 19.3 – Convergence Tests</h3></div>
+<div class="ex from-book"><div class="num">19E.52</div>
+<p>Examine the convergence of $\displaystyle\sum_{n=1}^{\infty}\frac{1}{\sqrt{n}\,(n+1)}$ by choosing the most appropriate test and justifying your choice.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">19E.53</div>
+<p>Show that for every $p&gt;0$ the ratio test, applied to the series $\sum 1/n^p$, gives $L=1$. What do you conclude about the limits of applicability of the test? By which test can the question of convergence finally be answered?</p></div>
+<div class="ex from-book"><div class="num">19E.54</div>
+<p><strong>Application:</strong> The amplitude of oscillation of a structure decreases by $15\%$ in each cycle, starting from $A_0=20\,\mathrm{mm}$. (α) Find the sum of all the maximum amplitudes, $\sum_{n\ge0}A_n$. (β) How many cycles are required for the amplitude to drop below $1\,\mathrm{mm}$?</p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group C)</h3></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">19E.55</div>
+<p>Compute the limits of the sequences: <ol class="grk"><li>$a_n=\dfrac{5n^3-2n}{3n^3+n^2+1}$ </li><li>$b_n=\left(1+\dfrac{2}{n}\right)^n$ </li><li>$c_n=\dfrac{\ln n}{n}$ </li><li>$d_n = \sqrt[n]{n^3 + 2n}$ </li><li>$e_n = \dfrac{(-1)^n n^2}{n^3 + 1}$</li></ol></p></div>
+<div class="ex from-book"><div class="num">19E.56</div>
+<p>For each of the following series decide whether it converges absolutely, conditionally, or diverges: <ol class="grk"><li>$\displaystyle\sum_{n=1}^\infty\frac{(-1)^{n}}{\sqrt{n}}$ </li><li>$\displaystyle\sum_{n=0}^\infty\frac{(-1)^{n}}{2n+1}$ </li><li>$\displaystyle\sum_{n=1}^\infty(-1)^n\frac{n+1}{n}$ </li><li>$\displaystyle\sum_{n=1}^\infty\frac{(-1)^{n}\cos(n)}{n^3}$</li></ol></p></div>
+<div class="ex from-book"><div class="num">19E.57</div>
+<p>Bolzano – Weierstrass theorem: $a_n = (-1)^n + \dfrac{1}{n}$. Find a convergent subsequence.</p></div>
+<div class="ex from-book"><div class="num">19E.58</div>
+<p>Using the ratio test show that the series $\displaystyle\sum_{n=0}^{\infty}\frac{5^{n}}{n!}$ converges and identify its sum.</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

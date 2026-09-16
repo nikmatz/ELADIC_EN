@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: The Fundamental Theorem of Calculus</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">⊕ Additional Exercises</div>
+  <h1>The Fundamental Theorem of Calculus</h1>
+  <p class="chapter-label">Chapter 15 · The Fundamental Theorem of Calculus</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by section</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">Every definite integral is evaluated with the Newton–Leibniz formula: you find one
+  antiderivative and subtract its values at the endpoints. Always check the sign and the size of the
+  result geometrically: if the integrand is positive on the interval, the integral
+  must be positive and comparable with the area of a rectangle enclosing it. In a
+  substitution always change the limits of integration as well. You do not need an answer key.</p>
+</div>
+
+<div class="grp"><h2>A. The first part of the fundamental theorem</h2>
+<p class="lead">Differentiation undoes integration: you do not evaluate the integral, you differentiate it.</p></div>
+
+<div class="ex"><div class="num">15E.1 <span class="lvl l1">BASIC</span></div>
+<p>Find $F'(x)$ in each of the following cases:</p>
+<p>(α) $\displaystyle F(x)=\int_1^{x}\frac{t}{1+t^{2}}\,dt$ &nbsp;&nbsp; (β) $\displaystyle F(x)=\int_0^{x}\cos(t^{3})\,dt$ &nbsp;&nbsp; (γ) $\displaystyle F(x)=\int_x^{2}e^{t^{2}}\,dt$</p>
+<p class="ypod">Hint: in (γ) the variable is in the lower limit; swap the limits first.</p></div>
+
+<div class="ex"><div class="num">15E.2 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Consider the function $\displaystyle F(x)=\int_0^{x}\frac{t-1}{t^{2}+1}\,dt$, $x\in\mathbb{R}$.
+Find $F'(x)$, prove that $F$ has a global minimum at $x=1$ and compute $F''(0)$.</p>
+<p class="ypod">Hint: the sign of $F'$ is determined solely by the numerator.</p></div>
+
+<div class="ex"><div class="num">15E.3 <span class="lvl l3">ADVANCED</span></div>
+<p>Evaluate the limit $\displaystyle\lim_{x\to 0}\frac{1}{x^{3}}\int_0^{x}t\sin t\,dt$.</p>
+<p class="ypod">Hint: this is an indeterminate form $0/0$; combine L'Hôpital's rule (Ch. 12) with the first part of the fundamental theorem.</p></div>
+
+<div class="grp"><h2>B. The Newton–Leibniz formula</h2>
+<p class="lead">One antiderivative, two values, one subtraction — you only have to watch the points where the sign changes.</p></div>
+
+<div class="ex"><div class="num">15E.4 <span class="lvl l1">BASIC</span></div>
+<p>Evaluate:</p>
+<p>(α) $\displaystyle\int_1^{2}\left(x^{3}-\frac{1}{x^{2}}\right)dx$ &nbsp;&nbsp; (β) $\displaystyle\int_0^{1}\frac{dx}{\sqrt{4-x^{2}}}$ &nbsp;&nbsp; (γ) $\displaystyle\int_0^{3}\frac{dx}{9+x^{2}}$</p>
+<p class="ypod">Hint: in (β) and (γ) use the basic-table formulas with parameter $a$.</p></div>
+
+<div class="ex"><div class="num">15E.5 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Evaluate $\displaystyle\int_{-1}^{2}\bigl|x^{2}-1\bigr|\,dx$.</p>
+<p class="ypod">Hint: first determine the sign of $x^{2}-1$ and split the interval at its zeros.</p></div>
+
+<div class="ex"><div class="num">15E.6 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find <em>all</em> values of the parameter $a&gt;0$ for which
+$\displaystyle\int_0^{a}(4-2x)\,dx=3$.</p>
+<p class="ypod">Hint: the computation leads to a quadratic equation in $a$; check which roots are admissible.</p></div>
+
+<div class="grp"><h2>C. Substitution in a definite integral</h2>
+<p class="lead">When you change the variable you change the limits too; then there is no need to return to the original variable.</p></div>
+
+<div class="ex"><div class="num">15E.7 <span class="lvl l1">BASIC</span></div>
+<p>$\displaystyle\int_0^{1}x\sqrt{1+x^{2}}\,dx$</p>
+<p class="ypod">Hint: set $u=1+x^{2}$ and transform the limits $0$ and $1$.</p></div>
+
+<div class="ex"><div class="num">15E.8 <span class="lvl l1">BASIC</span></div>
+<p>$\displaystyle\int_0^{\pi/2}\sin^{3}x\,\cos x\,dx$</p></div>
+
+<div class="ex"><div class="num">15E.9 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>$\displaystyle\int_0^{4}\frac{dx}{1+\sqrt{x}}$</p>
+<p class="ypod">Hint: with $u=\sqrt{x}$ a rational expression of the form $\dfrac{2u}{1+u}$ appears; carry out the division before integrating.</p></div>
+
+<div class="grp"><h2>D. Integration by parts in a definite integral</h2>
+<p class="lead">The term $\bigl[uv\bigr]_a^b$ is evaluated immediately at the endpoints; no constant of integration is carried along.</p></div>
+
+<div class="ex"><div class="num">15E.10 <span class="lvl l1">BASIC</span></div>
+<p>$\displaystyle\int_0^{1}x\,e^{-x}\,dx$</p></div>
+
+<div class="ex"><div class="num">15E.11 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>$\displaystyle\int_1^{e}x^{2}\ln x\,dx$</p>
+<p class="ypod">Hint: choose the logarithmic factor as $u$.</p></div>
+
+<div class="ex"><div class="num">15E.12 <span class="lvl l3">ADVANCED</span></div>
+<p>$\displaystyle\int_0^{\pi/2}e^{x}\sin x\,dx$</p>
+<p class="ypod">Hint: after two applications of the formula the original integral reappears; treat the relation as an equation in it, without forgetting the boundary terms.</p></div>
+
+<div class="grp"><h2>E. The Leibniz rule with variable limits</h2>
+<p class="lead">When the limits are functions of $x$, the fundamental theorem is combined with the chain rule.</p></div>
+
+<div class="ex"><div class="num">15E.13 <span class="lvl l1">BASIC</span></div>
+<p>Find $F'(x)$:</p>
+<p>(α) $\displaystyle F(x)=\int_0^{e^{x}}\ln(1+t)\,dt$ &nbsp;&nbsp; (β) $\displaystyle F(x)=\int_{x^{2}}^{4}\ln\!\left(1+t^{2}\right)dt$</p></div>
+
+<div class="ex"><div class="num">15E.14 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For the function $\displaystyle F(x)=\int_{x}^{2x}\frac{dt}{\sqrt{1+t^{4}}}$ find $F'(x)$
+and compute the value $F'(0)$.</p>
+<p class="ypod">Hint: both limits are variable; write the integral as a difference of two integrals with a constant lower limit.</p></div>
+
+<div class="ex"><div class="num">15E.15 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $\displaystyle F(x)=\int_{x}^{x+1}t^{2}\,dt$. Find $F'(x)$ in two ways:
+(α) by applying the Leibniz rule and (β) by first evaluating the integral explicitly.
+Confirm that the two results agree and determine the global minimum of $F$ on $\mathbb{R}$.</p></div>
+
+<div class="grp"><h2>F. Area between curves</h2>
+<p class="lead">First find the points of intersection, then which curve lies on top on each subinterval.</p></div>
+
+<div class="ex"><div class="num">15E.16 <span class="lvl l1">BASIC</span></div>
+<p>Find the area of the region enclosed by the curves $y=x^{2}$ and $y=\sqrt{x}$.</p></div>
+
+<div class="ex"><div class="num">15E.17 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find the area of the region enclosed by the parabola $y=x^{2}-4x+3$ and the $x$-axis.</p>
+<p class="ypod">Hint: on the interval between the roots the parabola lies below the axis; area is a positive quantity.</p></div>
+
+<div class="ex"><div class="num">15E.18 <span class="lvl l3">ADVANCED</span></div>
+<p>Find the area of the region enclosed by the curves $y=|x|$ and $y=2-x^{2}$.</p>
+<p class="ypod">Hint: exploit the symmetry about the $y$-axis and work only for $x\ge 0$.</p></div>
+
+<div class="grp"><h2>G. Applications</h2>
+<p class="lead">The integral of a rate of change gives the total accumulated quantity.</p></div>
+
+<div class="ex"><div class="num">15E.19 <span class="lvl l1">BASIC</span></div>
+<p>A body moves along a straight line with velocity $v(t)=4t-t^{2}$ (in m/s) for $0\le t\le 3$ (in s).
+Compute the displacement of the body over this interval and its average velocity.</p>
+<p class="ypod">Hint: check first that $v$ keeps a constant sign on $[0,3]$.</p></div>
+
+<div class="ex"><div class="num">15E.20 <span class="lvl l1">BASIC</span></div>
+<p>Find the average value of the function $f(x)=\dfrac{1}{x}$ on the interval $[1,e^{2}]$ and determine
+the point $c\in(1,e^{2})$ at which $f$ attains this average value, as guaranteed by the
+Mean Value Theorem for Integrals.</p></div>
+
+<div class="ex"><div class="num">15E.21 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The instantaneous power consumed by an installation is given by
+$P(t)=100+40\sin\!\left(\dfrac{\pi t}{12}\right)$ (in kW), where $t$ is the time in hours with $0\le t\le 24$.
+Compute the total energy consumed over a twenty-four-hour period, as well as the average power.</p>
+<p class="ypod">Hint: the sinusoidal variation completes a whole number of periods on $[0,24]$.</p></div>
+
+<div class="grp"><h2>H. Mixed and composite problems</h2>
+<p class="lead">Often symmetry or a simple inequality reaches the answer faster than direct computation.</p></div>
+
+<div class="ex"><div class="num">15E.22 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $f$ be continuous on $[-a,a]$. Prove that if $f$ is even, then
+$\displaystyle\int_{-a}^{a}f(x)\,dx=2\int_{0}^{a}f(x)\,dx$, while if it is odd, then
+$\displaystyle\int_{-a}^{a}f(x)\,dx=0$. Apply the conclusion to
+$\displaystyle\int_{-1}^{1}\frac{x^{3}\cos x}{1+x^{2}}\,dx$.</p>
+<p class="ypod">Hint: split the integral at $0$ and in the first piece set $x=-u$.</p></div>
+
+<div class="ex"><div class="num">15E.23 <span class="lvl l2">INTERMEDIATE</span></div>
+<p><em>Without</em> evaluating the integrals, prove that:</p>
+<p>(α) $\displaystyle\frac{1}{2}\le\int_0^{1}\frac{dx}{1+x^{2}}\le 1$ &nbsp;&nbsp;
+(β) $\displaystyle\int_0^{1}e^{-x^{2}}dx\ \ge\ \int_0^{1}e^{-x}\,dx$</p>
+<p class="ypod">Hint: in (β) compare $x^{2}$ and $x$ for $0\le x\le 1$ and use the monotonicity of the exponential.</p></div>
+
+<div class="ex"><div class="num">15E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>$\displaystyle\int_0^{1}x\arctan x\,dx$</p>
+<p class="ypod">Hint: integrate by parts with $u=\arctan x$; then write $\dfrac{x^{2}}{1+x^{2}}=1-\dfrac{1}{1+x^{2}}$.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">15E.25</div>
+<p>If $F(x)=\displaystyle\int_0^x\sqrt{1+t^4}\,dt$, find $F'(x)$ and explain why $F$ is strictly increasing.</p></div>
+<div class="ex from-book"><div class="num">15E.26</div>
+<p>For $F(x)=\displaystyle\int_0^x (t^2-4)\,dt$ find the intervals of monotonicity and the local extrema of $F$, <em>without</em> evaluating the integral.</p></div>
+<div class="ex from-book"><div class="num">15E.27</div>
+<p>Let $F(x)=\displaystyle\int_0^x e^{-t^2}\,dt$. Show that $F(0)=0$, that $F$ is strictly increasing and that it is an <em>odd</em> function.</p></div>
+<div class="ex from-book"><div class="num">15E.28</div>
+<p>If $\displaystyle\int_0^x f(t)\,dt=x\sin x$, find $f(x)$ and compute $f(\pi/2)$.</p></div>
+<div class="ex from-book"><div class="num">15E.29</div>
+<p>$\displaystyle\int_0^2 (x^2-x)\,dx$</p></div>
+<div class="ex from-book"><div class="num">15E.30</div>
+<p>$\displaystyle\int_1^e \frac{(\ln x)^2}{x}\,dx$</p></div>
+<div class="ex from-book"><div class="num">15E.31</div>
+<p>$\displaystyle\int_{-1}^1 |x|\,dx$ (split into two intervals).</p></div>
+<div class="ex from-book"><div class="num">15E.32</div>
+<p>(α) $\displaystyle\int_0^1(3x^2+2x)\,dx$, (β) $\displaystyle\int_0^{\pi/3}\sin x\,dx$.</p></div>
+<div class="ex from-book"><div class="num">15E.33</div>
+<p>Evaluate: <ol class="sub"><li>$\displaystyle\int_0^2(3x^2-2x+1)\,dx$ </li><li>$\displaystyle\int_0^{\pi/2}\cos x\,dx$ </li><li>$\displaystyle\int_1^e\frac{dx}{x}$ </li><li>$\displaystyle\int_0^1 e^x\,dx$ </li></ol></p></div>
+<div class="ex from-book"><div class="num">15E.34</div>
+<p>$\displaystyle\int_0^{\pi/2}(\sin x+\cos x)\,dx$</p></div>
+<div class="ex from-book"><div class="num">15E.35</div>
+<p>$\displaystyle\int_1^2 \frac{\ln x}{x}\,dx$</p></div>
+<div class="ex from-book"><div class="num">15E.36</div>
+<p>$\displaystyle\int_0^1 x^2(x^3+1)^3\,dx$</p></div>
+<div class="ex from-book"><div class="num">15E.37</div>
+<p>$\displaystyle\int_0^3 \frac{x}{\sqrt{x^2+16}}\,dx$</p></div>
+<div class="ex from-book"><div class="num">15E.38</div>
+<p>$\displaystyle\int_1^{e} \frac{1+\ln x}{x}\,dx$</p></div>
+<div class="ex from-book"><div class="num">15E.39</div>
+<p>$\displaystyle\int_0^1 \frac{2x+1}{x^2+x+1}\,dx$</p></div>
+<div class="ex from-book"><div class="num">15E.40</div>
+<p>$\displaystyle\int_0^1 x e^{x}\,dx$</p></div>
+<div class="ex from-book"><div class="num">15E.41</div>
+<p>$\displaystyle\int_0^{\pi/2} x\cos x\,dx$</p></div>
+<div class="ex from-book"><div class="num">15E.42</div>
+<p>$\displaystyle\int_0^1 \arctan x\,dx$</p></div>
+<div class="ex from-book"><div class="num">15E.43</div>
+<p>$\displaystyle\int_1^2 x\ln x\,dx$</p></div>
+<div class="ex from-book"><div class="num">15E.44</div>
+<p>If $H(x)=\displaystyle\int_0^{x^2}e^{-t}\,dt$, find $H'(x)$ and $H''(x)$.</p></div>
+<div class="ex from-book"><div class="num">15E.45</div>
+<p>Evaluate $\dfrac{d}{dx}\displaystyle\int_x^{x^3}\cos(t^2)\,dt$.</p></div>
+<div class="ex from-book"><div class="num">15E.46</div>
+<p>For $F(x)=\displaystyle\int_1^{x^2}\frac{\cos t}{t}\,dt$ find $F'(x)$. At which points does $F'$ vanish? Does $F$ have local extrema?</p></div>
+<div class="ex from-book"><div class="num">15E.47</div>
+<p>For $y(x)=\displaystyle\int_0^{x}e^{-t^2}\,dt$ find the equation of the tangent line at the point $x=0$.</p></div>
+<div class="ex from-book"><div class="num">15E.48</div>
+<p>Find the area of the region between $y=x^3$ and $y=x$ on $[0,1]$.</p></div>
+<div class="ex from-book"><div class="num">15E.49</div>
+<p>Find the area of the region enclosed by the parabola $y=9-x^2$ and the $x$-axis.</p></div>
+<div class="ex from-book"><div class="num">15E.50</div>
+<p>Evaluate $\displaystyle\int_0^4 \sqrt{x}\,dx$ and interpret it geometrically.</p></div>
+<div class="ex from-book"><div class="num">15E.51</div>
+<p>Find the area of the region enclosed by $f(x)=x^2+1$, the $x$-axis and the lines $x=0$, $x=2$.</p></div>
+<div class="ex from-book"><div class="num">15E.52</div>
+<p>Find the area of the region between $y=\dfrac{1}{x}$ and $y=\dfrac{1}{x^2}$ on $[1,2]$.</p></div>
+<div class="ex from-book"><div class="num">15E.53</div>
+<p>Find the area of the region between the curves $x=y^2$ and $x=2-y^2$.</p></div>
+<div class="ex from-book"><div class="num">15E.54</div>
+<p>Find the area of the region enclosed by the curve $x=y(4-y)$ and the $y$-axis.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">15E.55</div>
+<p>For $F(x)=\displaystyle\int_0^x (t^2-2t)\,dt$ carry out a complete study: roots, monotonicity, local extrema and inflection points of $F$.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 15.1 – FTC Part I – The Derivative of an Integral</h3></div>
+<div class="ex from-book"><div class="num">15E.56</div>
+<p>The function $L(x)=\displaystyle\int_1^x\frac{dt}{t}$ ($x&gt;0$) defines the natural logarithm. Show that $L'(x)=\dfrac{1}{x}$, $L(1)=0$ and $L(ab)=L(a)+L(b)$ (hint for the last one: the substitution $t=au$).</p></div>
+<div class="grp2"><h3>Exercises for Section 15.2 – The Newton – Leibniz Formula</h3></div>
+<div class="ex from-book"><div class="num">15E.57</div>
+<p><strong>Displacement:</strong> For the velocity $v(t)=6t-3t^2$ (m/s), $0\le t\le 2$&nbsp;s, compute the displacement $\displaystyle\int_0^2 v(t)\,dt$ with the Newton – Leibniz formula and compare with the Riemann sum approximation ($n=4$) of Ch.&nbsp;14.</p></div>
+<div class="grp2"><h3>Exercises for Section 15.6 – Area between Curves</h3></div>
+<div class="ex from-book"><div class="num">15E.58</div>
+<p>Find the <em>total</em> area of the region enclosed by the curves $y=x^3$ and $y=4x$ (careful: two loops).</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

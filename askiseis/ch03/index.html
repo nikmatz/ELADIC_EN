@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Linear Systems</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">&#8853; Additional Exercises</div>
+  <h1>Linear Systems</h1>
+  <p class="chapter-label">Chapter 3 &middot; Linear Systems</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by section of the chapter</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">Every result is checked by you: substitute the solution you found into <em>all</em> the
+ original equations. When the solution is parametric, the verification must hold for every value of the
+ parameter. The factorization $A=LU$ is checked with a single matrix multiplication, the rank by the number
+ of pivots and the consistency by the Rouch&eacute;&ndash;Capelli criterion, that is, by
+ comparing $\mathrm{rank}(A)$ and $\mathrm{rank}(\tilde{A})$. You do not need a solutions manual.
+ Throughout, $\tilde{A}=[A\,|\,\mathbf{b}]$ denotes the augmented matrix of the system.</p>
+</div>
+
+<div class="grp"><h2>A. Gaussian elimination and echelon form</h2>
+<p class="lead">The algorithm is always the same: reduction to echelon form, identification of the pivots, back substitution.</p></div>
+
+<div class="ex"><div class="num">3E.1 <span class="lvl l1">BASIC</span></div>
+<p>Solve by Gaussian elimination and back substitution the system
+$\begin{cases}x+y+2z=9\\ 2x+4y-3z=1\\ 3x+6y-5z=0\end{cases}$
+and verify your solution in all three original equations.</p></div>
+
+<div class="ex"><div class="num">3E.2 <span class="lvl l1">BASIC</span></div>
+<p>Bring the matrix $A=\begin{bmatrix}1&amp;2&amp;-1&amp;3\\2&amp;4&amp;1&amp;0\\3&amp;6&amp;0&amp;3\end{bmatrix}$
+to reduced row echelon form by elementary row operations. Determine the pivots,
+the columns in which they lie and the rank $\mathrm{rank}(A)$.</p></div>
+
+<div class="ex"><div class="num">3E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Consider the system
+$\begin{cases}x_1+2x_2+x_3-x_4=2\\ 2x_1+4x_2+3x_3+x_4=7\\ -x_1-2x_2+x_3+5x_4=2\end{cases}$
+(α) Reduce the augmented matrix to reduced row echelon form. (β) Determine the basic and the
+free variables. (γ) Write the general solution in the form $\mathbf{x}=\mathbf{x}_p+c\,\mathbf{v}$.</p>
+<p class="ypod">Hint: the number of free variables follows from the difference “number of unknowns minus rank” before you even write down the solution.</p></div>
+
+<div class="grp"><h2>B. Geometric interpretation</h2>
+<p class="lead">Each equation is a line in $\mathbb{R}^2$ or a plane in $\mathbb{R}^3$: the solution set is their intersection.</p></div>
+
+<div class="ex"><div class="num">3E.4 <span class="lvl l1">BASIC</span></div>
+<p>Examine the relative position of the planes $x+2y-z=1$ and $2x+4y-2z=5$ in $\mathbb{R}^3$. Does the corresponding
+system have a solution? Justify your answer both geometrically and by comparing
+$\mathrm{rank}(A)$ and $\mathrm{rank}(\tilde{A})$.</p></div>
+
+<div class="ex"><div class="num">3E.5 <span class="lvl l1">BASIC</span></div>
+<p>Consider the three lines $x+y=3$, $\;x-y=1$ and $\;2x+y=5$ of the plane. Regarding them as a
+$3\times 2$system, show that they have a common point and determine it. What is then
+$\mathrm{rank}(\tilde{A})$ and why can it not be larger?</p></div>
+
+<div class="ex"><div class="num">3E.6 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Consider the planes $x+y+z=1$, $\;x+2y+3z=2$ and $\;2x+3y+4z=3$. Show that the three planes have
+infinitely many common points, describe their intersection geometrically and give a parametric description of it in the form
+$\mathbf{x}=\mathbf{x}_0+t\,\mathbf{v}$.</p>
+<p class="ypod">Hint: observe the relation of the third equation to the first two.</p></div>
+
+<div class="grp"><h2>C. Consistency and parameters</h2>
+<p class="lead">Before you solve, decide <em>whether</em> and <em>how many</em> solutions there are, by comparing the two ranks with the number of unknowns.</p></div>
+
+<div class="ex"><div class="num">3E.7 <span class="lvl l1">BASIC</span></div>
+<p>For the system $\begin{cases}x+y+z=2\\ x+2y+3z=5\\ 2x+3y+4z=7\end{cases}$ compute
+$\mathrm{rank}(A)$ and $\mathrm{rank}(\tilde{A})$, decide by the Rouch&eacute;&ndash;Capelli criterion
+on the number of solutions and write the general solution.</p></div>
+
+<div class="ex"><div class="num">3E.8 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Consider the system $\begin{cases}x+y+z=1\\ x+2y+4z=k\\ x+4y+10z=k^{2}\end{cases}$ with $k\in\mathbb{R}$.
+(α) Show that the coefficient matrix has rank $2$, independently of the value of $k$. (β) Find all the values of $k$
+for which the system is consistent. (γ) For each of these values write the general solution
+in vector form.</p>
+<p class="ypod">Hint: after the elimination, the last row gives a quadratic condition in $k$ that factors.</p></div>
+
+<div class="ex"><div class="num">3E.9 <span class="lvl l3">ADVANCED</span></div>
+<p>Discuss fully, with respect to the parameter $\lambda\in\mathbb{R}$, the system
+$\begin{cases}\lambda x+y+z=1\\ x+\lambda y+z=\lambda\\ x+y+\lambda z=\lambda^{2}\end{cases}$
+(α) Compute the determinant of the coefficient matrix and factor it. (β) Determine the values
+of $\lambda$ for which there is a unique solution. (γ) For each critical value of $\lambda$ examine with
+the Rouch&eacute;&ndash;Capelli criterion whether the system has infinitely many solutions or is inconsistent and, where
+solutions exist, write the general solution.</p>
+<p class="ypod">Hint: adding the three equations side by side gives a relation containing the factor $\lambda+2$.</p></div>
+
+<div class="grp"><h2>D. Homogeneous systems</h2>
+<p class="lead">A homogeneous system always has the zero solution: the only question is whether it has others.</p></div>
+
+<div class="ex"><div class="num">3E.10 <span class="lvl l1">BASIC</span></div>
+<p>Solve the homogeneous system $\begin{cases}x+2y-3z=0\\ 2x+5y-4z=0\\ 3x+7y-7z=0\end{cases}$, write the
+general solution as a multiple of a vector of $\mathbb{R}^3$ and determine the dimension of
+$\ker(A)$.</p></div>
+
+<div class="ex"><div class="num">3E.11 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Consider the matrix $A=\begin{bmatrix}1&amp;2&amp;1&amp;3\\2&amp;4&amp;3&amp;8\\1&amp;2&amp;2&amp;5\end{bmatrix}$.
+(α) Find its reduced row echelon form and $\mathrm{rank}(A)$. (β) Find a basis of the solution
+space of $A\mathbf{x}=\mathbf{0}$. (γ) Verify the rank&ndash;nullity theorem
+$\dim\ker(A)+\mathrm{rank}(A)=4$.</p></div>
+
+<div class="ex"><div class="num">3E.12 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $A\in\mathcal{M}_{3\times 3}(\mathbb{R})$ with columns $\mathbf{c}_1,\mathbf{c}_2,\mathbf{c}_3$ for
+which $\mathbf{c}_3=2\mathbf{c}_1-\mathbf{c}_2$. (α) Find explicitly a nonzero vector
+$\mathbf{x}$ with $A\mathbf{x}=\mathbf{0}$. (β) Conclude that $\det A=0$ and that $\mathrm{rank}(A)\le 2$.
+(γ) Construct a specific numerical example of such a matrix and verify the above.</p>
+<p class="ypod">Hint: the product $A\mathbf{x}$ is a linear combination of the columns of $A$ with coefficients the coordinates of $\mathbf{x}$.</p></div>
+
+<div class="grp"><h2>E. Cramer's rule</h2>
+<p class="lead">It applies only to square systems with $\det A\neq 0$ and it gives each unknown separately.</p></div>
+
+<div class="ex"><div class="num">3E.13 <span class="lvl l1">BASIC</span></div>
+<p>Solve by Cramer's rule the system $\begin{cases}3x+2y=16\\ x-4y=-4\end{cases}$, after first
+checking that the rule applies.</p></div>
+
+<div class="ex"><div class="num">3E.14 <span class="lvl l1">BASIC</span></div>
+<p>For the system $\begin{cases}x+y+z=6\\ 2x-y+3z=9\\ x+2y-z=2\end{cases}$ compute <em>only</em> the
+unknown $z$ by Cramer's rule, without solving the whole system.</p></div>
+
+<div class="ex"><div class="num">3E.15 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Consider the system $\begin{cases}x+y=1\\ x+ay=a\end{cases}$ with $a\in\mathbb{R}$.
+(α) For which values of $a$ does Cramer's rule apply? (β) Apply it and show that the solution does not
+depend at all on $a$. (γ) Examine separately the value of $a$ that is excluded and describe
+geometrically what happens then with the two lines.</p></div>
+
+<div class="grp"><h2>F. The $LU$ factorization</h2>
+<p class="lead">The multipliers of Gaussian elimination are not thrown away: they make up $L$, while the echelon matrix is $U$.</p></div>
+
+<div class="ex"><div class="num">3E.16 <span class="lvl l1">BASIC</span></div>
+<p>Find the factorization $A=LU$ (without row interchanges) of the matrix
+$A=\begin{bmatrix}2&amp;1&amp;-1\\4&amp;5&amp;-3\\-2&amp;5&amp;-2\end{bmatrix}$
+and verify the result by carrying out the multiplication $LU$.</p></div>
+
+<div class="ex"><div class="num">3E.17 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For the matrix $A=\begin{bmatrix}1&amp;2&amp;1\\3&amp;8&amp;1\\0&amp;4&amp;1\end{bmatrix}$ find the
+factors $L$ and $U$ and, using <em>the same</em> factorization, solve by forward and
+back substitution the systems $A\mathbf{x}=\mathbf{b}_1$ and $A\mathbf{x}=\mathbf{b}_2$ with
+$\mathbf{b}_1=(4,12,5)^{\top}$ and $\mathbf{b}_2=(3,7,1)^{\top}$. How many times did you carry out the elimination
+and how many times would you have carried it out with plain Gaussian elimination?</p></div>
+
+<div class="ex"><div class="num">3E.18 <span class="lvl l3">ADVANCED</span></div>
+<p>Show that the matrix $A=\begin{bmatrix}0&amp;1\\1&amp;0\end{bmatrix}$ does not admit a factorization
+$A=LU$ with $L$ unit lower triangular and $U$ upper triangular. Then find a permutation
+matrix $P$ such that $PA$ does admit such a factorization, and write it down. Finally, state in general
+which condition on the pivots guarantees the existence of the $LU$ without row interchanges.</p>
+<p class="ypod">Hint: write $L$ and $U$ with unknown entries, carry out the product and compare entry by entry, starting from the entry in position $(1,1)$.</p></div>
+
+<div class="grp"><h2>G. Applications: networks, trusses, interpolation</h2>
+<p class="lead">Conservation laws and interpolation conditions always produce linear systems.</p></div>
+
+<div class="ex"><div class="num">3E.19 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>In a square of one-way streets, the junctions $A,B,\Gamma,\Delta$ are connected cyclically by flows
+(vehicles per hour) $x_1$ from $A$ to $B$, $x_2$ from $B$ to $\Gamma$, $x_3$ from $\Gamma$ to
+$\Delta$ and $x_4$ from $\Delta$ to $A$. From side streets there are inflows and outflows:
+at $A$ there is an inflow of $100$ and an outflow of $50$; at $B$ there is an inflow of $80$ and an outflow of $30$; at
+$\Gamma$ there is an inflow of $20$ and an outflow of $90$; at $\Delta$ there is an inflow of $40$ and an outflow of $70$.
+(α) Write the conservation principle (inflow $=$ outflow) at each junction and form the system
+$A\mathbf{x}=\mathbf{b}$. (β) Compute $\mathrm{rank}(A)$ and $\mathrm{rank}(\tilde{A})$ and
+explain why the system has infinitely many solutions. (γ) Express the general solution with parameter the flow $x_4$.
+(δ) If all the flows must be nonnegative, what is the smallest admissible value of $x_4$?</p></div>
+
+<div class="ex"><div class="num">3E.20 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find the plane with equation $z=a+bx+cy$ that passes through the points $(1,1,3)$, $(2,0,4)$ and
+$(0,3,2)$. (α) Form the linear system $3\times 3$ with unknowns $a,b,c$. (β) Compute the
+determinant of the coefficient matrix and explain why the plane is unique. (γ) Solve by Gaussian
+elimination and verify that all three points satisfy the equation you found.</p>
+<p class="ypod">Hint: each point gives one equation, linear in the <em>unknown coefficients</em> $a,b,c$ and not in the coordinates.</p></div>
+
+<div class="ex"><div class="num">3E.21 <span class="lvl l3">ADVANCED</span></div>
+<p>In a plane truss three members carry forces $F_1,F_2,F_3$ (in kN). The equilibrium equations of the
+joints, with the geometry of member $1$ corresponding to a right triangle with sides $3,4,5$, are
+$\begin{cases}\tfrac{3}{5}F_1+F_2=10\\ \tfrac{4}{5}F_1+F_3=12\\ F_2-F_3=-4\end{cases}$
+(α) Multiply suitably so that the coefficients become integers and solve by Gaussian elimination.
+(β) Show that the determinant of the coefficient matrix is nonzero and explain what this means for
+whether the truss is statically determinate. (γ) Interpret physically the sign of each force, given that
+a positive value corresponds to tension and a negative one to compression.</p></div>
+
+<div class="grp"><h2>H. Mixed and composite problems</h2>
+<p class="lead">Here several tools of the chapter are combined: rank, determinant, consistency, homogeneous system.</p></div>
+
+<div class="ex"><div class="num">3E.22 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>We are given $A=\begin{bmatrix}1&amp;2&amp;3\\2&amp;5&amp;7\\3&amp;7&amp;11\end{bmatrix}$ and
+$\mathbf{b}=(6,14,21)^{\top}$. (α) Reduce $A$ to echelon form and compute $\det A$ as the product of the
+pivots. (β) Solve $A\mathbf{x}=\mathbf{b}$ using the same reduction.
+(γ) Explain why the answer to (α) guarantees in advance that the solution of (β) is unique.</p></div>
+
+<div class="ex"><div class="num">3E.23 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $A\in\mathcal{M}_{m\times n}(\mathbb{R})$ and $\mathbf{b}\in\mathbb{R}^m$. Suppose that the
+system $A\mathbf{x}=\mathbf{b}$ has two different solutions $\mathbf{x}_1\neq\mathbf{x}_2$.
+(α) Show that for every $t\in\mathbb{R}$ the vector
+$\mathbf{x}_1+t(\mathbf{x}_2-\mathbf{x}_1)$ is also a solution. (β) Conclude that the system has
+infinitely many solutions and hence that a linear system can never have exactly two solutions.
+(γ) State this conclusion in terms of $\mathrm{rank}(A)$ and of the number $n$ of unknowns.</p>
+<p class="ypod">Hint: in (α) compute $A\big(\mathbf{x}_1+t(\mathbf{x}_2-\mathbf{x}_1)\big)$ using the linearity of matrix multiplication.</p></div>
+
+<div class="ex"><div class="num">3E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>Consider, for $a\in\mathbb{R}$, the system $A_a\mathbf{x}=\mathbf{b}$ with
+$A_a=\begin{bmatrix}1&amp;1&amp;-1\\2&amp;3&amp;a\\1&amp;a&amp;3\end{bmatrix}$ and
+$\mathbf{b}=(1,2,1)^{\top}$.
+(α) Compute $\det A_a$, factor it and find the values of $a$ for which it
+vanishes. (β) For which values of $a$ does the system have a unique solution? (γ) For each of the
+critical values of $a$ apply the Rouch&eacute;&ndash;Capelli criterion and, where the system is
+consistent, write the general solution in vector form. (δ) Observe that the homogeneous system
+$A_a\mathbf{x}=\mathbf{0}$ has nonzero solutions exactly for the critical values, and explain the
+relation of these solutions to the general solution of part (γ).</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">3E.25</div>
+<p>Solve $\begin{cases}x+y+z=6\\2x-y+z=3\\x+2y-z=2\end{cases}$ by Gaussian elimination.</p></div>
+<div class="ex from-book"><div class="num">3E.26</div>
+<p>Solve $\begin{cases}x+2y-z=4\\2x-y+3z=1\\x-3y+4z=-3\end{cases}$.</p></div>
+<div class="ex from-book"><div class="num">3E.27</div>
+<p>Solve the system $\begin{cases}2x-y+3z=1\\x+y-z=2\\3x-2y+4z=0\end{cases}$.</p></div>
+<div class="ex from-book"><div class="num">3E.28</div>
+<p>For which values of the parameters $\lambda,\mu$ does the system $x+2y=3$, $\;\lambda x+4y=\mu$ have (α) a unique solution, (β) infinitely many solutions, (γ) no solution?</p></div>
+<div class="ex from-book"><div class="num">3E.29</div>
+<p>Find the intersection of the planes $x+y+z=1$ and $x-y+z=2$ and describe it geometrically.</p></div>
+<div class="ex from-book"><div class="num">3E.30</div>
+<p>Interpret geometrically $\begin{cases}x+y+z=3\\x-y+z=1\\2x+2y+2z=6\end{cases}$: does it have infinitely many solutions or a unique one?</p></div>
+<div class="ex from-book"><div class="num">3E.31</div>
+<p>Give an example of three planes that intersect in a single point and verify it algebraically.</p></div>
+<div class="ex from-book"><div class="num">3E.32</div>
+<p>Solve by the Gauss–Jordan method: $x+2y-z=4$, $\;2x+y+z=5$, $\;x-y+3z=2$.</p></div>
+<div class="ex from-book"><div class="num">3E.33</div>
+<p>Solve $\begin{cases}x_1+2x_2-x_3+x_4=3\\2x_1+4x_2+x_3-x_4=5\\x_1+2x_2+2x_3-2x_4=2\end{cases}$ determining the free variables.</p></div>
+<div class="ex from-book"><div class="num">3E.34</div>
+<p>Use Gauss–Jordan to find $A^{-1}$, where $A=\begin{bmatrix}2&amp;5\\1&amp;3\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">3E.35</div>
+<p>Find the general solution of $A\vecx=\mathbf{b}$ for $A=\begin{bmatrix}1&amp;2&amp;3\\4&amp;5&amp;6\\7&amp;8&amp;10\end{bmatrix}$, $\mathbf{b}=\begin{bmatrix}1\\2\\3\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">3E.36</div>
+<p>Find the rank of $B=\begin{bmatrix}1&amp;0&amp;2&amp;-1\\0&amp;1&amp;-1&amp;3\\2&amp;-1&amp;5&amp;-5\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">3E.37</div>
+<p>Examine, on the basis of the ranks $\mathrm{rank}(A)$ and $\mathrm{rank}([A|\mathbf{b}])$, whether $\begin{cases}x+2y=3\\2x+4y=7\end{cases}$ has a solution.</p></div>
+<div class="ex from-book"><div class="num">3E.38</div>
+<p>For which values of $a,b$ does the system $\begin{cases}x+y=a\\2x+2y=b\end{cases}$ have a solution?</p></div>
+<div class="ex from-book"><div class="num">3E.39</div>
+<p>For which $k$ does $\begin{bmatrix}1&amp;2&amp;1\\2&amp;1&amp;3\\3&amp;3&amp;4\end{bmatrix}\begin{bmatrix}x\\y\\z\end{bmatrix}=\begin{bmatrix}1\\2\\k\end{bmatrix}$have a solution? For that value, write the general solution.</p></div>
+<div class="ex from-book"><div class="num">3E.40</div>
+<p>Solve the homogeneous system $2x_1+x_2-x_3=0$, $\;x_1-x_2+2x_3=0$ and write the general solution.</p></div>
+<div class="ex from-book"><div class="num">3E.41</div>
+<p>Find all the solutions of $A\vecx=\mathbf{0}$ for $A=\begin{bmatrix}1&amp;2&amp;3&amp;4\\2&amp;4&amp;6&amp;8\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">3E.42</div>
+<p>If $A\in\mathcal{M}_{3\times4}$ with $\mathrm{rank}(A)=2$, what is the dimension of the kernel $\mathcal{N}(A)$?</p></div>
+<div class="ex from-book"><div class="num">3E.43</div>
+<p><strong>Rank and dimension of the kernel.</strong> For the matrix $A\in\mathcal{M}_{3\times 5}(\R)$ with \[ A = \begin{bmatrix} 1 &amp; 2 &amp; 0 &amp; -1 &amp; 3 \\ 2 &amp; 4 &amp; 1 &amp; 0 &amp; 5 \\ 0 &amp; 0 &amp; 1 &amp; 2 &amp; -1 \end{bmatrix} \] <ol class="sub"><li>Find $\mathrm{rank}(A)$ by reduction to RREF. </li><li>Use the rank–nullity theorem, $\dim\ker(A) + \mathrm{rank}(A) = 5$, to find $\dim\ker(A)$. </li><li>Find a basis of $\ker(A)$. </li></ol></p></div>
+<div class="ex from-book"><div class="num">3E.44</div>
+<p>Solve by Cramer's rule: $\begin{cases}2x-3y=7\\5x+y=3\end{cases}$.</p></div>
+<div class="ex from-book"><div class="num">3E.45</div>
+<p>Solve by Cramer's rule: $\begin{cases}x+y-z=2\\2x-y+z=3\\x+2y+2z=11\end{cases}$.</p></div>
+<div class="ex from-book"><div class="num">3E.46</div>
+<p>Use Cramer's rule to solve $A\vecx=\mathbf{b}$ with $A=\begin{bmatrix}2&amp;-1\\1&amp;3\end{bmatrix}$, $\mathbf{b}=\begin{bmatrix}5\\4\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">3E.47</div>
+<p>Find the $LU$ factorization (Doolittle's method) of $A=\begin{bmatrix}1&amp;3&amp;5\\2&amp;4&amp;8\\3&amp;7&amp;14\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">3E.48</div>
+<p>Use the $LU$ factorization to solve two systems with the same $A=\begin{bmatrix}1&amp;1\\3&amp;4\end{bmatrix}$ and $\mathbf{b}_1=(2,9)^T$, $\mathbf{b}_2=(3,11)^T$.</p></div>
+<div class="ex from-book"><div class="num">3E.49</div>
+<p>A circuit with three loops obeys the system $4I_1-I_2=12$, $\;-I_1+5I_2-2I_3=0$, $\;-2I_2+3I_3=6$. Find the currents $I_1, I_2, I_3$.</p></div>
+<div class="ex from-book"><div class="num">3E.50</div>
+<p>In a three-loop circuit the resistance matrix is $R=\begin{bmatrix}2&amp;-1&amp;0\\-1&amp;3&amp;-1\\0&amp;-1&amp;2\end{bmatrix}$ and the voltage vector is $\mathbf{V}=(5,0,3)^T$. Solve $R\mathbf{I}=\mathbf{V}$ for the currents.</p></div>
+<div class="ex from-book"><div class="num">3E.51</div>
+<p>Find the coefficients of the polynomial $p(x)=ax^2+bx+c$ that passes through the points $(1,2)$, $(2,3)$, $(3,6)$. Formulate the problem as a $3\times3$ linear system and solve it.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">3E.52</div>
+<p><strong>System with parameters.</strong> Consider the system \[ \begin{cases} x + 2y + z = 1 \\ 2x + 5y + 2z = 2 \\ x + 4y + \lambda z = \mu \end{cases} \] <ol class="sub"><li>Find the values of $\lambda$ for which the system always has a solution, independently of $\mu$. </li><li>Show that $\det A=\lambda-1$ and that the <em>critical</em> value is $\lambda=1$. For $\lambda=1$, find the values of $\mu$ for which the system (i) has infinitely many solutions, (ii) is inconsistent. </li><li>For $\lambda=1$ and the value of $\mu$ that gives infinitely many solutions, write the general solution. </li></ol></p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 3.1 – Linear Systems</h3></div>
+<div class="ex from-book"><div class="num">3E.53</div>
+<p>Prove that if $A$ is invertible, then $A\vecx=\mathbf{b}$ has a unique solution, namely $\vecx=A^{-1}\mathbf{b}$.</p></div>
+<div class="grp2"><h3>Exercises for Section 3.2 – Geometric Interpretation of Linear Systems</h3></div>
+<div class="ex from-book"><div class="num">3E.54</div>
+<p>Geometrically, what is the intersection of the three planes $x=0$, $y=0$ and $x+y=1$?</p></div>
+<div class="grp2"><h3>Exercises for Section 3.3 – Echelon Form and Gaussian Elimination</h3></div>
+<div class="ex from-book"><div class="num">3E.55</div>
+<p><strong>Gauss – Jordan for the inverse matrix.</strong> Using the augmented matrix $[A|I]$ find $A^{-1}$, where $A = \begin{bmatrix}1&amp;0&amp;2\\2&amp;1&amp;3\\1&amp;1&amp;2\end{bmatrix}$ and verify that $AA^{-1}=I$.</p></div>
+<div class="grp2"><h3>Exercises for Section 3.3.1 – Rank of a Matrix and the Rouché – Capelli Criterion</h3></div>
+<div class="ex from-book"><div class="num">3E.56</div>
+<p><strong>Rouché – Capelli criterion – discussion of the cases.</strong> The system $A_\lambda \vecx = \mathbf{b}_\lambda$ has augmented matrix \[ [A_\lambda|\mathbf{b}_\lambda] = \begin{bmatrix} 1 &amp; 1 &amp; 1 &amp; 2 \\ 2 &amp; \lambda &amp; 1 &amp; 3 \\ 1 &amp; 1 &amp; \lambda &amp; 3 \end{bmatrix}. \] Discuss fully all the cases for the values of $\lambda$ (unique solution, infinitely many solutions, inconsistent).</p></div>
+<div class="grp2"><h3>Exercises for Section 3.3.3 – Homogeneous Systems</h3></div>
+<div class="ex from-book"><div class="num">3E.57</div>
+<p><strong>Balancing a chemical reaction:</strong> The combustion of ethane is written $a\,\mathrm{C_2H_6} + b\,\mathrm{O_2} \to c\,\mathrm{CO_2} + d\,\mathrm{H_2O}$. Balancing the elements C, H, O, form the homogeneous system $A\vecx=\mathbf{0}$ with $\vecx=(a,b,c,d)^\top$. <ol class="grk"><li>Write the coefficient matrix $A$. </li><li>Solve the homogeneous system and find the smallest integer coefficients $a,b,c,d$.</li></ol></p></div>
+<div class="grp2"><h3>Exercises for Section 3.6 – Applications (circuits, trusses, interpolation)</h3></div>
+<div class="ex from-book"><div class="num">3E.58</div>
+<p><strong>Flow analysis in a network:</strong> In a network of pipes, four nodes are connected by flows $x_1,x_2,x_3,x_4,x_5$ (L/s). The equilibrium equations (inflow = outflow) at each node give: $x_1 - x_2 = 10$, $x_2 + x_3 = 20$, $-x_3 + x_4 = 5$, $x_1 + x_4 - x_5 = 15$. <ol class="grk"><li>Write the system in the form $A\vecx=\mathbf{b}$. </li><li>Find the rank of $A$ and examine whether the system has solutions. </li><li>If it has infinitely many solutions, express the free flows parametrically.</li></ol></p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group C)</h3></div>
+<div class="grp2"><h3>Exercises for Section 3.3.1 – Rank of a Matrix and the Rouché – Capelli Criterion</h3></div>
+<div class="ex from-book"><div class="num">3E.59</div>
+<p><strong>Rouché – Capelli criterion:</strong> For each of the following systems, apply the Gauss – Jordan algorithm and compute $\mathrm{rank}(A)$ and $\mathrm{rank}(\tilde{A})$. Interpret the number of solutions on the basis of the ranks and decide whether the system has (α) a unique solution, (β) infinitely many solutions or (γ) no solution. <ol class="grk"><li>$\begin{bmatrix}1&amp;2&amp;-1\\2&amp;4&amp;-2\\3&amp;6&amp;-3\end{bmatrix}\vecx =\begin{bmatrix}3\\6\\9\end{bmatrix}$ </li><li>$\begin{bmatrix}1&amp;1&amp;1\\2&amp;3&amp;1\\1&amp;0&amp;3\end{bmatrix}\vecx =\begin{bmatrix}4\\7\\5\end{bmatrix}$ </li><li>$\begin{bmatrix}1&amp;2\\3&amp;6\end{bmatrix}\vecx =\begin{bmatrix}1\\4\end{bmatrix}$</li></ol></p></div>
+<div class="grp2"><h3>Exercises for Section 3.3.3 – Homogeneous Systems</h3></div>
+<div class="ex from-book"><div class="num">3E.60</div>
+<p><strong>Homogeneous system and kernel:</strong> Consider the matrix $A=\begin{bmatrix}1&amp;2&amp;3\\2&amp;4&amp;6\\1&amp;2&amp;4\end{bmatrix}$. <ol class="grk"><li>Find the reduced row echelon form (RREF) of $A$. </li><li>Compute $\mathrm{rank}(A)$. </li><li>Find a basis of $\mathrm{Ker}(A)$ (the solution space of the homogeneous system $A\vecx=\mathbf{0}$). </li><li>How many free parameters does the general solution have? Justify with the rank – nullity theorem.</li></ol></p></div>
+<div class="grp2"><h3>Exercises for Section 3.5, $LU$ Factorization</h3></div>
+<div class="ex from-book"><div class="num">3E.61</div>
+<p>Prove: if $A=LU$ with $L$ unit lower triangular and $\det U=d$, then $\det A=d$.</p></div>
+<div class="grp2"><h3>Exercises for Section 3.6 – Applications (circuits, trusses, interpolation)</h3></div>
+<div class="ex from-book"><div class="num">3E.62</div>
+<p>In a plane truss, the equilibrium equations of three free joints lead to the system $K\mathbf{u}=\mathbf{f}$ with stiffness matrix $K=\begin{bmatrix}3&amp;-1&amp;0\\-1&amp;4&amp;-2\\0&amp;-2&amp;3\end{bmatrix}$ and $\mathbf{f}=(10,-20,0)^T$. Find the displacements $\mathbf{u}$.</p></div>
+<div class="ex from-book"><div class="num">3E.63</div>
+<p><strong>Truss:</strong> In a simple plane truss, three members carry forces $F_1, F_2, F_3$ (kN). The equilibrium equations (horizontal, vertical, moment) lead to the system \[ \begin{cases} F_1 + 0.5\,F_2 = 10 \\ 0.866\,F_2 + F_3 = 8 \\ F_1 - 0.5\,F_2 + 2\,F_3 = 4 \end{cases}.
+\] <ol class="grk"><li>Solve by Gaussian elimination. </li><li>Verify by Cramer's rule the force $F_2$.</li></ol></p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">3E.64</div>
+<p><strong>Least squares problem:</strong> For $A\in\R^{m\times n}$ ($m&gt;n$, of full rank), the optimal solution of $A\vecx\approx\mathbf{b}$ is given by the system $A^TA\,\vecx^*=A^T\mathbf{b}$. Apply this for $A=\begin{bmatrix}1&amp;1\\1&amp;2\\1&amp;3\end{bmatrix}$, $\mathbf{b}=\begin{bmatrix}6\\5\\7\end{bmatrix}$ and find the regression line.</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

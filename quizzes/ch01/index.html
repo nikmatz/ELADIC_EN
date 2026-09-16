@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz: Linear Vector Spaces</title>
+  <link rel="stylesheet" href="../../_shared/book.css">
+  <script>
+    MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    .quiz-question{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+    .q-num{font-size:.78rem;font-family:sans-serif;font-weight:700;color:#c85000;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}
+    .quiz-question p{font-size:1.05rem;margin-bottom:.8rem}
+    .quiz-question label{display:block;padding:.45rem .7rem;margin:.25rem 0;border-radius:6px;cursor:pointer;border:1px solid #e8edf2;transition:background .15s}
+    .quiz-question label:hover{background:#f0f4ff}
+    label.correct{background:#d4edda!important;border-color:#28a745!important}
+    label.wrong{background:#f8d7da!important;border-color:#dc3545!important}
+    .explanation{margin-top:.8rem;padding:.8rem 1rem;background:#fffbf0;border-left:4px solid #c85000;border-radius:0 6px 6px 0;font-size:.95rem}
+    .hidden{display:none}
+    .btn{background:#c85000;color:#fff;border:none;padding:.6rem 1.4rem;border-radius:6px;cursor:pointer;font-size:1rem;font-weight:600;margin:.4rem .3rem}
+    .btn:hover{background:#a54000}
+    .btn-secondary{background:#004080}
+    .btn-secondary:hover{background:#003060}
+    #score-box{background:#fff;border:2px solid #c85000;border-radius:10px;padding:1.5rem;text-align:center;margin-top:1.5rem;display:none}
+    #score-box h2{color:#c85000;font-size:1.6rem}
+    .progress-bar{background:#eee;border-radius:6px;height:10px;margin:1rem 0}
+    .progress-fill{background:#c85000;height:10px;border-radius:6px;transition:width .4s}
+    .info-card{background:#fff;border-left:4px solid #c85000;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+  
+  .author-stamp {
+    background: linear-gradient(135deg, #004080 0%, #003060 100%);
+    color: #fff;
+    padding: 0.8rem 1.4rem;
+    font-family: 'Georgia', serif;
+    font-size: 0.82rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    border-top: 3px solid #c85000;
+    margin-top: 2rem;
+  }
+  .author-stamp .stamp-book {
+    font-style: italic;
+    color: #ffd080;
+    font-weight: bold;
+  }
+  .author-stamp .stamp-author {
+    opacity: 0.9;
+  }
+
+  
+  .hint-btn{background:#eef;border:1px solid #99c;color:#225;border-radius:6px;padding:.25rem .6rem;font-size:.8rem;cursor:pointer;margin:.4rem 0 .2rem}
+  .hint-tip{background:#eef6ff;border-left:4px solid #3b82f6;border-radius:0 6px 6px 0;padding:.5rem .8rem;margin:.2rem 0 .4rem;font-size:.92rem;color:#234}
+  #retry-wrong{background:#004080}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#c85000 60%,#be5000)">
+  <div class="type-badge badge-quiz">✓ Quiz</div>
+  <h1>Linear Vector Spaces</h1>
+  <p class="chapter-label">Chapter 1 · Vector Spaces</p>
+</header>
+<main>
+  <div class="info-card">
+    <h2 style="margin-bottom:.4rem;color:#c85000">Self-Assessment</h2>
+    <p>10 questions on the definition of a vector space, subspaces, linear independence, basis and dimension.</p>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+  <div id="best-score" style="text-align:center;font-weight:600;color:#004080;margin:.3rem 0 .8rem"></div>
+  <form id="quiz-form">
+<div class="quiz-question" id="q1">
+  <div class="q-num">Question 1 / 10</div>
+  <p>The zero vector belongs to every subspace.</p>
+  <label><input type="radio" name="q1" value="1"> Correct</label>
+  <label><input type="radio" name="q1" value="0"> Incorrect</label>
+  <div class="explanation hidden" id="exp1"><strong>✓ Answer:</strong> Correct<br><em>Every subspace V must contain 0 (closure under vector addition: 0=v+(−v) ∈ V).</em></div>
+</div>
+
+<div class="quiz-question" id="q2">
+  <div class="q-num">Question 2 / 10</div>
+  <p>Which of the following sets is NOT a subspace of ℝ²?</p>
+  <label><input type="radio" name="q2" value="0"> a) $\{(x,y): y=0\}$</label>
+  <label><input type="radio" name="q2" value="1"> b) $\{(x,y): x=y\}$</label>
+  <label><input type="radio" name="q2" value="2"> c) $\{(x,y): x+y=1\}$</label>
+  <label><input type="radio" name="q2" value="3"> d) $\{(0,0)\}$</label>
+  <div class="explanation hidden" id="exp2"><strong>✓ Answer:</strong> c) $\{(x,y): x+y=1\}$<br><em>The set $\{(x,y): x+y=1\}$ does not contain (0,0), so it is not a subspace.</em></div>
+</div>
+
+<div class="quiz-question" id="q3">
+  <div class="q-num">Question 3 / 10</div>
+  <p>Which set is linearly dependent?</p>
+  <label><input type="radio" name="q3" value="0"> a) $\{(1,0),(0,1)\}$</label>
+  <label><input type="radio" name="q3" value="1"> b) $\{(1,2),(2,4)\}$</label>
+  <label><input type="radio" name="q3" value="2"> c) $\{(1,0,0),(0,1,0),(0,0,1)\}$</label>
+  <label><input type="radio" name="q3" value="3"> d) $\{(1,1),(1,-1)\}$</label>
+  <div class="explanation hidden" id="exp3"><strong>✓ Answer:</strong> b) $\{(1,2),(2,4)\}$<br><em>$(2,4)=2\cdot(1,2)$, so the vectors are linearly dependent.</em></div>
+</div>
+
+<div class="quiz-question" id="q4">
+  <div class="q-num">Question 4 / 10</div>
+  <p>What is the dimension of the space $\mathbb{R}^{2\times2}$ (square $2\times2$ matrices)?</p>
+  <label><input type="radio" name="q4" value="0"> a) 2</label>
+  <label><input type="radio" name="q4" value="1"> b) 3</label>
+  <label><input type="radio" name="q4" value="2"> c) 4</label>
+  <label><input type="radio" name="q4" value="3"> d) $\infty$</label>
+  <div class="explanation hidden" id="exp4"><strong>✓ Answer:</strong> c) 4<br><em>A basis is $\{E_{11},E_{12},E_{21},E_{22}\}$, with 4 elements. Hence $\dim=4$.</em></div>
+</div>
+
+<div class="quiz-question" id="q5">
+  <div class="q-num">Question 5 / 10</div>
+  <p>Any basis of ℝⁿ has exactly n vectors.</p>
+  <label><input type="radio" name="q5" value="1"> Correct</label>
+  <label><input type="radio" name="q5" value="0"> Incorrect</label>
+  <div class="explanation hidden" id="exp5"><strong>✓ Answer:</strong> Correct<br><em>By definition, the dimension of a space is the number of vectors in any of its bases. For ℝⁿ, dim=n.</em></div>
+</div>
+
+<div class="quiz-question" id="q6">
+  <div class="q-num">Question 6 / 10</div>
+  <p>If $\{v_1,v_2,v_3\}$ is a basis of $V$, then every $v\in V$:</p>
+  <label><input type="radio" name="q6" value="0"> a) is expressed in a unique way as a linear combination of the $v_i$</label>
+  <label><input type="radio" name="q6" value="1"> b) is expressed in many ways</label>
+  <label><input type="radio" name="q6" value="2"> c) is not always expressible as a linear combination</label>
+  <label><input type="radio" name="q6" value="3"> d) is zero</label>
+  <div class="explanation hidden" id="exp6"><strong>✓ Answer:</strong> a) is expressed in a unique way as a linear combination of the $v_i$<br><em>A basis provides a unique representation of every element of the space as a linear combination.</em></div>
+</div>
+
+<div class="quiz-question" id="q7">
+  <div class="q-num">Question 7 / 10</div>
+  <p>The vectors $(1,0,-1),(2,1,0),(0,1,2)$ in ℝ³ are:</p>
+  <label><input type="radio" name="q7" value="0"> a) linearly dependent</label>
+  <label><input type="radio" name="q7" value="1"> b) linearly independent and a basis</label>
+  <label><input type="radio" name="q7" value="2"> c) linearly independent but NOT a basis</label>
+  <label><input type="radio" name="q7" value="3"> d) none of the above</label>
+  <div class="explanation hidden" id="exp7"><strong>✓ Answer:</strong> a) linearly dependent<br><em>The matrix having them as rows has $\det=0$ (rank 2), so they are linearly dependent: $(0,1,2)=-2(1,0,-1)+(2,1,0)$. Therefore they do NOT form a basis.</em></div>
+</div>
+
+<div class="quiz-question" id="q8">
+  <div class="q-num">Question 8 / 10</div>
+  <p>The solution space of a homogeneous system $Ax=0$ is a subspace.</p>
+  <label><input type="radio" name="q8" value="1"> Correct</label>
+  <label><input type="radio" name="q8" value="0"> Incorrect</label>
+  <div class="explanation hidden" id="exp8"><strong>✓ Answer:</strong> Correct<br><em>If $Ax=0$ and $Ay=0$, then $A(x+y)=0$ and $A(\lambda x)=0$, so the solution space is closed under the operations.</em></div>
+</div>
+
+<div class="quiz-question" id="q9">
+  <div class="q-num">Question 9 / 10</div>
+  <p>If $V$ has dimension $n$, then every set of $n+1$ vectors in $V$ is:</p>
+  <label><input type="radio" name="q9" value="0"> a) always a basis</label>
+  <label><input type="radio" name="q9" value="1"> b) linearly independent</label>
+  <label><input type="radio" name="q9" value="2"> c) linearly dependent</label>
+  <label><input type="radio" name="q9" value="3"> d) always free</label>
+  <div class="explanation hidden" id="exp9"><strong>✓ Answer:</strong> c) linearly dependent<br><em>In a space of dimension $n$, any set of more than $n$ vectors is linearly dependent.</em></div>
+</div>
+
+<div class="quiz-question" id="q10">
+  <div class="q-num">Question 10 / 10</div>
+  <p>Which is NOT a property required of a vector space?</p>
+  <label><input type="radio" name="q10" value="0"> a) $\mathbf{u}+\mathbf{v}=\mathbf{v}+\mathbf{u}$</label>
+  <label><input type="radio" name="q10" value="1"> b) $1\cdot\mathbf{u}=\mathbf{u}$</label>
+  <label><input type="radio" name="q10" value="2"> c) $\mathbf{u}\cdot\mathbf{v}=\mathbf{v}\cdot\mathbf{u}$</label>
+  <label><input type="radio" name="q10" value="3"> d) $0+\mathbf{u}=\mathbf{u}$</label>
+  <div class="explanation hidden" id="exp10"><strong>✓ Answer:</strong> c) $\mathbf{u}\cdot\mathbf{v}=\mathbf{v}\cdot\mathbf{u}$<br><em>An inner product is not required for a vector space. The axioms concern addition and scalar multiplication.</em></div>
+</div>
+
+
+  </form>
+  <div style="text-align:center;margin:1.5rem 0">
+    <button class="btn" onclick="checkAll()">Check Answers</button>
+    <button class="btn btn-secondary" onclick="resetQuiz()">Try Again</button>
+  </div>
+  <div id="score-box">
+    <h2 id="score-text"></h2>
+    <p id="score-detail"></p>
+  </div>
+</main>
+<script>
+const ANSWERS = [1,2,1,2,1,0,0,1,2,2];
+const N = 10;
+
+function checkAll(){
+  let score=0;
+  for(let i=1;i<=N;i++){
+    const sel=document.querySelector(`input[name=q${i}]:checked`);
+    const expEl=document.getElementById(`exp${i}`);
+    const labels=document.querySelectorAll(`#q${i} label`);
+    labels.forEach(l=>l.classList.remove('correct','wrong'));
+    if(sel){
+      const correct=(parseInt(sel.value)===parseInt(ANSWERS[i-1]));
+      if(correct){score++;sel.parentElement.classList.add('correct');}
+      else{sel.parentElement.classList.add('wrong');
+            labels.forEach(l=>{
+              if(parseInt(l.querySelector('input').value)===parseInt(ANSWERS[i-1]))l.classList.add('correct');
+            });
+      }
+    }
+    expEl.classList.remove('hidden');
+  }
+  const pct=Math.round(score/N*100);
+  document.getElementById('prog').style.width=pct+'%';
+  const box=document.getElementById('score-box');
+  box.style.display='block';
+  const emoji=pct>=90?'🏆':pct>=70?'👍':pct>=50?'📚':'💪';
+  document.getElementById('score-text').textContent=emoji+' '+score+'/'+N+' ('+pct+'%)';
+  document.getElementById('score-detail').textContent=
+    pct>=90?'Excellent! Outstanding understanding.':
+    pct>=70?'Very good! Just a little review needed.':
+    pct>=50?'Fair, but you need more practice.':'Review the theory of the chapter.';
+  box.scrollIntoView({behavior:'smooth'});
+  if(typeof MathJax!=='undefined')MathJax.typesetPromise();
+}
+
+function resetQuiz(){
+  document.getElementById('quiz-form').reset();
+  document.querySelectorAll('.explanation').forEach(e=>e.classList.add('hidden'));
+  document.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+  document.getElementById('prog').style.width='0%';
+  document.getElementById('score-box').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// live progress
+document.addEventListener('change',function(e){
+  if(e.target.type==='radio'){
+    const answered=new Set([...document.querySelectorAll('input[type=radio]:checked')].map(r=>r.name)).size;
+    document.getElementById('prog').style.width=(answered/N*100)+'%';
+  }
+});
+
+/* ── Shuffle + best-score (added) ── */
+function _qShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function _qKey(){return 'quizbest:'+location.pathname;}
+function _qScore(){let s=0;for(let i=1;i<=N;i++){const sel=document.querySelector('input[name=q'+i+']:checked');if(sel&&parseInt(sel.value)===parseInt(ANSWERS[i-1]))s++;}return s;}
+function _qRenderBest(){const el=document.getElementById('best-score');if(!el)return;let b=null;try{b=localStorage.getItem(_qKey());}catch(e){}el.textContent=(b!==null)?('🏅 Best score: '+b+' / '+N):'';}
+function _qSaveBest(){try{const s=_qScore();const p=parseInt(localStorage.getItem(_qKey()));if(isNaN(p)||s>p)localStorage.setItem(_qKey(),String(s));}catch(e){}_qRenderBest();}
+(function(){const _o=checkAll;checkAll=function(){_o();_qSaveBest();};})();
+function _qShuffleQuiz(){
+  const form=document.getElementById('quiz-form');if(!form)return;
+  const qs=[...form.querySelectorAll('.quiz-question')];
+  qs.forEach(q=>{const exp=q.querySelector('.explanation');const labels=[...q.querySelectorAll('label')];_qShuffle(labels).forEach(l=>q.insertBefore(l,exp));});
+  _qShuffle(qs).forEach((q,idx)=>{form.appendChild(q);const num=q.querySelector('.q-num');if(num)num.textContent='Question '+(idx+1)+' / '+N;});
+}
+document.addEventListener('DOMContentLoaded',function(){_qShuffleQuiz();_qRenderBest();if(typeof MathJax!=='undefined'&&MathJax.typesetPromise)MathJax.typesetPromise();});
+
+/* ── Topic feedback + hints + retry-wrong (added) ── */
+const QTOPICS = ["subspaces", "subspaces", "linear dependence", "dimension", "basis/dimension", "basis", "basis/dependence", "solution space", "linear dependence", "vector space axioms"];
+const QHINTS = ["Every subspace must contain the identity element for addition.", "Check which set does not contain the origin.", "See whether one vector is a multiple of the other.", "Count the elements of the standard basis of matrices.", "Relate the number of basis vectors to the dimension.", "Think about what the independence of a basis guarantees for the representation.", "Compute the determinant of the matrix of the vectors.", "Check closure under addition and scalar multiplication.", "More than n vectors in a space of dimension n are always...", "Which operation is not required in the axiomatic definition?"];
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.quiz-question').forEach(function(q){
+    const n=parseInt(q.id.replace('q',''));
+    const h=QHINTS[n-1]; if(!h) return;
+    if(q.querySelector('.hint-btn')) return;
+    const exp=q.querySelector('.explanation');
+    const btn=document.createElement('button'); btn.type='button'; btn.className='hint-btn'; btn.textContent='💡 Hint';
+    const tip=document.createElement('div'); tip.className='hint-tip hidden'; tip.textContent=h;
+    btn.addEventListener('click',function(){tip.classList.toggle('hidden');});
+    q.insertBefore(btn,exp); q.insertBefore(tip,exp);
+  });
+});
+function _qWrongAnswered(){const w=[];for(let i=1;i<=N;i++){const sel=document.querySelector('input[name=q'+i+']:checked');if(sel&&parseInt(sel.value)!==parseInt(ANSWERS[i-1]))w.push(i);}return w;}
+function _qTopicFeedback(){
+  const wrong=_qWrongAnswered();
+  const topics=[...new Set(wrong.map(i=>QTOPICS[i-1]).filter(Boolean))];
+  let el=document.getElementById('topic-fb');
+  if(!el){el=document.createElement('p');el.id='topic-fb';el.style.marginTop='.6rem';el.style.fontWeight='600';document.getElementById('score-box').appendChild(el);}
+  el.textContent= topics.length? ('📌 Topics to review: '+topics.join(' · ')) : '🎯 No weak spots — well done!';
+}
+function _qShowRetry(){
+  const wrong=_qWrongAnswered();
+  let btn=document.getElementById('retry-wrong');
+  if(!btn){
+    btn=document.createElement('button'); btn.id='retry-wrong'; btn.className='btn'; btn.textContent='↻ Retry the ones you missed'; btn.style.marginTop='.6rem';
+    btn.addEventListener('click',function(){
+      _qWrongAnswered().forEach(function(i){
+        document.querySelectorAll('input[name=q'+i+']').forEach(r=>r.checked=false);
+        const q=document.getElementById('q'+i); if(q) q.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+        const ex=document.getElementById('exp'+i); if(ex) ex.classList.add('hidden');
+      });
+      document.getElementById('score-box').style.display='none';
+      const first=document.querySelector('.quiz-question'); if(first) first.scrollIntoView({behavior:'smooth'});
+    });
+    document.getElementById('score-box').appendChild(btn);
+  }
+  btn.style.display= wrong.length? 'inline-block':'none';
+}
+(function(){const _o=checkAll;checkAll=function(){_o();_qTopicFeedback();_qShowRetry();};})();
+</script>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #c85000;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Eigenvalues and Eigenvectors</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">&#8853; Additional Exercises</div>
+  <h1>Eigenvalues and Eigenvectors</h1>
+  <p class="chapter-label">Chapter 5 &middot; Eigenvalues and Eigenvectors</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by section</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">Every result is checked by you: if you have found a pair $(\lambda,\mathbf{v})$ with
+  $\mathbf{v}\neq\mathbf{0}$, it is enough to compute the product $A\mathbf{v}$ and to compare it with
+  $\lambda\mathbf{v}$. A second check for every matrix: the sum of the eigenvalues must
+  equal the trace and their product the determinant. You do not need a solutions manual.</p>
+</div>
+
+<div class="grp"><h2>A. Definition and checking of an eigenvector</h2>
+<p class="lead">A vector is an eigenvector when the matrix does not change its direction, only its length and possibly its orientation.</p></div>
+
+<div class="ex"><div class="num">5E.1 <span class="lvl l1">BASIC</span></div>
+<p>Let the matrix $A=\begin{bmatrix}1&amp;6\\5&amp;2\end{bmatrix}$ be given. Examine which of the vectors
+$\mathbf{v}_1=\begin{bmatrix}1\\1\end{bmatrix}$, $\mathbf{v}_2=\begin{bmatrix}6\\-5\end{bmatrix}$,
+$\mathbf{v}_3=\begin{bmatrix}1\\-1\end{bmatrix}$ are eigenvectors of $A$ and, for those that are,
+determine the corresponding eigenvalue.</p>
+<p class="ypod">Hint: it is enough to check whether $A\mathbf{v}$ is a multiple of $\mathbf{v}$&middot; no determinant is needed.</p></div>
+
+<div class="ex"><div class="num">5E.2 <span class="lvl l1">BASIC</span></div>
+<p>Using the criterion $\det(A-\lambda I)=0$ examine which of the numbers $\lambda=1$, $\lambda=5$,
+$\lambda=-2$ are eigenvalues of $A=\begin{bmatrix}4&amp;3\\1&amp;2\end{bmatrix}$. For those that are,
+find a corresponding eigenvector.</p></div>
+
+<div class="ex"><div class="num">5E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $A$ be an $n\times n$ matrix in which the sum of the entries of every row is the same,
+equal to $s$. Prove that the number $s$ is an eigenvalue of $A$ and find a corresponding
+eigenvector. Apply the conclusion to the matrix
+$A=\begin{bmatrix}2&amp;1&amp;1\\0&amp;3&amp;1\\1&amp;1&amp;2\end{bmatrix}$.</p>
+<p class="ypod">Hint: try the vector all of whose coordinates are equal to $1$ and carry out the multiplication row by row.</p></div>
+
+<div class="grp"><h2>B. The characteristic polynomial</h2>
+<p class="lead">The eigenvalues are the roots of $p(\lambda)=\det(A-\lambda I)$&middot; for $2\times2$ matrices the trace and the determinant are enough to write it down.</p></div>
+
+<div class="ex"><div class="num">5E.4 <span class="lvl l1">BASIC</span></div>
+<p>For the matrix $A=\begin{bmatrix}6&amp;-2\\-2&amp;9\end{bmatrix}$ find the characteristic polynomial and
+its eigenvalues. Verify your result by checking that the sum of the eigenvalues equals
+$\mathrm{tr}(A)$ and their product $\det(A)$.</p></div>
+
+<div class="ex"><div class="num">5E.5 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find the characteristic polynomial and all the eigenvalues of
+$A=\begin{bmatrix}2&amp;0&amp;1\\0&amp;3&amp;0\\1&amp;0&amp;2\end{bmatrix}$, noting which eigenvalue
+appears as a multiple root. Verify with the trace and the determinant.</p>
+<p class="ypod">Hint: the second column has two zeros&middot; expand the determinant along it.</p></div>
+
+<div class="ex"><div class="num">5E.6 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>An invertible matrix $A$ of size $2\times2$ has characteristic polynomial
+$p(\lambda)=\lambda^{2}-6\lambda+8$. Without determining $A$, compute the trace and the
+determinant of each of the matrices $A$, $A^{2}$ and $A^{-1}$.</p>
+<p class="ypod">Hint: first find the eigenvalues of $A$ and recall how they change when we raise the matrix to a power or invert it.</p></div>
+
+<div class="grp"><h2>C. Computing eigenvectors</h2>
+<p class="lead">For each eigenvalue $\lambda$, the eigenspace $E_\lambda$ is the kernel of $A-\lambda I$: you solve a homogeneous system.</p></div>
+
+<div class="ex"><div class="num">5E.7 <span class="lvl l1">BASIC</span></div>
+<p>Find the eigenvalues of $A=\begin{bmatrix}7&amp;-4\\6&amp;-3\end{bmatrix}$ and a basis of each eigenspace.
+Verify the relation $A\mathbf{v}=\lambda\mathbf{v}$ for every eigenpair you have found.</p></div>
+
+<div class="ex"><div class="num">5E.8 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For the matrix $A=\begin{bmatrix}3&amp;-1&amp;0\\-1&amp;3&amp;0\\0&amp;0&amp;2\end{bmatrix}$ find the characteristic
+polynomial, the eigenvalues, a basis of each eigenspace and the dimension of each.</p>
+<p class="ypod">Hint: the zeros in the third row and the third column allow an expansion of the determinant along the last column.</p></div>
+
+<div class="ex"><div class="num">5E.9 <span class="lvl l3">ADVANCED</span></div>
+<p>Let the matrix $A=\begin{bmatrix}4&amp;1\\2&amp;3\end{bmatrix}$ and the vector
+$\mathbf{x}=\begin{bmatrix}5\\-1\end{bmatrix}$ be given. Find the eigenpairs of $A$, write $\mathbf{x}$
+as a linear combination of eigenvectors and compute $A^{5}\mathbf{x}$ <em>without</em>
+raising the matrix to the fifth power.</p>
+<p class="ypod">Hint: on an eigenvector the action of $A^{k}$ reduces to multiplication by a number.</p></div>
+
+<div class="grp"><h2>D. Geometric interpretation</h2>
+<p class="lead">An eigenvector means an invariant direction: think about the geometry first, then verify by computation.</p></div>
+
+<div class="ex"><div class="num">5E.10 <span class="lvl l1">BASIC</span></div>
+<p>The transformation of space that reflects every point in the plane $xy$ has matrix
+$A=\begin{bmatrix}1&amp;0&amp;0\\0&amp;1&amp;0\\0&amp;0&amp;-1\end{bmatrix}$. Find its eigenvalues geometrically, without computing a
+determinant, describe the corresponding eigenspaces and give their dimension.
+Then verify your conclusions algebraically.</p></div>
+
+<div class="ex"><div class="num">5E.11 <span class="lvl l1">BASIC</span></div>
+<p>Let the matrix $R=\dfrac{1}{5}\begin{bmatrix}-3&amp;4\\4&amp;3\end{bmatrix}$ be given. Compute
+$\mathrm{tr}(R)$ and $\det(R)$, find its eigenvalues and eigendirections and explain
+why $R$ represents a reflection in a line through the origin. Determine that
+line.</p>
+<p class="ypod">Hint: in a reflection, which direction stays fixed and which one is reversed?</p></div>
+
+<div class="ex"><div class="num">5E.12 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The rotation of space by an angle $\theta$ about the axis $z$ has matrix
+$R=\begin{bmatrix}\cos\theta&amp;-\sin\theta&amp;0\\\sin\theta&amp;\cos\theta&amp;0\\0&amp;0&amp;1\end{bmatrix}$.
+Prove that the number $1$ is always an eigenvalue of $R$ and interpret the
+corresponding eigenspace geometrically. For which values of $\theta$ does $R$ have other real eigenvalues as well?</p>
+<p class="ypod">Hint: which points of space remain fixed under the rotation?</p></div>
+
+<div class="grp"><h2>E. Algebraic and geometric multiplicity</h2>
+<p class="lead">The $m_a$ is measured in the characteristic polynomial, the $m_g$ in the dimension of the eigenspace&middot; always $1\le m_g\le m_a$.</p></div>
+
+<div class="ex"><div class="num">5E.13 <span class="lvl l1">BASIC</span></div>
+<p>A matrix $A$ of size $4\times4$ has characteristic polynomial
+$p(\lambda)=(\lambda-2)^{3}(\lambda+1)$. List the eigenvalues with their algebraic
+multiplicities and determine which values the geometric multiplicity of each one can take.
+Justify your answer.</p></div>
+
+<div class="ex"><div class="num">5E.14 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For the matrix $A=\begin{bmatrix}4&amp;0&amp;1\\2&amp;3&amp;2\\1&amp;0&amp;4\end{bmatrix}$ find the characteristic
+polynomial, all the eigenvalues and, for each one, $m_a$ and $m_g$. Give a basis of each eigenspace.</p>
+<p class="ypod">Hint: the second column has two zeros&middot; expand along it.</p></div>
+
+<div class="ex"><div class="num">5E.15 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Prove that for every eigenvalue $\lambda$ of a matrix $A$ of size $n\times n$ we have
+$m_g(\lambda)=n-\mathrm{rank}(A-\lambda I)$. Using this relation, find $m_a$ and
+$m_g$ of the eigenvalue $\lambda=2$ of $A=\begin{bmatrix}2&amp;1&amp;1\\0&amp;2&amp;0\\0&amp;0&amp;2\end{bmatrix}$ without
+solving the homogeneous system.</p>
+<p class="ypod">Hint: apply the rank&ndash;nullity theorem to the matrix $A-\lambda I$.</p></div>
+
+<div class="grp"><h2>F. Complex eigenvalues</h2>
+<p class="lead">When the discriminant is negative, the eigenvalues appear in conjugate pairs and always conceal a rotation.</p></div>
+
+<div class="ex"><div class="num">5E.16 <span class="lvl l1">BASIC</span></div>
+<p>For the matrix $A=\begin{bmatrix}3&amp;-2\\2&amp;3\end{bmatrix}$ find the characteristic polynomial and
+its eigenvalues. Explain why there is no real eigendirection and describe the
+action of $A$ on the plane as a combination of a rotation and a scaling, giving the scaling
+factor and the angle of rotation.</p></div>
+
+<div class="ex"><div class="num">5E.17 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $A$ be a real $2\times2$ matrix with complex eigenvalues $\lambda=a\pm bi$, where
+$b\neq0$. Prove that $\mathrm{tr}(A)=2a$ and $\det(A)=a^{2}+b^{2}>0$, and conclude that such
+a matrix is always invertible. Verify the above for
+$A=\begin{bmatrix}1&amp;-5\\2&amp;3\end{bmatrix}$, after computing its eigenvalues.</p></div>
+
+<div class="ex"><div class="num">5E.18 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $A$ be a real $2\times2$ matrix with $\mathrm{tr}(A)=t$ and $\det(A)=d$. Prove that
+$A$ has non-real eigenvalues if and only if $t^{2}&lt;4d$. Then determine for which
+values of the parameter $k$ the matrix $A=\begin{bmatrix}1&amp;k\\-1&amp;3\end{bmatrix}$ has non-real
+eigenvalues, for which it has a double real eigenvalue and for which two distinct real ones.</p>
+<p class="ypod">Hint: write the characteristic polynomial with the help of $t$, $d$ and study its discriminant.</p></div>
+
+<div class="grp"><h2>G. Applications: vibrations and stresses</h2>
+<p class="lead">The symmetric matrices of engineering &mdash; inertia, stress, stiffness &mdash; have real eigenvalues and orthogonal eigendirections.</p></div>
+
+<div class="ex"><div class="num">5E.19 <span class="lvl l1">BASIC</span></div>
+<p>The inertia tensor of a plane body with respect to the axes $x$, $y$ is
+$J=\begin{bmatrix}5&amp;-2\\-2&amp;8\end{bmatrix}$ (in $\mathrm{kg\cdot m^{2}}$). Find the principal moments
+of inertia and the principal axes, and verify that the two principal directions are
+orthogonal.</p>
+<p class="ypod">Hint: the principal moments are the eigenvalues, the principal axes the corresponding eigendirections.</p></div>
+
+<div class="ex"><div class="num">5E.20 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The stress tensor at a point of a structural member is
+$\boldsymbol{\sigma}=\begin{bmatrix}8&amp;3\\3&amp;0\end{bmatrix}$ (in MPa). Compute the principal stresses
+and the principal axes. Which principal stress corresponds to tension and which to compression, and how do you
+deduce this from their sign?</p></div>
+
+<div class="ex"><div class="num">5E.21 <span class="lvl l3">ADVANCED</span></div>
+<p>The study of the small oscillations of a system of two equal masses, connected by three identical
+springs, leads to the matrix $A=\begin{bmatrix}-2&amp;1\\1&amp;-2\end{bmatrix}$ (in suitable units),
+where the natural frequencies are given by the relation $\omega=\sqrt{-\lambda}$. Find the eigenvalues and the
+eigenvectors of $A$, compute the two natural frequencies and describe the mode of oscillation that
+corresponds to each eigenvector.</p>
+<p class="ypod">Hint: examine whether the two masses move in the same direction or in opposite directions in each eigendirection.</p></div>
+
+<div class="grp"><h2>H. Mixed and composite problems</h2>
+<p class="lead">Here the definition, the characteristic polynomial and matrix algebra are combined&middot; the method is not given.</p></div>
+
+<div class="ex"><div class="num">5E.22 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let the matrix $A=\begin{bmatrix}2&amp;k\\1&amp;3\end{bmatrix}$ with $k\in\mathbb{R}$ be given. Determine
+for which values of $k$ the matrix $A$ has (α) two distinct real eigenvalues, (β) one double
+real eigenvalue, (γ) non-real eigenvalues and (δ) $0$ as an eigenvalue. In case (δ),
+what do you conclude about the invertibility of $A$?</p></div>
+
+<div class="ex"><div class="num">5E.23 <span class="lvl l3">ADVANCED</span></div>
+<p>Prove, by carrying out the operations directly, that every $A=\begin{bmatrix}a&amp;b\\c&amp;d\end{bmatrix}$ matrix
+satisfies its own characteristic polynomial, that is,
+$\displaystyle A^{2}-\mathrm{tr}(A)\,A+\det(A)\,I=O.$
+Then, assuming $\det(A)\neq0$, express $A^{-1}$ as a linear combination of $A$ and
+$I$, and apply the formula you have found to $A=\begin{bmatrix}3&amp;1\\2&amp;4\end{bmatrix}$.</p>
+<p class="ypod">Hint: for the second part multiply the identity by $A^{-1}$.</p></div>
+
+<div class="ex"><div class="num">5E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $A$ be a matrix of size $n\times n$ with $A^{2}=I$. (α) Prove that every eigenvalue of $A$ equals
+$1$ or $-1$. (β) Prove that every $\mathbf{x}\in\mathbb{R}^{n}$ can be written as
+$\mathbf{x}=\mathbf{u}+\mathbf{w}$ with $A\mathbf{u}=\mathbf{u}$ and $A\mathbf{w}=-\mathbf{w}$.
+(γ) Verify (α) and (β) for $A=\begin{bmatrix}0&amp;1\\1&amp;0\end{bmatrix}$ and
+$\mathbf{x}=\begin{bmatrix}5\\1\end{bmatrix}$.</p>
+<p class="ypod">Hint: for (β) try $\mathbf{u}=\tfrac12(\mathbf{x}+A\mathbf{x})$ and compute $A\mathbf{u}$.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">5E.25</div>
+<p>It is given that $\mathbf{u}_1=\begin{bmatrix}1\\1\end{bmatrix}$ and $\mathbf{u}_2=\begin{bmatrix}2\\1\end{bmatrix}$ are eigenvectors of $B=\begin{bmatrix}3&amp;-2\\1&amp;0\end{bmatrix}$. Compute $B\mathbf{u}_1$, $B\mathbf{u}_2$ and find the corresponding eigenvalues.</p></div>
+<div class="ex from-book"><div class="num">5E.26</div>
+<p>Examine whether $\mathbf{v}_1=\begin{bmatrix}1\\1\end{bmatrix}$ and $\mathbf{v}_2=\begin{bmatrix}2\\-1\end{bmatrix}$ are eigenvectors of $A=\begin{bmatrix}1&amp;4\\2&amp;3\end{bmatrix}$ and find the corresponding eigenvalues.</p></div>
+<div class="ex from-book"><div class="num">5E.27</div>
+<p>Using the criterion $\det(A-\lambda I)=0$ examine which of the numbers $\lambda=2$, $\lambda=4$, $\lambda=-1$ are eigenvalues of $A=\begin{bmatrix}1&amp;2\\3&amp;2\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">5E.28</div>
+<p>If $\lambda_1=2$, $\lambda_2=-1$ are the eigenvalues of a $2\times2$ matrix $A$, compute $\mathrm{tr}(A)$ and $\det(A)$. What is the geometric meaning of the product of the eigenvalues?</p></div>
+<div class="ex from-book"><div class="num">5E.29</div>
+<p>A matrix $3\times3$ has trace $8$ and determinant $12$, with eigenvalues $\lambda_1=1$ and $\lambda_2=3$. Find $\lambda_3$.</p></div>
+<div class="ex from-book"><div class="num">5E.30</div>
+<p>For which values of $k$ does the matrix $A=\begin{bmatrix}k&amp;1\\1&amp;k\end{bmatrix}$ have $0$ as an eigenvalue? What does this mean for its invertibility?</p></div>
+<div class="ex from-book"><div class="num">5E.31</div>
+<p><strong>Proof:</strong> Show that if $\lambda$ is an eigenvalue of $A$, then $\lambda^2$ is an eigenvalue of $A^2$. Generalize the result for $A^n$.</p></div>
+<div class="ex from-book"><div class="num">5E.32</div>
+<p>Find the eigenvalues of $A=\begin{bmatrix}1&amp;-2\\2&amp;1\end{bmatrix}$. Are they real? Which property of the matrix guarantees real eigenvalues?</p></div>
+<div class="ex from-book"><div class="num">5E.33</div>
+<p>Find the eigenvalues of the rotation matrix $R=\begin{bmatrix}\cos\theta&amp;-\sin\theta\\\sin\theta&amp;\cos\theta\end{bmatrix}$. For which values of $\theta$ are they real?</p></div>
+<div class="ex from-book"><div class="num">5E.34</div>
+<p>Find the eigenvalues of the upper triangular matrix $D=\begin{bmatrix}2&amp;1&amp;0\\0&amp;3&amp;0\\0&amp;0&amp;-1\end{bmatrix}$. What holds in general for the eigenvalues of triangular matrices?</p></div>
+<div class="ex from-book"><div class="num">5E.35</div>
+<p>Find a basis of the eigenspace $E_2$ of $A=\begin{bmatrix}2&amp;0&amp;0\\0&amp;2&amp;0\\1&amp;1&amp;3\end{bmatrix}$ and its dimension.</p></div>
+<div class="ex from-book"><div class="num">5E.36</div>
+<p>Is $A=\begin{bmatrix}2&amp;-1\\4&amp;-2\end{bmatrix}$ invertible? Justify your answer on the basis of its eigenvalues.</p></div>
+<div class="ex from-book"><div class="num">5E.37</div>
+<p><strong>Geometric interpretation:</strong> Explain geometrically why the rotation by $90^\circ$, $R=\begin{bmatrix}0&amp;-1\\1&amp;0\end{bmatrix}$, has no real eigendirections and confirm that the equation $\det(R-\lambda I)=0$ has no real roots.</p></div>
+<div class="ex from-book"><div class="num">5E.38</div>
+<p>For the projection onto the line $y=x$, $P=\tfrac{1}{2}\begin{bmatrix}1&amp;1\\1&amp;1\end{bmatrix}$, find the eigenvalues and the eigendirections geometrically and verify them by computation.</p></div>
+<div class="ex from-book"><div class="num">5E.39</div>
+<p>For the reflection in the $x$ axis, $R=\begin{bmatrix}1&amp;0\\0&amp;-1\end{bmatrix}$, explain geometrically why the eigenvalues are $1$ and $-1$ and which directions remain invariant.</p></div>
+<div class="ex from-book"><div class="num">5E.40</div>
+<p>For $A=\begin{bmatrix}2&amp;0\\0&amp;3\end{bmatrix}$ draw the image of the unit circle. How are the semi-axes of the resulting ellipse related to the eigenvalues of $A$?</p></div>
+<div class="ex from-book"><div class="num">5E.41</div>
+<p>The identity matrix $I_2$ has eigenvalue $\lambda=1$. Show that every nonzero vector of $\mathbb{R}^2$ is an eigenvector of it and interpret this geometrically. The same for $cI_2$.</p></div>
+<div class="ex from-book"><div class="num">5E.42</div>
+<p>For the matrix $C=\begin{bmatrix}2&amp;1&amp;0\\0&amp;2&amp;0\\0&amp;0&amp;3\end{bmatrix}$ find all the eigenvalues with their multiplicities $m_a$, $m_g$ and verify that $1\le m_g\le m_a$.</p></div>
+<div class="ex from-book"><div class="num">5E.43</div>
+<p>For the shear $S=\begin{bmatrix}1&amp;k\\0&amp;1\end{bmatrix}$, $k\neq0$, find $m_a$ and $m_g$ of its unique eigenvalue.</p></div>
+<div class="ex from-book"><div class="num">5E.44</div>
+<p>For $A=\begin{bmatrix}3&amp;1&amp;0\\0&amp;3&amp;1\\0&amp;0&amp;3\end{bmatrix}$ find $m_a$ and $m_g$ of the eigenvalue $\lambda=3$.</p></div>
+<div class="ex from-book"><div class="num">5E.45</div>
+<p>Show that the nilpotent matrix $N=\begin{bmatrix}0&amp;1\\0&amp;0\end{bmatrix}$ has a unique eigenvalue $\lambda=0$ with $m_a=2$ and $m_g=1$.</p></div>
+<div class="ex from-book"><div class="num">5E.46</div>
+<p><strong>Proof:</strong> Show that if a $n\times n$ matrix has $n$ distinct eigenvalues, then for every eigenvalue $m_a=m_g=1$ holds. <em>Hint:</em> use the relation $1\le m_g\le m_a$.</p></div>
+<div class="ex from-book"><div class="num">5E.47</div>
+<p>Examine whether the symmetric matrix $A=\begin{bmatrix}2&amp;-1\\-1&amp;2\end{bmatrix}$ is positive definite. What kind of conic section corresponds to the quadratic form $Q(x,y)=\mathbf{x}^\top A\mathbf{x}=1$?</p></div>
+<div class="ex from-book"><div class="num">5E.48</div>
+<p>Characterize the form $Q(x,y)=3x^2-4xy+3y^2$: is it positive definite? Find its principal axes.</p></div>
+<div class="ex from-book"><div class="num">5E.49</div>
+<p>Decompose $A=\begin{bmatrix}4&amp;2\\2&amp;1\end{bmatrix}$ into the form $A=Q\Lambda Q^\top$ with $Q$ orthogonal. What is the geometric meaning of the zero eigenvalue?</p></div>
+<div class="ex from-book"><div class="num">5E.50</div>
+<p>If $A$ is a symmetric $3\times3$ matrix with eigenvalues $\lambda_1=1$, $\lambda_2=2$, $\lambda_3=3$, find $\det(A)$, $\mathrm{tr}(A)$ and $\det(A-I)$.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">5E.51</div>
+<p>Prove that if $A^2=A$ (idempotent matrix), then its eigenvalues are $0$ or $1$. Give an example of a $2\times2$ idempotent matrix with both $0$ and $1$ as eigenvalues.</p></div>
+<div class="ex from-book"><div class="num">5E.52</div>
+<p>Find the eigenvalues and the eigenvectors of the <em>non-symmetric</em> matrix $A=\begin{bmatrix}5&amp;-1\\3&amp;1\end{bmatrix}$ and check whether they are orthogonal. Then repeat for the <em>symmetric</em> $B=\begin{bmatrix}6&amp;2\\2&amp;3\end{bmatrix}$. What do you conclude about the relation between symmetry and orthogonality of eigenvectors?</p></div>
+<div class="ex from-book"><div class="num">5E.53</div>
+<p>Let $A=\begin{bmatrix}a&amp;b\\b&amp;a\end{bmatrix}$ with $b\neq0$. Show that its eigenvalues are $a+b$ and $a-b$, with eigenvectors $(1,1)^\top$ and $(1,-1)^\top$ independent of the values of $a$, $b$.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 5.1 – Definition of Eigenvalue and Eigenvector</h3></div>
+<div class="ex from-book"><div class="num">5E.54</div>
+<p><strong>Proof:</strong> Let $A$ be invertible and $\lambda$ an eigenvalue of it with eigenvector $\vecv$. Prove that $\lambda\neq0$ and that $1/\lambda$ is an eigenvalue of $A^{-1}$ with the same eigenvector.</p></div>
+<div class="grp2"><h3>Exercises for Section 5.2 – The Characteristic Polynomial</h3></div>
+<div class="ex from-book"><div class="num">5E.55</div>
+<p><strong>Proof:</strong> Show that the matrices $A$ and $A^\top$ have the same characteristic polynomial, and hence the same eigenvalues. Do they also have the same eigenvectors? Give a counterexample.</p></div>
+<div class="grp2"><h3>Exercises for Section 5.3 – Computing Eigenvectors – Complex Eigenvalues</h3></div>
+<div class="ex from-book"><div class="num">5E.56</div>
+<p><strong>Proof:</strong> Prove that the eigenvalues of a skew-symmetric matrix ($A^\top=-A$) are purely imaginary or zero. Verify for $A=\begin{bmatrix}0&amp;2\\-2&amp;0\end{bmatrix}$.</p></div>
+<div class="grp2"><h3>Exercises for Section 5.4 – Geometric Interpretation</h3></div>
+<div class="ex from-book"><div class="num">5E.57</div>
+<p><strong>Geometric interpretation:</strong> For $A=\begin{bmatrix}1&amp;-1\\1&amp;1\end{bmatrix}$ find the (complex) eigenvalues and, on the basis of Comment&nbsp;5.1, explain why $A$ corresponds to a rotation by $45^\circ$ combined with a scaling by $\sqrt{2}$.</p></div>
+<div class="grp2"><h3>Exercises for Section 5.5 – Geometric and Algebraic Multiplicity</h3></div>
+<div class="ex from-book"><div class="num">5E.58</div>
+<p><strong>Proof:</strong> Prove that every eigenvalue $\lambda$ of $A$ has $m_g\ge1$, that is, that the eigenspace $E_\lambda=\ker(A-\lambda I)$ contains a nonzero vector.</p></div>
+<div class="grp2"><h3>Exercises for Section 5.6 – Applications</h3></div>
+<div class="ex from-book"><div class="num">5E.59</div>
+<p><strong>Proof:</strong> Show that a symmetric matrix $A$ is positive definite if and only if all its eigenvalues are positive. <strong>Hint:</strong> write $\mathbf{x}$ in the basis of the orthonormal eigenvectors.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">5E.60</div>
+<p><strong>Proof:</strong> Prove that eigenvectors corresponding to two different eigenvalues are linearly independent (Theorem&nbsp;5.5 for $n=2$).</p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group C)</h3></div>
+<div class="grp2"><h3>Exercises for Section 5.1 – Definition of Eigenvalue and Eigenvector</h3></div>
+<div class="ex from-book"><div class="num">5E.61</div>
+<p><strong>Proof:</strong> Prove that: (α)&nbsp;if $\mathbf{v}$ is an eigenvector of $A$ with eigenvalue $\lambda$, then $c\mathbf{v}$, $c\neq0$, is also an eigenvector with the same eigenvalue&middot; (β)&nbsp;$A$ is not invertible if and only if $0$ is an eigenvalue of it. <strong>Hint:</strong> use Theorem&nbsp;5.1.</p></div>
+<div class="grp2"><h3>Exercises for Section 5.2 – The Characteristic Polynomial</h3></div>
+<div class="ex from-book"><div class="num">5E.62</div>
+<p>If the eigenvalues of $A$ are $1$, $-2$, $3$, compute $\det(A)$, $\mathrm{tr}(A)$ and $\det(A^{-1})$. Explain the reasoning behind each computation on the basis of Theorem&nbsp;5.2.</p></div>
+<div class="grp2"><h3>Exercises for Section 5.3 – Computing Eigenvectors – Complex Eigenvalues</h3></div>
+<div class="ex from-book"><div class="num">5E.63</div>
+<p>For the matrix $A=\begin{bmatrix}0&amp;0&amp;1\\0&amp;1&amp;0\\1&amp;0&amp;0\end{bmatrix}$ find the characteristic polynomial, the eigenvalues and the corresponding eigenvectors. Verify the relation $A\mathbf{v}=\lambda\mathbf{v}$ for every eigenpair.</p></div>
+<div class="grp2"><h3>Exercises for Section 5.6 – Applications</h3></div>
+<div class="ex from-book"><div class="num">5E.64</div>
+<p><strong>Proof:</strong> Prove that the eigenvalues of a symmetric matrix are real and that eigenvectors of different eigenvalues are orthogonal. Apply this to $A=\begin{bmatrix}5&amp;4\\4&amp;5\end{bmatrix}$ and find orthonormal eigenvectors.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">5E.65</div>
+<p><strong>Proof:</strong> If $Q$ is orthogonal ($Q^\top Q=I$), prove that every real eigenvalue of it is $1$ or $-1$. <strong>Hint:</strong> compare $\|Q\mathbf{v}\|$ and $\|\mathbf{v}\|$.</p></div>
+<div class="ex from-book"><div class="num">5E.66</div>
+<p><strong>Proof:</strong> If the matrices $A$ and $B$ are similar, that is $B=P^{-1}AP$, prove that they have the same characteristic polynomial, and hence the same eigenvalues with the same algebraic multiplicities.</p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group D)</h3></div>
+<div class="grp2"><h3>Exercises for Section 5.4 – Geometric Interpretation</h3></div>
+<div class="ex from-book"><div class="num">5E.67</div>
+<p>A linear transformation stretches the direction of $\mathbf{v}_1=(1,1)^\top$ by a factor $3$ and compresses the direction of $\mathbf{v}_2=(1,-1)^\top$ by a factor $\tfrac12$. Find its matrix $A$.</p></div>
+<div class="grp2"><h3>Exercises for Section 5.5 – Geometric and Algebraic Multiplicity</h3></div>
+<div class="ex from-book"><div class="num">5E.68</div>
+<p>Construct a matrix $3\times3$ with unique eigenvalue $\lambda=2$ such that $m_a=3$ and $m_g=2$. Justify your answer.</p></div>
+<div class="grp2"><h3>Exercises for Section 5.6 – Applications</h3></div>
+<div class="ex from-book"><div class="num">5E.69</div>
+<p><strong>Application:</strong> The stress tensor at a point of a structural member is $\boldsymbol{\sigma}=\begin{bmatrix}4&amp;2\\2&amp;7\end{bmatrix}$ (in MPa). Find the principal stresses and the principal axes.</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

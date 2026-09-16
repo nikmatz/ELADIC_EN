@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Functions of One Real Variable</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">&#8853; Additional Exercises</div>
+  <h1>Functions of One Real Variable</h1>
+  <p class="chapter-label">Chapter 8 &middot; Functions of One Real Variable</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by topic</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">Everything asked here is dealt with exclusively by algebraic means and with the definitions
+  of the chapter: monotonicity is always proved by comparing the values $f(x_1)$ and $f(x_2)$ for
+  $x_1\lt x_2$, never with a derivative. Every result is checked independently: the domain by
+  testing values at the ends of the restrictions, the range by solving $y=f(x)$ for $x$,
+  the inverse by the verification $f^{-1}(f(x))=x$. You do not need a solutions manual.</p>
+</div>
+
+<div class="grp"><h2>A. Domain and range</h2>
+<p class="lead">Every restriction generates the domain; solving for $x$ reveals the range.</p></div>
+
+<div class="ex"><div class="num">8E.1 <span class="lvl l1">BASIC</span></div>
+<p>Find the natural (largest) domain, justifying each restriction:
+(α) $\displaystyle f(x)=\frac{\sqrt{x+3}}{x-2}$,&nbsp;&nbsp; (β) $\displaystyle g(x)=\ln(4-x)+\frac{1}{\sqrt{x}}$,&nbsp;&nbsp;
+(γ) $h(x)=\arcsin(2x-1)$.</p></div>
+
+<div class="ex"><div class="num">8E.2 <span class="lvl l1">BASIC</span></div>
+<p>Find the range, justifying your answer analytically:
+(α) $\displaystyle f(x)=\frac{1}{x^{2}+1}$,&nbsp;&nbsp; (β) $g(x)=3-2\cos x$,&nbsp;&nbsp; (γ) $h(x)=\sqrt{x-1}+2$.</p>
+<p class="ypod">Hint: in each case first locate the range of the inner expression ($x^{2}+1$, $\cos x$, $\sqrt{x-1}$).</p></div>
+
+<div class="ex"><div class="num">8E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $\displaystyle f(x)=\frac{x^{2}}{x^{2}+4}$ be given. (α) Find the domain.
+(β) By solving the equation $y=f(x)$ for $x^{2}$, determine for which $y$ there is a real solution.
+(γ) Conclude the range of $f$ and explain why the value $1$ is not attained.</p></div>
+
+<div class="grp"><h2>B. Monotonicity and one-to-one functions</h2>
+<p class="lead">Monotonicity is proved by comparing values; from it the one-to-one property follows immediately.</p></div>
+
+<div class="ex"><div class="num">8E.4 <span class="lvl l1">BASIC</span></div>
+<p>Using the definition of monotonicity show that $f(x)=\sqrt{x}$ is strictly increasing on $[0,+\infty)$
+and conclude that it is one-to-one.</p>
+<p class="ypod">Hint: $\displaystyle \sqrt{x_2}-\sqrt{x_1}=\frac{x_2-x_1}{\sqrt{x_2}+\sqrt{x_1}}$ for $x_1,x_2\ge 0$ not both zero.</p></div>
+
+<div class="ex"><div class="num">8E.5 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $f(x)=x^{3}-3x$ be given. (α) Find two different points of $\mathbb{R}$ at which $f$ takes
+the same value and conclude that it is not one-to-one on $\mathbb{R}$.
+(β) Prove that $f$ is strictly increasing on $[1,+\infty)$.</p>
+<p class="ypod">Hint for (β): $f(x_2)-f(x_1)=(x_2-x_1)\bigl(x_2^{2}+x_1x_2+x_1^{2}-3\bigr)$; estimate the parenthesis for $x_1,x_2\ge 1$.</p></div>
+
+<div class="ex"><div class="num">8E.6 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $f$ be strictly increasing and $g$ strictly decreasing, both defined on $\mathbb{R}$.
+(α) Prove that $f-g$ is strictly increasing. (β) Prove that the composition $f\circ g$ is strictly decreasing.
+(γ) Give a specific pair $f,g$ for which $f+g$ is <em>not</em> monotone on $\mathbb{R}$.</p></div>
+
+<div class="grp"><h2>C. The inverse function</h2>
+<p class="lead">Solve $y=f(x)$ for $x$; the range of $f$ becomes the domain of $f^{-1}$.</p></div>
+
+<div class="ex"><div class="num">8E.7 <span class="lvl l1">BASIC</span></div>
+<p>Find the formula and the domain of the inverse:
+(α) $\displaystyle f(x)=\frac{1}{x}+2$ with $x\gt 0$,&nbsp;&nbsp; (β) $g(x)=(x-3)^{3}+1$ with $x\in\mathbb{R}$.</p></div>
+
+<div class="ex"><div class="num">8E.8 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $f(x)=x+\sqrt{x}$ be given with domain $[0,+\infty)$. (α) Show that it is strictly increasing,
+as a sum of two strictly increasing functions, and hence one-to-one. (β) Find its range.
+(γ) Setting $t=\sqrt{x}\ge 0$, solve $y=t^{2}+t$ for $t$ and write a closed formula for $f^{-1}$.</p></div>
+
+<div class="ex"><div class="num">8E.9 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $f,g:\mathbb{R}\to\mathbb{R}$ be one-to-one and onto. (α) Prove that $f\circ g$ is
+one-to-one and onto. (β) Prove that $(f\circ g)^{-1}=g^{-1}\circ f^{-1}$.
+(γ) Verify the formula for $f(x)=2x+1$ and $g(x)=x^{3}$.</p>
+<p class="ypod">Hint: for (β) it is enough to show that $g^{-1}\circ f^{-1}$ undoes $f\circ g$ on both sides.</p></div>
+
+<div class="grp"><h2>D. Composition of functions</h2>
+<p class="lead">First the formula, then the domain: the inner function must give values that are acceptable to the outer one.</p></div>
+
+<div class="ex"><div class="num">8E.10 <span class="lvl l1">BASIC</span></div>
+<p>If $\displaystyle f(x)=\frac{1}{x-1}$ and $g(x)=x^{2}+1$, compute the formulas and the domains
+of $(f\circ g)(x)$ and $(g\circ f)(x)$. Do the two compositions coincide?</p></div>
+
+<div class="ex"><div class="num">8E.11 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $\displaystyle h(x)=\frac{1}{\sqrt{\ln x-1}}$ be given. (α) Write $h$ as a composition of three
+functions $h=f\circ g\circ k$, specifying explicitly $f$, $g$, $k$.
+(β) Find the domain of $h$, explaining which two different restrictions come into play.</p></div>
+
+<div class="ex"><div class="num">8E.12 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $\displaystyle f(x)=\frac{x}{x-1}$ with $x\ne 1$. (α) Show that for every $x\ne 1$ we have
+$f(x)\ne 1$, so that the composition $f\circ f$ is defined. (β) Compute and simplify $(f\circ f)(x)$.
+(γ) Conclude that $f$ is one-to-one and that $f^{-1}=f$. (δ) Find $(f\circ f\circ f)(x)$.</p></div>
+
+<div class="grp"><h2>E. The exponential and the logarithmic function</h2>
+<p class="lead">The properties of powers and of logarithms turn these equations into algebraic ones.</p></div>
+
+<div class="ex"><div class="num">8E.13 <span class="lvl l1">BASIC</span></div>
+<p>Solve, checking the restrictions each time:
+(α) $2^{2x}-5\cdot 2^{x}+4=0$,&nbsp;&nbsp; (β) $\ln x+\ln(x-3)=\ln 4$,&nbsp;&nbsp; (γ) $3^{\,x+1}=27^{\,x-1}$.</p>
+<p class="ypod">Hint: in (α) set $t=2^{x}$ with $t\gt 0$.</p></div>
+
+<div class="ex"><div class="num">8E.14 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Solve the equation $x^{\log_{10}x}=100\,x$. (α) What is the domain of the equation?
+(β) Take the logarithm to base $10$ of both sides and set $t=\log_{10}x$.
+(γ) Return to the variable $x$ and verify each root.</p></div>
+
+<div class="ex"><div class="num">8E.15 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $f(x)=\ln\!\bigl(x+\sqrt{x^{2}+1}\bigr)$ be given. (α) Show that it is defined for every $x\in\mathbb{R}$.
+(β) Prove that it is odd. (γ) Prove that it is strictly increasing.
+(δ) Find its inverse and identify which well-known hyperbolic function results.</p>
+<p class="ypod">Hint: the identity $\bigl(\sqrt{x^{2}+1}-x\bigr)\bigl(\sqrt{x^{2}+1}+x\bigr)=1$ is useful; for (δ) set $y=f(x)$ and compute the difference $e^{y}-e^{-y}$.</p></div>
+
+<div class="grp"><h2>F. Transformations of graphs</h2>
+<p class="lead">Every change in the formula corresponds to one specific geometric motion of the curve.</p></div>
+
+<div class="ex"><div class="num">8E.16 <span class="lvl l1">BASIC</span></div>
+<p>Suppose the graph of a function $y=f(x)$ is known. Describe precisely how the graphs of
+$y=f(x-3)$, $y=f(x)+2$, $y=-f(x)$, $y=f(-x)$, $y=2f(x)$, $y=f(2x)$ are obtained from it.</p></div>
+
+<div class="ex"><div class="num">8E.17 <span class="lvl l1">BASIC</span></div>
+<p>Starting from the basic $\displaystyle y=\frac{1}{x}$, describe the successive transformations
+that lead to $\displaystyle y=\frac{1}{x-2}+3$, draw its graph and find its
+domain and its range.</p></div>
+
+<div class="ex"><div class="num">8E.18 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Starting from $y=\sin x$, describe the transformations that give
+$\displaystyle y=3\sin\!\left(2x-\frac{\pi}{3}\right)+1$ and determine the amplitude, the period,
+the horizontal shift and the range.</p>
+<p class="ypod">Hint: first write the argument in the form $2\bigl(x-c\bigr)$; the order of the transformations matters.</p></div>
+
+<div class="grp"><h2>G. Parametric and polar curves</h2>
+<p class="lead">Elimination of the parameter and the relations $x=r\cos\theta$, $y=r\sin\theta$: two languages for the same curve.</p></div>
+
+<div class="ex"><div class="num">8E.19 <span class="lvl l1">BASIC</span></div>
+<p>Eliminate the parameter, identify the curve and determine exactly which part of it is traced out:
+(α) $x=1+2t$, $y=3-t$, $t\in\mathbb{R}$; (β) $x=3\cos t$, $y=3\sin t$, $t\in[0,\pi]$;
+(γ) $\displaystyle x=\frac{1}{\cos t}$, $y=\tan t$, $\displaystyle t\in\left(-\frac{\pi}{2},\frac{\pi}{2}\right)$.</p></div>
+
+<div class="ex"><div class="num">8E.20 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Consider the parametric curve $x=t^{2}-1$, $y=t^{3}-t$, $t\in\mathbb{R}$.
+(α) Show that the values $t=1$ and $t=-1$ give the same point of the plane.
+(β) Observing that $y=t\,x$, prove that every point of the curve satisfies the relation $y^{2}=x^{2}(x+1)$.
+(γ) Complete a table of values for $t=-2,-1,0,1,2$ and sketch the curve qualitatively.</p></div>
+
+<div class="ex"><div class="num">8E.21 <span class="lvl l3">ADVANCED</span></div>
+<p>The polar equation $r^{2}=4\cos(2\theta)$ is given. (α) For which values of $\theta\in[0,2\pi)$
+is the curve defined? (β) Multiplying both sides by $r^{2}$, prove that in Cartesian
+coordinates it is written as $\bigl(x^{2}+y^{2}\bigr)^{2}=4\bigl(x^{2}-y^{2}\bigr)$.
+(γ) Find the maximum value of $r$ and the directions in which it is attained, and sketch qualitatively.</p>
+<p class="ypod">Hint: use $\cos(2\theta)=\cos^{2}\theta-\sin^{2}\theta$ and $r^{2}=x^{2}+y^{2}$.</p></div>
+
+<div class="grp"><h2>H. Mixed and composite problems</h2>
+<p class="lead">Exercises that combine more than one concept of the chapter.</p></div>
+
+<div class="ex"><div class="num">8E.22 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $\displaystyle f(x)=\frac{x^{2}-1}{x^{2}+1}$ be given. (α) Show that it is even.
+(β) Write it in the form $\displaystyle f(x)=1-\frac{2}{x^{2}+1}$ and find its range.
+(γ) Show that it is strictly increasing on $[0,+\infty)$. (δ) Is it one-to-one on $\mathbb{R}$? Justify your answer.</p></div>
+
+<div class="ex"><div class="num">8E.23 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>A function $f:\mathbb{R}\to\mathbb{R}$ is even and periodic with period $T=2$, while for
+$x\in[0,1]$ we have $f(x)=x^{2}$. (α) Find its formula on $[-1,0]$. (β) Compute $f(3.5)$,
+$f(-2.25)$ and $f(7)$. (γ) Sketch its graph qualitatively on $[-3,3]$.
+(δ) Find its range.</p>
+<p class="ypod">Hint: first use evenness to cover $[-1,1]$ and then periodicity.</p></div>
+
+<div class="ex"><div class="num">8E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $f:\mathbb{R}\to\mathbb{R}$ be a function satisfying the relation $f(x)+2f(1-x)=3x$ for every
+$x\in\mathbb{R}$. (α) Replacing $x$ by $1-x$, write a second relation.
+(β) Regarding $f(x)$ and $f(1-x)$ as two unknowns, find the formula of $f$.
+(γ) Verify that the function you have found does indeed satisfy the original relation.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">8E.25</div>
+<p>Find the domain of each function: (α) $f(x)=\sqrt{9-x^2}+\dfrac{1}{x+2}$, (β) $g(x)=\ln(x^2-x-6)$, (γ) $h(x)=\arccos\left(\dfrac{x}{3}\right)$.</p></div>
+<div class="ex from-book"><div class="num">8E.26</div>
+<p>Find the range, justifying your answer analytically: (α) $g(x)=2\sin x+1$, (β) $h(x)=3-|x-1|$.</p></div>
+<div class="ex from-book"><div class="num">8E.27</div>
+<p>Construction of a function: Let $f(x+1)=x^2-1$ be given. (α) Use a substitution (say $u=x+1$) to find a formula for $f(u)$. (β) Write the formula $f(x)$. (γ) Find the domain of $f$.</p></div>
+<div class="ex from-book"><div class="num">8E.28</div>
+<p>Sketch $f(x)=|x^2-4|$ and find the range.</p></div>
+<div class="ex from-book"><div class="num">8E.29</div>
+<p>Find the inverse function $f^{-1}(x)$ for each of the following, after checking that it is one-to-one on its natural domain: (α) $f(x)=3x-5$, (β) $f(x)=x^3+1$, (γ) $f(x)=\sqrt{x+2}$.</p></div>
+<div class="ex from-book"><div class="num">8E.30</div>
+<p>If $f(x)=\dfrac{2x+1}{x-3}$, find $f^{-1}(x)$, its domain, and verify that $f(f^{-1}(x))=x$.</p></div>
+<div class="ex from-book"><div class="num">8E.31</div>
+<p>Find the inverse function (if it exists), after checking the one-to-one property, together with its domain: (α) $f(x)=2x^2-1$, $x\geq 0$, (β) $g(x)=e^{x-1}+2$.</p></div>
+<div class="ex from-book"><div class="num">8E.32</div>
+<p>Let $f(x)=e^{2x}-3$ be given. Find $f^{-1}(x)$, as well as the domain and the range of $f^{-1}$.</p></div>
+<div class="ex from-book"><div class="num">8E.33</div>
+<p>Prove that: (α) the product of two odd functions is even, (β) the product of an even and an odd function is odd, (γ) the sum of two even functions is even.</p></div>
+<div class="ex from-book"><div class="num">8E.34</div>
+<p>If $f$ is odd and is defined at $0$, prove that $f(0)=0$. Is there a function that is both even and odd? Which one?</p></div>
+<div class="ex from-book"><div class="num">8E.35</div>
+<p>Is $f(x)=\sin x + \cos x$ periodic? If so, find its period.</p></div>
+<div class="ex from-book"><div class="num">8E.36</div>
+<p>A function $f$ is periodic with period $T=4$ and is defined on $[0,4)$ by $f(x)=x(4-x)$. Compute $f(5)$, $f(-1)$ and $f(10.5)$.</p></div>
+<div class="ex from-book"><div class="num">8E.37</div>
+<p>If $f(x)=x^2+1$ and $g(x)=\sqrt{x-1}$, compute and find the domain of: (α) $(f\circ g)(x)$, (β) $(g\circ f)(x)$.</p></div>
+<div class="ex from-book"><div class="num">8E.38</div>
+<p>If $f(x)=2x-3$ and $g(x)=\dfrac{x+3}{2}$, check whether $f\circ g = g\circ f = \mathrm{id}$. What do you conclude?</p></div>
+<div class="ex from-book"><div class="num">8E.39</div>
+<p>Let $h(x)=\sin(x^2)$ be given. Find $f$, $g$ such that $h=f\circ g$ and compute the domain.</p></div>
+<div class="ex from-book"><div class="num">8E.40</div>
+<p>If $f(x)=2x+1$ and $g(x)=x^2-3$, compute: (α) $(f\circ g)(x)$, (β) $(g\circ f)(x)$, (γ) $(f\circ g)(2)$, (δ) $(f\circ f)(x)$.</p></div>
+<div class="ex from-book"><div class="num">8E.41</div>
+<p>Let $f(x)=\dfrac1x$, $g(x)=x+1$, $h(x)=x^2$ be given. Compute $(f\circ g\circ h)(x)$ and find its domain.</p></div>
+<div class="ex from-book"><div class="num">8E.42</div>
+<p>Using the definition of monotonicity, show that $f(x)=x^3$ is strictly increasing on $\mathbb{R}$.</p></div>
+<div class="ex from-book"><div class="num">8E.43</div>
+<p>By completing the square, write $f(x)=x^2-6x+5$ in the form $(x-a)^2+b$. Find its minimum and the intervals of monotonicity <em>without</em> using a derivative.</p></div>
+<div class="ex from-book"><div class="num">8E.44</div>
+<p>Show that $|\sin x+\cos x|\leq\sqrt2$ for every $x$, by writing $\sin x+\cos x=\sqrt2\,\sin\!\left(x+\tfrac{\pi}{4}\right)$. What is the maximum and what is the minimum of the function?</p></div>
+<div class="ex from-book"><div class="num">8E.45</div>
+<p>A force $F(t)=5\bigl[H(t-1)-H(t-3)\bigr]$ kN is applied to a structure. Describe in words when and for how long the force acts.</p></div>
+<div class="ex from-book"><div class="num">8E.46</div>
+<p>Draw the graph of $g(t)=2H(t)-H(t-1)-H(t-3)$ for $t\in[-1,5]$.</p></div>
+<div class="ex from-book"><div class="num">8E.47</div>
+<p>If $h(t)=t\cdot H(t-2)$, find the values $h(0)$, $h(1)$, $h(2)$, $h(3)$ and sketch it for $t\in[0,4]$.</p></div>
+<div class="ex from-book"><div class="num">8E.48</div>
+<p>Compute the exact values $\cosh(\ln 2)$, $\tanh(\ln 2)$ and $\sinh(\ln 3)$.</p></div>
+<div class="ex from-book"><div class="num">8E.49</div>
+<p>Using only the definitions, show that $\sinh$ is odd, $\cosh$ is even and $\tanh$ is odd.</p></div>
+<div class="ex from-book"><div class="num">8E.50</div>
+<p>Prove the identity $\sinh(2x)=2\sinh x\cosh x$ starting from the exponential definitions.</p></div>
+<div class="ex from-book"><div class="num">8E.51</div>
+<p>Points of intersection of two exponential functions: $f(x)=e^x$ and $g(x)=e^{2-x}$. (α) Set $e^x = e^{2-x}$ and solve. (β) Find the coordinates of the points of intersection.</p></div>
+<div class="ex from-book"><div class="num">8E.52</div>
+<p>Describe the shift of the graph $y=|x-2|-1$ relative to $y=|x|$. Find the vertex, the zeros, and sketch it.</p></div>
+<div class="ex from-book"><div class="num">8E.53</div>
+<p>Parametrize the line segment from $A(1,2)$ to $B(5,-2)$ with $t\in[0,1]$ and write the parametric equations of the line that contains it.</p></div>
+<div class="ex from-book"><div class="num">8E.54</div>
+<p>Convert to polar coordinates: (α) $x^{2}+y^{2}=9$; (β) $y=x$; (γ) $x^{2}+y^{2}=2x$ (Hint: the result is a <em>shifted</em> circle, which one?).</p></div>
+<div class="ex from-book"><div class="num">8E.55</div>
+<p>Sketch qualitatively the cardioid $r=1+\cos\theta$ by completing a table of values for $\theta=0,\tfrac{\pi}{3},\tfrac{\pi}{2},\pi,\tfrac{3\pi}{2}$. Where does the radius vanish?</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">8E.56</div>
+<p>For $f(x)=\dfrac{x-1}{x+1}$: (α) Find the domain. (β) Write it in the form $f(x)=1-\dfrac{2}{x+1}$ and examine the monotonicity separately on $(-\infty,-1)$ and on $(-1,+\infty)$. (γ) Is it one-to-one? If so, find the inverse and its domain.</p></div>
+<div class="ex from-book"><div class="num">8E.57</div>
+<p>For $x&gt;0$ consider $f(x)=x+\dfrac1x$. (α) Prove that $f(x)\geq 2$ for every $x&gt;0$ <em>without</em> using a derivative (hint: $(\sqrt{x}-\tfrac{1}{\sqrt{x}})^2\geq0$). (β) When does equality hold? (γ) Show that $f$ is strictly decreasing on $(0,1)$ and strictly increasing on $(1,+\infty)$.</p></div>
+<div class="ex from-book"><div class="num">8E.58</div>
+<p>Let $f(x)=|x|+|x-2|$ be given. (α) Write it piecewise. (β) Draw its graph. (γ) Find the minimum and the range. (δ) Is it even with respect to some vertical axis?</p></div>
+<div class="ex from-book"><div class="num">8E.59</div>
+<p>Show that $f(x)=\dfrac{x}{1+|x|}$ is one-to-one from $\mathbb{R}$ onto $(-1,1)$ and find its inverse. Sketch the graph qualitatively.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 8.1 – Definition, Domain and Range</h3></div>
+<div class="ex from-book"><div class="num">8E.60</div>
+<p>An open tank with a square base of side $x$ (in m) has volume $32\,\mathrm{m^3}$. (α) Express the area $S$ of its surface (base $+$ four sides) as a function of $x$. (β) Find the domain of $S$. (γ) Compute $S(2)$ and $S(4)$ and comment on which of the two dimensions requires less material.</p></div>
+<div class="grp2"><h3>Exercises for Section 8.1.1 – One-to-One Functions and the Inverse Function</h3></div>
+<div class="ex from-book"><div class="num">8E.61</div>
+<p>Prove that $\arcsin x+\arccos x=\dfrac{\pi}{2}$ for every $x\in[-1,1]$. <strong>Hint:</strong> set $\theta=\arcsin x$ and use $\cos\left(\tfrac{\pi}{2}-\theta\right)=\sin\theta$.</p></div>
+<div class="grp2"><h3>Exercises for Section 8.1.4 – Monotonicity, Bounded Functions and Extrema</h3></div>
+<div class="ex from-book"><div class="num">8E.62</div>
+<p>Show that $f(x)=2^x$ is strictly increasing on $\mathbb{R}$ and that its range is $(0,+\infty)$. What changes for $g(x)=\left(\tfrac12\right)^x$?</p></div>
+<div class="grp2"><h3>Exercises for Section 8.1.5 – The Elementary Functions</h3></div>
+<div class="ex from-book"><div class="num">8E.63</div>
+<p><strong>Shifts and scalings:</strong> Starting from the basic $y=x^2$, describe the transformations and sketch: (α) $y=(x+1)^2-3$,&nbsp;&nbsp; (β) $y=-2x^2$,&nbsp;&nbsp; (γ) $y=\tfrac12(x-2)^2+1$.</p></div>
+<div class="grp2"><h3>Exercises for Section 8.2 – Parametric and Polar Curves</h3></div>
+<div class="ex from-book"><div class="num">8E.64</div>
+<p><strong>(For engineers)</strong> The radiation pattern of an antenna is given by $r=|\cos\theta|$. Sketch it and find the directions of maximum and of zero emission.</p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group C)</h3></div>
+<div class="grp2"><h3>Exercises for Section 8.1.4 – Monotonicity, Bounded Functions and Extrema</h3></div>
+<div class="ex from-book"><div class="num">8E.65</div>
+<p>If $f$, $g$ are strictly increasing, prove that $f+g$ is strictly increasing. Does the same hold for the product $f\cdot g$? Give a counterexample.</p></div>
+<div class="grp2"><h3>Exercises for Section 8.1.5 – The Elementary Functions</h3></div>
+<div class="ex from-book"><div class="num">8E.66</div>
+<p>A cable suspended between two pylons takes the shape of a catenary $y=20\cosh\left(\dfrac{x}{20}\right)$ (in m), for $x\in[-15,15]$. Compute the height at the midpoint ($x=0$) and at the ends, as well as the sag (their difference).</p></div>
+<div class="ex from-book"><div class="num">8E.67</div>
+<p>For the inverse trigonometric functions $\arcsin$, $\arccos$, $\arctan$: write down the domain and the range and sketch their graphs qualitatively. Which of them are odd?</p></div>
+<div class="ex from-book"><div class="num">8E.68</div>
+<p>Solving a logarithmic equation: $\log_2(x-1)+\log_2(x+1)=3$. (α) What is the domain? (β) Use the properties of logarithms to simplify. (γ) Solve. (δ) Check that the solution satisfies the restrictions.</p></div>
+<div class="ex from-book"><div class="num">8E.69</div>
+<p><strong>Exponential model:</strong> A radioactive material decays according to $N(t)=N_0\,e^{-kt}$. If the half-life is $T_{1/2}=5$ years, find $k$ and compute the percentage that remains after $12$ years.</p></div>
+<div class="grp2"><h3>Exercises for Section 8.2 – Parametric and Polar Curves</h3></div>
+<div class="ex from-book"><div class="num">8E.70</div>
+<p>For the cycloid $x=a(t-\sin t)$, $y=a(1-\cos t)$ find the points at which it meets the $x$ axis, as well as its maximum height. Interpret the result physically, considering that the curve is traced out by a point on the rim of a wheel.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">8E.71</div>
+<p><strong>Composition and periodicity:</strong> Let $f$ be periodic with period $T$ and let $g$ be any function. (α) Prove that $T$ is a <em>period</em> of $g\circ f$ &mdash; not necessarily the fundamental one; give an example where the fundamental period of $g\circ f$ is strictly smaller than $T$. (β) Is $f\circ g$ necessarily periodic? Give an example and a counterexample.</p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group D)</h3></div>
+<div class="grp2"><h3>Exercises for Section 8.1.1 – One-to-One Functions and the Inverse Function</h3></div>
+<div class="ex from-book"><div class="num">8E.72</div>
+<p>Compute the exact values: $\arcsin\left(\tfrac12\right)$, $\arccos\left(-\tfrac{\sqrt3}{2}\right)$, $\arctan(-1)$, $\arcsin\left(\sin\tfrac{5\pi}{6}\right)$. Be careful with the last one: why is the result not $\tfrac{5\pi}{6}$?</p></div>
+<div class="grp2"><h3>Exercises for Section 8.1.2 – Even, Odd and Periodic Functions</h3></div>
+<div class="ex from-book"><div class="num">8E.73</div>
+<p>If $f$ is periodic with period $T$, show that $g(x)=f(2x)$ is periodic with period $T/2$. What holds for $h(x)=f(x)+c$?</p></div>
+<div class="grp2"><h3>Exercises for Section 8.1.3 – Operations on Functions and Composition</h3></div>
+<div class="ex from-book"><div class="num">8E.74</div>
+<p>Prove that if $f\circ g=\mathrm{id}$ and $g\circ f=\mathrm{id}$, then $f$ is one-to-one and $g=f^{-1}$.</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

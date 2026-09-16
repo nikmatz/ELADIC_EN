@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Linear Transformations</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">⊕ Additional Exercises</div>
+  <h1>Linear Transformations</h1>
+  <p class="chapter-label">Chapter 4 · Linear Transformations</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by section of the chapter</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">Unless stated otherwise, vectors are written as columns and matrices are taken
+  relative to the standard basis. Every result is checked by you: the matrix of a transformation is checked
+  by applying it to the basis vectors, the kernel and the image by the rank–nullity theorem,
+  the inverse by composition and the geometric character by a rough sketch. You do not need a solutions manual.</p>
+</div>
+
+<div class="grp"><h2>A. Testing for linearity</h2>
+<p class="lead">Linearity is proved for <em>arbitrary</em> vectors, while it is refuted by a single counterexample.</p></div>
+
+<div class="ex"><div class="num">4E.1 <span class="lvl l1">BASIC</span></div>
+<p>Examine which of the following maps are linear transformations:<br>
+(α) $T(x,y)=(3x-2y,\ y)$, &nbsp; (β) $T(x,y)=(x,\ |y|)$, &nbsp;
+(γ) $T(x,y,z)=(x-z,\ 0,\ 2y)$, &nbsp; (δ) $T(x,y)=(x+2,\ y-1)$.</p>
+<p class="ypod">Hint: start from the image of the zero vector, it is the fastest test.</p></div>
+
+<div class="ex"><div class="num">4E.2 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>In the vector space $M_{2\times2}(\mathbb{R})$ of $2\times2$ matrices consider the maps
+$T(A)=\mathrm{tr}(A)$ and $S(A)=\det(A)$, with values in $\mathbb{R}$.
+Show that $T$ is linear, while $S$ is not.</p>
+<p class="ypod">Hint: for $S$ examine homogeneity, that is, the relation between $S(cA)$ and $c\,S(A)$.</p></div>
+
+<div class="ex"><div class="num">4E.3 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $T:\mathbb{R}^n\to\mathbb{R}^m$ be linear. Prove by induction on $k$ that
+$\displaystyle T\!\left(\sum_{i=1}^{k}c_i\mathbf{v}_i\right)=\sum_{i=1}^{k}c_i\,T(\mathbf{v}_i)$
+for all $c_1,\dots,c_k\in\mathbb{R}$ and $\mathbf{v}_1,\dots,\mathbf{v}_k\in\mathbb{R}^n$.
+Conclude that a linear transformation is completely determined by its values on the vectors of a basis.</p></div>
+
+<div class="grp"><h2>B. The matrix of a linear transformation</h2>
+<p class="lead">The columns of the matrix are nothing other than the images of the basis vectors of the domain.</p></div>
+
+<div class="ex"><div class="num">4E.4 <span class="lvl l1">BASIC</span></div>
+<p>Find the matrix of $T:\mathbb{R}^2\to\mathbb{R}^3$ with $T(x,y)=(2x-y,\ x+3y,\ y)$ relative to the standard bases,
+state its dimensions and compute $T(1,-2)$.</p></div>
+
+<div class="ex"><div class="num">4E.5 <span class="lvl l1">BASIC</span></div>
+<p>The transformation $T:\mathbb{R}^4\to\mathbb{R}^2$ is defined by $T(x_1,x_2,x_3,x_4)=(x_1-x_3,\ x_2+2x_4)$.
+Write its matrix relative to the standard bases and compute $T(1,0,1,2)$.</p></div>
+
+<div class="ex"><div class="num">4E.6 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $D:\mathcal{P}_2\to\mathcal{P}_1$ be the differentiation map, $D(p)=p'$.
+(α) Show that $D$ is linear. (β) Find its matrix relative to the bases $\{1,x,x^2\}$ of $\mathcal{P}_2$
+and $\{1,x\}$ of $\mathcal{P}_1$. (γ) Use the matrix to compute the derivative of
+$p(x)=4-3x+2x^2$ and verify the result by direct differentiation.</p></div>
+
+<div class="grp"><h2>C. Kernel and image</h2>
+<p class="lead">The kernel is the solution set of a homogeneous system, while the image is spanned by the columns of the matrix.</p></div>
+
+<div class="ex"><div class="num">4E.7 <span class="lvl l1">BASIC</span></div>
+<p>For $T:\mathbb{R}^3\to\mathbb{R}^2$ with $T(x,y,z)=(x+y+z,\ x+y+z)$ find a basis of $\ker T$,
+a basis of $\mathrm{Im}\,T$ and verify the rank–nullity theorem.</p></div>
+
+<div class="ex"><div class="num">4E.8 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $A=\begin{bmatrix}1&amp;1&amp;0\\0&amp;1&amp;1\\1&amp;0&amp;-1\end{bmatrix}$ and $T(\mathbf{x})=A\mathbf{x}$.
+Find a basis of $\ker T$, a basis of $\mathrm{Im}\,T$ and the rank of $A$. Is $T$ one-to-one?</p>
+<p class="ypod">Hint: observe the relation of the third row to the first two before you begin the elimination.</p></div>
+
+<div class="ex"><div class="num">4E.9 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $T:\mathbb{R}^n\to\mathbb{R}^m$ be linear and $\mathbf{v}_1,\dots,\mathbf{v}_k\in\mathbb{R}^n$.
+Show that if $T(\mathbf{v}_1),\dots,T(\mathbf{v}_k)$ are linearly independent, then so are
+$\mathbf{v}_1,\dots,\mathbf{v}_k$. Does the converse hold?</p>
+<p class="ypod">Hint: for the converse look for a counterexample with a transformation that has a nontrivial kernel.</p></div>
+
+<div class="ex"><div class="num">4E.10 <span class="lvl l3">ADVANCED</span></div>
+<p>A linear transformation $T:\mathbb{R}^3\to\mathbb{R}^3$ is sought with $\ker T=\mathrm{span}\{(1,1,1)\}$ and
+$\mathrm{Im}\,T$ the plane $x+y+z=0$. (α) Check by the rank–nullity theorem that the two
+requirements are compatible. (β) Construct explicitly a matrix $A$ that satisfies them and justify
+the choice of its columns. (γ) Is $T$ onto $\mathbb{R}^3$?</p></div>
+
+<div class="grp"><h2>D. Composition of transformations</h2>
+<p class="lead">Composition corresponds to a product of matrices, with the order of the factors reversed relative to the order of application.</p></div>
+
+<div class="ex"><div class="num">4E.11 <span class="lvl l1">BASIC</span></div>
+<p>Let $T:\mathbb{R}^3\to\mathbb{R}^2$ have matrix $A=\begin{bmatrix}1&amp;0&amp;-1\\2&amp;1&amp;0\end{bmatrix}$ and
+$S:\mathbb{R}^2\to\mathbb{R}^2$ matrix $B=\begin{bmatrix}0&amp;1\\1&amp;0\end{bmatrix}$.
+Find the matrix of $S\circ T$ and explain why the composition $T\circ S$ is not defined.</p></div>
+
+<div class="ex"><div class="num">4E.12 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The transformation $T:\mathbb{R}^3\to\mathbb{R}^3$ is defined by $T(\mathbf{e}_1)=\mathbf{e}_2$, $T(\mathbf{e}_2)=\mathbf{e}_3$
+and $T(\mathbf{e}_3)=\mathbf{e}_1$. (α) Write the matrix $C$ of $T$. (β) Compute $C^2$ and $C^3$.
+(γ) Find the smallest positive integer $k$ with $C^k=I$ and interpret the result.</p></div>
+
+<div class="ex"><div class="num">4E.13 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $T:\mathbb{R}^2\to\mathbb{R}^2$ be linear with $T\circ T=0$ and $T\neq 0$.
+(α) Show that $\mathrm{Im}\,T\subseteq\ker T$. (β) Using the rank–nullity theorem show that
+$\mathrm{Im}\,T=\ker T$. (γ) Construct a $2\times2$ matrix with this property.</p></div>
+
+<div class="grp"><h2>E. Geometric transformations of the plane</h2>
+<p class="lead">Every $2\times2$ matrix tells a geometric story: rotation, reflection, scaling, projection or shear.</p></div>
+
+<div class="ex"><div class="num">4E.14 <span class="lvl l1">BASIC</span></div>
+<p>Describe geometrically the transformation $T(\mathbf{x})=A\mathbf{x}$ for:<br>
+(α) $A=\begin{bmatrix}-1&amp;0\\0&amp;-1\end{bmatrix}$, &nbsp;
+(β) $A=\begin{bmatrix}1&amp;0\\0&amp;3\end{bmatrix}$, &nbsp;
+(γ) $A=\begin{bmatrix}0&amp;1\\-1&amp;0\end{bmatrix}$.</p>
+<p class="ypod">Hint: follow the images of $\mathbf{e}_1$ and $\mathbf{e}_2$ and draw them.</p></div>
+
+<div class="ex"><div class="num">4E.15 <span class="lvl l1">BASIC</span></div>
+<p>Write the matrix of the counterclockwise rotation by $45^\circ$ and
+compute the images of the vectors $(\sqrt{2},0)^{T}$ and $(0,\sqrt{2})^{T}$.</p></div>
+
+<div class="ex"><div class="num">4E.16 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>A figure in the plane is first rotated by $90^\circ$ and then scaled by a factor $2$
+along the $x$ axis and $\tfrac{1}{2}$ along the $y$ axis. (α) Find the overall matrix.
+(β) Compute its determinant and deduce what happens to the area of the figure.</p>
+<p class="ypod">Hint: pay attention to the order of the factors in the product of the matrices.</p></div>
+
+<div class="grp"><h2>F. Isomorphism and change of basis</h2>
+<p class="lead">The same map changes matrix when the basis changes, and the relation connecting the two matrices is similarity.</p></div>
+
+<div class="ex"><div class="num">4E.17 <span class="lvl l1">BASIC</span></div>
+<p>Show that $T:\mathbb{R}^3\to\mathbb{R}^3$ with $T(x,y,z)=(x+y,\ y+z,\ z)$ is an isomorphism and
+find the matrix of the inverse transformation.</p></div>
+
+<div class="ex"><div class="num">4E.18 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Show that the set $\mathcal{B}=\{(1,1,0),\,(0,1,1),\,(1,0,1)\}$ is a basis of $\mathbb{R}^3$ and
+find the coordinates $[\mathbf{v}]_{\mathcal{B}}$ of $\mathbf{v}=(2,4,2)^{T}$.</p>
+<p class="ypod">Hint: for the first part a single determinant suffices.</p></div>
+
+<div class="ex"><div class="num">4E.19 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The transformation $T:\mathbb{R}^2\to\mathbb{R}^2$ has, relative to the standard basis, the matrix
+$A=\begin{bmatrix}4&amp;-2\\1&amp;1\end{bmatrix}$. For the basis $\mathcal{B}=\{(1,1),\,(2,1)\}$ compute
+the matrix $[T]_{\mathcal{B}}=P^{-1}AP$, where $P$ is the matrix whose columns are the vectors of $\mathcal{B}$.
+Comment on the form that results and on what it means geometrically for the two directions of $\mathcal{B}$.</p></div>
+
+<div class="grp"><h2>G. Applications to computer graphics</h2>
+<p class="lead">In homogeneous coordinates translation too becomes a multiplication by a $3\times3$ matrix.</p></div>
+
+<div class="ex"><div class="num">4E.20 <span class="lvl l1">BASIC</span></div>
+<p>Write in homogeneous coordinates the $3\times3$ matrices (α) of the translation by $(3,-2)$ and
+(β) of the scaling by a factor $2$ along both axes. Apply each of them separately to the point $(1,4)$.</p></div>
+
+<div class="ex"><div class="num">4E.21 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Consider the reflection in the $y$ axis followed by a translation by $(4,0)$.
+(α) Write the overall $3\times3$ matrix in homogeneous coordinates.
+(β) Apply it to the triangle with vertices $(0,0)$, $(1,0)$, $(0,2)$.
+(γ) Show that the overall transformation is a reflection in a vertical line and determine it.</p>
+<p class="ypod">Hint: write the formula $(x,y)\mapsto(\ldots,\ldots)$ given by the overall matrix and look for the fixed points.</p></div>
+
+<div class="grp"><h2>H. Mixed and composite problems</h2>
+<p class="lead">Here matrix, kernel, image, determinant and geometry are combined in the same exercise.</p></div>
+
+<div class="ex"><div class="num">4E.22 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The linear transformation $T:\mathbb{R}^2\to\mathbb{R}^2$ maps the unit square with vertices
+$(0,0)$, $(1,0)$, $(1,1)$, $(0,1)$ onto the parallelogram with vertices $(0,0)$, $(2,1)$, $(3,3)$, $(1,2)$ respectively.
+(α) Find the matrix of $T$. (β) Compute the area of the image. (γ) Is $T$ invertible?</p></div>
+
+<div class="ex"><div class="num">4E.23 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $A=\dfrac{1}{2}\begin{bmatrix}1&amp;\sqrt{3}\\ \sqrt{3}&amp;-1\end{bmatrix}$.
+(α) Show that $A^{2}=I$ and that $\det A=-1$. (β) Determine all vectors $\mathbf{x}$ with $A\mathbf{x}=\mathbf{x}$.
+(γ) Determine all vectors $\mathbf{x}$ with $A\mathbf{x}=-\mathbf{x}$ and interpret the transformation geometrically.</p>
+<p class="ypod">Hint: in parts (β) and (γ) write the required relation as a homogeneous linear system $(A\mp I)\mathbf{x}=\mathbf{0}$.</p></div>
+
+<div class="ex"><div class="num">4E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>(α) Show that there is no linear transformation $T:\mathbb{R}^3\to\mathbb{R}^3$ with $\ker T=\mathrm{Im}\,T$.
+(β) Show that in $\mathbb{R}^4$ such a transformation does exist, by constructing its matrix explicitly
+and verifying both requirements.</p>
+<p class="ypod">Hint: what does the rank–nullity theorem say about the dimension of the domain, if the two subspaces coincide?</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">4E.25</div>
+<p>Find $\ker(T)$ and $\mathrm{Im}(T)$ for $T\begin{bmatrix}x\\y\end{bmatrix}=\begin{bmatrix}x-y\\2x-2y\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">4E.26</div>
+<p>If $T: \mathbb{R}^4 \to \mathbb{R}^3$ and $\dim(\ker T)=2$, find $\dim(\mathrm{Im}\,T)$.</p></div>
+<div class="ex from-book"><div class="num">4E.27</div>
+<p>Let $T(x,y,z)=(x+y,\, 2z)$. Find $\dim(\ker T)$, $\dim(\mathrm{Im}\,T)$ and verify the rank–nullity theorem.</p></div>
+<div class="ex from-book"><div class="num">4E.28</div>
+<p>Show that the transformation $T(x,y)=(x+y, 2x-y)$ is linear. Find its representation matrix relative to the standard basis.</p></div>
+<div class="ex from-book"><div class="num">4E.29</div>
+<p>For the transformation $T:\mathbb{R}^2\to\mathbb{R}^2$ with $T(1,0)=(2,3)$ and $T(0,1)=(-1,4)$, compute $T(3,2)$ and the representation matrix.</p></div>
+<div class="ex from-book"><div class="num">4E.30</div>
+<p>If $A=\begin{bmatrix}1&amp;0\\0&amp;-1\end{bmatrix}$, describe geometrically $T(\mathbf{x})=A\mathbf{x}$.</p></div>
+<div class="ex from-book"><div class="num">4E.31</div>
+<p>Find the matrix of $T_2 \circ T_1$ for $A_1=\begin{bmatrix}1&amp;2\\0&amp;1\end{bmatrix}$, $A_2=\begin{bmatrix}1&amp;0\\3&amp;1\end{bmatrix}$.</p></div>
+<div class="ex from-book"><div class="num">4E.32</div>
+<p>Find the matrix of the composition: first a rotation by $90°$, then a reflection in the line $y=x$.</p></div>
+<div class="ex from-book"><div class="num">4E.33</div>
+<p>If $T_1$ has matrix $\begin{bmatrix}1&amp;0\\0&amp;2\end{bmatrix}$ and $T_2$ has matrix $\begin{bmatrix}0&amp;1\\1&amp;0\end{bmatrix}$, find the matrix of the composition $T_2 \circ T_1$ and compare it with that of $T_1\circ T_2$.</p></div>
+<div class="ex from-book"><div class="num">4E.34</div>
+<p>Apply a rotation by $30°$ to the vector $\mathbf{v}=(2,0)^T$.</p></div>
+<div class="ex from-book"><div class="num">4E.35</div>
+<p>Show that the projection $P=\begin{bmatrix}1&amp;0\\0&amp;0\end{bmatrix}$ satisfies $P^2=P$ and find its eigenvectors.</p></div>
+<div class="ex from-book"><div class="num">4E.36</div>
+<p>Find the matrix of the reflection in the line $y=-x$ and check that its square is the identity matrix.</p></div>
+<div class="ex from-book"><div class="num">4E.37</div>
+<p>Show that $T: \mathbb{R}^2 \to \mathbb{R}^2$, $T(x,y)=(x+y, x-y)$ is an isomorphism.</p></div>
+<div class="ex from-book"><div class="num">4E.38</div>
+<p>If $\mathbf{b}_1=\begin{bmatrix}2\\1\end{bmatrix}$, $\mathbf{b}_2=\begin{bmatrix}1\\3\end{bmatrix}$, find the change-of-basis matrix $P$ and $P^{-1}$.</p></div>
+<div class="ex from-book"><div class="num">4E.39</div>
+<p>For $A=\begin{bmatrix}0&amp;-1\\1&amp;0\end{bmatrix}$ (a rotation by $90°$), find the matrix relative to the basis $\mathcal{B}=\{(1,1),(1,-1)\}/\sqrt{2}$.</p></div>
+<div class="ex from-book"><div class="num">4E.40</div>
+<p>Let $\mathcal{B}=\{(1,2),(3,5)\}$ be a basis of $\R^2$. Find the coordinates $[\mathbf{v}]_{\mathcal{B}}$ of $\mathbf{v}=(4,9)^T$ and explain why the map $\mathbf{v}\mapsto[\mathbf{v}]_{\mathcal{B}}$ is an isomorphism.</p></div>
+<div class="ex from-book"><div class="num">4E.41</div>
+<p>The transformation $T:\mathbb{R}^2\to\mathbb{R}^2$ has $[T]_{\mathcal{B}}=\begin{bmatrix}2&amp;0\\0&amp;-1\end{bmatrix}$ relative to the basis $\mathcal{B}=\{(1,1),(1,-1)\}$. Find the matrix $A$ of $T$ relative to the <em>standard</em> basis (the reverse direction: $A=P[T]_{\mathcal{B}}P^{-1}$).</p></div>
+<div class="ex from-book"><div class="num">4E.42</div>
+<p>A transformation $T$ satisfies $T(1,0)=(3,1)$ and $T(1,1)=(4,3)$. (α) Find its matrix relative to the standard basis. (β) Is it invertible? (γ) Compute $T^{-1}(1,1)$.</p></div>
+<div class="ex from-book"><div class="num">4E.43</div>
+<p>Write the $3\times3$ matrix (homogeneous coordinates) for a rotation by an angle $\theta=30°$ about the origin. Apply it to the point $(\sqrt{3},1)^T$.</p></div>
+<div class="ex from-book"><div class="num">4E.44</div>
+<p>Write the matrix of an affine transformation in homogeneous coordinates: a translation by $(2,3)$ and then a scaling by $(2,1)$.</p></div>
+<div class="ex from-book"><div class="num">4E.45</div>
+<p>Rotate the point $(1,0)$ by $45°$ about the point $(1,1)$ (translation, rotation, inverse translation).</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">4E.46</div>
+<p>If $T: \mathbb{R}^5\to\mathbb{R}^3$ and $\mathrm{rank}(T)=2$, what is $\dim(\ker T)$? Give an example of such a $T$.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 4.1 – Definition of a Linear Transformation</h3></div>
+<div class="ex from-book"><div class="num">4E.47</div>
+<p>Find the image of $T: \mathbb{R}^2 \to \mathbb{R}^3$ with $T(x,y) = (x,\, y,\, x+y)$ and give a basis of it.</p></div>
+<div class="grp2"><h3>Exercises for Section 4.3 – Composition of Transformations</h3></div>
+<div class="ex from-book"><div class="num">4E.48</div>
+<p>Find the matrix of the inverse transformation of $T: \mathbb{R}^2 \to \mathbb{R}^2$ with $T(x,y) = (x+y,\, x-y)$.</p></div>
+<div class="grp2"><h3>Exercises for Section 4.4 – Geometric Interpretation</h3></div>
+<div class="ex from-book"><div class="num">4E.49</div>
+<p>The transformation $T: \mathbb{R}^2 \to \mathbb{R}^2$ has matrix $A=\begin{bmatrix}2&amp;0\\0&amp;3\end{bmatrix}$. Apply it to the circle $x^2+y^2=1$. What shape results?</p></div>
+<div class="grp2"><h3>Exercises for Section 4.5 – Isomorphism and Change of Basis</h3></div>
+<div class="ex from-book"><div class="num">4E.50</div>
+<p>Let $T:\mathbb{R}^2\to\mathbb{R}^2$ be the reflection in the line $y=mx$. (α) Find its matrix as a function of $m$. (β) Verify that $T^2=\mathrm{Id}$ and $\det T=-1$. (γ) What are the two eigendirections (geometrically, without computing eigenvalues)?</p></div>
+<div class="grp2"><h3>Exercises for Section 4.6 – Applications: Graphics and Homogeneous Coordinates</h3></div>
+<div class="ex from-book"><div class="num">4E.51</div>
+<p>A CAD drawing undergoes a shear $\begin{bmatrix}1&amp;0.5\\0&amp;1\end{bmatrix}$ and then a translation by $(1,2)$. (α) Write the overall $3\times3$ matrix. (β) Explain why the area of every figure remains unchanged.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">4E.52</div>
+<p>Let $T:V\to W$ be linear. Show that $T$ is <em>one-to-one</em> if and only if $\ker T=\{\mathbf{0}\}$ and that then $T$ maps every linearly independent set of vectors of $V$ to a linearly independent set of $W$.</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

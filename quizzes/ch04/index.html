@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz: Linear Transformations</title>
+  <link rel="stylesheet" href="../../_shared/book.css">
+  <script>
+    MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    .quiz-question{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+    .q-num{font-size:.78rem;font-family:sans-serif;font-weight:700;color:#c85000;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}
+    .quiz-question p{font-size:1.05rem;margin-bottom:.8rem}
+    .quiz-question label{display:block;padding:.45rem .7rem;margin:.25rem 0;border-radius:6px;cursor:pointer;border:1px solid #e8edf2;transition:background .15s}
+    .quiz-question label:hover{background:#f0f4ff}
+    label.correct{background:#d4edda!important;border-color:#28a745!important}
+    label.wrong{background:#f8d7da!important;border-color:#dc3545!important}
+    .explanation{margin-top:.8rem;padding:.8rem 1rem;background:#fffbf0;border-left:4px solid #c85000;border-radius:0 6px 6px 0;font-size:.95rem}
+    .hidden{display:none}
+    .btn{background:#c85000;color:#fff;border:none;padding:.6rem 1.4rem;border-radius:6px;cursor:pointer;font-size:1rem;font-weight:600;margin:.4rem .3rem}
+    .btn:hover{background:#a54000}
+    .btn-secondary{background:#004080}
+    .btn-secondary:hover{background:#003060}
+    #score-box{background:#fff;border:2px solid #c85000;border-radius:10px;padding:1.5rem;text-align:center;margin-top:1.5rem;display:none}
+    #score-box h2{color:#c85000;font-size:1.6rem}
+    .progress-bar{background:#eee;border-radius:6px;height:10px;margin:1rem 0}
+    .progress-fill{background:#c85000;height:10px;border-radius:6px;transition:width .4s}
+    .info-card{background:#fff;border-left:4px solid #c85000;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+  
+  .author-stamp {
+    background: linear-gradient(135deg, #004080 0%, #003060 100%);
+    color: #fff;
+    padding: 0.8rem 1.4rem;
+    font-family: 'Georgia', serif;
+    font-size: 0.82rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    border-top: 3px solid #c85000;
+    margin-top: 2rem;
+  }
+  .author-stamp .stamp-book {
+    font-style: italic;
+    color: #ffd080;
+    font-weight: bold;
+  }
+  .author-stamp .stamp-author {
+    opacity: 0.9;
+  }
+
+  
+  .hint-btn{background:#eef;border:1px solid #99c;color:#225;border-radius:6px;padding:.25rem .6rem;font-size:.8rem;cursor:pointer;margin:.4rem 0 .2rem}
+  .hint-tip{background:#eef6ff;border-left:4px solid #3b82f6;border-radius:0 6px 6px 0;padding:.5rem .8rem;margin:.2rem 0 .4rem;font-size:.92rem;color:#234}
+  #retry-wrong{background:#004080}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#c85000 60%,#be5000)">
+  <div class="type-badge badge-quiz">✓ Quiz</div>
+  <h1>Linear Transformations</h1>
+  <p class="chapter-label">Chapter 4 · Linear Maps</p>
+</header>
+<main>
+  <div class="info-card">
+    <h2 style="margin-bottom:.4rem;color:#c85000">Self-Assessment</h2>
+    <p>10 questions on the definition, kernel, image, representation matrix and change of basis.</p>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+  <div id="best-score" style="text-align:center;font-weight:600;color:#004080;margin:.3rem 0 .8rem"></div>
+  <form id="quiz-form">
+<div class="quiz-question" id="q1">
+  <div class="q-num">Question 1 / 10</div>
+  <p>Every linear transformation maps the zero vector to the zero vector.</p>
+  <label><input type="radio" name="q1" value="1"> Correct</label>
+  <label><input type="radio" name="q1" value="0"> Incorrect</label>
+  <div class="explanation hidden" id="exp1"><strong>✓ Answer:</strong> Correct<br><em>$T(0)=T(0\cdot v)=0\cdot T(v)=0$. A basic property.</em></div>
+</div>
+
+<div class="quiz-question" id="q2">
+  <div class="q-num">Question 2 / 10</div>
+  <p>The kernel of $T: V\to W$ is:</p>
+  <label><input type="radio" name="q2" value="0"> a) the set $\{T(v): v\in V\}$</label>
+  <label><input type="radio" name="q2" value="1"> b) the set $\{v\in V: T(v)=0\}$</label>
+  <label><input type="radio" name="q2" value="2"> c) the space $W$</label>
+  <label><input type="radio" name="q2" value="3"> d) the set $\{T(v): T(v)\neq 0\}$</label>
+  <div class="explanation hidden" id="exp2"><strong>✓ Answer:</strong> b) the set $\{v\in V: T(v)=0\}$<br><em>$\ker T=\{v\in V: T(v)=0_W\}$. The image is $\{T(v): v\in V\}$.</em></div>
+</div>
+
+<div class="quiz-question" id="q3">
+  <div class="q-num">Question 3 / 10</div>
+  <p>$T$ is one-to-one (injective) if and only if:</p>
+  <label><input type="radio" name="q3" value="0"> a) $\mathrm{Im}(T)=W$</label>
+  <label><input type="radio" name="q3" value="1"> b) $\ker T=\{0\}$</label>
+  <label><input type="radio" name="q3" value="2"> c) $\dim V=\dim W$</label>
+  <label><input type="radio" name="q3" value="3"> d) $T(v)\neq 0$ for every $v$</label>
+  <div class="explanation hidden" id="exp3"><strong>✓ Answer:</strong> b) $\ker T=\{0\}$<br><em>$T$ is one-to-one $\Leftrightarrow$ $\ker T=\{0\}$ (trivial kernel).</em></div>
+</div>
+
+<div class="quiz-question" id="q4">
+  <div class="q-num">Question 4 / 10</div>
+  <p>The nullity plus the rank of a linear transformation $T:V\to W$ equals $\dim V$.</p>
+  <label><input type="radio" name="q4" value="1"> Correct</label>
+  <label><input type="radio" name="q4" value="0"> Incorrect</label>
+  <div class="explanation hidden" id="exp4"><strong>✓ Answer:</strong> Correct<br><em>Rank–nullity theorem: $\dim(\ker T)+\dim(\mathrm{Im}T)=\dim V$.</em></div>
+</div>
+
+<div class="quiz-question" id="q5">
+  <div class="q-num">Question 5 / 10</div>
+  <p>If $T: \mathbb{R}^3\to\mathbb{R}^2$ and $\mathrm{rank}(T)=2$, then $\dim(\ker T)=$</p>
+  <label><input type="radio" name="q5" value="0"> a) 0</label>
+  <label><input type="radio" name="q5" value="1"> b) 1</label>
+  <label><input type="radio" name="q5" value="2"> c) 2</label>
+  <label><input type="radio" name="q5" value="3"> d) 3</label>
+  <div class="explanation hidden" id="exp5"><strong>✓ Answer:</strong> b) 1<br><em>$\dim(\ker T)=\dim(\mathbb{R}^3)-\mathrm{rank}(T)=3-2=1$.</em></div>
+</div>
+
+<div class="quiz-question" id="q6">
+  <div class="q-num">Question 6 / 10</div>
+  <p>The representation matrix of $T$ depends on:</p>
+  <label><input type="radio" name="q6" value="0"> a) only $T$</label>
+  <label><input type="radio" name="q6" value="1"> b) the bases of $V$ and $W$</label>
+  <label><input type="radio" name="q6" value="2"> c) only the basis of $W$</label>
+  <label><input type="radio" name="q6" value="3"> d) the dimension of $V$</label>
+  <div class="explanation hidden" id="exp6"><strong>✓ Answer:</strong> b) the bases of $V$ and $W$<br><em>The representation matrix changes according to the bases chosen in the domain and the codomain.</em></div>
+</div>
+
+<div class="quiz-question" id="q7">
+  <div class="q-num">Question 7 / 10</div>
+  <p>A linear transformation $T:V\to V$ with $\ker T=\{0\}$ is an isomorphism if $\dim V&lt;\infty$.</p>
+  <label><input type="radio" name="q7" value="1"> Correct</label>
+  <label><input type="radio" name="q7" value="0"> Incorrect</label>
+  <div class="explanation hidden" id="exp7"><strong>✓ Answer:</strong> Correct<br><em>In finite dimension, one-to-one $\Leftrightarrow$ onto $\Leftrightarrow$ isomorphism.</em></div>
+</div>
+
+<div class="quiz-question" id="q8">
+  <div class="q-num">Question 8 / 10</div>
+  <p>The change of basis from $\mathcal{B}$ to $\mathcal{B}'$ is carried out by means of:</p>
+  <label><input type="radio" name="q8" value="0"> a) the determinant</label>
+  <label><input type="radio" name="q8" value="1"> b) the change-of-basis matrix $P$</label>
+  <label><input type="radio" name="q8" value="2"> c) back substitution</label>
+  <label><input type="radio" name="q8" value="3"> d) Gaussian elimination</label>
+  <div class="explanation hidden" id="exp8"><strong>✓ Answer:</strong> b) the change-of-basis matrix $P$<br><em>The change-of-basis matrix $P$ transforms the coordinates: $[v]_{\mathcal{B}'}=P^{-1}[v]_{\mathcal{B}}$.</em></div>
+</div>
+
+<div class="quiz-question" id="q9">
+  <div class="q-num">Question 9 / 10</div>
+  <p>If $T: \mathbb{R}^2\to\mathbb{R}^2$ is a rotation by $90°$, then its representation matrix with respect to the standard basis is:</p>
+  <label><input type="radio" name="q9" value="0"> a) $\begin{pmatrix}0&-1\\1&0\end{pmatrix}$</label>
+  <label><input type="radio" name="q9" value="1"> b) $\begin{pmatrix}1&0\\0&-1\end{pmatrix}$</label>
+  <label><input type="radio" name="q9" value="2"> c) $\begin{pmatrix}0&1\\-1&0\end{pmatrix}$</label>
+  <label><input type="radio" name="q9" value="3"> d) $\begin{pmatrix}-1&0\\0&1\end{pmatrix}$</label>
+  <div class="explanation hidden" id="exp9"><strong>✓ Answer:</strong> a) $\begin{pmatrix}0&-1\\1&0\end{pmatrix}$<br><em>Rotation by $\theta=90°$: $R=\begin{pmatrix}\cos90°&-\sin90°\\\sin90°&\cos90°\end{pmatrix}=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$.</em></div>
+</div>
+
+<div class="quiz-question" id="q10">
+  <div class="q-num">Question 10 / 10</div>
+  <p>The zero transformation $T(v)=0$ is linear.</p>
+  <label><input type="radio" name="q10" value="1"> Correct</label>
+  <label><input type="radio" name="q10" value="0"> Incorrect</label>
+  <div class="explanation hidden" id="exp10"><strong>✓ Answer:</strong> Correct<br><em>$T(\lambda u+\mu v)=0=\lambda\cdot0+\mu\cdot0=\lambda T(u)+\mu T(v)$. It satisfies the linearity properties.</em></div>
+</div>
+
+
+  </form>
+  <div style="text-align:center;margin:1.5rem 0">
+    <button class="btn" onclick="checkAll()">Check Answers</button>
+    <button class="btn btn-secondary" onclick="resetQuiz()">Try Again</button>
+  </div>
+  <div id="score-box">
+    <h2 id="score-text"></h2>
+    <p id="score-detail"></p>
+  </div>
+</main>
+<script>
+const ANSWERS = [1,1,1,1,1,1,1,1,0,1];
+const N = 10;
+
+function checkAll(){
+  let score=0;
+  for(let i=1;i<=N;i++){
+    const sel=document.querySelector(`input[name=q${i}]:checked`);
+    const expEl=document.getElementById(`exp${i}`);
+    const labels=document.querySelectorAll(`#q${i} label`);
+    labels.forEach(l=>l.classList.remove('correct','wrong'));
+    if(sel){
+      const correct=(parseInt(sel.value)===parseInt(ANSWERS[i-1]));
+      if(correct){score++;sel.parentElement.classList.add('correct');}
+      else{sel.parentElement.classList.add('wrong');
+            labels.forEach(l=>{
+              if(parseInt(l.querySelector('input').value)===parseInt(ANSWERS[i-1]))l.classList.add('correct');
+            });
+      }
+    }
+    expEl.classList.remove('hidden');
+  }
+  const pct=Math.round(score/N*100);
+  document.getElementById('prog').style.width=pct+'%';
+  const box=document.getElementById('score-box');
+  box.style.display='block';
+  const emoji=pct>=90?'🏆':pct>=70?'👍':pct>=50?'📚':'💪';
+  document.getElementById('score-text').textContent=emoji+' '+score+'/'+N+' ('+pct+'%)';
+  document.getElementById('score-detail').textContent=
+    pct>=90?'Excellent! Outstanding understanding.':
+    pct>=70?'Very good! Just a little review needed.':
+    pct>=50?'Fair, but you need more practice.':'Review the theory of the chapter.';
+  box.scrollIntoView({behavior:'smooth'});
+  if(typeof MathJax!=='undefined')MathJax.typesetPromise();
+}
+
+function resetQuiz(){
+  document.getElementById('quiz-form').reset();
+  document.querySelectorAll('.explanation').forEach(e=>e.classList.add('hidden'));
+  document.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+  document.getElementById('prog').style.width='0%';
+  document.getElementById('score-box').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// live progress
+document.addEventListener('change',function(e){
+  if(e.target.type==='radio'){
+    const answered=new Set([...document.querySelectorAll('input[type=radio]:checked')].map(r=>r.name)).size;
+    document.getElementById('prog').style.width=(answered/N*100)+'%';
+  }
+});
+
+/* ── Shuffle + best-score (added) ── */
+function _qShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function _qKey(){return 'quizbest:'+location.pathname;}
+function _qScore(){let s=0;for(let i=1;i<=N;i++){const sel=document.querySelector('input[name=q'+i+']:checked');if(sel&&parseInt(sel.value)===parseInt(ANSWERS[i-1]))s++;}return s;}
+function _qRenderBest(){const el=document.getElementById('best-score');if(!el)return;let b=null;try{b=localStorage.getItem(_qKey());}catch(e){}el.textContent=(b!==null)?('🏅 Best score: '+b+' / '+N):'';}
+function _qSaveBest(){try{const s=_qScore();const p=parseInt(localStorage.getItem(_qKey()));if(isNaN(p)||s>p)localStorage.setItem(_qKey(),String(s));}catch(e){}_qRenderBest();}
+(function(){const _o=checkAll;checkAll=function(){_o();_qSaveBest();};})();
+function _qShuffleQuiz(){
+  const form=document.getElementById('quiz-form');if(!form)return;
+  const qs=[...form.querySelectorAll('.quiz-question')];
+  qs.forEach(q=>{const exp=q.querySelector('.explanation');const labels=[...q.querySelectorAll('label')];_qShuffle(labels).forEach(l=>q.insertBefore(l,exp));});
+  _qShuffle(qs).forEach((q,idx)=>{form.appendChild(q);const num=q.querySelector('.q-num');if(num)num.textContent='Question '+(idx+1)+' / '+N;});
+}
+document.addEventListener('DOMContentLoaded',function(){_qShuffleQuiz();_qRenderBest();if(typeof MathJax!=='undefined'&&MathJax.typesetPromise)MathJax.typesetPromise();});
+
+/* ── Topic feedback + hints + retry-wrong (added) ── */
+const QTOPICS = ["Linear transformation", "Kernel", "One-to-one maps", "Rank-nullity theorem", "Rank and nullity", "Representation matrix", "Isomorphism", "Change of basis", "Rotation matrix", "Zero transformation"];
+const QHINTS = ["Use homogeneity: T(0·v)=0·T(v).", "The kernel lives in the domain V, not in the image.", "Think about when T(u)=T(v) implies u=v, using the kernel.", "Add the dimensions of the kernel and of the image.", "dim ker = dim V − rank, with dim V=3.", "Changing the basis also changes the matrix.", "In finite dimension, one-to-one ⇔ onto.", "The change-of-basis matrix links the coordinates in two bases.", "Put θ=90° into the general rotation matrix with cos/sin.", "Check additivity and homogeneity for T(v)=0."];
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.quiz-question').forEach(function(q){
+    const n=parseInt(q.id.replace('q',''));
+    const h=QHINTS[n-1]; if(!h) return;
+    if(q.querySelector('.hint-btn')) return;
+    const exp=q.querySelector('.explanation');
+    const btn=document.createElement('button'); btn.type='button'; btn.className='hint-btn'; btn.textContent='💡 Hint';
+    const tip=document.createElement('div'); tip.className='hint-tip hidden'; tip.textContent=h;
+    btn.addEventListener('click',function(){tip.classList.toggle('hidden');});
+    q.insertBefore(btn,exp); q.insertBefore(tip,exp);
+  });
+});
+function _qWrongAnswered(){const w=[];for(let i=1;i<=N;i++){const sel=document.querySelector('input[name=q'+i+']:checked');if(sel&&parseInt(sel.value)!==parseInt(ANSWERS[i-1]))w.push(i);}return w;}
+function _qTopicFeedback(){
+  const wrong=_qWrongAnswered();
+  const topics=[...new Set(wrong.map(i=>QTOPICS[i-1]).filter(Boolean))];
+  let el=document.getElementById('topic-fb');
+  if(!el){el=document.createElement('p');el.id='topic-fb';el.style.marginTop='.6rem';el.style.fontWeight='600';document.getElementById('score-box').appendChild(el);}
+  el.textContent= topics.length? ('📌 Topics to review: '+topics.join(' · ')) : '🎯 No weak spots — well done!';
+}
+function _qShowRetry(){
+  const wrong=_qWrongAnswered();
+  let btn=document.getElementById('retry-wrong');
+  if(!btn){
+    btn=document.createElement('button'); btn.id='retry-wrong'; btn.className='btn'; btn.textContent='↻ Retry the ones you missed'; btn.style.marginTop='.6rem';
+    btn.addEventListener('click',function(){
+      _qWrongAnswered().forEach(function(i){
+        document.querySelectorAll('input[name=q'+i+']').forEach(r=>r.checked=false);
+        const q=document.getElementById('q'+i); if(q) q.querySelectorAll('label').forEach(l=>l.classList.remove('correct','wrong'));
+        const ex=document.getElementById('exp'+i); if(ex) ex.classList.add('hidden');
+      });
+      document.getElementById('score-box').style.display='none';
+      const first=document.querySelector('.quiz-question'); if(first) first.scrollIntoView({behavior:'smooth'});
+    });
+    document.getElementById('score-box').appendChild(btn);
+  }
+  btn.style.display= wrong.length? 'inline-block':'none';
+}
+(function(){const _o=checkAll;checkAll=function(){_o();_qTopicFeedback();_qShowRetry();};})();
+</script>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #c85000;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

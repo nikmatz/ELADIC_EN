@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: The Definite Integral</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">⊕ Additional Exercises</div>
+  <h1>The Definite Integral</h1>
+  <p class="chapter-label">Chapter 14 · The Definite Integral</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by topic</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p><strong>Careful &mdash; what is allowed.</strong> The Fundamental Theorem of Calculus
+  and the Newton&ndash;Leibniz formula $\displaystyle\int_a^b f(x)\,dx=F(b)-F(a)$ belong to Chapter 15
+  and may <em>not</em> be used here. Your tools are exclusively those of Chapters 0&ndash;14:
+  the definition as a limit of Riemann sums, the upper and lower Darboux sums, the signed
+  area of elementary figures, linearity, additivity over intervals, monotonicity,
+  the symmetries of even and odd functions, the bounds $m(b-a)\le\int_a^b f\le M(b-a)$
+  and the Mean Value Theorem for Integrals.</p>
+  <p class="ypod">Every result checks itself: always draw the figure and ask whether the sign and the order of magnitude
+  of your answer agree with the region. Every approximation by a Riemann sum must lie
+  between the lower and the upper sum of the same partition. You do not need a solutions manual.</p>
+</div>
+
+<div class="grp"><h2>A. Riemann sums</h2>
+<p class="lead">You build the sum, check the monotonicity and predict the sign of the error before doing the computation.</p></div>
+
+<div class="ex"><div class="num">14E.1 <span class="lvl l1">BASIC</span></div>
+<p>For $f(x)=2x+3$ on $[1,4]$ with $n=3$ equal subintervals, compute the midpoint sum $M_3$
+and compare it with the exact value of $\displaystyle\int_1^4 (2x+3)\,dx$, which you find <em>geometrically</em>
+as the area of a trapezoid. Explain why, for every linear function, the midpoint sum
+gives the exact integral for any $n$.</p>
+<p class="ypod">Hint: on each subinterval, the rectangle of height $f$ at the midpoint leaves out one triangle
+and encloses another. Compare the two triangles.</p></div>
+
+<div class="ex"><div class="num">14E.2 <span class="lvl l1">BASIC</span></div>
+<p>For $f(x)=\dfrac{1}{1+x^{2}}$ on $[0,1]$ with $n=4$, compute the right-endpoint sum $R_4$
+to three decimal places and decide, without knowing the exact value of the integral,
+whether it overestimates or underestimates $\displaystyle\int_0^1\frac{dx}{1+x^{2}}$. Justify your answer from the monotonicity of $f$.</p></div>
+
+<div class="ex"><div class="num">14E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Consider $f(x)=x$ on $[0,1]$ and the <em>non-uniform</em> partition
+$P:\ 0&lt;\tfrac14&lt;\tfrac12&lt;1$. Compute the lower and the upper Darboux sums $L(P)$ and $U(P)$,
+verify that they trap the value of $\displaystyle\int_0^1 x\,dx$ (which you find geometrically)
+and find the gap $U(P)-L(P)$. Then determine how many equal subintervals
+are enough for a uniform partition to give a smaller gap than the above.</p>
+<p class="ypod">Hint: $f$ is increasing, so the $m_i$ and the $M_i$ of each subinterval are found without effort.
+Careful: the $\Delta x_i$ are not all equal.</p></div>
+
+<div class="grp"><h2>B. The integral as a limit over partitions</h2>
+<p class="lead">The definition is read in both directions: from the sum to the integral and back.</p></div>
+
+<div class="ex"><div class="num">14E.4 <span class="lvl l1">BASIC</span></div>
+<p>Identify the limit
+$\displaystyle\lim_{n\to\infty}\sum_{i=1}^{n}\frac{3}{n}\left(1+\frac{3i}{n}\right)^{\!2}$
+as a definite integral, specifying explicitly $\Delta x$, the points $x_i$ and the limits of integration.
+You are not asked to compute it.</p></div>
+
+<div class="ex"><div class="num">14E.5 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Compute <em>directly from the definition</em>, with a uniform partition and right endpoints,
+$\displaystyle\int_1^3 (4-x)\,dx$ and verify the result geometrically, as the area of a trapezoid.</p>
+<p class="ypod">Hint: $\Delta x=\dfrac{2}{n}$, $x_i=1+\dfrac{2i}{n}$ and $\displaystyle\sum_{i=1}^{n} i=\frac{n(n+1)}{2}$.</p></div>
+
+<div class="ex"><div class="num">14E.6 <span class="lvl l3">ADVANCED</span></div>
+<p>(α) Prove, directly from the definition, that $\displaystyle\int_0^{b} x^{2}\,dx=\frac{b^{3}}{3}$ for every $b&gt;0$.
+(β) Conclude, by additivity over intervals and <em>without a new limit</em>, that
+$\displaystyle\int_a^{b} x^{2}\,dx=\frac{b^{3}-a^{3}}{3}$ for $0&lt;a&lt;b$.</p>
+<p class="ypod">Hint: $\displaystyle\sum_{i=1}^{n} i^{2}=\frac{n(n+1)(2n+1)}{6}$. In (β) write $[0,b]$ as the union of two intervals.</p></div>
+
+<div class="grp"><h2>C. Properties of the definite integral</h2>
+<p class="lead">You combine known values algebraically, without knowing the functions themselves.</p></div>
+
+<div class="ex"><div class="num">14E.7 <span class="lvl l1">BASIC</span></div>
+<p>You are given $\displaystyle\int_{-1}^{4} f(x)\,dx=10$, $\displaystyle\int_{-1}^{2} f(x)\,dx=3$ and
+$\displaystyle\int_{2}^{4} g(x)\,dx=-5$. Compute:
+(α) $\displaystyle\int_{2}^{4} f(x)\,dx$, \;
+(β) $\displaystyle\int_{4}^{2} f(x)\,dx$, \;
+(γ) $\displaystyle\int_{2}^{4}\bigl(3f(x)-2g(x)+1\bigr)\,dx$.</p></div>
+
+<div class="ex"><div class="num">14E.8 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For a continuous function $f$ on $[0,6]$ you are given $\displaystyle\int_0^2 f=4$, $\displaystyle\int_0^4 f=9$
+and $\displaystyle\int_0^6 f=5$. (α) Compute $\displaystyle\int_2^6 f$ and $\displaystyle\int_4^6 f$.
+(β) Prove that $f$ takes negative values at some point of $[4,6]$.</p>
+<p class="ypod">Hint: in (β) use the positivity property, by contradiction.</p></div>
+
+<div class="ex"><div class="num">14E.9 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $f$ be continuous on $[0,4]$ with $\displaystyle\int_0^4 f(x)\,dx=12$ and $0\le f(x)\le 5$ for every $x\in[0,4]$.
+(α) Show that there is a $x_0\in[0,4]$ with $f(x_0)&gt;2$.
+(β) Find a lower and an upper bound for $\displaystyle\int_0^2 f(x)\,dx$, as tight as you can.</p>
+<p class="ypod">Hint: in (β) write what is asked as $\int_0^4 f-\int_2^4 f$ and bound the subtracted term.</p></div>
+
+<div class="grp"><h2>D. Signed area</h2>
+<p class="lead">You draw the region first: you read the sign of each piece off the figure.</p></div>
+
+<div class="ex"><div class="num">14E.10 <span class="lvl l1">BASIC</span></div>
+<p>Compute <em>geometrically</em> $\displaystyle\int_{-2}^{3}(x-1)\,dx$ and $\displaystyle\int_{-2}^{3}|x-1|\,dx$
+and explain exactly where the difference between the two results comes from.</p></div>
+
+<div class="ex"><div class="num">14E.11 <span class="lvl l1">BASIC</span></div>
+<p>Compute geometrically $\displaystyle\int_{-3}^{0}\sqrt{9-x^{2}}\,dx$ and describe which part
+of the circular disk corresponds to the region of integration.</p>
+<p class="ypod">Hint: the graph of $y=\sqrt{9-x^{2}}$ is the upper semicircle of radius $3$ centered at the origin.</p></div>
+
+<div class="ex"><div class="num">14E.12 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $f$ be piecewise linear on $[0,6]$, with the successive endpoints of the line segments
+being the points $(0,-2)$, $(2,0)$, $(3,3)$, $(5,3)$ and $(6,0)$. Draw the graph
+and compute geometrically $\displaystyle\int_0^6 f(x)\,dx$ and $\displaystyle\int_0^6 |f(x)|\,dx$,
+interpreting their difference.</p>
+<p class="ypod">Hint: break $[0,6]$ at the points where the formula of $f$ changes and use additivity over intervals.</p></div>
+
+<div class="grp"><h2>E. Symmetries of even and odd functions</h2>
+<p class="lead">Before every computation, check whether the interval is symmetric and what the parity of the function is.</p></div>
+
+<div class="ex"><div class="num">14E.13 <span class="lvl l1">BASIC</span></div>
+<p>Explain, <em>without any computation</em>, why the integrals
+$\displaystyle\int_{-\pi}^{\pi} x\cos x\,dx$ and $\displaystyle\int_{-2}^{2}\frac{x^{3}}{1+x^{4}}\,dx$ vanish.
+Which property of each integrand do you use in each case?</p></div>
+
+<div class="ex"><div class="num">14E.14 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Given that $\displaystyle\int_0^2 x^{2}\,dx=\frac{8}{3}$, compute
+$\displaystyle\int_{-2}^{2}\bigl(3x^{2}-5x^{3}+4\bigr)\,dx$, justifying the contribution of each term separately.</p></div>
+
+<div class="ex"><div class="num">14E.15 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $f$ be even and $g$ odd, both integrable on $[-a,a]$.
+(α) Show that the product $f\cdot g$ is an odd function and conclude that
+$\displaystyle\int_{-a}^{a} f(x)g(x)\,dx=0$.
+(β) If in addition $\displaystyle\int_0^{3} f(x)\,dx=7$, find $\displaystyle\int_{-3}^{3} f(x)\,dx$ and
+$\displaystyle\int_{-3}^{0} f(x)\,dx$.</p></div>
+
+<div class="grp"><h2>F. The average value of a function</h2>
+<p class="lead">The average value is the height of the rectangle that has the same area as the region.</p></div>
+
+<div class="ex"><div class="num">14E.16 <span class="lvl l1">BASIC</span></div>
+<p>Find geometrically the average value $\bar f$ of $f(x)=5-2x$ on $[1,4]$ and the point $\xi$
+of the Mean Value Theorem for Integrals. Interpret the result on the basis of
+the signs of the two parts of the region.</p></div>
+
+<div class="ex"><div class="num">14E.17 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>The average value of a continuous function $f$ is $4$ on the interval $[0,3]$ and $1$ on $[3,7]$.
+Find the average value of $f$ on $[0,7]$ and explain why it is not equal to the arithmetic
+mean $\tfrac{4+1}{2}$ of the two values.</p>
+<p class="ypod">Hint: turn each average value into an integral before combining them.</p></div>
+
+<div class="ex"><div class="num">14E.18 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $f$ be continuous and strictly increasing on $[a,b]$. Prove that its average value
+satisfies $f(a)&lt;\bar f&lt;f(b)$ and that the point $\xi$ of the Mean Value Theorem is unique.</p>
+<p class="ypod">Hint: for the strict inequalities you need the fact that the integral of a continuous nonnegative
+function that is not identically zero is strictly positive.</p></div>
+
+<div class="grp"><h2>G. Estimates and inequalities</h2>
+<p class="lead">You bound the integrand first and the monotonicity of integration does the rest.</p></div>
+
+<div class="ex"><div class="num">14E.19 <span class="lvl l1">BASIC</span></div>
+<p>Show, <em>without computing the integral</em>, that
+$\displaystyle 2\le\int_0^{2}\sqrt{1+x^{3}}\,dx\le 6$.</p></div>
+
+<div class="ex"><div class="num">14E.20 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>(α) Prove that $\ln x\le x-1$ for every $x&gt;0$.
+(β) Conclude, by the monotonicity of integration, that
+$\displaystyle 0\le\int_1^{2}\ln x\,dx\le\frac{1}{2}$, where the upper bound follows geometrically, as the area of a triangle.</p>
+<p class="ypod">Hint: in (α) study the monotonicity of $h(x)=x-1-\ln x$ with the tools of Chapter 11.</p></div>
+
+<div class="ex"><div class="num">14E.21 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $f$ be continuous on $[0,1]$ with $0\le f(x)\le 1$ for every $x$.
+(α) Show that $\displaystyle\int_0^1 \bigl(f(x)\bigr)^{2}dx\le\int_0^1 f(x)\,dx$.
+(β) Prove that equality holds if and only if $f$ is constant, equal to $0$ or to $1$.</p>
+<p class="ypod">Hint: examine the sign of the difference $f-f^{2}$ and, in (β), combine with the intermediate value theorem.</p></div>
+
+<div class="grp"><h2>H. Mixed and composite problems</h2>
+<p class="lead">Here the tool is not given: you first identify which property opens up the problem.</p></div>
+
+<div class="ex"><div class="num">14E.22 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>For every function $h$ integrable on $[-a,a]$ we define
+$h_{+}(x)=\dfrac{h(x)+h(-x)}{2}$ and $h_{-}(x)=\dfrac{h(x)-h(-x)}{2}$.
+(α) Show that $h_{+}$ is even, $h_{-}$ is odd and $h=h_{+}+h_{-}$.
+(β) Conclude that $\displaystyle\int_{-a}^{a} h(x)\,dx=2\int_0^{a} h_{+}(x)\,dx$.
+(γ) Apply this to $h(x)=(x+1)^{2}$ on $[-1,1]$, given that $\displaystyle\int_0^1 x^{2}\,dx=\frac{1}{3}$.</p></div>
+
+<div class="ex"><div class="num">14E.23 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $f,g$ be continuous on $[a,b]$ with $\displaystyle\int_a^b f(x)\,dx=\int_a^b g(x)\,dx$.
+Prove that there exists a $\xi\in[a,b]$ with $f(\xi)=g(\xi)$.</p>
+<p class="ypod">Hint: work with the difference of the two functions and assume, for contradiction, that it never vanishes.</p></div>
+
+<div class="ex"><div class="num">14E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>Write the limit
+$\displaystyle\lim_{n\to\infty}\left(\frac{1}{n+1}+\frac{1}{n+2}+\cdots+\frac{1}{2n}\right)$
+as a definite integral on $[0,1]$ and, <em>without computing it</em>, show that its value
+lies in the interval $\left[\tfrac{1}{2},1\right]$.</p>
+<p class="ypod">Hint: factor out $\tfrac{1}{n}$ in order to recognize $\Delta x$ and the $x_i=\tfrac{i}{n}$.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">14E.25</div>
+<p>For $f(x)=x^2$ on $[0,2]$ with $n=4$, compute the left-endpoint sum $L_4$ and show that $L_4\le\displaystyle\int_0^2x^2\,dx\le R_4$, where $R_4$ is the corresponding right-endpoint sum (compute this one too). Explain why this trapping holds for an increasing $f$.</p></div>
+<div class="ex from-book"><div class="num">14E.26</div>
+<p>For $f(x)=x+1$ on $[0,4]$ with $n=4$, compute $L_4$ and $R_4$ and show that their mean equals <em>exactly</em> the value of the integral (the area of a trapezoid). Why does this happen for linear functions?</p></div>
+<div class="ex from-book"><div class="num">14E.27</div>
+<p>For $f(x)=\sqrt{x}$ on $[0,4]$ with $n=4$, compute $R_4$ to three decimal places.</p></div>
+<div class="ex from-book"><div class="num">14E.28</div>
+<p>For $f(x)=x^3$ on $[0,1]$ with $n=5$, compute $L_5$ and $R_5$ and give bounds for $\displaystyle\int_0^1 x^3\,dx$.</p></div>
+<div class="ex from-book"><div class="num">14E.29</div>
+<p>For $f(x)=e^{-x}$ on $[0,1]$ with $n=4$, compute the midpoint sum $M_4$.</p></div>
+<div class="ex from-book"><div class="num">14E.30</div>
+<p>For $f(x)=\dfrac{1}{x}$ on $[1,2]$ with $n=4$, compute $L_4$ and $R_4$ and verify that $L_4-R_4=\bigl(f(1)-f(2)\bigr)\Delta x$. Explain why this formula holds for every monotone $f$.</p></div>
+<div class="ex from-book"><div class="num">14E.31</div>
+<p>Write the limit $\displaystyle\lim_{n\to\infty}\sum_{i=1}^{n}\frac{1}{n}\sqrt{\frac{i}{n}}$ as a definite integral, identifying $\Delta x$ and $x_i$.</p></div>
+<div class="ex from-book"><div class="num">14E.32</div>
+<p>Compute from the definition (right endpoints) $\displaystyle\int_0^2 (2x+1)\,dx$ and verify geometrically.</p></div>
+<div class="ex from-book"><div class="num">14E.33</div>
+<p>Compute from the definition $\displaystyle\int_0^1 x^3\,dx$ (hint: $\sum_{i=1}^{n} i^3=\left[\tfrac{n(n+1)}{2}\right]^2$).</p></div>
+<div class="ex from-book"><div class="num">14E.34</div>
+<p>Identify the limit $\displaystyle\lim_{n\to\infty}\sum_{i=1}^{n}\frac{\pi}{n}\sin\!\left(\frac{i\pi}{n}\right)$ as a definite integral and write it down.</p></div>
+<div class="ex from-book"><div class="num">14E.35</div>
+<p>Compute $\displaystyle\int_0^3(2x+1)\,dx$ <em>geometrically</em> (the area of a trapezoid) and verify it approximately by a right-endpoint Riemann sum for $n=3$.</p></div>
+<div class="ex from-book"><div class="num">14E.36</div>
+<p>Compute geometrically $\displaystyle\int_{-2}^{2}\sqrt{4-x^2}\,dx$ (a semicircle of radius $2$).</p></div>
+<div class="ex from-book"><div class="num">14E.37</div>
+<p>Compute geometrically $\displaystyle\int_0^2|x-1|\,dx$ (two triangles).</p></div>
+<div class="ex from-book"><div class="num">14E.38</div>
+<p>Show geometrically that $\displaystyle\int_{-1}^{1}3x\,dx=0$ and generalize: for every odd $f$ we have $\displaystyle\int_{-a}^{a}f(x)\,dx=0$.</p></div>
+<div class="ex from-book"><div class="num">14E.39</div>
+<p>Compute geometrically $\displaystyle\int_0^5(3-x)\,dx$ and explain which part of the region counts <em>negatively</em>.</p></div>
+<div class="ex from-book"><div class="num">14E.40</div>
+<p>If $\displaystyle\int_0^4 f(x)\,dx=9$ and $\displaystyle\int_0^1 f(x)\,dx=2$, find $\displaystyle\int_1^4 f(x)\,dx$ and the average value of $f$ on $[1,4]$.</p></div>
+<div class="ex from-book"><div class="num">14E.41</div>
+<p>If $\displaystyle\int_0^5 f(x)\,dx=10$ and $\displaystyle\int_0^2 f(x)\,dx=4$, find $\displaystyle\int_2^5 f(x)\,dx$.</p></div>
+<div class="ex from-book"><div class="num">14E.42</div>
+<p>By splitting into an odd and an even part, compute $\displaystyle\int_{-1}^{1}(x^3+x^2)\,dx$, given that $\displaystyle\int_0^1 x^2\,dx=\tfrac{1}{3}$.</p></div>
+<div class="ex from-book"><div class="num">14E.43</div>
+<p>Show, <em>without computing</em>, that $\dfrac{1}{2}\leq\displaystyle\int_0^1\frac{dx}{1+x}\leq 1$.</p></div>
+<div class="ex from-book"><div class="num">14E.44</div>
+<p>Using the bounds $m(b-a)\le\displaystyle\int_a^b f\le M(b-a)$, show that $0\le\displaystyle\int_0^1 x^2 e^{-x}\,dx\le 1$ and, observing that $e^{-x}\le 1$ on $[0,1]$, improve the upper bound to $\tfrac{1}{3}$.</p></div>
+<div class="ex from-book"><div class="num">14E.45</div>
+<p>Let $f$ be continuous on $[0,1]$ with $2\leq f(x)\leq 5$ for every $x$. What can you say about $\displaystyle\int_0^1 f(x)\,dx$ and about the average value $\bar f$?</p></div>
+<div class="ex from-book"><div class="num">14E.46</div>
+<p>For $f(x)=x^2$ on $[0,2]$ find the $\xi$ of the Mean Value Theorem for Integrals, given that $\displaystyle\int_0^2 x^2\,dx=\tfrac{8}{3}$.</p></div>
+<div class="ex from-book"><div class="num">14E.47</div>
+<p>Show, <em>without computing</em>, that the average value of $\sin x$ on $[0,\pi]$ lies strictly between $0$ and $1$.</p></div>
+<div class="ex from-book"><div class="num">14E.48</div>
+<p><strong>Average temperature:</strong> The temperature increases linearly from $10\,^{\circ}$C to $26\,^{\circ}$C within $8$ hours. Find geometrically the average temperature over the interval and the moment at which it is attained.</p></div>
+<div class="ex from-book"><div class="num">14E.49</div>
+<p><strong>Average velocity:</strong> A vehicle moves with $v(t)=20+5t$ (m/s) for $t\in[0,4]$ s. Compute <em>geometrically</em> the displacement and the average velocity and verify that the average velocity equals $v(2)$.</p></div>
+<div class="ex from-book"><div class="num">14E.50</div>
+<p><strong>The mass of a cable:</strong> A cable of length $4$ m has linear density $\lambda(x)=2+0.5x$ (kg/m). Express the mass as a definite integral (a limit of Riemann sums) and compute it <em>geometrically</em>.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">14E.51</div>
+<p>Let $f$ be continuous on $[0,1]$. Show that there exists a $\xi\in[0,1]$ with $\displaystyle\int_0^1 f(x)\,dx=f(\xi)$ and give the geometric interpretation (an equivalent rectangle of the same area).</p></div>
+<div class="ex from-book"><div class="num">14E.52</div>
+<p>Write $\displaystyle\lim_{n\to\infty}\sum_{i=1}^{n}\frac{i}{n^2}$ as a definite integral and compute it from the definition.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 14.1 – Riemann Sums</h3></div>
+<div class="ex from-book"><div class="num">14E.53</div>
+<p>For $f(x)=x$ on $[0,1]$ with a uniform partition into $n$ points, show that $U(f,P_n)-L(f,P_n)=\dfrac{1}{n}\to 0$ and conclude, on the basis of the Integrability Theorem, that $f$ is integrable.</p></div>
+<div class="grp2"><h3>Exercises for Section 14.1 – Definition &amp; Integrability</h3></div>
+<div class="ex from-book"><div class="num">14E.54</div>
+<p>Write the limit $\displaystyle\lim_{n\to\infty}\sum_{i=1}^{n}\frac{n}{n^2+i^2}$ as a definite integral on $[0,1]$ (hint: divide numerator and denominator by $n^2$).</p></div>
+<div class="grp2"><h3>Exercises for Section 14.2 – Geometric Interpretation &amp; Signed Area</h3></div>
+<div class="ex from-book"><div class="num">14E.55</div>
+<p>Show geometrically that $\displaystyle\int_0^b x\,dx=\dfrac{b^2}{2}$ for every $b&gt;0$ and interpret it as the area of a triangle.</p></div>
+<div class="grp2"><h3>Exercises for Section 14.3 – Properties of the Definite Integral</h3></div>
+<div class="ex from-book"><div class="num">14E.56</div>
+<p>Prove that for an even $f$ we have $\displaystyle\int_{-a}^{a}f=2\int_0^{a}f$, while for an odd $f$ we have $\displaystyle\int_{-a}^{a}f=0$ (hint: additivity and symmetry of the Riemann sums).</p></div>
+<div class="grp2"><h3>Exercises for Section 14.3 – The Mean Value Theorem for Integrals &amp; the Average Value</h3></div>
+<div class="ex from-book"><div class="num">14E.57</div>
+<p>Prove the Mean Value Theorem for Integrals, starting from the comparison $m(b-a)\le\displaystyle\int_a^b f\le M(b-a)$ and applying the Intermediate Value Theorem.</p></div>
+<div class="grp2"><h3>Exercises for Section 14.4 – Applications</h3></div>
+<div class="ex from-book"><div class="num">14E.58</div>
+<p><strong>Displacement vs distance:</strong> A particle moves with $v(t)=t-2$ (m/s) for $t\in[0,4]$&nbsp;s. Find <em>geometrically</em> (α) the displacement $\displaystyle\int_0^4 v\,dt$ and (β) the total distance traveled $\displaystyle\int_0^4|v|\,dt$, explaining the difference between them.</p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group C)</h3></div>
+<div class="grp2"><h3>Exercises for Section 14.1 – Riemann Sums</h3></div>
+<div class="ex from-book"><div class="num">14E.59</div>
+<p><strong>Darboux sums:</strong> For $f(x)=x^2$ on $[0,1]$ with a partition into $4$ equal subintervals, compute the lower sum $L(f,P)$ and the upper sum $U(f,P)$ and find the gap $U(f,P)-L(f,P)$.</p></div>
+<div class="grp2"><h3>Exercises for Section 14.1 – Definition &amp; Integrability</h3></div>
+<div class="ex from-book"><div class="num">14E.60</div>
+<p>State the Integrability Theorem and examine which of the following are integrable on $[0,1]$: (α)&nbsp;$f(x)=x^2$, (β)&nbsp;the step function $f(x)=0$ for $x&lt;\tfrac12$ and $f(x)=1$ for $x\ge\tfrac12$, (γ)&nbsp;$f(x)=\tfrac{1}{x}$ for $x&gt;0$ with $f(0)=0$. Justify your answer.</p></div>
+<div class="grp2"><h3>Exercises for Section 14.3 – Properties of the Definite Integral</h3></div>
+<div class="ex from-book"><div class="num">14E.61</div>
+<p>Prove, on the basis of the convention about the limits, that $\displaystyle\int_a^b f(x)\,dx=-\int_b^a f(x)\,dx$ and that $\displaystyle\int_a^a f(x)\,dx=0$.</p></div>
+<div class="ex from-book"><div class="num">14E.62</div>
+<p>Let $f$ be continuous with $f(x)\ge 0$ on $[a,b]$ and $\displaystyle\int_a^b f(x)\,dx=0$. Prove that $f(x)=0$ for every $x\in[a,b]$.</p></div>
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group D)</h3></div>
+<div class="grp2"><h3>Exercises for Section 14.3 – The Mean Value Theorem for Integrals &amp; the Average Value</h3></div>
+<div class="ex from-book"><div class="num">14E.63</div>
+<p>Find geometrically the average value of $f(x)=|x|$ on $[-2,2]$ and the corresponding $\xi$. Is it unique?</p></div>
+<div class="grp2"><h3>Exercises for Section 14.4 – Applications</h3></div>
+<div class="ex from-book"><div class="num">14E.64</div>
+<p><strong>Energy:</strong> The power consumed by a machine was measured every $2$&nbsp;min: $P=4,\;7,\;9,\;6$ (in kW) at the midpoints of the four subintervals of $[0,8]$&nbsp;min. Estimate the total energy by a midpoint sum and express the result in kWh.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">14E.65</div>
+<p>Give (α) an example of a bounded, <em>not</em> continuous but integrable function on $[0,1]$ and (β) an example of a bounded <em>non-</em>integrable function. Justify your answer with upper/lower sums.</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>

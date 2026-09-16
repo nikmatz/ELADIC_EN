@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Additional Exercises: Limits and Continuity of a Function</title>
+<link rel="stylesheet" href="../../_shared/book.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],macros:{R:'{\\mathbb{R}}',Span:'{\\operatorname{span}}',tr:'{\\operatorname{tr}}',rank:'{\\operatorname{rank}}',Ker:'{\\operatorname{Ker}}',Image:'{\\operatorname{Im}}',Det:'{\\operatorname{det}}',sgn:'{\\operatorname{sgn}}',vecu:'{\\mathbf{u}}',vecv:'{\\mathbf{v}}',vecw:'{\\mathbf{w}}',veca:'{\\mathbf{a}}',vecb:'{\\mathbf{b}}',vecc:'{\\mathbf{c}}',vecx:'{\\mathbf{x}}',vecy:'{\\mathbf{y}}',vecz:'{\\mathbf{z}}',vece:'{\\mathbf{e}}',vecr:'{\\mathbf{r}}',vecp:'{\\mathbf{p}}',vecq:'{\\mathbf{q}}',vecA:'{\\mathbf{A}}',vecB:'{\\mathbf{B}}',vecF:'{\\mathbf{F}}',vecM:'{\\mathbf{M}}',veczero:'{\\mathbf{0}}'}}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<style>
+ .info-card{background:#fff;border-left:4px solid #003888;border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin-bottom:1.5rem;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+ .grp{margin:2rem 0 1rem}
+ .grp h2{color:#003888;font-size:1.25rem;border-bottom:2px solid #dde3ea;padding-bottom:.35rem}
+ .grp .lead{font-size:.92rem;color:#555;margin-top:.4rem}
+ .ex{background:#fff;border:1.5px solid #dde3ea;border-radius:10px;padding:.9rem 1.2rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+ .ex .num{font-size:.75rem;font-family:sans-serif;font-weight:700;color:#003888;letter-spacing:.05em;margin-bottom:.35rem}
+ .lvl{float:right;font-size:.68rem;font-weight:700;padding:.12rem .5rem;border-radius:10px;color:#fff}
+ .l1{background:#0a8a4a}.l2{background:#c07000}.l3{background:#a5203c}
+ .ex p{margin:.2rem 0}
+
+ .grp2{margin:1.3rem 0 .6rem}
+ .grp2 h3{color:#00265e;font-size:1.02rem;font-weight:600;border-left:3px solid #003888;padding-left:.6rem}
+ ol.sub{margin:.35rem 0 .1rem 1.4rem;list-style-type:lower-greek}
+ ol.sub li{margin:.15rem 0}
+ .from-book{background:#f2f6fb;border:1.5px dashed #a9bcd4}
+ .ypod{font-size:.88rem;color:#666;font-style:italic;margin-top:.35rem}
+</style>
+</head>
+<body>
+<header class="page-header" style="background:linear-gradient(135deg,#003888 60%,#00265e)">
+  <div class="type-badge badge-extra">⊕ Additional Exercises</div>
+  <h1>Limits and Continuity of a Function</h1>
+  <p class="chapter-label">Chapter 9 · Limits and Continuity of a Function</p>
+</header>
+<main>
+
+<div class="info-card">
+  <p><strong>How to use them.</strong> The exercises are arranged <em>by technique</em>
+  and, within each group, in increasing order of difficulty:
+  <span class="lvl l1">BASIC</span> <span class="lvl l2">INTERMEDIATE</span> <span class="lvl l3">ADVANCED</span>.</p>
+  <p class="ypod">Every indeterminate form is handled using only the tools of the present
+  chapter: factorization, multiplication by the conjugate expression, division by the dominant
+  power, the fundamental limit $\displaystyle\lim_{x\to0}\frac{\sin x}{x}=1$ and the Squeeze
+  Theorem. The derivative and L'Hôpital's rule have not been introduced yet and may not
+  be used. At every step justify which limit law you are applying.</p>
+</div>
+
+<div class="grp"><h2>A. Limits — basic computations</h2>
+<p class="lead">When the function is continuous at the point, the limit follows by direct substitution; check that first.</p></div>
+
+<div class="ex"><div class="num">9E.1 <span class="lvl l1">BASIC</span></div>
+<p>Evaluate: (α) $\displaystyle\lim_{x\to-1}\left(x^4-2x^2+3x\right)$,   (β) $\displaystyle\lim_{x\to2}\frac{x^2+3}{x+5}$.</p></div>
+
+<div class="ex"><div class="num">9E.2 <span class="lvl l1">BASIC</span></div>
+<p>Evaluate: (α) $\displaystyle\lim_{x\to3}\sqrt{2x^2-5}$,   (β) $\displaystyle\lim_{x\to0}\frac{x^3-2x+5}{x^2+1}$.</p>
+<p class="ypod">Hint: state explicitly which limit law allows interchanging the limit and the root.</p></div>
+
+<div class="ex"><div class="num">9E.3 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Suppose that $\displaystyle\lim_{x\to2}f(x)=4$ and $\displaystyle\lim_{x\to2}g(x)=-2$. Evaluate
+$\displaystyle\lim_{x\to2}\frac{3f(x)-\bigl(g(x)\bigr)^2}{f(x)+g(x)}$, justifying each step by the corresponding limit law.</p>
+<p class="ypod">Which condition must be checked before the quotient law is applied?</p></div>
+
+<div class="grp"><h2>B. Indeterminate forms and roots</h2>
+<p class="lead">Form $\tfrac{0}{0}$: cancel the common factor by factoring, by the conjugate expression or by a suitable substitution.</p></div>
+
+<div class="ex"><div class="num">9E.4 <span class="lvl l1">BASIC</span></div>
+<p>Evaluate: (α) $\displaystyle\lim_{x\to1}\frac{x^2+x-2}{x^2+2x-3}$,   (β) $\displaystyle\lim_{x\to2}\frac{x^3-3x^2+2x}{x^2-4}$.</p></div>
+
+<div class="ex"><div class="num">9E.5 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Evaluate: (α) $\displaystyle\lim_{x\to0}\frac{\sqrt{4+x}-\sqrt{4-x}}{x}$,   (β) $\displaystyle\lim_{x\to2}\frac{\sqrt{x+2}-2}{x-2}$.</p>
+<p class="ypod">Hint: multiply numerator and denominator by the conjugate of the numerator.</p></div>
+
+<div class="ex"><div class="num">9E.6 <span class="lvl l3">ADVANCED</span></div>
+<p>Evaluate $\displaystyle\lim_{x\to1}\frac{\sqrt[3]{x}-1}{\sqrt{x}-1}$  $(x&gt;0)$.</p>
+<p class="ypod">Hint: set $x=t^6$ with $t&gt;0$; as $x\to1$ we have $t\to1$. Both roots then become polynomials in $t$.</p></div>
+
+<div class="grp"><h2>C. One-sided limits</h2>
+<p class="lead">Absolute values, piecewise formulas and zeros of the denominator require a separate study from the left and from the right.</p></div>
+
+<div class="ex"><div class="num">9E.7 <span class="lvl l1">BASIC</span></div>
+<p>For $\displaystyle h(x)=\frac{x^2-x}{|x-1|}$ evaluate $\displaystyle\lim_{x\to1^-}h(x)$ and $\displaystyle\lim_{x\to1^+}h(x)$ and decide whether $\displaystyle\lim_{x\to1}h(x)$ exists.</p></div>
+
+<div class="ex"><div class="num">9E.8 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Evaluate $\displaystyle\lim_{x\to2^-}\frac{x-3}{x^2-4}$ and $\displaystyle\lim_{x\to2^+}\frac{x-3}{x^2-4}$.</p>
+<p class="ypod">Hint: study separately the sign of the numerator and the sign of the denominator on either side of $2$.</p></div>
+
+<div class="ex"><div class="num">9E.9 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $\displaystyle f(x)=\frac{1}{1+2^{1/x}}$, $x\neq0$. Evaluate the one-sided limits of $f$ at $x=0$ and examine whether $f$ extends to a continuous function at $x=0$.</p>
+<p class="ypod">Hint: examine first the behavior of the exponent $1/x$ and then of the power $2^{1/x}$ on either side of zero.</p></div>
+
+<div class="grp"><h2>D. Limits at infinity and asymptotes</h2>
+<p class="lead">Divide by the dominant power of $x$ and watch the sign when $x\to-\infty$.</p></div>
+
+<div class="ex"><div class="num">9E.10 <span class="lvl l1">BASIC</span></div>
+<p>Evaluate: (α) $\displaystyle\lim_{x\to+\infty}\frac{4x^3-2x+1}{x^3+5x^2}$,   (β) $\displaystyle\lim_{x\to-\infty}\frac{2x+1}{x^2-3}$.</p></div>
+
+<div class="ex"><div class="num">9E.11 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $\displaystyle f(x)=\frac{3x^2-12}{x^2-x-6}$. Determine its domain, all of its vertical and horizontal asymptotes, and examine its behavior at the points where the denominator vanishes.</p>
+<p class="ypod">Hint: factor numerator and denominator before drawing a conclusion; not every root of the denominator gives a vertical asymptote.</p></div>
+
+<div class="ex"><div class="num">9E.12 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Evaluate $\displaystyle\lim_{x\to+\infty}\left(\sqrt{x^2+x+1}-\sqrt{x^2-x}\right)$.</p>
+<p class="ypod">Hint: this is an indeterminate form $\infty-\infty$; multiply and divide by the sum of the two roots.</p></div>
+
+<div class="ex"><div class="num">9E.13 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $\displaystyle f(x)=\frac{x^3}{x^2+1}$. Show that $f$ has neither vertical nor horizontal asymptotes and find its oblique asymptote as $x\to+\infty$ and as $x\to-\infty$.</p>
+<p class="ypod">Hint: carry out the polynomial division and study the limit of the difference $f(x)-(\lambda x+\beta)$.</p></div>
+
+<div class="grp"><h2>E. Trigonometric limits and the squeeze theorem</h2>
+<p class="lead">Reduce everything to the fundamental limit $\lim_{x\to0}\frac{\sin x}{x}=1$; for bounded factors use the squeeze theorem.</p></div>
+
+<div class="ex"><div class="num">9E.14 <span class="lvl l1">BASIC</span></div>
+<p>Evaluate: (α) $\displaystyle\lim_{x\to0}\frac{\sin\frac{x}{2}}{x}$,   (β) $\displaystyle\lim_{x\to0}\frac{x}{\sin 4x}$.</p></div>
+
+<div class="ex"><div class="num">9E.15 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Evaluate $\displaystyle\lim_{x\to0}\frac{1-\cos x}{x\sin x}$.</p>
+<p class="ypod">Hint: multiply numerator and denominator by $1+\cos x$ and use the identity $1-\cos^2 x=\sin^2 x$.</p></div>
+
+<div class="ex"><div class="num">9E.16 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $f$ be a function defined on a neighborhood of $1$ for which $\bigl|f(x)-3\bigr|\le 5(x-1)^2$ for every $x\in\mathbb{R}$. Using the Squeeze Theorem, show that $\displaystyle\lim_{x\to1}f(x)$ exists, and determine it.</p></div>
+
+<div class="ex"><div class="num">9E.17 <span class="lvl l3">ADVANCED</span></div>
+<p>Evaluate $\displaystyle\lim_{x\to0}\frac{\sin(\sin x)}{x}$.</p>
+<p class="ypod">Hint: write the quotient as the product $\dfrac{\sin(\sin x)}{\sin x}\cdot\dfrac{\sin x}{x}$ and set $u=\sin x$, explaining why $u\neq0$ for $x$ near $0$ with $x\neq0$.</p></div>
+
+<div class="grp"><h2>F. Continuity and points of discontinuity</h2>
+<p class="lead">Continuity at $x_0$ means three things at once: the function is defined, the limit exists, and the two are equal.</p></div>
+
+<div class="ex"><div class="num">9E.18 <span class="lvl l1">BASIC</span></div>
+<p>Examine whether the function $f(x)=\begin{cases}\dfrac{x^2-5x+6}{x-2}, &amp; x\neq2\\[4pt] -1, &amp; x=2\end{cases}$ is continuous at $x=2$, checking each of the three conditions for continuity separately.</p></div>
+
+<div class="ex"><div class="num">9E.19 <span class="lvl l1">BASIC</span></div>
+<p>(α) Determine the set of points at which $\displaystyle f(x)=\frac{\sqrt{x+1}}{x^2-4}$ is continuous, justifying your answer with the theorems on continuity of operations and composition. (β) For $\displaystyle g(x)=\frac{x^2+x-6}{x^2+5x+6}$ locate all points of discontinuity and classify each one (removable or essential &mdash; here, infinite).</p>
+<p class="ypod">Hint: in (β) factor numerator and denominator first and study the two one-sided limits separately at each suspect point.</p></div>
+
+<div class="ex"><div class="num">9E.20 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find $\alpha,\beta\in\mathbb{R}$ so that $f(x)=\begin{cases}\dfrac{\sqrt{x+\beta}-3}{x}, &amp; x&gt;0\\[4pt] \alpha, &amp; x\le0\end{cases}$ is continuous at $x=0$.</p>
+<p class="ypod">Hint: for which value of $\beta$ can the right-hand limit be a real number? Answer that first.</p></div>
+
+<div class="grp"><h2>G. Bolzano's theorem and the intermediate value theorem</h2>
+<p class="lead">Construct a suitable auxiliary function, check continuity on a closed interval and opposite signs at the endpoints.</p></div>
+
+<div class="ex"><div class="num">9E.21 <span class="lvl l1">BASIC</span></div>
+<p>Show that the equation $\cos x=x$ has at least one solution in the interval $\left(0,\dfrac{\pi}{2}\right)$.</p>
+<p class="ypod">Hint: consider the function $g(x)=\cos x-x$ and check the hypotheses of the theorem.</p></div>
+
+<div class="ex"><div class="num">9E.22 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Let $f:[0,1]\to[0,1]$ be a continuous function. Prove that there exists $\xi\in[0,1]$ with $f(\xi)=\xi$ (a fixed point).</p>
+<p class="ypod">Hint: apply the theorem to $g(x)=f(x)-x$ and treat the cases $f(0)=0$ or $f(1)=1$ separately.</p></div>
+
+<div class="grp"><h2>H. Mixed — composite problems</h2>
+<p class="lead">Here limits, parameters and continuity are combined; first identify the structure of the problem.</p></div>
+
+<div class="ex"><div class="num">9E.23 <span class="lvl l2">INTERMEDIATE</span></div>
+<p>Find $\alpha,\beta\in\mathbb{R}$ such that $\displaystyle\lim_{x\to1}\frac{x^2+\alpha x+\beta}{x^2-1}=2$.</p>
+<p class="ypod">Hint: which necessary condition must the numerator satisfy at $x=1$ so that the limit does not become infinite?</p></div>
+
+<div class="ex"><div class="num">9E.24 <span class="lvl l3">ADVANCED</span></div>
+<p>Let $f$ be continuous on $[0,2]$ with $f(0)=f(2)$. Prove that there exists $c\in[0,1]$ with $f(c)=f(c+1)$.</p>
+<p class="ypod">Hint: consider $g(x)=f(x+1)-f(x)$ on $[0,1]$ and compare $g(0)$ and $g(1)$.</p></div>
+
+
+<div class="grp"><h2>From the printed list in the chapter</h2><p class="lead">Exercises moved here from the printed list, so that the chapter keeps a core of representative problems. They cover the full range of difficulty and are arranged in the order of the sections.</p></div>
+<div class="grp2"><h3>Exercises for the section</h3></div>
+<div class="ex from-book"><div class="num">9E.25</div>
+<p>Prove from the ($\varepsilon$-$\delta$) definition that $\lim_{x\to1}\dfrac{1}{x}=1$. Find an explicit $\delta(\varepsilon)$.</p></div>
+<div class="ex from-book"><div class="num">9E.26</div>
+<p>Let $f(x)=\begin{cases}x^2, &amp; x&lt;1\\ 2x-1, &amp; x\geq1\end{cases}$. Evaluate $\lim_{x\to1^-}f(x)$, $\lim_{x\to1^+}f(x)$ and decide whether $\lim_{x\to1}f(x)$ exists.</p></div>
+<div class="ex from-book"><div class="num">9E.27</div>
+<p>Examine whether $\lim_{x\to0}\dfrac{1}{x^2}$ exists, by examining $x\to0^+$ and $x\to0^-$.</p></div>
+<div class="ex from-book"><div class="num">9E.28</div>
+<p>Find $a\in\mathbb{R}$ so that $f(x)=\begin{cases}ax+3,&amp;x&lt;2\\x^2-1,&amp;x\geq2\end{cases}$ has a limit at $x=2$.</p></div>
+<div class="ex from-book"><div class="num">9E.29</div>
+<p>Find the following limits, if they exist: (α) $\lim_{x\to1}\dfrac{x^2-1}{x-1}$, (β) $\lim_{x\to4}\dfrac{\sqrt{x}-2}{x-4}$.</p></div>
+<div class="ex from-book"><div class="num">9E.30</div>
+<p>Use the limit laws to evaluate: (α) $\lim_{x\to3}(x^2-5x+6)$, (β) $\lim_{x\to2}\dfrac{x^3-8}{x-2}$, (γ) $\lim_{x\to+\infty}\dfrac{3x^2-5}{2x^2+7}$.</p></div>
+<div class="ex from-book"><div class="num">9E.31</div>
+<p>Evaluate: (α) $\lim_{x\to-2}\dfrac{x^2+5x+6}{x+2}$, (β) $\lim_{x\to3}\dfrac{x^3-27}{x-3}$, (γ) $\lim_{x\to3}\dfrac{x^2-9}{x^2-2x-3}$.</p></div>
+<div class="ex from-book"><div class="num">9E.32</div>
+<p>If $3-x^2\leq f(x)\leq 3+x^2$ for every $x\in\mathbb{R}$, find $\lim_{x\to0}f(x)$ using the Squeeze Theorem.</p></div>
+<div class="ex from-book"><div class="num">9E.33</div>
+<p>Evaluate: (α) $\lim_{x\to0}\dfrac{\sin 3x}{x}$, (β) $\lim_{x\to0}\dfrac{\sin(3x^2)}{x^2}$.</p></div>
+<div class="ex from-book"><div class="num">9E.34</div>
+<p>Evaluate: (α) $\lim_{x\to0}\dfrac{\sin 7x}{\sin 2x}$, (β) $\lim_{x\to0}\dfrac{1-\cos 2x}{x^2}$.</p></div>
+<div class="ex from-book"><div class="num">9E.35</div>
+<p>Using the Squeeze Theorem, show that $\lim_{x\to+\infty}\dfrac{\cos x}{x}=0$ and that $\lim_{x\to0}x^2\sin\dfrac{1}{x^2}=0$.</p></div>
+<div class="ex from-book"><div class="num">9E.36</div>
+<p>Evaluate: (α) $\lim_{x\to3^+}\dfrac{1}{x-3}$, (β) $\lim_{x\to3^-}\dfrac{1}{x-3}$, (γ) $\lim_{x\to3}\dfrac{1}{(x-3)^2}$.</p></div>
+<div class="ex from-book"><div class="num">9E.37</div>
+<p>Show that $\lim_{x\to\infty}\dfrac{5x^3-2x}{3x^3+x^2}=\dfrac{5}{3}$ by dividing numerator and denominator by $x^3$.</p></div>
+<div class="ex from-book"><div class="num">9E.38</div>
+<p>Check whether there are vertical asymptotes for $h(x)=\dfrac{x^2-1}{x^2-3x+2}$ and evaluate the corresponding one-sided infinite limits. What happens at $x=1$?</p></div>
+<div class="ex from-book"><div class="num">9E.39</div>
+<p>Find all asymptotes (vertical, horizontal, oblique) of $f(x)=\dfrac{2x^2-3x+1}{x+2}$. <em>Hint:</em> polynomial division.</p></div>
+<div class="ex from-book"><div class="num">9E.40</div>
+<p>Removable discontinuity: for which $c$ is the function $f(x)=\begin{cases}\dfrac{x^2-9}{x-3}&amp;x\neq3\\c&amp;x=3\end{cases}$ continuous at $x=3$?</p></div>
+<div class="ex from-book"><div class="num">9E.41</div>
+<p>Find parameters $a,b$ so that $f(x)=\begin{cases}ax+b&amp;x&lt;1\\2&amp;x=1\\bx^2+a&amp;x&gt;1\end{cases}$ is continuous everywhere and, in addition, $f(2)=5$. (Hint: set the one-sided limits at $x=1$ equal to $f(1)$.)</p></div>
+<div class="ex from-book"><div class="num">9E.42</div>
+<p>Continuity of a piecewise function: find $a,b$ so that $f(x)=\begin{cases}ax+b,&amp;x&lt;0\\x^2+1,&amp;0\leq x\leq 1\\ ax-b,&amp;x&gt;1\end{cases}$ is continuous everywhere. (α) Examine continuity at $x=0$ and $x=1$. (β) Set the one-sided limits equal. (γ) Solve the system.</p></div>
+<div class="ex from-book"><div class="num">9E.43</div>
+<p>Examine the continuity of $g(x)=\begin{cases}\dfrac{\sin 3x}{x},&amp;x&lt;0\\ 3,&amp;x=0\\ 3\cos x,&amp;x&gt;0\end{cases}$ at $x=0$.</p></div>
+<div class="ex from-book"><div class="num">9E.44</div>
+<p>Bolzano's theorem: show that $f(x)=x^3-x-1$ has at least one root in $(1,2)$. (α) Check the hypotheses. (β) Compute $f(1)$ and $f(2)$.</p></div>
+<div class="ex from-book"><div class="num">9E.45</div>
+<p>Apply Bolzano's theorem to show that the equation $x^5+x-3=0$ has at least one root in $[1,2]$, and prove that this root is unique (monotonicity).</p></div>
+<div class="ex from-book"><div class="num">9E.46</div>
+<p>Use the Intermediate Value Theorem to show that the equation $e^x=3-x$ has a solution in $(0,2)$.</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">9E.47</div>
+<p>Show that $g(x)=x\sin(1/x)$, $x\neq0$, extends continuously to $x=0$ with $g(0)=0$. Why does $\sin(1/x)$ <em>not</em> extend?</p></div>
+<div class="ex from-book"><div class="num">9E.48</div>
+<p><strong>Asymptotes and modeling.</strong> The cost of producing $x$ units is $K(x)=5000+20x$ (in euros). The <em>average</em> cost per unit is $\bar{K}(x)=K(x)/x$. (α) Find $\lim_{x\to0^+}\bar{K}(x)$ and $\lim_{x\to+\infty}\bar{K}(x)$. (β) Which asymptotes does $\bar{K}$have? (γ) Interpret the horizontal asymptote in economic terms.</p></div>
+
+
+<div class="grp2"><h3>Supplementary exercises from the printed list (group B)</h3></div>
+<div class="grp2"><h3>Exercises for Section 9.1.3 – Limit Laws and Algebraic Techniques</h3></div>
+<div class="ex from-book"><div class="num">9E.49</div>
+<p>Prove that $\lim_{x\to1}\dfrac{x^n-1}{x-1}=n$ for every $n\in\mathbb{N}$ (factor the numerator).</p></div>
+<div class="grp2"><h3>Exercises for Section 9.1.4 – The Squeeze Theorem and Trigonometric Limits</h3></div>
+<div class="ex from-book"><div class="num">9E.50</div>
+<p>Evaluate $\lim_{x\to\infty}x\sin\dfrac{1}{x}$ (hint: set $u=1/x$).</p></div>
+<div class="grp2"><h3>Exercises for Section 9.2 – Continuity of a Function</h3></div>
+<div class="ex from-book"><div class="num">9E.51</div>
+<p><strong>(For engineers)</strong> The temperature along a rod of length $1$ m is given by the continuous function $T(x)$, with $T(0)=15\,^{\circ}$C and $T(1)=45\,^{\circ}$C. Prove that there is a point of the rod whose temperature is exactly $30\,^{\circ}$C. Which theorem do you use?</p></div>
+<div class="grp2"><h3>Composite Problems</h3></div>
+<div class="ex from-book"><div class="num">9E.52</div>
+<p><strong>(For engineers) Terminal velocity.</strong> A body falling with air resistance has velocity $v(t)=v_{\infty}\left(1-e^{-kt}\right)$, $k&gt;0$. (α) Evaluate $\lim_{t\to+\infty}v(t)$ and interpret it physically. (β) Evaluate $\lim_{t\to0^+}\dfrac{v(t)}{t}$ and show that it equals $v_{\infty}k$ (the initial acceleration).</p></div>
+</main>
+<footer style="text-align:center;padding:1.2rem;margin-top:2rem;border-top:3px solid #003888;font-size:.82rem;color:#555"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small></footer>
+</body>
+</html>
