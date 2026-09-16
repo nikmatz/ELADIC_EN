@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 2×2 Determinant - Geometric Interpretation</title>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
+        header{background:linear-gradient(135deg,#004080,#0060a0);color:#fff;padding:1.2rem 1.5rem;border-bottom:3px solid #c85000}
+        header h1{font-size:1.3rem}
+        header p{font-size:.85rem;opacity:.85;margin-top:.3rem}
+        .container{max-width:950px;margin:0 auto;padding:1.5rem 1rem}
+        canvas{border:2px solid #dde3ea;border-radius:10px;background:#fff;display:block;margin:1.5rem auto}
+        .formula{background:#fffbf0;border-left:4px solid #c85000;padding:.7rem 1rem;border-radius:0 8px 8px 0;font-size:.9rem;margin-bottom:.8rem}
+        .btn{background:#004080;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:6px;cursor:pointer;font-size:.88rem;margin:.2rem}
+        .btn.orange{background:#c85000}.btn:hover{background:#003060}.btn.orange:hover{background:#a54000}
+        input[type=range]{width:100%;accent-color:#c85000}
+        .control-group{background:#fff;padding:1rem;border-radius:8px;margin-bottom:1rem;border:1px solid #dde3ea}
+        .control-group label{display:block;margin-top:.5rem;font-weight:bold;font-size:.9rem}
+        .slider-container{display:flex;align-items:center;gap:1rem;margin-top:.3rem}
+        .slider-value{min-width:50px;font-family:monospace;background:#f0f0f0;padding:.2rem .4rem;border-radius:4px;text-align:right}
+        .info-box{background:#e8f4f8;border-left:4px solid #004080;padding:.7rem 1rem;margin-bottom:1rem;border-radius:0 8px 8px 0}
+        .info-box strong{color:#004080}
+        .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+        .result-box{background:#fff;padding:1rem;border-radius:8px;border:2px solid #c85000;text-align:center;margin-top:1rem}
+        .result-box .label{font-weight:bold;color:#004080;margin-bottom:0.5rem}
+        .result-box .value{font-size:1.5rem;font-family:monospace;font-weight:bold}
+        .result-box .area{color:#008c46;margin-top:0.5rem}
+        @media(max-width:600px){.grid-2{grid-template-columns:1fr}}
+        .author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;font-family:Georgia,serif;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+        .stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+    
+    .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+    .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+  </style>
+</head>
+<body>
+    <header>
+        <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div><h1>The 2×2 Determinant - Geometric Interpretation</h1>
+        <p>Chapter 2: Matrix Algebra - Area of the parallelogram</p>
+    </header>
+
+    <div class="container">
+        <div class="info-box">
+            <strong>Learning objective:</strong> The determinant of a 2×2 matrix equals the area of the parallelogram formed by its two column vectors. A positive determinant = counterclockwise orientation, a negative one = clockwise.
+        </div>
+
+        <div class="formula">
+            <strong>Determinant:</strong> det(A) = a₁₁·a₂₂ - a₁₂·a₂₁ &nbsp;&nbsp;&nbsp;&nbsp; <strong>Area:</strong> |det(A)|
+        </div>
+
+        <div class="grid-2">
+            <div class="control-group">
+                <label>Entry a₁₁: <span id="a11-val">2</span></label>
+                <div class="slider-container">
+                    <input type="range" id="a11" min="-4" max="4" step="0.2" value="2">
+                </div>
+                <label>Entry a₁₂: <span id="a12-val">0</span></label>
+                <div class="slider-container">
+                    <input type="range" id="a12" min="-4" max="4" step="0.2" value="0">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Entry a₂₁: <span id="a21-val">0</span></label>
+                <div class="slider-container">
+                    <input type="range" id="a21" min="-4" max="4" step="0.2" value="0">
+                </div>
+                <label>Entry a₂₂: <span id="a22-val">2</span></label>
+                <div class="slider-container">
+                    <input type="range" id="a22" min="-4" max="4" step="0.2" value="2">
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <button class="btn orange" id="identity">Identity Matrix</button>
+            <button class="btn" id="reflection">Reflection (x-axis)</button>
+            <button class="btn" id="shear">Shear</button>
+            <button class="btn" id="dependent">Dependent Vectors</button>
+            <button class="btn" id="reset">Reset</button>
+        </div>
+
+        <canvas id="canvas" width="500" height="500"></canvas>
+
+        <div class="result-box">
+            <div class="label">Determinant (det A)</div>
+            <div class="value" id="det-value">4</div>
+            <div class="area">Area of the parallelogram: <strong id="area-value">4</strong> sq. units</div>
+        </div>
+    </div>
+
+    
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Theory & Justification — The 2×2 Determinant ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>The 2×2 Determinant</h3>
+    <p>The determinant det(A) measures how much a transformation scales area (in 2D).</p>
+    <div class="formula">det[[a,b],[c,d]] = ad − bc &nbsp;·&nbsp; det(A)≠0 ⟺ A invertible</div>
+    <p>Geometrically: |det(A)| = the area of the parallelogram formed by the columns. Sign: positive = orientation preserved, negative = orientation reversed.</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');
+  var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Theory & Justification — The 2×2 Determinant ▲':'📐 Theory & Justification — The 2×2 Determinant ▼';
+});
+</script>
+
+<script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const scale = 50;
+
+        let a11 = 2, a12 = 0, a21 = 0, a22 = 2;
+
+        const sliders = [
+            {id: 'a11', display: 'a11-val', setter: (v) => a11 = v},
+            {id: 'a12', display: 'a12-val', setter: (v) => a12 = v},
+            {id: 'a21', display: 'a21-val', setter: (v) => a21 = v},
+            {id: 'a22', display: 'a22-val', setter: (v) => a22 = v}
+        ];
+
+        sliders.forEach(slider => {
+            const el = document.getElementById(slider.id);
+            el.addEventListener('input', (e) => {
+                const val = parseFloat(e.target.value);
+                document.getElementById(slider.display).textContent = val.toFixed(1);
+                slider.setter(val);
+                updateDisplay();
+            });
+        });
+
+        document.getElementById('identity').addEventListener('click', () => {
+            [a11, a12, a21, a22] = [1, 0, 0, 1];
+            updateSliders();
+            updateDisplay();
+        });
+
+        document.getElementById('reflection').addEventListener('click', () => {
+            [a11, a12, a21, a22] = [1, 0, 0, -1];
+            updateSliders();
+            updateDisplay();
+        });
+
+        document.getElementById('shear').addEventListener('click', () => {
+            [a11, a12, a21, a22] = [1, 1, 0, 1];
+            updateSliders();
+            updateDisplay();
+        });
+
+        document.getElementById('dependent').addEventListener('click', () => {
+            [a11, a12, a21, a22] = [2, 1, 4, 2];
+            updateSliders();
+            updateDisplay();
+        });
+
+        document.getElementById('reset').addEventListener('click', () => {
+            [a11, a12, a21, a22] = [2, 0, 0, 2];
+            updateSliders();
+            updateDisplay();
+        });
+
+        function updateSliders() {
+            document.getElementById('a11').value = a11;
+            document.getElementById('a12').value = a12;
+            document.getElementById('a21').value = a21;
+            document.getElementById('a22').value = a22;
+            document.getElementById('a11-val').textContent = a11.toFixed(1);
+            document.getElementById('a12-val').textContent = a12.toFixed(1);
+            document.getElementById('a21-val').textContent = a21.toFixed(1);
+            document.getElementById('a22-val').textContent = a22.toFixed(1);
+        }
+
+        function computeDet() {
+            return a11 * a22 - a12 * a21;
+        }
+
+        function updateDisplay() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Grid
+            ctx.strokeStyle = '#e8e8e8';
+            ctx.lineWidth = 1;
+            for (let i = -4; i <= 4; i++) {
+                ctx.beginPath();
+                ctx.moveTo(centerX + i * scale, 0);
+                ctx.lineTo(centerX + i * scale, canvas.height);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(0, centerY - i * scale);
+                ctx.lineTo(canvas.width, centerY - i * scale);
+                ctx.stroke();
+            }
+
+            // Axes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, canvas.height);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(canvas.width, centerY);
+            ctx.stroke();
+
+            const det = computeDet();
+
+            // Fill parallelogram
+            const p1x = a11;
+            const p1y = a21;
+            const p2x = a12;
+            const p2y = a22;
+
+            ctx.globalAlpha = 0.3;
+            if (det > 0) {
+                ctx.fillStyle = '#004080';
+            } else if (det < 0) {
+                ctx.fillStyle = '#d32f2f';
+            } else {
+                ctx.fillStyle = '#999';
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX + p1x * scale, centerY - p1y * scale);
+            ctx.lineTo(centerX + (p1x + p2x) * scale, centerY - (p1y + p2y) * scale);
+            ctx.lineTo(centerX + p2x * scale, centerY - p2y * scale);
+            ctx.closePath();
+            ctx.fill();
+            ctx.globalAlpha = 1.0;
+
+            // Draw vectors
+            ctx.strokeStyle = '#c85000';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX + p1x * scale, centerY - p1y * scale);
+            ctx.stroke();
+            drawArrow(centerX, centerY, centerX + p1x * scale, centerY - p1y * scale, '#c85000');
+
+            ctx.strokeStyle = '#008c46';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX + p2x * scale, centerY - p2y * scale);
+            ctx.stroke();
+            drawArrow(centerX, centerY, centerX + p2x * scale, centerY - p2y * scale, '#008c46');
+
+            // Labels
+            ctx.fillStyle = '#c85000';
+            ctx.font = 'bold 12px Georgia';
+            ctx.fillText(`[${a11.toFixed(1)}]`, centerX + p1x * scale + 10, centerY - p1y * scale + 5);
+            ctx.fillText(`[${a21.toFixed(1)}]`, centerX + p1x * scale + 10, centerY - p1y * scale + 20);
+
+            ctx.fillStyle = '#008c46';
+            ctx.fillText(`[${a12.toFixed(1)}]`, centerX + p2x * scale + 10, centerY - p2y * scale + 5);
+            ctx.fillText(`[${a22.toFixed(1)}]`, centerX + p2x * scale + 10, centerY - p2y * scale + 20);
+
+            // Update results
+            document.getElementById('det-value').textContent = det.toFixed(2);
+            document.getElementById('area-value').textContent = Math.abs(det).toFixed(2);
+        }
+
+        function drawArrow(fromx, fromy, tox, toy, color) {
+            const headlen = 10;
+            const angle = Math.atan2(toy - fromy, tox - fromx);
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(tox, toy);
+            ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        updateDisplay();
+    </script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>

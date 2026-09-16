@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basis and Span</title>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
+        header{background:linear-gradient(135deg,#004080,#0060a0);color:#fff;padding:1.2rem 1.5rem;border-bottom:3px solid #c85000}
+        header h1{font-size:1.3rem}
+        header p{font-size:.85rem;opacity:.85;margin-top:.3rem}
+        .container{max-width:950px;margin:0 auto;padding:1.5rem 1rem}
+        canvas{border:2px solid #dde3ea;border-radius:10px;background:#fff;display:block;margin:1.5rem auto}
+        .formula{background:#fffbf0;border-left:4px solid #c85000;padding:.7rem 1rem;border-radius:0 8px 8px 0;font-size:.9rem;margin-bottom:.8rem}
+        .btn{background:#004080;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:6px;cursor:pointer;font-size:.88rem;margin:.2rem}
+        .btn.orange{background:#c85000}.btn:hover{background:#003060}.btn.orange:hover{background:#a54000}
+        input[type=range]{width:100%;accent-color:#c85000}
+        .control-group{background:#fff;padding:1rem;border-radius:8px;margin-bottom:1rem;border:1px solid #dde3ea}
+        .control-group label{display:block;margin-top:.5rem;font-weight:bold;font-size:.9rem}
+        .slider-container{display:flex;align-items:center;gap:1rem;margin-top:.3rem}
+        .slider-value{min-width:50px;font-family:monospace;background:#f0f0f0;padding:.2rem .4rem;border-radius:4px;text-align:right}
+        .info-box{background:#e8f4f8;border-left:4px solid #004080;padding:.7rem 1rem;margin-bottom:1rem;border-radius:0 8px 8px 0}
+        .info-box strong{color:#004080}
+        .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+        @media(max-width:600px){.grid-2{grid-template-columns:1fr}}
+        .author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;font-family:Georgia,serif;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+        .stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+    
+    .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+    .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+  </style>
+</head>
+<body>
+    <header>
+        <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div>
+  <h1>Basis and Span in ℝ²</h1>
+        <p>Chapter 1: Linear Vector Spaces - Exploring the properties of a basis</p>
+    </header>
+
+    <div class="container">
+        <div class="info-box">
+            <strong>Learning objective:</strong> Understand the span and the basis of a vector space. If two vectors are linearly independent, every point of the plane can be expressed as a linear combination of them.
+        </div>
+
+        <canvas id="canvas" width="420" height="420"></canvas>
+
+        <div class="formula">
+            <strong>Linear Combination:</strong> p = c₁v₁ + c₂v₂
+        </div>
+
+        <div class="grid-2">
+            <div class="control-group">
+                <label>Vector v₁ (x, y)</label>
+                <label>x: <span id="v1x-val">2</span></label>
+                <div class="slider-container">
+                    <input type="range" id="v1x" min="-3" max="3" step="0.1" value="2">
+                </div>
+                <label>y: <span id="v1y-val">1</span></label>
+                <div class="slider-container">
+                    <input type="range" id="v1y" min="-3" max="3" step="0.1" value="1">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Vector v₂ (x, y)</label>
+                <label>x: <span id="v2x-val">1</span></label>
+                <div class="slider-container">
+                    <input type="range" id="v2x" min="-3" max="3" step="0.1" value="1">
+                </div>
+                <label>y: <span id="v2y-val">2</span></label>
+                <div class="slider-container">
+                    <input type="range" id="v2y" min="-3" max="3" step="0.1" value="2">
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="control-group">
+                <label>Coefficient c₁: <span id="c1-val">1</span></label>
+                <div class="slider-container">
+                    <input type="range" id="c1" min="-3" max="3" step="0.1" value="1">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Coefficient c₂: <span id="c2-val">1</span></label>
+                <div class="slider-container">
+                    <input type="range" id="c2" min="-3" max="3" step="0.1" value="1">
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <button class="btn orange" id="toggleSpan">Show Span</button>
+            <button class="btn" id="reset">Reset</button>
+        </div>
+
+        <div class="info-box" id="status">
+            <strong id="independence">Independent:</strong> Span = ℝ² (the whole plane)
+        </div>
+    </div>
+
+    
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Theory & Justification — Basis & Span ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>Basis & Span</h3>
+    <p>A <strong>basis</strong> is a set of linearly independent vectors that span the whole space.</p>
+    <div class="formula">Span{v₁,...,vₖ} = {λ₁v₁+...+λₖvₖ : λᵢ∈ℝ} = all linear combinations</div>
+    <p>In ℝ²: any two linearly independent vectors form a basis. The dimension (dim) = the number of elements of a basis.</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');
+  var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Theory & Justification — Basis & Span ▲':'📐 Theory & Justification — Basis & Span ▼';
+});
+</script>
+<script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const scale = 60;
+
+        let v1 = {x: 2, y: 1};
+        let v2 = {x: 1, y: 2};
+        let c1 = 1, c2 = 1;
+        let showSpan = false;
+
+        const inputs = ['v1x', 'v1y', 'v2x', 'v2y', 'c1', 'c2'];
+        const displays = ['v1x-val', 'v1y-val', 'v2x-val', 'v2y-val', 'c1-val', 'c2-val'];
+
+        inputs.forEach((id, idx) => {
+            const el = document.getElementById(id);
+            el.addEventListener('input', (e) => {
+                const val = parseFloat(e.target.value);
+                document.getElementById(displays[idx]).textContent = val.toFixed(1);
+
+                if (id.startsWith('v1')) v1[id[2]] = val;
+                else if (id.startsWith('v2')) v2[id[2]] = val;
+                else if (id === 'c1') c1 = val;
+                else if (id === 'c2') c2 = val;
+
+                updateDisplay();
+            });
+        });
+
+        document.getElementById('toggleSpan').addEventListener('click', () => {
+            showSpan = !showSpan;
+            updateDisplay();
+        });
+
+        document.getElementById('reset').addEventListener('click', () => {
+            v1 = {x: 2, y: 1};
+            v2 = {x: 1, y: 2};
+            c1 = 1;
+            c2 = 1;
+            showSpan = false;
+
+            document.getElementById('v1x').value = 2;
+            document.getElementById('v1y').value = 1;
+            document.getElementById('v2x').value = 1;
+            document.getElementById('v2y').value = 2;
+            document.getElementById('c1').value = 1;
+            document.getElementById('c2').value = 1;
+
+            displays.forEach((id, idx) => {
+                let val = [2, 1, 1, 2, 1, 1][idx];
+                document.getElementById(id).textContent = val.toFixed(1);
+            });
+
+            updateDisplay();
+        });
+
+        function isLinearlyIndependent() {
+            const det = v1.x * v2.y - v1.y * v2.x;
+            return Math.abs(det) > 0.01;
+        }
+
+        function updateDisplay() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Grid
+            ctx.strokeStyle = '#e8e8e8';
+            ctx.lineWidth = 1;
+            for (let i = -3; i <= 3; i++) {
+                ctx.beginPath();
+                ctx.moveTo(centerX + i * scale, 0);
+                ctx.lineTo(centerX + i * scale, canvas.height);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(0, centerY - i * scale);
+                ctx.lineTo(canvas.width, centerY - i * scale);
+                ctx.stroke();
+            }
+
+            // Axes
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, canvas.height);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(canvas.width, centerY);
+            ctx.stroke();
+
+            // Span visualization
+            if (showSpan) {
+                const isIndependent = isLinearlyIndependent();
+                ctx.globalAlpha = 0.15;
+
+                if (isIndependent) {
+                    ctx.fillStyle = '#004080';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                } else {
+                    // Draw a line (span is 1-dimensional)
+                    ctx.strokeStyle = '#004080';
+                    ctx.lineWidth = 3;
+                    const factor = 200;
+                    /* direction: whichever of v1, v2 is nonzero */
+                    const d = (Math.abs(v1.x) + Math.abs(v1.y) > 0.01) ? v1 : v2;
+                    ctx.beginPath();
+                    ctx.moveTo(centerX - d.x * scale * factor, centerY + d.y * scale * factor);
+                    ctx.lineTo(centerX + d.x * scale * factor, centerY - d.y * scale * factor);
+                    ctx.stroke();
+                }
+                ctx.globalAlpha = 1.0;
+            }
+
+            // Draw v1
+            ctx.strokeStyle = '#c85000';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX + v1.x * scale, centerY - v1.y * scale);
+            ctx.stroke();
+            ctx.fillStyle = '#c85000';
+            drawArrow(centerX, centerY, centerX + v1.x * scale, centerY - v1.y * scale);
+            ctx.fillStyle = '#c85000';
+            ctx.font = 'bold 12px Georgia';
+            ctx.fillText('v₁', centerX + v1.x * scale + 5, centerY - v1.y * scale - 5);
+
+            // Draw v2
+            ctx.strokeStyle = '#008c46';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX + v2.x * scale, centerY - v2.y * scale);
+            ctx.stroke();
+            drawArrow(centerX, centerY, centerX + v2.x * scale, centerY - v2.y * scale);
+            ctx.fillStyle = '#008c46';
+            ctx.font = 'bold 12px Georgia';
+            ctx.fillText('v₂', centerX + v2.x * scale + 5, centerY - v2.y * scale - 5);
+
+            // Draw combination c1*v1 + c2*v2
+            const px = c1 * v1.x + c2 * v2.x;
+            const py = c1 * v1.y + c2 * v2.y;
+            ctx.strokeStyle = '#7b2daa';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX + px * scale, centerY - py * scale);
+            ctx.stroke();
+            drawArrow(centerX, centerY, centerX + px * scale, centerY - py * scale);
+            ctx.fillStyle = '#7b2daa';
+            ctx.font = 'bold 12px Georgia';
+            ctx.fillText('p', centerX + px * scale + 5, centerY - py * scale - 5);
+
+            // Update status
+            const isIndependent = isLinearlyIndependent();
+            const statusEl = document.getElementById('status');
+            const bothZero = (Math.abs(v1.x) + Math.abs(v1.y) < 0.01) && (Math.abs(v2.x) + Math.abs(v2.y) < 0.01);
+            if (isIndependent) {
+                statusEl.innerHTML = '<strong>✓ Linearly Independent:</strong> Span(v₁, v₂) = ℝ² — Every point is a linear combination';
+            } else if (bothZero) {
+                statusEl.innerHTML = '<strong>✗ Linearly Dependent:</strong> Span(v₁, v₂) = {0} — Both vectors are zero';
+            } else {
+                statusEl.innerHTML = '<strong>✗ Linearly Dependent:</strong> Span(v₁, v₂) = a line — The vectors are parallel';
+            }
+        }
+
+        function drawArrow(fromx, fromy, tox, toy) {
+            const headlen = 10;
+            const angle = Math.atan2(toy - fromy, tox - fromx);
+            ctx.fillStyle = ctx.strokeStyle;
+            ctx.beginPath();
+            ctx.moveTo(tox, toy);
+            ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        updateDisplay();
+    </script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>

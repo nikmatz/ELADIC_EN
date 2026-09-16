@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linear Independence of Vectors</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
+    header{background:linear-gradient(135deg,#004080,#0060a0);color:#fff;padding:1.2rem 1.5rem;border-bottom:3px solid #c85000}
+    header h1{font-size:1.3rem}
+    header p{font-size:.85rem;opacity:.85;margin-top:.3rem}
+    .container{max-width:950px;margin:0 auto;padding:1.5rem 1rem}
+    .layout{display:flex;gap:1.5rem;flex-wrap:wrap;align-items:flex-start}
+    canvas{border:2px solid #dde3ea;border-radius:10px;background:#fff}
+    .panel{flex:1;min-width:260px}
+    .panel h2{color:#004080;font-size:1rem;margin-bottom:.8rem;border-bottom:2px solid #dde3ea;padding-bottom:.3rem}
+    .status-box{padding:.9rem 1.1rem;border-radius:8px;margin-bottom:.9rem;font-size:.95rem;font-weight:bold;text-align:center;font-size:1.05rem}
+    .independent{background:#d4edda;color:#155724;border:2px solid #28a745}
+    .dependent{background:#f8d7da;color:#721c24;border:2px solid #dc3545}
+    .slider-group{margin-bottom:.8rem}
+    .slider-group label{display:block;font-size:.85rem;color:#444;margin-bottom:.3rem}
+    input[type=range]{width:100%;accent-color:#c85000}
+    .formula{background:#fffbf0;border-left:4px solid #c85000;padding:.7rem 1rem;border-radius:0 8px 8px 0;font-size:.88rem;margin-bottom:.8rem}
+    .btn{background:#004080;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:6px;cursor:pointer;font-size:.88rem;margin:.2rem}
+    .btn.orange{background:#c85000}.btn.orange:hover{background:#a54000}
+    .btn:hover{background:#003060}
+    .info{background:#fff;border:1.5px solid #dde3ea;border-radius:8px;padding:.8rem 1rem;font-size:.88rem;margin-bottom:.8rem;line-height:1.6}
+    .author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;font-family:Georgia,serif;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+    .stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+  
+    .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+    .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+  </style>
+</head>
+<body>
+<header>
+  <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div>
+  <h1>Linear Independence of Vectors</h1>
+  <p>Chapter 1 · Linear Vector Spaces · Geometric interpretation of independence</p>
+</header>
+<div class="container">
+  <div class="layout">
+    <canvas id="cv" width="440" height="440"></canvas>
+    <div class="panel">
+      <h2>Two Vectors in ℝ²</h2>
+      <div id="statusBox" class="status-box independent">✓ Linearly Independent</div>
+      <div class="slider-group">
+        <label>v₁ = (<span id="v1x">2</span>, <span id="v1y">1</span>)</label>
+        <label style="font-size:.78rem">x₁: <span id="v1xLabel">2.0</span></label>
+        <input type="range" id="slV1X" min="-4" max="4" step="0.1" value="2">
+        <label style="font-size:.78rem">y₁: <span id="v1yLabel">1.0</span></label>
+        <input type="range" id="slV1Y" min="-4" max="4" step="0.1" value="1">
+      </div>
+      <div class="slider-group">
+        <label>v₂ = (<span id="v2x">-1</span>, <span id="v2y">2</span>)</label>
+        <label style="font-size:.78rem">x₂: <span id="v2xLabel">-1.0</span></label>
+        <input type="range" id="slV2X" min="-4" max="4" step="0.1" value="-1">
+        <label style="font-size:.78rem">y₂: <span id="v2yLabel">2.0</span></label>
+        <input type="range" id="slV2Y" min="-4" max="4" step="0.1" value="2">
+      </div>
+      <div class="formula" id="detFormula">det = 2·2 − 1·(−1) = 5 ≠ 0</div>
+      <div class="info">Two vectors are <b>linearly dependent</b> if one is a multiple of the other (collinear).<br><br>Equivalently: <b>det[v₁ v₂] = 0</b>.</div>
+      <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+        <button class="btn" id="btnDep">→ Dependent</button>
+        <button class="btn orange" id="btnIndep">→ Independent</button>
+        <button class="btn" id="btnReset">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cv=document.getElementById('cv');
+const ctx=cv.getContext('2d');
+const W=cv.width,H=cv.height,CX=W/2,CY=H/2,SC=50;
+
+function toS(x,y){return[CX+x*SC,CY-y*SC];}
+
+function drawArrow(x,y,color,label){
+  if(Math.abs(x)<0.01&&Math.abs(y)<0.01) return;
+  let[ex,ey]=toS(x,y);
+  ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.setLineDash([]);
+  ctx.beginPath();ctx.moveTo(CX,CY);ctx.lineTo(ex,ey);ctx.stroke();
+  let angle=Math.atan2(-(ey-CY),(ex-CX));
+  ctx.fillStyle=color;
+  ctx.beginPath();
+  ctx.moveTo(ex,ey);
+  ctx.lineTo(ex-14*Math.cos(angle-0.3),ey+14*Math.sin(angle-0.3));
+  ctx.lineTo(ex-14*Math.cos(angle+0.3),ey+14*Math.sin(angle+0.3));
+  ctx.closePath();ctx.fill();
+  ctx.fillStyle=color;ctx.font='bold 14px Georgia';
+  ctx.textAlign=x>0?'left':'right';
+  ctx.fillText(label,ex+(x>0?10:-10),ey+(y>0?-10:18));
+}
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  // Grid
+  ctx.strokeStyle='#eef0f5';ctx.lineWidth=1;
+  for(let i=-5;i<=5;i++){
+    let[x1,y1]=toS(i,-5),[x2,y2]=toS(i,5);
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+    let[x3,y3]=toS(-5,i),[x4,y4]=toS(5,i);
+    ctx.beginPath();ctx.moveTo(x3,y3);ctx.lineTo(x4,y4);ctx.stroke();
+  }
+  ctx.strokeStyle='#aaa';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(0,CY);ctx.lineTo(W,CY);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(CX,0);ctx.lineTo(CX,H);ctx.stroke();
+  ctx.fillStyle='#888';ctx.font='11px Georgia';ctx.textAlign='center';
+  for(let i=-4;i<=4;i++){if(i===0)continue;let[x]=toS(i,0);ctx.fillText(i,x,CY+14);}
+  ctx.textAlign='right';for(let i=-4;i<=4;i++){if(i===0)continue;let[,y]=toS(0,i);ctx.fillText(i,CX-5,y+4);}
+
+  let v1x=parseFloat(document.getElementById('slV1X').value);
+  let v1y=parseFloat(document.getElementById('slV1Y').value);
+  let v2x=parseFloat(document.getElementById('slV2X').value);
+  let v2y=parseFloat(document.getElementById('slV2Y').value);
+  let det=v1x*v2y-v1y*v2x;
+  let indep=Math.abs(det)>0.01;
+
+  // Span region (parallelogram) if independent
+  if(indep){
+    let[x1,y1]=toS(0,0),[x2,y2]=toS(v1x,v1y),[x3,y3]=toS(v1x+v2x,v1y+v2y),[x4,y4]=toS(v2x,v2y);
+    ctx.fillStyle='rgba(0,64,128,0.08)';
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.lineTo(x3,y3);ctx.lineTo(x4,y4);ctx.closePath();ctx.fill();
+    ctx.strokeStyle='rgba(0,64,128,0.3)';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+    ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x3,y3);ctx.lineTo(x4,y4);ctx.stroke();
+    ctx.setLineDash([]);
+  } else {
+    // Draw the line they span
+    let d=Math.sqrt(v1x*v1x+v1y*v1y);
+    if(d>0.1){
+      let[lx1,ly1]=toS(-5*v1x/d,-5*v1y/d),[lx2,ly2]=toS(5*v1x/d,5*v1y/d);
+      ctx.strokeStyle='rgba(200,80,0,0.3)';ctx.lineWidth=3;ctx.setLineDash([]);
+      ctx.beginPath();ctx.moveTo(lx1,ly1);ctx.lineTo(lx2,ly2);ctx.stroke();
+    }
+  }
+
+  drawArrow(v1x,v1y,'#004080','v₁');
+  drawArrow(v2x,v2y,'#c85000','v₂');
+
+  // Status
+  let sb=document.getElementById('statusBox');
+  if(indep){
+    sb.className='status-box independent';
+    sb.textContent='✓ Linearly Independent';
+  } else {
+    sb.className='status-box dependent';
+    sb.textContent='✗ Linearly Dependent (collinear)';
+  }
+  const _f=n=>n<0?'('+n.toFixed(1)+')':n.toFixed(1);
+  document.getElementById('detFormula').textContent=
+    'det = '+_f(v1x)+'·'+_f(v2y)+' − '+_f(v1y)+'·'+_f(v2x)+' = '+det.toFixed(2)+(indep?' ≠ 0':' = 0');
+  document.getElementById('v1x').textContent=v1x.toFixed(1);
+  document.getElementById('v1y').textContent=v1y.toFixed(1);
+  document.getElementById('v2x').textContent=v2x.toFixed(1);
+  document.getElementById('v2y').textContent=v2y.toFixed(1);
+  document.getElementById('v1xLabel').textContent=v1x.toFixed(1);
+  document.getElementById('v1yLabel').textContent=v1y.toFixed(1);
+  document.getElementById('v2xLabel').textContent=v2x.toFixed(1);
+  document.getElementById('v2yLabel').textContent=v2y.toFixed(1);
+}
+
+['slV1X','slV1Y','slV2X','slV2Y'].forEach(id=>document.getElementById(id).addEventListener('input',draw));
+document.getElementById('btnDep').addEventListener('click',()=>{
+  document.getElementById('slV1X').value=2;document.getElementById('slV1Y').value=1;
+  document.getElementById('slV2X').value=4;document.getElementById('slV2Y').value=2;
+  draw();
+});
+document.getElementById('btnIndep').addEventListener('click',()=>{
+  document.getElementById('slV1X').value=2;document.getElementById('slV1Y').value=1;
+  document.getElementById('slV2X').value=-1;document.getElementById('slV2Y').value=2;
+  draw();
+});
+document.getElementById('btnReset').addEventListener('click',()=>{
+  document.getElementById('slV1X').value=2;document.getElementById('slV1Y').value=1;
+  document.getElementById('slV2X').value=-1;document.getElementById('slV2Y').value=2;
+  draw();
+});
+draw();
+</script>
+
+
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Theory & Justification — Linear Independence ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>Linear Independence</h3>
+    <p>Two vectors are <strong>linearly dependent</strong> if one is a multiple of the other (collinear).</p>
+    <div class="formula">Criterion: det[v₁ v₂] = v₁ₓ·v₂ᵧ − v₁ᵧ·v₂ₓ = 0 ⟺ linearly dependent</div>
+    <p>Geometrically: independent = they span a parallelogram (area≠0). Dependent = they lie on the same line.</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');
+  var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Theory & Justification — Linear Independence ▲':'📐 Theory & Justification — Linear Independence ▼';
+});
+</script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>

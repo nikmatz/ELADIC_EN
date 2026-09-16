@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Multiplication</title>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
+        header{background:linear-gradient(135deg,#004080,#0060a0);color:#fff;padding:1.2rem 1.5rem;border-bottom:3px solid #c85000}
+        header h1{font-size:1.3rem}
+        header p{font-size:.85rem;opacity:.85;margin-top:.3rem}
+        .container{max-width:950px;margin:0 auto;padding:1.5rem 1rem}
+        canvas{border:2px solid #dde3ea;border-radius:10px;background:#fff;display:block;margin:1.5rem auto}
+        .formula{background:#fffbf0;border-left:4px solid #c85000;padding:.7rem 1rem;border-radius:0 8px 8px 0;font-size:.9rem;margin-bottom:.8rem}
+        .btn{background:#004080;color:#fff;border:none;padding:.5rem 1.2rem;border-radius:6px;cursor:pointer;font-size:.88rem;margin:.2rem}
+        .btn.orange{background:#c85000}.btn:hover{background:#003060}.btn.orange:hover{background:#a54000}
+        input[type=number]{width:50px;padding:.3rem;border:1px solid #ddd;border-radius:4px}
+        .control-group{background:#fff;padding:1rem;border-radius:8px;margin-bottom:1rem;border:1px solid #dde3ea}
+        .info-box{background:#e8f4f8;border-left:4px solid #004080;padding:.7rem 1rem;margin-bottom:1rem;border-radius:0 8px 8px 0}
+        .info-box strong{color:#004080}
+        .matrix-input{display:inline-block;margin:0.5rem}
+        .matrix-input label{display:block;font-weight:bold;margin-bottom:0.3rem;font-size:0.9rem}
+        .matrix-row{display:flex;gap:0.3rem;margin:0.2rem 0}
+        .grid-3{display:grid;grid-template-columns:1fr 0.5fr 1fr;gap:1rem;align-items:start}
+        @media(max-width:600px){.grid-3{grid-template-columns:1fr}}
+        .output-matrix{background:#f0f0f0;padding:1rem;border-radius:8px;text-align:center}
+        .calculation-step{background:#fffbf0;padding:0.8rem;margin:0.5rem 0;border-radius:6px;font-family:monospace;font-size:0.85rem}
+        .author-stamp{background:linear-gradient(135deg,#004080,#003060);color:#fff;padding:.8rem 1.4rem;font-family:Georgia,serif;font-size:.82rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem;border-top:3px solid #c85000;margin-top:2rem}
+        .stamp-book{font-style:italic;color:#ffd080;font-weight:bold}
+    
+    .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+    .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+  </style>
+</head>
+<body>
+    <header>
+        <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div><h1>Multiplication of 2×2 Matrices</h1>
+        <p>Chapter 2: Matrix Algebra - Step-by-step analysis</p>
+    </header>
+
+    <div class="container">
+        <div class="info-box">
+            <strong>Learning objective:</strong> Understand matrix multiplication as a collection of inner products. The entry c[i,j] of the product C=A·B is the inner product of row i of A with column j of B.
+        </div>
+
+        <div class="formula">
+            <strong>C = A × B:</strong> c<sub>ij</sub> = a<sub>i1</sub>·b<sub>1j</sub> + a<sub>i2</sub>·b<sub>2j</sub>
+        </div>
+
+        <div class="grid-3">
+            <div class="control-group">
+                <div class="matrix-input">
+                    <label>Matrix A (2×2)</label>
+                    <div class="matrix-row">
+                        <input type="number" id="a11" value="1" min="-10" max="10" step="1">
+                        <input type="number" id="a12" value="2" min="-10" max="10" step="1">
+                    </div>
+                    <div class="matrix-row">
+                        <input type="number" id="a21" value="3" min="-10" max="10" step="1">
+                        <input type="number" id="a22" value="4" min="-10" max="10" step="1">
+                    </div>
+                </div>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#004080;height:80px">×</div>
+
+            <div class="control-group">
+                <div class="matrix-input">
+                    <label>Matrix B (2×2)</label>
+                    <div class="matrix-row">
+                        <input type="number" id="b11" value="5" min="-10" max="10" step="1">
+                        <input type="number" id="b12" value="6" min="-10" max="10" step="1">
+                    </div>
+                    <div class="matrix-row">
+                        <input type="number" id="b21" value="7" min="-10" max="10" step="1">
+                        <input type="number" id="b22" value="8" min="-10" max="10" step="1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <button class="btn orange" id="compute">Compute Product</button>
+            <button class="btn" id="step1">Entry C₁₁</button>
+            <button class="btn" id="step2">Entry C₁₂</button>
+            <button class="btn" id="step3">Entry C₂₁</button>
+            <button class="btn" id="step4">Entry C₂₂</button>
+            <button class="btn" id="reset">Reset</button>
+            <button class="btn orange" id="swapAB">⇄ Swap A ↔ B</button>
+            <button class="btn" id="cmpAB">Compare AB with BA</button>
+        </div>
+        <div id="cmpBox" style="display:none;margin:.8rem auto;max-width:640px;background:#f6f9fc;border:1px solid #d7e2ec;border-radius:10px;padding:.9rem 1rem;font-family:Georgia,serif"></div>
+
+        <canvas id="canvas" width="700" height="300"></canvas>
+
+        <div id="steps"></div>
+
+        <div class="output-matrix">
+            <label style="display:block;margin-bottom:0.5rem;font-weight:bold">Result C = A × B</label>
+            <div class="matrix-input">
+                <div class="matrix-row">
+                    <span style="display:inline-block;width:50px;text-align:center;font-family:monospace;font-weight:bold" id="c11">-</span>
+                    <span style="display:inline-block;width:50px;text-align:center;font-family:monospace;font-weight:bold" id="c12">-</span>
+                </div>
+                <div class="matrix-row">
+                    <span style="display:inline-block;width:50px;text-align:center;font-family:monospace;font-weight:bold" id="c21">-</span>
+                    <span style="display:inline-block;width:50px;text-align:center;font-family:monospace;font-weight:bold" id="c22">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Theory & Justification — Matrix Multiplication ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>Matrix Multiplication</h3>
+    <p>The product A·B is defined only if cols(A) = rows(B). Result: rows(A) × cols(B).</p>
+    <div class="formula">(AB)ᵢⱼ = Σₖ Aᵢₖ·Bₖⱼ &nbsp;·&nbsp; NOT commutative: AB ≠ BA in general</div>
+    <p>Properties: (AB)C = A(BC), A(B+C)=AB+AC, (AB)ᵀ=BᵀAᵀ. The identity matrix I is the identity element: AI=IA=A.</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');
+  var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Theory & Justification — Matrix Multiplication ▲':'📐 Theory & Justification — Matrix Multiplication ▼';
+});
+</script>
+
+<script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let currentStep = null;
+
+        const inputIds = ['a11','a12','a21','a22','b11','b12','b21','b22'];
+        inputIds.forEach(id => {
+            document.getElementById(id).addEventListener('change', clearVisualization);
+        });
+
+        function getMatrices() {
+            return {
+                A: [
+                    [parseFloat(document.getElementById('a11').value), parseFloat(document.getElementById('a12').value)],
+                    [parseFloat(document.getElementById('a21').value), parseFloat(document.getElementById('a22').value)]
+                ],
+                B: [
+                    [parseFloat(document.getElementById('b11').value), parseFloat(document.getElementById('b12').value)],
+                    [parseFloat(document.getElementById('b21').value), parseFloat(document.getElementById('b22').value)]
+                ]
+            };
+        }
+
+        function computeProduct() {
+            const {A, B} = getMatrices();
+            return [
+                [A[0][0]*B[0][0] + A[0][1]*B[1][0], A[0][0]*B[0][1] + A[0][1]*B[1][1]],
+                [A[1][0]*B[0][0] + A[1][1]*B[1][0], A[1][0]*B[0][1] + A[1][1]*B[1][1]]
+            ];
+        }
+
+        function drawStep(stepIdx) {
+            currentStep = stepIdx;
+            const {A, B} = getMatrices();
+            const C = computeProduct();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const padding = 30;
+            const matrixWidth = 80;
+            const matrixHeight = 80;
+            const spacing = 150;
+
+            // Draw A matrix
+            drawMatrixHighlight(padding, 100, A, stepIdx, 'A');
+            // Draw ×
+            ctx.font = 'bold 24px Georgia';
+            ctx.fillStyle = '#004080';
+            ctx.fillText('×', padding + spacing - 25, 140);
+            // Draw B matrix
+            drawMatrixHighlight(padding + spacing, 100, B, stepIdx, 'B');
+            // Draw =
+            ctx.fillText('=', padding + 2*spacing - 25, 140);
+            // Draw C matrix
+            drawMatrixHighlight(padding + 2*spacing + 30, 100, C, stepIdx, 'C');
+
+            // Display calculation step
+            const stepsEl = document.getElementById('steps');
+            stepsEl.innerHTML = '';
+            if (stepIdx === 0) {
+                const val = A[0][0]*B[0][0] + A[0][1]*B[1][0];
+                stepsEl.innerHTML = `<div class="calculation-step">
+                    <strong>C₁₁ = A₁ · B¹</strong><br>
+                    c₁₁ = ${A[0][0]}×${B[0][0]} + ${A[0][1]}×${B[1][0]} = ${A[0][0]*B[0][0]} + ${A[0][1]*B[1][0]} = <strong>${val}</strong>
+                </div>`;
+            } else if (stepIdx === 1) {
+                const val = A[0][0]*B[0][1] + A[0][1]*B[1][1];
+                stepsEl.innerHTML = `<div class="calculation-step">
+                    <strong>C₁₂ = A₁ · B²</strong><br>
+                    c₁₂ = ${A[0][0]}×${B[0][1]} + ${A[0][1]}×${B[1][1]} = ${A[0][0]*B[0][1]} + ${A[0][1]*B[1][1]} = <strong>${val}</strong>
+                </div>`;
+            } else if (stepIdx === 2) {
+                const val = A[1][0]*B[0][0] + A[1][1]*B[1][0];
+                stepsEl.innerHTML = `<div class="calculation-step">
+                    <strong>C₂₁ = A₂ · B¹</strong><br>
+                    c₂₁ = ${A[1][0]}×${B[0][0]} + ${A[1][1]}×${B[1][0]} = ${A[1][0]*B[0][0]} + ${A[1][1]*B[1][0]} = <strong>${val}</strong>
+                </div>`;
+            } else if (stepIdx === 3) {
+                const val = A[1][0]*B[0][1] + A[1][1]*B[1][1];
+                stepsEl.innerHTML = `<div class="calculation-step">
+                    <strong>C₂₂ = A₂ · B²</strong><br>
+                    c₂₂ = ${A[1][0]}×${B[0][1]} + ${A[1][1]}×${B[1][1]} = ${A[1][0]*B[0][1]} + ${A[1][1]*B[1][1]} = <strong>${val}</strong>
+                </div>`;
+            }
+
+            updateResultMatrix(C);
+        }
+
+        function drawMatrixHighlight(x, y, matrix, step, name) {
+            const cellSize = 35;
+            const padding = 5;
+            ctx.font = 'bold 12px Georgia';
+            ctx.fillStyle = '#666';
+            ctx.fillText(name, x - 15, y - 5);
+
+            for (let i = 0; i < 2; i++) {
+                for (let j = 0; j < 2; j++) {
+                    const cx = x + j * (cellSize + 2);
+                    const cy = y + i * (cellSize + 2);
+
+                    let highlight = false;
+                    if (name === 'A' && step < 2 && i === 0) highlight = true;
+                    else if (name === 'A' && step >= 2 && i === 1) highlight = true;
+                    else if (name === 'B' && (step === 0 || step === 2) && j === 0) highlight = true;
+                    else if (name === 'B' && (step === 1 || step === 3) && j === 1) highlight = true;
+                    else if (name === 'C' && ((step === 0 && i === 0 && j === 0) || (step === 1 && i === 0 && j === 1) || (step === 2 && i === 1 && j === 0) || (step === 3 && i === 1 && j === 1))) highlight = true;
+
+                    ctx.fillStyle = highlight ? '#c85000' : '#ddd';
+                    ctx.fillRect(cx, cy, cellSize, cellSize);
+                    ctx.strokeStyle = '#999';
+                    ctx.lineWidth = 1;
+                    ctx.strokeRect(cx, cy, cellSize, cellSize);
+
+                    ctx.fillStyle = highlight ? '#fff' : '#333';
+                    ctx.font = 'bold 14px monospace';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(matrix[i][j], cx + cellSize/2, cy + cellSize/2);
+                }
+            }
+        }
+
+        function updateResultMatrix(C) {
+            document.getElementById('c11').textContent = C[0][0].toFixed(0);
+            document.getElementById('c12').textContent = C[0][1].toFixed(0);
+            document.getElementById('c21').textContent = C[1][0].toFixed(0);
+            document.getElementById('c22').textContent = C[1][1].toFixed(0);
+        }
+
+        function clearVisualization() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            document.getElementById('steps').innerHTML = '';
+            document.getElementById('c11').textContent = '-';
+            document.getElementById('c12').textContent = '-';
+            document.getElementById('c21').textContent = '-';
+            document.getElementById('c22').textContent = '-';
+            currentStep = null;
+        }
+
+        document.getElementById('compute').addEventListener('click', () => {
+            const C = computeProduct();
+            updateResultMatrix(C);
+            currentStep = null;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            document.getElementById('steps').innerHTML = '<div class="calculation-step"><strong>✓ Product computed</strong></div>';
+        });
+
+        /* --- Swap A <-> B: shows that multiplication is NOT commutative --- */
+        function mul(X,Y){
+          return [[X[0][0]*Y[0][0]+X[0][1]*Y[1][0], X[0][0]*Y[0][1]+X[0][1]*Y[1][1]],
+                  [X[1][0]*Y[0][0]+X[1][1]*Y[1][0], X[1][0]*Y[0][1]+X[1][1]*Y[1][1]]];
+        }
+        function matHTML(M,lbl,col){
+          return `<div style="display:inline-block;text-align:center;margin:0 .8rem">
+            <div style="font-weight:700;color:${col};margin-bottom:.25rem">${lbl}</div>
+            <table style="border-collapse:collapse;display:inline-table">
+              <tr><td style="padding:.18rem .55rem">${M[0][0]}</td><td style="padding:.18rem .55rem">${M[0][1]}</td></tr>
+              <tr><td style="padding:.18rem .55rem">${M[1][0]}</td><td style="padding:.18rem .55rem">${M[1][1]}</td></tr>
+            </table></div>`;
+        }
+        document.getElementById('swapAB').addEventListener('click', () => {
+          ['11','12','21','22'].forEach(k=>{
+            const a=document.getElementById('a'+k), b=document.getElementById('b'+k);
+            const t=a.value; a.value=b.value; b.value=t;
+          });
+          clearVisualization();
+          document.getElementById('cmpAB').click();
+        });
+        document.getElementById('cmpAB').addEventListener('click', () => {
+          const {A,B}=getMatrices();
+          const AB=mul(A,B), BA=mul(B,A);
+          const same = AB.flat().every((v,i)=>Math.abs(v-BA.flat()[i])<1e-9);
+          const box=document.getElementById('cmpBox');
+          box.style.display='block';
+          box.innerHTML =
+            matHTML(AB,'A·B','#0082b4') + matHTML(BA,'B·A','#be5000') +
+            `<div style="margin-top:.7rem;font-weight:700;color:${same?'#008c46':'#c62828'}">` +
+            (same
+              ? '✓ Here it happens that AB = BA. The two matrices commute — this holds only in special cases (e.g. if one is a multiple of I or they share eigenvectors).'
+              : '✗ AB ≠ BA. Matrix multiplication is NOT commutative: the order changes the result.') +
+            '</div>';
+        });
+
+        document.getElementById('step1').addEventListener('click', () => drawStep(0));
+        document.getElementById('step2').addEventListener('click', () => drawStep(1));
+        document.getElementById('step3').addEventListener('click', () => drawStep(2));
+        document.getElementById('step4').addEventListener('click', () => drawStep(3));
+
+        document.getElementById('reset').addEventListener('click', () => {
+            ['a11','a12','a21','a22','b11','b12','b21','b22'].forEach((id, idx) => {
+                document.getElementById(id).value = [1,2,3,4,5,6,7,8][idx];
+            });
+            clearVisualization();
+        });
+    </script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>

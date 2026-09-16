@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vector Addition — Animation</title>
+  <link rel="stylesheet" href="../../../_shared/book.css">
+  <script>
+    MathJax = { tex: { inlineMath: [['$','$']] }, options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <style>
+    canvas { border-radius: 8px; }
+    .legend { display:flex; gap:1.4rem; flex-wrap:wrap; justify-content:center;
+              font-size:0.82rem; font-family:'Helvetica Neue',sans-serif; margin-top:0.5rem; }
+    .legend span { display:flex; align-items:center; gap:0.4rem; }
+    .dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+  
+  .author-stamp {
+    background: linear-gradient(135deg, #004080 0%, #003060 100%);
+    color: #fff;
+    padding: 0.8rem 1.4rem;
+    font-family: 'Georgia', serif;
+    font-size: 0.82rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+    border-top: 3px solid #c85000;
+    margin-top: 2rem;
+  }
+  .author-stamp .stamp-book {
+    font-style: italic;
+    color: #ffd080;
+    font-weight: bold;
+  }
+  .author-stamp .stamp-author {
+    opacity: 0.9;
+  }
+
+  
+    .expl-section{margin-top:1.5rem;border:2px solid #dde3ea;border-radius:8px;overflow:hidden}
+    .expl-toggle{width:100%;background:#004080;color:#fff;border:none;padding:.7rem 1rem;text-align:left;cursor:pointer;font-size:.9rem;font-family:Georgia,serif}
+    .expl-toggle:hover{background:#003060}
+    .expl-body{display:none;padding:1rem;background:#fffbf0;font-size:.9rem;line-height:1.7}
+    .expl-body.open{display:block}
+    .expl-body h3{color:#004080;margin-bottom:.5rem;font-size:.95rem}
+    .expl-body .formula{background:#fff;border-left:4px solid #c85000;padding:.5rem .8rem;margin:.6rem 0;border-radius:0 6px 6px 0;font-style:italic}
+  </style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="type-badge badge-animation">▶ Animation</div>
+  <h1>Vector Addition</h1>
+  <p class="chapter-label">Chapter 1 · Linear Vector Spaces · Elements of LA & Calculus</p>
+</header>
+
+<main>
+  <div class="info-card">
+    <h2>What does this animation show?</h2>
+    <p>The vectors $\mathbf{u}$ and $\mathbf{v}$ in $\mathbb{R}^2$
+       are added by the <strong>parallelogram rule</strong>:
+       the sum vector $\mathbf{u}+\mathbf{v}$ is the diagonal.
+       Drag the tips to change the vectors.</p>
+  </div>
+
+  <div class="canvas-wrap" id="canvas-container"></div>
+  <div class="legend">
+    <span><span class="dot" style="background:#0082b4"></span>$\mathbf{u}$</span>
+    <span><span class="dot" style="background:#be5000"></span>$\mathbf{v}$</span>
+    <span><span class="dot" style="background:#008c46"></span>$\mathbf{u}+\mathbf{v}$</span>
+  </div>
+
+  <div class="controls" style="margin-top:1rem">
+    <button class="btn btn-ghost" onclick="resetVectors()">↺ Reset</button>
+  </div>
+
+  <div class="info-card" style="margin-top:1.5rem; border-left-color:#be5000">
+    <h2>Properties of addition</h2>
+    <p>
+      <strong>Commutative:</strong> $\mathbf{u}+\mathbf{v} = \mathbf{v}+\mathbf{u}$<br>
+      <strong>Associative:</strong> $(\mathbf{u}+\mathbf{v})+\mathbf{w} = \mathbf{u}+(\mathbf{v}+\mathbf{w})$<br>
+      <strong>Identity element:</strong> $\mathbf{u}+\mathbf{0} = \mathbf{u}$
+    </p>
+  </div>
+</main>
+
+<script>
+let ux, uy, vx, vy;
+let dragging = null;
+const SCALE = 55;  // pixels per unit
+
+function resetVectors() {
+  ux = 2; uy = 1.5; vx = 1; vy = -1;
+  if (window._p5instance) window._p5instance.redraw();
+}
+
+new p5(function(p) {
+  window._p5instance = p;
+  let ox, oy;
+
+  p.setup = function() {
+    let cnv = p.createCanvas(500, 380);
+    cnv.parent('canvas-container');
+    ox = p.width / 2; oy = p.height / 2;
+    resetVectors();
+    p.textFont('Georgia');
+  };
+
+  function toScreen(wx, wy) { return [ox + wx*SCALE, oy - wy*SCALE]; }
+  function toWorld(sx, sy)  { return [(sx-ox)/SCALE, (oy-sy)/SCALE]; }
+
+  function drawArrow(x1,y1,x2,y2,col,lbl,lw) {
+    p.push();
+    p.stroke(col); p.strokeWeight(lw||2.5); p.fill(col);
+    p.line(x1,y1,x2,y2);
+    let ang = p.atan2(y2-y1,x2-x1);
+    p.translate(x2,y2); p.rotate(ang);
+    p.triangle(0,0,-12,-5,-12,5);
+    p.pop();
+    if (lbl) {
+      p.noStroke(); p.fill(col);
+      p.textSize(16); p.textStyle(p.ITALIC); p.textAlign(p.LEFT);
+      let dx=(x2-x1), dy=(y2-y1), len=Math.sqrt(dx*dx+dy*dy);
+      p.text(lbl, x2+12*dy/len, y2-12*dx/len);
+    }
+  }
+
+  function drawGrid() {
+    p.stroke(220); p.strokeWeight(0.8);
+    for(let xi=-8;xi<=8;xi++){
+      let [sx1,sy1]=toScreen(xi,-5); let [sx2,sy2]=toScreen(xi,5);
+      p.line(sx1,sy1,sx2,sy2);
+    }
+    for(let yi=-5;yi<=5;yi++){
+      let [sx1,sy1]=toScreen(-8,yi); let [sx2,sy2]=toScreen(8,yi);
+      p.line(sx1,sy1,sx2,sy2);
+    }
+    // Axes
+    p.stroke(180); p.strokeWeight(1.5);
+    let [ax1,ay1]=toScreen(-8,0); let [ax2,ay2]=toScreen(8,0);
+    p.line(ax1,ay1,ax2,ay2);
+    let [bx1,by1]=toScreen(0,-5); let [bx2,by2]=toScreen(0,5);
+    p.line(bx1,by1,bx2,by2);
+  }
+
+  p.draw = function() {
+    p.background(250);
+    drawGrid();
+
+    let [ox2,oy2] = toScreen(0,0);
+    let [ux2,uy2] = toScreen(ux,uy);
+    let [vx2,vy2] = toScreen(vx,vy);
+    let [sx2,sy2] = toScreen(ux+vx, uy+vy);
+
+    // Parallelogram (dashed lines)
+    p.stroke(180); p.strokeWeight(1.2); p.drawingContext.setLineDash([5,5]);
+    p.line(ux2,uy2,sx2,sy2);
+    p.line(vx2,vy2,sx2,sy2);
+    p.drawingContext.setLineDash([]);
+
+    // Arrows
+    drawArrow(ox2,oy2,ux2,uy2, p.color('#0082b4'), 'u', 3);
+    drawArrow(ox2,oy2,vx2,vy2, p.color('#be5000'), 'v', 3);
+    drawArrow(ox2,oy2,sx2,sy2, p.color('#008c46'), 'u+v', 3);
+
+    // Draggable handles
+    [[ux,uy,'#0082b4'],[vx,vy,'#be5000']].forEach(([wx,wy,c])=>{
+      let [px,py]=toScreen(wx,wy);
+      p.fill(c); p.noStroke();
+      p.circle(px,py,14);
+    });
+
+    // Coordinate readout
+    p.noStroke(); p.fill('#555');
+    p.textSize(11); p.textAlign(p.LEFT); p.textStyle(p.NORMAL);
+    p.textFont('Helvetica Neue, Arial, sans-serif');
+    p.text(`u = (${ux.toFixed(2)}, ${uy.toFixed(2)})`, 12, 18);
+    p.text(`v = (${vx.toFixed(2)}, ${vy.toFixed(2)})`, 12, 34);
+    p.text(`u+v = (${(ux+vx).toFixed(2)}, ${(uy+vy).toFixed(2)})`, 12, 50);
+  };
+
+  p.mousePressed = function() {
+    let [ox2,oy2]=toScreen(0,0);
+    [[ux,uy,'u'],[vx,vy,'v']].forEach(([wx,wy,id])=>{
+      let [px,py]=toScreen(wx,wy);
+      if(p.dist(p.mouseX,p.mouseY,px,py)<12) dragging=id;
+    });
+  };
+
+  p.mouseDragged = function() {
+    if(!dragging) return;
+    let [wx,wy]=toWorld(p.mouseX,p.mouseY);
+    wx=Math.max(-6,Math.min(6,wx));
+    wy=Math.max(-4,Math.min(4,wy));
+    if(dragging==='u'){ux=wx;uy=wy;}
+    else{vx=wx;vy=wy;}
+  };
+
+  p.mouseReleased = function() { dragging=null; };
+
+}, document.getElementById('canvas-container'));
+</script>
+
+<div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
+  <button class="expl-toggle" id="explBtn">📐 Theory & Justification — Vector Addition & Subtraction ▼</button>
+  <div class="expl-body" id="explBody">
+    <h3>Vector Addition & Subtraction</h3>
+    <p>Vector addition u+v is carried out <strong>head-to-tail</strong> or by the <strong>parallelogram rule</strong>.</p>
+    <div class="formula">u+v = (u₁+v₁, u₂+v₂) &nbsp;·&nbsp; λ·u = (λu₁, λu₂) for a scalar λ</div>
+    <p>Properties: closure, associativity, identity (0), opposite (−u). These define the <strong>vector space</strong>.</p>
+  </div>
+</div>
+<script>
+document.getElementById('explBtn').addEventListener('click',function(){
+  var b=document.getElementById('explBody');
+  var open=b.classList.toggle('open');
+  this.textContent=open?'📐 Theory & Justification — Vector Addition & Subtraction ▲':'📐 Theory & Justification — Vector Addition & Subtraction ▼';
+});
+</script>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
+</body>
+</html>

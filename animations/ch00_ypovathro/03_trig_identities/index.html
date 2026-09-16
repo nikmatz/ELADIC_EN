@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Τριγωνομετρικές Ταυτότητες — Μοναδιαίος Κύκλος</title>
+  <title>Trigonometric Identities — The Unit Circle</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
@@ -40,46 +40,46 @@
 </head>
 <body>
 <header>
-  <h1>Τριγωνομετρικές Ταυτότητες</h1>
-  <p>Κεφάλαιο 0 · Μαθηματικό Υπόβαθρο · Γεωμετρική ερμηνεία ημιτόνου, συνημιτόνου, εφαπτομένης</p>
+  <h1>Trigonometric Identities</h1>
+  <p>Chapter 0 · Mathematical Background · Geometric interpretation of sine, cosine and tangent</p>
 </header>
 <div class="container">
   <div class="layout">
     <canvas id="cv" width="420" height="420"></canvas>
     <div class="panel">
-      <h2>Τριγωνομετρία</h2>
+      <h2>Trigonometry</h2>
       <div class="slider-group">
-        <label>Γωνία θ = <strong id="degVal">45°</strong></label>
+        <label>Angle θ = <strong id="degVal">45°</strong></label>
         <input type="range" id="slTheta" min="0" max="360" step="1" value="45">
       </div>
       <div class="val-box">
-        <div class="lbl">ημ(θ) = sin(θ)</div>
+        <div class="lbl">sin(θ)</div>
         <div class="val" id="sinVal">0.707</div>
       </div>
       <div class="val-box">
-        <div class="lbl">συν(θ) = cos(θ)</div>
+        <div class="lbl">cos(θ)</div>
         <div class="val" id="cosVal">0.707</div>
       </div>
       <div class="val-box">
-        <div class="lbl">εφ(θ) = tan(θ)</div>
+        <div class="lbl">tan(θ)</div>
         <div class="val" id="tanVal">1.000</div>
       </div>
       <div class="formula">sin²θ + cos²θ = 1</div>
       <div class="formula" id="identityCheck" style="background:#e8f5e9;border-color:#28a745">✓ sin²+cos² = 1.000</div>
       <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.5rem">
-        <button class="btn orange" id="btnAnim">▶ Κίνηση</button>
-        <button class="btn" id="btnQ1">1ο Τεταρτημόριο</button>
-        <button class="btn" id="btnSpecial">Ειδικές Γωνίες</button>
-        <button class="btn" id="btnRed">Αναγωγικοί Τύποι</button>
+        <button class="btn orange" id="btnAnim">▶ Animate</button>
+        <button class="btn" id="btnQ1">1st Quadrant</button>
+        <button class="btn" id="btnSpecial">Special Angles</button>
+        <button class="btn" id="btnRed">Reduction Formulas</button>
       </div>
       <div id="redBox" style="display:none;margin-top:.8rem;background:#fffbf0;border:1px solid #e8d9b8;border-radius:8px;padding:.8rem .9rem;font-family:Georgia,serif;font-size:.9rem;line-height:1.75">
         <div style="font-weight:700;color:#004080;margin-bottom:.45rem">
-          Αναγωγικοί τύποι — από τις συμμετρίες του μοναδιαίου κύκλου
+          Reduction formulas — from the symmetries of the unit circle
         </div>
         <table id="redTab" style="border-collapse:collapse;width:100%"></table>
         <div style="margin-top:.55rem;color:#555;font-size:.85rem">
-          Κάθε γραμμή είναι μια <b>συμμετρία</b>: ως προς τον άξονα x (−θ), ως προς τον άξονα y (180°−θ),
-          ως προς το O (180°+θ), και η στροφή κατά 90°. Οι τιμές υπολογίζονται ζωντανά για τη γωνία θ που έχετε επιλέξει.
+          Each row is a <b>symmetry</b>: about the x-axis (−θ), about the y-axis (180°−θ),
+          about O (180°+θ), and the rotation by 90°. The values are computed live for the angle θ you have selected.
       </div>
     </div>
   </div>
@@ -172,29 +172,29 @@ function update(){
   draw();
 }
 
-/* --- Αναγωγικοί τύποι: η κάθε γραμμή είναι μια συμμετρία του κύκλου --- */
+/* --- Reduction formulas: each row is a symmetry of the circle --- */
 function nrm(d){ d%=360; if(d<0)d+=360; return d; }
 function f4(v){ return (Math.abs(v)<1e-12?0:v).toFixed(4); }
 function updateReduction(deg,s,c){
   const tab=document.getElementById('redTab');
   if(!tab || document.getElementById('redBox').style.display==='none') return;
   const rows=[
-    ['−θ',        'συμμετρία ως προς τον άξονα x', -deg,      'sin(−θ) = −sinθ',        'cos(−θ) = cosθ'],
-    ['180° − θ',  'συμμετρία ως προς τον άξονα y', 180-deg,   'sin(180°−θ) = sinθ',     'cos(180°−θ) = −cosθ'],
-    ['180° + θ',  'συμμετρία ως προς το O',        180+deg,   'sin(180°+θ) = −sinθ',    'cos(180°+θ) = −cosθ'],
-    ['360° − θ',  'συμμετρία ως προς τον άξονα x', 360-deg,   'sin(360°−θ) = −sinθ',    'cos(360°−θ) = cosθ'],
-    ['90° − θ',   'ανάκλαση στη διχοτόμο',         90-deg,    'sin(90°−θ) = cosθ',      'cos(90°−θ) = sinθ'],
-    ['90° + θ',   'στροφή κατά 90°',               90+deg,    'sin(90°+θ) = cosθ',      'cos(90°+θ) = −sinθ']
+    ['−θ',        'symmetry about the x-axis', -deg,      'sin(−θ) = −sinθ',        'cos(−θ) = cosθ'],
+    ['180° − θ',  'symmetry about the y-axis', 180-deg,   'sin(180°−θ) = sinθ',     'cos(180°−θ) = −cosθ'],
+    ['180° + θ',  'symmetry about O',            180+deg,   'sin(180°+θ) = −sinθ',    'cos(180°+θ) = −cosθ'],
+    ['360° − θ',  'symmetry about the x-axis', 360-deg,   'sin(360°−θ) = −sinθ',    'cos(360°−θ) = cosθ'],
+    ['90° − θ',   'reflection in the bisector',  90-deg,    'sin(90°−θ) = cosθ',      'cos(90°−θ) = sinθ'],
+    ['90° + θ',   'rotation by 90°',             90+deg,    'sin(90°+θ) = cosθ',      'cos(90°+θ) = −sinθ']
   ];
-  let h='<tr style="background:#f0f4f8"><th style="text-align:left;padding:.3rem .4rem">γωνία</th>'
-      + '<th style="text-align:left;padding:.3rem .4rem">συμμετρία</th>'
-      + '<th style="text-align:left;padding:.3rem .4rem">τύπος</th>'
-      + '<th style="text-align:right;padding:.3rem .4rem">τιμή</th>'
-      + '<th style="text-align:right;padding:.3rem .4rem">έλεγχος</th></tr>';
+  let h='<tr style="background:#f0f4f8"><th style="text-align:left;padding:.3rem .4rem">angle</th>'
+      + '<th style="text-align:left;padding:.3rem .4rem">symmetry</th>'
+      + '<th style="text-align:left;padding:.3rem .4rem">formula</th>'
+      + '<th style="text-align:right;padding:.3rem .4rem">value</th>'
+      + '<th style="text-align:right;padding:.3rem .4rem">check</th></tr>';
   for(const [lbl,sym,ang,fs,fc] of rows){
     const a=nrm(ang)*Math.PI/180;
     const sv=Math.sin(a), cv=Math.cos(a);
-    // ο τύπος προβλέπει:
+    // the formula predicts:
     let ps,pc;
     if(lbl==='−θ'){ps=-s;pc=c;}
     else if(lbl==='180° − θ'){ps=s;pc=-c;}
@@ -222,9 +222,9 @@ document.getElementById('btnRed').addEventListener('click',()=>{
 document.getElementById('slTheta').addEventListener('input',update);
 
 document.getElementById('btnAnim').addEventListener('click',()=>{
-  if(animating){animating=false;cancelAnimationFrame(animId);document.getElementById('btnAnim').textContent='▶ Κίνηση';}
+  if(animating){animating=false;cancelAnimationFrame(animId);document.getElementById('btnAnim').textContent='▶ Animate';}
   else{
-    animating=true;document.getElementById('btnAnim').textContent='⏹ Σταματήσε';
+    animating=true;document.getElementById('btnAnim').textContent='⏹ Stop';
     let deg=0;
     function step(){
       if(!animating) return;
@@ -252,22 +252,22 @@ update();
 
 
 <div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
-  <button class="expl-toggle" id="explBtn">📐 Θεωρία & Αιτιολόγηση — Τριγωνομετρικές Ταυτότητες ▼</button>
+  <button class="expl-toggle" id="explBtn">📐 Theory & Justification — Trigonometric Identities ▼</button>
   <div class="expl-body" id="explBody">
-    <h3>Τριγωνομετρικές Ταυτότητες</h3>
-    <p>Βασική ταυτότητα: sin²θ + cos²θ = 1 (ισχύει για ΟΛΕΣ τις γωνίες).</p>
-    <div class="formula">tan(θ) = sin(θ)/cos(θ) &nbsp;·&nbsp; Ορίζεται για cos(θ)≠0 (θ ≠ 90°+k·180°)</div>
-    <p>Γεωμετρικά: sin = κατακόρυφη προβολή, cos = οριζόντια προβολή, tan = εφαπτομένη ευθεία στο σημείο (1,0). Επαληθεύστε ότι sin²+cos²=1 για κάθε γωνία!</p>
+    <h3>Trigonometric Identities</h3>
+    <p>Fundamental identity: sin²θ + cos²θ = 1 (valid for ALL angles).</p>
+    <div class="formula">tan(θ) = sin(θ)/cos(θ) &nbsp;·&nbsp; Defined for cos(θ)≠0 (θ ≠ 90°+k·180°)</div>
+    <p>Geometrically: sin = vertical projection, cos = horizontal projection, tan = the tangent line at the point (1,0). Verify that sin²+cos²=1 for every angle!</p>
   </div>
 </div>
 <script>
 document.getElementById('explBtn').addEventListener('click',function(){
   var b=document.getElementById('explBody');
   var open=b.classList.toggle('open');
-  this.textContent=open?'📐 Θεωρία & Αιτιολόγηση — Τριγωνομετρικές Ταυτότητες ▲':'📐 Θεωρία & Αιτιολόγηση — Τριγωνομετρικές Ταυτότητες ▼';
+  this.textContent=open?'📐 Theory & Justification — Trigonometric Identities ▲':'📐 Theory & Justification — Trigonometric Identities ▼';
 });
 </script>
 
-<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Συμπληρωματικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</footer>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
 </body>
 </html>

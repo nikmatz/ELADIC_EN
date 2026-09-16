@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Μιγαδικοί Αριθμοί — Διάγραμμα Argand</title>
+  <title>Complex Numbers — The Argand Diagram</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:Georgia,serif;background:#f5f7fa;color:#1a1a1a}
@@ -41,41 +41,41 @@
 </head>
 <body>
 <header>
-  <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div><h1>Μιγαδικοί Αριθμοί — Διάγραμμα Argand</h1>
-  <p>Κεφάλαιο 0 · Μαθηματικό Υπόβαθρο · Γεωμετρική αναπαράσταση μιγαδικών</p>
+  <div style="display:inline-block;background:#2196F3;color:#fff;font-size:.72rem;font-weight:bold;padding:.18rem .6rem;border-radius:4px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.5px;margin-bottom:.45rem">▶ ANIMATION</div><h1>Complex Numbers — The Argand Diagram</h1>
+  <p>Chapter 0 · Mathematical Background · Geometric representation of complex numbers</p>
 </header>
 <div class="container">
   <div class="layout">
     <canvas id="cv" width="450" height="450"></canvas>
     <div class="panel">
-      <h2>Ορισμός Μιγαδικού</h2>
+      <h2>Definition of a Complex Number</h2>
       <div class="formula">z = a + bi</div>
       <div class="slider-group">
-        <label>Πραγματικό μέρος &nbsp;<strong id="aVal">3</strong></label>
+        <label>Real part &nbsp;<strong id="aVal">3</strong></label>
         <input type="range" id="slA" min="-5" max="5" step="0.1" value="3">
       </div>
       <div class="slider-group">
-        <label>Φανταστικό μέρος &nbsp;<strong id="bVal">2</strong></label>
+        <label>Imaginary part &nbsp;<strong id="bVal">2</strong></label>
         <input type="range" id="slB" min="-5" max="5" step="0.1" value="2">
       </div>
       <div class="info-box">
-        <div class="label">Μιγαδικός z</div>
+        <div class="label">Complex number z</div>
         <div class="value" id="zDisplay">3 + 2i</div>
       </div>
       <div class="info-box">
-        <div class="label">Μέτρο |z|</div>
+        <div class="label">Modulus |z|</div>
         <div class="value" id="modDisplay">√13 ≈ 3.61</div>
       </div>
       <div class="info-box">
-        <div class="label">Όρισμα arg(z)</div>
+        <div class="label">Argument arg(z)</div>
         <div class="value" id="argDisplay">33.7°</div>
       </div>
       <div class="ops">
-        <button class="btn orange" id="btnConj">Συζυγής z̄</button>
-        <button class="btn" id="btnInv">Αντίστροφος 1/z</button>
-        <button class="btn" id="btnReset">Επαναφορά</button>
+        <button class="btn orange" id="btnConj">Conjugate z̄</button>
+        <button class="btn" id="btnInv">Inverse 1/z</button>
+        <button class="btn" id="btnReset">Reset</button>
       </div>
-      <div class="formula" id="polarForm">Πολική: 3.61·(cos33.7° + i·sin33.7°)</div>
+      <div class="formula" id="polarForm">Polar: 3.61·(cos33.7° + i·sin33.7°)</div>
     </div>
   </div>
 </div>
@@ -183,7 +183,7 @@ function update(){
   document.getElementById('zDisplay').textContent=fmt(a,b);
   document.getElementById('modDisplay').textContent='√'+((a*a+b*b)%1===0?(a*a+b*b).toFixed(0):(a*a+b*b).toFixed(2))+' ≈ '+mod.toFixed(2);
   document.getElementById('argDisplay').textContent=arg.toFixed(1)+'°';
-  document.getElementById('polarForm').textContent='Πολική: '+mod.toFixed(2)+'·(cos'+arg.toFixed(1)+'° + i·sin'+arg.toFixed(1)+'°)';
+  document.getElementById('polarForm').textContent='Polar: '+mod.toFixed(2)+'·(cos'+arg.toFixed(1)+'° + i·sin'+arg.toFixed(1)+'°)';
   draw();
 }
 
@@ -218,22 +218,22 @@ update();
 
 
 <div class="expl-section" style="max-width:980px;margin:0 auto 1rem auto;padding:0 1rem">
-  <button class="expl-toggle" id="explBtn">📐 Θεωρία & Αιτιολόγηση — Μιγαδικοί Αριθμοί & Αναπαράσταση Argand ▼</button>
+  <button class="expl-toggle" id="explBtn">📐 Theory & Justification — Complex Numbers & the Argand Representation ▼</button>
   <div class="expl-body" id="explBody">
-    <h3>Μιγαδικοί Αριθμοί & Αναπαράσταση Argand</h3>
-    <p>Κάθε μιγαδικός z = a + bi αναπαρίσταται ως σημείο (a, b) στο επίπεδο Argand.</p>
-    <div class="formula">|z| = √(a²+b²) &nbsp;·&nbsp; arg(z) = atan2(b, a) &nbsp;(δηλ. arctan(b/a) διορθωμένο κατά τεταρτημόριο) &nbsp;·&nbsp; Πολική: z = |z|·(cosθ + i·sinθ)</div>
-    <p>Ο <strong>συζυγής</strong> z̄ = a−bi είναι ανακλαστής ως προς τον πραγματικό άξονα. Ο <strong>αντίστροφος</strong> 1/z = z̄/|z|² βρίσκεται διαιρώντας με |z|².</p>
+    <h3>Complex Numbers & the Argand Representation</h3>
+    <p>Every complex number z = a + bi is represented as the point (a, b) in the Argand plane.</p>
+    <div class="formula">|z| = √(a²+b²) &nbsp;·&nbsp; arg(z) = atan2(b, a) &nbsp;(i.e. arctan(b/a) corrected by quadrant) &nbsp;·&nbsp; Polar: z = |z|·(cosθ + i·sinθ)</div>
+    <p>The <strong>conjugate</strong> z̄ = a−bi is the reflection in the real axis. The <strong>inverse</strong> 1/z = z̄/|z|² is found by dividing by |z|².</p>
   </div>
 </div>
 <script>
 document.getElementById('explBtn').addEventListener('click',function(){
   var b=document.getElementById('explBody');
   var open=b.classList.toggle('open');
-  this.textContent=open?'📐 Θεωρία & Αιτιολόγηση — Μιγαδικοί Αριθμοί & Αναπαράσταση Argand ▲':'📐 Θεωρία & Αιτιολόγηση — Μιγαδικοί Αριθμοί & Αναπαράσταση Argand ▼';
+  this.textContent=open?'📐 Theory & Justification — Complex Numbers & the Argand Representation ▲':'📐 Theory & Justification — Complex Numbers & the Argand Representation ▼';
 });
 </script>
 
-<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Συμπληρωματικό ψηφιακό υλικό του βιβλίου: Ματζάκος, Ν. (2026). <em>Στοιχεία Γραμμικής Άλγεβρας, Διαφορικού &amp; Ολοκληρωτικού Λογισμού</em>. NewTech Publications.</footer>
+<footer class="tex2jax_ignore" style="text-align:center;padding:1.4rem 1rem;color:#555;font-size:.82rem;font-family:'Helvetica Neue',Arial,sans-serif;border-top:1px solid #e3e8ef;margin-top:2rem;line-height:1.55">Supplementary digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</footer>
 </body>
 </html>
