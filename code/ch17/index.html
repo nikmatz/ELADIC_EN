@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Ch. 17 — Applications of the Integral · Elements of Linear Algebra &amp; Calculus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#222}
+  header{background:var(--blue);color:white;padding:18px 24px}
+  header h1{font-size:1.25rem;font-weight:700}
+  header p{font-size:.9rem;margin-top:4px;opacity:.85}
+  .breadcrumb{font-size:.82rem;padding:10px 24px;background:#eee;border-bottom:1px solid #ddd}
+  .breadcrumb a{color:var(--blue);text-decoration:none}
+  .container{max-width:960px;margin:0 auto;padding:24px 16px}
+  .info-box{background:white;border-left:5px solid var(--blue);padding:14px 18px;margin-bottom:24px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .info-box h2{font-size:1rem;color:var(--blue);margin-bottom:8px}
+  .info-box p{font-size:.88rem;line-height:1.6}
+  .tabs{display:flex;gap:6px;margin-bottom:0}
+  .tab-btn{padding:10px 20px;border:none;border-radius:6px 6px 0 0;font-size:.9rem;font-weight:600;cursor:pointer}
+  .tab-btn.maxima{background:#d5f5e3;color:var(--teal)}
+  .tab-btn.python{background:#d6eaf8;color:var(--blue)}
+  .tab-btn.active.maxima{background:var(--teal);color:white}
+  .tab-btn.active.python{background:var(--blue);color:white}
+  .tab-content{display:none}
+  .tab-content.active{display:block}
+  .code-card{background:white;border-radius:0 6px 6px 6px;box-shadow:0 2px 8px rgba(0,0,0,.1);overflow:hidden}
+  .code-header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;font-size:.85rem;font-weight:600}
+  .code-header.maxima{background:var(--teal);color:white}
+  .code-header.python{background:var(--blue);color:white}
+  .download-btn{display:inline-block;padding:5px 12px;background:rgba(255,255,255,.2);color:white;border:1px solid rgba(255,255,255,.5);border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:600}
+  .download-btn:hover{background:rgba(255,255,255,.35)}
+  pre[class*="language-"]{margin:0!important;border-radius:0!important;max-height:520px;overflow-y:auto;font-size:.83rem}
+  .commands-box{background:#fffde7;border:1px solid #f9a825;border-radius:4px;padding:12px 16px;margin:16px 0;font-size:.85rem}
+  .commands-box strong{color:var(--orange)}
+  .commands-box code{background:#fff3cd;padding:1px 5px;border-radius:3px;font-size:.82rem}
+  footer{text-align:center;padding:20px;font-size:.8rem;color:#888;margin-top:32px;border-top:1px solid #ddd}
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+<header>
+  <h1>📐 Chapter 17 — Applications of the Integral</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
+</header>
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 17
+</div>
+<div class="container">
+  <div class="info-box">
+    <h2>📋 Contents of the Activities</h2>
+    <p><strong>Topic:</strong> area between curves, volume of revolution (disks, washers, shells), arc length, surface area, work and the centroid<br><br>
+    Choose a language from the tabs. The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.</p>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_efarm_ol.mac</span>
+        <a class="download-btn" href="maxima_efarm_ol.mac" download>⬇ Download .mac</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Basic commands:</strong>
+        <code>integrate(f,x,a,b)</code> &nbsp;
+        <code>romberg(f,x,a,b)</code> &nbsp;
+        <code>diff(f,x)</code> &nbsp;
+        <code>sqrt()</code> &nbsp;
+        <code>solve(f=g,x)</code>
+      </div>
+      <pre><code class="language-maxima" id="maxima-code">/* ============================================================ */
+/* maxima_efarm_ol.mac                                          */
+/* Chapter 17 — Applications of Integral Calculus               */
+/*   Area, Volume of Revolution, Arc Length                     */
+/* Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications. */
+/* ------------------------------------------------------------ */
+/* BASIC COMMANDS:                                              */
+/*   integrate(f,x,a,b)  -&gt; definite integral                   */
+/*   romberg(f,x,a,b)    -&gt; numerical integral                  */
+/*   solve(f=g,x)        -&gt; points of intersection              */
+/*   diff(f,x), sqrt()   -&gt; arc length / surface area           */
+/*   trigsimp(), ratsimp()                                      */
+/* NOTE: comments in Maxima open with slash-asterisk            */
+/*   and close with asterisk-slash. Never with semicolons.      */
+/* ============================================================ */
+
+load(romberg)$
+/* We tighten romberg's tolerance (default 1e-4) so that the    */
+/* numerical results agree with the symbolic ones.              */
+rombergtol : 1e-10$
+rombergit  : 20$
+
+print("============================================================")$
+print(" Chapter 17: Applications of Integral Calculus")$
+print("============================================================")$
+
+/* ============================================================ */
+/* A. AREA                                                      */
+/* ============================================================ */
+print("")$
+print("=== A. AREA ===")$
+
+/* A1.  int_{-1}^{1} |x^3 - x| dx                               */
+/* Maxima does not integrate the absolute value directly:       */
+/* we find the roots, SORT them and split the interval.         */
+print("")$
+print("A1. int_{-1}^{1} |x^3 - x| dx")$
+rizes : sort(map(rhs, solve(x^3 - x = 0, x)))$
+print("   roots of x^3-x (sorted):", rizes, " (expected [-1,0,1])")$
+/* On [-1,0] we have x^3-x &gt;= 0, on [0,1] we have x^3-x &lt;= 0 */
+A1a : integrate(x^3 - x, x, -1, 0)$
+A1b : integrate(-(x^3 - x), x, 0, 1)$
+print("   int_{-1}^{0} (x^3-x) dx  =", A1a)$
+print("   int_{0}^{1} -(x^3-x) dx  =", A1b)$
+A1 : A1a + A1b$
+print("   TOTAL (integrate)        =", A1, "=", float(A1), " (expected 1/2)")$
+A1r : romberg(abs(x^3 - x), x, -1, 1)$
+print("   TOTAL (romberg)          =", A1r)$
+print("   integrate vs romberg, |difference| &lt; 1e-8 :",
+      is(abs(float(A1) - A1r) &lt; 1e-8))$
+
+/* A2.  Area between y = -x^2+4 and y = x^2-2x                  */
+print("")$
+print("A2. Area between y = -x^2+4 and y = x^2-2x")$
+f : -x^2 + 4$
+g : x^2 - 2*x$
+/* ALWAYS sort the roots: solve returns them as [2,-1],         */
+/* and with [a,b]=[2,-1] the area comes out NEGATIVE (plot2d    */
+/* fails, since it requires min &lt; max).                         */
+tomes : sort(map(rhs, solve(f = g, x)))$
+print("   solve(f=g,x) sorted:", tomes, " (expected [-1,2])")$
+a : tomes[1]$
+b : tomes[2]$
+print("   a =", a, ",  b =", b)$
+A2 : integrate(f - g, x, a, b)$
+print("   Area =", A2, "=", float(A2), " (expected 9)")$
+print("   positive area:", is(A2 &gt; 0))$
+A2r : romberg(f - g, x, float(a), float(b))$
+print("   Area (romberg) =", A2r)$
+print("   integrate vs romberg, |difference| &lt; 1e-8 :",
+      is(abs(float(A2) - A2r) &lt; 1e-8))$
+
+/* Plot: the endpoints ALWAYS in increasing order */
+plot2d([f, g],
+       [x, a - 0.5, b + 0.5],
+       [style, [lines, 2, 1], [lines, 2, 2]],
+       [legend, "f(x) = -x^2+4", "g(x) = x^2-2x"],
+       [xlabel, "x"], [ylabel, "y"],
+       [title, "Area between two curves (= 9)"])$
+
+/* ============================================================ */
+/* B. VOLUME OF REVOLUTION                                      */
+/* ============================================================ */
+print("")$
+print("=== B. VOLUME OF REVOLUTION ===")$
+
+/* B1. DISKS:  V = pi * int_a^b [f(x)]^2 dx                     */
+print("")$
+print("B1. Disk method:  V = pi*int_a^b f(x)^2 dx")$
+fd1 : sqrt(x)$
+Vd1 : %pi * integrate(fd1^2, x, 0, 4)$
+print("   y = sqrt(x), [0,4] : V =", Vd1, "=", float(Vd1), " (expected 8*pi)")$
+print("   check V = 8*pi     :", is(ratsimp(Vd1 - 8*%pi) = 0))$
+
+fd2 : sin(x)$
+Vd2 : %pi * integrate(fd2^2, x, 0, %pi)$
+print("   y = sin(x), [0,pi] : V =", Vd2, "=", float(Vd2), " (expected pi^2/2)")$
+print("   check V = pi^2/2   :", is(ratsimp(Vd2 - %pi^2/2) = 0))$
+
+/* B2. WASHERS: V = pi*int_a^b ([R]^2 - [r]^2) dx               */
+/*     y = sqrt(x) (outer) vs y = x (inner),                    */
+/*     revolved about the x-axis.                               */
+print("")$
+print("B2. Washer method: y = sqrt(x) vs y = x, about the x-axis")$
+/* solve does not handle the square root well: we square it     */
+/* (sqrt(x) = x  &lt;=&gt;  x = x^2 for x &gt;= 0) and we SORT them.     */
+tomes2 : sort(map(rhs, solve(x = x^2, x)))$
+print("   intersections (sorted):", tomes2, " (expected [0,1])")$
+R_ex : sqrt(x)$
+r_es : x$
+Vw : %pi * integrate(R_ex^2 - r_es^2, x, tomes2[1], tomes2[2])$
+print("   V =", Vw, "=", float(Vw), " (expected pi/6)")$
+print("   check V = pi/6 :", is(ratsimp(Vw - %pi/6) = 0))$
+/* Cross-check with shells with respect to y: radius y, height (y - y^2) */
+Vw_shell : 2*%pi * integrate(y*(y - y^2), y, 0, 1)$
+print("   same with shells with respect to y:", Vw_shell,
+      " identical:", is(ratsimp(Vw - Vw_shell) = 0))$
+
+/* B3. SHELLS: V = 2*pi*int_a^b x*f(x) dx (about the y-axis)    */
+print("")$
+print("B3. Shell method: y = x^3 about the y-axis, [0,2]")$
+fs : x^3$
+Vs : 2*%pi * integrate(x*fs, x, 0, 2)$
+print("   V = 2*pi*int_0^2 x*x^3 dx =", Vs, "=", float(Vs), " (expected 64*pi/5)")$
+print("   check V = 64*pi/5 :", is(ratsimp(Vs - 64*%pi/5) = 0))$
+/* Cross-check with washers with respect to y (y from 0 to 8, x = y^(1/3)) */
+/* y &gt; 0 is declared BEFOREHAND, so that Maxima does not ask.   */
+assume(y &gt; 0)$
+Vs_wash : %pi * integrate(2^2 - (y^(1/3))^2, y, 0, 8)$
+print("   same with washers with respect to y:", ratsimp(Vs_wash),
+      " identical:", is(ratsimp(Vs - Vs_wash) = 0))$
+forget(y &gt; 0)$
+
+/* ============================================================ */
+/* C. ARC LENGTH:  L = int_a^b sqrt(1 + [f'(x)]^2) dx           */
+/* ============================================================ */
+print("")$
+print("=== C. ARC LENGTH ===")$
+
+/* C1.  y = x^(3/2) on [0,4] */
+print("")$
+print("C1. y = x^(3/2), [0,4]")$
+y1 : x^(3/2)$
+dy1 : diff(y1, x)$
+print("   f'(x) =", dy1)$
+ds1 : sqrt(1 + dy1^2)$
+print("   sqrt(1+f'^2) =", ratsimp(ds1))$
+L1 : ratsimp(integrate(ds1, x, 0, 4))$
+print("   L =", L1, "=", float(L1), " (expected (80*sqrt(10)-8)/27 = 9.073415289)")$
+print("   check of the closed form:", is(ratsimp(L1 - (80*sqrt(10)-8)/27) = 0))$
+L1r : romberg(ds1, x, 0, 4)$
+print("   L (romberg) =", L1r)$
+print("   integrate vs romberg, |difference| &lt; 1e-8 :",
+      is(abs(float(L1) - L1r) &lt; 1e-8))$
+
+/* C2.  y = ln(cos x) on [0, pi/3] — trigsimp is needed here    */
+/*      1 + tan^2(x) = sec^2(x), hence sqrt(1+f'^2) = sec(x).   */
+/*      cos(x)&gt;0 is declared BEFORE, so sqrt(1/cos^2) = 1/cos.  */
+assume(cos(x) &gt; 0)$
+print("")$
+print("C2. y = ln(cos x), [0, pi/3]")$
+y2 : log(cos(x))$
+dy2 : diff(y2, x)$
+print("   f'(x) =", dy2, " (= -tan x)")$
+ds2raw : 1 + dy2^2$
+ds2 : trigsimp(ds2raw)$
+print("   trigsimp(1 + f'^2) =", ds2, " (= sec^2 x)")$
+L2 : integrate(sqrt(ds2), x, 0, %pi/3)$
+print("   L =", L2)$
+print("   L =", float(L2), " (expected ln(2+sqrt(3)) = 1.316957897)")$
+print("   check L = ln(2+sqrt(3)) :",
+      is(abs(float(L2) - float(log(2 + sqrt(3)))) &lt; 1e-9))$
+L2r : romberg(sqrt(ds2), x, 0, float(%pi/3))$
+print("   L (romberg) =", L2r)$
+print("   integrate vs romberg, |difference| &lt; 1e-8 :",
+      is(abs(float(L2) - L2r) &lt; 1e-8))$
+forget(cos(x) &gt; 0)$
+
+/* ============================================================ */
+/* D. AREA OF A SURFACE OF REVOLUTION                           */
+/*    S = 2*pi * int_a^b f(x)*sqrt(1 + f'(x)^2) dx              */
+/* ============================================================ */
+print("")$
+print("=== D. SURFACE AREA (cone y = x, [0,2]) ===")$
+fc : x$
+dfc : diff(fc, x)$
+print("   f(x) =", fc, ",  f'(x) =", dfc)$
+print("   sqrt(1+f'^2) =", sqrt(1 + dfc^2), " (= sqrt(2))")$
+S : 2*%pi * integrate(fc*sqrt(1 + dfc^2), x, 0, 2)$
+print("   S = 2*pi*int_0^2 x*sqrt(2) dx =", S, "=", float(S),
+      " (expected 4*sqrt(2)*pi = 17.77153175)")$
+/* Verification with the geometric formula S = pi*r*l */
+r_kwnou : 2$
+l_kwnou : 2*sqrt(2)$
+S_typos : %pi * r_kwnou * l_kwnou$
+print("   Formula S = pi*r*l, r =", r_kwnou, ", l =", l_kwnou, " -&gt; S =",
+      S_typos, "=", float(S_typos))$
+print("   identical:", is(ratsimp(S - S_typos) = 0))$
+
+/* ============================================================ */
+/* E. PHYSICAL APPLICATIONS                                     */
+/* ============================================================ */
+print("")$
+print("=== E. PHYSICAL APPLICATIONS ===")$
+
+/* E1. Work of a spring: W = int_0^{0.1} F(x) dx, F = 200x (N)  */
+print("")$
+print("E1. Work of a spring, F(x) = 200*x N, x from 0 to 0.1 m")$
+F_elat : 200*x$
+W : integrate(F_elat, x, 0, 1/10)$
+print("   W = int_0^{1/10} 200*x dx =", W, "J =", float(W), "J  (expected 1 J)")$
+print("   check W = 1 J:", is(W = 1))$
+/* Equivalently from the formula W = k*x^2/2 with k = 200, x = 0.1 */
+print("   formula k*x^2/2 =", 200*(1/10)^2/2, "J  matches:",
+      is(W - 200*(1/10)^2/2 = 0))$
+
+/* E2. Centroid of the region under y = x^2, [0,3]              */
+/*     A  = int_0^3 f dx                                        */
+/*     xb = (1/A)*int_0^3 x*f dx                                */
+/*     yb = (1/A)*int_0^3 (1/2)*f^2 dx                          */
+print("")$
+print("E2. Centroid of the region under y = x^2, [0,3]")$
+fy : x^2$
+Ar : integrate(fy, x, 0, 3)$
+xb : integrate(x*fy, x, 0, 3) / Ar$
+yb : integrate(fy^2/2, x, 0, 3) / Ar$
+print("   Area A =", Ar, " (expected 9)")$
+print("   x_bar =", xb, "=", float(xb), " (expected 9/4 = 2.25)")$
+print("   y_bar =", yb, "=", float(yb), " (expected 27/10 = 2.7)")$
+print("   checks:", is(Ar = 9), is(xb = 9/4), is(yb = 27/10))$
+
+print("")$
+print("Done.")$
+</code></pre>
+    </div>
+  </div>
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_efarm_ol.py</span>
+        <a class="download-btn" href="python_efarm_ol.py" download>⬇ Download .py</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Libraries / commands:</strong>
+        <code>sympy.integrate()</code> &nbsp;
+        <code>sympy.diff()</code> &nbsp;
+        <code>scipy.integrate.quad()</code> &nbsp;
+        <code>mpl_toolkits.mplot3d</code> &nbsp;
+        <code>fill_between()</code>
+      </div>
+            <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
+# python_efarm_ol.py
+# Chapter 17 — Applications of Integral Calculus
+#   Area, Volume of Revolution, Arc Length, Physical Applications
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
+# ------------------------------------------------------------
+# BASIC COMMANDS:
+#   sympy.integrate(f, (x,a,b))   -&gt; definite integral
+#   sympy.diff(f, x)              -&gt; derivative
+#   sympy.solve(f-g, x)           -&gt; points of intersection
+#   scipy.integrate.quad(f, a, b) -&gt; numerical integral
+#   matplotlib.fill_between()     -&gt; shaded region
+#   mpl_toolkits.mplot3d          -&gt; 3D solid of revolution
+# ============================================================
+import sympy as sp
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import quad, cumulative_trapezoid
+from mpl_toolkits.mplot3d import Axes3D          # noqa: F401 (enables 3D)
+
+x = sp.symbols('x', real=True)
+y = sp.symbols('y', nonnegative=True)
+
+print("=" * 62)
+print(" Chapter 17: Applications of Integral Calculus")
+print("=" * 62)
+
+
+# ============================================================
+# A. AREA BETWEEN CURVES
+# ============================================================
+print("\n=== A. AREA ===")
+
+# A1.  int_{-1}^{1} |x^3 - x| dx
+f_abs = sp.Abs(x**3 - x)
+A1 = sp.integrate(f_abs, (x, -1, 1))
+A1_num, A1_err = quad(lambda t: abs(t**3 - t), -1, 1)
+print(f"\nA1. ∫_(-1)^1 |x^3-x| dx = {A1} = {float(A1)}   (expected 1/2)")
+print(f"    scipy quad            = {A1_num:.12f}  (est. error {A1_err:.1e})")
+print(f"    |difference| &lt; 1e-8   : {abs(float(A1) - A1_num) &lt; 1e-8}")
+
+# A2.  Area between y = -x^2+4 and y = x^2-2x
+f = -x**2 + 4
+g = x**2 - 2*x
+# ALWAYS sort the roots, otherwise the area comes out negative.
+tomes = sorted(sp.solve(sp.Eq(f, g), x))
+a, b = tomes[0], tomes[1]
+A2 = sp.integrate(f - g, (x, a, b))
+print(f"\nA2. f(x) = {f},  g(x) = {g}")
+print(f"    intersections (sorted): x = {a}, x = {b}   (expected -1, 2)")
+print(f"    Area = ∫_({a})^({b}) (f-g) dx = {A2}   (expected 9)")
+print(f"    positive area         : {A2 &gt; 0}")
+
+xv = np.linspace(float(a) - 0.8, float(b) + 0.8, 400)
+fv = -xv**2 + 4
+gv = xv**2 - 2*xv
+xs = np.linspace(float(a), float(b), 300)
+fs_ = -xs**2 + 4
+gs_ = xs**2 - 2*xs
+
+plt.figure(figsize=(7, 4.4))
+plt.plot(xv, fv, 'b-', lw=2, label=r'$f(x)=-x^2+4$')
+plt.plot(xv, gv, 'r-', lw=2, label=r'$g(x)=x^2-2x$')
+plt.fill_between(xs, gs_, fs_, alpha=0.30, color='tab:green',
+                 label=f'Area = {A2}')
+plt.plot([float(a), float(b)], [float(f.subs(x, a)), float(f.subs(x, b))],
+         'ko', ms=5)
+plt.axhline(0, color='k', lw=0.6)
+plt.xlabel('x'); plt.ylabel('y')
+plt.title('A. Area between two curves')
+plt.legend(); plt.grid(True, alpha=0.3)
+plt.tight_layout()
+
+
+# ============================================================
+# B. VOLUME OF REVOLUTION — all three methods on the SAME solid
+#    Region between y = sqrt(x) (outer) and y = x (inner),
+#    revolved about the x-axis. Intersections: x = 0, 1.
+# ============================================================
+print("\n=== B. VOLUME OF REVOLUTION ===")
+
+R_ex = sp.sqrt(x)      # outer radius
+r_es = x               # inner radius
+tomesB = sorted(sp.solve(sp.Eq(x, x**2), x))     # sqrt(x)=x &lt;=&gt; x=x^2, x&gt;=0
+print(f"\nRegion: y = sqrt(x) and y = x,  intersections x = {tomesB}   (expected [0, 1])")
+
+# (i) DISKS: the volume as the difference of two solid bodies
+V_disk_ex = sp.pi * sp.integrate(R_ex**2, (x, 0, 1))
+V_disk_es = sp.pi * sp.integrate(r_es**2, (x, 0, 1))
+V_disks = sp.simplify(V_disk_ex - V_disk_es)
+# (ii) WASHERS: V = pi*∫ (R^2 - r^2) dx
+V_wash = sp.simplify(sp.pi * sp.integrate(R_ex**2 - r_es**2, (x, 0, 1)))
+# (iii) SHELLS with respect to y: radius y, height (x_right - x_left) = y - y^2
+V_shell = sp.simplify(2*sp.pi * sp.integrate(y*(y - y**2), (y, 0, 1)))
+
+print(f"  (i)   disks     : pi∫x dx - pi∫x² dx = {V_disk_ex} - {V_disk_es} = {V_disks}")
+print(f"  (ii)  washers   : pi∫(R²-r²) dx                    = {V_wash}")
+print(f"  (iii) shells    : 2pi∫y(y-y²) dy                    = {V_shell}")
+print(f"  numerically: {float(V_wash):.12f}   (expected pi/6 = {float(sp.pi/6):.12f})")
+print(f"  disks == washers    : {sp.simplify(V_disks - V_wash) == 0}")
+print(f"  washers == shells   : {sp.simplify(V_wash - V_shell) == 0}")
+print(f"  all three equal to pi/6  : "
+      f"{sp.simplify(V_disks - sp.pi/6) == 0 and sp.simplify(V_shell - sp.pi/6) == 0}")
+
+# The remaining cases from the Maxima activity
+V_sqrt = sp.pi * sp.integrate(x, (x, 0, 4))                 # disks, y=sqrt(x), [0,4]
+V_sin = sp.pi * sp.integrate(sp.sin(x)**2, (x, 0, sp.pi))   # disks, y=sin x, [0,pi]
+V_x3 = 2*sp.pi * sp.integrate(x*x**3, (x, 0, 2))            # shells, y=x^3, [0,2]
+print(f"\n  disks   y=sqrt(x), [0,4] : V = {V_sqrt}  (expected 8pi)")
+print(f"  disks   y=sin(x), [0,pi] : V = {V_sin}  (expected pi²/2)")
+print(f"  shells  y=x³ about y, [0,2]: V = {V_x3}  (expected 64pi/5)")
+print(f"  checks: {sp.simplify(V_sqrt-8*sp.pi)==0}, "
+      f"{sp.simplify(V_sin-sp.pi**2/2)==0}, {sp.simplify(V_x3-sp.Rational(64,5)*sp.pi)==0}")
+
+# --- 3D visualization of the solid (annular) ---
+tt = np.linspace(0, 1, 60)
+th = np.linspace(0, 2*np.pi, 60)
+T, TH = np.meshgrid(tt, th)
+fig = plt.figure(figsize=(7, 5))
+ax = fig.add_subplot(111, projection='3d')
+# outer surface: radius sqrt(x)
+ax.plot_surface(T, np.sqrt(T)*np.cos(TH), np.sqrt(T)*np.sin(TH),
+                color='tab:blue', alpha=0.45, linewidth=0)
+# inner surface: radius x
+ax.plot_surface(T, T*np.cos(TH), T*np.sin(TH),
+                color='tab:red', alpha=0.75, linewidth=0)
+ax.set_xlabel('x'); ax.set_ylabel('y'); ax.set_zlabel('z')
+ax.set_title('B. Solid of revolution: y=√x (outer) and y=x (inner), V = pi/6')
+plt.tight_layout()
+
+
+# ============================================================
+# C. ARC LENGTH:  L = ∫_a^b sqrt(1 + f'(x)^2) dx
+# ============================================================
+print("\n=== C. ARC LENGTH ===")
+
+# C1.  y = x^(3/2) on [0,4]
+y1 = x**sp.Rational(3, 2)
+ds1 = sp.sqrt(1 + sp.diff(y1, x)**2)
+L1 = sp.simplify(sp.integrate(ds1, (x, 0, 4)))
+L1_num, L1_err = quad(sp.lambdify(x, ds1, 'numpy'), 0, 4)
+L1_kleisto = (80*sp.sqrt(10) - 8) / 27
+print(f"\nC1. y = x^(3/2), [0,4]")
+print(f"    f'(x) = {sp.diff(y1, x)},  sqrt(1+f'^2) = {sp.simplify(ds1)}")
+print(f"    L (sympy) = {L1} = {float(L1):.12f}   (expected (80√10-8)/27 = 9.073415289388)")
+print(f"    L (quad)  = {L1_num:.12f}  (est. error {L1_err:.1e})")
+print(f"    closed form correct : {sp.simplify(L1 - L1_kleisto) == 0}")
+print(f"    |sympy - quad| &lt; 1e-8: {abs(float(L1) - L1_num) &lt; 1e-8}")
+
+# C2.  y = ln(cos x) on [0, pi/3]  -&gt;  sqrt(1+tan²x) = sec x
+y2 = sp.log(sp.cos(x))
+d2 = sp.diff(y2, x)
+ds2 = sp.sqrt(sp.trigsimp(1 + d2**2))
+L2 = sp.simplify(sp.integrate(sp.sec(x), (x, 0, sp.pi/3)))
+L2_num, L2_err = quad(lambda t: 1/np.cos(t), 0, np.pi/3)
+print(f"\nC2. y = ln(cos x), [0, pi/3]")
+print(f"    f'(x) = {sp.simplify(d2)},  trigsimp(1+f'^2) = {sp.trigsimp(1 + d2**2)}")
+print(f"    L (sympy) = {float(L2):.12f}   (expected ln(2+√3) = 1.316957896925)")
+print(f"    L (quad)  = {L2_num:.12f}  (est. error {L2_err:.1e})")
+# SymPy returns the logarithm in a different (equivalent) form, so
+# we check the equivalent statement  e^L = 2+√3.
+print(f"    e^L == 2+√3          : "
+      f"{sp.simplify(sp.exp(L2) - (2 + sp.sqrt(3))) == 0}")
+print(f"    |sympy - quad| &lt; 1e-8: {abs(float(L2) - L2_num) &lt; 1e-8}")
+
+# --- Cumulative arc length L(t) next to the curve ---
+tgrid = np.linspace(0, 4, 400)
+ds1_num = sp.lambdify(x, ds1, 'numpy')
+Lcum = cumulative_trapezoid(ds1_num(tgrid), tgrid, initial=0.0)
+print(f"\n    Cumulative length: L(0) = {Lcum[0]:.6f}, L(4) = {Lcum[-1]:.9f}")
+print(f"    L(4) ≈ L (sympy)     : {abs(Lcum[-1] - float(L1)) &lt; 1e-4}")
+
+fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+axs[0].plot(tgrid, tgrid**1.5, 'b-', lw=2)
+axs[0].set_title(r'The curve $y=x^{3/2}$ on $[0,4]$')
+axs[0].set_xlabel('x'); axs[0].set_ylabel('y'); axs[0].grid(True, alpha=0.3)
+axs[1].plot(tgrid, Lcum, 'g-', lw=2,
+            label=r"$L(t)=\int_0^t\sqrt{1+[f'(u)]^2}\,du$")
+axs[1].axhline(float(L1), color='r', ls='--', lw=1,
+               label=f'total length = {float(L1):.6f}')
+axs[1].set_title('C. Cumulative arc length')
+axs[1].set_xlabel('t'); axs[1].set_ylabel('L(t)')
+axs[1].legend(); axs[1].grid(True, alpha=0.3)
+plt.tight_layout()
+
+
+# ============================================================
+# D. PHYSICAL APPLICATIONS
+# ============================================================
+print("\n=== D. PHYSICAL APPLICATIONS ===")
+
+# D1. Work of a spring: F(x) = 200x N, x from 0 to 0.1 m
+F_elat = 200*x
+W = sp.integrate(F_elat, (x, 0, sp.Rational(1, 10)))
+print(f"\nD1. Work of a spring, F(x) = 200x N, x ∈ [0, 0.1] m")
+print(f"    W = ∫_0^0.1 200x dx = {W} J = {float(W)} J   (expected 1 J)")
+print(f"    formula k·x²/2 = {200*sp.Rational(1,10)**2/2} J, matches: "
+      f"{sp.simplify(W - 200*sp.Rational(1,10)**2/2) == 0}")
+
+# D2. Centroid of the region under y = x^2, [0,3]
+fy = x**2
+Ar = sp.integrate(fy, (x, 0, 3))
+xbar = sp.integrate(x*fy, (x, 0, 3)) / Ar
+ybar = sp.integrate(fy**2/2, (x, 0, 3)) / Ar
+print(f"\nD2. Centroid of the region under y = x², [0,3]")
+print(f"    A = {Ar}   (expected 9)")
+print(f"    x̄ = {xbar} = {float(xbar)}   (expected 9/4 = 2.25)")
+print(f"    ȳ = {ybar} = {float(ybar)}   (expected 27/10 = 2.7)")
+print(f"    checks: {Ar == 9}, {xbar == sp.Rational(9,4)}, {ybar == sp.Rational(27,10)}")
+
+# D3. Hydrostatic force on the vertical wall of a rectangular tank
+#     width w = 4 m, depth d = 3 m, rho·g = 9810 N/m^3
+#     F = rho·g * ∫_0^d h * w dh   (h = depth below the surface)
+h = sp.symbols('h', nonnegative=True)
+rho_g, w_pl, d_bath = 9810, 4, 3
+F_ydro = rho_g * sp.integrate(h * w_pl, (h, 0, d_bath))
+print(f"\nD3. Hydrostatic force on a vertical wall {w_pl} m × {d_bath} m")
+print(f"    rho·g = {rho_g} N/m³")
+print(f"    F = rho·g·∫_0^{d_bath} h·{w_pl} dh = {F_ydro} N = {float(F_ydro)/1000:.3f} kN")
+print(f"    (expected 9810·4·3²/2 = 176580 N)")
+F_typos = sp.Rational(rho_g * w_pl * d_bath**2, 2)
+print(f"    formula F = rho·g·w·d²/2 = {F_typos} N, matches: "
+      f"{sp.simplify(F_ydro - F_typos) == 0}")
+# The center of pressure lies at the depth (∫h·h·w dh)/(∫h·w dh)
+h_cp = sp.integrate(h*h*w_pl, (h, 0, d_bath)) / sp.integrate(h*w_pl, (h, 0, d_bath))
+print(f"    center of pressure at depth {h_cp} m = {float(h_cp)} m   (= 2d/3 = 2.0 m)")
+
+# --- Pressure distribution plot ---
+hh = np.linspace(0, d_bath, 200)
+plt.figure(figsize=(6.5, 4.2))
+plt.fill_betweenx(hh, 0, rho_g*hh/1000, alpha=0.35, color='tab:cyan',
+                  label=f'F = {float(F_ydro)/1000:.2f} kN (width {w_pl} m)')
+plt.plot(rho_g*hh/1000, hh, 'b-', lw=2, label='p(h) = rho·g·h')
+plt.axhline(float(h_cp), color='r', ls='--', lw=1,
+            label=f'center of pressure h = {float(h_cp)} m')
+plt.gca().invert_yaxis()
+plt.xlabel('pressure p (kPa)'); plt.ylabel('depth h (m)')
+plt.title('D. Hydrostatic pressure on a tank wall 4 m × 3 m')
+plt.legend(); plt.grid(True, alpha=0.3)
+plt.tight_layout()
+
+print("\nDone.")
+plt.show()
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelector('.tab-btn.'+name).classList.add('active');
+}
+function loadCode(file, elementId, lang) {
+  fetch(file+'?v='+Date.now())
+    .then(r=>r.ok?r.text():Promise.reject(r.status))
+    .then(text=>{
+      const el=document.getElementById(elementId);
+      el.textContent=text; el.className='language-'+lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err=>{document.getElementById(elementId).textContent='⚠ Could not load the file ('+err+'). Please use the Download button.';});
+}
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+originalPy = $('py-editor').value;
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    return await loadPyodide();
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    const code = $('py-editor').value;
+    setStatus('Loading libraries…');
+    await py.loadPackagesFromImports(code);
+    setStatus('Running…');
+    await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
+    py.globals.set('__user_src__', code);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+_imgs = []
+try:
+    import matplotlib.pyplot as plt
+    for _n in plt.get_fignums():
+        _f = plt.figure(_n); _b = io.BytesIO()
+        _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+        _imgs.append(base64.b64encode(_b.read()).decode())
+    plt.close('all')
+except Exception:
+    pass
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

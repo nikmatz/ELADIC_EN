@@ -1,0 +1,221 @@
+/* ============================================================
+   maxima_orismeno.mac
+   Chapter 14 — Definite Integral: Riemann Sums & Properties
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
+   ============================================================
+
+   COMMANDS USED:
+     sum(expr, i, 1, n)      → symbolic sum
+     ev(S, simpsum)          → closed form of the sum
+     limit(expr, n, inf)     → limit as n → ∞
+     float(expr)             → decimal value
+     subst(N, n, expr)       → substitution n := N
+     integrate(f, x, a, b)   → definite integral (for verification)
+     quad_qags(f, x, a, b)   → high-accuracy numerical integration
+     random(1.0)             → random number in [0,1)
+     solve(eq, x)            → solving an equation
+     plot2d([...], [x,a,b])  → plot
+
+   CAUTION: NEVER write n : 100 — that binds n globally and then
+   lim(R_n, n, inf) is meaningless. n stays a FREE symbol; numerical
+   values are substituted in with subst.
+
+   Book activity:
+     (a) L_n, M_n, R_n for f(x)=x² on [0,2], n = 4,10,50,200
+     (b) from the definition: ∫₀²x²dx = 8/3 and ∫₀¹x dx = 1/2, with no antiderivative
+     (c) random points x_i* — the limit does not change
+     (d) properties: linearity, reversal of limits, additivity, symmetries
+     (e) bounds m(b-a) ≤ ∫ ≤ M(b-a) and comparison
+     (f) average value and the Mean Value Theorem
+
+   Run with: wxMaxima (File → Batch File) or
+                 maxima -b maxima_orismeno.mac
+   ============================================================ */
+
+/* We clear any previous value of n — we need it FREE */
+kill(n)$
+declare(n, integer)$
+
+/* ── A. (a) Left, midpoint and right Riemann sums ────── */
+print("════ A. (a) Riemann sums for f(x)=x² on [0,2] ════")$
+
+/* Partition: dx = 2/n,  x_k = 2k/n  (k = 0,…,n) */
+/* Right endpoints  x_i  = 2i/n                                */
+/* Left endpoints   x_(i-1) = 2(i-1)/n                         */
+/* Midpoints        (x_(i-1)+x_i)/2 = (2i-1)/n                 */
+
+Rn : ratsimp(ev(sum((2*i/n)^2     * (2/n), i, 1, n), simpsum))$
+Ln : ratsimp(ev(sum((2*(i-1)/n)^2 * (2/n), i, 1, n), simpsum))$
+Mn : ratsimp(ev(sum(((2*i-1)/n)^2 * (2/n), i, 1, n), simpsum))$
+
+print("L_n =", factor(Ln), "   [Expected 4(n-1)(2n-1)/(3n²)]")$
+print("M_n =", factor(Mn), "   [Expected 2(2n-1)(2n+1)/(3n²)]")$
+print("R_n =", factor(Rn), "   [Expected 4(n+1)(2n+1)/(3n²)]")$
+
+print("")$
+print("Numerically (float) — note that L_n < 8/3 < R_n:")$
+print("      n        L_n          M_n          R_n      |M_n-8/3|   |R_n-8/3|")$
+for N in [4, 10, 50, 200] do
+  block([LN, MN, RN, I],
+    I  : 8/3,
+    LN : float(subst(N, n, Ln)),
+    MN : float(subst(N, n, Mn)),
+    RN : float(subst(N, n, Rn)),
+    print("  ", N, "  ", LN, "  ", MN, "  ", RN,
+          "  ", float(abs(MN - I)), "  ", float(abs(RN - I)),
+          "   L_n<8/3<R_n ?", is(LN < float(I) and float(I) < RN)))$
+
+print("")$
+print("M_n converges faster: its error decreases like ~ 1/n²,")$
+print("while those of L_n, R_n go like ~ 1/n (see the column |M_n-8/3| above).")$
+print("Error ratios n=4→n=200 (×50):  M:",
+      float(abs(subst(4,n,Mn)-8/3) / abs(subst(200,n,Mn)-8/3)),
+      "   R:",
+      float(abs(subst(4,n,Rn)-8/3) / abs(subst(200,n,Rn)-8/3)))$
+
+/* ── B. (b) From the definition, with no antiderivative ─── */
+print("")$
+print("════ B. (b) From the definition: limit of Riemann sums ════")$
+
+print("Formula: Sum_{i=1}^{n} i² = n(n+1)(2n+1)/6")$
+print("  Maxima:", factor(ev(sum(i^2, i, 1, n), simpsum)))$
+print("R_n = Sum (2i/n)²·(2/n) =", factor(Rn))$
+print("lim_{n→∞} R_n =", limit(Rn, n, inf), "   [EXPECTED 8/3]")$
+print("lim_{n→∞} L_n =", limit(Ln, n, inf))$
+print("lim_{n→∞} M_n =", limit(Mn, n, inf))$
+print("So ∫₀² x² dx = 8/3 =", float(8/3), " — without using any antiderivative.")$
+print("Verification with integrate:", integrate(x^2, x, 0, 2))$
+
+print("")$
+print("The same for ∫₀¹ x dx, with the formula Sum i = n(n+1)/2:")$
+print("  Maxima: Sum i =", factor(ev(sum(i, i, 1, n), simpsum)))$
+Sn1 : ratsimp(ev(sum((i/n)*(1/n), i, 1, n), simpsum))$
+print("  S_n = Sum (i/n)·(1/n) =", Sn1, "   [Expected (n+1)/(2n)]")$
+print("  lim_{n→∞} S_n =", limit(Sn1, n, inf), "   [EXPECTED 1/2]")$
+print("  Verification with integrate:", integrate(x, x, 0, 1))$
+
+/* ── C. (c) Independence of the choice of the points x_i* ─ */
+print("")$
+print("════ C. (c) Random points x_i* in each subinterval ════")$
+print("Integrability theorem: f(x)=x² is continuous on [0,2],")$
+print("so the limit does not depend on the choice of the x_i*.")$
+
+set_random_state(make_random_state(2026))$
+
+/* Riemann sum with a RANDOM point in each subinterval:         */
+/*   x_i* = x_(i-1) + r_i·dx  with r_i ~ U[0,1)                   */
+riemann_random(N) := block([dx, S, xl, xstar],
+  dx : 2.0/N,
+  S  : 0.0,
+  for k : 0 thru N - 1 do (
+    xl    : k*dx,
+    xstar : xl + random(1.0)*dx,
+    S     : S + xstar^2 * dx),
+  S)$
+
+print("")$
+print("      n      random sum        |S_n - 8/3|")$
+for N in [4, 10, 50, 200, 1000, 5000] do
+  block([S],
+    S : riemann_random(N),
+    print("  ", N, "   ", S, "   ", float(abs(S - 8/3))))$
+
+print("")$
+print("The sum with random points also tends to 8/3 =", float(8/3), ".")$
+
+/* ── D. (d) Properties of the definite integral ───────── */
+print("")$
+print("════ D. (d) Properties ════")$
+
+/* Linearity: ∫(af+bg) = a∫f + b∫g */
+A1 : integrate(3*x^2 + 5*sin(x), x, 0, 1)$
+A2 : 3*integrate(x^2, x, 0, 1) + 5*integrate(sin(x), x, 0, 1)$
+print("Linearity:")$
+print("  ∫₀¹(3x²+5sin x)dx =", A1, "=", float(A1))$
+print("  3∫₀¹x²dx + 5∫₀¹sin x dx =", A2, "=", float(A2))$
+print("  Difference (must be 0):", ratsimp(A1 - A2))$
+
+/* Reversal of the limits: ∫_a^b = -∫_b^a */
+B1 : integrate(x^2, x, 1, 4)$
+B2 : integrate(x^2, x, 4, 1)$
+print("")$
+print("Reversal of the limits:")$
+print("  ∫₁⁴x²dx =", B1, "   ∫₄¹x²dx =", B2, "   sum (must be 0):", B1 + B2)$
+
+/* Additivity over intervals: ∫_a^b = ∫_a^c + ∫_c^b */
+C1 : integrate(x^2, x, 0, 3)$
+C2 : integrate(x^2, x, 0, 1) + integrate(x^2, x, 1, 3)$
+print("")$
+print("Additivity over intervals (a=0, c=1, b=3):")$
+print("  ∫₀³x²dx =", C1, "   ∫₀¹ + ∫₁³ =", C2, "   difference:", ratsimp(C1 - C2))$
+/* It also holds for c OUTSIDE [a,b] */
+C3 : integrate(x^2, x, 0, 5) + integrate(x^2, x, 5, 3)$
+print("  And with c = 5 (outside [0,3]):", C3, "   difference:", ratsimp(C1 - C3))$
+
+/* Symmetries: odd → 0, even → 2∫₀^a */
+print("")$
+print("Symmetries on the symmetric interval [-2,2]:")$
+print("  x³ odd: ∫₋₂²x³dx =", integrate(x^3, x, -2, 2),
+      "   [EXPECTED 0]")$
+print("  sin(x) odd: ∫₋₂²sin(x)dx =", integrate(sin(x), x, -2, 2))$
+print("  x² even: ∫₋₂²x²dx =", integrate(x^2, x, -2, 2),
+      "   2·∫₀²x²dx =", 2*integrate(x^2, x, 0, 2),
+      "   difference:", ratsimp(integrate(x^2,x,-2,2) - 2*integrate(x^2,x,0,2)))$
+
+/* ── E. (e) Bounds and comparison ─────────────────── */
+print("")$
+print("════ E. (e) Bounds: f(x)=e^(x²) on [0,1] ════")$
+
+/* f(x)=e^(x²) is strictly increasing on [0,1] (f'(x)=2x·e^(x²) ≥ 0),  */
+/* so m = f(0) = 1 and M = f(1) = e.                                     */
+print("f'(x) =", diff(exp(x^2), x), "  ≥ 0 on [0,1] ⇒ f is increasing")$
+m_bound : subst(0, x, exp(x^2))$
+M_bound : subst(1, x, exp(x^2))$
+print("m = f(0) =", m_bound, "=", float(m_bound))$
+print("M = f(1) =", M_bound, "=", float(M_bound))$
+
+Ival : quad_qags(exp(x^2), x, 0, 1)[1]$
+print("∫₀¹ e^(x²) dx =", Ival, "   (numerically, quad_qags)")$
+print("Symbolically Maxima gives:", integrate(exp(x^2), x, 0, 1),
+      "=", float(integrate(exp(x^2), x, 0, 1)))$
+
+print("")$
+print("Check m(b-a) ≤ ∫ ≤ M(b-a)  with b-a = 1:")$
+print("  m(b-a) =", float(m_bound), "  ≤ ∫ =", Ival,
+      "  ≤ M(b-a) =", float(M_bound))$
+print("  Does it hold?", is(float(m_bound) <= Ival and Ival <= float(M_bound)))$
+
+print("")$
+print("Comparison: on [0,1] we have x² ≤ x, so e^(x²) ≤ e^x:")$
+Iex : integrate(exp(x), x, 0, 1)$
+print("  ∫₀¹ e^(x²) dx =", Ival)$
+print("  ∫₀¹ e^x   dx =", Iex, "=", float(Iex))$
+print("  ∫₀¹e^(x²) ≤ ∫₀¹e^x ?", is(Ival <= float(Iex)))$
+print("  Sample of the difference e^x - e^(x²) on [0,1] (must be ≥ 0):")$
+print("   ", makelist(float(subst(k/10, x, exp(x) - exp(x^2))), k, 0, 10))$
+
+/* ── F. (f) Average value and the Mean Value Theorem ───── */
+print("")$
+print("════ F. (f) Average value of f(x)=x² on [0,3] ════")$
+
+fbar : integrate(x^2, x, 0, 3)/(3 - 0)$
+print("∫₀³x²dx =", integrate(x^2, x, 0, 3))$
+print("Average value f̄ = (1/(b-a))·∫₀³x²dx =", fbar, "=", float(fbar),
+      "   [EXPECTED 3]")$
+
+sols : solve(x^2 = fbar, x)$
+print("Solutions of f(c) = f̄ :", sols)$
+xi : rhs(second(sols))$
+print("Admissible solution in [0,3]: c =", xi, "=", float(xi),
+      "   [EXPECTED √3 ≈ 1.732]")$
+print("Check f(c)·(b-a) - ∫₀³f =",
+      ratsimp(subst(xi, x, x^2)*3 - integrate(x^2, x, 0, 3)),
+      "   (must be 0)")$
+
+plot2d([x^2, fbar], [x, 0, 3],
+       [legend, "f(x)=x²", "y = f̄ = 3"],
+       [xlabel, "x"], [ylabel, "y"],
+       [title, "MVT for Integrals: c = sqrt(3) ≈ 1.732"])$
+
+print("")$
+print("End — Chapter 14.")$

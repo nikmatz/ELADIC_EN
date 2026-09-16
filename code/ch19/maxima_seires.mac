@@ -1,0 +1,136 @@
+/* maxima_seires.mac — Sequences, Series and Convergence Tests (Ch. 19) */
+/* Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications. */
+/* Commands: limit(a,n,inf), sum(a,n,1,inf) with simpsum, makelist(), abs(), float() */
+
+load(simplify_sum)$
+
+/* Partial sum S_N numerically (fast, without rational numbers) */
+psum(f, N) := block([s : 0.0, k],
+                    for k : 1 thru N do s : s + float(subst(k, n, f)),
+                    s)$
+
+print("============================================================")$
+print("A. SEQUENCES — LIMITS AND FIRST TERMS")$
+print("============================================================")$
+
+print("lim n/(n+1)     =", limit(n/(n+1), n, inf),     "   (1)")$
+print("lim (1+1/n)^n   =", limit((1+1/n)^n, n, inf),   "   (%e = ", float(%e), ")")$
+print("lim n^2/e^n     =", limit(n^2/exp(n), n, inf),  "   (0)")$
+print("lim (-1)^n/n    =", limit((-1)^n/n, n, inf),    "   (0)")$
+
+print("")$
+print("The first 10 terms (makelist):")$
+print("  n/(n+1)   :", float(makelist(n/(n+1), n, 1, 10)))$
+print("  (1+1/n)^n :", float(makelist((1+1/n)^n, n, 1, 10)))$
+print("  n^2/e^n   :", float(makelist(n^2/exp(n), n, 1, 10)))$
+print("  (-1)^n/n  :", float(makelist((-1)^n/n, n, 1, 10)))$
+print("(-1)^n/n alternates in sign but |a_n| = 1/n -> 0, hence a_n -> 0.")$
+
+print("")$
+print("============================================================")$
+print("B. GEOMETRIC AND TELESCOPING SERIES")$
+print("============================================================")$
+
+/* Without simpsum, Maxima prints the sum unevaluated */
+S1 : ev(sum((1/2)^n, n, 0, inf), simpsum)$
+S2 : ev(sum((2/3)^n, n, 0, inf), simpsum)$
+print("Sum_{n=0}^inf (1/2)^n =", S1, "   formula a/(1-r) =", 1/(1-1/2),
+      "   equal:", is(equal(S1, 1/(1-1/2))))$
+print("Sum_{n=0}^inf (2/3)^n =", S2, "   formula a/(1-r) =", 1/(1-2/3),
+      "   equal:", is(equal(S2, 1/(1-2/3))))$
+print("   (expected 2 and 3)")$
+
+print("")$
+print("Partial sums of Sum(1/2)^n (they approach 2):")$
+for N in [5, 10, 20] do
+  print("   S_", N, "=", float(ev(sum((1/2)^n, n, 0, N), simpsum)))$
+
+print("")$
+print("Telescoping: Sum_{n=1}^inf 1/(n(n+1))")$
+T : simplify_sum(sum(1/(n*(n+1)), n, 1, inf))$
+TN : simplify_sum(sum(1/(n*(n+1)), n, 1, N))$
+print("   Sum =", T, "   (expected 1)")$
+print("   S_N      =", TN, "   = 1 - 1/(N+1), since 1/(n(n+1)) = 1/n - 1/(n+1)")$
+for N in [10, 100, 1000] do
+  print("   S_", N, "=", float(subst(N, 'N, TN)))$
+
+print("")$
+print("============================================================")$
+print("C. THE RATIO TEST AND THE BASEL SERIES")$
+print("============================================================")$
+
+/* Sum n!/n^n : ratio -> 1/e < 1, converges */
+L1 : limit( ((n+1)!/(n+1)^(n+1)) / (n!/n^n), n, inf)$
+print("Sum n!/n^n : L =", L1, "=", float(L1), "  < 1  -> CONVERGES   (1/e)")$
+
+/* Sum n^n/n! : ratio -> e > 1, diverges */
+L2 : limit( ((n+1)^(n+1)/(n+1)!) / (n^n/n!), n, inf)$
+print("Sum n^n/n! : L =", L2, "=", float(L2), "  > 1  -> DIVERGES   (e)")$
+print("The two series are reciprocals of one another, and their ratio")$
+print("is inverted: 1/e and e. Only the first one converges.")$
+
+print("")$
+print("Numerical ratios a_(n+1)/a_n for Sum n!/n^n:")$
+for N in [5, 20, 100] do
+  print("   n =", N, ": ratio =",
+        float( ((N+1)!/(N+1)^(N+1)) / (N!/N^N) ), "   -> 1/e =", float(1/%e))$
+
+print("")$
+print("Basel series: Sum_{n=1}^inf 1/n^2")$
+B : ev(sum(1/n^2, n, 1, inf), simpsum)$
+print("   Sum =", B, "=", float(B), "   (%pi^2/6)")$
+for N in [10, 100, 1000] do
+  print("   S_", N, "=", psum(1/n^2, N),
+        "   error =", abs(psum(1/n^2, N) - float(%pi^2/6)))$
+print("The error decays like 1/N (tail ~ ∫_N^inf dx/x^2 = 1/N).")$
+
+print("")$
+print("============================================================")$
+print("D. ALTERNATING HARMONIC VERSUS HARMONIC")$
+print("============================================================")$
+
+A : simplify_sum(sum((-1)^(n-1)/n, n, 1, inf))$
+print("Sum_{n=1}^inf (-1)^(n-1)/n =", A, "=", float(A), "   (log(2))")$
+print("")$
+print("Leibniz test:  |S - S_N| <= b_(N+1) = 1/(N+1)")$
+for N in [10, 100, 1000] do
+  print("   N =", N, ": S_N =", psum((-1)^(n-1)/n, N),
+        "  |S-S_N| =", abs(psum((-1)^(n-1)/n, N) - float(log(2))),
+        "  b_(N+1) =", float(1/(N+1)),
+        "  holds:", is(abs(psum((-1)^(n-1)/n, N) - float(log(2)))
+                        <= float(1/(N+1))))$
+
+print("")$
+print("Harmonic Sum 1/n — the same terms in absolute value, but it DIVERGES:")$
+for N in [10, 100, 1000] do
+  print("   N =", N, ": H_N =", psum(1/n, N),
+        "   log(N)+gamma =", float(log(N) + 0.5772156649))$
+print("")$
+print("DIFFERENCE: in the alternating one the signs cancel out and the S_N")$
+print("settle at log(2) ~ 0.6931. In the harmonic one the S_N increase")$
+print("without bound (like log N), even if very slowly.")$
+
+print("")$
+print("============================================================")$
+print("E. SUPPLEMENT — the eps-N definition numerically")$
+print("============================================================")$
+a(m) := (2*m + 1)/(m + 3)$
+Lim : limit(a(m), m, inf)$
+print("a_m = (2m+1)/(m+3),  limit =", Lim, "   (2)")$
+print("First 8 terms:", float(makelist(a(m), m, 1, 8)))$
+for eps in [0.1, 0.01, 0.001] do
+  block([N : 1],
+    while abs(float(a(N) - Lim)) >= eps do N : N + 1,
+    print("   eps =", eps, "-> first N with |a_N - L| < eps :", N,
+          "   |a_N-L| =", float(abs(a(N) - Lim))))$
+
+/* Plots (endpoints in increasing order) */
+plot2d([discrete, makelist([N, psum((-1)^(n-1)/n, N)], N, 1, 40)],
+       [style, [linespoints, 1, 2]],
+       [xlabel, "N"], [ylabel, "S_N"],
+       [title, "Alternating harmonic -> log(2) = 0.6931"])$
+
+plot2d([discrete, makelist([N, psum(1/n, N)], N, 1, 60)],
+       [style, [linespoints, 1, 2]],
+       [xlabel, "N"], [ylabel, "H_N"],
+       [title, "Harmonic series: diverges like log(N)"])$

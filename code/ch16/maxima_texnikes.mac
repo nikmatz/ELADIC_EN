@@ -1,0 +1,254 @@
+/* ============================================================ */
+/* maxima_texnikes.mac                                          */
+/* Chapter 16 — Techniques of Integration                       */
+/* Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications. */
+/* ------------------------------------------------------------ */
+/* BASIC COMMANDS:                                             */
+/*   integrate(f,x)            -> indefinite/definite integral   */
+/*   changevar(expr,eq,u,x)    -> explicit change of variable    */
+/*   partfrac(f,x)             -> partial fraction decomposition */
+/*   divide(p,q,x)             -> polynomial division            */
+/*   ratsimp(), trigsimp()     -> simplification                 */
+/*   diff(F,x)                 -> verification by differentiation*/
+/* ============================================================ */
+
+/* Helper: F is an antiderivative of f  <=>  F' - f = 0 */
+elegxos(F, f) := is(trigsimp(ratsimp(diff(F, x) - f)) = 0)$
+
+/* Helper: two antiderivatives differ only by a constant        */
+/* <=> the derivative of their difference is 0                  */
+katastath(F, G) := is(trigsimp(ratsimp(diff(F - G, x))) = 0)$
+
+print("============================================================")$
+print(" Chapter 16: Techniques of Integration")$
+print("============================================================")$
+
+/* ============================================================ */
+/* A. SUBSTITUTION — explicitly with changevar, compared with integrate */
+/* ============================================================ */
+print("")$
+print("=== A. SUBSTITUTION (changevar) ===")$
+
+/* A1.  int x*e^(x^2) dx,  u = x^2  */
+f1 : x*exp(x^2)$
+J1 : 'integrate(f1, x)$
+print("")$
+print("A1. f(x) =", f1, "   u = x^2")$
+print("   changevar :", changevar(J1, u = x^2, u, x))$
+F1u : ev(changevar(J1, u = x^2, u, x), integrate)$
+print("   in terms of u :", F1u)$
+F1s : ratsimp(subst(x^2, u, F1u))$
+print("   back u->x^2   :", F1s)$
+F1 : integrate(f1, x)$
+print("   direct integrate:", F1, "  (expected e^(x^2)/2)")$
+print("   same form     :", is(ratsimp(F1s - F1) = 0))$
+print("   diff check    :", elegxos(F1, f1))$
+
+/* A2.  int x/sqrt(x^2+4) dx,  u = x^2+4  */
+f2 : x/sqrt(x^2+4)$
+J2 : 'integrate(f2, x)$
+print("")$
+print("A2. f(x) =", f2, "   u = x^2+4")$
+print("   changevar :", changevar(J2, u = x^2+4, u, x))$
+F2u : ev(changevar(J2, u = x^2+4, u, x), integrate)$
+print("   in terms of u :", F2u)$
+F2s : ratsimp(subst(x^2+4, u, F2u))$
+print("   back u->x^2+4 :", F2s)$
+F2 : integrate(f2, x)$
+print("   direct integrate:", F2, "  (expected sqrt(x^2+4))")$
+print("   same form     :", is(ratsimp(F2s - F2) = 0))$
+print("   diff check    :", elegxos(F2, f2))$
+
+/* A3.  int ln(x)/x dx,  u = ln(x).  x>0 is declared BEFOREHAND, */
+/*      so that Maxima asks nothing during a batch run.          */
+assume(x > 0)$
+f3 : log(x)/x$
+J3 : 'integrate(f3, x)$
+print("")$
+print("A3. f(x) =", f3, "   u = log(x)")$
+print("   changevar :", changevar(J3, u = log(x), u, x))$
+F3u : ev(changevar(J3, u = log(x), u, x), integrate)$
+print("   in terms of u :", F3u)$
+F3s : ratsimp(subst(log(x), u, F3u))$
+print("   back u->ln x  :", F3s)$
+F3 : integrate(f3, x)$
+print("   direct integrate:", F3, "  (expected log(x)^2/2)")$
+print("   same form     :", is(ratsimp(F3s - F3) = 0))$
+print("   diff check    :", elegxos(F3, f3))$
+forget(x > 0)$
+
+/* ============================================================ */
+/* B. INTEGRATION BY PARTS                                      */
+/*    int u dv = u*v - int v du                                 */
+/* ============================================================ */
+print("")$
+print("=== B. INTEGRATION BY PARTS ===")$
+
+/* B1.  int x^2*e^x dx  — applied TWICE                         */
+/*   1st: u = x^2, dv = e^x dx  ->  x^2 e^x - 2*int x e^x dx     */
+/*   2nd: u = x,   dv = e^x dx  ->  int x e^x dx = x e^x - e^x   */
+g1 : x^2*exp(x)$
+B_esw : integrate(x*exp(x), x)$
+print("")$
+print("B1. f(x) =", g1, "  (applied twice)")$
+print("   2nd application: int x*e^x dx =", B_esw)$
+G1_steps : ratsimp(x^2*exp(x) - 2*B_esw)$
+print("   1st application: x^2*e^x - 2*int x*e^x dx =", G1_steps)$
+G1 : integrate(g1, x)$
+print("   direct integrate:", ratsimp(G1), "  (expected (x^2-2x+2)*e^x)")$
+print("   same form     :", is(ratsimp(G1_steps - G1) = 0))$
+print("   diff check    :", elegxos(G1, g1))$
+
+/* B2.  int atan(x) dx  with u = atan(x), dv = dx               */
+g2 : atan(x)$
+G2_steps : x*atan(x) - integrate(x/(1+x^2), x)$
+print("")$
+print("B2. f(x) =", g2, "   u = atan(x), dv = dx")$
+print("   x*atan(x) - int x/(1+x^2) dx =", G2_steps)$
+G2 : integrate(g2, x)$
+print("   direct integrate:", G2, "  (expected x*atan(x) - log(x^2+1)/2)")$
+print("   same form     :", is(ratsimp(G2_steps - G2) = 0))$
+print("   diff check    :", elegxos(G2, g2))$
+
+/* B3.  int e^x*sin(x) dx  — CYCLIC: the integral reappears,   */
+/*      so we solve for it as an equation with solve.           */
+g3 : exp(x)*sin(x)$
+print("")$
+print("B3. f(x) =", g3, "   (cyclic integration by parts)")$
+print("   Two applications give:  I = e^x*sin(x) - e^x*cos(x) - I")$
+kyklikh : solve(II = exp(x)*sin(x) - exp(x)*cos(x) - II, II)$
+G3_steps : rhs(kyklikh[1])$
+print("   Solving for I       :", G3_steps)$
+G3 : radcan(integrate(g3, x))$
+print("   direct integrate:", G3, "  (expected e^x*(sin x - cos x)/2)")$
+print("   same form     :", is(radcan(G3_steps - G3) = 0))$
+print("   diff check    :", elegxos(G3, g3))$
+
+/* ============================================================ */
+/* C. PARTIAL FRACTION DECOMPOSITION                            */
+/* ============================================================ */
+print("")$
+print("=== C. PARTIAL FRACTIONS (partfrac) ===")$
+
+/* C1.  (2x+3)/(x^2-x-2),  x^2-x-2 = (x-2)(x+1)                 */
+r1 : (2*x+3)/(x^2-x-2)$
+print("")$
+print("C1. f(x) =", r1)$
+print("   denominator :", factor(x^2-x-2))$
+p1 : partfrac(r1, x)$
+print("   partfrac    :", p1, "  (expected 7/(3(x-2)) - 1/(3(x+1)))")$
+R1_oros : integrate(p1, x)$
+print("   term by term:", R1_oros)$
+R1 : integrate(r1, x)$
+print("   direct      :", R1, "  (expected 7*log(x-2)/3 - log(x+1)/3)")$
+print("   differ by a constant:", katastath(R1_oros, R1))$
+print("   diff check          :", elegxos(R1, r1))$
+
+/* C2.  (2x^2-1)/(x(x+1)^2)  — double root in the denominator   */
+r2 : (2*x^2-1)/(x*(x+1)^2)$
+print("")$
+print("C2. f(x) =", r2)$
+p2 : partfrac(r2, x)$
+print("   partfrac    :", p2, "  (expected -1/x + 3/(x+1) - 1/(x+1)^2)")$
+R2_oros : integrate(p2, x)$
+print("   term by term:", R2_oros)$
+R2 : integrate(r2, x)$
+print("   direct      :", ratsimp(R2), "  (expected -log(x)+3log(x+1)+1/(x+1))")$
+print("   differ by a constant:", katastath(R2_oros, R2))$
+print("   diff check          :", elegxos(R2, r2))$
+
+/* C3.  (x^3-1)/(x^2+x+1)  — polynomial division FIRST!         */
+/*      The degree of the numerator (3) is >= that of the        */
+/*      denominator (2), so partfrac alone is not enough.        */
+r3 : (x^3-1)/(x^2+x+1)$
+print("")$
+print("C3. f(x) =", r3, "  (polynomial division first)")$
+print("   factorization of the numerator:", factor(x^3-1))$
+d3 : divide(x^3-1, x^2+x+1, x)$
+print("   divide -> [quotient, remainder] =", d3, "  (expected [x-1, 0])")$
+print("   so f(x) =", d3[1], " (the remainder is", d3[2], ")")$
+print("   partfrac    :", partfrac(r3, x))$
+R3_oros : integrate(d3[1], x)$
+print("   int (x-1) dx:", R3_oros)$
+R3 : integrate(r3, x)$
+print("   direct      :", ratsimp(R3), "  (expected x^2/2 - x)")$
+print("   differ by a constant:", katastath(R3_oros, R3))$
+print("   diff check          :", elegxos(R3, r3))$
+
+/* ============================================================ */
+/* D. TRIGONOMETRIC SUBSTITUTION                                */
+/*    We declare BEFOREHAND that th is in (0, pi/2), so that     */
+/*    sqrt(cos^2)=cos and Maxima asks nothing in batch mode.     */
+/* ============================================================ */
+assume(th > 0, th < %pi/2, sin(th) > 0, cos(th) > 0)$
+print("")$
+print("=== D. TRIGONOMETRIC SUBSTITUTION ===")$
+
+/* D1.  int dx/sqrt(9-4x^2),  x = (3/2)*sin(th)                 */
+s1 : 1/sqrt(9-4*x^2)$
+x1 : 3*sin(th)/2$
+h1 : radcan(trigsimp(subst(x1, x, s1) * diff(x1, th)))$
+print("")$
+print("D1. f(x) =", s1, "   x = (3/2)*sin(th)")$
+print("   integrand in terms of th:", h1)$
+H1 : integrate(h1, th)$
+print("   in terms of th:", H1)$
+S1_xeri : subst(asin(2*x/3), th, H1)$
+print("   back th = asin(2x/3):", S1_xeri, "  (expected asin(2x/3)/2)")$
+S1 : integrate(s1, x)$
+print("   direct integrate:", S1)$
+print("   differ by a constant:", katastath(S1_xeri, S1))$
+print("   diff check          :", elegxos(S1, s1))$
+
+/* A different (also correct) student choice: x = (3/2)*cos(th) */
+/* gives -acos(2x/3)/2, which differs by the constant pi/4.     */
+S1_alt : -acos(2*x/3)/2$
+print("   alternative form -acos(2x/3)/2 :", S1_alt)$
+print("   differs only by a constant:", katastath(S1, S1_alt))$
+print("   the constant is:", float(subst(0.5, x, S1 - S1_alt)),
+      " = pi/4 =", float(%pi/4))$
+
+/* D2.  int sqrt(x^2+1) dx,  x = tan(th)                        */
+s2 : sqrt(x^2+1)$
+x2 : tan(th)$
+h2 : radcan(trigsimp(subst(x2, x, s2) * diff(x2, th)))$
+print("")$
+print("D2. f(x) =", s2, "   x = tan(th)")$
+print("   integrand in terms of th:", h2, " (= sec^3(th))")$
+H2 : integrate(h2, th)$
+print("   in terms of th:", H2)$
+S2_xeri : subst(atan(x), th, H2)$
+S2 : integrate(s2, x)$
+print("   direct integrate:", S2, "  (expected (x*sqrt(x^2+1)+asinh(x))/2)")$
+print("   by hand vs Maxima, differ by a constant:", katastath(S2_xeri, S2))$
+print("   diff check          :", elegxos(S2, s2))$
+/* asinh(x) = log(x + sqrt(x^2+1)) : same function, other form  */
+print("   logarc(asinh(x)) =", logarc(asinh(x)))$
+print("   logarc(asinh(x)) - log(x+sqrt(x^2+1)) =",
+      ratsimp(logarc(asinh(x)) - log(x + sqrt(x^2+1))))$
+
+/* D3.  int dx/(x^2+4)^(3/2),  x = 2*tan(th)                    */
+s3 : 1/(x^2+4)^(3/2)$
+x3 : 2*tan(th)$
+h3 : radcan(trigsimp(subst(x3, x, s3) * diff(x3, th)))$
+print("")$
+print("D3. f(x) =", s3, "   x = 2*tan(th)")$
+print("   integrand in terms of th:", h3, " (= cos(th)/4)")$
+H3 : integrate(h3, th)$
+print("   in terms of th:", H3, " (= sin(th)/4)")$
+S3_xeri : trigsimp(subst(atan(x/2), th, H3))$
+print("   back th = atan(x/2):", S3_xeri)$
+S3 : integrate(s3, x)$
+print("   direct integrate:", S3, "  (expected x/(4*sqrt(x^2+4)))")$
+print("   differ by a constant:", katastath(S3_xeri, S3))$
+print("   diff check          :", elegxos(S3, s3))$
+
+forget(th > 0, th < %pi/2, sin(th) > 0, cos(th) > 0)$
+
+/* A definite integral that we will meet again in Python: */
+print("")$
+print("Definite:  int_0^1 sqrt(x^2+1) dx =", integrate(sqrt(x^2+1), x, 0, 1),
+      "=", float(integrate(sqrt(x^2+1), x, 0, 1)), " (expected 1.147793574696)")$
+
+print("")$
+print("Completed.")$

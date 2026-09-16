@@ -1,0 +1,141 @@
+/* ============================================================
+   maxima_sequences_series.mac
+   Chapter 13 — Sequences and Series
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
+   ============================================================
+
+   COMMANDS USED:
+     limit(a_n, n, inf)       → limit of a sequence
+     sum(a_n, n, 1, inf)      → sum of a series
+     sum(a_n, n, 1, N)        → partial sum
+     makelist(expr, n, 1, N)  → list of terms
+     taylor(f, x, 0, n)       → Taylor/Maclaurin expansion
+     float(...)               → numeric value
+
+   Run with: wxMaxima (Load/File) or
+                 maxima -b maxima_sequences_series.mac
+   ============================================================ */
+
+/* ── Part A: Sequences — Convergence / Divergence ───── */
+print("════ A. Sequences ════");
+
+/* Sequences and their limits */
+seqs : [
+    [n/(n+1),       "n/(n+1)"],
+    [(2*n^2-1)/n^2, "(2n²-1)/n²"],
+    [(-1)^n/n,      "(-1)^n/n"],
+    [(1 + 1/n)^n,   "(1+1/n)^n"],
+    [n^2/exp(n),    "n²/e^n"],
+    [sin(n)/n,      "sin(n)/n"]
+];
+
+for s in seqs do (
+    a_n : s[1],
+    label : s[2],
+    L : limit(a_n, n, inf),
+    print("  a_n =", label, "  →  lim =", L)
+);
+
+/* First 10 terms with makelist */
+print("\nFirst 10 terms a_n = n/(n+1):");
+terms : makelist(float(n/(n+1)), n, 1, 10);
+print(" ", terms);
+
+print("\nFirst 8 terms a_n = (1+1/n)^n (→ e):");
+terms_e : makelist(float((1 + 1/n)^n), n, 1, 8);
+print(" ", terms_e);
+
+/* ── Part B: Geometric and Telescoping Series ──────── */
+print("════ B. Geometric & Telescoping Series ════");
+
+/* Geometric: Sum r^n = a/(1-r), |r|<1 */
+print("Geometric series:");
+for r in [1/2, 2/3, -1/3, 1/4] do (
+    S : sum((r)^n, n, 0, inf),
+    print("  Sum (", r, ")^n =", S, "=", float(S))
+);
+
+/* Telescoping: Sum 1/(n(n+1)) = 1 */
+print("\nTelescoping Sum 1/(n(n+1)):");
+S_tel : sum(1/(n*(n+1)), n, 1, inf);
+print("  Sum =", S_tel);
+/* Partial sums */
+for N in [5, 10, 20] do (
+    SN : float(sum(1/(n*(n+1)), n, 1, N)),
+    print("  S_", N, "=", SN)
+);
+
+/* ── Part C: Convergence Tests ──────────────────── */
+print("════ C. Convergence Tests ════");
+
+/* D'Alembert (ratio) test: lim |a_{n+1}/a_n| */
+print("Ratio Test:");
+
+/* Sum n!/n^n */
+a_n1 : n! / n^n;
+ratio1 : limit(ratsimp((n+1)! / (n+1)^(n+1) / (n! / n^n)), n, inf);
+print("  Sum n!/n^n: L =", float(ratio1), "< 1 → CONVERGES");
+
+/* Sum n^n/n! */
+a_n2 : n^n / n!;
+ratio2 : limit(ratsimp(((n+1)^(n+1)/(n+1)!) / (n^n/n!)), n, inf);
+print("  Sum n^n/n!: L =", float(ratio2), "> 1 → DIVERGES");
+
+/* Cauchy (root) test */
+print("\nRoot Test:");
+/* Sum (n/(2n+1))^n */
+a_n3 : (n/(2*n+1))^n;
+root3 : limit((n/(2*n+1)), n, inf);
+print("  Sum (n/(2n+1))^n: L = lim a_n^(1/n) =", root3, "< 1 → CONVERGES");
+
+/* Integral test */
+print("\nIntegral Test:");
+/* Sum 1/n² → pi²/6 */
+S_Basel : sum(1/n^2, n, 1, inf);
+print("  Sum 1/n² =", S_Basel, "=", float(S_Basel));
+/* Sum 1/n → diverges (harmonic) */
+print("  Sum 1/n  → diverges (harmonic series)");
+
+/* ── Part D: Well-known Series ──────────────────── */
+print("════ D. Well-known Series ════");
+
+S_euler : sum(1/n^2, n, 1, inf);
+print("  Sum 1/n² = pi²/6 =", float(S_euler), "(Basel ✓)");
+
+S_euler4 : sum(1/n^4, n, 1, inf);
+print("  Sum 1/n⁴ = pi⁴/90 =", float(S_euler4));
+
+/* Numerical verification of the partial sums vs pi²/6 */
+print("\nConvergence S_N → pi²/6:");
+for N in [10, 100, 1000] do (
+    SN : float(sum(1/n^2, n, 1, N)),
+    err: abs(SN - float(%pi^2/6)),
+    print("  N =", N, ": S_N =", SN, " error:", err)
+);
+
+/* ── Part E: Taylor / Maclaurin Series ────────────── */
+print("════ E. Taylor / Maclaurin Series ════");
+
+/* Maclaurin for basic functions */
+print("Maclaurin expansion (about x=0):");
+funcs : [[exp(x),"e^x"], [sin(x),"sinx"], [cos(x),"cosx"],
+         [1/(1-x),"1/(1-x)"], [log(1+x),"ln(1+x)"]];
+for f in funcs do (
+    T : taylor(f[1], x, 0, 6),
+    print("  ", f[2], "=", T)
+);
+
+/* Taylor about x0 ≠ 0 */
+print("\nTaylor expansion about x0=1:");
+T_ln : taylor(log(x), x, 1, 5);
+print("  ln(x) =", T_ln);
+
+/* Numerical convergence of the Maclaurin series for e^x at x=1 */
+print("\nConvergence of Maclaurin e^x at x=1 (→ e =", float(exp(1)), "):");
+for n_terms in [3, 5, 8, 12] do (
+    approx : float(sum(1/k!, k, 0, n_terms)),
+    err: abs(approx - float(exp(1))),
+    print("  n=", n_terms, ": S_n =", approx, " error:", err)
+);
+
+print("════ End ════");

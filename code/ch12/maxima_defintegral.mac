@@ -1,0 +1,125 @@
+/* ============================================================
+   maxima_defintegral.mac
+   Chapter 11 — Definite Integral
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
+   ============================================================
+
+   COMMANDS USED:
+     integrate(f, x, a, b)    → definite integral
+     float(...)               → numeric value
+     romberg(f, x, a, b)      → numerical integration (Romberg)
+     quad_qags(f, x, a, b)    → numerical integration (QUADPACK)
+     plot2d                   → plot
+
+   Run with: wxMaxima (Load/File) or
+                 maxima -b maxima_defintegral.mac
+   ============================================================ */
+
+/* ── Part A: Basic Definite Integrals ────────────── */
+print("════ A. Basic Definite Integrals ════");
+
+/* Fundamental Theorem of Calculus: ∫ₐᵇ f dx = F(b) - F(a) */
+print("Fundamental Theorem of Calculus:");
+
+I1 : integrate(x^2, x, 0, 3);
+print("  ∫₀³ x² dx =", I1);           /* = 9 */
+
+I2 : integrate(sin(x), x, 0, %pi);
+print("  ∫₀^pi sinx dx =", I2);       /* = 2 */
+
+I3 : integrate(exp(x), x, 0, 1);
+print("  ∫₀¹ eˣ dx =", float(I3));    /* = e-1 */
+
+I4 : integrate(1/x, x, 1, exp(1));
+print("  ∫₁^e (1/x) dx =", I4);       /* = 1 */
+
+I5 : integrate(x^3 - 2*x + 1, x, -1, 2);
+print("  ∫₋₁² (x³-2x+1) dx =", I5);
+
+/* ── Part B: Properties of the Definite Integral ─────── */
+print("════ B. Properties ════");
+
+f_sym : x^2 - x;
+
+/* Linearity */
+I6  : integrate(3*f_sym + 2*x, x, 0, 2);
+I6a : 3*integrate(f_sym, x, 0, 2) + 2*integrate(x, x, 0, 2);
+print("  Linearity: ∫₀²(3f+2x) =", I6, " vs ", I6a);
+
+/* Reversal of the limits */
+I7a : integrate(x^2, x, 0, 3);
+I7b : integrate(x^2, x, 3, 0);
+print("  Reversal: ∫₀³ x² =", I7a, ",  ∫₃⁰ x² =", I7b);
+
+/* Additivity over intervals */
+I8a : integrate(abs(x), x, -2, 2);
+I8b : integrate(-x, x, -2, 0) + integrate(x, x, 0, 2);
+print("  Additivity: ∫₋₂² |x| dx =", I8a, " =", I8b);
+
+/* ── Part C: Area between curves ────────────────── */
+print("════ C. Area between Curves ════");
+
+/* Area between y=x² and y=x */
+f_up  : x;
+f_down: x^2;
+intersect : solve(f_up = f_down, x);
+print("Intersections of y=x and y=x²:", intersect);
+A1 : integrate(f_up - f_down, x, 0, 1);
+print("  Area = ∫₀¹ (x-x²) dx =", A1);
+
+/* Area between y=sinx and y=cosx on [0, pi/4] */
+A2 : integrate(cos(x) - sin(x), x, 0, %pi/4);
+print("  Area ∫₀^(pi/4) (cosx-sinx) dx =", float(A2));
+
+/* Area between two parabolas */
+g1 : x^2 - 2*x;
+g2 : -(x^2) + 4;
+cross : solve(g1 = g2, x);
+print("Intersections g1=g2:", cross);
+A3 : integrate(g2 - g1, x, -1, 2);
+print("  Area =", A3);
+
+/* ── Part D: Numerical Integration ────────────────── */
+print("════ D. Numerical Integration ════");
+
+/* Romberg — transcendental integrals */
+print("∫₀¹ eˣ² dx (Romberg):");
+I_romberg : romberg(exp(x^2), x, 0, 1);
+print("  ≈", I_romberg);
+
+print("∫₀¹ sin(x²) dx (Romberg):");
+I_sinx2 : romberg(sin(x^2), x, 0, 1);
+print("  ≈", I_sinx2);
+
+/* QUADPACK */
+print("∫₀^pi sinx/x dx (quad_qags):");
+load("quadpack")$
+I_sinc : quad_qags(sin(x)/x, x, 1e-6, %pi)[1];
+print("  ≈", I_sinc);
+
+/* ── Part E: Trapezoidal Rule & Simpson ────────────── */
+print("════ E. Trapezoidal Rule & Simpson ════");
+
+/* Trapezoidal rule for ∫₀¹ x² dx with n=4 subintervals */
+a_t : 0$  b_t : 1$  n_t : 4$
+h_t : (b_t - a_t)/n_t;
+trap_sum : 0;
+for i : 0 thru n_t do (
+    xi : a_t + i*h_t,
+    wi : if i=0 or i=n_t then 1 else 2,
+    trap_sum : trap_sum + wi * xi^2
+);
+T4 : h_t/2 * trap_sum;
+print("Trapezoid (n=4): ∫₀¹ x² dx ≈", float(T4), " (exact: 1/3 =", float(1/3), ")");
+
+/* Simpson's rule for ∫₀¹ x² dx with n=4 */
+simp_sum : 0;
+for i : 0 thru n_t do (
+    xi : a_t + i*h_t,
+    wi : if i=0 or i=n_t then 1 elseif mod(i,2)=1 then 4 else 2,
+    simp_sum : simp_sum + wi * xi^2
+);
+S4 : h_t/3 * simp_sum;
+print("Simpson  (n=4): ∫₀¹ x² dx ≈", float(S4), " (exact ✓)");
+
+print("════ End ════");

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Ch. 13 — The Indefinite Integral · Elements of Linear Algebra &amp; Calculus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#222}
+  header{background:var(--blue);color:white;padding:18px 24px}
+  header h1{font-size:1.25rem;font-weight:700}
+  header p{font-size:.9rem;margin-top:4px;opacity:.85}
+  .breadcrumb{font-size:.82rem;padding:10px 24px;background:#eee;border-bottom:1px solid #ddd}
+  .breadcrumb a{color:var(--blue);text-decoration:none}
+  .container{max-width:960px;margin:0 auto;padding:24px 16px}
+  .info-box{background:white;border-left:5px solid var(--blue);padding:14px 18px;margin-bottom:24px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .info-box h2{font-size:1rem;color:var(--blue);margin-bottom:8px}
+  .info-box p{font-size:.88rem;line-height:1.6}
+  .tabs{display:flex;gap:6px;margin-bottom:0}
+  .tab-btn{padding:10px 20px;border:none;border-radius:6px 6px 0 0;font-size:.9rem;font-weight:600;cursor:pointer}
+  .tab-btn.maxima{background:#d5f5e3;color:var(--teal)}
+  .tab-btn.python{background:#d6eaf8;color:var(--blue)}
+  .tab-btn.active.maxima{background:var(--teal);color:white}
+  .tab-btn.active.python{background:var(--blue);color:white}
+  .tab-content{display:none}
+  .tab-content.active{display:block}
+  .code-card{background:white;border-radius:0 6px 6px 6px;box-shadow:0 2px 8px rgba(0,0,0,.1);overflow:hidden}
+  .code-header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;font-size:.85rem;font-weight:600}
+  .code-header.maxima{background:var(--teal);color:white}
+  .code-header.python{background:var(--blue);color:white}
+  .download-btn{display:inline-block;padding:5px 12px;background:rgba(255,255,255,.2);color:white;border:1px solid rgba(255,255,255,.5);border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:600}
+  .download-btn:hover{background:rgba(255,255,255,.35)}
+  pre[class*="language-"]{margin:0!important;border-radius:0!important;max-height:520px;overflow-y:auto;font-size:.83rem}
+  .commands-box{background:#fffde7;border:1px solid #f9a825;border-radius:4px;padding:12px 16px;margin:16px 0;font-size:.85rem}
+  .commands-box strong{color:var(--orange)}
+  .commands-box code{background:#fff3cd;padding:1px 5px;border-radius:3px;font-size:.82rem}
+  footer{text-align:center;padding:20px;font-size:.8rem;color:#888;margin-top:32px;border-top:1px solid #ddd}
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+<header>
+  <h1>📐 Chapter 13 — The Indefinite Integral</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
+</header>
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 13
+</div>
+<div class="container">
+  <div class="info-box">
+    <h2>📋 Contents of the Activities</h2>
+    <p><strong>Topic:</strong> table of basic integrals, linearity, linear substitution, u-substitution, initial value problems<br><br>
+    Choose a language from the tabs. The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.</p>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_aoristo.mac</span>
+        <a class="download-btn" href="maxima_aoristo.mac" download>⬇ Download .mac</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Basic commands:</strong>
+        <code>integrate(f,x)</code> &nbsp;
+        <code>diff(F,x)</code> &nbsp;
+        <code>changevar()</code> &nbsp;
+        <code>ratsimp()</code> &nbsp;
+        <code>solve()</code> &nbsp;
+        <code>plot2d()</code>
+      </div>
+      <pre><code class="language-maxima" id="maxima-code">/* ============================================================
+   maxima_aoristo.mac
+   Chapter 13 — Indefinite Integral: Direct Integration &amp; Substitution
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
+   ============================================================
+
+   COMMANDS USED:
+     integrate(f, x)        → indefinite integral ∫f(x)dx (without the constant c)
+     diff(F, x)             → differentiation — the safest check
+     ratsimp(expr)          → simplification; ratsimp(diff(F,x)-f) = 0 ⇔ correct
+     trigsimp(expr)         → simplification of trigonometric expressions
+     'integrate(f, x)       → UNEVALUATED integral (quote)
+     changevar(I, eq, u, x) → change of variable, step by step
+     ev(expr, integrate)    → evaluation of the unevaluated integral
+     solve(eq, c)           → solving for the constant c
+     plot2d([...], [x,a,b]) → plot
+
+   Book activity:
+     (a) table of basic integrals + verification with diff
+     (b) linearity
+     (c) linear substitution: the factor 1/a
+     (d) substitution u = g(x) with changevar
+     (e) initial value problem y' = 3x²-4x+1, y(1) = 2
+
+   Run with: wxMaxima (File → Batch File) or
+                 maxima -b maxima_aoristo.mac
+   ============================================================ */
+
+/* ── A. (a) Table of basic integrals ────────────────── */
+print("════ A. (a) Table of basic integrals ════")$
+
+basics : [x^4, sqrt(x), exp(x), 1/x, sin(x), sec(x)^2,
+          1/(1+x^2), 1/sqrt(1-x^2)]$
+
+print("  f(x)  →  F(x) = ∫f(x)dx   (+ c)   and the check F'(x) - f(x)")$
+for f in basics do
+  block([F],
+    F : integrate(f, x),
+    print("   ", f, "  →  ", F,
+          "      F'-f =", ratsimp(trigsimp(diff(F, x) - f))))$
+
+/* All the checks together: the list must be all zeros */
+print("")$
+print("Checks F'-f (all must be 0):")$
+print("   ", map(lambda([f], ratsimp(trigsimp(diff(integrate(f,x),x) - f))),
+                 basics))$
+print("  [Expected: ∫x⁴=x⁵/5, ∫√x=2x^(3/2)/3, ∫eˣ=eˣ, ∫dx/x=log x,")$
+print("   ∫sin x=-cos x, ∫sec²x=tan x, ∫dx/(1+x²)=atan x, ∫dx/√(1-x²)=asin x]")$
+
+/* ── B. (b) Linearity of the integral ───────────────── */
+print("")$
+print("════ B. (b) Linearity ════")$
+
+g : 3*x^2 - 2*sin(x) + 1/x$
+Ig : integrate(g, x)$
+print("∫(3x² - 2·sin x + 1/x)dx =", Ig)$
+print("  [Expected: x³ + 2·cos(x) + log(x)]")$
+
+/* The same, term by term: 3∫x²dx - 2∫sin x dx + ∫dx/x */
+Isum : 3*integrate(x^2, x) - 2*integrate(sin(x), x) + integrate(1/x, x)$
+print("Sum of the parts: 3∫x²dx - 2∫sin x dx + ∫dx/x =", Isum)$
+print("Difference of the two (must be 0):", ratsimp(Ig - Isum))$
+print("Check with diff: F'-f =", ratsimp(diff(Ig, x) - g))$
+
+/* ── C. (c) Linear substitution: the factor 1/a ──────── */
+print("")$
+print("════ C. (c) Linear substitution: ∫f(ax+b)dx = (1/a)F(ax+b) + c ════")$
+
+linear_cases : [exp(2*x), cos(3*x), 1/(2*x+5), (4*x+1)^5]$
+avals        : [2, 3, 2, 4]$
+
+for k : 1 thru length(linear_cases) do
+  block([f, F],
+    f : linear_cases[k],
+    F : integrate(f, x),
+    print("   ∫", f, "dx =", F,
+          "      a =", avals[k],
+          "      F'-f =", ratsimp(diff(F, x) - f)))$
+
+print("")$
+print("  [Expected: ∫e^(2x)=e^(2x)/2, ∫cos3x=sin(3x)/3,")$
+print("   ∫dx/(2x+5)=log(2x+5)/2, ∫(4x+1)⁵=(4x+1)⁶/24 (in expanded form)]")$
+/* Maxima returns the expansion; it differs from (4x+1)⁶/24 by a constant */
+print("(4x+1)⁶/24 - F(x) =", ratsimp((4*x+1)^6/24 - integrate((4*x+1)^5, x)),
+      "  ⇒ the two forms differ by a constant (absorbed into c)")$
+
+/* Symbolic confirmation of the rule: for an arbitrary f and constants a, b */
+print("")$
+print("Symbolic confirmation of the rule ∫f(ax+b)dx = (1/a)F(ax+b) + c:")$
+kill(a, b)$
+declare(a, constant, b, constant)$
+for f in [exp(u), cos(u), 1/u, u^5] do
+  block([F, cand],
+    F    : integrate(f, u),                  /* F: the antiderivative of f */
+    cand : subst(a*x + b, u, F)/a,           /* candidate antiderivative  */
+    print("   f(u) =", f, "  →  d/dx[(1/a)F(ax+b)] - f(ax+b) =",
+          ratsimp(diff(cand, x) - subst(a*x + b, u, f))))$
+print("  [All four differences are 0 ⇒ the rule holds.]")$
+
+/* ── D. (d) Substitution u = g(x) with changevar ──────── */
+print("")$
+print("════ D. (d) Substitution u = g(x) ════")$
+
+/* 1. ∫2x·cos(x²)dx with u = x²  — step by step with changevar */
+I1 : 'integrate(2*x*cos(x^2), x)$
+print("Initial unevaluated form:", I1)$
+J1 : changevar(I1, u = x^2, u, x)$
+print("After u = x²:", J1)$
+print("Result in u:", ev(J1, integrate))$
+print("Back to x:", subst(x^2, u, ev(J1, integrate)),
+      "   [Expected sin(x²)]")$
+print("Directly:", integrate(2*x*cos(x^2), x),
+      "   F'-f =", ratsimp(diff(integrate(2*x*cos(x^2),x),x) - 2*x*cos(x^2)))$
+
+/* 2. ∫6x(3x²+1)⁵dx with u = 3x²+1 */
+print("")$
+I2 : 'integrate(6*x*(3*x^2+1)^5, x)$
+J2 : changevar(I2, u = 3*x^2 + 1, u, x)$
+print("∫6x(3x²+1)⁵dx: after u = 3x²+1 →", J2)$
+print("   = ", integrate(6*x*(3*x^2+1)^5, x),
+      "   [Expected (3x²+1)⁶/6]")$
+print("   F'-f =", ratsimp(diff(integrate(6*x*(3*x^2+1)^5,x),x)
+                           - 6*x*(3*x^2+1)^5))$
+
+/* 3. ∫sin³x·cos x dx with u = sin x */
+print("")$
+S3 : integrate(sin(x)^3*cos(x), x)$
+print("∫sin³x·cos x dx =", S3, "   [Expected sin⁴(x)/4]")$
+print("   F'-f =", trigsimp(diff(S3, x) - sin(x)^3*cos(x)))$
+
+/* 4. ∫(2x+3)/(x²+3x+5)dx with u = x²+3x+5  (numerator = u') */
+print("")$
+S4 : integrate((2*x+3)/(x^2+3*x+5), x)$
+print("∫(2x+3)/(x²+3x+5)dx =", S4, "   [Expected log(x²+3x+5)]")$
+print("   F'-f =", ratsimp(diff(S4, x) - (2*x+3)/(x^2+3*x+5)))$
+
+/* ── E. (e) Initial value problem: y' = 3x²-4x+1, y(1) = 2 ── */
+print("")$
+print("════ E. (e) Initial value problem ════")$
+
+kill(c)$
+f_ivp : 3*x^2 - 4*x + 1$
+F_ivp : integrate(f_ivp, x)$
+print("y' =", f_ivp)$
+print("General solution: y = F(x) + c  with F(x) =", F_ivp)$
+print("  [Expected F(x) = x³ - 2x² + x]")$
+
+print("Condition y(1) = 2:  F(1) + c = 2  with F(1) =", subst(1, x, F_ivp))$
+sol_c : solve(subst(1, x, F_ivp) + c = 2, c)$
+print("solve →", sol_c, "   [Expected c = 2]")$
+
+c_val : rhs(first(sol_c))$
+y_part : F_ivp + c_val$
+print("Particular solution: y =", y_part)$
+print("Check y(1) =", subst(1, x, y_part), "   (must be 2)")$
+print("Check y'(x) - f(x) =", ratsimp(diff(y_part, x) - f_ivp),
+      "   (must be 0)")$
+
+/* The family y = F(x) + c for c = -2,-1,0,1,2 */
+print("")$
+print("Family of antiderivatives for c = -2,-1,0,1,2 — the same curve,")$
+print("shifted vertically; the slope at x=1 is the same for every c:")$
+for cc in [-2, -1, 0, 1, 2] do
+  print("   c =", cc, "  y(2) =", subst(2, x, F_ivp + cc),
+        "  y'(2) =", subst(2, x, diff(F_ivp + cc, x)),
+        "  [f(2) =", subst(2, x, f_ivp), "]")$
+
+plot2d([F_ivp - 2, F_ivp - 1, F_ivp, F_ivp + 1, F_ivp + 2],
+       [x, -1, 3], [y, -6, 12],
+       [legend, "c=-2", "c=-1", "c=0", "c=+1", "c=+2 (particular solution)"],
+       [title, "y = x³-2x²+x + c  —  the particular solution y(1)=2 is c=+2"])$
+
+print("")$
+print("End — Chapter 13.")$
+</code></pre>
+    </div>
+  </div>
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_aoristo.py</span>
+        <a class="download-btn" href="python_aoristo.py" download>⬇ Download .py</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Libraries / commands:</strong>
+        <code>sympy.integrate()</code> &nbsp;
+        <code>sympy.diff()</code> &nbsp;
+        <code>sympy.simplify()</code> &nbsp;
+        <code>sympy.lambdify()</code> &nbsp;
+        <code>matplotlib.pyplot</code>
+      </div>
+            <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
+# python_aoristo.py
+# Chapter 13 — Indefinite Integral (SymPy &amp; Matplotlib)
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
+# ============================================================
+#
+# LIBRARIES:
+#   sympy       → symbolic integration and verification
+#   numpy       → numerical grids for the plots
+#   matplotlib  → plots
+#
+# BASIC COMMANDS:
+#   sympy.integrate(f, x)        → indefinite integral ∫f(x)dx
+#   sympy.diff(F, x)             → differentiation (check)
+#   sympy.simplify(expr)         → simplification; simplify(F'-f)==0 ⇔ correct
+#   sympy.lambdify(x, expr)      → conversion to a numerical function
+#   matplotlib.pyplot            → plot, subplots
+#
+# Book activity:
+#   (a) table of basic integrals
+#   (b) the function check(f) — automatic verification
+#   (c) linear substitution ∫f(ax+b)dx = (1/a)F(ax+b) + C
+#   (d) substitution u — f and F on one plot
+#   (e) initial value problem + motion a(t)=6t-4, v(0)=2, x(0)=1
+# ============================================================
+
+import numpy as np
+import sympy as sp
+import matplotlib.pyplot as plt
+
+x, t, u, a, b, C = sp.symbols('x t u a b C')
+
+print("=" * 60)
+print(" Chapter 13: Indefinite Integral — Python")
+print("=" * 60)
+
+# ── A. (a) Table of basic integrals ──────────────────
+print("\n──── A. (a) Table of basic integrals ────")
+
+basics = [
+    ("x^4",           x**4),
+    ("sqrt(x)",       sp.sqrt(x)),
+    ("e^x",           sp.exp(x)),
+    ("1/x",           1/x),
+    ("sin(x)",        sp.sin(x)),
+    ("sec^2(x)",      sp.sec(x)**2),
+    ("1/(1+x^2)",     1/(1 + x**2)),
+    ("1/sqrt(1-x^2)", 1/sp.sqrt(1 - x**2)),
+]
+
+print(f"  {'f(x)':&lt;16s} → F(x) = ∫f(x)dx  (+ C)")
+table = []
+for name, f in basics:
+    F = sp.trigsimp(sp.integrate(f, x))
+    table.append((name, f, F))
+    print(f"  {name:&lt;16s} → {F}")
+
+print("\n  [Expected: x^5/5, 2x^(3/2)/3, exp(x), log(x), -cos(x),")
+print("               tan(x), atan(x), asin(x)]")
+
+# ── B. (b) Automatic verification: the function check(f) ──
+print("\n──── B. (b) Automatic verification with check(f) ────")
+
+
+def check(f, var=x):
+    """Integrates f, differentiates the result and checks that
+    simplify(diff(F, var) - f) == 0. Returns (F, True/False)."""
+    F = sp.integrate(f, var)
+    residual = sp.simplify(sp.diff(F, var) - f)
+    return F, residual == 0
+
+
+all_ok = True
+for name, f, _ in table:
+    F, ok = check(f)
+    all_ok = all_ok and ok
+    print(f"  check({name:&lt;16s}) → F = {str(F):&lt;18s}  d/dx F - f = 0 ? {ok}")
+
+print(f"\n  Did all the checks of (a) pass? {all_ok}")
+
+# ── C. (c) Linear substitution ─────────────────────
+print("\n──── C. (c) Linear substitution ────")
+
+for name, f, aval in [("e^(2x)",   sp.exp(2*x),  2),
+                      ("cos(3x)",  sp.cos(3*x),  3),
+                      ("(4x+1)^5", (4*x + 1)**5, 4)]:
+    F, ok = check(f)
+    print(f"  ∫{name:&lt;10s} dx = {sp.factor(F)}")
+    print(f"      a = {aval}  →  the factor 1/a = 1/{aval} appears"
+          f"   [check: {ok}]")
+
+# (4x+1)^5 in closed form: it differs from (4x+1)^6/24 by a constant
+d = sp.simplify((4*x + 1)**6/24 - sp.integrate((4*x + 1)**5, x))
+print(f"\n  (4x+1)^6/24 - F(x) = {d}  (a constant — absorbed into C)")
+
+# Symbolic confirmation of the rule ∫f(ax+b)dx = (1/a)F(ax+b) + C
+print("\n  Symbolic confirmation of the rule ∫f(ax+b)dx = (1/a)·F(ax+b) + C:")
+aa, bb = sp.symbols('a b', nonzero=True, real=True)
+for name, fu in [("e^u", sp.exp(u)), ("cos(u)", sp.cos(u)),
+                 ("1/u", 1/u), ("u^5", u**5)]:
+    Fu = sp.integrate(fu, u)                      # F: antiderivative of f
+    cand = Fu.subs(u, aa*x + bb)/aa               # candidate antiderivative
+    res = sp.simplify(sp.diff(cand, x) - fu.subs(u, aa*x + bb))
+    print(f"    f(u) = {name:&lt;8s}  d/dx[(1/a)F(ax+b)] - f(ax+b) = {res}")
+print("    [All 0 ⇒ the rule is verified symbolically.]")
+
+# ── D. (d) Substitution u = g(x) ───────────────────
+print("\n──── D. (d) Substitution u = g(x) ────")
+
+subs_cases = [
+    ("2x·cos(x^2)",  2*x*sp.cos(x**2),      (-2.2, 2.2)),
+    ("x·e^(x^2)",    x*sp.exp(x**2),        (-1.5, 1.5)),
+    ("sin^3(x)cos x", sp.sin(x)**3*sp.cos(x), (0.0, 2*np.pi)),
+    ("x·sqrt(x+1)",  x*sp.sqrt(x + 1),      (-1.0, 3.0)),
+]
+
+results = []
+for name, f, rng in subs_cases:
+    F, ok = check(f)
+    results.append((name, f, F, rng))
+    print(f"  ∫{name:&lt;15s} dx = {sp.simplify(F)}     [check F'-f=0: {ok}]")
+
+print("\n  [Expected: sin(x^2), exp(x^2)/2, sin^4(x)/4,")
+print("               2(x+1)^(3/2)(3x-2)/15]")
+
+# f and F on the SAME plot — sign of f ↔ monotonicity of F
+fig, axes = plt.subplots(2, 2, figsize=(11, 7))
+fig.suptitle("Substitution u: f (its sign) and its antiderivative F "
+             "(its monotonicity)", fontsize=12, fontweight='bold')
+
+for ax, (name, f, F, (lo, hi)) in zip(axes.ravel(), results):
+    xs = np.linspace(lo + 1e-6, hi, 500)
+    fn = sp.lambdify(x, f, 'numpy')
+    Fn = sp.lambdify(x, F, 'numpy')
+    yf = np.real(np.asarray(fn(xs), dtype=complex))
+    yF = np.real(np.asarray(Fn(xs), dtype=complex))
+    ax.plot(xs, yf, 'b-', lw=1.8, label=f"f(x) = {name}")
+    ax.plot(xs, yF, 'r-', lw=1.8, label="F(x) = ∫f dx")
+    ax.fill_between(xs, 0, yf, where=(yf &gt; 0), color='green', alpha=.15)
+    ax.fill_between(xs, 0, yf, where=(yf &lt; 0), color='red',   alpha=.15)
+    ax.axhline(0, color='k', lw=.6)
+    ax.legend(fontsize=8); ax.grid(alpha=.3)
+
+plt.tight_layout()
+
+# Answer to the question in the book — numerically, not by assertion
+print("\n  Sign of f ↔ monotonicity of F (sampling at 400 points):")
+for name, f, F, (lo, hi) in results:
+    xs = np.linspace(lo + 1e-3, hi - 1e-3, 400)
+    fn = sp.lambdify(x, f, 'numpy')
+    Fn = sp.lambdify(x, F, 'numpy')
+    yf = np.real(np.asarray(fn(xs), dtype=complex))
+    yF = np.real(np.asarray(Fn(xs), dtype=complex))
+    dF = np.gradient(yF, xs)                 # numerical derivative of F
+    same = np.sign(dF[3:-3]) == np.sign(yf[3:-3])
+    print(f"    {name:&lt;15s}: sign(F') == sign(f) at "
+          f"{100*np.mean(same):.1f}% of the points")
+print("    ⇒ where f &gt; 0, F is increasing; where f &lt; 0, F is decreasing (F' = f).")
+
+# ── E. (e) Initial value problem ───────────────────
+print("\n──── E. (e) Initial value problem ────")
+
+# E1. y' = cos x  →  y = sin x + C,  with y(0) = 1
+F_cos = sp.integrate(sp.cos(x), x)
+print(f"  y' = cos x  →  y = {F_cos} + C")
+C_sol = sp.solve(sp.Eq(F_cos.subs(x, 0) + C, 1), C)
+print(f"  Condition y(0) = 1:  sin(0) + C = 1  →  C = {C_sol[0]}"
+      f"   [Expected C = 1]")
+y_part = F_cos + C_sol[0]
+print(f"  Particular solution: y = {y_part}   (check y(0) = {y_part.subs(x, 0)})")
+
+xs = np.linspace(-2*np.pi, 2*np.pi, 600)
+plt.figure(figsize=(8, 4.6))
+for c in (-2, -1, 0, 1, 2):
+    if c == 1:
+        plt.plot(xs, np.sin(xs) + c, 'r-', lw=2.6,
+                 label="C = 1  (particular solution, y(0)=1)")
+    else:
+        plt.plot(xs, np.sin(xs) + c, lw=1.2, alpha=.8, label=f"C = {c}")
+plt.plot([0], [1], 'ro', ms=8, zorder=5)
+plt.annotate("(0, 1)", (0, 1), textcoords="offset points", xytext=(10, 8))
+plt.axhline(0, color='k', lw=.6); plt.axvline(0, color='k', lw=.6)
+plt.title("y' = cos x: the family y = sin x + C  (C = -2,…,2)")
+plt.xlabel("x"); plt.ylabel("y"); plt.legend(fontsize=8); plt.grid(alpha=.3)
+plt.tight_layout()
+
+# E2. Motion: a(t) = 6t - 4,  v(0) = 2,  x(0) = 1
+print("\n  Motion: a(t) = 6t - 4,  v(0) = 2,  x(0) = 1")
+a_t = 6*t - 4
+C1, C2 = sp.symbols('C1 C2')
+
+v_gen = sp.integrate(a_t, t) + C1
+C1_val = sp.solve(sp.Eq(v_gen.subs(t, 0), 2), C1)[0]
+v_t = sp.expand(v_gen.subs(C1, C1_val))
+print(f"    v(t) = ∫a dt = {v_t}      (C1 = {C1_val}, v(0) = {v_t.subs(t, 0)})")
+
+x_gen = sp.integrate(v_t, t) + C2
+C2_val = sp.solve(sp.Eq(x_gen.subs(t, 0), 1), C2)[0]
+x_t = sp.expand(x_gen.subs(C2, C2_val))
+print(f"    x(t) = ∫v dt = {x_t}   (C2 = {C2_val}, x(0) = {x_t.subs(t, 0)})")
+print(f"    [Expected v(t) = 3t^2 - 4t + 2,  x(t) = t^3 - 2t^2 + 2t + 1]")
+
+print(f"    Checks: v'(t) - a(t) = {sp.simplify(sp.diff(v_t, t) - a_t)},"
+      f"  x'(t) - v(t) = {sp.simplify(sp.diff(x_t, t) - v_t)}")
+
+ts = np.linspace(0, 2.5, 400)
+a_n = sp.lambdify(t, a_t, 'numpy')
+v_n = sp.lambdify(t, v_t, 'numpy')
+x_n = sp.lambdify(t, x_t, 'numpy')
+
+fig, (axa, axv, axx) = plt.subplots(3, 1, figsize=(7.5, 8), sharex=True)
+fig.suptitle("Motion: a(t) = 6t - 4,  v(0) = 2,  x(0) = 1",
+             fontsize=12, fontweight='bold')
+
+axa.plot(ts, a_n(ts), 'g-', lw=2)
+axa.axhline(0, color='k', lw=.6)
+axa.set_ylabel("a(t)"); axa.set_title("acceleration  a(t) = 6t - 4", fontsize=10)
+axa.grid(alpha=.3)
+
+axv.plot(ts, v_n(ts), 'b-', lw=2)
+axv.axhline(0, color='k', lw=.6)
+axv.set_ylabel("v(t)")
+axv.set_title(f"velocity  v(t) = ∫a dt = {v_t}", fontsize=10)
+axv.plot([0], [2], 'bo', ms=7)
+axv.grid(alpha=.3)
+
+axx.plot(ts, x_n(ts), 'r-', lw=2)
+axx.axhline(0, color='k', lw=.6)
+axx.set_ylabel("x(t)"); axx.set_xlabel("t")
+axx.set_title(f"position  x(t) = ∫v dt = {x_t}", fontsize=10)
+axx.plot([0], [1], 'ro', ms=7)
+axx.grid(alpha=.3)
+
+plt.tight_layout()
+
+# Minimum of the velocity: where a(t) = 0
+t_star = sp.solve(sp.Eq(a_t, 0), t)[0]
+print(f"    a(t) = 0 at t = {t_star}  →  there v has an extremum: "
+      f"v({t_star}) = {v_t.subs(t, t_star)}")
+
+print("\n✓ Chapter 13 completed.")
+plt.show()
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelector('.tab-btn.'+name).classList.add('active');
+}
+function loadCode(file, elementId, lang) {
+  fetch(file+'?v='+Date.now())
+    .then(r=>r.ok?r.text():Promise.reject(r.status))
+    .then(text=>{
+      const el=document.getElementById(elementId);
+      el.textContent=text; el.className='language-'+lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err=>{document.getElementById(elementId).textContent='⚠ Could not load the file ('+err+'). Please use the Download button.';});
+}
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+originalPy = $('py-editor').value;
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    return await loadPyodide();
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    const code = $('py-editor').value;
+    setStatus('Loading libraries…');
+    await py.loadPackagesFromImports(code);
+    setStatus('Running…');
+    await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
+    py.globals.set('__user_src__', code);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+_imgs = []
+try:
+    import matplotlib.pyplot as plt
+    for _n in plt.get_fignums():
+        _f = plt.figure(_n); _b = io.BytesIO()
+        _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+        _imgs.append(base64.b64encode(_b.read()).decode())
+    plt.close('all')
+except Exception:
+    pass
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

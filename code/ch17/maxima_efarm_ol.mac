@@ -1,0 +1,233 @@
+/* ============================================================ */
+/* maxima_efarm_ol.mac                                          */
+/* Chapter 17 — Applications of Integral Calculus               */
+/*   Area, Volume of Revolution, Arc Length                     */
+/* Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications. */
+/* ------------------------------------------------------------ */
+/* BASIC COMMANDS:                                              */
+/*   integrate(f,x,a,b)  -> definite integral                   */
+/*   romberg(f,x,a,b)    -> numerical integral                  */
+/*   solve(f=g,x)        -> points of intersection              */
+/*   diff(f,x), sqrt()   -> arc length / surface area           */
+/*   trigsimp(), ratsimp()                                      */
+/* NOTE: comments in Maxima open with slash-asterisk            */
+/*   and close with asterisk-slash. Never with semicolons.      */
+/* ============================================================ */
+
+load(romberg)$
+/* We tighten romberg's tolerance (default 1e-4) so that the    */
+/* numerical results agree with the symbolic ones.              */
+rombergtol : 1e-10$
+rombergit  : 20$
+
+print("============================================================")$
+print(" Chapter 17: Applications of Integral Calculus")$
+print("============================================================")$
+
+/* ============================================================ */
+/* A. AREA                                                      */
+/* ============================================================ */
+print("")$
+print("=== A. AREA ===")$
+
+/* A1.  int_{-1}^{1} |x^3 - x| dx                               */
+/* Maxima does not integrate the absolute value directly:       */
+/* we find the roots, SORT them and split the interval.         */
+print("")$
+print("A1. int_{-1}^{1} |x^3 - x| dx")$
+rizes : sort(map(rhs, solve(x^3 - x = 0, x)))$
+print("   roots of x^3-x (sorted):", rizes, " (expected [-1,0,1])")$
+/* On [-1,0] we have x^3-x >= 0, on [0,1] we have x^3-x <= 0 */
+A1a : integrate(x^3 - x, x, -1, 0)$
+A1b : integrate(-(x^3 - x), x, 0, 1)$
+print("   int_{-1}^{0} (x^3-x) dx  =", A1a)$
+print("   int_{0}^{1} -(x^3-x) dx  =", A1b)$
+A1 : A1a + A1b$
+print("   TOTAL (integrate)        =", A1, "=", float(A1), " (expected 1/2)")$
+A1r : romberg(abs(x^3 - x), x, -1, 1)$
+print("   TOTAL (romberg)          =", A1r)$
+print("   integrate vs romberg, |difference| < 1e-8 :",
+      is(abs(float(A1) - A1r) < 1e-8))$
+
+/* A2.  Area between y = -x^2+4 and y = x^2-2x                  */
+print("")$
+print("A2. Area between y = -x^2+4 and y = x^2-2x")$
+f : -x^2 + 4$
+g : x^2 - 2*x$
+/* ALWAYS sort the roots: solve returns them as [2,-1],         */
+/* and with [a,b]=[2,-1] the area comes out NEGATIVE (plot2d    */
+/* fails, since it requires min < max).                         */
+tomes : sort(map(rhs, solve(f = g, x)))$
+print("   solve(f=g,x) sorted:", tomes, " (expected [-1,2])")$
+a : tomes[1]$
+b : tomes[2]$
+print("   a =", a, ",  b =", b)$
+A2 : integrate(f - g, x, a, b)$
+print("   Area =", A2, "=", float(A2), " (expected 9)")$
+print("   positive area:", is(A2 > 0))$
+A2r : romberg(f - g, x, float(a), float(b))$
+print("   Area (romberg) =", A2r)$
+print("   integrate vs romberg, |difference| < 1e-8 :",
+      is(abs(float(A2) - A2r) < 1e-8))$
+
+/* Plot: the endpoints ALWAYS in increasing order */
+plot2d([f, g],
+       [x, a - 0.5, b + 0.5],
+       [style, [lines, 2, 1], [lines, 2, 2]],
+       [legend, "f(x) = -x^2+4", "g(x) = x^2-2x"],
+       [xlabel, "x"], [ylabel, "y"],
+       [title, "Area between two curves (= 9)"])$
+
+/* ============================================================ */
+/* B. VOLUME OF REVOLUTION                                      */
+/* ============================================================ */
+print("")$
+print("=== B. VOLUME OF REVOLUTION ===")$
+
+/* B1. DISKS:  V = pi * int_a^b [f(x)]^2 dx                     */
+print("")$
+print("B1. Disk method:  V = pi*int_a^b f(x)^2 dx")$
+fd1 : sqrt(x)$
+Vd1 : %pi * integrate(fd1^2, x, 0, 4)$
+print("   y = sqrt(x), [0,4] : V =", Vd1, "=", float(Vd1), " (expected 8*pi)")$
+print("   check V = 8*pi     :", is(ratsimp(Vd1 - 8*%pi) = 0))$
+
+fd2 : sin(x)$
+Vd2 : %pi * integrate(fd2^2, x, 0, %pi)$
+print("   y = sin(x), [0,pi] : V =", Vd2, "=", float(Vd2), " (expected pi^2/2)")$
+print("   check V = pi^2/2   :", is(ratsimp(Vd2 - %pi^2/2) = 0))$
+
+/* B2. WASHERS: V = pi*int_a^b ([R]^2 - [r]^2) dx               */
+/*     y = sqrt(x) (outer) vs y = x (inner),                    */
+/*     revolved about the x-axis.                               */
+print("")$
+print("B2. Washer method: y = sqrt(x) vs y = x, about the x-axis")$
+/* solve does not handle the square root well: we square it     */
+/* (sqrt(x) = x  <=>  x = x^2 for x >= 0) and we SORT them.     */
+tomes2 : sort(map(rhs, solve(x = x^2, x)))$
+print("   intersections (sorted):", tomes2, " (expected [0,1])")$
+R_ex : sqrt(x)$
+r_es : x$
+Vw : %pi * integrate(R_ex^2 - r_es^2, x, tomes2[1], tomes2[2])$
+print("   V =", Vw, "=", float(Vw), " (expected pi/6)")$
+print("   check V = pi/6 :", is(ratsimp(Vw - %pi/6) = 0))$
+/* Cross-check with shells with respect to y: radius y, height (y - y^2) */
+Vw_shell : 2*%pi * integrate(y*(y - y^2), y, 0, 1)$
+print("   same with shells with respect to y:", Vw_shell,
+      " identical:", is(ratsimp(Vw - Vw_shell) = 0))$
+
+/* B3. SHELLS: V = 2*pi*int_a^b x*f(x) dx (about the y-axis)    */
+print("")$
+print("B3. Shell method: y = x^3 about the y-axis, [0,2]")$
+fs : x^3$
+Vs : 2*%pi * integrate(x*fs, x, 0, 2)$
+print("   V = 2*pi*int_0^2 x*x^3 dx =", Vs, "=", float(Vs), " (expected 64*pi/5)")$
+print("   check V = 64*pi/5 :", is(ratsimp(Vs - 64*%pi/5) = 0))$
+/* Cross-check with washers with respect to y (y from 0 to 8, x = y^(1/3)) */
+/* y > 0 is declared BEFOREHAND, so that Maxima does not ask.   */
+assume(y > 0)$
+Vs_wash : %pi * integrate(2^2 - (y^(1/3))^2, y, 0, 8)$
+print("   same with washers with respect to y:", ratsimp(Vs_wash),
+      " identical:", is(ratsimp(Vs - Vs_wash) = 0))$
+forget(y > 0)$
+
+/* ============================================================ */
+/* C. ARC LENGTH:  L = int_a^b sqrt(1 + [f'(x)]^2) dx           */
+/* ============================================================ */
+print("")$
+print("=== C. ARC LENGTH ===")$
+
+/* C1.  y = x^(3/2) on [0,4] */
+print("")$
+print("C1. y = x^(3/2), [0,4]")$
+y1 : x^(3/2)$
+dy1 : diff(y1, x)$
+print("   f'(x) =", dy1)$
+ds1 : sqrt(1 + dy1^2)$
+print("   sqrt(1+f'^2) =", ratsimp(ds1))$
+L1 : ratsimp(integrate(ds1, x, 0, 4))$
+print("   L =", L1, "=", float(L1), " (expected (80*sqrt(10)-8)/27 = 9.073415289)")$
+print("   check of the closed form:", is(ratsimp(L1 - (80*sqrt(10)-8)/27) = 0))$
+L1r : romberg(ds1, x, 0, 4)$
+print("   L (romberg) =", L1r)$
+print("   integrate vs romberg, |difference| < 1e-8 :",
+      is(abs(float(L1) - L1r) < 1e-8))$
+
+/* C2.  y = ln(cos x) on [0, pi/3] — trigsimp is needed here    */
+/*      1 + tan^2(x) = sec^2(x), hence sqrt(1+f'^2) = sec(x).   */
+/*      cos(x)>0 is declared BEFORE, so sqrt(1/cos^2) = 1/cos.  */
+assume(cos(x) > 0)$
+print("")$
+print("C2. y = ln(cos x), [0, pi/3]")$
+y2 : log(cos(x))$
+dy2 : diff(y2, x)$
+print("   f'(x) =", dy2, " (= -tan x)")$
+ds2raw : 1 + dy2^2$
+ds2 : trigsimp(ds2raw)$
+print("   trigsimp(1 + f'^2) =", ds2, " (= sec^2 x)")$
+L2 : integrate(sqrt(ds2), x, 0, %pi/3)$
+print("   L =", L2)$
+print("   L =", float(L2), " (expected ln(2+sqrt(3)) = 1.316957897)")$
+print("   check L = ln(2+sqrt(3)) :",
+      is(abs(float(L2) - float(log(2 + sqrt(3)))) < 1e-9))$
+L2r : romberg(sqrt(ds2), x, 0, float(%pi/3))$
+print("   L (romberg) =", L2r)$
+print("   integrate vs romberg, |difference| < 1e-8 :",
+      is(abs(float(L2) - L2r) < 1e-8))$
+forget(cos(x) > 0)$
+
+/* ============================================================ */
+/* D. AREA OF A SURFACE OF REVOLUTION                           */
+/*    S = 2*pi * int_a^b f(x)*sqrt(1 + f'(x)^2) dx              */
+/* ============================================================ */
+print("")$
+print("=== D. SURFACE AREA (cone y = x, [0,2]) ===")$
+fc : x$
+dfc : diff(fc, x)$
+print("   f(x) =", fc, ",  f'(x) =", dfc)$
+print("   sqrt(1+f'^2) =", sqrt(1 + dfc^2), " (= sqrt(2))")$
+S : 2*%pi * integrate(fc*sqrt(1 + dfc^2), x, 0, 2)$
+print("   S = 2*pi*int_0^2 x*sqrt(2) dx =", S, "=", float(S),
+      " (expected 4*sqrt(2)*pi = 17.77153175)")$
+/* Verification with the geometric formula S = pi*r*l */
+r_kwnou : 2$
+l_kwnou : 2*sqrt(2)$
+S_typos : %pi * r_kwnou * l_kwnou$
+print("   Formula S = pi*r*l, r =", r_kwnou, ", l =", l_kwnou, " -> S =",
+      S_typos, "=", float(S_typos))$
+print("   identical:", is(ratsimp(S - S_typos) = 0))$
+
+/* ============================================================ */
+/* E. PHYSICAL APPLICATIONS                                     */
+/* ============================================================ */
+print("")$
+print("=== E. PHYSICAL APPLICATIONS ===")$
+
+/* E1. Work of a spring: W = int_0^{0.1} F(x) dx, F = 200x (N)  */
+print("")$
+print("E1. Work of a spring, F(x) = 200*x N, x from 0 to 0.1 m")$
+F_elat : 200*x$
+W : integrate(F_elat, x, 0, 1/10)$
+print("   W = int_0^{1/10} 200*x dx =", W, "J =", float(W), "J  (expected 1 J)")$
+print("   check W = 1 J:", is(W = 1))$
+/* Equivalently from the formula W = k*x^2/2 with k = 200, x = 0.1 */
+print("   formula k*x^2/2 =", 200*(1/10)^2/2, "J  matches:",
+      is(W - 200*(1/10)^2/2 = 0))$
+
+/* E2. Centroid of the region under y = x^2, [0,3]              */
+/*     A  = int_0^3 f dx                                        */
+/*     xb = (1/A)*int_0^3 x*f dx                                */
+/*     yb = (1/A)*int_0^3 (1/2)*f^2 dx                          */
+print("")$
+print("E2. Centroid of the region under y = x^2, [0,3]")$
+fy : x^2$
+Ar : integrate(fy, x, 0, 3)$
+xb : integrate(x*fy, x, 0, 3) / Ar$
+yb : integrate(fy^2/2, x, 0, 3) / Ar$
+print("   Area A =", Ar, " (expected 9)")$
+print("   x_bar =", xb, "=", float(xb), " (expected 9/4 = 2.25)")$
+print("   y_bar =", yb, "=", float(yb), " (expected 27/10 = 2.7)")$
+print("   checks:", is(Ar = 9), is(xb = 9/4), is(yb = 27/10))$
+
+print("")$
+print("Done.")$

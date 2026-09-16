@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Ch. 15 — The Fundamental Theorem of Calculus · Elements of Linear Algebra &amp; Calculus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#222}
+  header{background:var(--blue);color:white;padding:18px 24px}
+  header h1{font-size:1.25rem;font-weight:700}
+  header p{font-size:.9rem;margin-top:4px;opacity:.85}
+  .breadcrumb{font-size:.82rem;padding:10px 24px;background:#eee;border-bottom:1px solid #ddd}
+  .breadcrumb a{color:var(--blue);text-decoration:none}
+  .container{max-width:960px;margin:0 auto;padding:24px 16px}
+  .info-box{background:white;border-left:5px solid var(--blue);padding:14px 18px;margin-bottom:24px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .info-box h2{font-size:1rem;color:var(--blue);margin-bottom:8px}
+  .info-box p{font-size:.88rem;line-height:1.6}
+  .tabs{display:flex;gap:6px;margin-bottom:0}
+  .tab-btn{padding:10px 20px;border:none;border-radius:6px 6px 0 0;font-size:.9rem;font-weight:600;cursor:pointer}
+  .tab-btn.maxima{background:#d5f5e3;color:var(--teal)}
+  .tab-btn.python{background:#d6eaf8;color:var(--blue)}
+  .tab-btn.active.maxima{background:var(--teal);color:white}
+  .tab-btn.active.python{background:var(--blue);color:white}
+  .tab-content{display:none}
+  .tab-content.active{display:block}
+  .code-card{background:white;border-radius:0 6px 6px 6px;box-shadow:0 2px 8px rgba(0,0,0,.1);overflow:hidden}
+  .code-header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;font-size:.85rem;font-weight:600}
+  .code-header.maxima{background:var(--teal);color:white}
+  .code-header.python{background:var(--blue);color:white}
+  .download-btn{display:inline-block;padding:5px 12px;background:rgba(255,255,255,.2);color:white;border:1px solid rgba(255,255,255,.5);border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:600}
+  .download-btn:hover{background:rgba(255,255,255,.35)}
+  pre[class*="language-"]{margin:0!important;border-radius:0!important;max-height:520px;overflow-y:auto;font-size:.83rem}
+  .commands-box{background:#fffde7;border:1px solid #f9a825;border-radius:4px;padding:12px 16px;margin:16px 0;font-size:.85rem}
+  .commands-box strong{color:var(--orange)}
+  .commands-box code{background:#fff3cd;padding:1px 5px;border-radius:3px;font-size:.82rem}
+  footer{text-align:center;padding:20px;font-size:.8rem;color:#888;margin-top:32px;border-top:1px solid #ddd}
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+<header>
+  <h1>📐 Chapter 15 — The Fundamental Theorem of Calculus</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
+</header>
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 15
+</div>
+<div class="container">
+  <div class="info-box">
+    <h2>📋 Contents of the Activities</h2>
+    <p><strong>Topic:</strong> the FTC Parts I and II, the Newton–Leibniz formula, Leibniz's rule with variable limits, the Mean Value Theorem for Integrals<br><br>
+    Choose a language from the tabs. The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.</p>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_ttl.mac</span>
+        <a class="download-btn" href="maxima_ttl.mac" download>⬇ Download .mac</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Basic commands:</strong>
+        <code>integrate(f,t,0,x)</code> &nbsp;
+        <code>diff(F,x)</code> &nbsp;
+        <code>subst(b,x,F)</code> &nbsp;
+        <code>solve(eq,c)</code> &nbsp;
+        <code>plot2d()</code> &nbsp;
+        <code>float()</code>
+      </div>
+      <pre><code class="language-maxima" id="maxima-code">/* ============================================================
+   maxima_ttl.mac
+   Chapter 15 — Fundamental Theorem of Calculus (FTC)
+                 The area function and the Leibniz rule
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
+   ============================================================
+
+   COMMANDS USED:
+     assume(x &gt; 0)             → sign assumption (FIRST OF ALL!)
+     integrate(f, t, 0, x)     → area function F(x) = ∫₀ˣ f(t)dt
+     diff(F, x)                → F'(x) — Part I of the FTC
+     subst(b, x, F)            → substitution x := b (Newton–Leibniz formula)
+     'integrate(f, t, a, b)    → UNEVALUATED integral; diff applies
+                                 the Leibniz rule to it directly
+     solve(eq, c)              → solving for the c of the MVT
+     ratsimp, trigsimp, float  → simplification and decimal values
+     plot2d([...], [x, a, b])  → plot
+
+   CAUTION: assume(x &gt; 0) must come BEFORE every integrate whose upper
+   limit is x. Otherwise Maxima asks "Is x positive, negative or zero?"
+   and in batch mode it blocks forever.
+
+   Book activity:
+     (a) F(x)=∫₀ˣf(t)dt for f=t², sin t, 1/(1+t²); check F'(x)=f(x)
+     (b) Newton–Leibniz: ∫₁³(2x+1), ∫₀^(pi/2)cos x, ∫₁^e (ln x)/x
+         first as F(b)-F(a) with subst, then directly
+     (c) the Leibniz rule with variable limits
+     (d) MVT for Integrals for f(x)=x² on [0,3]
+
+   Run with: wxMaxima (File → Batch File) or
+                 maxima -b maxima_ttl.mac
+   ============================================================ */
+
+/* FIRST OF ALL: the sign assumptions — no questions afterwards */
+assume(x &gt; 0)$
+print("Assumptions in force:", facts())$
+
+/* ── A. (a) Part I of the FTC: the area function ──────── */
+print("")$
+print("════ A. (a) Area function F(x) = ∫₀ˣ f(t)dt ════")$
+
+cases_a : [t^2, sin(t), 1/(1+t^2)]$
+
+for ft in cases_a do
+  block([F, dF, f_at_x],
+    F      : integrate(ft, t, 0, x),
+    dF     : trigsimp(ratsimp(diff(F, x))),
+    f_at_x : subst(x, t, ft),
+    print("  f(t) =", ft),
+    print("     F(x) = ∫₀ˣ f(t)dt =", F),
+    print("     F'(x) =", dF, "     F'(x) - f(x) =",
+          ratsimp(trigsimp(dF - f_at_x)), "  (must be 0)"))$
+
+print("")$
+print("  [Expected: f=t² → F=x³/3 ; f=sin t → F=1-cos x ;")$
+print("               f=1/(1+t²) → F=atan(x)]")$
+
+/* Values of the area function (they show the "accumulation") */
+print("")$
+F_sin : integrate(sin(t), t, 0, x)$
+print("Accumulation for f(t)=sin t:")$
+for a in [%pi/4, %pi/2, %pi, 3*%pi/2, 2*%pi] do
+  print("   F(", a, ") =", ratsimp(subst(a, x, F_sin)),
+        "=", float(subst(a, x, F_sin)))$
+print("  [Maximum at x=pi (there f=sin x changes sign): F(pi)=2]")$
+
+/* ── B. (b) Newton–Leibniz formula: ∫_a^b f = F(b) - F(a) ── */
+print("")$
+print("════ B. (b) Newton–Leibniz — two passes ════")$
+print("First as F(b)-F(a) with subst, then directly with integrate(f,x,a,b).")$
+
+/* Data from the book: [f(x), a, b, expected value] */
+nl_cases : [[2*x + 1,        1,     3,      10],
+            [cos(x),         0,     %pi/2,  1],
+            [log(x)/x,       1,     %e,     1/2]]$
+
+for cs in nl_cases do
+  block([fx, aa, bb, expect, G, val1, val2],
+    fx     : cs[1],
+    aa     : cs[2],
+    bb     : cs[3],
+    expect : cs[4],
+    G      : integrate(fx, x),                       /* antiderivative */
+    val1   : ratsimp(subst(bb, x, G) - subst(aa, x, G)),   /* F(b)-F(a) */
+    val2   : integrate(fx, x, aa, bb),                     /* directly  */
+    print("  f(x) =", fx, "   on [", aa, ",", bb, "]"),
+    print("     Antiderivative F(x) =", G),
+    print("     (1) F(b) - F(a) =", val1, "=", float(val1)),
+    print("     (2) integrate(f,x,a,b) =", val2, "=", float(val2)),
+    print("     Do they agree? difference =", ratsimp(val1 - val2),
+          "   Expected:", expect,
+          "   correct?", is(ratsimp(val1 - expect) = 0)))$
+
+/* ── C. (c) Leibniz rule with variable limits ────────── */
+print("")$
+print("════ C. (c) Leibniz rule: F'(x) = f(b(x))b'(x) - f(a(x))a'(x) ════")$
+
+/* 1. One variable limit: d/dx ∫₀^(x²) e^(-t²) dt                */
+print("")$
+print("(1)  d/dx ∫₀^(x²) e^(-t²) dt")$
+D1   : ratsimp(diff('integrate(exp(-t^2), t, 0, x^2), x))$
+rule1: subst(x^2, t, exp(-t^2))*diff(x^2, x) - subst(0, t, exp(-t^2))*diff(0, x)$
+print("     Maxima (diff applied to 'integrate):", D1)$
+print("     Formula f(b(x))·b'(x) - f(a(x))·a'(x) :", ratsimp(rule1))$
+print("     Difference (must be 0):", ratsimp(D1 - rule1))$
+print("     [EXPECTED 2x·e^(-x⁴)]")$
+/* The same with an explicit evaluation of the integral (erf) */
+print("     With explicit evaluation of the integral:",
+      ratsimp(diff(integrate(exp(-t^2), t, 0, x^2), x)))$
+
+/* 2. TWO variable limits: d/dx ∫_x^(x²) sin(t²) dt              */
+/*    Here the NEGATIVE term -f(a(x))·a'(x) shows up clearly.    */
+print("")$
+print("(2)  d/dx ∫ₓ^(x²) sin(t²) dt   — TWO variable limits")$
+D2   : ratsimp(diff('integrate(sin(t^2), t, x, x^2), x))$
+rule2: subst(x^2, t, sin(t^2))*diff(x^2, x) - subst(x, t, sin(t^2))*diff(x, x)$
+print("     Maxima (diff applied to 'integrate):", D2)$
+print("     Formula f(b(x))·b'(x) - f(a(x))·a'(x) :", ratsimp(rule2))$
+print("     Difference (must be 0):", ratsimp(D2 - rule2))$
+print("     [EXPECTED 2x·sin(x⁴) - sin(x²)]")$
+print("     The term -sin(x²) comes from the LOWER limit a(x)=x")$
+print("     (a'(x)=1) — without it the formula would be wrong.")$
+
+/* Numerical check with finite differences at x = 1.3 */
+print("")$
+print("Numerical check at x = 1.3 (central finite difference):")$
+block([x0, h, Iplus, Iminus, num, sym],
+  x0 : 1.3,
+  h  : 1.0e-4,
+  Iplus  : quad_qags(sin(t^2), t, x0 + h, (x0 + h)^2)[1],
+  Iminus : quad_qags(sin(t^2), t, x0 - h, (x0 - h)^2)[1],
+  num : (Iplus - Iminus)/(2*h),
+  sym : float(subst(x0, x, D2)),
+  print("   finite differences :", num),
+  print("   symbolic formula   :", sym),
+  print("   |difference|       :", float(abs(num - sym))))$
+
+/* ── D. (d) MVT for Integrals ────────────────────── */
+print("")$
+print("════ D. (d) MVT for Integrals: f(x)=x² on [0,3] ════")$
+
+kill(c)$
+a_mvt : 0$
+b_mvt : 3$
+I_mvt : integrate(x^2, x, a_mvt, b_mvt)$
+print("∫₀³ x² dx =", I_mvt, "   [EXPECTED 9]")$
+
+print("We look for c such that f(c)·(b-a) = ∫ₐᵇ f  ⇔  c²·3 = 9:")$
+sols : solve(c^2*(b_mvt - a_mvt) = I_mvt, c)$
+print("   solve →", sols)$
+c_val : rhs(second(sols))$
+print("   Admissible solution in [0,3]: c =", c_val, "=", float(c_val),
+      "   [EXPECTED √3 ≈ 1.7320508]")$
+print("   f(c) =", subst(c_val, c, c^2), "   height of the rectangle")$
+print("   Check f(c)·(b-a) - ∫ₐᵇf =",
+      ratsimp(subst(c_val, c, c^2)*(b_mvt - a_mvt) - I_mvt), "  (must be 0)")$
+print("   Area of the rectangle =", float(subst(c_val, c, c^2)*(b_mvt - a_mvt)),
+      "   Area under f =", float(I_mvt))$
+
+/* Plot: f, the horizontal line at height f(c) = 3, and c */
+h_rect : subst(c_val, c, c^2)$
+plot2d([x^2, h_rect], [x, 0, 3], [y, 0, 9.5],
+       [legend, "f(x) = x²", "y = f(c) = 3 (height of the rectangle)"],
+       [xlabel, "x"], [ylabel, "y"],
+       [title, "MVT for Integrals: equality of areas, c = sqrt(3)"])$
+
+print("")$
+print("End — Chapter 15.")$
+</code></pre>
+    </div>
+  </div>
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_ttl.py</span>
+        <a class="download-btn" href="python_ttl.py" download>⬇ Download .py</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Libraries / commands:</strong>
+        <code>sympy.integrate()</code> &nbsp;
+        <code>sympy.diff()</code> &nbsp;
+        <code>sympy.Integral()</code> &nbsp;
+        <code>scipy.integrate.quad()</code> &nbsp;
+        <code>np.cumsum()</code> &nbsp;
+        <code>matplotlib.fill_between()</code>
+      </div>
+            <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
+# python_ttl.py
+# Chapter 15 — Fundamental Theorem of Calculus (FTC)
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
+# ============================================================
+#
+# LIBRARIES:
+#   sympy       → symbolic area function and Leibniz rule
+#   numpy       → cumulative sum of strips (np.cumsum)
+#   scipy       → reference numerical integration (quad)
+#   matplotlib  → combined plots and fill_between
+#
+# BASIC COMMANDS:
+#   sympy.integrate(f, (t, 0, x)) → F(x) = ∫₀ˣ f(t)dt
+#   sympy.diff(F, x)              → F'(x) = f(x)          [FTC Part I]
+#   sympy.Integral(f, (t, a(x), b(x))) → unevaluated integral
+#   sympy.diff(Integral, x)       → Leibniz rule
+#   scipy.integrate.quad(f, a, b) → numerical integral
+#   numpy.cumsum(y) * h           → cumulative sum of strips
+#   matplotlib.fill_between()     → shading of a region
+#
+# Book activity:
+#   (a) F(x)=∫₀ˣf(t)dt for three f's; check F'=f; f and F on ONE plot
+#   (b) np.cumsum for f(x)=sin x on [0,2pi] versus the exact 1-cos x
+#   (c) Leibniz rule for d/dx ∫ₓ^(x²) sin(t²)dt + finite differences
+#   (d) MVT for Integrals for f(x)=x² on [0,3]
+# ============================================================
+
+import numpy as np
+import sympy as sp
+import matplotlib.pyplot as plt
+from scipy.integrate import quad
+
+x, t = sp.symbols('x t', real=True)
+
+print("=" * 62)
+print(" Chapter 15: Fundamental Theorem of Calculus")
+print("=" * 62)
+
+# ── A. (a) The area function F(x) = ∫₀ˣ f(t)dt ─────────
+print("\n──── A. (a) Area function and the check F'(x) = f(x) ────")
+
+cases = [("t²",        t**2,          (-2.0,  2.0)),
+         ("sin t",     sp.sin(t),     (0.0,   2*np.pi)),
+         ("1/(1+t²)",  1/(1 + t**2),  (-4.0,  4.0))]
+
+fig, axes = plt.subplots(1, 3, figsize=(14, 4.3))
+fig.suptitle("FTC Part I:  F(x) = ∫₀ˣ f(t)dt  and  F'(x) = f(x)",
+             fontsize=12, fontweight='bold')
+
+for ax, (name, ft, (lo, hi)) in zip(axes, cases):
+    F = sp.simplify(sp.integrate(ft, (t, 0, x)))
+    dF = sp.simplify(sp.diff(F, x))
+    ok = sp.simplify(dF - ft.subs(t, x)) == 0
+    print(f"  f(t) = {name:&lt;10s} → F(x) = {F}")
+    print(f"      F'(x) = {dF}     F'(x) - f(x) = 0 ? {ok}")
+
+    # f and F on the SAME plot
+    zz = np.linspace(lo, hi, 500)
+    fn = sp.lambdify(x, ft.subs(t, x), 'numpy')
+    Fn = sp.lambdify(x, F, 'numpy')
+    ax.plot(zz, fn(zz) * np.ones_like(zz), 'b-', lw=2, label=f"f(x) = {name}")
+    ax.plot(zz, Fn(zz) * np.ones_like(zz), 'r-', lw=2, label=f"F(x) = {F}")
+    ax.axhline(0, color='k', lw=.6); ax.axvline(0, color='k', lw=.6)
+    ax.set_xlabel("x"); ax.legend(fontsize=8); ax.grid(alpha=.3)
+
+plt.tight_layout()
+print("\n  [Expected: x**3/3 ,  1 - cos(x) ,  atan(x)]")
+
+# ── B. (b) Numerical area function with np.cumsum ──────
+print("\n──── B. (b) np.cumsum for f(x) = sin x on [0, 2pi] ────")
+
+N = 4001
+xs = np.linspace(0, 2*np.pi, N)          # the WHOLE of [0,2pi]
+h = xs[1] - xs[0]
+y = np.sin(xs)
+
+# Cumulative sum of strips (left endpoints) — the simplest way
+F_left = np.concatenate(([0.0], np.cumsum(y[:-1]) * h))
+# Cumulative sum of trapezoids — more accurate, same idea (np.cumsum)
+F_trap = np.concatenate(([0.0], np.cumsum((y[:-1] + y[1:])/2) * h))
+F_exact = 1 - np.cos(xs)                 # the exact area function
+
+print(f"  Grid: {N} points on [0, 2pi],  h = {h:.6f}")
+print(f"  max|F_cumsum(left) - (1-cos x)| = "
+      f"{np.max(np.abs(F_left - F_exact)):.3e}")
+print(f"  max|F_cumsum(trapezoid) - (1-cos x)| = "
+      f"{np.max(np.abs(F_trap - F_exact)):.3e}")
+
+for x0 in (np.pi/2, np.pi, 3*np.pi/2, 2*np.pi):
+    val = quad(np.sin, 0, x0)[0]
+    print(f"    quad ∫₀^{x0:.4f} sin t dt = {val: .10f}   "
+          f"exact 1-cos = {1-np.cos(x0): .10f}")
+
+# Where does F' vanish and what happens to f there?
+dF = np.gradient(F_trap, xs)
+k_max = int(np.argmax(F_trap))
+print(f"\n  Maximum of F: F({xs[k_max]:.6f}) = {F_trap[k_max]:.6f}"
+      f"   [x = pi ≈ {np.pi:.6f}, F(pi) = 2]")
+print(f"  There: F'(x) ≈ {dF[k_max]:.3e}  and  f(x) = sin(x) = "
+      f"{np.sin(xs[k_max]):.3e}")
+interior = slice(3, -3)
+print(f"  max|F'(x) - sin x| in the interior = "
+      f"{np.max(np.abs(dF[interior] - y[interior])):.3e}")
+# The points where the numerical F' changes sign:
+# a genuine sign change (product &lt; 0) — ignores the noise around 0
+sign_changes = xs[:-1][dF[:-1]*dF[1:] &lt; 0]
+print(f"  Sign changes of F' (= zeros of f) on [0,2pi]: "
+      f"{np.round(sign_changes, 5)}   [expected x ≈ pi = {np.pi:.5f}]")
+print("  ⇒ Where F' = 0, f vanishes; at x = pi, f changes from + to -,")
+print("    so F stops increasing and attains its maximum there.")
+
+fig, (axf, axF) = plt.subplots(2, 1, figsize=(8.5, 6.6), sharex=True)
+fig.suptitle("Part I numerically: the accumulation of the strips (np.cumsum)",
+             fontsize=12, fontweight='bold')
+axf.plot(xs, y, 'b-', lw=2, label="f(x) = sin x")
+axf.fill_between(xs, 0, y, where=(y &gt;= 0), color='green', alpha=.20,
+                 label="positive contribution")
+axf.fill_between(xs, 0, y, where=(y &lt; 0), color='red', alpha=.20,
+                 label="negative contribution")
+axf.axhline(0, color='k', lw=.6); axf.axvline(np.pi, color='gray', ls=':')
+axf.legend(fontsize=8); axf.grid(alpha=.3); axf.set_ylabel("f(x)")
+
+axF.plot(xs, F_trap, 'r-', lw=2.4, label="F(x) via np.cumsum")
+axF.plot(xs, F_exact, 'k--', lw=1.4, label="exact F(x) = 1 - cos x")
+axF.axvline(np.pi, color='gray', ls=':')
+axF.plot([np.pi], [2], 'ko', ms=7)
+axF.annotate("maximum F(pi) = 2\n(there f = 0)", (np.pi, 2),
+             textcoords="offset points", xytext=(12, -28), fontsize=9)
+axF.axhline(0, color='k', lw=.6)
+axF.set_xlabel("x"); axF.set_ylabel("F(x)")
+axF.legend(fontsize=8); axF.grid(alpha=.3)
+axF.set_xticks([0, np.pi/2, np.pi, 3*np.pi/2, 2*np.pi])
+axF.set_xticklabels(["0", r"$\pi/2$", r"$\pi$", r"$3\pi/2$", r"$2\pi$"])
+plt.tight_layout()
+
+# ── C. (c) Leibniz rule with sympy.Integral ───────────
+print("\n──── C. (c) Leibniz rule: d/dx ∫ₓ^(x²) sin(t²) dt ────")
+
+I_unev = sp.Integral(sp.sin(t**2), (t, x, x**2))
+print(f"  Unevaluated: {I_unev}")
+D = sp.simplify(sp.diff(I_unev, x))
+print(f"  sympy.diff → {D}")
+
+# The formula f(b(x))·b'(x) - f(a(x))·a'(x)
+bx, ax_ = x**2, x
+rule = (sp.sin(t**2).subs(t, bx)*sp.diff(bx, x)
+        - sp.sin(t**2).subs(t, ax_)*sp.diff(ax_, x))
+print(f"  Formula f(b)b' - f(a)a' → {sp.simplify(rule)}")
+print(f"  Difference (must be 0): {sp.simplify(D - rule)}")
+print("  [EXPECTED 2x·sin(x⁴) - sin(x²)]")
+
+# Numerical verification with central finite differences
+print("\n  Verification with finite differences:")
+D_num = sp.lambdify(x, D, 'numpy')
+g = lambda s: np.sin(s**2)
+print(f"  {'x0':&gt;6} {'finite diff.':&gt;18} {'symbolic formula':&gt;18} "
+      f"{'|difference|':&gt;12}")
+for x0 in (0.7, 1.0, 1.3, 1.8):
+    hh = 1e-5
+    Ip = quad(g, x0 + hh, (x0 + hh)**2)[0]
+    Im = quad(g, x0 - hh, (x0 - hh)**2)[0]
+    num = (Ip - Im)/(2*hh)
+    sym = float(D_num(x0))
+    print(f"  {x0:&gt;6.2f} {num:&gt;18.9f} {sym:&gt;18.9f} {abs(num-sym):&gt;12.2e}")
+
+# ── D. (d) MVT for Integrals ─────────────────────
+print("\n──── D. (d) MVT for Integrals: f(x)=x² on [0,3] ────")
+
+c = sp.symbols('c', positive=True)
+a_i, b_i = 0, 3
+I_val = sp.integrate(x**2, (x, a_i, b_i))
+print(f"  ∫₀³ x² dx = {I_val}   [EXPECTED 9]")
+
+sols = sp.solve(sp.Eq(c**2*(b_i - a_i), I_val), c)
+print(f"  solve: f(c)·(b-a) = ∫ₐᵇf  ⇒  c = {sols}")
+c_val = sols[0]
+print(f"  Admissible solution in [0,3]: c = {c_val} ≈ {float(c_val):.10f}"
+      f"   [EXPECTED √3 ≈ {np.sqrt(3):.10f}]")
+h_rect = c_val**2
+print(f"  Height of the rectangle f(c) = {h_rect}")
+print(f"  Area of the rectangle f(c)·(b-a) = {sp.simplify(h_rect*(b_i-a_i))}"
+      f"   versus  ∫ₐᵇf = {I_val}")
+print(f"  Difference (must be 0): {sp.simplify(h_rect*(b_i - a_i) - I_val)}")
+
+cf, hf = float(c_val), float(h_rect)
+zz = np.linspace(0, 3, 500)
+plt.figure(figsize=(7.8, 5.2))
+plt.fill_between(zz, 0, zz**2, color='steelblue', alpha=.35,
+                 label="region under f(x)=x²   (area = 9)")
+plt.fill_between([0, 3], 0, [hf, hf], color='crimson', alpha=.18,
+                 label=f"rectangle of height f(c) = {hf:.0f}   (area = {hf*3:.0f})")
+plt.plot(zz, zz**2, 'b-', lw=2.3)
+plt.axhline(hf, color='crimson', lw=2, ls='--')
+plt.vlines(cf, 0, hf, color='k', ls=':', lw=1.3)
+plt.plot([cf], [hf], 'ko', ms=8, zorder=5)
+plt.annotate(f"c = √3 ≈ {cf:.4f}", (cf, hf), textcoords="offset points",
+             xytext=(12, -22), fontsize=10)
+plt.xlim(0, 3); plt.ylim(0, 9.6)
+plt.xlabel("x"); plt.ylabel("y")
+plt.title("MVT for Integrals: the two areas are equal")
+plt.legend(fontsize=9, loc='upper left'); plt.grid(alpha=.3)
+plt.tight_layout()
+
+print("\n✓ Chapter 15 completed.")
+plt.show()
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelector('.tab-btn.'+name).classList.add('active');
+}
+function loadCode(file, elementId, lang) {
+  fetch(file+'?v='+Date.now())
+    .then(r=>r.ok?r.text():Promise.reject(r.status))
+    .then(text=>{
+      const el=document.getElementById(elementId);
+      el.textContent=text; el.className='language-'+lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err=>{document.getElementById(elementId).textContent='⚠ Could not load the file ('+err+'). Please use the Download button.';});
+}
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+originalPy = $('py-editor').value;
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    return await loadPyodide();
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    const code = $('py-editor').value;
+    setStatus('Loading libraries…');
+    await py.loadPackagesFromImports(code);
+    setStatus('Running…');
+    await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
+    py.globals.set('__user_src__', code);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+_imgs = []
+try:
+    import matplotlib.pyplot as plt
+    for _n in plt.get_fignums():
+        _f = plt.figure(_n); _b = io.BytesIO()
+        _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+        _imgs.append(base64.b64encode(_b.read()).decode())
+    plt.close('all')
+except Exception:
+    pass
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

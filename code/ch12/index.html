@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Ch. 12 — Applications of the Derivative · Elements of Linear Algebra &amp; Calculus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#222}
+  header{background:var(--blue);color:white;padding:18px 24px}
+  header h1{font-size:1.25rem;font-weight:700}
+  header p{font-size:.9rem;margin-top:4px;opacity:.85}
+  .breadcrumb{font-size:.82rem;padding:10px 24px;background:#eee;border-bottom:1px solid #ddd}
+  .breadcrumb a{color:var(--blue);text-decoration:none}
+  .container{max-width:960px;margin:0 auto;padding:24px 16px}
+  .info-box{background:white;border-left:5px solid var(--blue);padding:14px 18px;margin-bottom:24px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .info-box h2{font-size:1rem;color:var(--blue);margin-bottom:8px}
+  .info-box p{font-size:.88rem;line-height:1.6}
+  .tabs{display:flex;gap:6px;margin-bottom:0}
+  .tab-btn{padding:10px 20px;border:none;border-radius:6px 6px 0 0;font-size:.9rem;font-weight:600;cursor:pointer}
+  .tab-btn.maxima{background:#d5f5e3;color:var(--teal)}
+  .tab-btn.python{background:#d6eaf8;color:var(--blue)}
+  .tab-btn.active.maxima{background:var(--teal);color:white}
+  .tab-btn.active.python{background:var(--blue);color:white}
+  .tab-content{display:none}
+  .tab-content.active{display:block}
+  .code-card{background:white;border-radius:0 6px 6px 6px;box-shadow:0 2px 8px rgba(0,0,0,.1);overflow:hidden}
+  .code-header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;font-size:.85rem;font-weight:600}
+  .code-header.maxima{background:var(--teal);color:white}
+  .code-header.python{background:var(--blue);color:white}
+  .download-btn{display:inline-block;padding:5px 12px;background:rgba(255,255,255,.2);color:white;border:1px solid rgba(255,255,255,.5);border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:600}
+  .download-btn:hover{background:rgba(255,255,255,.35)}
+  pre[class*="language-"]{margin:0!important;border-radius:0!important;max-height:520px;overflow-y:auto;font-size:.83rem}
+  .commands-box{background:#fffde7;border:1px solid #f9a825;border-radius:4px;padding:12px 16px;margin:16px 0;font-size:.85rem}
+  .commands-box strong{color:var(--orange)}
+  .commands-box code{background:#fff3cd;padding:1px 5px;border-radius:3px;font-size:.82rem}
+  footer{text-align:center;padding:20px;font-size:.8rem;color:#888;margin-top:32px;border-top:1px solid #ddd}
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+<header>
+  <h1>📐 Chapter 12 — Applications of the Derivative</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
+</header>
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 12
+</div>
+<div class="container">
+  <div class="info-box">
+    <h2>📋 Contents of the Activities</h2>
+    <p><strong>Topic:</strong> L'Hôpital's rule step by step, optimization problems, the Newton–Raphson method, complete curve sketching<br><br>
+    Choose a language from the tabs. The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.</p>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_efarm_par.mac</span>
+        <a class="download-btn" href="maxima_efarm_par.mac" download>⬇ Download .mac</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Basic commands:</strong>
+        <code>limit(f,x,a)</code> &nbsp;
+        <code>diff(f,x)</code> &nbsp;
+        <code>solve(diff(f,x)=0,x)</code> &nbsp;
+        <code>assume(x&gt;0)</code> &nbsp;
+        <code>find_root(f,x,a,b)</code> &nbsp;
+        <code>float()</code>
+      </div>
+      <pre><code class="language-maxima" id="maxima-code">/* ============================================================
+   maxima_efarm_par.mac
+   Chapter 12 — Applications of the Derivative: L'Hôpital, Optimization,
+                 Newton-Raphson, Complete study of a function
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
+   ============================================================
+
+   COMMANDS USED:
+     limit(f, x, a)            -&gt; limit (and limit(f,x,a,plus) one-sided)
+     diff(f, x)                -&gt; derivative (L'Hôpital: numer./denom.)
+     solve(diff(f,x)=0, x)     -&gt; critical points
+     assume(x &gt; 0)             -&gt; assumption BEFORE solve/limit
+     find_root(f, x, a, b)     -&gt; numerical root in [a,b]
+     float(...)                -&gt; decimal values
+
+   Run with: wxMaxima (File/Batch) or
+                 maxima -b maxima_efarm_par.mac
+   ============================================================ */
+
+/* ── A. L'Hôpital's Rule ──────────────────────────── */
+print("════ A. L'Hôpital's Rule ════")$
+
+/* (1) lim_{x-&gt;0} (e^x - 1 - x)/x^2 — form 0/0 */
+n1 : exp(x) - 1 - x$
+d1 : x^2$
+print("")$
+print("(1) lim_{x-&gt;0} (e^x-1-x)/x^2")$
+print("    Indeterminate form: numerator -&gt;", limit(n1, x, 0),
+      ", denominator -&gt;", limit(d1, x, 0), "  =&gt;  0/0")$
+print("    1st differentiation -&gt; (", diff(n1,x), ")/(", diff(d1,x), ")")$
+print("      at x=0:", limit(diff(n1,x), x, 0), "/", limit(diff(d1,x), x, 0),
+      " =&gt; still 0/0, we continue")$
+print("    2nd differentiation -&gt; (", diff(n1,x,2), ")/(", diff(d1,x,2), ")")$
+print("      at x=0:", limit(diff(n1,x,2), x, 0), "/",
+      limit(diff(d1,x,2), x, 0), " =&gt; determinate, value =",
+      limit(diff(n1,x,2)/diff(d1,x,2), x, 0))$
+print("    limit(n1/d1, x, 0) =", limit(n1/d1, x, 0), "   (expected 1/2)")$
+
+/* (2) lim_{x-&gt;0+} x ln x — form 0·(-inf) -&gt; (ln x)/(1/x) = -inf/inf */
+print("")$
+print("(2) lim_{x-&gt;0+} x ln(x)")$
+print("    Indeterminate form: x -&gt;", limit(x, x, 0, plus),
+      ", ln(x) -&gt;", limit(log(x), x, 0, plus), "  =&gt;  0 · (-oo)")$
+print("    Rewriting: x ln x = ln(x)/(1/x)  =&gt;  form -oo/oo")$
+n2 : log(x)$
+d2 : 1/x$
+q2 : ratsimp(diff(n2,x)/diff(d2,x))$
+print("    L'Hôpital: (", diff(n2,x), ")/(", diff(d2,x), ") =", q2)$
+print("      lim_{x-&gt;0+} (", q2, ") =", limit(q2, x, 0, plus))$
+print("    limit(x*log(x), x, 0, plus) =", limit(x*log(x), x, 0, plus),
+      "   (expected 0)")$
+
+/* (3) lim_{x-&gt;+inf} x^2/e^x — form inf/inf */
+print("")$
+print("(3) lim_{x-&gt;+oo} x^2/e^x")$
+n3 : x^2$
+d3 : exp(x)$
+print("    Indeterminate form: numerator -&gt;", limit(n3, x, inf),
+      ", denominator -&gt;", limit(d3, x, inf), "  =&gt;  oo/oo")$
+print("    1st differentiation -&gt; (", diff(n3,x), ")/(", diff(d3,x), ")")$
+print("      at +oo:", limit(diff(n3,x), x, inf), "/",
+      limit(diff(d3,x), x, inf), " =&gt; still oo/oo, we continue")$
+print("    2nd differentiation -&gt; (", diff(n3,x,2), ")/(", diff(d3,x,2), ")")$
+print("      at +oo:", limit(diff(n3,x,2), x, inf), "/",
+      limit(diff(d3,x,2), x, inf), " =&gt; determinate, value =",
+      limit(diff(n3,x,2)/diff(d3,x,2), x, inf))$
+print("    limit(n3/d3, x, inf) =", limit(n3/d3, x, inf), "   (expected 0)")$
+print("    Interpretation: e^x dominates every polynomial.")$
+
+/* (4) lim_{x-&gt;0} (1/x - 1/sin x) — form oo - oo */
+print("")$
+print("(4) lim_{x-&gt;0} (1/x - 1/sin x)")$
+print("    Indeterminate form: 1/x -&gt;", limit(1/x, x, 0, plus),
+      " and 1/sin(x) -&gt;", limit(1/sin(x), x, 0, plus),
+      " (from the right)  =&gt;  oo - oo")$
+n4 : sin(x) - x$
+d4 : x*sin(x)$
+print("    Common denominator: (", n4, ")/(", d4, ")")$
+print("      at x=0:", limit(n4, x, 0), "/", limit(d4, x, 0), "  =&gt;  0/0")$
+print("    1st differentiation -&gt; (", diff(n4,x), ")/(", diff(d4,x), ")")$
+print("      at x=0:", limit(diff(n4,x), x, 0), "/",
+      limit(diff(d4,x), x, 0), " =&gt; still 0/0, we continue")$
+print("    2nd differentiation -&gt; (", diff(n4,x,2), ")/(", diff(d4,x,2), ")")$
+print("      at x=0:", limit(diff(n4,x,2), x, 0), "/",
+      limit(diff(d4,x,2), x, 0), " =&gt; determinate, value =",
+      limit(diff(n4,x,2)/diff(d4,x,2), x, 0))$
+print("    limit(1/x - 1/sin(x), x, 0) =", limit(1/x - 1/sin(x), x, 0),
+      "   (expected 0)")$
+
+/* ── B. Optimization ────────────────────────────────────── */
+print("")$
+print("════ B. Optimization ════")$
+
+/* B1. Rectangle of perimeter P = 20:  sides x and 10-x */
+print("")$
+print("B1. Rectangle of perimeter P=20: E(x) = x(10-x)")$
+E : x*(10 - x)$
+dE : diff(E, x)$
+xopt : map(rhs, solve(dE = 0, x))$
+print("    E'(x) =", dE, "   E'(x)=0  -&gt;  x =", xopt, "   (expected 5)")$
+print("    E''(x) =", diff(E, x, 2),
+      " &lt; 0  -&gt;  MAXIMUM")$
+print("    E_max =", subst(first(xopt), x, E), "   (expected 25 — a 5x5 square)")$
+
+/* B2. Open box (no lid), volume V=32, square base of side x.
+       Height: h = 32/x^2.  Surface area: S = x^2 + 4*x*h = x^2 + 128/x.  */
+print("")$
+print("B2. Open box V=32, square base of side x")$
+assume(x &gt; 0)$                        /* BEFORE solve: avoids questions */
+hbox : 32/x^2$
+S : ratsimp(x^2 + 4*x*hbox)$
+print("    height h = 32/x^2,  S(x) = x^2 + 4xh =", S, "   (expected x^2 + 128/x)")$
+dS : ratsimp(diff(S, x))$
+print("    S'(x) =", dS)$
+allS : map(rhs, solve(dS = 0, x))$
+realS : sublist(allS, lambda([q], freeof(%i, q)))$
+print("    S'(x)=0  -&gt;  all roots:", allS)$
+print("    real root: x =", realS, "   (expected 4)")$
+xs : first(realS)$
+print("    S''(x) =", ratsimp(diff(S, x, 2)), "  at x=", xs, " equals",
+      subst(xs, x, diff(S, x, 2)), " &gt; 0  -&gt;  MINIMUM")$
+print("    S_min = S(", xs, ") =", subst(xs, x, S), "   (expected 48)")$
+print("    height h =", subst(xs, x, hbox), "   (expected 2)")$
+print("    Volume check: x^2 * h =", subst(xs, x, x^2*hbox), "   (expected 32)")$
+forget(x &gt; 0)$
+
+plot2d([S], [x, 1, 10], [y, 0, 200],
+       [legend, "S(x)=x^2+128/x"],
+       [title, "Open box V=32: minimum surface area at x=4 (S=48)"])$
+
+/* ── C. Newton-Raphson method: x^3 - x - 2 = 0 ──────────── */
+print("")$
+print("════ C. Newton-Raphson for x^3 - x - 2 = 0, x0 = 1.5 ════")$
+
+kill(t)$
+fN  : t^3 - t - 2$
+dfN : diff(fN, t)$                   /* NOT f(t):=diff(f(t),t) — it would break */
+print("    f(t) =", fN, "   f'(t) =", dfN)$
+
+/* Exact root for comparison (numerically) */
+rroot : find_root(fN, t, 1, 2)$
+print("    find_root(f, t, 1, 2) =", rroot)$
+
+print("")$
+print("    i        x_i                  f(x_i)            |x_i - root|")$
+xi : 1.5$
+print("    0   ", xi, "        ", float(subst(xi, t, fN)),
+      "     ", float(abs(xi - rroot)))$
+for i:1 thru 5 do
+  block([fv, dv, er],
+    fv : float(subst(xi, t, fN)),
+    dv : float(subst(xi, t, dfN)),
+    xi : xi - fv/dv,
+    er : float(abs(xi - rroot)),
+    print("   ", i, "   ", xi, "   ", float(subst(xi, t, fN)), "   ", er))$
+
+print("")$
+print("    Root (Newton, 5 steps):", xi)$
+print("    Root (find_root):      ", rroot)$
+print("    Difference:", float(abs(xi - rroot)), "   (expected ~0)")$
+print("    Expected root: 1.5213797 (7 correct decimals)")$
+
+/* Quadratic convergence: the number of correct decimals doubles.
+   Errors ~ 3.6e-4, 9.9e-8, 7.6e-15 -&gt; ~3.4, ~7.0, ~14.1 digits. */
+print("")$
+print("    Quadratic convergence — correct decimal digits per step:")$
+xi : 1.5$
+for i:1 thru 4 do
+  block([fv, dv, er],
+    fv : float(subst(xi, t, fN)),
+    dv : float(subst(xi, t, dfN)),
+    xi : xi - fv/dv,
+    er : float(abs(xi - rroot)),
+    if er &gt; 0 then
+      print("      step", i, ": error =", er,
+            "  -&gt;  ~", float(-log(er)/log(10)), "correct digits")
+    else
+      print("      step", i, ": error = 0 (machine precision limit)"))$
+
+/* ── D. Complete study: f(x) = (x^2-1)/(x^2+1) ──────────── */
+print("")$
+print("════ D. Complete study of f(x) = (x^2-1)/(x^2+1) ════")$
+
+F  : (x^2 - 1)/(x^2 + 1)$
+F1 : ratsimp(diff(F, x))$
+F2 : ratsimp(diff(F, x, 2))$
+
+print("")$
+print("D1. Domain")$
+print("    x^2+1 = 0  -&gt;  solutions:", map(rhs, solve(x^2 + 1 = 0, x)),
+      "  (complex)")$
+print("    So the denominator never vanishes: D(f) = R.")$
+
+print("")$
+print("D2. Asymptotes")$
+print("    lim_{x-&gt;+oo} f =", limit(F, x, inf), "   (expected 1)")$
+print("    lim_{x-&gt;-oo} f =", limit(F, x, minf), "  (expected 1)")$
+print("    -&gt; horizontal asymptote y = 1. Vertical: none (D=R).")$
+
+print("")$
+print("D3. Monotonicity and extrema")$
+print("    f'(x) =", F1, " =", factor(F1), "   (expected 4x/(x^2+1)^2)")$
+critF : map(rhs, solve(F1 = 0, x))$
+print("    f'(x)=0  -&gt;  x =", critF, "   (expected 0)")$
+print("    f'(-1) =", subst(-1, x, F1), " &lt; 0  -&gt;  decreasing on (-oo,0)")$
+print("    f'( 1) =", subst( 1, x, F1), " &gt; 0  -&gt;  increasing on (0,+oo)")$
+print("    f''(x) =", factor(F2))$
+print("    f''(0) =", subst(0, x, F2), " &gt; 0  -&gt;  GLOBAL MINIMUM")$
+print("    f(0) =", subst(0, x, F), "   (expected -1)")$
+print("    Range: [-1, 1)")$
+
+print("")$
+print("D4. Convexity and inflection points")$
+inflF : sort(map(rhs, solve(F2 = 0, x)))$
+print("    f''(x)=0  -&gt;  x =", inflF, " =", float(inflF),
+      "   (expected ±1/sqrt(3) ≈ ±0.5774)")$
+for c in inflF do
+  print("      x =", c, "  f =", ratsimp(subst(c, x, F)), "   (expected -1/2)")$
+print("    f''(-2) =", float(subst(-2, x, F2)), " &lt; 0  -&gt;  concave")$
+print("    f''( 0) =", float(subst( 0, x, F2)), " &gt; 0  -&gt;  convex")$
+print("    f''( 2) =", float(subst( 2, x, F2)), " &lt; 0  -&gt;  concave")$
+print("    Convex on (-1/sqrt(3), 1/sqrt(3)), concave outside.")$
+
+plot2d([F, 1], [x, -6, 6], [y, -1.4, 1.4],
+       [legend, "f(x)=(x^2-1)/(x^2+1)", "asymptote y=1"],
+       [title, "Complete study: minimum (0,-1), inflection at ±1/sqrt(3)"])$
+
+print("")$
+print("Chapter 12 completed.")$
+</code></pre>
+    </div>
+  </div>
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_efarm_par.py</span>
+        <a class="download-btn" href="python_efarm_par.py" download>⬇ Download .py</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Libraries / commands:</strong>
+        <code>sympy.limit()</code> &nbsp;
+        <code>sympy.solve()</code> &nbsp;
+        <code>scipy.optimize.minimize_scalar()</code> &nbsp;
+        <code>scipy.optimize.newton()</code> &nbsp;
+        <code>matplotlib.pyplot</code>
+      </div>
+            <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
+# python_efarm_par.py
+# Chapter 12 — Applications of the Derivative: SymPy &amp; SciPy
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
+# ============================================================
+#
+# LIBRARIES:
+#   sympy  → limits (L'Hôpital), critical points
+#   scipy  → optimize.minimize_scalar, optimize.newton
+#   numpy / matplotlib → convergence and optimization plots
+#
+# BASIC COMMANDS:
+#   sympy.limit(f, x, a)                  → limit (dir='+' for one-sided)
+#   sympy.solve(diff(f, x), x)            → critical points
+#   scipy.optimize.minimize_scalar(f, ...)→ numerical minimization
+#   scipy.optimize.newton(f, x0, fprime)  → numerical root (Newton)
+# ============================================================
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import minimize_scalar, newton
+from sympy import (symbols, diff, limit, solve, simplify, lambdify, together,
+                   fraction, exp, log, sin, oo, nan, zoo, S)
+
+x = symbols('x')
+
+print("=" * 58)
+print(" Chapter 12: Applications of the Derivative — Python")
+print("=" * 58)
+
+# ── A. L'Hôpital's Rule — step by step ────────────────
+print("\n── A. L'Hôpital's Rule ──")
+
+INDET = (S.Zero, oo, -oo, zoo, nan)
+
+
+def _form(num, den, pt, direction):
+    """Returns (limit of numerator, limit of denominator) at the point pt."""
+    ln = limit(num, x, pt, direction)
+    ld = limit(den, x, pt, direction)
+    return ln, ld
+
+
+def _is_indeterminate(ln, ld):
+    """0/0 or ±oo/±oo ?"""
+    zero_zero = (ln == 0 and ld == 0)
+    inf_inf = (ln in (oo, -oo, zoo) and ld in (oo, -oo, zoo))
+    return zero_zero or inf_inf
+
+
+def lhopital(num, den, pt, direction='+-', max_steps=5, label=""):
+    """Applies L'Hôpital step by step and prints every intermediate step."""
+    print(f"\n  {label}")
+    ln, ld = _form(num, den, pt, direction)
+    print(f"    Step 0: ({num}) / ({den})")
+    print(f"            numerator → {ln},  denominator → {ld}")
+    if not _is_indeterminate(ln, ld):
+        val = limit(num/den, x, pt, direction)
+        print(f"            not an indeterminate form; value = {val}")
+        return val
+    form = "0/0" if ln == 0 else "±oo/±oo"
+    print(f"            indeterminate form {form} → we apply L'Hôpital")
+
+    n_k, d_k = num, den
+    for k in range(1, max_steps + 1):
+        n_raw, d_raw = diff(n_k, x), diff(d_k, x)
+        print(f"    Step {k}: ({n_raw}) / ({d_raw})")
+        # Algebraic rearrangement of the quotient — otherwise forms such as
+        # (1/x)/(-1/x^2) would stay "oo/oo" forever.
+        n_k, d_k = fraction(together(simplify(n_raw/d_raw)))
+        if (n_k, d_k) != (n_raw, d_raw):
+            print(f"            after simplification: ({n_k}) / ({d_k})")
+        ln, ld = _form(n_k, d_k, pt, direction)
+            print(f"            numerator → {ln},  denominator → {ld}")
+        if not _is_indeterminate(ln, ld):
+            val = limit(n_k/d_k, x, pt, direction)
+            print(f"            the indeterminacy is RESOLVED · limit = {val}")
+            return val
+        form = "0/0" if ln == 0 else "±oo/±oo"
+        print(f"            again {form} → we continue")
+    print(f"    Not resolved in {max_steps} steps.")
+    return None
+
+
+# (1) lim_{x→0} (e^x - 1 - x)/x^2      [0/0]  → 1/2
+v1 = lhopital(exp(x) - 1 - x, x**2, 0,
+              label="(1) lim_(x→0) (e^x - 1 - x)/x^2      [form 0/0]")
+d1 = limit((exp(x) - 1 - x)/x**2, x, 0)
+print(f"    sympy.limit = {d1}   (expected 1/2)   L'Hôpital step by step: {v1}"
+      f"   agreement: {simplify(v1 - d1) == 0}")
+
+# (2) lim_{x→0+} x·ln x                [0·(-oo)] → 0
+print("\n  (2) lim_(x→0+) x·ln(x)      [form 0 · (-oo)]")
+print(f"    x → {limit(x, x, 0, '+')},  ln(x) → {limit(log(x), x, 0, '+')}")
+print("    Rewriting as a quotient: x·ln x = ln(x) / (1/x)   [form -oo/oo]")
+v2 = lhopital(log(x), 1/x, 0, direction='+',
+              label="(2b) lim_(x→0+) ln(x)/(1/x)")
+d2 = limit(x*log(x), x, 0, '+')
+print(f"    sympy.limit = {d2}   (expected 0)   L'Hôpital step by step: {v2}"
+      f"   agreement: {simplify(v2 - d2) == 0}")
+
+# (3) lim_{x→+oo} x^2/e^x              [oo/oo] → 0
+v3 = lhopital(x**2, exp(x), oo,
+              label="(3) lim_(x→+oo) x^2/e^x      [form oo/oo]")
+d3 = limit(x**2/exp(x), x, oo)
+print(f"    sympy.limit = {d3}   (expected 0)   L'Hôpital step by step: {v3}"
+      f"   agreement: {simplify(v3 - d3) == 0}")
+print("    Interpretation: e^x dominates every polynomial.")
+
+# (4) lim_{x→0} (1/x - 1/sin x)        [oo - oo] → 0
+print("\n  (4) lim_(x→0) (1/x - 1/sin x)      [form oo - oo]")
+expr4 = 1/x - 1/sin(x)
+num4, den4 = fraction(together(expr4))
+print(f"    Common denominator: ({num4}) / ({den4})")
+v4 = lhopital(num4, den4, 0, label="(4b) lim_(x→0) (sin x - x)/(x·sin x)")
+d4 = limit(expr4, x, 0)
+print(f"    sympy.limit = {d4}   (expected 0)   L'Hôpital step by step: {v4}"
+      f"   agreement: {simplify(v4 - d4) == 0}")
+
+# ── B. Optimization: rectangle of perimeter P = 20 ──────
+print("\n── B. Rectangle of perimeter P=20: E(x) = x(10-x) ──")
+
+E = x*(10 - x)
+dE = diff(E, x)
+sol_E = solve(dE, x)
+xE = sol_E[0]
+print(f"  E'(x) = {dE},  E'(x)=0 → x = {sol_E}   (expected [5])")
+print(f"  E''(x) = {diff(E, x, 2)} &lt; 0 → MAXIMUM")
+print(f"  E_max = E({xE}) = {E.subs(x, xE)}   (expected 25 — a 5×5 square)")
+
+# Numerical verification: we minimize -E
+E_num = lambdify(x, E, 'numpy')
+resE = minimize_scalar(lambda t: -E_num(t), bounds=(0, 10), method='bounded')
+print(f"  scipy.minimize_scalar(-E): x = {resE.x:.8f}, E = {-resE.fun:.8f}")
+print(f"  Deviation from x=5: {abs(resE.x - float(xE)):.2e}")
+
+# ── C. Open box V=32: S(x) = x^2 + 128/x ────────────
+print("\n── C. Open box (no lid) V=32 ──")
+
+xp = symbols('x', positive=True)
+h_box = 32/xp**2                      # height from the volume: x^2·h = 32
+S_expr = (xp**2 + 4*xp*h_box).expand()  # base + 4 sides (no lid)
+print(f"  height h = 32/x²,  S(x) = x² + 4xh = {S_expr}")
+print(f"  Identical to x² + 128/x: "
+      f"{simplify(S_expr - (xp**2 + 128/xp)) == 0}")
+
+dS = simplify(diff(S_expr, xp))
+sol_S = [s for s in solve(dS, xp) if s.is_real and s &gt; 0]
+xS = sol_S[0]
+print(f"  S'(x) = {dS}")
+print(f"  S'(x)=0 → x = {sol_S}   (expected [4])")
+print(f"  S''(x) = {simplify(diff(S_expr, xp, 2))},  "
+      f"S''({xS}) = {diff(S_expr, xp, 2).subs(xp, xS)} &gt; 0 → MINIMUM")
+print(f"  S_min = S({xS}) = {S_expr.subs(xp, xS)}   (expected 48)")
+print(f"  height h = {h_box.subs(xp, xS)}   (expected 2)")
+print(f"  Volume check: x²·h = {(xp**2*h_box).subs(xp, xS)}   (expected 32)")
+
+S_num = lambdify(xp, S_expr, 'numpy')
+resS = minimize_scalar(S_num, bounds=(0.5, 20), method='bounded')
+print(f"  scipy.minimize_scalar(S): x = {resS.x:.8f}, S = {resS.fun:.8f}")
+print(f"  Deviation from x=4: {abs(resS.x - float(xS)):.2e}")
+
+xs_S = np.linspace(1.0, 12.0, 500)
+plt.figure(figsize=(7, 4.5))
+plt.plot(xs_S, S_num(xs_S), 'b-', lw=2.2, label=r"$S(x)=x^2+\dfrac{128}{x}$")
+plt.scatter([float(xS)], [float(S_expr.subs(xp, xS))], color='red', s=90,
+            zorder=5, label=f"minimum: x={xS}, S={S_expr.subs(xp, xS)}")
+plt.axvline(float(xS), color='0.6', lw=0.9, ls=':')
+plt.axhline(float(S_expr.subs(xp, xS)), color='0.6', lw=0.9, ls=':')
+plt.ylim(0, 250); plt.grid(alpha=0.3); plt.legend()
+plt.xlabel('base side x'); plt.ylabel('surface area S')
+plt.title("Open box V=32: minimum surface area")
+plt.tight_layout()
+
+# ── D. Newton-Raphson: x^3 - x - 2 = 0, x0 = 1.5 ──────────
+print("\n── D. Newton-Raphson for x³ - x - 2 = 0 (x₀ = 1.5) ──")
+
+fN_sym = x**3 - x - 2
+dfN_sym = diff(fN_sym, x)
+fN = lambdify(x, fN_sym, 'numpy')
+dfN = lambdify(x, dfN_sym, 'numpy')
+print(f"  f(x) = {fN_sym},  f'(x) = {dfN_sym}")
+
+# Reference root with scipy
+root_scipy, info = newton(fN, x0=1.5, fprime=dfN, tol=1e-14, full_output=True)
+print(f"  scipy.optimize.newton: root = {root_scipy:.13f}  "
+      f"({info.iterations} iterations)")
+print(f"  f(root) = {fN(root_scipy):.3e}")
+
+x0 = 1.5
+iterates = [x0]
+errors = [abs(x0 - root_scipy)]
+print("\n  i        x_i                   f(x_i)          |x_i - root|   "
+      "correct digits")
+print(f"  0   {x0:.13f}   {fN(x0):+.6e}   {errors[0]:.3e}")
+xi = x0
+for i in range(1, 6):
+    xi = xi - fN(xi)/dfN(xi)
+    err = abs(xi - root_scipy)
+    iterates.append(xi)
+    errors.append(err)
+    digits = (f"{-np.log10(err):5.1f}" if err &gt; 0 else " (exact)")
+    print(f"  {i}   {xi:.13f}   {fN(xi):+.6e}   {err:.3e}   {digits}")
+
+print(f"\n  Root (Newton, 5 steps): {iterates[-1]:.13f}")
+print(f"  Root (scipy.newton):    {root_scipy:.13f}")
+print(f"  Difference: {abs(iterates[-1] - root_scipy):.3e}")
+print("  Expected root: 1.5213797068046")
+print("  Quadratic convergence: the number of correct decimal digits")
+print("  roughly doubles at each step (≈3.4 → 7.0 → 14.1).")
+
+# Convergence plot: tangent lines and successive approximations
+fig, axes = plt.subplots(1, 2, figsize=(12, 4.8))
+
+ax = axes[0]
+xs_N = np.linspace(1.2, 1.75, 400)
+ax.plot(xs_N, fN(xs_N), 'b-', lw=2.2, label=r"$f(x)=x^3-x-2$")
+ax.axhline(0, color='k', lw=0.8)
+cols = ['#d62728', '#ff7f0e', '#2ca02c', '#9467bd']
+for k in range(min(3, len(iterates) - 1)):
+    xk = iterates[k]
+    yk = fN(xk)
+    # tangent at (x_k, f(x_k)) — it meets the axis at x_{k+1}
+    tang = yk + dfN(xk)*(xs_N - xk)
+    ax.plot(xs_N, tang, '--', lw=1.2, color=cols[k],
+            label=f"tangent at $x_{k}$ = {xk:.6f}")
+    ax.plot([xk, xk], [0, yk], ':', lw=1, color=cols[k])
+    ax.scatter([xk], [yk], color=cols[k], s=45, zorder=5)
+    ax.scatter([iterates[k + 1]], [0], color=cols[k], s=45, marker='v', zorder=5)
+ax.scatter([root_scipy], [0], color='k', s=80, marker='*', zorder=6,
+           label=f"root ≈ {root_scipy:.7f}")
+ax.set_ylim(-0.6, 1.2); ax.set_xlim(1.2, 1.75)
+ax.grid(alpha=0.3); ax.legend(fontsize=8); ax.set_xlabel('x')
+ax.set_title("Newton: each tangent gives the next approximation")
+
+ax = axes[1]
+nz = [(i, e) for i, e in enumerate(errors) if e &gt; 0]
+ax.semilogy([i for i, _ in nz], [e for _, e in nz], 'o-', lw=2, color='crimson')
+for i, e in nz:
+    ax.annotate(f"{e:.1e}", (i, e), textcoords="offset points",
+                xytext=(6, 6), fontsize=8)
+ax.set_xlabel('iteration i'); ax.set_ylabel(r'$|x_i - r|$  (logarithmic)')
+ax.grid(alpha=0.3, which='both')
+ax.set_title("Error on a semi-logarithmic scale\n(the curvature ⇒ quadratic convergence)")
+
+plt.tight_layout()
+plt.show()
+
+print("\nChapter 12 completed.")
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelector('.tab-btn.'+name).classList.add('active');
+}
+function loadCode(file, elementId, lang) {
+  fetch(file+'?v='+Date.now())
+    .then(r=>r.ok?r.text():Promise.reject(r.status))
+    .then(text=>{
+      const el=document.getElementById(elementId);
+      el.textContent=text; el.className='language-'+lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err=>{document.getElementById(elementId).textContent='⚠ Could not load the file ('+err+'). Please use the Download button.';});
+}
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+originalPy = $('py-editor').value;
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    return await loadPyodide();
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    const code = $('py-editor').value;
+    setStatus('Loading libraries…');
+    await py.loadPackagesFromImports(code);
+    setStatus('Running…');
+    await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
+    py.globals.set('__user_src__', code);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+_imgs = []
+try:
+    import matplotlib.pyplot as plt
+    for _n in plt.get_fignums():
+        _f = plt.figure(_n); _b = io.BytesIO()
+        _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+        _imgs.append(base64.b64encode(_b.read()).decode())
+    plt.close('all')
+except Exception:
+    pass
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

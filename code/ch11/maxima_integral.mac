@@ -1,0 +1,142 @@
+/* ============================================================
+   maxima_integral.mac
+   Chapter 10 — Indefinite Integral
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
+   ============================================================
+
+   COMMANDS USED:
+     integrate(f, x)          → indefinite integral
+     diff(F, x)               → verification (F' = f)
+     ratsimp / trigsimp       → simplification of the result
+     subst(u, g(x), f)        → substitution
+     integrate(f, x, a, b)    → definite integral
+     plot2d                   → plot
+
+   Run with: wxMaxima (Load/File) or
+                 maxima -b maxima_integral.mac
+   ============================================================ */
+
+/* ── Part A: Basic Integrals ───────────────────────────── */
+print("════ A. Basic Integrals ════");
+
+/* Integral of powers */
+print("Integral of powers:");
+F1 : integrate(x^4, x);
+print("  ∫ x⁴ dx =", F1, "+ C");
+F2 : integrate(x^(-2), x);
+print("  ∫ x⁻² dx =", F2, "+ C");
+F3 : integrate(sqrt(x), x);
+print("  ∫ √x dx =", F3, "+ C");
+
+/* Trigonometric */
+print("Trigonometric:");
+F4 : integrate(sin(x), x);
+print("  ∫ sinx dx =", F4, "+ C");
+F5 : integrate(cos(x), x);
+print("  ∫ cosx dx =", F5, "+ C");
+F6 : integrate(1/cos(x)^2, x);
+print("  ∫ sec²x dx =", F6, "+ C");
+
+/* Exponential & Logarithmic */
+print("Exponential & Logarithmic:");
+F7 : integrate(exp(x), x);
+print("  ∫ eˣ dx =", F7, "+ C");
+F8 : integrate(1/x, x);
+print("  ∫ (1/x) dx =", F8, "+ C");
+F9 : integrate(2^x, x);
+print("  ∫ 2ˣ dx =", F9, "+ C");
+
+/* Verification by differentiation */
+print("Check: diff(F1,x) =", diff(F1,x), " (= x⁴ ✓)");
+print("Check: diff(F7,x) =", diff(F7,x), " (= eˣ ✓)");
+
+/* ── Part B: Chain Rule — u-substitution ──────────────── */
+print("════ B. Substitution (u-substitution) ════");
+
+/* Example: ∫ 2x·cos(x²) dx → u=x², du=2x dx */
+print("∫ 2x·cos(x²) dx:");
+F10 : integrate(2*x*cos(x^2), x);
+print("  =", trigsimp(F10), "+ C");
+print("  Check:", diff(trigsimp(F10),x));
+
+/* ∫ x·eˣ² dx */
+print("∫ x·eˣ² dx:");
+F11 : integrate(x*exp(x^2), x);
+print("  =", F11, "+ C");
+
+/* ∫ (3x²+1)^5 · 6x dx */
+print("∫ (3x²+1)^5 · 6x dx:");
+F12 : integrate(6*x*(3*x^2+1)^5, x);
+print("  =", expand(F12), "+ C");
+
+/* ∫ sinⁿ(x)·cos(x) dx with n=3 */
+print("∫ sin³x·cosx dx (u=sinx):");
+F13 : integrate(sin(x)^3 * cos(x), x);
+print("  =", F13, "+ C");
+
+/* ── Part C: Integration by Parts ──────────────────────── */
+print("════ C. Integration by Parts (∫u dv) ════");
+
+/* ∫ x·eˣ dx → u=x, dv=eˣ */
+print("∫ x·eˣ dx:");
+F14 : integrate(x*exp(x), x);
+print("  =", F14, "+ C");
+print("  Check:", expand(diff(F14,x)));
+
+/* ∫ x·sinx dx */
+print("∫ x·sinx dx:");
+F15 : integrate(x*sin(x), x);
+print("  =", F15, "+ C");
+
+/* ∫ x²·eˣ dx (applied twice) */
+print("∫ x²·eˣ dx:");
+F16 : integrate(x^2*exp(x), x);
+print("  =", F16, "+ C");
+
+/* ∫ lnx dx → u=lnx, dv=dx */
+print("∫ lnx dx:");
+F17 : integrate(log(x), x);
+print("  =", F17, "+ C");
+
+/* ── Part D: Integrals of Rational Functions ───────────── */
+print("════ D. Integrals of Rational Functions ════");
+
+/* Simple denominator */
+print("∫ 1/(x²+4) dx:");
+F18 : integrate(1/(x^2+4), x);
+print("  =", F18, "+ C");
+
+/* Partial fractions */
+print("∫ 1/(x²-1) dx (partial fractions):");
+F19 : integrate(1/(x^2-1), x);
+print("  =", F19, "+ C");
+print("  = (1/2)ln|x-1| - (1/2)ln|x+1| + C");
+
+print("∫ (2x+1)/(x²+x-2) dx:");
+F20 : integrate((2*x+1)/(x^2+x-2), x);
+print("  =", F20, "+ C");
+
+/* ── Part E: Trigonometric Integrals ───────────────────── */
+print("════ E. Trigonometric Integrals ════");
+
+/* ∫ sin²x dx using cos(2x)=1-2sin²x */
+print("∫ sin²x dx:");
+F21 : integrate(sin(x)^2, x);
+print("  =", trigsimp(F21), "+ C");
+
+/* ∫ sin³x dx */
+print("∫ sin³x dx:");
+F22 : integrate(sin(x)^3, x);
+print("  =", trigsimp(F22), "+ C");
+
+/* ∫ sinx·cosx dx */
+print("∫ sinx·cosx dx:");
+F23 : integrate(sin(x)*cos(x), x);
+print("  =", trigsimp(F23), "+ C");
+
+/* ∫ tanx dx */
+print("∫ tanx dx:");
+F24 : integrate(sin(x)/cos(x), x);
+print("  =", F24, "+ C  (= -ln|cosx| + C)");
+
+print("════ End ════");

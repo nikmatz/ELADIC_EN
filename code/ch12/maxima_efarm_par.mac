@@ -1,0 +1,229 @@
+/* ============================================================
+   maxima_efarm_par.mac
+   Chapter 12 — Applications of the Derivative: L'Hôpital, Optimization,
+                 Newton-Raphson, Complete study of a function
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
+   ============================================================
+
+   COMMANDS USED:
+     limit(f, x, a)            -> limit (and limit(f,x,a,plus) one-sided)
+     diff(f, x)                -> derivative (L'Hôpital: numer./denom.)
+     solve(diff(f,x)=0, x)     -> critical points
+     assume(x > 0)             -> assumption BEFORE solve/limit
+     find_root(f, x, a, b)     -> numerical root in [a,b]
+     float(...)                -> decimal values
+
+   Run with: wxMaxima (File/Batch) or
+                 maxima -b maxima_efarm_par.mac
+   ============================================================ */
+
+/* ── A. L'Hôpital's Rule ──────────────────────────── */
+print("════ A. L'Hôpital's Rule ════")$
+
+/* (1) lim_{x->0} (e^x - 1 - x)/x^2 — form 0/0 */
+n1 : exp(x) - 1 - x$
+d1 : x^2$
+print("")$
+print("(1) lim_{x->0} (e^x-1-x)/x^2")$
+print("    Indeterminate form: numerator ->", limit(n1, x, 0),
+      ", denominator ->", limit(d1, x, 0), "  =>  0/0")$
+print("    1st differentiation -> (", diff(n1,x), ")/(", diff(d1,x), ")")$
+print("      at x=0:", limit(diff(n1,x), x, 0), "/", limit(diff(d1,x), x, 0),
+      " => still 0/0, we continue")$
+print("    2nd differentiation -> (", diff(n1,x,2), ")/(", diff(d1,x,2), ")")$
+print("      at x=0:", limit(diff(n1,x,2), x, 0), "/",
+      limit(diff(d1,x,2), x, 0), " => determinate, value =",
+      limit(diff(n1,x,2)/diff(d1,x,2), x, 0))$
+print("    limit(n1/d1, x, 0) =", limit(n1/d1, x, 0), "   (expected 1/2)")$
+
+/* (2) lim_{x->0+} x ln x — form 0·(-inf) -> (ln x)/(1/x) = -inf/inf */
+print("")$
+print("(2) lim_{x->0+} x ln(x)")$
+print("    Indeterminate form: x ->", limit(x, x, 0, plus),
+      ", ln(x) ->", limit(log(x), x, 0, plus), "  =>  0 · (-oo)")$
+print("    Rewriting: x ln x = ln(x)/(1/x)  =>  form -oo/oo")$
+n2 : log(x)$
+d2 : 1/x$
+q2 : ratsimp(diff(n2,x)/diff(d2,x))$
+print("    L'Hôpital: (", diff(n2,x), ")/(", diff(d2,x), ") =", q2)$
+print("      lim_{x->0+} (", q2, ") =", limit(q2, x, 0, plus))$
+print("    limit(x*log(x), x, 0, plus) =", limit(x*log(x), x, 0, plus),
+      "   (expected 0)")$
+
+/* (3) lim_{x->+inf} x^2/e^x — form inf/inf */
+print("")$
+print("(3) lim_{x->+oo} x^2/e^x")$
+n3 : x^2$
+d3 : exp(x)$
+print("    Indeterminate form: numerator ->", limit(n3, x, inf),
+      ", denominator ->", limit(d3, x, inf), "  =>  oo/oo")$
+print("    1st differentiation -> (", diff(n3,x), ")/(", diff(d3,x), ")")$
+print("      at +oo:", limit(diff(n3,x), x, inf), "/",
+      limit(diff(d3,x), x, inf), " => still oo/oo, we continue")$
+print("    2nd differentiation -> (", diff(n3,x,2), ")/(", diff(d3,x,2), ")")$
+print("      at +oo:", limit(diff(n3,x,2), x, inf), "/",
+      limit(diff(d3,x,2), x, inf), " => determinate, value =",
+      limit(diff(n3,x,2)/diff(d3,x,2), x, inf))$
+print("    limit(n3/d3, x, inf) =", limit(n3/d3, x, inf), "   (expected 0)")$
+print("    Interpretation: e^x dominates every polynomial.")$
+
+/* (4) lim_{x->0} (1/x - 1/sin x) — form oo - oo */
+print("")$
+print("(4) lim_{x->0} (1/x - 1/sin x)")$
+print("    Indeterminate form: 1/x ->", limit(1/x, x, 0, plus),
+      " and 1/sin(x) ->", limit(1/sin(x), x, 0, plus),
+      " (from the right)  =>  oo - oo")$
+n4 : sin(x) - x$
+d4 : x*sin(x)$
+print("    Common denominator: (", n4, ")/(", d4, ")")$
+print("      at x=0:", limit(n4, x, 0), "/", limit(d4, x, 0), "  =>  0/0")$
+print("    1st differentiation -> (", diff(n4,x), ")/(", diff(d4,x), ")")$
+print("      at x=0:", limit(diff(n4,x), x, 0), "/",
+      limit(diff(d4,x), x, 0), " => still 0/0, we continue")$
+print("    2nd differentiation -> (", diff(n4,x,2), ")/(", diff(d4,x,2), ")")$
+print("      at x=0:", limit(diff(n4,x,2), x, 0), "/",
+      limit(diff(d4,x,2), x, 0), " => determinate, value =",
+      limit(diff(n4,x,2)/diff(d4,x,2), x, 0))$
+print("    limit(1/x - 1/sin(x), x, 0) =", limit(1/x - 1/sin(x), x, 0),
+      "   (expected 0)")$
+
+/* ── B. Optimization ────────────────────────────────────── */
+print("")$
+print("════ B. Optimization ════")$
+
+/* B1. Rectangle of perimeter P = 20:  sides x and 10-x */
+print("")$
+print("B1. Rectangle of perimeter P=20: E(x) = x(10-x)")$
+E : x*(10 - x)$
+dE : diff(E, x)$
+xopt : map(rhs, solve(dE = 0, x))$
+print("    E'(x) =", dE, "   E'(x)=0  ->  x =", xopt, "   (expected 5)")$
+print("    E''(x) =", diff(E, x, 2),
+      " < 0  ->  MAXIMUM")$
+print("    E_max =", subst(first(xopt), x, E), "   (expected 25 — a 5x5 square)")$
+
+/* B2. Open box (no lid), volume V=32, square base of side x.
+       Height: h = 32/x^2.  Surface area: S = x^2 + 4*x*h = x^2 + 128/x.  */
+print("")$
+print("B2. Open box V=32, square base of side x")$
+assume(x > 0)$                        /* BEFORE solve: avoids questions */
+hbox : 32/x^2$
+S : ratsimp(x^2 + 4*x*hbox)$
+print("    height h = 32/x^2,  S(x) = x^2 + 4xh =", S, "   (expected x^2 + 128/x)")$
+dS : ratsimp(diff(S, x))$
+print("    S'(x) =", dS)$
+allS : map(rhs, solve(dS = 0, x))$
+realS : sublist(allS, lambda([q], freeof(%i, q)))$
+print("    S'(x)=0  ->  all roots:", allS)$
+print("    real root: x =", realS, "   (expected 4)")$
+xs : first(realS)$
+print("    S''(x) =", ratsimp(diff(S, x, 2)), "  at x=", xs, " equals",
+      subst(xs, x, diff(S, x, 2)), " > 0  ->  MINIMUM")$
+print("    S_min = S(", xs, ") =", subst(xs, x, S), "   (expected 48)")$
+print("    height h =", subst(xs, x, hbox), "   (expected 2)")$
+print("    Volume check: x^2 * h =", subst(xs, x, x^2*hbox), "   (expected 32)")$
+forget(x > 0)$
+
+plot2d([S], [x, 1, 10], [y, 0, 200],
+       [legend, "S(x)=x^2+128/x"],
+       [title, "Open box V=32: minimum surface area at x=4 (S=48)"])$
+
+/* ── C. Newton-Raphson method: x^3 - x - 2 = 0 ──────────── */
+print("")$
+print("════ C. Newton-Raphson for x^3 - x - 2 = 0, x0 = 1.5 ════")$
+
+kill(t)$
+fN  : t^3 - t - 2$
+dfN : diff(fN, t)$                   /* NOT f(t):=diff(f(t),t) — it would break */
+print("    f(t) =", fN, "   f'(t) =", dfN)$
+
+/* Exact root for comparison (numerically) */
+rroot : find_root(fN, t, 1, 2)$
+print("    find_root(f, t, 1, 2) =", rroot)$
+
+print("")$
+print("    i        x_i                  f(x_i)            |x_i - root|")$
+xi : 1.5$
+print("    0   ", xi, "        ", float(subst(xi, t, fN)),
+      "     ", float(abs(xi - rroot)))$
+for i:1 thru 5 do
+  block([fv, dv, er],
+    fv : float(subst(xi, t, fN)),
+    dv : float(subst(xi, t, dfN)),
+    xi : xi - fv/dv,
+    er : float(abs(xi - rroot)),
+    print("   ", i, "   ", xi, "   ", float(subst(xi, t, fN)), "   ", er))$
+
+print("")$
+print("    Root (Newton, 5 steps):", xi)$
+print("    Root (find_root):      ", rroot)$
+print("    Difference:", float(abs(xi - rroot)), "   (expected ~0)")$
+print("    Expected root: 1.5213797 (7 correct decimals)")$
+
+/* Quadratic convergence: the number of correct decimals doubles.
+   Errors ~ 3.6e-4, 9.9e-8, 7.6e-15 -> ~3.4, ~7.0, ~14.1 digits. */
+print("")$
+print("    Quadratic convergence — correct decimal digits per step:")$
+xi : 1.5$
+for i:1 thru 4 do
+  block([fv, dv, er],
+    fv : float(subst(xi, t, fN)),
+    dv : float(subst(xi, t, dfN)),
+    xi : xi - fv/dv,
+    er : float(abs(xi - rroot)),
+    if er > 0 then
+      print("      step", i, ": error =", er,
+            "  ->  ~", float(-log(er)/log(10)), "correct digits")
+    else
+      print("      step", i, ": error = 0 (machine precision limit)"))$
+
+/* ── D. Complete study: f(x) = (x^2-1)/(x^2+1) ──────────── */
+print("")$
+print("════ D. Complete study of f(x) = (x^2-1)/(x^2+1) ════")$
+
+F  : (x^2 - 1)/(x^2 + 1)$
+F1 : ratsimp(diff(F, x))$
+F2 : ratsimp(diff(F, x, 2))$
+
+print("")$
+print("D1. Domain")$
+print("    x^2+1 = 0  ->  solutions:", map(rhs, solve(x^2 + 1 = 0, x)),
+      "  (complex)")$
+print("    So the denominator never vanishes: D(f) = R.")$
+
+print("")$
+print("D2. Asymptotes")$
+print("    lim_{x->+oo} f =", limit(F, x, inf), "   (expected 1)")$
+print("    lim_{x->-oo} f =", limit(F, x, minf), "  (expected 1)")$
+print("    -> horizontal asymptote y = 1. Vertical: none (D=R).")$
+
+print("")$
+print("D3. Monotonicity and extrema")$
+print("    f'(x) =", F1, " =", factor(F1), "   (expected 4x/(x^2+1)^2)")$
+critF : map(rhs, solve(F1 = 0, x))$
+print("    f'(x)=0  ->  x =", critF, "   (expected 0)")$
+print("    f'(-1) =", subst(-1, x, F1), " < 0  ->  decreasing on (-oo,0)")$
+print("    f'( 1) =", subst( 1, x, F1), " > 0  ->  increasing on (0,+oo)")$
+print("    f''(x) =", factor(F2))$
+print("    f''(0) =", subst(0, x, F2), " > 0  ->  GLOBAL MINIMUM")$
+print("    f(0) =", subst(0, x, F), "   (expected -1)")$
+print("    Range: [-1, 1)")$
+
+print("")$
+print("D4. Convexity and inflection points")$
+inflF : sort(map(rhs, solve(F2 = 0, x)))$
+print("    f''(x)=0  ->  x =", inflF, " =", float(inflF),
+      "   (expected ±1/sqrt(3) ≈ ±0.5774)")$
+for c in inflF do
+  print("      x =", c, "  f =", ratsimp(subst(c, x, F)), "   (expected -1/2)")$
+print("    f''(-2) =", float(subst(-2, x, F2)), " < 0  ->  concave")$
+print("    f''( 0) =", float(subst( 0, x, F2)), " > 0  ->  convex")$
+print("    f''( 2) =", float(subst( 2, x, F2)), " < 0  ->  concave")$
+print("    Convex on (-1/sqrt(3), 1/sqrt(3)), concave outside.")$
+
+plot2d([F, 1], [x, -6, 6], [y, -1.4, 1.4],
+       [legend, "f(x)=(x^2-1)/(x^2+1)", "asymptote y=1"],
+       [title, "Complete study: minimum (0,-1), inflection at ±1/sqrt(3)"])$
+
+print("")$
+print("Chapter 12 completed.")$

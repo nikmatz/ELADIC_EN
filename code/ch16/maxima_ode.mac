@@ -1,0 +1,130 @@
+/* ============================================================
+   maxima_ode.mac
+   Chapter 15 — Differential Equations
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
+   ============================================================
+
+   COMMANDS USED:
+     ode2(eq, y, x)            → general solution of a 1st/2nd order ODE
+     ic1(sol, x=x0, y=y0)      → initial condition (1st order)
+     ic2(sol, x=x0, y=y0, diff(y,x)=y1) → initial conditions, 2nd order
+     desolve(eq, y)            → symbolic solution via Laplace
+     diff(y, x)                → derivative of y with respect to x
+     rk(f, y, y0, [x,x0,xf,h])→ Runge-Kutta, numerically
+
+   Run with: wxMaxima (Load/File) or
+                 maxima -b maxima_ode.mac
+   ============================================================ */
+
+/* ── Part A: 1st Order ODEs — Separable Variables ───── */
+print("════ A. Separable Variables ════");
+
+/* A1: dy/dx = x·y  →  y = C·e^(x²) */
+eq1 : 'diff(y,x) = x*y;
+sol1 : ode2(eq1, y, x);
+print("  dy/dx = x·y:");
+print("  General solution:", sol1);
+/* Particular solution: y(0)=2 */
+ic_sol1 : ic1(sol1, x=0, y=2);
+print("  Particular solution y(0)=2:", ic_sol1);
+
+/* A2: dy/dx = (x²+1)/(y+1)  →  y²+2y = (2/3)x³+2x+C */
+eq2 : 'diff(y,x) = (x^2+1)/(y+1);
+sol2 : ode2(eq2, y, x);
+print("\n  dy/dx = (x²+1)/(y+1):");
+print("  General solution:", sol2);
+
+/* A3: Population growth: dP/dt = k·P, k=0.03, P(0)=1000 */
+print("\n  Growth model: dP/dt = 0.03·P, P(0)=1000");
+eq3 : 'diff(P,t) = 0.03*P;
+sol3 : ode2(eq3, P, t);
+ic_sol3 : ic1(sol3, t=0, P=1000);
+print("  P(t) =", ic_sol3);
+print("  P(10) =", float(subst(10, t, rhs(ic_sol3))));
+print("  P(50) =", float(subst(50, t, rhs(ic_sol3))));
+
+/* ── Part B: Linear 1st Order ODEs ───────────────── */
+print("════ B. Linear 1st Order ODEs: y' + P(x)y = Q(x) ════");
+
+/* B1: y' + 2y = 4x  →  integrating factor mu = e^(2x) */
+eq4 : 'diff(y,x) + 2*y = 4*x;
+sol4 : ode2(eq4, y, x);
+print("  y' + 2y = 4x:");
+print("  General solution:", sol4);
+ic_sol4 : ic1(sol4, x=0, y=1);
+print("  Particular y(0)=1:", ic_sol4);
+
+/* B2: y' - y/x = x²  (Bernoulli-like) */
+eq5 : 'diff(y,x) - y/x = x^2;
+sol5 : ode2(eq5, y, x);
+print("\n  y' - y/x = x²:");
+print("  General solution:", sol5);
+
+/* B3: x·y' + y = x·sinx  (→  d(xy)/dx = x·sinx) */
+eq6 : x*'diff(y,x) + y = x*sin(x);
+sol6 : ode2(eq6, y, x);
+print("\n  x·y' + y = x·sinx:");
+print("  General solution:", sol6);
+
+/* ── Part C: 2nd Order ODEs — Constant Coefficients ──── */
+print("════ C. 2nd Order ODEs: ay'' + by' + cy = 0 ════");
+
+/* C1: y'' - 5y' + 6y = 0  →  r²-5r+6=0, r=2,3 */
+eq7 : 'diff(y,x,2) - 5*'diff(y,x) + 6*y = 0;
+sol7 : ode2(eq7, y, x);
+print("  y'' - 5y' + 6y = 0:");
+print("  General solution:", sol7);
+ic_sol7 : ic2(sol7, x=0, y=1, 'diff(y,x)=0);
+print("  Particular y(0)=1, y'(0)=0:", ic_sol7);
+
+/* C2: y'' + 4y' + 4y = 0  →  double root r=-2 */
+eq8 : 'diff(y,x,2) + 4*'diff(y,x) + 4*y = 0;
+sol8 : ode2(eq8, y, x);
+print("\n  y'' + 4y' + 4y = 0  (double root r=-2):");
+print("  General solution:", sol8);
+
+/* C3: y'' + 4y = 0  →  complex r=±2i (simple harmonic) */
+eq9 : 'diff(y,x,2) + 4*y = 0;
+sol9 : ode2(eq9, y, x);
+print("\n  y'' + 4y = 0  (simple harmonic oscillation):");
+print("  General solution:", sol9);
+ic_sol9 : ic2(sol9, x=0, y=1, 'diff(y,x)=0);
+print("  Particular y(0)=1, y'(0)=0:", ic_sol9);
+
+/* ── Part D: Non-homogeneous 2nd Order ODEs ─────────── */
+print("════ D. Non-homogeneous: ay'' + by' + cy = f(x) ════");
+
+/* D1: y'' - 3y' + 2y = e^x */
+eq10 : 'diff(y,x,2) - 3*'diff(y,x) + 2*y = exp(x);
+sol10 : ode2(eq10, y, x);
+print("  y'' - 3y' + 2y = e^x:");
+print("  General solution:", sol10);
+
+/* D2: y'' + y = sinx  (resonance!) */
+eq11 : 'diff(y,x,2) + y = sin(x);
+sol11 : ode2(eq11, y, x);
+print("\n  y'' + y = sinx  (resonance):");
+print("  General solution:", sol11);
+
+/* D3: y'' + 2y' + 5y = 10cos(2x)  (damped oscillation) */
+eq12 : 'diff(y,x,2) + 2*'diff(y,x) + 5*y = 10*cos(2*x);
+sol12 : ode2(eq12, y, x);
+print("\n  y'' + 2y' + 5y = 10cos(2x)  (damped oscillation):");
+print("  General solution:", sol12);
+
+/* ── Part E: Numerical Solution — Runge-Kutta ────────── */
+print("════ E. Numerical Solution — Runge-Kutta (rk) ════");
+
+/* RK4 for y' = x - y, y(0) = 0.5  on [0,3] */
+print("y' = x - y, y(0) = 0.5 (RK4, h=0.1):");
+sol_rk : rk(x - y, y, 0.5, [x, 0, 3, 0.1]);
+/* Display of the first 6 steps */
+for i : 1 thru 6 do (
+    pt : sol_rk[i],
+    print("  x =", float(pt[1]), "  y ≈", float(pt[2]))
+);
+/* Exact solution: y = x - 1 + (3/2)e^(-x) */
+print("  Exact  y(3) =", float(3 - 1 + (3/2)*exp(-3)));
+print("  RK4    y(3) ≈", float(last(sol_rk)[2]));
+
+print("════ End ════");

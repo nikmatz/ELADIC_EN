@@ -1,0 +1,115 @@
+/* maxima_dynamoseires.mac — Power Series: Radius of Convergence, Taylor, Operations (Ch. 20) */
+/* Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications. */
+/* Commands: taylor(f,x,x0,n), diff(T,x), integrate(T,x), limit(), sum() with simpsum */
+
+print("============================================================")$
+print("A. RADIUS OF CONVERGENCE   R = lim |c_n / c_(n+1)|")$
+print("============================================================")$
+
+/* We compute lim |c_n/c_(n+1)| directly (the formula in the book):
+   this way no 1/L division is needed and it does not blow up at L = 0. */
+Rconv(cn) := limit(abs(cn / subst(n+1, n, cn)), n, inf)$
+
+print("Sum x^n/n   : R =", Rconv(1/n),   "   (expected 1)")$
+print("Sum x^n/n!  : R =", Rconv(1/n!),  "   (expected inf)")$
+print("Sum n x^n   : R =", Rconv(n),     "   (expected 1)")$
+print("Sum x^n/2^n : R =", Rconv(1/2^n), "   (expected 2)")$
+print("Sum n! x^n  : R =", Rconv(n!),    "   (expected 0)")$
+print("")$
+print("R = inf : converges everywhere.  R = 0 : only at x = 0.")$
+
+print("")$
+print("============================================================")$
+print("B. MACLAURIN EXPANSIONS  taylor(f, x, 0, 8)")$
+print("============================================================")$
+
+print("e^x       =", taylor(exp(x),    x, 0, 8))$
+print("sin(x)    =", taylor(sin(x),    x, 0, 8))$
+print("cos(x)    =", taylor(cos(x),    x, 0, 8))$
+print("log(1+x)  =", taylor(log(1+x),  x, 0, 8))$
+print("1/(1-x)   =", taylor(1/(1-x),   x, 0, 8))$
+print("atan(x)   =", taylor(atan(x),   x, 0, 8))$
+print("sqrt(1+x) =", taylor(sqrt(1+x), x, 0, 8))$
+print("")$
+print("Taylor about x0 = 1 for e^x:")$
+print("e^x =", taylor(exp(x), x, 1, 6))$
+print("   (powers of (x-1), with the constant factor %e)")$
+
+print("")$
+print("============================================================")$
+print("C. OPERATIONS: TERM-BY-TERM DIFFERENTIATION AND INTEGRATION")$
+print("============================================================")$
+
+/* Sum x^n = 1/(1-x) for |x| < 1 */
+T   : taylor(1/(1-x), x, 0, 6)$
+print("Sum x^n = 1/(1-x) :", T)$
+dT  : expand(diff(T, x))$
+ref1: expand(ratdisrep(taylor(1/(1-x)^2, x, 0, 5)))$
+print("d/dx [Sum x^n] = Sum n x^(n-1) =", dT)$
+print("expansion of 1/(1-x)^2         =", ref1)$
+print("identical:", is(equal(dT, ref1)))$
+
+print("")$
+U   : taylor(1/(1+x), x, 0, 7)$
+IU  : expand(integrate(ratdisrep(U), x))$
+ref2: expand(ratdisrep(taylor(log(1+x), x, 0, 8)))$
+print("Sum (-1)^n x^n = 1/(1+x) :", U)$
+print("∫ [Sum (-1)^n x^n] dx = Sum (-1)^n x^(n+1)/(n+1) =", IU)$
+print("expansion of log(1+x)                            =", ref2)$
+print("identical:", is(equal(IU, ref2)))$
+
+print("")$
+print("============================================================")$
+print("D. COMPUTING pi")$
+print("============================================================")$
+
+/* Gregory-Leibniz: the arctan series for x = 1,  pi/4 = Sum (-1)^k/(2k+1) */
+GL(N) := 4 * ev(sum((-1)^k/(2*k+1), k, 0, N), simpsum)$
+print("Gregory-Leibniz  pi/4 = Sum_{k=0}^N (-1)^k/(2k+1):")$
+for N in [10, 100, 1000] do
+  print("   N =", N, ": pi ~", float(GL(N)),
+        "   error =", float(abs(GL(N) - %pi)))$
+print("   The error decays like 1/N: ~10^k terms are needed for k digits.")$
+
+print("")$
+M : 4*(4*atan(1/5) - atan(1/239))$
+print("Machin formula  pi/4 = 4 atan(1/5) - atan(1/239):")$
+print("   M =", float(M), "   pi =", float(%pi))$
+print("   exact identity M = %pi :", is(equal(M, %pi)))$
+print("   The series for atan(1/5) and atan(1/239) converge geometrically,")$
+print("   with ratios 1/25 and 1/57121 — that is why the method is so fast.")$
+
+print("")$
+print("============================================================")$
+print("E. ∫_0^1 sin(x^2) dx VIA A POWER SERIES")$
+print("============================================================")$
+
+/* sin(x^2) = Sum (-1)^k x^(4k+2)/(2k+1)!  ->  ∫_0^1 = Sum (-1)^k/((4k+3)(2k+1)!) */
+exact : float(quad_qags(sin(x^2), x, 0, 1)[1])$
+print("Numerical value (quad_qags) =", exact, "   (0.3102683017233811)")$
+print("")$
+print("Error per expansion order:")$
+for m in [2, 6, 10, 14, 18] do
+  block([Tm, approx],
+    Tm : ratdisrep(taylor(sin(x^2), x, 0, m)),
+    approx : float(integrate(Tm, x, 0, 1)),
+    print("   order", m, ": approximation =", approx,
+          "   error =", abs(approx - exact)))$
+print("Already at order 14 (4 terms) we achieve ~7 correct decimal digits.")$
+
+/* Plots (endpoints in increasing order) */
+p1 : ratdisrep(taylor(exp(x), x, 0, 1))$
+p3 : ratdisrep(taylor(exp(x), x, 0, 3))$
+p5 : ratdisrep(taylor(exp(x), x, 0, 5))$
+plot2d([exp(x), p1, p3, p5], [x, -3, 3], [y, -1, 12],
+       [legend, "e^x", "Order 1", "Order 3", "Order 5"],
+       [xlabel, "x"], [ylabel, "y"],
+       [title, "Maclaurin of e^x"])$
+
+q1 : ratdisrep(taylor(log(1+x), x, 0, 1))$
+q3 : ratdisrep(taylor(log(1+x), x, 0, 3))$
+q7 : ratdisrep(taylor(log(1+x), x, 0, 7))$
+plot2d([log(1+x), q1, q3, q7], [x, -0.9, 1.5], [y, -3, 2],
+       [legend, "log(1+x)", "Order 1", "Order 3", "Order 7"],
+       [xlabel, "x"], [ylabel, "y"],
+       [title, "R = 1: outside (-1,1) the polynomials diverge"])$

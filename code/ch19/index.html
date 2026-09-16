@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Ch. 19 — Sequences and Series · Elements of Linear Algebra &amp; Calculus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#222}
+  header{background:var(--blue);color:white;padding:18px 24px}
+  header h1{font-size:1.25rem;font-weight:700}
+  header p{font-size:.9rem;margin-top:4px;opacity:.85}
+  .breadcrumb{font-size:.82rem;padding:10px 24px;background:#eee;border-bottom:1px solid #ddd}
+  .breadcrumb a{color:var(--blue);text-decoration:none}
+  .container{max-width:960px;margin:0 auto;padding:24px 16px}
+  .info-box{background:white;border-left:5px solid var(--blue);padding:14px 18px;margin-bottom:24px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .info-box h2{font-size:1rem;color:var(--blue);margin-bottom:8px}
+  .info-box p{font-size:.88rem;line-height:1.6}
+  .tabs{display:flex;gap:6px;margin-bottom:0}
+  .tab-btn{padding:10px 20px;border:none;border-radius:6px 6px 0 0;font-size:.9rem;font-weight:600;cursor:pointer}
+  .tab-btn.maxima{background:#d5f5e3;color:var(--teal)}
+  .tab-btn.python{background:#d6eaf8;color:var(--blue)}
+  .tab-btn.active.maxima{background:var(--teal);color:white}
+  .tab-btn.active.python{background:var(--blue);color:white}
+  .tab-content{display:none}
+  .tab-content.active{display:block}
+  .code-card{background:white;border-radius:0 6px 6px 6px;box-shadow:0 2px 8px rgba(0,0,0,.1);overflow:hidden}
+  .code-header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;font-size:.85rem;font-weight:600}
+  .code-header.maxima{background:var(--teal);color:white}
+  .code-header.python{background:var(--blue);color:white}
+  .download-btn{display:inline-block;padding:5px 12px;background:rgba(255,255,255,.2);color:white;border:1px solid rgba(255,255,255,.5);border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:600}
+  .download-btn:hover{background:rgba(255,255,255,.35)}
+  pre[class*="language-"]{margin:0!important;border-radius:0!important;max-height:520px;overflow-y:auto;font-size:.83rem}
+  .commands-box{background:#fffde7;border:1px solid #f9a825;border-radius:4px;padding:12px 16px;margin:16px 0;font-size:.85rem}
+  .commands-box strong{color:var(--orange)}
+  .commands-box code{background:#fff3cd;padding:1px 5px;border-radius:3px;font-size:.82rem}
+  footer{text-align:center;padding:20px;font-size:.8rem;color:#888;margin-top:32px;border-top:1px solid #ddd}
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+<header>
+  <h1>📐 Chapter 19 — Sequences and Series</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
+</header>
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 19
+</div>
+<div class="container">
+  <div class="info-box">
+    <h2>📋 Contents of the Activities</h2>
+    <p><strong>Topic:</strong> limits of sequences, geometric and telescoping series, the ratio test, the Basel series, alternating series<br><br>
+    Choose a language from the tabs. The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.</p>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_seires.mac</span>
+        <a class="download-btn" href="maxima_seires.mac" download>⬇ Download .mac</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Basic commands:</strong>
+        <code>limit(a,n,inf)</code> &nbsp;
+        <code>sum(a,n,1,inf)</code> &nbsp;
+        <code>makelist()</code> &nbsp;
+        <code>abs()</code> &nbsp;
+        <code>float()</code>
+      </div>
+      <pre><code class="language-maxima" id="maxima-code">/* maxima_seires.mac — Sequences, Series and Convergence Tests (Ch. 19) */
+/* Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications. */
+/* Commands: limit(a,n,inf), sum(a,n,1,inf) with simpsum, makelist(), abs(), float() */
+
+load(simplify_sum)$
+
+/* Partial sum S_N numerically (fast, without rational numbers) */
+psum(f, N) := block([s : 0.0, k],
+                    for k : 1 thru N do s : s + float(subst(k, n, f)),
+                    s)$
+
+print("============================================================")$
+print("A. SEQUENCES — LIMITS AND FIRST TERMS")$
+print("============================================================")$
+
+print("lim n/(n+1)     =", limit(n/(n+1), n, inf),     "   (1)")$
+print("lim (1+1/n)^n   =", limit((1+1/n)^n, n, inf),   "   (%e = ", float(%e), ")")$
+print("lim n^2/e^n     =", limit(n^2/exp(n), n, inf),  "   (0)")$
+print("lim (-1)^n/n    =", limit((-1)^n/n, n, inf),    "   (0)")$
+
+print("")$
+print("The first 10 terms (makelist):")$
+print("  n/(n+1)   :", float(makelist(n/(n+1), n, 1, 10)))$
+print("  (1+1/n)^n :", float(makelist((1+1/n)^n, n, 1, 10)))$
+print("  n^2/e^n   :", float(makelist(n^2/exp(n), n, 1, 10)))$
+print("  (-1)^n/n  :", float(makelist((-1)^n/n, n, 1, 10)))$
+print("(-1)^n/n alternates in sign but |a_n| = 1/n -&gt; 0, hence a_n -&gt; 0.")$
+
+print("")$
+print("============================================================")$
+print("B. GEOMETRIC AND TELESCOPING SERIES")$
+print("============================================================")$
+
+/* Without simpsum, Maxima prints the sum unevaluated */
+S1 : ev(sum((1/2)^n, n, 0, inf), simpsum)$
+S2 : ev(sum((2/3)^n, n, 0, inf), simpsum)$
+print("Sum_{n=0}^inf (1/2)^n =", S1, "   formula a/(1-r) =", 1/(1-1/2),
+      "   equal:", is(equal(S1, 1/(1-1/2))))$
+print("Sum_{n=0}^inf (2/3)^n =", S2, "   formula a/(1-r) =", 1/(1-2/3),
+      "   equal:", is(equal(S2, 1/(1-2/3))))$
+print("   (expected 2 and 3)")$
+
+print("")$
+print("Partial sums of Sum(1/2)^n (they approach 2):")$
+for N in [5, 10, 20] do
+  print("   S_", N, "=", float(ev(sum((1/2)^n, n, 0, N), simpsum)))$
+
+print("")$
+print("Telescoping: Sum_{n=1}^inf 1/(n(n+1))")$
+T : simplify_sum(sum(1/(n*(n+1)), n, 1, inf))$
+TN : simplify_sum(sum(1/(n*(n+1)), n, 1, N))$
+print("   Sum =", T, "   (expected 1)")$
+print("   S_N      =", TN, "   = 1 - 1/(N+1), since 1/(n(n+1)) = 1/n - 1/(n+1)")$
+for N in [10, 100, 1000] do
+  print("   S_", N, "=", float(subst(N, 'N, TN)))$
+
+print("")$
+print("============================================================")$
+print("C. THE RATIO TEST AND THE BASEL SERIES")$
+print("============================================================")$
+
+/* Sum n!/n^n : ratio -&gt; 1/e &lt; 1, converges */
+L1 : limit( ((n+1)!/(n+1)^(n+1)) / (n!/n^n), n, inf)$
+print("Sum n!/n^n : L =", L1, "=", float(L1), "  &lt; 1  -&gt; CONVERGES   (1/e)")$
+
+/* Sum n^n/n! : ratio -&gt; e &gt; 1, diverges */
+L2 : limit( ((n+1)^(n+1)/(n+1)!) / (n^n/n!), n, inf)$
+print("Sum n^n/n! : L =", L2, "=", float(L2), "  &gt; 1  -&gt; DIVERGES   (e)")$
+print("The two series are reciprocals of one another, and their ratio")$
+print("is inverted: 1/e and e. Only the first one converges.")$
+
+print("")$
+print("Numerical ratios a_(n+1)/a_n for Sum n!/n^n:")$
+for N in [5, 20, 100] do
+  print("   n =", N, ": ratio =",
+        float( ((N+1)!/(N+1)^(N+1)) / (N!/N^N) ), "   -&gt; 1/e =", float(1/%e))$
+
+print("")$
+print("Basel series: Sum_{n=1}^inf 1/n^2")$
+B : ev(sum(1/n^2, n, 1, inf), simpsum)$
+print("   Sum =", B, "=", float(B), "   (%pi^2/6)")$
+for N in [10, 100, 1000] do
+  print("   S_", N, "=", psum(1/n^2, N),
+        "   error =", abs(psum(1/n^2, N) - float(%pi^2/6)))$
+print("The error decays like 1/N (tail ~ ∫_N^inf dx/x^2 = 1/N).")$
+
+print("")$
+print("============================================================")$
+print("D. ALTERNATING HARMONIC VERSUS HARMONIC")$
+print("============================================================")$
+
+A : simplify_sum(sum((-1)^(n-1)/n, n, 1, inf))$
+print("Sum_{n=1}^inf (-1)^(n-1)/n =", A, "=", float(A), "   (log(2))")$
+print("")$
+print("Leibniz test:  |S - S_N| &lt;= b_(N+1) = 1/(N+1)")$
+for N in [10, 100, 1000] do
+  print("   N =", N, ": S_N =", psum((-1)^(n-1)/n, N),
+        "  |S-S_N| =", abs(psum((-1)^(n-1)/n, N) - float(log(2))),
+        "  b_(N+1) =", float(1/(N+1)),
+        "  holds:", is(abs(psum((-1)^(n-1)/n, N) - float(log(2)))
+                        &lt;= float(1/(N+1))))$
+
+print("")$
+print("Harmonic Sum 1/n — the same terms in absolute value, but it DIVERGES:")$
+for N in [10, 100, 1000] do
+  print("   N =", N, ": H_N =", psum(1/n, N),
+        "   log(N)+gamma =", float(log(N) + 0.5772156649))$
+print("")$
+print("DIFFERENCE: in the alternating one the signs cancel out and the S_N")$
+print("settle at log(2) ~ 0.6931. In the harmonic one the S_N increase")$
+print("without bound (like log N), even if very slowly.")$
+
+print("")$
+print("============================================================")$
+print("E. SUPPLEMENT — the eps-N definition numerically")$
+print("============================================================")$
+a(m) := (2*m + 1)/(m + 3)$
+Lim : limit(a(m), m, inf)$
+print("a_m = (2m+1)/(m+3),  limit =", Lim, "   (2)")$
+print("First 8 terms:", float(makelist(a(m), m, 1, 8)))$
+for eps in [0.1, 0.01, 0.001] do
+  block([N : 1],
+    while abs(float(a(N) - Lim)) &gt;= eps do N : N + 1,
+    print("   eps =", eps, "-&gt; first N with |a_N - L| &lt; eps :", N,
+          "   |a_N-L| =", float(abs(a(N) - Lim))))$
+
+/* Plots (endpoints in increasing order) */
+plot2d([discrete, makelist([N, psum((-1)^(n-1)/n, N)], N, 1, 40)],
+       [style, [linespoints, 1, 2]],
+       [xlabel, "N"], [ylabel, "S_N"],
+       [title, "Alternating harmonic -&gt; log(2) = 0.6931"])$
+
+plot2d([discrete, makelist([N, psum(1/n, N)], N, 1, 60)],
+       [style, [linespoints, 1, 2]],
+       [xlabel, "N"], [ylabel, "H_N"],
+       [title, "Harmonic series: diverges like log(N)"])$
+</code></pre>
+    </div>
+  </div>
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_seires.py</span>
+        <a class="download-btn" href="python_seires.py" download>⬇ Download .py</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Libraries / commands:</strong>
+        <code>sympy.limit()</code> &nbsp;
+        <code>sympy.summation()</code> &nbsp;
+        <code>np.cumsum()</code> &nbsp;
+        <code>math.factorial()</code> &nbsp;
+        <code>matplotlib.pyplot</code>
+      </div>
+            <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># python_seires.py — Sequences, Series and Convergence Tests (Ch. 19)
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
+# Commands: sympy.limit(), sympy.summation(), np.cumsum(), math.factorial(), matplotlib.pyplot
+
+import math
+import numpy as np
+import sympy as sp
+import matplotlib.pyplot as plt
+
+n = sp.symbols('n', positive=True)
+k = sp.symbols('k', integer=True, positive=True)
+
+print("=" * 60)
+print("SEQUENCES, SERIES AND CONVERGENCE TESTS")
+print("=" * 60)
+
+# ── A. Limits of sequences ──────────────────────────────────────────────────
+print()
+print("A. LIMITS OF SEQUENCES  (sympy.limit)")
+print("-" * 60)
+seqs = [
+    (n / (n + 1),        "n/(n+1)",     "1"),
+    ((1 + 1/n)**n,       "(1+1/n)^n",   "e"),
+    (n**2 / sp.exp(n),   "n²/eⁿ",       "0"),
+]
+for expr, label, expected in seqs:
+    L = sp.limit(expr, n, sp.oo)
+    print(f"   lim {label:12s} = {str(L):8s}   (expected {expected})")
+
+# sympy.limit does not handle the factor (-1)ⁿ; we use the squeeze theorem:
+# |(-1)ⁿ/n| = 1/n -&gt; 0, hence (-1)ⁿ/n -&gt; 0 as well.
+Labs = sp.limit(sp.Abs(1/n), n, sp.oo)
+print(f"   lim {'(-1)ⁿ/n':12s} : squeeze theorem, lim |(-1)ⁿ/n| = lim 1/n = "
+      f"{Labs}  =&gt;  limit 0   (expected 0)")
+
+alt = (-1)**n / n
+print()
+print("   First 10 terms:")
+for expr, label in [(e_, l_) for e_, l_, _ in seqs] + [(alt, "(-1)ⁿ/n")]:
+    terms = [float(expr.subs(n, m)) for m in range(1, 11)]
+    print(f"      {label:12s}: " + ", ".join(f"{t:+.5f}" for t in terms))
+
+# Plot: (1+1/n)^n -&gt; e (horizontal asymptote)
+nv = np.arange(1, 201)
+seq_e = (1 + 1.0 / nv) ** nv
+plt.figure(figsize=(7, 4.2))
+plt.plot(nv, seq_e, 'b.-', ms=3, lw=0.8, label=r'$(1+1/n)^n$')
+plt.axhline(np.e, color='r', ls='--', label=f'e = {np.e:.6f} (horizontal asymptote)')
+plt.xlabel('n'); plt.ylabel(r'$a_n$')
+plt.ylim(1.9, 2.9)
+plt.title(r'The sequence $(1+1/n)^n$ converges to $e$')
+plt.legend(); plt.grid(True, alpha=0.3)
+plt.tight_layout()
+print(f"   a_200 = {seq_e[-1]:.8f}   e = {np.e:.8f}   difference = {np.e - seq_e[-1]:.3e}")
+
+# ── B. Geometric series ─────────────────────────────────────────────────────
+print()
+print("B. GEOMETRIC SERIES  Sum_{n=0}^∞ rⁿ = 1/(1-r)")
+print("-" * 60)
+plt.figure(figsize=(7, 4.2))
+Nmax = 30
+idx = np.arange(Nmax + 1)
+for r, col in [(0.5, 'tab:blue'), (2/3, 'tab:orange'), (-0.5, 'tab:green')]:
+    rr = sp.Rational(1, 2) if r == 0.5 else (sp.Rational(2, 3) if r &gt; 0 else sp.Rational(-1, 2))
+    exact = sp.summation(rr**k, (k, 0, sp.oo))
+    S = np.cumsum(r ** idx)                      # partial sums with np.cumsum
+    print(f"   r = {str(rr):5s}: sympy = {str(exact):5s} = {float(exact):.8f}   "
+          f"1/(1-r) = {1/(1-r):.8f}   S_30 = {S[-1]:.8f}")
+    plt.plot(idx, S, 'o-', ms=3, color=col, label=f'r = {rr}')
+    plt.axhline(float(exact), color=col, ls='--', lw=1)
+print("   (expected: 2, 3, 2/3)")
+plt.xlabel('N'); plt.ylabel(r'$S_N=\sum_{n=0}^{N} r^n$')
+plt.title('Partial sums of geometric series (dashed: the limits)')
+plt.legend(); plt.grid(True, alpha=0.3)
+plt.tight_layout()
+
+# ── C. Ratio test (numerically, N=50) and the Basel series ──────────────────
+print()
+print("C. NUMERICAL RATIO TEST  (N = 50 terms)")
+print("-" * 60)
+N = 50
+ns = np.arange(1, N + 1)
+a1 = np.array([math.factorial(int(m)) / float(m) ** int(m) for m in ns])   # n!/nⁿ
+a2 = np.array([float(m) ** int(m) / math.factorial(int(m)) for m in ns])   # nⁿ/n!
+r1 = a1[1:] / a1[:-1]
+r2 = a2[1:] / a2[:-1]
+print(f"   Sum n!/nⁿ : ratio a_50/a_49 = {r1[-1]:.10f}   -&gt; 1/e = {1/np.e:.10f}"
+      f"   ({'&lt; 1  CONVERGES' if r1[-1] &lt; 1 else '&gt;= 1'})")
+print(f"               S_50 = {a1.sum():.10f}")
+print(f"   Sum nⁿ/n! : ratio a_50/a_49 = {r2[-1]:.10f}   -&gt; e   = {np.e:.10f}"
+      f"   ({'&gt; 1  DIVERGES' if r2[-1] &gt; 1 else '&lt;= 1'})")
+print(f"               S_50 = {a2.sum():.6e}  (it explodes)")
+
+print()
+print("   Sum 1/n² -&gt; pi²/6 : error in log-log")
+Nb = 2000
+nb = np.arange(1, Nb + 1)
+Sb = np.cumsum(1.0 / nb**2)
+err = np.pi**2 / 6 - Sb
+for N0 in (10, 100, 1000):
+    print(f"      S_{N0:&lt;5d} = {Sb[N0-1]:.10f}   error = {err[N0-1]:.3e}"
+          f"   (1/N = {1.0/N0:.3e})")
+slope = np.polyfit(np.log(nb[9:]), np.log(err[9:]), 1)[0]
+print(f"      Slope of log(error) versus log(N) = {slope:.4f}   (expected -1)")
+
+plt.figure(figsize=(7, 4.2))
+plt.loglog(nb, err, 'b-', label=r'$\pi^2/6-S_N$')
+plt.loglog(nb, 1.0 / nb, 'r--', label=r'$1/N$ (slope $-1$)')
+plt.xlabel('N'); plt.ylabel('error')
+plt.title(r'Error of $\sum 1/n^2$ — a line of slope $-1$ in log-log')
+plt.legend(); plt.grid(True, which='both', alpha=0.3)
+plt.tight_layout()
+
+# ── D. A telescoping series versus a divergent one ──────────────────────────
+print()
+print("D. TELESCOPING SERIES")
+print("-" * 60)
+Nt = 1000
+nt = np.arange(1, Nt + 1)
+tele = np.cumsum(1.0 / np.sqrt(nt) - 1.0 / np.sqrt(nt + 1))   # -&gt; 1
+logs = np.cumsum(np.log(1.0 + 1.0 / nt))                      # = ln(N+1), diverges
+print("   Sum (1/√n - 1/√(n+1))  = 1 - 1/√(N+1)  -&gt;  1")
+for N0 in (10, 100, 1000):
+    print(f"      S_{N0:&lt;5d} = {tele[N0-1]:.10f}   closed form 1-1/√(N+1) = "
+          f"{1 - 1/np.sqrt(N0+1):.10f}")
+print("   Sum ln(1+1/n) = ln(N+1)  -&gt;  +∞  (diverges)")
+for N0 in (10, 100, 1000):
+    print(f"      S_{N0:&lt;5d} = {logs[N0-1]:.10f}   ln({N0+1}) = {np.log(N0+1):.10f}")
+print(f"   Maximum deviation from the closed forms: "
+      f"{max(np.max(np.abs(tele - (1 - 1/np.sqrt(nt+1)))), np.max(np.abs(logs - np.log(nt+1)))):.2e}")
+print("   CONCLUSION: in both of them the terms tend to 0, but only the first")
+print("   has bounded partial sums. a_n -&gt; 0 is NOT enough for convergence.")
+
+plt.figure(figsize=(7.5, 4.5))
+plt.plot(nt, tele, 'b-', lw=2, label=r'$\sum(1/\sqrt{n}-1/\sqrt{n+1})\to 1$')
+plt.axhline(1, color='b', ls=':', lw=1)
+plt.plot(nt, logs, 'r-', lw=2, label=r'$\sum\ln(1+1/n)=\ln(N+1)\to\infty$')
+plt.xscale('log')
+plt.xlabel('N (logarithmic axis)'); plt.ylabel(r'$S_N$')
+plt.title('A convergent telescoping series versus a divergent one')
+plt.legend(); plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelector('.tab-btn.'+name).classList.add('active');
+}
+function loadCode(file, elementId, lang) {
+  fetch(file+'?v='+Date.now())
+    .then(r=>r.ok?r.text():Promise.reject(r.status))
+    .then(text=>{
+      const el=document.getElementById(elementId);
+      el.textContent=text; el.className='language-'+lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err=>{document.getElementById(elementId).textContent='⚠ Could not load the file ('+err+'). Please use the Download button.';});
+}
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+originalPy = $('py-editor').value;
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    return await loadPyodide();
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    const code = $('py-editor').value;
+    setStatus('Loading libraries…');
+    await py.loadPackagesFromImports(code);
+    setStatus('Running…');
+    await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
+    py.globals.set('__user_src__', code);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+_imgs = []
+try:
+    import matplotlib.pyplot as plt
+    for _n in plt.get_fignums():
+        _f = plt.figure(_n); _b = io.BytesIO()
+        _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+        _imgs.append(base64.b64encode(_b.read()).decode())
+    plt.close('all')
+except Exception:
+    pass
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

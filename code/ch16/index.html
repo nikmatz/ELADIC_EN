@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Ch. 16 — Techniques of Integration · Elements of Linear Algebra &amp; Calculus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#222}
+  header{background:var(--blue);color:white;padding:18px 24px}
+  header h1{font-size:1.25rem;font-weight:700}
+  header p{font-size:.9rem;margin-top:4px;opacity:.85}
+  .breadcrumb{font-size:.82rem;padding:10px 24px;background:#eee;border-bottom:1px solid #ddd}
+  .breadcrumb a{color:var(--blue);text-decoration:none}
+  .container{max-width:960px;margin:0 auto;padding:24px 16px}
+  .info-box{background:white;border-left:5px solid var(--blue);padding:14px 18px;margin-bottom:24px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .info-box h2{font-size:1rem;color:var(--blue);margin-bottom:8px}
+  .info-box p{font-size:.88rem;line-height:1.6}
+  .tabs{display:flex;gap:6px;margin-bottom:0}
+  .tab-btn{padding:10px 20px;border:none;border-radius:6px 6px 0 0;font-size:.9rem;font-weight:600;cursor:pointer}
+  .tab-btn.maxima{background:#d5f5e3;color:var(--teal)}
+  .tab-btn.python{background:#d6eaf8;color:var(--blue)}
+  .tab-btn.active.maxima{background:var(--teal);color:white}
+  .tab-btn.active.python{background:var(--blue);color:white}
+  .tab-content{display:none}
+  .tab-content.active{display:block}
+  .code-card{background:white;border-radius:0 6px 6px 6px;box-shadow:0 2px 8px rgba(0,0,0,.1);overflow:hidden}
+  .code-header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;font-size:.85rem;font-weight:600}
+  .code-header.maxima{background:var(--teal);color:white}
+  .code-header.python{background:var(--blue);color:white}
+  .download-btn{display:inline-block;padding:5px 12px;background:rgba(255,255,255,.2);color:white;border:1px solid rgba(255,255,255,.5);border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:600}
+  .download-btn:hover{background:rgba(255,255,255,.35)}
+  pre[class*="language-"]{margin:0!important;border-radius:0!important;max-height:520px;overflow-y:auto;font-size:.83rem}
+  .commands-box{background:#fffde7;border:1px solid #f9a825;border-radius:4px;padding:12px 16px;margin:16px 0;font-size:.85rem}
+  .commands-box strong{color:var(--orange)}
+  .commands-box code{background:#fff3cd;padding:1px 5px;border-radius:3px;font-size:.82rem}
+  footer{text-align:center;padding:20px;font-size:.8rem;color:#888;margin-top:32px;border-top:1px solid #ddd}
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+<header>
+  <h1>📐 Chapter 16 — Techniques of Integration</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
+</header>
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 16
+</div>
+<div class="container">
+  <div class="info-box">
+    <h2>📋 Contents of the Activities</h2>
+    <p><strong>Topic:</strong> substitution, integration by parts, partial fraction decomposition, trigonometric substitution<br><br>
+    Choose a language from the tabs. The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.</p>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_texnikes.mac</span>
+        <a class="download-btn" href="maxima_texnikes.mac" download>⬇ Download .mac</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Basic commands:</strong>
+        <code>integrate(f,x)</code> &nbsp;
+        <code>changevar(expr,eq,u,x)</code> &nbsp;
+        <code>partfrac(f,x)</code> &nbsp;
+        <code>trigsimp()</code> &nbsp;
+        <code>ratsimp()</code> &nbsp;
+        <code>diff(F,x)</code>
+      </div>
+      <pre><code class="language-maxima" id="maxima-code">/* ============================================================ */
+/* maxima_texnikes.mac                                          */
+/* Chapter 16 — Techniques of Integration                       */
+/* Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications. */
+/* ------------------------------------------------------------ */
+/* BASIC COMMANDS:                                             */
+/*   integrate(f,x)            -&gt; indefinite/definite integral   */
+/*   changevar(expr,eq,u,x)    -&gt; explicit change of variable    */
+/*   partfrac(f,x)             -&gt; partial fraction decomposition */
+/*   divide(p,q,x)             -&gt; polynomial division            */
+/*   ratsimp(), trigsimp()     -&gt; simplification                 */
+/*   diff(F,x)                 -&gt; verification by differentiation*/
+/* ============================================================ */
+
+/* Helper: F is an antiderivative of f  &lt;=&gt;  F' - f = 0 */
+elegxos(F, f) := is(trigsimp(ratsimp(diff(F, x) - f)) = 0)$
+
+/* Helper: two antiderivatives differ only by a constant        */
+/* &lt;=&gt; the derivative of their difference is 0                  */
+katastath(F, G) := is(trigsimp(ratsimp(diff(F - G, x))) = 0)$
+
+print("============================================================")$
+print(" Chapter 16: Techniques of Integration")$
+print("============================================================")$
+
+/* ============================================================ */
+/* A. SUBSTITUTION — explicitly with changevar, compared with integrate */
+/* ============================================================ */
+print("")$
+print("=== A. SUBSTITUTION (changevar) ===")$
+
+/* A1.  int x*e^(x^2) dx,  u = x^2  */
+f1 : x*exp(x^2)$
+J1 : 'integrate(f1, x)$
+print("")$
+print("A1. f(x) =", f1, "   u = x^2")$
+print("   changevar :", changevar(J1, u = x^2, u, x))$
+F1u : ev(changevar(J1, u = x^2, u, x), integrate)$
+print("   in terms of u :", F1u)$
+F1s : ratsimp(subst(x^2, u, F1u))$
+print("   back u-&gt;x^2   :", F1s)$
+F1 : integrate(f1, x)$
+print("   direct integrate:", F1, "  (expected e^(x^2)/2)")$
+print("   same form     :", is(ratsimp(F1s - F1) = 0))$
+print("   diff check    :", elegxos(F1, f1))$
+
+/* A2.  int x/sqrt(x^2+4) dx,  u = x^2+4  */
+f2 : x/sqrt(x^2+4)$
+J2 : 'integrate(f2, x)$
+print("")$
+print("A2. f(x) =", f2, "   u = x^2+4")$
+print("   changevar :", changevar(J2, u = x^2+4, u, x))$
+F2u : ev(changevar(J2, u = x^2+4, u, x), integrate)$
+print("   in terms of u :", F2u)$
+F2s : ratsimp(subst(x^2+4, u, F2u))$
+print("   back u-&gt;x^2+4 :", F2s)$
+F2 : integrate(f2, x)$
+print("   direct integrate:", F2, "  (expected sqrt(x^2+4))")$
+print("   same form     :", is(ratsimp(F2s - F2) = 0))$
+print("   diff check    :", elegxos(F2, f2))$
+
+/* A3.  int ln(x)/x dx,  u = ln(x).  x&gt;0 is declared BEFOREHAND, */
+/*      so that Maxima asks nothing during a batch run.          */
+assume(x &gt; 0)$
+f3 : log(x)/x$
+J3 : 'integrate(f3, x)$
+print("")$
+print("A3. f(x) =", f3, "   u = log(x)")$
+print("   changevar :", changevar(J3, u = log(x), u, x))$
+F3u : ev(changevar(J3, u = log(x), u, x), integrate)$
+print("   in terms of u :", F3u)$
+F3s : ratsimp(subst(log(x), u, F3u))$
+print("   back u-&gt;ln x  :", F3s)$
+F3 : integrate(f3, x)$
+print("   direct integrate:", F3, "  (expected log(x)^2/2)")$
+print("   same form     :", is(ratsimp(F3s - F3) = 0))$
+print("   diff check    :", elegxos(F3, f3))$
+forget(x &gt; 0)$
+
+/* ============================================================ */
+/* B. INTEGRATION BY PARTS                                      */
+/*    int u dv = u*v - int v du                                 */
+/* ============================================================ */
+print("")$
+print("=== B. INTEGRATION BY PARTS ===")$
+
+/* B1.  int x^2*e^x dx  — applied TWICE                         */
+/*   1st: u = x^2, dv = e^x dx  -&gt;  x^2 e^x - 2*int x e^x dx     */
+/*   2nd: u = x,   dv = e^x dx  -&gt;  int x e^x dx = x e^x - e^x   */
+g1 : x^2*exp(x)$
+B_esw : integrate(x*exp(x), x)$
+print("")$
+print("B1. f(x) =", g1, "  (applied twice)")$
+print("   2nd application: int x*e^x dx =", B_esw)$
+G1_steps : ratsimp(x^2*exp(x) - 2*B_esw)$
+print("   1st application: x^2*e^x - 2*int x*e^x dx =", G1_steps)$
+G1 : integrate(g1, x)$
+print("   direct integrate:", ratsimp(G1), "  (expected (x^2-2x+2)*e^x)")$
+print("   same form     :", is(ratsimp(G1_steps - G1) = 0))$
+print("   diff check    :", elegxos(G1, g1))$
+
+/* B2.  int atan(x) dx  with u = atan(x), dv = dx               */
+g2 : atan(x)$
+G2_steps : x*atan(x) - integrate(x/(1+x^2), x)$
+print("")$
+print("B2. f(x) =", g2, "   u = atan(x), dv = dx")$
+print("   x*atan(x) - int x/(1+x^2) dx =", G2_steps)$
+G2 : integrate(g2, x)$
+print("   direct integrate:", G2, "  (expected x*atan(x) - log(x^2+1)/2)")$
+print("   same form     :", is(ratsimp(G2_steps - G2) = 0))$
+print("   diff check    :", elegxos(G2, g2))$
+
+/* B3.  int e^x*sin(x) dx  — CYCLIC: the integral reappears,   */
+/*      so we solve for it as an equation with solve.           */
+g3 : exp(x)*sin(x)$
+print("")$
+print("B3. f(x) =", g3, "   (cyclic integration by parts)")$
+print("   Two applications give:  I = e^x*sin(x) - e^x*cos(x) - I")$
+kyklikh : solve(II = exp(x)*sin(x) - exp(x)*cos(x) - II, II)$
+G3_steps : rhs(kyklikh[1])$
+print("   Solving for I       :", G3_steps)$
+G3 : radcan(integrate(g3, x))$
+print("   direct integrate:", G3, "  (expected e^x*(sin x - cos x)/2)")$
+print("   same form     :", is(radcan(G3_steps - G3) = 0))$
+print("   diff check    :", elegxos(G3, g3))$
+
+/* ============================================================ */
+/* C. PARTIAL FRACTION DECOMPOSITION                            */
+/* ============================================================ */
+print("")$
+print("=== C. PARTIAL FRACTIONS (partfrac) ===")$
+
+/* C1.  (2x+3)/(x^2-x-2),  x^2-x-2 = (x-2)(x+1)                 */
+r1 : (2*x+3)/(x^2-x-2)$
+print("")$
+print("C1. f(x) =", r1)$
+print("   denominator :", factor(x^2-x-2))$
+p1 : partfrac(r1, x)$
+print("   partfrac    :", p1, "  (expected 7/(3(x-2)) - 1/(3(x+1)))")$
+R1_oros : integrate(p1, x)$
+print("   term by term:", R1_oros)$
+R1 : integrate(r1, x)$
+print("   direct      :", R1, "  (expected 7*log(x-2)/3 - log(x+1)/3)")$
+print("   differ by a constant:", katastath(R1_oros, R1))$
+print("   diff check          :", elegxos(R1, r1))$
+
+/* C2.  (2x^2-1)/(x(x+1)^2)  — double root in the denominator   */
+r2 : (2*x^2-1)/(x*(x+1)^2)$
+print("")$
+print("C2. f(x) =", r2)$
+p2 : partfrac(r2, x)$
+print("   partfrac    :", p2, "  (expected -1/x + 3/(x+1) - 1/(x+1)^2)")$
+R2_oros : integrate(p2, x)$
+print("   term by term:", R2_oros)$
+R2 : integrate(r2, x)$
+print("   direct      :", ratsimp(R2), "  (expected -log(x)+3log(x+1)+1/(x+1))")$
+print("   differ by a constant:", katastath(R2_oros, R2))$
+print("   diff check          :", elegxos(R2, r2))$
+
+/* C3.  (x^3-1)/(x^2+x+1)  — polynomial division FIRST!         */
+/*      The degree of the numerator (3) is &gt;= that of the        */
+/*      denominator (2), so partfrac alone is not enough.        */
+r3 : (x^3-1)/(x^2+x+1)$
+print("")$
+print("C3. f(x) =", r3, "  (polynomial division first)")$
+print("   factorization of the numerator:", factor(x^3-1))$
+d3 : divide(x^3-1, x^2+x+1, x)$
+print("   divide -&gt; [quotient, remainder] =", d3, "  (expected [x-1, 0])")$
+print("   so f(x) =", d3[1], " (the remainder is", d3[2], ")")$
+print("   partfrac    :", partfrac(r3, x))$
+R3_oros : integrate(d3[1], x)$
+print("   int (x-1) dx:", R3_oros)$
+R3 : integrate(r3, x)$
+print("   direct      :", ratsimp(R3), "  (expected x^2/2 - x)")$
+print("   differ by a constant:", katastath(R3_oros, R3))$
+print("   diff check          :", elegxos(R3, r3))$
+
+/* ============================================================ */
+/* D. TRIGONOMETRIC SUBSTITUTION                                */
+/*    We declare BEFOREHAND that th is in (0, pi/2), so that     */
+/*    sqrt(cos^2)=cos and Maxima asks nothing in batch mode.     */
+/* ============================================================ */
+assume(th &gt; 0, th &lt; %pi/2, sin(th) &gt; 0, cos(th) &gt; 0)$
+print("")$
+print("=== D. TRIGONOMETRIC SUBSTITUTION ===")$
+
+/* D1.  int dx/sqrt(9-4x^2),  x = (3/2)*sin(th)                 */
+s1 : 1/sqrt(9-4*x^2)$
+x1 : 3*sin(th)/2$
+h1 : radcan(trigsimp(subst(x1, x, s1) * diff(x1, th)))$
+print("")$
+print("D1. f(x) =", s1, "   x = (3/2)*sin(th)")$
+print("   integrand in terms of th:", h1)$
+H1 : integrate(h1, th)$
+print("   in terms of th:", H1)$
+S1_xeri : subst(asin(2*x/3), th, H1)$
+print("   back th = asin(2x/3):", S1_xeri, "  (expected asin(2x/3)/2)")$
+S1 : integrate(s1, x)$
+print("   direct integrate:", S1)$
+print("   differ by a constant:", katastath(S1_xeri, S1))$
+print("   diff check          :", elegxos(S1, s1))$
+
+/* A different (also correct) student choice: x = (3/2)*cos(th) */
+/* gives -acos(2x/3)/2, which differs by the constant pi/4.     */
+S1_alt : -acos(2*x/3)/2$
+print("   alternative form -acos(2x/3)/2 :", S1_alt)$
+print("   differs only by a constant:", katastath(S1, S1_alt))$
+print("   the constant is:", float(subst(0.5, x, S1 - S1_alt)),
+      " = pi/4 =", float(%pi/4))$
+
+/* D2.  int sqrt(x^2+1) dx,  x = tan(th)                        */
+s2 : sqrt(x^2+1)$
+x2 : tan(th)$
+h2 : radcan(trigsimp(subst(x2, x, s2) * diff(x2, th)))$
+print("")$
+print("D2. f(x) =", s2, "   x = tan(th)")$
+print("   integrand in terms of th:", h2, " (= sec^3(th))")$
+H2 : integrate(h2, th)$
+print("   in terms of th:", H2)$
+S2_xeri : subst(atan(x), th, H2)$
+S2 : integrate(s2, x)$
+print("   direct integrate:", S2, "  (expected (x*sqrt(x^2+1)+asinh(x))/2)")$
+print("   by hand vs Maxima, differ by a constant:", katastath(S2_xeri, S2))$
+print("   diff check          :", elegxos(S2, s2))$
+/* asinh(x) = log(x + sqrt(x^2+1)) : same function, other form  */
+print("   logarc(asinh(x)) =", logarc(asinh(x)))$
+print("   logarc(asinh(x)) - log(x+sqrt(x^2+1)) =",
+      ratsimp(logarc(asinh(x)) - log(x + sqrt(x^2+1))))$
+
+/* D3.  int dx/(x^2+4)^(3/2),  x = 2*tan(th)                    */
+s3 : 1/(x^2+4)^(3/2)$
+x3 : 2*tan(th)$
+h3 : radcan(trigsimp(subst(x3, x, s3) * diff(x3, th)))$
+print("")$
+print("D3. f(x) =", s3, "   x = 2*tan(th)")$
+print("   integrand in terms of th:", h3, " (= cos(th)/4)")$
+H3 : integrate(h3, th)$
+print("   in terms of th:", H3, " (= sin(th)/4)")$
+S3_xeri : trigsimp(subst(atan(x/2), th, H3))$
+print("   back th = atan(x/2):", S3_xeri)$
+S3 : integrate(s3, x)$
+print("   direct integrate:", S3, "  (expected x/(4*sqrt(x^2+4)))")$
+print("   differ by a constant:", katastath(S3_xeri, S3))$
+print("   diff check          :", elegxos(S3, s3))$
+
+forget(th &gt; 0, th &lt; %pi/2, sin(th) &gt; 0, cos(th) &gt; 0)$
+
+/* A definite integral that we will meet again in Python: */
+print("")$
+print("Definite:  int_0^1 sqrt(x^2+1) dx =", integrate(sqrt(x^2+1), x, 0, 1),
+      "=", float(integrate(sqrt(x^2+1), x, 0, 1)), " (expected 1.147793574696)")$
+
+print("")$
+print("Completed.")$
+</code></pre>
+    </div>
+  </div>
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_texnikes.py</span>
+        <a class="download-btn" href="python_texnikes.py" download>⬇ Download .py</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Libraries / commands:</strong>
+        <code>sympy.integrate()</code> &nbsp;
+        <code>sympy.apart()</code> &nbsp;
+        <code>sympy.integrals. manualintegrate()</code> &nbsp;
+        <code>sympy.trigsimp()</code> &nbsp;
+        <code>scipy.integrate.quad()</code>
+      </div>
+            <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
+# python_texnikes.py
+# Chapter 16 — Techniques of Integration
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
+# ------------------------------------------------------------
+# BASIC COMMANDS:
+#   sympy.integrate(f, x)                  -&gt; integration
+#   sympy.apart(f, x)                      -&gt; partial fractions
+#   sympy.integrals.manualintegrate(f, x)  -&gt; "textbook" techniques
+#   sympy.integrals.integral_steps(f, x)   -&gt; which rule it chose
+#   sympy.trigsimp(), sympy.simplify()     -&gt; simplification
+#   scipy.integrate.quad(f, a, b)          -&gt; numerical integral
+# ============================================================
+import sympy as sp
+import numpy as np
+import matplotlib.pyplot as plt
+from sympy.integrals.manualintegrate import manualintegrate, integral_steps
+from scipy.integrate import quad
+
+x = sp.symbols('x', positive=True)
+
+print("=" * 62)
+print(" Chapter 16: Techniques of Integration")
+print("=" * 62)
+
+
+# ------------------------------------------------------------
+# Helper verification function (asked for in part (a)):
+#   F is an antiderivative of f  &lt;=&gt;  simplify(F' - f) == 0
+# ------------------------------------------------------------
+def check(F, f):
+    """True if F is an antiderivative of f."""
+    return sp.simplify(sp.diff(F, x) - f) == 0
+
+
+# ============================================================
+# A. SUBSTITUTION
+#    The same integrals as in the Maxima activity.
+# ============================================================
+print("\n=== A. SUBSTITUTION ===")
+print("f(x)                  substitution    int f dx")
+
+antikat = [
+    (x * sp.exp(x**2),      "u = x^2",    sp.exp(x**2) / 2),
+    (x / sp.sqrt(x**2 + 4), "u = x^2+4",  sp.sqrt(x**2 + 4)),
+    (sp.log(x) / x,         "u = ln x",   sp.log(x)**2 / 2),
+]
+
+for f, subst, anamenomeno in antikat:
+    F = sp.integrate(f, x)
+    print(f"  {str(f):20s}  {subst:11s}  {F}  + C")
+    print(f"      check(F, f) = {check(F, f)}"
+          f"   |  expected {anamenomeno}: "
+          f"{sp.simplify(F - anamenomeno) == 0}")
+
+
+# ============================================================
+# B. INTEGRATION BY PARTS — which technique does SymPy choose?
+#    manualintegrate follows the "textbook" techniques, while
+#    integral_steps returns the tree of rules it used.
+# ============================================================
+print("\n=== B. INTEGRATION BY PARTS (manualintegrate) ===")
+
+kata_meri = [
+    (x**2 * sp.exp(x),      "applied twice: u=x^2, dv=e^x dx"),
+    (sp.atan(x),            "u = arctan x, dv = dx"),
+    (sp.exp(x) * sp.sin(x), "cyclic: the integral reappears"),
+]
+
+for f, dikh_mas in kata_meri:
+    F = sp.simplify(manualintegrate(f, x))
+    kanonas = type(integral_steps(f, x)).__name__
+    print(f"\n  ∫ {f} dx = {F} + C")
+    print(f"      SymPy rule      : {kanonas}")
+    print(f"      our own choice  : {dikh_mas}")
+    print(f"      check(F, f)   : {check(F, f)}")
+
+# The cyclic case in "textbook" form e^x*(sin x - cos x)/2
+F_kyk = sp.simplify(manualintegrate(sp.exp(x) * sp.sin(x), x))
+sxolikh = sp.exp(x) * (sp.sin(x) - sp.cos(x)) / 2
+print(f"\n  Textbook form e^x*(sin x - cos x)/2 same as SymPy: "
+      f"{sp.simplify(F_kyk - sxolikh) == 0}")
+
+
+# ============================================================
+# C. PARTIAL FRACTIONS — apart and term-by-term integration
+# ============================================================
+print("\n=== C. PARTIAL FRACTIONS (apart) ===")
+
+ritles = [
+    (2*x + 3) / (x**2 - x - 2),
+    (2*x**2 - 1) / (x * (x + 1)**2),
+    (x**3 - 1) / (x**2 + x + 1),
+]
+
+for f in ritles:
+    pf = sp.apart(f, x)
+    oroi = sp.Add.make_args(pf)
+    athroisma = sp.Add(*[sp.integrate(t, x) for t in oroi])
+    ameso = sp.integrate(f, x)
+    print(f"\n  f(x) = {f}")
+    print(f"      apart        : {pf}")
+    # expand_log: shows the logarithms explicitly, not collapsed
+    print(f"      term by term : {sp.expand_log(sp.expand(athroisma), force=True)} + C")
+    print(f"      direct       : {sp.expand_log(sp.expand(ameso), force=True)} + C")
+    # Two antiderivatives agree if they differ at most by a constant,
+    # that is, if the derivative of their difference is zero.
+    print(f"      differ at most by a constant  : "
+          f"{sp.simplify(sp.diff(athroisma - ameso, x)) == 0}")
+    print(f"      identical expressions         : "
+          f"{sp.simplify(athroisma - ameso) == 0}")
+    print(f"      check(direct, f)              : {check(ameso, f)}")
+
+# The third rational function has numerator degree &gt;= denominator degree:
+# polynomial division is needed FIRST.
+phliko, ypoloipo = sp.div(x**3 - 1, x**2 + x + 1, x)
+print(f"\n  Polynomial division: (x^3-1) : (x^2+x+1) -&gt; "
+      f"quotient {phliko}, remainder {ypoloipo}")
+print(f"  Factorization       : x^3-1 = {sp.factor(x**3 - 1)}")
+
+
+# ============================================================
+# D. TRIGONOMETRIC SUBSTITUTION — symbolic vs numerical
+#    ∫_0^1 sqrt(x^2+1) dx   (with x = tan(th))
+# ============================================================
+print("\n=== D. TRIGONOMETRIC SUBSTITUTION ===")
+
+f_d = sp.sqrt(x**2 + 1)
+F_d = sp.integrate(f_d, x)
+print(f"  ∫ sqrt(x^2+1) dx = {F_d} + C")
+print(f"      check(F, f) = {check(F_d, f_d)}")
+
+symvolika = sp.integrate(f_d, (x, 0, 1))
+kleisto = sp.sqrt(2)/2 + sp.log(1 + sp.sqrt(2))/2      # sqrt2/2 + ln(1+sqrt2)/2
+print(f"\n  ∫_0^1 sqrt(x^2+1) dx = {symvolika}")
+print(f"      closed form sqrt(2)/2 + ln(1+sqrt(2))/2 : "
+      f"{sp.simplify(symvolika - kleisto) == 0}")
+
+sym_val = float(symvolika)
+num_val, sfalma = quad(lambda t: np.sqrt(t**2 + 1), 0, 1)
+apoklisi = abs(sym_val - num_val)
+print(f"      symbolic           = {sym_val:.12f}   (expected 1.147793574696)")
+print(f"      scipy quad         = {num_val:.12f}   (est. error {sfalma:.1e})")
+print(f"      |deviation|        = {apoklisi:.2e}")
+print(f"      deviation &lt; 1e-8   : {apoklisi &lt; 1e-8}")
+
+# --- Shaded region -------------------------------------------
+xv = np.linspace(-0.3, 1.3, 400)
+yv = np.sqrt(xv**2 + 1)
+xs = np.linspace(0, 1, 200)
+ys = np.sqrt(xs**2 + 1)
+
+plt.figure(figsize=(7, 4.2))
+plt.plot(xv, yv, 'b-', lw=2, label=r'$y=\sqrt{x^2+1}$')
+plt.fill_between(xs, 0, ys, alpha=0.30, color='tab:green',
+                 label=f'area = {sym_val:.6f}')
+plt.axhline(0, color='k', lw=0.6)
+plt.axvline(0, color='k', lw=0.6)
+plt.xlim(-0.3, 1.3)
+plt.ylim(0, 1.7)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title(r'$\int_0^1\sqrt{x^2+1}\,dx$  (trigonometric substitution $x=\tan\theta$)')
+plt.legend(loc='lower right')
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+
+print("\nCompleted.")
+plt.show()
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelector('.tab-btn.'+name).classList.add('active');
+}
+function loadCode(file, elementId, lang) {
+  fetch(file+'?v='+Date.now())
+    .then(r=>r.ok?r.text():Promise.reject(r.status))
+    .then(text=>{
+      const el=document.getElementById(elementId);
+      el.textContent=text; el.className='language-'+lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err=>{document.getElementById(elementId).textContent='⚠ Could not load the file ('+err+'). Please use the Download button.';});
+}
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+originalPy = $('py-editor').value;
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    return await loadPyodide();
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    const code = $('py-editor').value;
+    setStatus('Loading libraries…');
+    await py.loadPackagesFromImports(code);
+    setStatus('Running…');
+    await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
+    py.globals.set('__user_src__', code);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+_imgs = []
+try:
+    import matplotlib.pyplot as plt
+    for _n in plt.get_fignums():
+        _f = plt.figure(_n); _b = io.BytesIO()
+        _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+        _imgs.append(base64.b64encode(_b.read()).decode())
+    plt.close('all')
+except Exception:
+    pass
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

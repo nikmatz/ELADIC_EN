@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Ch. 11 — Monotonicity, Convexity and Extrema · Elements of Linear Algebra &amp; Calculus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#222}
+  header{background:var(--blue);color:white;padding:18px 24px}
+  header h1{font-size:1.25rem;font-weight:700}
+  header p{font-size:.9rem;margin-top:4px;opacity:.85}
+  .breadcrumb{font-size:.82rem;padding:10px 24px;background:#eee;border-bottom:1px solid #ddd}
+  .breadcrumb a{color:var(--blue);text-decoration:none}
+  .container{max-width:960px;margin:0 auto;padding:24px 16px}
+  .info-box{background:white;border-left:5px solid var(--blue);padding:14px 18px;margin-bottom:24px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .info-box h2{font-size:1rem;color:var(--blue);margin-bottom:8px}
+  .info-box p{font-size:.88rem;line-height:1.6}
+  .tabs{display:flex;gap:6px;margin-bottom:0}
+  .tab-btn{padding:10px 20px;border:none;border-radius:6px 6px 0 0;font-size:.9rem;font-weight:600;cursor:pointer}
+  .tab-btn.maxima{background:#d5f5e3;color:var(--teal)}
+  .tab-btn.python{background:#d6eaf8;color:var(--blue)}
+  .tab-btn.active.maxima{background:var(--teal);color:white}
+  .tab-btn.active.python{background:var(--blue);color:white}
+  .tab-content{display:none}
+  .tab-content.active{display:block}
+  .code-card{background:white;border-radius:0 6px 6px 6px;box-shadow:0 2px 8px rgba(0,0,0,.1);overflow:hidden}
+  .code-header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;font-size:.85rem;font-weight:600}
+  .code-header.maxima{background:var(--teal);color:white}
+  .code-header.python{background:var(--blue);color:white}
+  .download-btn{display:inline-block;padding:5px 12px;background:rgba(255,255,255,.2);color:white;border:1px solid rgba(255,255,255,.5);border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:600}
+  .download-btn:hover{background:rgba(255,255,255,.35)}
+  pre[class*="language-"]{margin:0!important;border-radius:0!important;max-height:520px;overflow-y:auto;font-size:.83rem}
+  .commands-box{background:#fffde7;border:1px solid #f9a825;border-radius:4px;padding:12px 16px;margin:16px 0;font-size:.85rem}
+  .commands-box strong{color:var(--orange)}
+  .commands-box code{background:#fff3cd;padding:1px 5px;border-radius:3px;font-size:.82rem}
+  footer{text-align:center;padding:20px;font-size:.8rem;color:#888;margin-top:32px;border-top:1px solid #ddd}
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+<header>
+  <h1>📐 Chapter 11 — Monotonicity, Convexity and Extrema</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
+</header>
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 11
+</div>
+<div class="container">
+  <div class="info-box">
+    <h2>📋 Contents of the Activities</h2>
+    <p><strong>Topic:</strong> critical points and extrema, the sign table, convexity and inflection points, the Mean Value Theorem<br><br>
+    Choose a language from the tabs. The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.</p>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_akrotata.mac</span>
+        <a class="download-btn" href="maxima_akrotata.mac" download>⬇ Download .mac</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Basic commands:</strong>
+        <code>solve(diff(f,x)=0,x)</code> &nbsp;
+        <code>subst(c</code> &nbsp;
+        <code>x</code> &nbsp;
+        <code>diff(f,x,2))</code> &nbsp;
+        <code>plot2d([f</code> &nbsp;
+        <code>diff(f,x)],[x,a,b])</code> &nbsp;
+        <code>float()</code>
+      </div>
+      <pre><code class="language-maxima" id="maxima-code">/* ============================================================
+   maxima_akrotata.mac
+   Chapter 11 — Monotonicity, Extrema, Convexity, Mean Value Theorem
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
+   ============================================================
+
+   COMMANDS USED:
+     solve(diff(f,x)=0, x)        -&gt; critical points
+     subst(c, x, diff(f,x,2))     -&gt; second derivative test
+     subst(t, x, diff(f,x))       -&gt; sign of f' at a test value
+     plot2d([f,diff(f,x)],[x,a,b])-&gt; graphical verification
+     float(...)                   -&gt; decimal values
+
+   Run with: wxMaxima (File/Batch) or
+                 maxima -b maxima_akrotata.mac
+   ============================================================ */
+
+/* The function from the book */
+f  : x^3 - 3*x^2 - 9*x + 5$
+f1 : diff(f, x)$
+f2 : diff(f, x, 2)$
+
+print("f(x)   =", f)$
+print("f'(x)  =", f1, "  =", factor(f1))$
+print("f''(x) =", f2, "  =", factor(f2))$
+
+/* ── A. Critical points and the second derivative test ─── */
+print("")$
+print("════ A. Critical points — second derivative test ════")$
+
+crit : sort(map(rhs, solve(f1 = 0, x)))$
+print("  Critical points (f'=0): x =", crit, "   (expected -1 and 3)")$
+
+for c in crit do
+  block([v : subst(c, x, f2), y : subst(c, x, f)],
+    print("    x =", c, "  f(x) =", y, "  f''(x) =", v,
+          if v &gt; 0 then "  -&gt;  local MINIMUM"
+          else if v &lt; 0 then "  -&gt;  local MAXIMUM"
+          else "  -&gt;  inconclusive (another test is needed)"))$
+
+print("  Expected: f(-1)=10 local maximum, f(3)=-22 local minimum.")$
+
+/* ── B. Monotonicity: sign table of f' with subst ──────── */
+print("")$
+print("════ B. Monotonicity — sign table of f' ════")$
+
+/* The critical points split R into three intervals.
+   We take one test value inside each interval. */
+tests : [-2, 0, 4]$                    /* (-inf,-1), (-1,3), (3,+inf) */
+dlab : ["(-inf, -1)", "(-1, 3)", "(3, +inf)"]$
+
+print("  Interval          test x     f'(x)    sign      monotonicity")$
+for i:1 thru 3 do
+  block([t : tests[i], v],
+    v : subst(t, x, f1),
+    print("  ", dlab[i], "     x =", t, "   f' =", v,
+          if v &gt; 0 then "   (+)   INCREASING"
+          else if v &lt; 0 then "   (-)   DECREASING"
+          else "   (0)"))$
+
+print("  Conclusion: increasing on (-inf,-1), decreasing on (-1,3),")$
+print("              increasing on (3,+inf).")$
+print("  =&gt; at x=-1 the sign changes + -&gt; -  (maximum), at x=3 it changes - -&gt; + (minimum).")$
+
+/* Graphical verification: f and f' together */
+plot2d([f, f1], [x, -4, 6],
+       [legend, "f(x)", "f'(x)"],
+       [title, "Ch.11: f(x)=x^3-3x^2-9x+5 and f'(x)"])$
+
+/* ── C. Inflection points and convexity / concavity ────── */
+print("")$
+print("════ C. Inflection points — convexity / concavity ════")$
+
+infl : sort(map(rhs, solve(f2 = 0, x)))$
+print("  Inflection points (f''=0): x =", infl, "   (expected x = 1)")$
+for c in infl do
+  print("    x =", c, "  f(x) =", subst(c, x, f), "   (expected f(1) = -6)")$
+
+/* Sign of f'' on either side of the inflection point */
+test2 : [0, 2]$
+dlab2 : ["(-inf, 1)", "(1, +inf)"]$
+print("  Interval          test x     f''(x)   convexity")$
+for i:1 thru 2 do
+  block([t : test2[i], v],
+    v : subst(t, x, f2),
+    print("  ", dlab2[i], "     x =", t, "   f'' =", v,
+          if v &gt; 0 then "    (+)   CONVEX (concave up)"
+          else if v &lt; 0 then "    (-)   CONCAVE (concave down)"
+          else "    (0)"))$
+
+print("  The sign of f'' changes at x=1 =&gt; it is indeed an inflection point.")$
+
+/* Combined plot of f, f', f'' */
+plot2d([f, f1, f2], [x, -4, 6],
+       [legend, "f", "f'", "f''"],
+       [title, "Ch.11: study of f(x)=x^3-3x^2-9x+5"])$
+
+print("  Values of f at the critical points (decimals):",
+      float(map(lambda([c], subst(c, x, f)), crit)))$
+
+/* ── D. Mean Value Theorem: g(x)=x^2-x+1 on [1,4] ──────── */
+print("")$
+print("════ D. Mean Value Theorem — g(x)=x^2-x+1 on [1,4] ════")$
+
+kill(c)$                               /* we need c as a variable */
+g  : x^2 - x + 1$
+a  : 1$
+b  : 4$
+ga : subst(a, x, g)$
+gb : subst(b, x, g)$
+mslope : (gb - ga)/(b - a)$            /* slope of the chord */
+
+print("  g(1) =", ga, "   g(4) =", gb)$
+print("  Slope of the chord: (g(4)-g(1))/(4-1) =", mslope, "   (expected 4)")$
+
+/* We solve g'(c) = slope of the chord */
+csol : map(rhs, solve(subst(c, x, diff(g, x)) = mslope, c))$
+print("  Solution of g'(c) = ", mslope, ":  c =", csol,
+      " =", float(csol), "   (expected c = 5/2)")$
+
+cstar : first(csol)$
+print("  Does it belong to the open (1,4)?", is(cstar &gt; a and cstar &lt; b))$
+
+gc : subst(cstar, x, g)$
+chord   : expand(ga + mslope*(x - a))$              /* chord A(1,1)-B(4,13) */
+tangent : expand(gc + mslope*(x - cstar))$          /* tangent at c        */
+
+print("  g(c) =", gc, "   (expected 19/4)")$
+print("  Chord:   y =", chord,   "   (expected 4x - 3)")$
+print("  Tangent: y =", tangent, "   (expected 4x - 21/4)")$
+
+/* Parallel &lt;=&gt; same slope &lt;=&gt; their difference is constant */
+print("  Slope of the chord =", diff(chord, x),
+      "   Slope of the tangent =", diff(tangent, x))$
+print("  Difference (chord - tangent) =", expand(chord - tangent),
+      "  -&gt; constant =&gt; PARALLEL")$
+print("  Check d/dx (chord - tangent) =", diff(chord - tangent, x),
+      "  (must be 0)")$
+
+/* Plot: g, chord, tangent at c  (endpoints in increasing order) */
+plot2d([g, chord, tangent], [x, 0.5, 4.5],
+       [legend, "g(x)=x^2-x+1", "chord A(1,1)-B(4,13)",
+                "tangent at c=5/2"],
+       [title, "Mean Value Theorem: the tangent at c is parallel to the chord"])$
+
+print("")$
+print("Chapter 11 completed.")$
+</code></pre>
+    </div>
+  </div>
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_akrotata.py</span>
+        <a class="download-btn" href="python_akrotata.py" download>⬇ Download .py</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Libraries / commands:</strong>
+        <code>sympy.solve()</code> &nbsp;
+        <code>sympy.diff()</code> &nbsp;
+        <code>sympy.lambdify()</code> &nbsp;
+        <code>np.sign()</code> &nbsp;
+        <code>matplotlib.pyplot</code>
+      </div>
+            <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
+# python_akrotata.py
+# Chapter 11 — Monotonicity and Extrema, SymPy &amp; Matplotlib
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
+# ============================================================
+#
+# LIBRARIES:
+#   sympy       -&gt; critical points, second derivative test
+#   numpy       -&gt; sign table on a dense grid (np.sign)
+#   matplotlib  -&gt; plots, shading of intervals (axvspan)
+#
+# BASIC COMMANDS:
+#   sympy.solve(diff(f,x), x)   -&gt; critical points
+#   sympy.diff(f, x, 2)         -&gt; second derivative
+#   sympy.lambdify(x, f)        -&gt; symbolic -&gt; numerical
+#   np.sign(...)                -&gt; sign on a dense grid
+#   ax.axvspan(a, b, ...)       -&gt; shading of an interval
+# ============================================================
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sympy import symbols, diff, solve, simplify, lambdify, sqrt, limit
+
+x = symbols('x', real=True)
+
+print("=" * 58)
+print(" Chapter 11: Monotonicity, Extrema, Convexity — Python")
+print("=" * 58)
+
+# The function from the book
+f  = x**3 - 3*x**2 - 9*x + 5
+f1 = diff(f, x)
+f2 = diff(f, x, 2)
+
+print(f"\nf(x)   = {f}")
+print(f"f'(x)  = {f1}")
+print(f"f''(x) = {f2}")
+
+# ── A. Critical points — second derivative test ───────────
+print("\n── A. Critical points and the second derivative test ──")
+
+crits = sorted(solve(f1, x))
+print(f"  Critical points (f'=0): x = {crits}   (expected [-1, 3])")
+
+kinds = {}
+for xi in crits:
+    yi  = f.subs(x, xi)
+    f2i = f2.subs(x, xi)
+    if f2i &gt; 0:
+        kind = "local MINIMUM"
+    elif f2i &lt; 0:
+        kind = "local MAXIMUM"
+    else:
+        kind = "inconclusive (another test is needed)"
+    kinds[xi] = kind
+    print(f"    x = {xi}:  f = {yi},  f'' = {f2i}  →  {kind}")
+print("  Expected: f(-1)=10 local maximum, f(3)=-22 local minimum.")
+
+f_num  = lambdify(x, f,  'numpy')
+f1_num = lambdify(x, f1, 'numpy')
+f2_num = lambdify(x, f2, 'numpy')
+
+xs = np.linspace(-4, 6, 800)
+
+# Combined plot of f, f', f''
+plt.figure(figsize=(7.5, 5))
+plt.plot(xs, f_num(xs),  'b-',  lw=2,   label=r"$f(x)=x^3-3x^2-9x+5$")
+plt.plot(xs, f1_num(xs), 'g--', lw=1.8, label=r"$f'(x)=3x^2-6x-9$")
+plt.plot(xs, f2_num(xs), 'r:',  lw=1.8, label=r"$f''(x)=6x-6$")
+plt.axhline(0, color='k', lw=0.6)
+for xi in crits:
+    plt.scatter([float(xi)], [float(f.subs(x, xi))], color='darkred', s=70, zorder=5)
+    plt.annotate(f"({xi}, {f.subs(x, xi)})", (float(xi), float(f.subs(x, xi))),
+                 textcoords="offset points", xytext=(8, 8), fontsize=9)
+plt.grid(alpha=0.3); plt.legend(fontsize=9); plt.xlabel('x')
+plt.title("Ch. 11 — f, f′ and f″ on one plot")
+plt.tight_layout()
+
+# ── B. Automatic sign table of f' (np.sign + axvspan) ─────
+print("\n── B. Sign table of f' (np.sign on a dense grid) ──")
+
+xg = np.linspace(-4, 6, 2001)
+s1_all = np.sign(f1_num(xg))
+
+# We ignore the points where f'=0 (there the sign is undefined) and
+# look only at successive NON-zero signs.
+nz = np.nonzero(s1_all)[0]
+s1 = s1_all[nz]
+xnz = xg[nz]
+changes = np.where(np.diff(s1) != 0)[0]
+print(f"  Sign changes of f' between x = "
+      f"{np.round(xnz[changes], 3)} and {np.round(xnz[changes + 1], 3)}"
+      f"   (expected ~ -1 and 3)")
+for i in changes:
+    before, after = s1[i], s1[i + 1]
+    if before &gt; 0 &gt; after:
+        kind = "local MAXIMUM (+ → -)"
+    elif before &lt; 0 &lt; after:
+        kind = "local MINIMUM (- → +)"
+    else:
+        kind = "no change"
+    print(f"    on the interval [{xnz[i]:7.3f}, {xnz[i+1]:7.3f}]: "
+          f"{before:+.0f} → {after:+.0f}  ⇒  {kind}")
+
+# Intervals of monotonicity from the critical points
+bounds = [-np.inf] + [float(c) for c in crits] + [np.inf]
+mono = []
+print("\n  Monotonicity table (one test value per interval):")
+for a, b in zip(bounds[:-1], bounds[1:]):
+    # test value inside the interval
+    if np.isinf(a):
+        t = b - 1.0
+    elif np.isinf(b):
+        t = a + 1.0
+    else:
+        t = 0.5*(a + b)
+    v = float(f1_num(t))
+    lab = "INCREASING" if v &gt; 0 else ("DECREASING" if v &lt; 0 else "-")
+    mono.append((a, b, v &gt; 0))
+    astr = "-∞" if np.isinf(a) else f"{a:g}"
+    bstr = "+∞" if np.isinf(b) else f"{b:g}"
+    print(f"    ({astr}, {bstr}):  x={t:6.2f} → f'={v:9.3f}  "
+          f"{'(+)' if v &gt; 0 else '(-)'}  {lab}")
+
+# Plot of f with the increasing/decreasing intervals shaded
+fig, ax = plt.subplots(figsize=(8, 5))
+ax.plot(xs, f_num(xs), 'b-', lw=2.2, label=r"$f(x)=x^3-3x^2-9x+5$")
+for a, b, inc in mono:
+    a_p = max(a, xs[0]); b_p = min(b, xs[-1])
+    ax.axvspan(a_p, b_p, color=('#bfe6bf' if inc else '#f6c6c6'), alpha=0.55)
+ax.axhline(0, color='k', lw=0.6)
+for xi in crits:
+    ax.scatter([float(xi)], [float(f.subs(x, xi))], color='darkred', s=70, zorder=5)
+ax.set_xlim(xs[0], xs[-1])
+ax.grid(alpha=0.3); ax.set_xlabel('x')
+ax.set_title("Monotonicity: green = increasing (f′&gt;0), red = decreasing (f′&lt;0)")
+ax.legend(fontsize=9)
+plt.tight_layout()
+
+# ── C. Inflection points and convexity / concavity ────────
+print("\n── C. Inflection points — convex / concave regions ──")
+
+infl = sorted(solve(f2, x))
+print(f"  Inflection points (f''=0): x = {infl}   (expected [1])")
+for xi in infl:
+    print(f"    x = {xi}:  f = {f.subs(x, xi)}   (expected f(1) = -6)")
+
+# Verification of the sign change of f'' at each inflection point
+eps = 0.1
+for xi in infl:
+    left  = float(f2_num(float(xi) - eps))
+    right = float(f2_num(float(xi) + eps))
+    print(f"    f''({float(xi)-eps:g}) = {left:+.3f},  "
+          f"f''({float(xi)+eps:g}) = {right:+.3f}  →  "
+          f"sign change: {left*right &lt; 0}")
+
+# Intervals of convexity
+cb = [-np.inf] + [float(i) for i in infl] + [np.inf]
+conv = []
+print("\n  Convexity table:")
+for a, b in zip(cb[:-1], cb[1:]):
+    if np.isinf(a):
+        t = b - 1.0
+    elif np.isinf(b):
+        t = a + 1.0
+    else:
+        t = 0.5*(a + b)
+    v = float(f2_num(t))
+    lab = "CONVEX (concave up)" if v &gt; 0 else ("CONCAVE (concave down)" if v &lt; 0 else "-")
+    conv.append((a, b, v &gt; 0))
+    astr = "-∞" if np.isinf(a) else f"{a:g}"
+    bstr = "+∞" if np.isinf(b) else f"{b:g}"
+    print(f"    ({astr}, {bstr}):  x={t:6.2f} → f''={v:9.3f}  "
+          f"{'(+)' if v &gt; 0 else '(-)'}  {lab}")
+
+fig, ax = plt.subplots(figsize=(8, 5))
+ax.plot(xs, f_num(xs), 'b-', lw=2.2, label=r"$f(x)$")
+ax.plot(xs, f2_num(xs), 'r:', lw=1.5, label=r"$f''(x)$")
+for a, b, cx in conv:
+    a_p = max(a, xs[0]); b_p = min(b, xs[-1])
+    ax.axvspan(a_p, b_p, color=('#c9d8f2' if cx else '#f2e3c0'), alpha=0.65)
+ax.axhline(0, color='k', lw=0.6)
+for xi in infl:
+    ax.scatter([float(xi)], [float(f.subs(x, xi))], color='purple', s=80, zorder=5)
+    ax.annotate(f"inflection ({xi}, {f.subs(x, xi)})",
+                (float(xi), float(f.subs(x, xi))),
+                textcoords="offset points", xytext=(10, -18), fontsize=9)
+ax.set_xlim(xs[0], xs[-1])
+ax.grid(alpha=0.3); ax.set_xlabel('x')
+ax.set_title("Convexity: blue = convex (f″&gt;0), ochre = concave (f″&lt;0)")
+ax.legend(fontsize=9)
+plt.tight_layout()
+
+# ── D. Mean Value Theorem ─────────────────────────────────
+print("\n── D. Mean Value Theorem ──")
+
+
+def mvt(expr, a, b, name):
+    """Finds c in (a,b) with f'(c) = (f(b)-f(a))/(b-a) and returns it."""
+    fa, fb = expr.subs(x, a), expr.subs(x, b)
+    slope = simplify((fb - fa)/(b - a))
+    d = diff(expr, x)
+    sols = [s for s in solve(d - slope, x) if s.is_real and a &lt; s &lt; b]
+    print(f"\n  {name} on [{a}, {b}]")
+    print(f"    f({a}) = {fa},  f({b}) = {fb}")
+    print(f"    slope of the chord = {slope}  ( = {float(slope):.6f} )")
+    print(f"    f'(x) = {d}")
+    print(f"    solutions of f'(c) = slope in ({a},{b}): c = {sols}")
+    return fa, fb, slope, sols
+
+
+# (i) f(x) = x^2 - x + 1 on [1,4]  -&gt; c = 5/2
+g1 = x**2 - x + 1
+a1, b1 = 1, 4
+fa1, fb1, m1, cs1 = mvt(g1, a1, b1, "f(x) = x² - x + 1")
+c1 = cs1[0]
+gc1 = g1.subs(x, c1)
+chord1   = fa1 + m1*(x - a1)
+tangent1 = gc1 + m1*(x - c1)
+print(f"    c = {c1}  (expected 5/2),  f(c) = {gc1}  (expected 19/4)")
+print(f"    chord:   y = {chord1.expand()}   (expected 4x - 3)")
+print(f"    tangent: y = {tangent1.expand()}   (expected 4x - 21/4)")
+print(f"    slopes: chord {diff(chord1, x)}, tangent {diff(tangent1, x)} "
+      f"→ parallel: {simplify(diff(chord1, x) - diff(tangent1, x)) == 0}")
+
+g1n = lambdify(x, g1, 'numpy')
+ch1n = lambdify(x, chord1, 'numpy')
+tg1n = lambdify(x, tangent1, 'numpy')
+xx1 = np.linspace(0.5, 4.5, 400)
+
+# (ii) g(x) = sqrt(x) on [0,4]  -&gt; c = 1
+g2 = sqrt(x)
+a2, b2 = 0, 4
+fa2, fb2, m2, cs2 = mvt(g2, a2, b2, "g(x) = √x")
+c2 = cs2[0]
+gc2 = g2.subs(x, c2)
+chord2   = fa2 + m2*(x - a2)
+tangent2 = gc2 + m2*(x - c2)
+print(f"    c = {c2}  (expected 1),  g(c) = {gc2}  (expected 1)")
+print(f"    chord:   y = {chord2.expand()}   (expected x/2)")
+print(f"    tangent: y = {tangent2.expand()}   (expected x/2 + 1/2)")
+print(f"    slopes: chord {diff(chord2, x)}, tangent {diff(tangent2, x)} "
+      f"→ parallel: {simplify(diff(chord2, x) - diff(tangent2, x)) == 0}")
+
+# Comment on the differentiability hypothesis at the ENDPOINTS
+dg2 = diff(g2, x)
+lim0 = limit(dg2, x, 0, '+')
+print(f"\n    COMMENT: g'(x) = {dg2}, and lim_(x→0+) g'(x) = {lim0}.")
+print("    √x is NOT differentiable at the endpoint x=0 (vertical tangent).")
+print("    The MVT requires continuity on the CLOSED [a,b] and differentiability")
+print("    only on the OPEN (a,b) — so the hypotheses DO HOLD here as well,")
+print("    which is why c = 1 was found in (0,4).")
+
+g2n = lambdify(x, g2, 'numpy')
+ch2n = lambdify(x, chord2, 'numpy')
+tg2n = lambdify(x, tangent2, 'numpy')
+xx2 = np.linspace(0, 4.5, 400)
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 4.6))
+
+ax = axes[0]
+ax.plot(xx1, g1n(xx1), 'b-', lw=2.2, label=r"$f(x)=x^2-x+1$")
+ax.plot(xx1, ch1n(xx1), 'g--', lw=1.8, label="chord A(1,1)–B(4,13)")
+ax.plot(xx1, tg1n(xx1), 'r-.', lw=1.8, label=f"tangent at c={c1}")
+ax.scatter([a1, b1], [float(fa1), float(fb1)], color='green', s=60, zorder=5)
+ax.scatter([float(c1)], [float(gc1)], color='red', s=80, zorder=5)
+ax.axvline(float(c1), color='0.6', lw=0.8, ls=':')
+ax.grid(alpha=0.3); ax.legend(fontsize=8); ax.set_xlabel('x')
+ax.set_title(f"MVT on [1,4]:  c = {c1}")
+
+ax = axes[1]
+ax.plot(xx2, g2n(xx2), 'b-', lw=2.2, label=r"$g(x)=\sqrt{x}$")
+ax.plot(xx2, ch2n(xx2), 'g--', lw=1.8, label="chord A(0,0)–B(4,2)")
+ax.plot(xx2, tg2n(xx2), 'r-.', lw=1.8, label=f"tangent at c={c2}")
+ax.scatter([a2, b2], [float(fa2), float(fb2)], color='green', s=60, zorder=5)
+ax.scatter([float(c2)], [float(gc2)], color='red', s=80, zorder=5)
+ax.axvline(float(c2), color='0.6', lw=0.8, ls=':')
+ax.set_ylim(-0.3, 3.2)
+ax.grid(alpha=0.3); ax.legend(fontsize=8); ax.set_xlabel('x')
+ax.set_title(f"MVT for √x on [0,4]:  c = {c2}\n(not differentiable at the endpoint x=0)")
+
+plt.tight_layout()
+plt.show()
+
+print("\nChapter 11 completed.")
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelector('.tab-btn.'+name).classList.add('active');
+}
+function loadCode(file, elementId, lang) {
+  fetch(file+'?v='+Date.now())
+    .then(r=>r.ok?r.text():Promise.reject(r.status))
+    .then(text=>{
+      const el=document.getElementById(elementId);
+      el.textContent=text; el.className='language-'+lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err=>{document.getElementById(elementId).textContent='⚠ Could not load the file ('+err+'). Please use the Download button.';});
+}
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+originalPy = $('py-editor').value;
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    return await loadPyodide();
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    const code = $('py-editor').value;
+    setStatus('Loading libraries…');
+    await py.loadPackagesFromImports(code);
+    setStatus('Running…');
+    await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
+    py.globals.set('__user_src__', code);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+_imgs = []
+try:
+    import matplotlib.pyplot as plt
+    for _n in plt.get_fignums():
+        _f = plt.figure(_n); _b = io.BytesIO()
+        _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+        _imgs.append(base64.b64encode(_b.read()).decode())
+    plt.close('all')
+except Exception:
+    pass
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

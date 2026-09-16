@@ -1,0 +1,132 @@
+/* ============================================================
+   maxima_integral_apps.mac
+   Chapter 12 — Applications of Integral Calculus
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
+   ============================================================
+
+   COMMANDS USED:
+     integrate(f, x, a, b)    → definite integral
+     sqrt(expr)               → square root
+     diff(f, x)               → derivative (for arc length)
+     romberg(f, x, a, b)      → numerical integration
+     float(...)               → numeric value
+     plot2d / plot3d          → plots
+
+   Run with: wxMaxima (Load/File) or
+                 maxima -b maxima_integral_apps.mac
+   ============================================================ */
+
+/* ── Part A: Area of Plane Regions ────────────────── */
+print("════ A. Area of Plane Regions ════");
+
+/* 1. Area enclosed by f and the x-axis */
+f1 : x^3 - x;
+zeros1 : solve(f1 = 0, x);
+print("Roots of x³-x:", zeros1);
+/* Note: f<0 on (-1,0), f>0 on (0,1) */
+A1 : integrate(abs(f1), x, -1, 1);
+/* Maxima does not evaluate abs easily — we use romberg */
+A1_num : romberg(abs(x^3 - x), x, -1, 1);
+print("  Area ∫₋₁¹ |x³-x| dx ≈", A1_num);
+
+/* 2. Area between y=sinx and y=cosx on [0,pi] */
+f_sin : sin(x);  f_cos : cos(x);
+cross2 : solve(sin(x)=cos(x), x);
+print("  Intersection sinx=cosx:", cross2);
+A2 : integrate(abs(sin(x)-cos(x)), x, 0, %pi);
+print("  Area ∫₀^pi |sinx-cosx| dx =", float(A2));
+
+/* ── Part B: Volume of Solids of Revolution ─────────── */
+print("════ B. Volume of Solids of Revolution ════");
+
+/* Disk method: V = pi ∫ₐᵇ [f(x)]² dx */
+print("Disk Method:");
+
+/* B1. Parabola y=√x revolved about the x-axis, [0,4] */
+f_b1 : sqrt(x);
+V_B1 : %pi * integrate(f_b1^2, x, 0, 4);
+print("  Parabola y=√x, [0,4]: V =", V_B1, "=", float(V_B1));
+
+/* B2. y=sinx about the x-axis, [0,pi] */
+V_B2 : %pi * integrate(sin(x)^2, x, 0, %pi);
+print("  y=sinx, [0,pi]: V =", V_B2, "=", float(V_B2));
+
+/* B3. y=x² about the x-axis, [0,2] */
+V_B3 : %pi * integrate(x^4, x, 0, 2);
+print("  y=x², [0,2]: V =", V_B3, "=", float(V_B3));
+
+/* Washer method: V = pi ∫ₐᵇ [R²-r²] dx */
+print("Washer Method:");
+/* B4. Between y=√x and y=x, [0,1] about the x-axis */
+R4 : sqrt(x);  r4 : x;
+V_B4 : %pi * integrate(R4^2 - r4^2, x, 0, 1);
+print("  y=√x vs y=x about x, [0,1]: V =", V_B4);
+
+/* Cylindrical shell method: V = 2pi ∫ₐᵇ x·f(x) dx */
+print("Cylindrical Shell Method:");
+/* B5. y=x³ about the y-axis, [0,2] */
+V_B5 : 2*%pi * integrate(x * x^3, x, 0, 2);
+print("  y=x³ about y, [0,2]: V =", V_B5, "=", float(V_B5));
+
+/* ── Part C: Arc Length ──────────────────────── */
+print("════ C. Arc Length ════");
+
+/* L = ∫ₐᵇ √(1 + [f'(x)]²) dx */
+
+/* C1. y=x^(3/2) on [0,4] */
+f_c1 : x^(3/2);
+fp_c1 : diff(f_c1, x);
+L_C1 : integrate(sqrt(1 + fp_c1^2), x, 0, 4);
+print("  y=x^(3/2) on [0,4]: L =", float(L_C1));
+
+/* C2. y=ln(cosx) on [0,pi/3] */
+f_c2 : log(cos(x));
+fp_c2 : diff(f_c2, x);
+L_C2 : integrate(sqrt(1 + fp_c2^2), x, 0, %pi/3);
+L_C2s : trigsimp(L_C2);
+print("  y=ln(cosx) on [0,pi/3]: L =", float(L_C2s));
+
+/* C3. Circle y=√(1-x²) on [-1,1] → semicircle: L=pi */
+f_c3 : sqrt(1 - x^2);
+fp_c3 : diff(f_c3, x);
+L_C3 : romberg(sqrt(1 + (diff(sqrt(1-x^2),x))^2), x, -0.999, 0.999);
+print("  Semicircle (numerically): L ≈", L_C3, " (theoretical: pi =", float(%pi), ")");
+
+/* ── Part D: Area of a Surface of Revolution ────────── */
+print("════ D. Area of a Surface of Revolution ════");
+
+/* S = 2pi ∫ₐᵇ f(x) √(1+[f'(x)]²) dx */
+
+/* D1. y=x about the x-axis, [0,h] → cone */
+h_cone : 2;
+f_d1 : x;
+fp_d1 : diff(f_d1, x);
+S_D1 : 2*%pi * integrate(f_d1 * sqrt(1 + fp_d1^2), x, 0, h_cone);
+print("  Cone y=x, [0,2]: S =", S_D1, "=", float(S_D1));
+
+/* D2. y=√x about the x-axis, [0,3] */
+f_d2 : sqrt(x);
+fp_d2 : diff(f_d2, x);
+S_D2 : 2*%pi * integrate(f_d2 * sqrt(1 + fp_d2^2), x, 0, 3);
+print("  y=√x, [0,3]: S =", float(S_D2));
+
+/* ── Part E: Physical Applications ────────────────── */
+print("════ E. Physical Applications ════");
+
+/* E1. Work: W = ∫ₐᵇ F(x) dx
+   Spring: F(x)=kx, k=200 N/m, length 0.1 m */
+k_spring : 200;
+W_spring : integrate(k_spring * x, x, 0, 0.1);
+print("  Work of the spring (k=200, x in [0,0.1]): W =", W_spring, "J");
+
+/* E2. Centroid x̄ = ∫x·f(x)dx / ∫f(x)dx */
+f_e2 : x^2;
+a_e2 : 0;  b_e2 : 3;
+x_bar : integrate(x * f_e2, x, a_e2, b_e2) / integrate(f_e2, x, a_e2, b_e2);
+print("  Centroid of y=x², [0,3]: x̄ =", x_bar, "=", float(x_bar));
+
+/* E3. Moment of inertia: I = rho ∫ x²·f(x) dx, rho=1 */
+I_inertia : integrate(x^2 * f_e2, x, 0, 3);
+print("  Moment of inertia y=x², [0,3]: I =", I_inertia);
+
+print("════ End ════");

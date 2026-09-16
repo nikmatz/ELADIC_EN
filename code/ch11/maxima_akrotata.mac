@@ -1,0 +1,147 @@
+/* ============================================================
+   maxima_akrotata.mac
+   Chapter 11 — Monotonicity, Extrema, Convexity, Mean Value Theorem
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
+   ============================================================
+
+   COMMANDS USED:
+     solve(diff(f,x)=0, x)        -> critical points
+     subst(c, x, diff(f,x,2))     -> second derivative test
+     subst(t, x, diff(f,x))       -> sign of f' at a test value
+     plot2d([f,diff(f,x)],[x,a,b])-> graphical verification
+     float(...)                   -> decimal values
+
+   Run with: wxMaxima (File/Batch) or
+                 maxima -b maxima_akrotata.mac
+   ============================================================ */
+
+/* The function from the book */
+f  : x^3 - 3*x^2 - 9*x + 5$
+f1 : diff(f, x)$
+f2 : diff(f, x, 2)$
+
+print("f(x)   =", f)$
+print("f'(x)  =", f1, "  =", factor(f1))$
+print("f''(x) =", f2, "  =", factor(f2))$
+
+/* ── A. Critical points and the second derivative test ─── */
+print("")$
+print("════ A. Critical points — second derivative test ════")$
+
+crit : sort(map(rhs, solve(f1 = 0, x)))$
+print("  Critical points (f'=0): x =", crit, "   (expected -1 and 3)")$
+
+for c in crit do
+  block([v : subst(c, x, f2), y : subst(c, x, f)],
+    print("    x =", c, "  f(x) =", y, "  f''(x) =", v,
+          if v > 0 then "  ->  local MINIMUM"
+          else if v < 0 then "  ->  local MAXIMUM"
+          else "  ->  inconclusive (another test is needed)"))$
+
+print("  Expected: f(-1)=10 local maximum, f(3)=-22 local minimum.")$
+
+/* ── B. Monotonicity: sign table of f' with subst ──────── */
+print("")$
+print("════ B. Monotonicity — sign table of f' ════")$
+
+/* The critical points split R into three intervals.
+   We take one test value inside each interval. */
+tests : [-2, 0, 4]$                    /* (-inf,-1), (-1,3), (3,+inf) */
+dlab : ["(-inf, -1)", "(-1, 3)", "(3, +inf)"]$
+
+print("  Interval          test x     f'(x)    sign      monotonicity")$
+for i:1 thru 3 do
+  block([t : tests[i], v],
+    v : subst(t, x, f1),
+    print("  ", dlab[i], "     x =", t, "   f' =", v,
+          if v > 0 then "   (+)   INCREASING"
+          else if v < 0 then "   (-)   DECREASING"
+          else "   (0)"))$
+
+print("  Conclusion: increasing on (-inf,-1), decreasing on (-1,3),")$
+print("              increasing on (3,+inf).")$
+print("  => at x=-1 the sign changes + -> -  (maximum), at x=3 it changes - -> + (minimum).")$
+
+/* Graphical verification: f and f' together */
+plot2d([f, f1], [x, -4, 6],
+       [legend, "f(x)", "f'(x)"],
+       [title, "Ch.11: f(x)=x^3-3x^2-9x+5 and f'(x)"])$
+
+/* ── C. Inflection points and convexity / concavity ────── */
+print("")$
+print("════ C. Inflection points — convexity / concavity ════")$
+
+infl : sort(map(rhs, solve(f2 = 0, x)))$
+print("  Inflection points (f''=0): x =", infl, "   (expected x = 1)")$
+for c in infl do
+  print("    x =", c, "  f(x) =", subst(c, x, f), "   (expected f(1) = -6)")$
+
+/* Sign of f'' on either side of the inflection point */
+test2 : [0, 2]$
+dlab2 : ["(-inf, 1)", "(1, +inf)"]$
+print("  Interval          test x     f''(x)   convexity")$
+for i:1 thru 2 do
+  block([t : test2[i], v],
+    v : subst(t, x, f2),
+    print("  ", dlab2[i], "     x =", t, "   f'' =", v,
+          if v > 0 then "    (+)   CONVEX (concave up)"
+          else if v < 0 then "    (-)   CONCAVE (concave down)"
+          else "    (0)"))$
+
+print("  The sign of f'' changes at x=1 => it is indeed an inflection point.")$
+
+/* Combined plot of f, f', f'' */
+plot2d([f, f1, f2], [x, -4, 6],
+       [legend, "f", "f'", "f''"],
+       [title, "Ch.11: study of f(x)=x^3-3x^2-9x+5"])$
+
+print("  Values of f at the critical points (decimals):",
+      float(map(lambda([c], subst(c, x, f)), crit)))$
+
+/* ── D. Mean Value Theorem: g(x)=x^2-x+1 on [1,4] ──────── */
+print("")$
+print("════ D. Mean Value Theorem — g(x)=x^2-x+1 on [1,4] ════")$
+
+kill(c)$                               /* we need c as a variable */
+g  : x^2 - x + 1$
+a  : 1$
+b  : 4$
+ga : subst(a, x, g)$
+gb : subst(b, x, g)$
+mslope : (gb - ga)/(b - a)$            /* slope of the chord */
+
+print("  g(1) =", ga, "   g(4) =", gb)$
+print("  Slope of the chord: (g(4)-g(1))/(4-1) =", mslope, "   (expected 4)")$
+
+/* We solve g'(c) = slope of the chord */
+csol : map(rhs, solve(subst(c, x, diff(g, x)) = mslope, c))$
+print("  Solution of g'(c) = ", mslope, ":  c =", csol,
+      " =", float(csol), "   (expected c = 5/2)")$
+
+cstar : first(csol)$
+print("  Does it belong to the open (1,4)?", is(cstar > a and cstar < b))$
+
+gc : subst(cstar, x, g)$
+chord   : expand(ga + mslope*(x - a))$              /* chord A(1,1)-B(4,13) */
+tangent : expand(gc + mslope*(x - cstar))$          /* tangent at c        */
+
+print("  g(c) =", gc, "   (expected 19/4)")$
+print("  Chord:   y =", chord,   "   (expected 4x - 3)")$
+print("  Tangent: y =", tangent, "   (expected 4x - 21/4)")$
+
+/* Parallel <=> same slope <=> their difference is constant */
+print("  Slope of the chord =", diff(chord, x),
+      "   Slope of the tangent =", diff(tangent, x))$
+print("  Difference (chord - tangent) =", expand(chord - tangent),
+      "  -> constant => PARALLEL")$
+print("  Check d/dx (chord - tangent) =", diff(chord - tangent, x),
+      "  (must be 0)")$
+
+/* Plot: g, chord, tangent at c  (endpoints in increasing order) */
+plot2d([g, chord, tangent], [x, 0.5, 4.5],
+       [legend, "g(x)=x^2-x+1", "chord A(1,1)-B(4,13)",
+                "tangent at c=5/2"],
+       [title, "Mean Value Theorem: the tangent at c is parallel to the chord"])$
+
+print("")$
+print("Chapter 11 completed.")$

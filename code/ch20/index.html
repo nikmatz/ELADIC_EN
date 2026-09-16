@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Ch. 20 — Power Series and Taylor Series · Elements of Linear Algebra &amp; Calculus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#222}
+  header{background:var(--blue);color:white;padding:18px 24px}
+  header h1{font-size:1.25rem;font-weight:700}
+  header p{font-size:.9rem;margin-top:4px;opacity:.85}
+  .breadcrumb{font-size:.82rem;padding:10px 24px;background:#eee;border-bottom:1px solid #ddd}
+  .breadcrumb a{color:var(--blue);text-decoration:none}
+  .container{max-width:960px;margin:0 auto;padding:24px 16px}
+  .info-box{background:white;border-left:5px solid var(--blue);padding:14px 18px;margin-bottom:24px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .info-box h2{font-size:1rem;color:var(--blue);margin-bottom:8px}
+  .info-box p{font-size:.88rem;line-height:1.6}
+  .tabs{display:flex;gap:6px;margin-bottom:0}
+  .tab-btn{padding:10px 20px;border:none;border-radius:6px 6px 0 0;font-size:.9rem;font-weight:600;cursor:pointer}
+  .tab-btn.maxima{background:#d5f5e3;color:var(--teal)}
+  .tab-btn.python{background:#d6eaf8;color:var(--blue)}
+  .tab-btn.active.maxima{background:var(--teal);color:white}
+  .tab-btn.active.python{background:var(--blue);color:white}
+  .tab-content{display:none}
+  .tab-content.active{display:block}
+  .code-card{background:white;border-radius:0 6px 6px 6px;box-shadow:0 2px 8px rgba(0,0,0,.1);overflow:hidden}
+  .code-header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;font-size:.85rem;font-weight:600}
+  .code-header.maxima{background:var(--teal);color:white}
+  .code-header.python{background:var(--blue);color:white}
+  .download-btn{display:inline-block;padding:5px 12px;background:rgba(255,255,255,.2);color:white;border:1px solid rgba(255,255,255,.5);border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:600}
+  .download-btn:hover{background:rgba(255,255,255,.35)}
+  pre[class*="language-"]{margin:0!important;border-radius:0!important;max-height:520px;overflow-y:auto;font-size:.83rem}
+  .commands-box{background:#fffde7;border:1px solid #f9a825;border-radius:4px;padding:12px 16px;margin:16px 0;font-size:.85rem}
+  .commands-box strong{color:var(--orange)}
+  .commands-box code{background:#fff3cd;padding:1px 5px;border-radius:3px;font-size:.82rem}
+  footer{text-align:center;padding:20px;font-size:.8rem;color:#888;margin-top:32px;border-top:1px solid #ddd}
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+<header>
+  <h1>📐 Chapter 20 — Power Series and Taylor Series</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
+</header>
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 20
+</div>
+<div class="container">
+  <div class="info-box">
+    <h2>📋 Contents of the Activities</h2>
+    <p><strong>Topic:</strong> radius of convergence, Maclaurin and Taylor expansions, differentiation and integration of power series, computing π, an integral by means of a series<br><br>
+    Choose a language from the tabs. The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.</p>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_dynamoseires.mac</span>
+        <a class="download-btn" href="maxima_dynamoseires.mac" download>⬇ Download .mac</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Basic commands:</strong>
+        <code>taylor(f,x,x0,n)</code> &nbsp;
+        <code>diff(T,x)</code> &nbsp;
+        <code>integrate(T,x)</code> &nbsp;
+        <code>limit()</code> &nbsp;
+        <code>sum()</code>
+      </div>
+      <pre><code class="language-maxima" id="maxima-code">/* maxima_dynamoseires.mac — Power Series: Radius of Convergence, Taylor, Operations (Ch. 20) */
+/* Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications. */
+/* Commands: taylor(f,x,x0,n), diff(T,x), integrate(T,x), limit(), sum() with simpsum */
+
+print("============================================================")$
+print("A. RADIUS OF CONVERGENCE   R = lim |c_n / c_(n+1)|")$
+print("============================================================")$
+
+/* We compute lim |c_n/c_(n+1)| directly (the formula in the book):
+   this way no 1/L division is needed and it does not blow up at L = 0. */
+Rconv(cn) := limit(abs(cn / subst(n+1, n, cn)), n, inf)$
+
+print("Sum x^n/n   : R =", Rconv(1/n),   "   (expected 1)")$
+print("Sum x^n/n!  : R =", Rconv(1/n!),  "   (expected inf)")$
+print("Sum n x^n   : R =", Rconv(n),     "   (expected 1)")$
+print("Sum x^n/2^n : R =", Rconv(1/2^n), "   (expected 2)")$
+print("Sum n! x^n  : R =", Rconv(n!),    "   (expected 0)")$
+print("")$
+print("R = inf : converges everywhere.  R = 0 : only at x = 0.")$
+
+print("")$
+print("============================================================")$
+print("B. MACLAURIN EXPANSIONS  taylor(f, x, 0, 8)")$
+print("============================================================")$
+
+print("e^x       =", taylor(exp(x),    x, 0, 8))$
+print("sin(x)    =", taylor(sin(x),    x, 0, 8))$
+print("cos(x)    =", taylor(cos(x),    x, 0, 8))$
+print("log(1+x)  =", taylor(log(1+x),  x, 0, 8))$
+print("1/(1-x)   =", taylor(1/(1-x),   x, 0, 8))$
+print("atan(x)   =", taylor(atan(x),   x, 0, 8))$
+print("sqrt(1+x) =", taylor(sqrt(1+x), x, 0, 8))$
+print("")$
+print("Taylor about x0 = 1 for e^x:")$
+print("e^x =", taylor(exp(x), x, 1, 6))$
+print("   (powers of (x-1), with the constant factor %e)")$
+
+print("")$
+print("============================================================")$
+print("C. OPERATIONS: TERM-BY-TERM DIFFERENTIATION AND INTEGRATION")$
+print("============================================================")$
+
+/* Sum x^n = 1/(1-x) for |x| &lt; 1 */
+T   : taylor(1/(1-x), x, 0, 6)$
+print("Sum x^n = 1/(1-x) :", T)$
+dT  : expand(diff(T, x))$
+ref1: expand(ratdisrep(taylor(1/(1-x)^2, x, 0, 5)))$
+print("d/dx [Sum x^n] = Sum n x^(n-1) =", dT)$
+print("expansion of 1/(1-x)^2         =", ref1)$
+print("identical:", is(equal(dT, ref1)))$
+
+print("")$
+U   : taylor(1/(1+x), x, 0, 7)$
+IU  : expand(integrate(ratdisrep(U), x))$
+ref2: expand(ratdisrep(taylor(log(1+x), x, 0, 8)))$
+print("Sum (-1)^n x^n = 1/(1+x) :", U)$
+print("∫ [Sum (-1)^n x^n] dx = Sum (-1)^n x^(n+1)/(n+1) =", IU)$
+print("expansion of log(1+x)                            =", ref2)$
+print("identical:", is(equal(IU, ref2)))$
+
+print("")$
+print("============================================================")$
+print("D. COMPUTING pi")$
+print("============================================================")$
+
+/* Gregory-Leibniz: the arctan series for x = 1,  pi/4 = Sum (-1)^k/(2k+1) */
+GL(N) := 4 * ev(sum((-1)^k/(2*k+1), k, 0, N), simpsum)$
+print("Gregory-Leibniz  pi/4 = Sum_{k=0}^N (-1)^k/(2k+1):")$
+for N in [10, 100, 1000] do
+  print("   N =", N, ": pi ~", float(GL(N)),
+        "   error =", float(abs(GL(N) - %pi)))$
+print("   The error decays like 1/N: ~10^k terms are needed for k digits.")$
+
+print("")$
+M : 4*(4*atan(1/5) - atan(1/239))$
+print("Machin formula  pi/4 = 4 atan(1/5) - atan(1/239):")$
+print("   M =", float(M), "   pi =", float(%pi))$
+print("   exact identity M = %pi :", is(equal(M, %pi)))$
+print("   The series for atan(1/5) and atan(1/239) converge geometrically,")$
+print("   with ratios 1/25 and 1/57121 — that is why the method is so fast.")$
+
+print("")$
+print("============================================================")$
+print("E. ∫_0^1 sin(x^2) dx VIA A POWER SERIES")$
+print("============================================================")$
+
+/* sin(x^2) = Sum (-1)^k x^(4k+2)/(2k+1)!  -&gt;  ∫_0^1 = Sum (-1)^k/((4k+3)(2k+1)!) */
+exact : float(quad_qags(sin(x^2), x, 0, 1)[1])$
+print("Numerical value (quad_qags) =", exact, "   (0.3102683017233811)")$
+print("")$
+print("Error per expansion order:")$
+for m in [2, 6, 10, 14, 18] do
+  block([Tm, approx],
+    Tm : ratdisrep(taylor(sin(x^2), x, 0, m)),
+    approx : float(integrate(Tm, x, 0, 1)),
+    print("   order", m, ": approximation =", approx,
+          "   error =", abs(approx - exact)))$
+print("Already at order 14 (4 terms) we achieve ~7 correct decimal digits.")$
+
+/* Plots (endpoints in increasing order) */
+p1 : ratdisrep(taylor(exp(x), x, 0, 1))$
+p3 : ratdisrep(taylor(exp(x), x, 0, 3))$
+p5 : ratdisrep(taylor(exp(x), x, 0, 5))$
+plot2d([exp(x), p1, p3, p5], [x, -3, 3], [y, -1, 12],
+       [legend, "e^x", "Order 1", "Order 3", "Order 5"],
+       [xlabel, "x"], [ylabel, "y"],
+       [title, "Maclaurin of e^x"])$
+
+q1 : ratdisrep(taylor(log(1+x), x, 0, 1))$
+q3 : ratdisrep(taylor(log(1+x), x, 0, 3))$
+q7 : ratdisrep(taylor(log(1+x), x, 0, 7))$
+plot2d([log(1+x), q1, q3, q7], [x, -0.9, 1.5], [y, -3, 2],
+       [legend, "log(1+x)", "Order 1", "Order 3", "Order 7"],
+       [xlabel, "x"], [ylabel, "y"],
+       [title, "R = 1: outside (-1,1) the polynomials diverge"])$
+</code></pre>
+    </div>
+  </div>
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_dynamoseires.py</span>
+        <a class="download-btn" href="python_dynamoseires.py" download>⬇ Download .py</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Libraries / commands:</strong>
+        <code>sympy.series()</code> &nbsp;
+        <code>sympy.diff()</code> &nbsp;
+        <code>sympy.integrate()</code> &nbsp;
+        <code>math.factorial()</code> &nbsp;
+        <code>scipy.integrate.quad()</code> &nbsp;
+        <code>matplotlib.pyplot</code>
+      </div>
+            <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># python_dynamoseires.py — Power Series, Convergence, Plots (Ch. 20)
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
+# Commands: sympy.series(), sympy.diff(), sympy.integrate(), math.factorial(),
+#          scipy.integrate.quad(), matplotlib.pyplot
+
+import math
+import numpy as np
+import sympy as sp
+import matplotlib.pyplot as plt
+from scipy.integrate import quad
+
+x = sp.symbols('x', real=True)
+n = sp.symbols('n', positive=True, integer=True)
+
+print("=" * 66)
+print("POWER SERIES: RADIUS OF CONVERGENCE, MACLAURIN, pi, INTEGRALS")
+print("=" * 66)
+
+# ── A. Table of radii of convergence + Maclaurin expansions ─────────────────
+print()
+print("A1. TABLE OF RADII OF CONVERGENCE   R = lim |c_n / c_(n+1)|")
+print("-" * 66)
+# We compute lim |c_n/c_(n+1)| directly: this way R = ∞ comes out
+# naturally, without any division by 0.
+coeffs = [
+    (1 / n,               "Sum xⁿ/n",   "1"),
+    (1 / sp.factorial(n), "Sum xⁿ/n!",  "oo"),
+    (n,                   "Sum n·xⁿ",   "1"),
+    (1 / 2**n,            "Sum xⁿ/2ⁿ",  "2"),
+    (sp.factorial(n),     "Sum n!·xⁿ",  "0"),
+]
+print(f"   {'series':12s} {'R':&gt;6s}   expected")
+for c, label, expected in coeffs:
+    R = sp.limit(sp.Abs(c / c.subs(n, n + 1)), n, sp.oo)
+    print(f"   {label:12s} {str(R):&gt;6s}   ({expected})")
+print("   R = oo: converges for every x.   R = 0: only at x = 0.")
+
+print()
+print("A2. MACLAURIN EXPANSIONS  sympy.series(f, x, 0, 8)")
+print("-" * 66)
+for f in [sp.exp(x), sp.sin(x), sp.cos(x), sp.log(1 + x),
+          1 / (1 - x), sp.atan(x), sp.sqrt(1 + x)]:
+    print(f"   {str(f):10s} = {sp.series(f, x, 0, 8)}")
+print(f"   Taylor of e^x about x0=1: {sp.series(sp.exp(x), x, 1, 5)}")
+
+# ── B. Maclaurin plots for orders 1, 3, 5, 9 ────────────────────────────────
+print()
+print("B. MACLAURIN POLYNOMIALS — WHERE EACH ONE DIVERGES")
+print("-" * 66)
+cases = [
+    (sp.exp(x),      'e^x',        (-3.0,  3.0),  (-2, 12),   'R = oo'),
+    (sp.sin(x),      'sin x',      (-7.0,  7.0),  (-2.5, 2.5), 'R = oo'),
+    (sp.log(1 + x),  'ln(1+x)',    (-0.95, 2.0),  (-4, 2),    'R = 1'),
+    (sp.atan(x),     'arctan x',   (-2.0,  2.0),  (-3, 3),    'R = 1'),
+]
+orders = (1, 3, 5, 9)
+fig, axes = plt.subplots(2, 2, figsize=(11, 7.5))
+for ax, (f, name, (xa, xb), ylim, Rtxt) in zip(axes.ravel(), cases):
+    xv = np.linspace(xa, xb, 600)
+    fnum = sp.lambdify(x, f, 'numpy')
+    ax.plot(xv, fnum(xv), 'k-', lw=2.2, label=name)
+    for o in orders:
+        P = sp.series(f, x, 0, o + 1).removeO()
+        Pnum = sp.lambdify(x, P + 0 * x, 'numpy')
+        ax.plot(xv, Pnum(xv), '--', lw=1.2, label=f'order {o}')
+    if Rtxt == 'R = 1':
+        ax.axvline(-1, color='gray', ls=':', lw=1)
+        ax.axvline(1, color='gray', ls=':', lw=1)
+    ax.set_ylim(*ylim)
+    ax.set_title(f'{name}   ({Rtxt})')
+    ax.legend(fontsize=7, loc='best')
+    ax.grid(True, alpha=0.3)
+plt.tight_layout()
+
+# Numerical evidence: how far off the order-9 polynomial is at various x
+for f, name, _, _, Rtxt in cases:
+    P9 = sp.lambdify(x, sp.series(f, x, 0, 10).removeO() + 0 * x, 'numpy')
+    fn = sp.lambdify(x, f, 'numpy')
+    pts = [0.5, 0.9, 1.1, 2.0] if Rtxt == 'R = 1' else [0.5, 1.0, 3.0, 6.0]
+    errs = ", ".join(f"x={p}: {abs(float(P9(p)) - float(fn(p))):.2e}" for p in pts)
+    print(f"   |P9 - {name:9s}|  {errs}   ({Rtxt})")
+print("   For R = 1 the error explodes as soon as we pass |x| = 1;")
+print("   for R = oo it decays everywhere, just more slowly as we move away.")
+
+# ── C. Computing pi ─────────────────────────────────────────────────────────
+print()
+print("C. COMPUTING pi: Gregory–Leibniz (slow) vs Machin (fast)")
+print("-" * 66)
+
+def atan_series(z, K):
+    """Sum_{k=0}^{K-1} (-1)^k z^(2k+1)/(2k+1) — the arctan series."""
+    return sum((-1)**k * z**(2 * k + 1) / (2 * k + 1) for k in range(K))
+
+def gregory_leibniz(N):
+    """pi/4 = Sum_{k=0}^{N} (-1)^k/(2k+1) — the arctan series for z = 1."""
+    return 4.0 * atan_series(1.0, N + 1)
+
+def machin(K):
+    return 4.0 * (4 * atan_series(1 / 5, K) - atan_series(1 / 239, K))
+
+for N in (10, 100, 1000):
+    v = gregory_leibniz(N)
+    print(f"   Gregory–Leibniz, N = {N:5d}: {v:.12f}   error {abs(v - np.pi):.3e}")
+for K in (2, 5, 10):
+    v = machin(K)
+    print(f"   Machin,          {K:5d} terms: {v:.12f}   error {abs(v - np.pi):.3e}")
+print(f"   pi = {np.pi:.12f}")
+print("   Gregory–Leibniz gains ~1 digit per tenfold increase in the terms (1/N);")
+print("   Machin gains ~1.4 digits PER TERM (geometric convergence, ratio 1/25).")
+
+Ks = np.arange(1, 61)
+gl_err = np.array([abs(gregory_leibniz(int(K) - 1) - np.pi) for K in Ks])
+ma_err = np.array([max(abs(machin(int(K)) - np.pi), 1e-17) for K in Ks])
+plt.figure(figsize=(7.5, 4.5))
+plt.semilogy(Ks, gl_err, 'b.-', ms=4, label='Gregory–Leibniz')
+plt.semilogy(Ks, ma_err, 'r.-', ms=4, label='Machin formula')
+plt.xlabel('number of terms K'); plt.ylabel('|error|')
+plt.title('Convergence to pi (logarithmic error axis)')
+plt.legend(); plt.grid(True, which='both', alpha=0.3)
+plt.tight_layout()
+
+# ── D. ∫_0^1 sin(x²) dx via a power series — error per order ────────────────
+print()
+print("D. ∫_0^1 sin(x²) dx  —  power series versus scipy.quad")
+print("-" * 66)
+# sin(x²) = Sum (-1)^k x^(4k+2)/(2k+1)!  -&gt;  ∫_0^1 = Sum (-1)^k / ((4k+3)(2k+1)!)
+qv, qerr = quad(lambda t: np.sin(t**2), 0, 1)
+print(f"   scipy.quad = {qv:.12f}   (est. error {qerr:.1e})")
+print()
+print(f"   {'terms K':&gt;7s} {'order x^(4K-2)':&gt;14s} {'approximation':&gt;16s} {'|error|':&gt;12s}")
+partial = 0.0
+for K in range(1, 8):
+    k = K - 1
+    partial += (-1)**k / ((4 * k + 3) * math.factorial(2 * k + 1))
+    print(f"   {K:7d} {4*K - 2:14d} {partial:16.12f} {abs(partial - qv):12.2e}")
+print("   Each extra term gains about two decimal digits: with 5 terms")
+print("   we are at ~1e-9 and with 7 at the limits of double precision.")
+
+# Comparison with SymPy's symbolic value
+sym = sp.integrate(sp.sin(x**2), (x, 0, 1))
+print(f"   SymPy symbolically: {sym}")
+print(f"   numerically       : {float(sym.evalf()):.12f}   (0.310268301723)")
+plt.show()
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelector('.tab-btn.'+name).classList.add('active');
+}
+function loadCode(file, elementId, lang) {
+  fetch(file+'?v='+Date.now())
+    .then(r=>r.ok?r.text():Promise.reject(r.status))
+    .then(text=>{
+      const el=document.getElementById(elementId);
+      el.textContent=text; el.className='language-'+lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err=>{document.getElementById(elementId).textContent='⚠ Could not load the file ('+err+'). Please use the Download button.';});
+}
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+originalPy = $('py-editor').value;
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    return await loadPyodide();
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    const code = $('py-editor').value;
+    setStatus('Loading libraries…');
+    await py.loadPackagesFromImports(code);
+    setStatus('Running…');
+    await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
+    py.globals.set('__user_src__', code);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+_imgs = []
+try:
+    import matplotlib.pyplot as plt
+    for _n in plt.get_fignums():
+        _f = plt.figure(_n); _b = io.BytesIO()
+        _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+        _imgs.append(base64.b64encode(_b.read()).decode())
+    plt.close('all')
+except Exception:
+    pass
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

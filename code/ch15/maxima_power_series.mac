@@ -1,0 +1,133 @@
+/* ============================================================
+   maxima_power_series.mac
+   Chapter 14 — Power Series
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications.
+   ============================================================
+
+   COMMANDS USED:
+     taylor(f, x, x0, n)      → Taylor series of order n
+     limit(|a_{n+1}/a_n|, n, inf) → radius of convergence
+     diff(series, x)          → derivative of a power series
+     integrate(series, x)     → integral of a power series
+     sum(c_n*(x-x0)^n, n, 0, inf) → summation
+     float(...)               → numeric value
+
+   Run with: wxMaxima (Load/File) or
+                 maxima -b maxima_power_series.mac
+   ============================================================ */
+
+/* ── Part A: Radius and Interval of Convergence ──────── */
+print("════ A. Radius and Interval of Convergence ════");
+
+/* Ratio test: R = lim |c_n / c_{n+1}| */
+print("Radius of convergence R = lim |c_n / c_{n+1}|:");
+
+/* A1: Sum x^n/n  (→ R=1, ln(1/(1-x))) */
+c_n1 : 1/n;
+R1 : limit(abs(1/n / (1/(n+1))), n, inf);
+print("  Sum x^n/n:  R =", R1, " (interval: -1 ≤ x < 1)");
+
+/* A2: Sum x^n/n!  (→ R=∞, e^x) */
+c_n2 : 1/n!;
+R2 : limit(n! / (n+1)!, n, inf);
+print("  Sum x^n/n!: R =", R2, " (interval: (-∞,+∞))");
+
+/* A3: Sum n·x^n  (→ R=1) */
+c_n3 : n;
+R3 : limit(n/(n+1), n, inf);
+print("  Sum n·x^n:  R =", R3, " (interval: -1 < x < 1)");
+
+/* A4: Sum x^n/2^n  (→ R=2) */
+c_n4 : 1/2^n;
+R4 : limit(2^n/2^(n+1), n, inf);
+print("  Sum (x/2)^n: R =", 1/R4, "  (=", float(1/R4), ")");
+
+/* A5: Sum n!·x^n  (→ R=0) */
+print("  Sum n!·x^n:  R = 0  (converges only for x=0)");
+
+/* ── Part B: Taylor Expansions ──────────────────── */
+print("════ B. Taylor / Maclaurin Expansions ════");
+
+/* B1. e^x about x=0 (Maclaurin) */
+T_ex : taylor(exp(x), x, 0, 8);
+print("  e^x =", T_ex);
+
+/* B2. sin x */
+T_sin : taylor(sin(x), x, 0, 9);
+print("  sinx =", T_sin);
+
+/* B3. cos x */
+T_cos : taylor(cos(x), x, 0, 8);
+print("  cosx =", T_cos);
+
+/* B4. ln(1+x) */
+T_ln : taylor(log(1+x), x, 0, 7);
+print("  ln(1+x) =", T_ln);
+
+/* B5. 1/(1-x) */
+T_geo : taylor(1/(1-x), x, 0, 7);
+print("  1/(1-x) =", T_geo);
+
+/* B6. arctan x */
+T_atan : taylor(atan(x), x, 0, 9);
+print("  arctanx =", T_atan);
+
+/* B7. √(1+x) */
+T_sqrt : taylor(sqrt(1+x), x, 0, 5);
+print("  √(1+x) =", T_sqrt);
+
+/* B8. Taylor about x0=1 */
+print("\nTaylor about x0 = 1:");
+T_ex1 : taylor(exp(x), x, 1, 5);
+print("  e^x about x=1:", T_ex1);
+
+/* ── Part C: Operations with Power Series ──────────── */
+print("════ C. Operations with Power Series ════");
+
+/* Derivative of a power series: (1/(1-x))' = 1/(1-x)² */
+T_geo2 : taylor(1/(1-x), x, 0, 7);
+dT_geo : diff(T_geo2, x);
+print("  d/dx [Sum x^n] =", dT_geo);
+print("  = Sum n·x^(n-1) = 1/(1-x)²");
+
+/* Integral: ∫[1/(1+x)]dx = ln(1+x) */
+T_1px : taylor(1/(1+x), x, 0, 7);
+IT_1px : integrate(T_1px, x);
+print("\n  ∫ [Sum (-x)^n] dx =", IT_1px);
+print("  = Sum (-1)^n·x^(n+1)/(n+1) = ln(1+x)  ✓");
+
+/* ── Part D: Computing pi with the Gregory-Leibniz series ─ */
+print("════ D. Gregory-Leibniz series: pi/4 = Sum (-1)^n/(2n+1) ════");
+
+/* arctan(1) = pi/4 = 1 - 1/3 + 1/5 - 1/7 + ... */
+print("pi/4 = arctan(1) = Sum (-1)^n/(2n+1):");
+for N in [10, 100, 1000] do (
+    S : float(sum((-1)^k/(2*k+1), k, 0, N)),
+    pi_approx : 4*S,
+    err : abs(pi_approx - float(%pi)),
+    print("  N=", N, ": pi ≈", pi_approx, " error:", err)
+);
+
+/* Faster: Machin's formula: pi/4 = 4arctan(1/5) - arctan(1/239) */
+print("\nMachin's formula: pi/4 = 4·arctan(1/5) - arctan(1/239):");
+arctan_15  : float(sum((-1)^k * (1/5)^(2*k+1) / (2*k+1), k, 0, 10));
+arctan_239 : float(sum((-1)^k * (1/239)^(2*k+1) / (2*k+1), k, 0, 5));
+pi_machin  : 4*(4*arctan_15 - arctan_239);
+print("  pi ≈", pi_machin, " (true value:", float(%pi), ")");
+
+/* ── Part E: Approximating an Integral with a Series ───── */
+print("════ E. Approximating an Integral with a Power Series ════");
+
+/* ∫₀¹ sin(x²) dx — has no closed form */
+print("∫₀¹ sin(x²) dx (Fresnel integral):");
+T_sinx2 : taylor(sin(x^2), x, 0, 13);
+I_approx : integrate(T_sinx2, x, 0, 1);
+print("  ≈", float(I_approx));
+
+/* ∫₀^(1/2) arctan(x)/x dx with Maclaurin */
+print("∫₀^0.5 arctan(x)/x dx:");
+T_atanx : taylor(atan(x)/x, x, 0, 8);
+I_atanx : integrate(T_atanx, x, 0, 1/2);
+print("  ≈", float(I_atanx));
+
+print("════ End ════");

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Ch. 14 — The Definite Integral · Elements of Linear Algebra &amp; Calculus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<style>
+  :root { --blue:#1a5276; --teal:#0e6655; --orange:#ca6f1e; --bg:#f5f5f0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#222}
+  header{background:var(--blue);color:white;padding:18px 24px}
+  header h1{font-size:1.25rem;font-weight:700}
+  header p{font-size:.9rem;margin-top:4px;opacity:.85}
+  .breadcrumb{font-size:.82rem;padding:10px 24px;background:#eee;border-bottom:1px solid #ddd}
+  .breadcrumb a{color:var(--blue);text-decoration:none}
+  .container{max-width:960px;margin:0 auto;padding:24px 16px}
+  .info-box{background:white;border-left:5px solid var(--blue);padding:14px 18px;margin-bottom:24px;border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  .info-box h2{font-size:1rem;color:var(--blue);margin-bottom:8px}
+  .info-box p{font-size:.88rem;line-height:1.6}
+  .tabs{display:flex;gap:6px;margin-bottom:0}
+  .tab-btn{padding:10px 20px;border:none;border-radius:6px 6px 0 0;font-size:.9rem;font-weight:600;cursor:pointer}
+  .tab-btn.maxima{background:#d5f5e3;color:var(--teal)}
+  .tab-btn.python{background:#d6eaf8;color:var(--blue)}
+  .tab-btn.active.maxima{background:var(--teal);color:white}
+  .tab-btn.active.python{background:var(--blue);color:white}
+  .tab-content{display:none}
+  .tab-content.active{display:block}
+  .code-card{background:white;border-radius:0 6px 6px 6px;box-shadow:0 2px 8px rgba(0,0,0,.1);overflow:hidden}
+  .code-header{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;font-size:.85rem;font-weight:600}
+  .code-header.maxima{background:var(--teal);color:white}
+  .code-header.python{background:var(--blue);color:white}
+  .download-btn{display:inline-block;padding:5px 12px;background:rgba(255,255,255,.2);color:white;border:1px solid rgba(255,255,255,.5);border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:600}
+  .download-btn:hover{background:rgba(255,255,255,.35)}
+  pre[class*="language-"]{margin:0!important;border-radius:0!important;max-height:520px;overflow-y:auto;font-size:.83rem}
+  .commands-box{background:#fffde7;border:1px solid #f9a825;border-radius:4px;padding:12px 16px;margin:16px 0;font-size:.85rem}
+  .commands-box strong{color:var(--orange)}
+  .commands-box code{background:#fff3cd;padding:1px 5px;border-radius:3px;font-size:.82rem}
+  footer{text-align:center;padding:20px;font-size:.8rem;color:#888;margin-top:32px;border-top:1px solid #ddd}
+
+  /* ── In-browser Python runner ── */
+  .py-toolbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:#1d2b36;}
+  .run-btn{background:#16a34a;color:#fff;border:none;padding:8px 18px;border-radius:6px;font-weight:700;cursor:pointer;font-size:.9rem;}
+  .run-btn:disabled{opacity:.55;cursor:default;}
+  .reset-btn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.45);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.82rem;}
+  .py-status{color:#9fb3c8;font-size:.8rem;margin-left:auto;text-align:right;}
+  textarea.py-editor{display:block;width:100%;min-height:360px;border:none;background:#272822;color:#f8f8f2;font-family:Consolas,Monaco,monospace;font-size:.83rem;line-height:1.5;padding:14px 16px;resize:vertical;outline:none;tab-size:4;}
+  .py-output{background:#0e1416;color:#e6edf3;font-family:Consolas,Monaco,monospace;font-size:.82rem;white-space:pre-wrap;padding:14px 16px;margin:0;max-height:380px;overflow:auto;border-top:1px solid #2a3942;}
+  .py-output:empty{display:none;}
+  .py-plots{padding:8px 16px 14px;background:#fff;text-align:center;}
+  .py-plots img{max-width:100%;border:1px solid #ddd;border-radius:4px;margin:8px 0;}
+</style>
+</head>
+<body>
+<header>
+  <h1>📐 Chapter 14 — The Definite Integral</h1>
+  <p>«Elements of Linear Algebra, Differential &amp; Integral Calculus» &nbsp;|&nbsp; N. Matzakos</p>
+</header>
+<div class="breadcrumb">
+  <a href="../../index.html">🏠 Home</a> › <a href="../">Code</a> › Ch. 14
+</div>
+<div class="container">
+  <div class="info-box">
+    <h2>📋 Contents of the Activities</h2>
+    <p><strong>Topic:</strong> Riemann sums (left, midpoint, right), the integral from the definition, properties, bounds, mean value<br><br>
+    Choose a language from the tabs. The <strong>Python</strong> code can be <strong>run right here on the page</strong> (the “▶ Run” button) — and you can edit it. The <strong>Maxima</strong> code runs in <strong>wxMaxima</strong>.</p>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn maxima active" onclick="showTab('maxima')">⚙️ Maxima (.mac)</button>
+    <button class="tab-btn python"        onclick="showTab('python')">🐍 Python (.py)</button>
+  </div>
+  <div id="tab-maxima" class="tab-content active">
+    <div class="code-card">
+      <div class="code-header maxima">
+        <span>maxima_orismeno.mac</span>
+        <a class="download-btn" href="maxima_orismeno.mac" download>⬇ Download .mac</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Basic commands:</strong>
+        <code>sum(expr,i,1,n)</code> &nbsp;
+        <code>limit(expr,n,inf)</code> &nbsp;
+        <code>float()</code> &nbsp;
+        <code>solve()</code> &nbsp;
+        <code>plot2d()</code>
+      </div>
+      <pre><code class="language-maxima" id="maxima-code">/* ============================================================
+   maxima_orismeno.mac
+   Chapter 14 — Definite Integral: Riemann Sums &amp; Properties
+   Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
+   ============================================================
+
+   COMMANDS USED:
+     sum(expr, i, 1, n)      → symbolic sum
+     ev(S, simpsum)          → closed form of the sum
+     limit(expr, n, inf)     → limit as n → ∞
+     float(expr)             → decimal value
+     subst(N, n, expr)       → substitution n := N
+     integrate(f, x, a, b)   → definite integral (for verification)
+     quad_qags(f, x, a, b)   → high-accuracy numerical integration
+     random(1.0)             → random number in [0,1)
+     solve(eq, x)            → solving an equation
+     plot2d([...], [x,a,b])  → plot
+
+   CAUTION: NEVER write n : 100 — that binds n globally and then
+   lim(R_n, n, inf) is meaningless. n stays a FREE symbol; numerical
+   values are substituted in with subst.
+
+   Book activity:
+     (a) L_n, M_n, R_n for f(x)=x² on [0,2], n = 4,10,50,200
+     (b) from the definition: ∫₀²x²dx = 8/3 and ∫₀¹x dx = 1/2, with no antiderivative
+     (c) random points x_i* — the limit does not change
+     (d) properties: linearity, reversal of limits, additivity, symmetries
+     (e) bounds m(b-a) ≤ ∫ ≤ M(b-a) and comparison
+     (f) average value and the Mean Value Theorem
+
+   Run with: wxMaxima (File → Batch File) or
+                 maxima -b maxima_orismeno.mac
+   ============================================================ */
+
+/* We clear any previous value of n — we need it FREE */
+kill(n)$
+declare(n, integer)$
+
+/* ── A. (a) Left, midpoint and right Riemann sums ────── */
+print("════ A. (a) Riemann sums for f(x)=x² on [0,2] ════")$
+
+/* Partition: dx = 2/n,  x_k = 2k/n  (k = 0,…,n) */
+/* Right endpoints  x_i  = 2i/n                                */
+/* Left endpoints   x_(i-1) = 2(i-1)/n                         */
+/* Midpoints        (x_(i-1)+x_i)/2 = (2i-1)/n                 */
+
+Rn : ratsimp(ev(sum((2*i/n)^2     * (2/n), i, 1, n), simpsum))$
+Ln : ratsimp(ev(sum((2*(i-1)/n)^2 * (2/n), i, 1, n), simpsum))$
+Mn : ratsimp(ev(sum(((2*i-1)/n)^2 * (2/n), i, 1, n), simpsum))$
+
+print("L_n =", factor(Ln), "   [Expected 4(n-1)(2n-1)/(3n²)]")$
+print("M_n =", factor(Mn), "   [Expected 2(2n-1)(2n+1)/(3n²)]")$
+print("R_n =", factor(Rn), "   [Expected 4(n+1)(2n+1)/(3n²)]")$
+
+print("")$
+print("Numerically (float) — note that L_n &lt; 8/3 &lt; R_n:")$
+print("      n        L_n          M_n          R_n      |M_n-8/3|   |R_n-8/3|")$
+for N in [4, 10, 50, 200] do
+  block([LN, MN, RN, I],
+    I  : 8/3,
+    LN : float(subst(N, n, Ln)),
+    MN : float(subst(N, n, Mn)),
+    RN : float(subst(N, n, Rn)),
+    print("  ", N, "  ", LN, "  ", MN, "  ", RN,
+          "  ", float(abs(MN - I)), "  ", float(abs(RN - I)),
+          "   L_n&lt;8/3&lt;R_n ?", is(LN &lt; float(I) and float(I) &lt; RN)))$
+
+print("")$
+print("M_n converges faster: its error decreases like ~ 1/n²,")$
+print("while those of L_n, R_n go like ~ 1/n (see the column |M_n-8/3| above).")$
+print("Error ratios n=4→n=200 (×50):  M:",
+      float(abs(subst(4,n,Mn)-8/3) / abs(subst(200,n,Mn)-8/3)),
+      "   R:",
+      float(abs(subst(4,n,Rn)-8/3) / abs(subst(200,n,Rn)-8/3)))$
+
+/* ── B. (b) From the definition, with no antiderivative ─── */
+print("")$
+print("════ B. (b) From the definition: limit of Riemann sums ════")$
+
+print("Formula: Sum_{i=1}^{n} i² = n(n+1)(2n+1)/6")$
+print("  Maxima:", factor(ev(sum(i^2, i, 1, n), simpsum)))$
+print("R_n = Sum (2i/n)²·(2/n) =", factor(Rn))$
+print("lim_{n→∞} R_n =", limit(Rn, n, inf), "   [EXPECTED 8/3]")$
+print("lim_{n→∞} L_n =", limit(Ln, n, inf))$
+print("lim_{n→∞} M_n =", limit(Mn, n, inf))$
+print("So ∫₀² x² dx = 8/3 =", float(8/3), " — without using any antiderivative.")$
+print("Verification with integrate:", integrate(x^2, x, 0, 2))$
+
+print("")$
+print("The same for ∫₀¹ x dx, with the formula Sum i = n(n+1)/2:")$
+print("  Maxima: Sum i =", factor(ev(sum(i, i, 1, n), simpsum)))$
+Sn1 : ratsimp(ev(sum((i/n)*(1/n), i, 1, n), simpsum))$
+print("  S_n = Sum (i/n)·(1/n) =", Sn1, "   [Expected (n+1)/(2n)]")$
+print("  lim_{n→∞} S_n =", limit(Sn1, n, inf), "   [EXPECTED 1/2]")$
+print("  Verification with integrate:", integrate(x, x, 0, 1))$
+
+/* ── C. (c) Independence of the choice of the points x_i* ─ */
+print("")$
+print("════ C. (c) Random points x_i* in each subinterval ════")$
+print("Integrability theorem: f(x)=x² is continuous on [0,2],")$
+print("so the limit does not depend on the choice of the x_i*.")$
+
+set_random_state(make_random_state(2026))$
+
+/* Riemann sum with a RANDOM point in each subinterval:         */
+/*   x_i* = x_(i-1) + r_i·dx  with r_i ~ U[0,1)                   */
+riemann_random(N) := block([dx, S, xl, xstar],
+  dx : 2.0/N,
+  S  : 0.0,
+  for k : 0 thru N - 1 do (
+    xl    : k*dx,
+    xstar : xl + random(1.0)*dx,
+    S     : S + xstar^2 * dx),
+  S)$
+
+print("")$
+print("      n      random sum        |S_n - 8/3|")$
+for N in [4, 10, 50, 200, 1000, 5000] do
+  block([S],
+    S : riemann_random(N),
+    print("  ", N, "   ", S, "   ", float(abs(S - 8/3))))$
+
+print("")$
+print("The sum with random points also tends to 8/3 =", float(8/3), ".")$
+
+/* ── D. (d) Properties of the definite integral ───────── */
+print("")$
+print("════ D. (d) Properties ════")$
+
+/* Linearity: ∫(af+bg) = a∫f + b∫g */
+A1 : integrate(3*x^2 + 5*sin(x), x, 0, 1)$
+A2 : 3*integrate(x^2, x, 0, 1) + 5*integrate(sin(x), x, 0, 1)$
+print("Linearity:")$
+print("  ∫₀¹(3x²+5sin x)dx =", A1, "=", float(A1))$
+print("  3∫₀¹x²dx + 5∫₀¹sin x dx =", A2, "=", float(A2))$
+print("  Difference (must be 0):", ratsimp(A1 - A2))$
+
+/* Reversal of the limits: ∫_a^b = -∫_b^a */
+B1 : integrate(x^2, x, 1, 4)$
+B2 : integrate(x^2, x, 4, 1)$
+print("")$
+print("Reversal of the limits:")$
+print("  ∫₁⁴x²dx =", B1, "   ∫₄¹x²dx =", B2, "   sum (must be 0):", B1 + B2)$
+
+/* Additivity over intervals: ∫_a^b = ∫_a^c + ∫_c^b */
+C1 : integrate(x^2, x, 0, 3)$
+C2 : integrate(x^2, x, 0, 1) + integrate(x^2, x, 1, 3)$
+print("")$
+print("Additivity over intervals (a=0, c=1, b=3):")$
+print("  ∫₀³x²dx =", C1, "   ∫₀¹ + ∫₁³ =", C2, "   difference:", ratsimp(C1 - C2))$
+/* It also holds for c OUTSIDE [a,b] */
+C3 : integrate(x^2, x, 0, 5) + integrate(x^2, x, 5, 3)$
+print("  And with c = 5 (outside [0,3]):", C3, "   difference:", ratsimp(C1 - C3))$
+
+/* Symmetries: odd → 0, even → 2∫₀^a */
+print("")$
+print("Symmetries on the symmetric interval [-2,2]:")$
+print("  x³ odd: ∫₋₂²x³dx =", integrate(x^3, x, -2, 2),
+      "   [EXPECTED 0]")$
+print("  sin(x) odd: ∫₋₂²sin(x)dx =", integrate(sin(x), x, -2, 2))$
+print("  x² even: ∫₋₂²x²dx =", integrate(x^2, x, -2, 2),
+      "   2·∫₀²x²dx =", 2*integrate(x^2, x, 0, 2),
+      "   difference:", ratsimp(integrate(x^2,x,-2,2) - 2*integrate(x^2,x,0,2)))$
+
+/* ── E. (e) Bounds and comparison ─────────────────── */
+print("")$
+print("════ E. (e) Bounds: f(x)=e^(x²) on [0,1] ════")$
+
+/* f(x)=e^(x²) is strictly increasing on [0,1] (f'(x)=2x·e^(x²) ≥ 0),  */
+/* so m = f(0) = 1 and M = f(1) = e.                                     */
+print("f'(x) =", diff(exp(x^2), x), "  ≥ 0 on [0,1] ⇒ f is increasing")$
+m_bound : subst(0, x, exp(x^2))$
+M_bound : subst(1, x, exp(x^2))$
+print("m = f(0) =", m_bound, "=", float(m_bound))$
+print("M = f(1) =", M_bound, "=", float(M_bound))$
+
+Ival : quad_qags(exp(x^2), x, 0, 1)[1]$
+print("∫₀¹ e^(x²) dx =", Ival, "   (numerically, quad_qags)")$
+print("Symbolically Maxima gives:", integrate(exp(x^2), x, 0, 1),
+      "=", float(integrate(exp(x^2), x, 0, 1)))$
+
+print("")$
+print("Check m(b-a) ≤ ∫ ≤ M(b-a)  with b-a = 1:")$
+print("  m(b-a) =", float(m_bound), "  ≤ ∫ =", Ival,
+      "  ≤ M(b-a) =", float(M_bound))$
+print("  Does it hold?", is(float(m_bound) &lt;= Ival and Ival &lt;= float(M_bound)))$
+
+print("")$
+print("Comparison: on [0,1] we have x² ≤ x, so e^(x²) ≤ e^x:")$
+Iex : integrate(exp(x), x, 0, 1)$
+print("  ∫₀¹ e^(x²) dx =", Ival)$
+print("  ∫₀¹ e^x   dx =", Iex, "=", float(Iex))$
+print("  ∫₀¹e^(x²) ≤ ∫₀¹e^x ?", is(Ival &lt;= float(Iex)))$
+print("  Sample of the difference e^x - e^(x²) on [0,1] (must be ≥ 0):")$
+print("   ", makelist(float(subst(k/10, x, exp(x) - exp(x^2))), k, 0, 10))$
+
+/* ── F. (f) Average value and the Mean Value Theorem ───── */
+print("")$
+print("════ F. (f) Average value of f(x)=x² on [0,3] ════")$
+
+fbar : integrate(x^2, x, 0, 3)/(3 - 0)$
+print("∫₀³x²dx =", integrate(x^2, x, 0, 3))$
+print("Average value f̄ = (1/(b-a))·∫₀³x²dx =", fbar, "=", float(fbar),
+      "   [EXPECTED 3]")$
+
+sols : solve(x^2 = fbar, x)$
+print("Solutions of f(c) = f̄ :", sols)$
+xi : rhs(second(sols))$
+print("Admissible solution in [0,3]: c =", xi, "=", float(xi),
+      "   [EXPECTED √3 ≈ 1.732]")$
+print("Check f(c)·(b-a) - ∫₀³f =",
+      ratsimp(subst(xi, x, x^2)*3 - integrate(x^2, x, 0, 3)),
+      "   (must be 0)")$
+
+plot2d([x^2, fbar], [x, 0, 3],
+       [legend, "f(x)=x²", "y = f̄ = 3"],
+       [xlabel, "x"], [ylabel, "y"],
+       [title, "MVT for Integrals: c = sqrt(3) ≈ 1.732"])$
+
+print("")$
+print("End — Chapter 14.")$
+</code></pre>
+    </div>
+  </div>
+  <div id="tab-python" class="tab-content">
+    <div class="code-card">
+      <div class="code-header python">
+        <span>python_orismeno.py</span>
+        <a class="download-btn" href="python_orismeno.py" download>⬇ Download .py</a>
+      </div>
+      <div class="commands-box" style="margin:12px 16px 0">
+        <strong>Libraries / commands:</strong>
+        <code>numpy.linspace()</code> &nbsp;
+        <code>numpy.sum()</code> &nbsp;
+        <code>sympy.summation()</code> &nbsp;
+        <code>sympy.limit()</code> &nbsp;
+        <code>matplotlib.bar()</code> &nbsp;
+        <code>matplotlib.fill_between()</code>
+      </div>
+            <div class="py-toolbar">
+        <button class="run-btn" id="py-run">▶ Run</button>
+        <button class="reset-btn" id="py-reset">↺ Reset</button>
+        <span class="py-status" id="py-status">The code runs in the browser (Pyodide).</span>
+      </div>
+      <textarea class="py-editor" id="py-editor" spellcheck="false"># ============================================================
+# python_orismeno.py
+# Chapter 14 — Definite Integral: Riemann Sums
+# Matzakos, N. (2026). Elements of Linear Algebra, Differential &amp; Integral Calculus. NewTech Publications.
+# ============================================================
+#
+# LIBRARIES:
+#   numpy       → vectorized Riemann sums (fast, no loops)
+#   sympy       → symbolic sum and limit (from the definition)
+#   scipy       → reference numerical integration
+#   matplotlib  → bar, fill_between, loglog
+#
+# BASIC COMMANDS:
+#   numpy.linspace(a, b, n+1)     → partition of [a,b]
+#   numpy.sum(f(x)) * dx          → Riemann sum
+#   sympy.summation(expr,(i,1,n)) → closed form of the sum
+#   sympy.limit(expr, n, oo)      → limit as n → ∞
+#   matplotlib.bar()              → Riemann rectangles
+#   matplotlib.fill_between()     → shading of a region
+#
+# Book activity:
+#   (a) riemann(f,a,b,n,rule) for f(x)=x² on [0,2], n=4,10,10²,10⁴
+#   (b) visualization of the rectangles for n=4 and n=20
+#   (c) rate of convergence on a log-log plot
+#   (d) symbolically from the definition (sympy.summation, sympy.limit)
+#   (e) properties: linearity, additivity, reversal, symmetries
+#   (f) bounds for e^(x²) on [0,1] and tightening them
+#   (g) average value of x² on [0,3] with fill_between
+# ============================================================
+
+import numpy as np
+import sympy as sp
+import matplotlib.pyplot as plt
+from scipy.integrate import quad
+
+print("=" * 62)
+print(" Chapter 14: Definite Integral — Riemann Sums")
+print("=" * 62)
+
+EXACT = 8/3          # the exact value of ∫₀² x² dx
+
+
+# ── A. (a) The function riemann(f, a, b, n, rule) ───────
+def riemann(f, a, b, n, rule='left'):
+    """Riemann sum of f on [a,b] with n subintervals.
+
+    rule = 'left'  → left endpoints    x_(i-1)
+    rule = 'mid'   → midpoints         (x_(i-1)+x_i)/2
+    rule = 'right' → right endpoints   x_i
+    Implemented with numpy (vectorized) — it handles n = 10^4 with ease.
+    """
+    edges = np.linspace(a, b, n + 1)
+    dx = (b - a)/n
+    if rule == 'left':
+        pts = edges[:-1]
+    elif rule == 'right':
+        pts = edges[1:]
+    elif rule == 'mid':
+        pts = (edges[:-1] + edges[1:])/2
+    else:
+        raise ValueError("rule ∈ {'left', 'mid', 'right'}")
+    return float(np.sum(f(pts)) * dx)
+
+
+f = lambda z: z**2
+
+print("\n──── A. (a) riemann(f, a, b, n, rule) for f(x)=x² on [0,2] ────")
+print(f"  Exact value: ∫₀²x²dx = 8/3 = {EXACT:.10f}")
+print(f"\n  {'n':&gt;7} {'left':&gt;14} {'mid':&gt;14} {'right':&gt;14}"
+      f" {'|mid-8/3|':&gt;12}")
+for n in (4, 10, 10**2, 10**4):
+    L = riemann(f, 0, 2, n, 'left')
+    M = riemann(f, 0, 2, n, 'mid')
+    R = riemann(f, 0, 2, n, 'right')
+    print(f"  {n:&gt;7d} {L:&gt;14.8f} {M:&gt;14.8f} {R:&gt;14.8f} {abs(M-EXACT):&gt;12.2e}")
+
+print("\n  Check L_n &lt; 8/3 &lt; R_n for every n:")
+for n in (4, 10, 10**2, 10**4):
+    L = riemann(f, 0, 2, n, 'left')
+    R = riemann(f, 0, 2, n, 'right')
+    print(f"    n = {n:&gt;6d}: {L:.8f} &lt; {EXACT:.8f} &lt; {R:.8f}  →  "
+          f"{L &lt; EXACT &lt; R}")
+
+# ── B. (b) Visualization of the Riemann rectangles ───────
+print("\n──── B. (b) The Riemann rectangles for n = 4 and n = 20 ────")
+
+fig, axes = plt.subplots(1, 2, figsize=(11.5, 4.4))
+fig.suptitle("Riemann sums for f(x) = x² on [0,2]  —  "
+             "as n grows, the rectangles fill the region",
+             fontsize=11, fontweight='bold')
+
+for ax, n in zip(axes, (4, 20)):
+    edges = np.linspace(0, 2, n + 1)
+    dx = 2/n
+    ax.bar(edges[:-1], f(edges[1:]), width=dx, align='edge',
+           color='steelblue', edgecolor='white', alpha=.55,
+           label=f'right endpoints (n={n})')
+    ax.bar(edges[:-1], f(edges[:-1]), width=dx, align='edge',
+           color='none', edgecolor='darkorange', lw=1.2,
+           label=f'left endpoints (n={n})')
+    zz = np.linspace(0, 2, 400)
+    ax.plot(zz, f(zz), 'r-', lw=2.2, label='f(x) = x²')
+    L = riemann(f, 0, 2, n, 'left'); R = riemann(f, 0, 2, n, 'right')
+    ax.set_title(f"n = {n}:  L_n = {L:.4f},  R_n = {R:.4f}", fontsize=10)
+    ax.set_xlabel("x"); ax.legend(fontsize=8); ax.grid(alpha=.3)
+    print(f"  n = {n:2d}: L_n = {L:.6f},  R_n = {R:.6f},  "
+          f"gap between the bounds R_n - L_n = {R-L:.6f}")
+
+plt.tight_layout()
+
+# ── C. (c) Rate of convergence — log-log plot ──────────
+print("\n──── C. (c) Rate of convergence (log-log) ────")
+
+ns = np.array([2**k for k in range(2, 15)])          # 4 … 16384
+errors = {}
+for rule in ('left', 'mid', 'right'):
+    errors[rule] = np.array([abs(riemann(f, 0, 2, int(n), rule) - EXACT)
+                             for n in ns])
+
+plt.figure(figsize=(7.2, 5))
+styles = {'left': ('o-', 'darkorange'), 'mid': ('s-', 'seagreen'),
+          'right': ('^-', 'steelblue')}
+for rule in ('left', 'mid', 'right'):
+    mk, col = styles[rule]
+    plt.loglog(ns, errors[rule], mk, color=col, ms=4, lw=1.4,
+               label=f"{rule}")
+# Reference lines of slope -1 and -2
+plt.loglog(ns, 4.0/ns, 'k--', lw=1, alpha=.6, label='reference ~ 1/n')
+plt.loglog(ns, 4.0/ns**2, 'k:', lw=1.2, alpha=.8, label='reference ~ 1/n²')
+plt.xlabel("n (number of subintervals)")
+plt.ylabel("|S_n - 8/3|")
+plt.title("Rate of convergence of the three rules (log-log)")
+plt.legend(fontsize=9); plt.grid(alpha=.3, which='both')
+plt.tight_layout()
+
+print("  Slope of the line on the log-log plot (= -p, where error ~ n^(-p)):")
+for rule in ('left', 'mid', 'right'):
+    slope = np.polyfit(np.log(ns), np.log(errors[rule]), 1)[0]
+    print(f"    {rule:&gt;5s}: slope = {slope:+.4f}  →  error ~ n^({slope:.2f})"
+          f"   [order p ≈ {abs(slope):.0f}]")
+print("  ⇒ left/right converge like 1/n, mid like 1/n².")
+
+# ── D. (d) Symbolically, from the definition ────────────
+print("\n──── D. (d) Symbolically from the definition (no antiderivative) ────")
+
+i = sp.symbols('i', integer=True, positive=True)
+n = sp.symbols('n', integer=True, positive=True)
+
+# dx = 2/n, right endpoints x_i = 2i/n
+R_n = sp.factor(sp.simplify(sp.summation((2*i/n)**2 * (2/n), (i, 1, n))))
+L_n = sp.factor(sp.simplify(sp.summation((2*(i-1)/n)**2 * (2/n), (i, 1, n))))
+M_n = sp.factor(sp.simplify(sp.summation(((2*i-1)/n)**2 * (2/n), (i, 1, n))))
+
+print(f"  Sum i² = {sp.factor(sp.summation(i**2, (i, 1, n)))}")
+print(f"  R_n = {R_n}")
+print(f"  L_n = {L_n}")
+print(f"  M_n = {M_n}")
+print(f"  lim R_n = {sp.limit(R_n, n, sp.oo)}   [EXPECTED 8/3]")
+print(f"  lim L_n = {sp.limit(L_n, n, sp.oo)}")
+print(f"  lim M_n = {sp.limit(M_n, n, sp.oo)}")
+
+xs_ = sp.symbols('x')
+print(f"  Verification with sympy.integrate: "
+      f"∫₀²x²dx = {sp.integrate(xs_**2, (xs_, 0, 2))}")
+
+# ── E. (e) Properties — numerical verification ──────────
+print("\n──── E. (e) Properties of the definite integral ────")
+
+Q = lambda g, a, b: quad(g, a, b)[0]      # numerical ∫_a^b g
+
+# Linearity
+lhs = Q(lambda z: 3*z**2 + 5*np.sin(z), 0, 1)
+rhs = 3*Q(lambda z: z**2, 0, 1) + 5*Q(np.sin, 0, 1)
+print(f"  Linearity  : ∫₀¹(3x²+5sin x) = {lhs:.12f}")
+print(f"               3∫₀¹x² + 5∫₀¹sin x = {rhs:.12f}"
+      f"   |difference| = {abs(lhs-rhs):.2e}")
+
+# Additivity over intervals
+whole = Q(lambda z: z**2, 0, 3)
+split = Q(lambda z: z**2, 0, 1) + Q(lambda z: z**2, 1, 3)
+print(f"  Additivity : ∫₀³x² = {whole:.12f} ,  ∫₀¹+∫₁³ = {split:.12f}"
+      f"   |difference| = {abs(whole-split):.2e}")
+
+# Reversal of the limits
+fwd = Q(lambda z: z**2, 1, 4)
+bwd = Q(lambda z: z**2, 4, 1)
+print(f"  Reversal   : ∫₁⁴x² = {fwd:.12f} ,  ∫₄¹x² = {bwd:.12f}"
+      f"   sum = {fwd+bwd:.2e}")
+
+# Symmetries
+odd = Q(lambda z: z**3, -2, 2)
+even_full = Q(lambda z: z**2, -2, 2)
+even_half = 2*Q(lambda z: z**2, 0, 2)
+print(f"  Odd        : ∫₋₂²x³ = {odd:.2e}   [EXPECTED 0]")
+print(f"  Even       : ∫₋₂²x² = {even_full:.12f} ,  "
+      f"2∫₀²x² = {even_half:.12f}   |difference| = {abs(even_full-even_half):.2e}")
+
+# ── F. (f) Bounds for f(x) = e^(x²) on [0,1] ───────────
+print("\n──── F. (f) Bounds for f(x) = e^(x²) on [0,1] ────")
+
+g = lambda z: np.exp(z**2)
+I_exact = Q(g, 0, 1)
+print(f"  ∫₀¹ e^(x²) dx = {I_exact:.12f}   (quad)")
+print(f"  f is increasing on [0,1] (f' = 2x·e^(x²) ≥ 0),")
+print(f"  so m = f(0) = {g(0.0):.6f} and M = f(1) = e = {g(1.0):.6f}.")
+print(f"  Crude bound: {g(0.0):.6f} ≤ ∫ ≤ {g(1.0):.6f}   →  "
+      f"{g(0.0) &lt;= I_exact &lt;= g(1.0)}")
+
+print("\n  Tightening by splitting [0,1] into k equal subintervals")
+print("  (on each one m_j = f(left endpoint), M_j = f(right endpoint)):")
+print(f"  {'k':&gt;3} {'lower bound':&gt;16} {'upper bound':&gt;16} {'width':&gt;12}"
+      f" {'contains the integral?':&gt;24}")
+for k in (1, 2, 4, 8):
+    e_ = np.linspace(0, 1, k + 1)
+    h = 1/k
+    lower = float(np.sum(g(e_[:-1])) * h)     # f increasing ⇒ min at the left
+    upper = float(np.sum(g(e_[1:])) * h)      #               max at the right
+    print(f"  {k:&gt;3d} {lower:&gt;16.10f} {upper:&gt;16.10f} {upper-lower:&gt;12.6f}"
+          f" {str(lower &lt;= I_exact &lt;= upper):&gt;24s}")
+
+print("\n  Comparison: on [0,1] we have x² ≤ x, so e^(x²) ≤ e^x.")
+I_ex = Q(np.exp, 0, 1)
+print(f"    ∫₀¹e^(x²)dx = {I_exact:.12f}   ≤   ∫₀¹e^x dx = {I_ex:.12f}"
+      f"   →  {I_exact &lt;= I_ex}")
+
+# ── G. (g) Average value of f(x) = x² on [0,3] ──────────
+print("\n──── G. (g) Average value of f(x) = x² on [0,3] ────")
+
+N_big = 10**4
+I_riem = riemann(f, 0, 3, N_big, 'mid')
+fbar = I_riem / (3 - 0)
+print(f"  ∫₀³x²dx ≈ {I_riem:.10f} (midpoint Riemann sum, n = {N_big})"
+      f"   [exact: 9]")
+print(f"  Average value f̄ = ∫₀³f/(b-a) ≈ {fbar:.10f}   [EXPECTED 3]")
+
+xi = np.sqrt(fbar)
+print(f"  MVT: f(c) = f̄  ⇒  c = √f̄ ≈ {xi:.10f}   [EXPECTED √3 ≈ "
+      f"{np.sqrt(3):.10f}]")
+print(f"  Area of the rectangle f̄·(b-a) = {fbar*3:.10f}  versus  "
+      f"∫₀³f = {I_riem:.10f}   |difference| = {abs(fbar*3 - I_riem):.2e}")
+
+zz = np.linspace(0, 3, 400)
+plt.figure(figsize=(7.5, 5))
+plt.fill_between(zz, 0, f(zz), color='steelblue', alpha=.35,
+                 label="region under f(x)=x²   (area = 9)")
+plt.fill_between([0, 3], 0, [fbar, fbar], color='crimson', alpha=.18,
+                 label=f"rectangle of height f̄ = {fbar:.4f}  "
+                       f"(area = {fbar*3:.4f})")
+plt.plot(zz, f(zz), 'b-', lw=2.2)
+plt.axhline(fbar, color='crimson', lw=2, ls='--')
+plt.plot([xi], [fbar], 'ko', ms=8, zorder=5)
+plt.annotate(f"c ≈ {xi:.4f}", (xi, fbar), textcoords="offset points",
+             xytext=(10, -18), fontsize=10)
+plt.vlines(xi, 0, fbar, color='k', ls=':', lw=1.2)
+plt.xlabel("x"); plt.ylabel("y"); plt.xlim(0, 3); plt.ylim(0, 9.5)
+plt.title("Average value: the two areas are equal (Mean Value Theorem)")
+plt.legend(fontsize=9, loc='upper left'); plt.grid(alpha=.3)
+plt.tight_layout()
+
+print("\n✓ Chapter 14 completed.")
+plt.show()
+</textarea>
+      <pre class="py-output" id="py-output"></pre>
+      <div class="py-plots" id="py-plots"></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications.</small>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelector('.tab-btn.'+name).classList.add('active');
+}
+function loadCode(file, elementId, lang) {
+  fetch(file+'?v='+Date.now())
+    .then(r=>r.ok?r.text():Promise.reject(r.status))
+    .then(text=>{
+      const el=document.getElementById(elementId);
+      el.textContent=text; el.className='language-'+lang;
+      Prism.highlightElement(el);
+    })
+    .catch(err=>{document.getElementById(elementId).textContent='⚠ Could not load the file ('+err+'). Please use the Download button.';});
+}
+
+/* ── In-browser Python runner (Pyodide) ── */
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.29.4/full/pyodide.js';
+let pyodideReady = null, originalPy = '';
+const $ = id => document.getElementById(id);
+originalPy = $('py-editor').value;
+$('py-reset').onclick = () => { $('py-editor').value = originalPy; $('py-output').textContent=''; $('py-plots').innerHTML=''; };
+
+async function ensurePyodide(setStatus){
+  if (pyodideReady) return pyodideReady;
+  pyodideReady = (async () => {
+    setStatus('Downloading the Python environment… (first time ~15–25 MB)');
+    if (!window.loadPyodide){
+      await new Promise((res, rej) => {
+        const sc = document.createElement('script');
+        sc.src = PYODIDE_URL; sc.onload = res; sc.onerror = () => rej('script load error');
+        document.head.appendChild(sc);
+      });
+    }
+    return await loadPyodide();
+  })();
+  return pyodideReady;
+}
+
+$('py-run').onclick = async function(){
+  const btn = this, out = $('py-output'), plots = $('py-plots');
+  const setStatus = t => $('py-status').textContent = t;
+  btn.disabled = true; out.textContent = ''; plots.innerHTML = '';
+  try {
+    const py = await ensurePyodide(setStatus);
+    py.setStdout({ batched: s => { out.textContent += s; } });
+    py.setStderr({ batched: s => { out.textContent += s; } });
+    const code = $('py-editor').value;
+    setStatus('Loading libraries…');
+    await py.loadPackagesFromImports(code);
+    setStatus('Running…');
+    await py.runPythonAsync("try:\n    import matplotlib; matplotlib.use('AGG')\nexcept Exception:\n    pass");
+    py.globals.set('__user_src__', code);
+    await py.runPythonAsync(`
+import traceback
+try:
+    exec(__user_src__, {'__name__': '__main__'})
+except Exception:
+    traceback.print_exc()
+`);
+    const figs = await py.runPythonAsync(`
+import base64, io
+_imgs = []
+try:
+    import matplotlib.pyplot as plt
+    for _n in plt.get_fignums():
+        _f = plt.figure(_n); _b = io.BytesIO()
+        _f.savefig(_b, format='png', dpi=110, bbox_inches='tight'); _b.seek(0)
+        _imgs.append(base64.b64encode(_b.read()).decode())
+    plt.close('all')
+except Exception:
+    pass
+_imgs
+`);
+    const arr = figs.toJs(); if (figs.destroy) figs.destroy();
+    arr.forEach(b64 => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; plots.appendChild(img); });
+    setStatus(arr.length ? ('Done ✓ — ' + arr.length + ' plot(s)') : 'Done ✓');
+  } catch (e) {
+    out.textContent += '\n⚠ Error: ' + e;
+    setStatus('Error');
+  } finally { btn.disabled = false; }
+};
+</script>
+</body>
+</html>

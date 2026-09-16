@@ -1,0 +1,110 @@
+/* maxima_genikeum.mac — Improper Integrals (Ch. 18) */
+/* Matzakos, N. (2026). Elements of Linear Algebra, Differential & Integral Calculus. NewTech Publications. */
+/* Commands: integrate(f,x,a,inf), limit(F,t,inf), gamma(n), beta(m,n), romberg(f,x,a,b) */
+
+/* An improper integral is defined as the LIMIT of a definite integral.
+   If we compute it that way, Maxima returns inf/und instead of halting
+   with an "integral is divergent" error, and we can interpret it.        */
+
+assume(tt > 1)$
+assume(ee > 0, ee < 1)$
+
+/* Type I: ∫_1^inf f dx = lim_{t->inf} ∫_1^t f dx */
+Iinf(f) := limit(integrate(f, x, 1, tt), tt, inf)$
+/* Type II: ∫_0^1 f dx = lim_{e->0+} ∫_e^1 f dx (singular point at 0) */
+Izero(f) := limit(integrate(f, x, ee, 1), ee, 0, plus)$
+
+print("============================================================")$
+print("A. CONVERGENCE / DIVERGENCE — the p-test")$
+print("============================================================")$
+
+/* ∫_1^inf dx/x^p : converges only for p > 1 */
+print("∫_1^inf dx/x^p :")$
+for p in [1/2, 1, 2] do
+  print("   p =", p, " ->", Iinf(x^(-p)))$
+/* expected: p=1/2 -> inf, p=1 -> inf, p=2 -> 1 */
+
+/* ∫_0^1 dx/sqrt(x) : singular point at x=0, converges (=2) */
+print("")$
+print("∫_0^1 dx/sqrt(x) =", Izero(1/sqrt(x)), "   (expected 2)")$
+
+/* Interpretation of the symbols that Maxima returns */
+print("")$
+print("INTERPRETATION OF THE SYMBOLS:")$
+print("   inf  = +∞ : the integral blows up (divergence)")$
+print("          e.g. limit(log(tt),tt,inf) =", limit(log(tt), tt, inf))$
+print("   ind  = bounded but with no limit (oscillation)")$
+print("          e.g. limit(sin(tt),tt,inf) =", limit(sin(tt), tt, inf))$
+print("   und  = undefined (unbounded oscillation)")$
+print("          e.g. limit(tt*sin(tt),tt,inf) =", limit(tt*sin(tt), tt, inf))$
+print("   Only a FINITE number means convergence.")$
+
+print("")$
+print("============================================================")$
+print("B. THE GAMMA AND BETA FUNCTIONS")$
+print("============================================================")$
+
+print("Gamma(1/2) =", gamma(1/2), "=", float(gamma(1/2)),
+      "   sqrt(%pi) =", float(sqrt(%pi)))$
+print("   equality Gamma(1/2) = sqrt(%pi) :", is(equal(gamma(1/2), sqrt(%pi))))$
+print("Gamma(5/2) =", gamma(5/2), "=", float(gamma(5/2)),
+      "   (3*sqrt(%pi)/4 = 1.32934038818)")$
+print("Gamma(5)   =", gamma(5), " = 4! =", 4!, "   (24)")$
+print("B(2,3) =", beta(2,3), "=", float(beta(2,3)), "   (1/12)")$
+print("Gamma(2)Gamma(3)/Gamma(5) =", gamma(2)*gamma(3)/gamma(5))$
+print("   equality B(m,n) = Gamma(m)Gamma(n)/Gamma(m+n) :",
+      is(equal(beta(2,3), gamma(2)*gamma(3)/gamma(5))))$
+
+/* The Gamma function as an improper integral: Gamma(s) = ∫_0^inf x^(s-1) e^(-x) dx */
+print("")$
+print("∫_0^inf x^(1/2-1) e^(-x) dx =",
+      integrate(x^(1/2-1)*exp(-x), x, 0, inf), "   (= Gamma(1/2) = sqrt(%pi))")$
+
+print("")$
+print("============================================================")$
+print("C. THE GAUSS INTEGRAL — SYMBOLICALLY AND NUMERICALLY")$
+print("============================================================")$
+
+load(romberg)$
+
+G : integrate(exp(-x^2), x, 0, inf)$
+print("∫_0^inf e^(-x^2) dx =", G, "=", float(G))$
+print("   sqrt(%pi)/2      =", float(sqrt(%pi)/2))$
+print("   equality :", is(equal(G, sqrt(%pi)/2)))$
+
+/* Numerically on a finite interval (romberg = Maxima's "quad") */
+print("")$
+print("∫_0^5 e^(-x^2) dx (romberg) =", romberg(exp(-x^2), x, 0, 5))$
+print("   (the tail ∫_5^inf e^(-x^2) dx is ~ 1.4e-12, so practically sqrt(%pi)/2)")$
+print("   |romberg - sqrt(%pi)/2| =",
+      abs(romberg(exp(-x^2), x, 0, 5) - float(sqrt(%pi)/2)),
+      " (the difference is romberg's tolerance, not the tail)")$
+
+print("")$
+print("============================================================")$
+print("D. COMPARISON TEST:  0 < e^(-x)/x <= e^(-x)  for x >= 1")$
+print("============================================================")$
+
+Emin : Iinf(exp(-x))$
+print("∫_1^inf e^(-x) dx     =", Emin, "=", float(Emin),
+      "   (e^(-1) = 0.36787944117144233)")$
+print("∫_1^20 e^(-x)/x dx    =", romberg(exp(-x)/x, x, 1, 20),
+      "   (E1(1) = 0.2193839344)")$
+print("")$
+print("Since 0 < e^(-x)/x <= e^(-x) for every x >= 1 and the larger")$
+print("integral converges (= 1/e), the smaller one converges too.")$
+print("Numerical check of the bound at a few points:")$
+for xv in [1, 2, 5, 10] do
+  print("   x =", xv, ": e^(-x)/x =", float(exp(-xv)/xv),
+        " <= e^(-x) =", float(exp(-xv)))$
+
+/* Comparison plot (endpoints in increasing order) */
+plot2d([1/x^2, 1/x, 1/sqrt(x)], [x, 1, 10], [y, 0, 1.2],
+       [legend, "1/x^2 (converges)", "1/x (diverges)", "1/sqrt(x) (diverges)"],
+       [xlabel, "x"], [ylabel, "f(x)"],
+       [title, "p-test on [1,inf)"])$
+
+plot2d([exp(-x)/x, exp(-x)], [x, 1, 8], [y, 0, 0.4],
+       [legend, "e^(-x)/x", "e^(-x)"],
+       [xlabel, "x"], [ylabel, "f(x)"],
+       [title, "Comparison test"])$
