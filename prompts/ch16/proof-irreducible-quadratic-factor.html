@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Irreducible Quadratic Factor (Completing the Square)</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Irreducible Quadratic Factor (Completing the Square)</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 16 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>Let $x^2+bx+c$ be irreducible ($b^2-4c<0$). Completing the square gives $x^2+bx+c=\left(x+\tfrac{b}{2}\right)^2+k^2$, with $k=\sqrt{c-\tfrac{b^2}{4}}>0$, and $\int\dfrac{Ax+B}{x^2+bx+c}dx$ splits into a logarithmic part (whose numerator is the derivative $2x+b$) and an arctangent.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant &mdash; it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20Let%20%24x%5E2%2Bbx%2Bc%24%20be%20irreducible%20%28%24b%5E2-4c%3C0%24%29.%20Completing%20the%20square%20gives%20%24x%5E2%2Bbx%2Bc%3D%5Cleft%28x%2B%5Ctfrac%7Bb%7D%7B2%7D%5Cright%29%5E2%2Bk%5E2%24%2C%20with%20%24k%3D%5Csqrt%7Bc-%5Ctfrac%7Bb%5E2%7D%7B4%7D%7D%3E0%24%2C%20and%20%24%5Cint%5Cdfrac%7BAx%2BB%7D%7Bx%5E2%2Bbx%2Bc%7Ddx%24%20splits%20into%20a%20logarithmic%20part%20%28whose%20numerator%20is%20the%20derivative%20%242x%2Bb%24%29%20and%20an%20arctangent.">ChatGPT</a>
@@ -27,6 +87,208 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: Let $x^2+bx+c$ be irreducible ($b^2-4c<0$). Completing the square gives $x^2+bx+c=\left(x+\tfrac{b}{2}\right)^2+k^2$, with $k=\sqrt{c-\tfrac{b^2}{4}}>0$, and $\int\dfrac{Ax+B}{x^2+bx+c}dx$ splits into a logarithmic part (whose numerator is the derivative $2x+b$) and an arctangent.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The formula and its application were proved in Lean 4 with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">If $b^2-4c\lt 0$ and $k=\sqrt{c-\tfrac{b^2}{4}}$, then $\int\dfrac{Ax+B}{x^2+bx+c}\,dx$<wbr>${}=\dfrac{A}{2}\ln(x^2+bx+c)$ $+\,\dfrac{B-\tfrac{Ab}{2}}{k}\arctan\dfrac{x+\tfrac{b}{2}}{k}+C$</div><pre class="ln"><span class="kw">theorem</span> quadratic_factor (A B b c : ℝ) (hdisc : b ^ 2 - 4 * c &lt; 0) (x : ℝ) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c) +
+        (B - A * b / 2) / Real.sqrt (c - b ^ 2 / 4) *
+          Real.arctan ((x + b / 2) / Real.sqrt (c - b ^ 2 / 4)))
+      ((A * x + B) / (x ^ 2 + b * x + c)) x</pre></li><li><div class="bk">Application: when the numerator is a multiple of $2x+b$, only the logarithmic part remains: $\int\dfrac{Ax+\tfrac{Ab}{2}}{x^2+bx+c}\,dx$<wbr>${}=\dfrac{A}{2}\ln(x^2+bx+c)+C$</div><pre class="ln"><span class="kw">theorem</span> log_part (A b c : ℝ) (hdisc : b ^ 2 - 4 * c &lt; 0) (x : ℝ) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c))
+      ((A * x + A * b / 2) / (x ^ 2 + b * x + c)) x</pre></li></ul>
+<p class="note">The indefinite integral $\int f(x)\,dx=F(x)+C$ means that $F$ is an antiderivative of $f$, that is, $F$ has derivative $f$: this is written <code>HasDerivAt F (f x) x</code>. The proposition in the book describes how the integral is decomposed; here we state the formula that the decomposition leads to and check that the derivative of the right-hand side is $\dfrac{Ax+B}{x^2+bx+c}$. Since $x^2+bx+c\gt 0$ for every $x$, the logarithm needs no absolute value. The square root is written <code>Real.sqrt</code>, and in Lean's goal states it appears as <code>√</code>.</p>
+<h2>2. Step by step: logarithm and arctangent</h2>
+<p class="note">The idea: $\dfrac{Ax+B}{x^2+bx+c}$<wbr>${}=\dfrac{A}{2}\cdot\dfrac{2x+b}{x^2+bx+c}+\dfrac{B-\tfrac{Ab}{2}}{(x+\tfrac{b}{2})^2+k^2}$. We differentiate the two parts of the formula and check that the sum of the derivatives is the function being integrated. We start from the goal:</p>
+<div class="goal start"><span>The goal</span><pre>A B b c : ℝ
+hdisc : b ^ 2 - 4 * c &lt; 0
+x : ℝ
+⊢ HasDerivAt
+  (fun x =&gt;
+    A / 2 * Real.log (x ^ 2 + b * x + c) +
+      (B - A * b / 2) / √(c - b ^ 2 / 4) * Real.arctan ((x + b / 2) / √(c - b ^ 2 / 4)))
+  ((A * x + B) / (x ^ 2 + b * x + c)) x</pre></div>
+<p class="note">Above <code>⊢</code> is what we know; after <code>⊢</code> is what we have to show. After each step we show only what changed.</p>
+<ol class="steps"><li><pre class="ln"><span class="cm">-- k = √(c - b²/4) &gt; 0</span>
+<span class="tc">set</span> k := Real.sqrt (c - b ^ 2 / 4) <span class="kw">with</span> hk_def</pre><p>We name $k=\sqrt{c-\tfrac{b^2}{4}}$ (<code>set</code>), so that the goal is written more briefly.</p><div class="goal"><span>What remains to be proved</span><pre>k : ℝ := √(c - b ^ 2 / 4)
+hk_def : k = √(c - b ^ 2 / 4)
+⊢ HasDerivAt (fun x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c) + (B - A * b / 2) / k * Real.arctan ((x + b / 2) / k))
+  ((A * x + B) / (x ^ 2 + b * x + c)) x</pre></div></li><li><pre class="ln"><span class="kw">have</span> hk : 0 &lt; k := Real.sqrt_pos.mpr (<span class="kw">by</span> <span class="tc">linarith</span>)
+<span class="kw">have</span> hk0 : k ≠ 0 := hk.ne&#x27;</pre><p>Since $b^2-4c\lt 0$, we have $c-\tfrac{b^2}{4}\gt 0$, hence $k\gt 0$ and $k\neq 0$.</p><div class="goal"><span>What remains to be proved</span><pre>hk : 0 &lt; k
+hk0 : k ≠ 0
+⊢ HasDerivAt (fun x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c) + (B - A * b / 2) / k * Real.arctan ((x + b / 2) / k))
+  ((A * x + B) / (x ^ 2 + b * x + c)) x</pre></div></li><li><pre class="ln"><span class="kw">have</span> hk2 : k ^ 2 = c - b ^ 2 / 4 := Real.sq_sqrt (<span class="kw">by</span> <span class="tc">linarith</span>)</pre><p>$k^2=c-\tfrac{b^2}{4}$ (<code>Real.sq_sqrt</code>).</p><div class="goal"><span>What remains to be proved</span><pre>hk2 : k ^ 2 = c - b ^ 2 / 4
+⊢ HasDerivAt (fun x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c) + (B - A * b / 2) / k * Real.arctan ((x + b / 2) / k))
+  ((A * x + B) / (x ^ 2 + b * x + c)) x</pre></div></li><li><pre class="ln"><span class="cm">-- completing the square: x² + bx + c = (x + b/2)² + k²</span>
+<span class="kw">have</span> hsq : x ^ 2 + b * x + c = (x + b / 2) ^ 2 + k ^ 2 := <span class="kw">by</span>
+  <span class="tc">rw</span> [hk2]
+  <span class="tc">ring</span></pre><p>Completing the square: $x^2+bx+c$<wbr>${}=\left(x+\tfrac{b}{2}\right)^2+k^2$. After we substitute $k^2$, <code>ring</code> checks the equality.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="kw">have</span> hpos : 0 &lt; x ^ 2 + b * x + c := <span class="kw">by</span>
+  <span class="tc">rw</span> [hsq]
+  <span class="tc">positivity</span></pre><p>Hence $x^2+bx+c\gt 0$, as the sum of a square and a positive number (<code>positivity</code>).</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="cm">-- logarithmic part: (ln(x² + bx + c))&#x27; = (2x + b)/(x² + bx + c)</span>
+<span class="kw">have</span> h1 : HasDerivAt (<span class="kw">fun</span> x =&gt; x ^ 2 + b * x + c) (2 * x + b) x := <span class="kw">by</span>
+  <span class="tc">simpa</span> using ((hasDerivAt_pow 2 x).add ((hasDerivAt_id&#x27; x).const_mul b)).add_const c</pre><p>$x^2+bx+c$ has derivative $2x+b$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="kw">have</span> h2 := h1.log hpos.ne&#x27;</pre><p>Logarithmic part: $\ln(x^2+bx+c)$ has derivative $\dfrac{2x+b}{x^2+bx+c}$ (<code>HasDerivAt.log</code>).</p><div class="goal"><span>What remains to be proved</span><pre>A B b c : ℝ
+hdisc : b ^ 2 - 4 * c &lt; 0
+x : ℝ
+k : ℝ := √(c - b ^ 2 / 4)
+hk_def : k = √(c - b ^ 2 / 4)
+hk : 0 &lt; k
+hk0 : k ≠ 0
+hk2 : k ^ 2 = c - b ^ 2 / 4
+hsq : x ^ 2 + b * x + c = (x + b / 2) ^ 2 + k ^ 2
+hpos : 0 &lt; x ^ 2 + b * x + c
+h1 : HasDerivAt (fun x =&gt; x ^ 2 + b * x + c) (2 * x + b) x
+h2 : HasDerivAt (fun y =&gt; Real.log (y ^ 2 + b * y + c)) ((2 * x + b) / (x ^ 2 + b * x + c)) x
+⊢ HasDerivAt (fun x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c) + (B - A * b / 2) / k * Real.arctan ((x + b / 2) / k))
+  ((A * x + B) / (x ^ 2 + b * x + c)) x</pre></div></li><li><pre class="ln"><span class="cm">-- arctangent: (arctan((x + b/2)/k))&#x27; = 1/(1 + ((x + b/2)/k)²) · 1/k</span>
+<span class="kw">have</span> h3 : HasDerivAt (<span class="kw">fun</span> x =&gt; (x + b / 2) / k) (1 / k) x :=
+  ((hasDerivAt_id&#x27; x).add_const (b / 2)).div_const k</pre><p>$\dfrac{x+b/2}{k}$ has derivative $\dfrac{1}{k}$.</p><div class="goal"><span>What remains to be proved</span><pre>h3 : HasDerivAt (fun x =&gt; (x + b / 2) / k) (1 / k) x
+⊢ HasDerivAt (fun x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c) + (B - A * b / 2) / k * Real.arctan ((x + b / 2) / k))
+  ((A * x + B) / (x ^ 2 + b * x + c)) x</pre></div></li><li><pre class="ln"><span class="kw">have</span> h4 := h3.arctan</pre><p>Arctangent: $\arctan\dfrac{x+b/2}{k}$ has derivative $\dfrac{1}{1+\left(\frac{x+b/2}{k}\right)^2}\cdot\dfrac{1}{k}$ (<code>HasDerivAt.arctan</code>).</p><div class="goal"><span>What remains to be proved</span><pre>h4 : HasDerivAt (fun x =&gt; Real.arctan ((x + b / 2) / k)) (1 / (1 + ((x + b / 2) / k) ^ 2) * (1 / k)) x
+⊢ HasDerivAt (fun x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c) + (B - A * b / 2) / k * Real.arctan ((x + b / 2) / k))
+  ((A * x + B) / (x ^ 2 + b * x + c)) x</pre></div></li><li><pre class="ln"><span class="cm">-- we combine the two parts</span>
+<span class="kw">have</span> h5 : HasDerivAt (<span class="kw">fun</span> x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c) +
+    (B - A * b / 2) / k * Real.arctan ((x + b / 2) / k))
+    (A / 2 * ((2 * x + b) / (x ^ 2 + b * x + c)) +
+      (B - A * b / 2) / k * (1 / (1 + ((x + b / 2) / k) ^ 2) * (1 / k))) x :=
+  (h2.const_mul (A / 2)).add (h4.const_mul ((B - A * b / 2) / k))</pre><p>We multiply by the constant coefficients and add: <code>h5</code> gives the derivative of the right-hand side of the formula.</p><div class="goal"><span>What remains to be proved</span><pre>h5 : HasDerivAt (fun x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c) + (B - A * b / 2) / k * Real.arctan ((x + b / 2) / k))
+  (A / 2 * ((2 * x + b) / (x ^ 2 + b * x + c)) + (B - A * b / 2) / k * (1 / (1 + ((x + b / 2) / k) ^ 2) * (1 / k))) x
+⊢ HasDerivAt (fun x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c) + (B - A * b / 2) / k * Real.arctan ((x + b / 2) / k))
+  ((A * x + B) / (x ^ 2 + b * x + c)) x</pre></div></li><li><pre class="ln">convert h5 using 1</pre><p>The function is already the right one; it remains to show that the two derivatives are equal.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ (A * x + B) / (x ^ 2 + b * x + c) =
+  A / 2 * ((2 * x + b) / (x ^ 2 + b * x + c)) + (B - A * b / 2) / k * (1 / (1 + ((x + b / 2) / k) ^ 2) * (1 / k))</pre></div></li><li><pre class="ln"><span class="cm">-- an algebraic identity remains</span>
+<span class="kw">have</span> h6 : 1 + ((x + b / 2) / k) ^ 2 = ((x + b / 2) ^ 2 + k ^ 2) / k ^ 2 := <span class="kw">by</span>
+  <span class="tc">field_simp</span>
+  <span class="tc">ring</span>
+<span class="kw">have</span> hq : (x + b / 2) ^ 2 + k ^ 2 ≠ 0 := <span class="kw">by</span>
+  <span class="tc">rw</span> [← hsq]
+  <span class="tc">exact</span> hpos.ne&#x27;</pre><p>Two auxiliary relations: $1+\left(\frac{x+b/2}{k}\right)^2$<wbr>${}=\dfrac{(x+b/2)^2+k^2}{k^2}$ and $(x+b/2)^2+k^2\neq 0$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="tc">rw</span> [h6, hsq]</pre><p>We write all the denominators in the form $(x+b/2)^2+k^2$.</p><div class="goal"><span>What remains to be proved</span><pre>A B b c : ℝ
+hdisc : b ^ 2 - 4 * c &lt; 0
+x : ℝ
+k : ℝ := √(c - b ^ 2 / 4)
+hk_def : k = √(c - b ^ 2 / 4)
+hk : 0 &lt; k
+hk0 : k ≠ 0
+hk2 : k ^ 2 = c - b ^ 2 / 4
+hsq : x ^ 2 + b * x + c = (x + b / 2) ^ 2 + k ^ 2
+hpos : 0 &lt; x ^ 2 + b * x + c
+h1 : HasDerivAt (fun x =&gt; x ^ 2 + b * x + c) (2 * x + b) x
+h2 : HasDerivAt (fun y =&gt; Real.log (y ^ 2 + b * y + c)) ((2 * x + b) / (x ^ 2 + b * x + c)) x
+h3 : HasDerivAt (fun x =&gt; (x + b / 2) / k) (1 / k) x
+h4 : HasDerivAt (fun x =&gt; Real.arctan ((x + b / 2) / k)) (1 / (1 + ((x + b / 2) / k) ^ 2) * (1 / k)) x
+h5 : HasDerivAt (fun x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c) + (B - A * b / 2) / k * Real.arctan ((x + b / 2) / k))
+  (A / 2 * ((2 * x + b) / (x ^ 2 + b * x + c)) + (B - A * b / 2) / k * (1 / (1 + ((x + b / 2) / k) ^ 2) * (1 / k))) x
+h6 : 1 + ((x + b / 2) / k) ^ 2 = ((x + b / 2) ^ 2 + k ^ 2) / k ^ 2
+hq : (x + b / 2) ^ 2 + k ^ 2 ≠ 0
+⊢ (A * x + B) / ((x + b / 2) ^ 2 + k ^ 2) =
+  A / 2 * ((2 * x + b) / ((x + b / 2) ^ 2 + k ^ 2)) +
+    (B - A * b / 2) / k * (1 / (((x + b / 2) ^ 2 + k ^ 2) / k ^ 2) * (1 / k))</pre></div></li><li><pre class="ln"><span class="tc">field_simp</span>
+<span class="tc">ring</span></pre><p>We clear the denominators (<code>field_simp</code>) and check the remaining equality with <code>ring</code>.</p><div class="goal done"><span>✓ </span>No goals: the proof is complete.</div></li></ol>
+<h2>3. Try it yourself: only a logarithm</h2>
+<div class="ex"><p>Show that $\dfrac{A}{2}\ln(x^2+bx+c)$ has derivative $\dfrac{Ax+\tfrac{Ab}{2}}{x^2+bx+c}$ when $b^2-4c\lt 0$. Open the exercise in Lean and replace the word <code>sorry</code> with your own steps. When the proof is correct, the message <i>declaration uses sorry</i> disappears and no red error appears.</p>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2016%20%C2%B7%20Irreducible%20Quadratic%20Factor%20%28Completing%20the%20Square%29%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch16.AnagwgosTetragwnikos%0A%0Atheorem%20quadratic_factor%20%28A%20B%20b%20c%20%3A%20%E2%84%9D%29%20%28hdisc%20%3A%20b%20%5E%202%20-%204%20*%20c%20%3C%200%29%20%28x%20%3A%20%E2%84%9D%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%20A%20%2F%202%20*%20Real.log%20%28x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%29%20%2B%0A%20%20%20%20%20%20%20%20%28B%20-%20A%20*%20b%20%2F%202%29%20%2F%20Real.sqrt%20%28c%20-%20b%20%5E%202%20%2F%204%29%20*%0A%20%20%20%20%20%20%20%20%20%20Real.arctan%20%28%28x%20%2B%20b%20%2F%202%29%20%2F%20Real.sqrt%20%28c%20-%20b%20%5E%202%20%2F%204%29%29%29%0A%20%20%20%20%20%20%28%28A%20*%20x%20%2B%20B%29%20%2F%20%28x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%29%29%20x%20%3A%3D%20by%0A%20%20--%20k%20%3D%20%E2%88%9A%28c%20-%20b%C2%B2%2F4%29%20%3E%200%0A%20%20set%20k%20%3A%3D%20Real.sqrt%20%28c%20-%20b%20%5E%202%20%2F%204%29%20with%20hk_def%0A%20%20have%20hk%20%3A%200%20%3C%20k%20%3A%3D%20Real.sqrt_pos.mpr%20%28by%20linarith%29%0A%20%20have%20hk0%20%3A%20k%20%E2%89%A0%200%20%3A%3D%20hk.ne'%0A%20%20have%20hk2%20%3A%20k%20%5E%202%20%3D%20c%20-%20b%20%5E%202%20%2F%204%20%3A%3D%20Real.sq_sqrt%20%28by%20linarith%29%0A%20%20--%20completing%20the%20square%3A%20x%C2%B2%20%2B%20bx%20%2B%20c%20%3D%20%28x%20%2B%20b%2F2%29%C2%B2%20%2B%20k%C2%B2%0A%20%20have%20hsq%20%3A%20x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%20%3D%20%28x%20%2B%20b%20%2F%202%29%20%5E%202%20%2B%20k%20%5E%202%20%3A%3D%20by%0A%20%20%20%20rw%20%5Bhk2%5D%0A%20%20%20%20ring%0A%20%20have%20hpos%20%3A%200%20%3C%20x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%20%3A%3D%20by%0A%20%20%20%20rw%20%5Bhsq%5D%0A%20%20%20%20positivity%0A%20%20--%20logarithmic%20part%3A%20%28ln%28x%C2%B2%20%2B%20bx%20%2B%20c%29%29'%20%3D%20%282x%20%2B%20b%29%2F%28x%C2%B2%20%2B%20bx%20%2B%20c%29%0A%20%20have%20h1%20%3A%20HasDerivAt%20%28fun%20x%20%3D%3E%20x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%29%20%282%20*%20x%20%2B%20b%29%20x%20%3A%3D%20by%0A%20%20%20%20simpa%20using%20%28%28hasDerivAt_pow%202%20x%29.add%20%28%28hasDerivAt_id'%20x%29.const_mul%20b%29%29.add_const%20c%0A%20%20have%20h2%20%3A%3D%20h1.log%20hpos.ne'%0A%20%20--%20arctangent%3A%20%28arctan%28%28x%20%2B%20b%2F2%29%2Fk%29%29'%20%3D%201%2F%281%20%2B%20%28%28x%20%2B%20b%2F2%29%2Fk%29%C2%B2%29%20%C2%B7%201%2Fk%0A%20%20have%20h3%20%3A%20HasDerivAt%20%28fun%20x%20%3D%3E%20%28x%20%2B%20b%20%2F%202%29%20%2F%20k%29%20%281%20%2F%20k%29%20x%20%3A%3D%0A%20%20%20%20%28%28hasDerivAt_id'%20x%29.add_const%20%28b%20%2F%202%29%29.div_const%20k%0A%20%20have%20h4%20%3A%3D%20h3.arctan%0A%20%20--%20we%20combine%20the%20two%20parts%0A%20%20have%20h5%20%3A%20HasDerivAt%20%28fun%20x%20%3D%3E%20A%20%2F%202%20*%20Real.log%20%28x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%29%20%2B%0A%20%20%20%20%20%20%28B%20-%20A%20*%20b%20%2F%202%29%20%2F%20k%20*%20Real.arctan%20%28%28x%20%2B%20b%20%2F%202%29%20%2F%20k%29%29%0A%20%20%20%20%20%20%28A%20%2F%202%20*%20%28%282%20*%20x%20%2B%20b%29%20%2F%20%28x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%29%29%20%2B%0A%20%20%20%20%20%20%20%20%28B%20-%20A%20*%20b%20%2F%202%29%20%2F%20k%20*%20%281%20%2F%20%281%20%2B%20%28%28x%20%2B%20b%20%2F%202%29%20%2F%20k%29%20%5E%202%29%20*%20%281%20%2F%20k%29%29%29%20x%20%3A%3D%0A%20%20%20%20%28h2.const_mul%20%28A%20%2F%202%29%29.add%20%28h4.const_mul%20%28%28B%20-%20A%20*%20b%20%2F%202%29%20%2F%20k%29%29%0A%20%20convert%20h5%20using%201%0A%20%20--%20an%20algebraic%20identity%20remains%0A%20%20have%20h6%20%3A%201%20%2B%20%28%28x%20%2B%20b%20%2F%202%29%20%2F%20k%29%20%5E%202%20%3D%20%28%28x%20%2B%20b%20%2F%202%29%20%5E%202%20%2B%20k%20%5E%202%29%20%2F%20k%20%5E%202%20%3A%3D%20by%0A%20%20%20%20field_simp%0A%20%20%20%20ring%0A%20%20have%20hq%20%3A%20%28x%20%2B%20b%20%2F%202%29%20%5E%202%20%2B%20k%20%5E%202%20%E2%89%A0%200%20%3A%3D%20by%0A%20%20%20%20rw%20%5B%E2%86%90%20hsq%5D%0A%20%20%20%20exact%20hpos.ne'%0A%20%20rw%20%5Bh6%2C%20hsq%5D%0A%20%20field_simp%0A%20%20ring%0A%0Atheorem%20log_part%20%28A%20b%20c%20%3A%20%E2%84%9D%29%20%28hdisc%20%3A%20b%20%5E%202%20-%204%20*%20c%20%3C%200%29%20%28x%20%3A%20%E2%84%9D%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%20A%20%2F%202%20*%20Real.log%20%28x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%29%29%0A%20%20%20%20%20%20%28%28A%20*%20x%20%2B%20A%20*%20b%20%2F%202%29%20%2F%20%28x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%29%29%20x%20%3A%3D%20by%0A%20%20--%20EXERCISE%3A%20replace%20sorry%20with%20your%20own%20proof.%0A%20%20sorry%0A%0Aend%20Ch16.AnagwgosTetragwnikos%0A" target="_blank" rel="noopener">Open the exercise in Lean</a>
+<details><summary>Hint</summary><div class="in"><p class="note">Apply the formula with $B=\tfrac{Ab}{2}$: <code>have h := quadratic_factor A (A * b / 2) b c hdisc x</code>. The coefficient of the arctangent becomes $0$; simplify with <code>simp only [sub_self, zero_div, zero_mul, add_zero] at h</code> and finish with <code>exact h</code>.</p></div></details>
+<details><summary>Solution</summary><div class="in"><pre class="ln"><span class="kw">theorem</span> log_part (A b c : ℝ) (hdisc : b ^ 2 - 4 * c &lt; 0) (x : ℝ) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c))
+      ((A * x + A * b / 2) / (x ^ 2 + b * x + c)) x := <span class="kw">by</span>
+  <span class="kw">have</span> h := quadratic_factor A (A * b / 2) b c hdisc x
+  <span class="tc">simp</span> only [sub_self, zero_div, zero_mul, add_zero] <span class="kw">at</span> h
+  <span class="tc">exact</span> h</pre></div></details>
+</div>
+<h2>4. In Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.sqrt_pos#doc" target="_blank" rel="noopener"><code>Real.sqrt_pos</code></a>: $\sqrt{t}\gt 0$ exactly when $t\gt 0$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.sq_sqrt#doc" target="_blank" rel="noopener"><code>Real.sq_sqrt</code></a>: $(\sqrt{t})^2=t$ for $t\ge 0$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=hasDerivAt_pow#doc" target="_blank" rel="noopener"><code>hasDerivAt_pow</code></a>: the derivative of $x^n$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.log#doc" target="_blank" rel="noopener"><code>HasDerivAt.log</code></a>: the derivative of $\ln f(x)$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.arctan#doc" target="_blank" rel="noopener"><code>HasDerivAt.arctan</code></a>: the derivative of $\arctan f(x)$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.div_const#doc" target="_blank" rel="noopener"><code>HasDerivAt.div_const</code></a>: the derivative of $\dfrac{f(x)}{c}$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.const_mul#doc" target="_blank" rel="noopener"><code>HasDerivAt.const_mul</code></a>: the rule for $c\,f(x)$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.add#doc" target="_blank" rel="noopener"><code>HasDerivAt.add</code></a>: the sum rule.</li></ul>
+<h2>5. The complete code</h2>
+<details><summary>See the code (60 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 16 · Irreducible Quadratic Factor (Completing the Square) · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch16.AnagwgosTetragwnikos
+
+<span class="kw">theorem</span> quadratic_factor (A B b c : ℝ) (hdisc : b ^ 2 - 4 * c &lt; 0) (x : ℝ) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c) +
+        (B - A * b / 2) / Real.sqrt (c - b ^ 2 / 4) *
+          Real.arctan ((x + b / 2) / Real.sqrt (c - b ^ 2 / 4)))
+      ((A * x + B) / (x ^ 2 + b * x + c)) x := <span class="kw">by</span>
+  <span class="cm">-- k = √(c - b²/4) &gt; 0</span>
+  <span class="tc">set</span> k := Real.sqrt (c - b ^ 2 / 4) <span class="kw">with</span> hk_def
+  <span class="kw">have</span> hk : 0 &lt; k := Real.sqrt_pos.mpr (<span class="kw">by</span> <span class="tc">linarith</span>)
+  <span class="kw">have</span> hk0 : k ≠ 0 := hk.ne&#x27;
+  <span class="kw">have</span> hk2 : k ^ 2 = c - b ^ 2 / 4 := Real.sq_sqrt (<span class="kw">by</span> <span class="tc">linarith</span>)
+  <span class="cm">-- completing the square: x² + bx + c = (x + b/2)² + k²</span>
+  <span class="kw">have</span> hsq : x ^ 2 + b * x + c = (x + b / 2) ^ 2 + k ^ 2 := <span class="kw">by</span>
+    <span class="tc">rw</span> [hk2]
+    <span class="tc">ring</span>
+  <span class="kw">have</span> hpos : 0 &lt; x ^ 2 + b * x + c := <span class="kw">by</span>
+    <span class="tc">rw</span> [hsq]
+    <span class="tc">positivity</span>
+  <span class="cm">-- logarithmic part: (ln(x² + bx + c))&#x27; = (2x + b)/(x² + bx + c)</span>
+  <span class="kw">have</span> h1 : HasDerivAt (<span class="kw">fun</span> x =&gt; x ^ 2 + b * x + c) (2 * x + b) x := <span class="kw">by</span>
+    <span class="tc">simpa</span> using ((hasDerivAt_pow 2 x).add ((hasDerivAt_id&#x27; x).const_mul b)).add_const c
+  <span class="kw">have</span> h2 := h1.log hpos.ne&#x27;
+  <span class="cm">-- arctangent: (arctan((x + b/2)/k))&#x27; = 1/(1 + ((x + b/2)/k)²) · 1/k</span>
+  <span class="kw">have</span> h3 : HasDerivAt (<span class="kw">fun</span> x =&gt; (x + b / 2) / k) (1 / k) x :=
+    ((hasDerivAt_id&#x27; x).add_const (b / 2)).div_const k
+  <span class="kw">have</span> h4 := h3.arctan
+  <span class="cm">-- we combine the two parts</span>
+  <span class="kw">have</span> h5 : HasDerivAt (<span class="kw">fun</span> x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c) +
+      (B - A * b / 2) / k * Real.arctan ((x + b / 2) / k))
+      (A / 2 * ((2 * x + b) / (x ^ 2 + b * x + c)) +
+        (B - A * b / 2) / k * (1 / (1 + ((x + b / 2) / k) ^ 2) * (1 / k))) x :=
+    (h2.const_mul (A / 2)).add (h4.const_mul ((B - A * b / 2) / k))
+  convert h5 using 1
+  <span class="cm">-- an algebraic identity remains</span>
+  <span class="kw">have</span> h6 : 1 + ((x + b / 2) / k) ^ 2 = ((x + b / 2) ^ 2 + k ^ 2) / k ^ 2 := <span class="kw">by</span>
+    <span class="tc">field_simp</span>
+    <span class="tc">ring</span>
+  <span class="kw">have</span> hq : (x + b / 2) ^ 2 + k ^ 2 ≠ 0 := <span class="kw">by</span>
+    <span class="tc">rw</span> [← hsq]
+    <span class="tc">exact</span> hpos.ne&#x27;
+  <span class="tc">rw</span> [h6, hsq]
+  <span class="tc">field_simp</span>
+  <span class="tc">ring</span>
+
+<span class="kw">theorem</span> log_part (A b c : ℝ) (hdisc : b ^ 2 - 4 * c &lt; 0) (x : ℝ) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; A / 2 * Real.log (x ^ 2 + b * x + c))
+      ((A * x + A * b / 2) / (x ^ 2 + b * x + c)) x := <span class="kw">by</span>
+  <span class="kw">have</span> h := quadratic_factor A (A * b / 2) b c hdisc x
+  <span class="tc">simp</span> only [sub_self, zero_div, zero_mul, add_zero] <span class="kw">at</span> h
+  <span class="tc">exact</span> h
+
+<span class="kw">end</span> Ch16.AnagwgosTetragwnikos
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2016%20%C2%B7%20Irreducible%20Quadratic%20Factor%20%28Completing%20the%20Square%29%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch16.AnagwgosTetragwnikos%0A%0Atheorem%20quadratic_factor%20%28A%20B%20b%20c%20%3A%20%E2%84%9D%29%20%28hdisc%20%3A%20b%20%5E%202%20-%204%20*%20c%20%3C%200%29%20%28x%20%3A%20%E2%84%9D%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%20A%20%2F%202%20*%20Real.log%20%28x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%29%20%2B%0A%20%20%20%20%20%20%20%20%28B%20-%20A%20*%20b%20%2F%202%29%20%2F%20Real.sqrt%20%28c%20-%20b%20%5E%202%20%2F%204%29%20*%0A%20%20%20%20%20%20%20%20%20%20Real.arctan%20%28%28x%20%2B%20b%20%2F%202%29%20%2F%20Real.sqrt%20%28c%20-%20b%20%5E%202%20%2F%204%29%29%29%0A%20%20%20%20%20%20%28%28A%20*%20x%20%2B%20B%29%20%2F%20%28x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%29%29%20x%20%3A%3D%20by%0A%20%20--%20k%20%3D%20%E2%88%9A%28c%20-%20b%C2%B2%2F4%29%20%3E%200%0A%20%20set%20k%20%3A%3D%20Real.sqrt%20%28c%20-%20b%20%5E%202%20%2F%204%29%20with%20hk_def%0A%20%20have%20hk%20%3A%200%20%3C%20k%20%3A%3D%20Real.sqrt_pos.mpr%20%28by%20linarith%29%0A%20%20have%20hk0%20%3A%20k%20%E2%89%A0%200%20%3A%3D%20hk.ne'%0A%20%20have%20hk2%20%3A%20k%20%5E%202%20%3D%20c%20-%20b%20%5E%202%20%2F%204%20%3A%3D%20Real.sq_sqrt%20%28by%20linarith%29%0A%20%20--%20completing%20the%20square%3A%20x%C2%B2%20%2B%20bx%20%2B%20c%20%3D%20%28x%20%2B%20b%2F2%29%C2%B2%20%2B%20k%C2%B2%0A%20%20have%20hsq%20%3A%20x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%20%3D%20%28x%20%2B%20b%20%2F%202%29%20%5E%202%20%2B%20k%20%5E%202%20%3A%3D%20by%0A%20%20%20%20rw%20%5Bhk2%5D%0A%20%20%20%20ring%0A%20%20have%20hpos%20%3A%200%20%3C%20x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%20%3A%3D%20by%0A%20%20%20%20rw%20%5Bhsq%5D%0A%20%20%20%20positivity%0A%20%20--%20logarithmic%20part%3A%20%28ln%28x%C2%B2%20%2B%20bx%20%2B%20c%29%29'%20%3D%20%282x%20%2B%20b%29%2F%28x%C2%B2%20%2B%20bx%20%2B%20c%29%0A%20%20have%20h1%20%3A%20HasDerivAt%20%28fun%20x%20%3D%3E%20x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%29%20%282%20*%20x%20%2B%20b%29%20x%20%3A%3D%20by%0A%20%20%20%20simpa%20using%20%28%28hasDerivAt_pow%202%20x%29.add%20%28%28hasDerivAt_id'%20x%29.const_mul%20b%29%29.add_const%20c%0A%20%20have%20h2%20%3A%3D%20h1.log%20hpos.ne'%0A%20%20--%20arctangent%3A%20%28arctan%28%28x%20%2B%20b%2F2%29%2Fk%29%29'%20%3D%201%2F%281%20%2B%20%28%28x%20%2B%20b%2F2%29%2Fk%29%C2%B2%29%20%C2%B7%201%2Fk%0A%20%20have%20h3%20%3A%20HasDerivAt%20%28fun%20x%20%3D%3E%20%28x%20%2B%20b%20%2F%202%29%20%2F%20k%29%20%281%20%2F%20k%29%20x%20%3A%3D%0A%20%20%20%20%28%28hasDerivAt_id'%20x%29.add_const%20%28b%20%2F%202%29%29.div_const%20k%0A%20%20have%20h4%20%3A%3D%20h3.arctan%0A%20%20--%20we%20combine%20the%20two%20parts%0A%20%20have%20h5%20%3A%20HasDerivAt%20%28fun%20x%20%3D%3E%20A%20%2F%202%20*%20Real.log%20%28x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%29%20%2B%0A%20%20%20%20%20%20%28B%20-%20A%20*%20b%20%2F%202%29%20%2F%20k%20*%20Real.arctan%20%28%28x%20%2B%20b%20%2F%202%29%20%2F%20k%29%29%0A%20%20%20%20%20%20%28A%20%2F%202%20*%20%28%282%20*%20x%20%2B%20b%29%20%2F%20%28x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%29%29%20%2B%0A%20%20%20%20%20%20%20%20%28B%20-%20A%20*%20b%20%2F%202%29%20%2F%20k%20*%20%281%20%2F%20%281%20%2B%20%28%28x%20%2B%20b%20%2F%202%29%20%2F%20k%29%20%5E%202%29%20*%20%281%20%2F%20k%29%29%29%20x%20%3A%3D%0A%20%20%20%20%28h2.const_mul%20%28A%20%2F%202%29%29.add%20%28h4.const_mul%20%28%28B%20-%20A%20*%20b%20%2F%202%29%20%2F%20k%29%29%0A%20%20convert%20h5%20using%201%0A%20%20--%20an%20algebraic%20identity%20remains%0A%20%20have%20h6%20%3A%201%20%2B%20%28%28x%20%2B%20b%20%2F%202%29%20%2F%20k%29%20%5E%202%20%3D%20%28%28x%20%2B%20b%20%2F%202%29%20%5E%202%20%2B%20k%20%5E%202%29%20%2F%20k%20%5E%202%20%3A%3D%20by%0A%20%20%20%20field_simp%0A%20%20%20%20ring%0A%20%20have%20hq%20%3A%20%28x%20%2B%20b%20%2F%202%29%20%5E%202%20%2B%20k%20%5E%202%20%E2%89%A0%200%20%3A%3D%20by%0A%20%20%20%20rw%20%5B%E2%86%90%20hsq%5D%0A%20%20%20%20exact%20hpos.ne'%0A%20%20rw%20%5Bh6%2C%20hsq%5D%0A%20%20field_simp%0A%20%20ring%0A%0Atheorem%20log_part%20%28A%20b%20c%20%3A%20%E2%84%9D%29%20%28hdisc%20%3A%20b%20%5E%202%20-%204%20*%20c%20%3C%200%29%20%28x%20%3A%20%E2%84%9D%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%20A%20%2F%202%20*%20Real.log%20%28x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%29%29%0A%20%20%20%20%20%20%28%28A%20*%20x%20%2B%20A%20*%20b%20%2F%202%29%20%2F%20%28x%20%5E%202%20%2B%20b%20*%20x%20%2B%20c%29%29%20x%20%3A%3D%20by%0A%20%20have%20h%20%3A%3D%20quadratic_factor%20A%20%28A%20*%20b%20%2F%202%29%20b%20c%20hdisc%20x%0A%20%20simp%20only%20%5Bsub_self%2C%20zero_div%2C%20zero_mul%2C%20add_zero%5D%20at%20h%0A%20%20exact%20h%0A%0Aend%20Ch16.AnagwgosTetragwnikos%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Apostol, T. M. (1967). <em>Calculus</em> (2nd ed., Vols. 1&ndash;2). John Wiley &amp; Sons.</li><li>Filippou, G. N. (2008). <em>Mathimatika Anoteris Ekpaidefsis [Higher Education Mathematics]</em>. Ekdoseis Zitis. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

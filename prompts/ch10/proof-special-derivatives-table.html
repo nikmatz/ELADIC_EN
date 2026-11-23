@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Derivatives of the Special Functions</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Derivatives of the Special Functions</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 10 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>$(x^n)&#x27;=n x^{n-1}$, $(e^x)&#x27;=e^x$, $(a^x)&#x27;=a^x\ln a$, $(\ln x)&#x27;=\dfrac{1}{x}$, $(\log_a x)&#x27;=\dfrac{1}{x\ln a}$, $(\sqrt{x})&#x27;=\dfrac{1}{2\sqrt{x}}$; $(\sin x)&#x27;=\cos x$, $(\cos x)&#x27;=-\sin x$, $(\tan x)&#x27;=\sec^2 x$, $(\cot x)&#x27;=-\csc^2 x$, $(\sec x)&#x27;=\sec x\tan x$, $(\csc x)&#x27;=-\csc x\cot x$; $(\arcsin x)&#x27;=\dfrac{1}{\sqrt{1-x^2}}$, $(\arccos x)&#x27;=-\dfrac{1}{\sqrt{1-x^2}}$, $(\arctan x)&#x27;=\dfrac{1}{1+x^2}$; $(\sinh x)&#x27;=\cosh x$, $(\cosh x)&#x27;=\sinh x$.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20%24%28x%5En%29%27%3Dn%20x%5E%7Bn-1%7D%24%2C%20%24%28e%5Ex%29%27%3De%5Ex%24%2C%20%24%28a%5Ex%29%27%3Da%5Ex%5Cln%20a%24%2C%20%24%28%5Cln%20x%29%27%3D%5Cdfrac%7B1%7D%7Bx%7D%24%2C%20%24%28%5Clog_a%20x%29%27%3D%5Cdfrac%7B1%7D%7Bx%5Cln%20a%7D%24%2C%20%24%28%5Csqrt%7Bx%7D%29%27%3D%5Cdfrac%7B1%7D%7B2%5Csqrt%7Bx%7D%7D%24%3B%20%24%28%5Csin%20x%29%27%3D%5Ccos%20x%24%2C%20%24%28%5Ccos%20x%29%27%3D-%5Csin%20x%24%2C%20%24%28%5Ctan%20x%29%27%3D%5Csec%5E2%20x%24%2C%20%24%28%5Ccot%20x%29%27%3D-%5Ccsc%5E2%20x%24%2C%20%24%28%5Csec%20x%29%27%3D%5Csec%20x%5Ctan%20x%24%2C%20%24%28%5Ccsc%20x%29%27%3D-%5Ccsc%20x%5Ccot%20x%24%3B%20%24%28%5Carcsin%20x%29%27%3D%5Cdfrac%7B1%7D%7B%5Csqrt%7B1-x%5E2%7D%7D%24%2C%20%24%28%5Carccos%20x%29%27%3D-%5Cdfrac%7B1%7D%7B%5Csqrt%7B1-x%5E2%7D%7D%24%2C%20%24%28%5Carctan%20x%29%27%3D%5Cdfrac%7B1%7D%7B1%2Bx%5E2%7D%24%3B%20%24%28%5Csinh%20x%29%27%3D%5Ccosh%20x%24%2C%20%24%28%5Ccosh%20x%29%27%3D%5Csinh%20x%24.">ChatGPT</a>
@@ -27,6 +87,136 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: $(x^n)&#x27;=n x^{n-1}$, $(e^x)&#x27;=e^x$, $(a^x)&#x27;=a^x\ln a$, $(\ln x)&#x27;=\dfrac{1}{x}$, $(\log_a x)&#x27;=\dfrac{1}{x\ln a}$, $(\sqrt{x})&#x27;=\dfrac{1}{2\sqrt{x}}$; $(\sin x)&#x27;=\cos x$, $(\cos x)&#x27;=-\sin x$, $(\tan x)&#x27;=\sec^2 x$, $(\cot x)&#x27;=-\csc^2 x$, $(\sec x)&#x27;=\sec x\tan x$, $(\csc x)&#x27;=-\csc x\cot x$; $(\arcsin x)&#x27;=\dfrac{1}{\sqrt{1-x^2}}$, $(\arccos x)&#x27;=-\dfrac{1}{\sqrt{1-x^2}}$, $(\arctan x)&#x27;=\dfrac{1}{1+x^2}$; $(\sinh x)&#x27;=\cosh x$, $(\cosh x)&#x27;=\sinh x$.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The statements were proved in Lean 4, using theorems from Mathlib, with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">$(x^n)'=nx^{n-1}$</div><pre class="ln"><span class="kw">theorem</span> d_pow (x : ℝ) (n : ℕ) : HasDerivAt (<span class="kw">fun</span> y =&gt; y ^ n) (n * x ^ (n - 1)) x</pre></li><li><div class="bk">$(e^x)'=e^x$</div><pre class="ln"><span class="kw">theorem</span> d_exp (x : ℝ) : HasDerivAt Real.exp (Real.exp x) x</pre></li><li><div class="bk">$(a^x)'=a^x\ln a$, for $a\gt 0$</div><pre class="ln"><span class="kw">theorem</span> d_exp_base (a x : ℝ) (ha : 0 &lt; a) :
+    HasDerivAt (<span class="kw">fun</span> y =&gt; a ^ y) (a ^ x * Real.log a) x</pre></li><li><div class="bk">$(\ln x)'=\dfrac{1}{x}$</div><pre class="ln"><span class="kw">theorem</span> d_log (x : ℝ) (hx : x ≠ 0) : HasDerivAt Real.log (1 / x) x</pre></li><li><div class="bk">$(\log_a x)'=\dfrac{1}{x\ln a}$</div><pre class="ln"><span class="kw">theorem</span> d_logb (a x : ℝ) (hx : x ≠ 0) :
+    HasDerivAt (<span class="kw">fun</span> y =&gt; Real.logb a y) (1 / (x * Real.log a)) x</pre></li><li><div class="bk">$(\sqrt{x})'=\dfrac{1}{2\sqrt{x}}$</div><pre class="ln"><span class="kw">theorem</span> d_sqrt (x : ℝ) (hx : x ≠ 0) : HasDerivAt (<span class="kw">fun</span> y =&gt; √y) (1 / (2 * √x)) x</pre></li><li><div class="bk">$(\sin x)'=\cos x$</div><pre class="ln"><span class="kw">theorem</span> d_sin (x : ℝ) : HasDerivAt Real.sin (Real.cos x) x</pre></li><li><div class="bk">$(\cos x)'=-\sin x$</div><pre class="ln"><span class="kw">theorem</span> d_cos (x : ℝ) : HasDerivAt Real.cos (-Real.sin x) x</pre></li><li><div class="bk">$(\tan x)'$<wbr>${}=\sec^2x$<wbr>${}=\dfrac{1}{\cos^2x}$</div><pre class="ln"><span class="kw">theorem</span> d_tan (x : ℝ) (hx : Real.cos x ≠ 0) : HasDerivAt Real.tan (1 / Real.cos x ^ 2) x</pre></li><li><div class="bk">$(\cot x)'$<wbr>${}=-\csc^2x$<wbr>${}=-\dfrac{1}{\sin^2x}$</div><pre class="ln"><span class="kw">theorem</span> d_cot (x : ℝ) (hx : Real.sin x ≠ 0) :
+    HasDerivAt Real.cot (-(1 / Real.sin x ^ 2)) x</pre></li><li><div class="bk">$(\sec x)'$<wbr>${}=\sec x\tan x$<wbr>${}=\dfrac{\sin x}{\cos^2x}$</div><pre class="ln"><span class="kw">theorem</span> d_sec (x : ℝ) (hx : Real.cos x ≠ 0) :
+    HasDerivAt (<span class="kw">fun</span> y =&gt; 1 / Real.cos y) (Real.sin x / Real.cos x ^ 2) x</pre></li><li><div class="bk">$(\csc x)'$<wbr>${}=-\csc x\cot x$<wbr>${}=-\dfrac{\cos x}{\sin^2x}$</div><pre class="ln"><span class="kw">theorem</span> d_csc (x : ℝ) (hx : Real.sin x ≠ 0) :
+    HasDerivAt (<span class="kw">fun</span> y =&gt; 1 / Real.sin y) (-Real.cos x / Real.sin x ^ 2) x</pre></li><li><div class="bk">$(\arcsin x)'$<wbr>${}=\dfrac{1}{\sqrt{1-x^2}}$</div><pre class="ln"><span class="kw">theorem</span> d_arcsin (x : ℝ) (h : |x| &lt; 1) : HasDerivAt Real.arcsin (1 / √(1 - x ^ 2)) x</pre></li><li><div class="bk">$(\arccos x)'$<wbr>${}=-\dfrac{1}{\sqrt{1-x^2}}$</div><pre class="ln"><span class="kw">theorem</span> d_arccos (x : ℝ) (h : |x| &lt; 1) : HasDerivAt Real.arccos (-(1 / √(1 - x ^ 2))) x</pre></li><li><div class="bk">$(\arctan x)'=\dfrac{1}{1+x^2}$</div><pre class="ln"><span class="kw">theorem</span> d_arctan (x : ℝ) : HasDerivAt Real.arctan (1 / (1 + x ^ 2)) x</pre></li><li><div class="bk">$(\sinh x)'=\cosh x$</div><pre class="ln"><span class="kw">theorem</span> d_sinh (x : ℝ) : HasDerivAt Real.sinh (Real.cosh x) x</pre></li><li><div class="bk">$(\cosh x)'=\sinh x$</div><pre class="ln"><span class="kw">theorem</span> d_cosh (x : ℝ) : HasDerivAt Real.cosh (Real.sinh x) x</pre></li></ul>
+<p class="note"><code>HasDerivAt f f' x</code> means that $f$ has derivative $f'$ at $x$. The functions are those of Mathlib (<code>Real.exp</code>, <code>Real.log</code>, <code>Real.sin</code>, etc.); $\sec x$ is written $\dfrac{1}{\cos x}$ and $\csc x$ is written $\dfrac{1}{\sin x}$. Each formula carries the conditions it needs: $\cos x\neq 0$ for $\tan$ and $\sec$, $\sin x\neq 0$ for $\cot$ and $\csc$, $|x|\lt 1$ for $\arcsin$ and $\arccos$. In Lean, <code>Real.log</code> is also defined for $x\lt 0$, as $\ln|x|$, and division by $0$ gives $0$; this is why the formulas for the logarithm and the square root are stated for every $x\neq 0$, and for $x\gt 0$ (with $a\gt 0$, $a\neq 1$) they say the same as the book.</p>
+<h2>2. Where it is in Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=hasDerivAt_pow#doc" target="_blank" rel="noopener"><code>hasDerivAt_pow</code></a>: the derivative of $x^n$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.hasDerivAt_exp#doc" target="_blank" rel="noopener"><code>Real.hasDerivAt_exp</code></a>: the derivative of $e^x$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.hasStrictDerivAt_const_rpow#doc" target="_blank" rel="noopener"><code>Real.hasStrictDerivAt_const_rpow</code></a>: the derivative of $a^x$, for $a\gt 0$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.hasDerivAt_log#doc" target="_blank" rel="noopener"><code>Real.hasDerivAt_log</code></a>: the derivative of $\ln x$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.log_div_log#doc" target="_blank" rel="noopener"><code>Real.log_div_log</code></a>: $\dfrac{\ln x}{\ln a}=\log_a x$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.hasDerivAt_sqrt#doc" target="_blank" rel="noopener"><code>Real.hasDerivAt_sqrt</code></a>: the derivative of $\sqrt{x}$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.hasDerivAt_sin#doc" target="_blank" rel="noopener"><code>Real.hasDerivAt_sin</code></a>: the derivative of $\sin x$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.hasDerivAt_cos#doc" target="_blank" rel="noopener"><code>Real.hasDerivAt_cos</code></a>: the derivative of $\cos x$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.hasDerivAt_tan#doc" target="_blank" rel="noopener"><code>Real.hasDerivAt_tan</code></a>: the derivative of $\tan x$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.cot_eq_cos_div_sin#doc" target="_blank" rel="noopener"><code>Real.cot_eq_cos_div_sin</code></a>: $\cot x=\dfrac{\cos x}{\sin x}$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.div#doc" target="_blank" rel="noopener"><code>HasDerivAt.div</code></a>: the quotient rule.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.inv#doc" target="_blank" rel="noopener"><code>HasDerivAt.inv</code></a>: the derivative of $\dfrac{1}{f(x)}$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.sin_sq_add_cos_sq#doc" target="_blank" rel="noopener"><code>Real.sin_sq_add_cos_sq</code></a>: $\sin^2x+\cos^2x=1$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.hasDerivAt_arcsin#doc" target="_blank" rel="noopener"><code>Real.hasDerivAt_arcsin</code></a>: the derivative of $\arcsin x$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.hasDerivAt_arccos#doc" target="_blank" rel="noopener"><code>Real.hasDerivAt_arccos</code></a>: the derivative of $\arccos x$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.hasDerivAt_arctan#doc" target="_blank" rel="noopener"><code>Real.hasDerivAt_arctan</code></a>: the derivative of $\arctan x$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.hasDerivAt_sinh#doc" target="_blank" rel="noopener"><code>Real.hasDerivAt_sinh</code></a>: the derivative of $\sinh x$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.hasDerivAt_cosh#doc" target="_blank" rel="noopener"><code>Real.hasDerivAt_cosh</code></a>: the derivative of $\cosh x$.</li></ul>
+<h2>3. The complete code</h2>
+<details><summary>See the code (84 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 10 · Derivatives of the Special Functions · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch10.PinakasParagogon
+
+<span class="kw">theorem</span> d_pow (x : ℝ) (n : ℕ) : HasDerivAt (<span class="kw">fun</span> y =&gt; y ^ n) (n * x ^ (n - 1)) x :=
+  hasDerivAt_pow n x
+
+<span class="kw">theorem</span> d_exp (x : ℝ) : HasDerivAt Real.exp (Real.exp x) x := Real.hasDerivAt_exp x
+
+<span class="kw">theorem</span> d_exp_base (a x : ℝ) (ha : 0 &lt; a) :
+    HasDerivAt (<span class="kw">fun</span> y =&gt; a ^ y) (a ^ x * Real.log a) x :=
+  (Real.hasStrictDerivAt_const_rpow ha x).hasDerivAt
+
+<span class="kw">theorem</span> d_log (x : ℝ) (hx : x ≠ 0) : HasDerivAt Real.log (1 / x) x := <span class="kw">by</span>
+  <span class="tc">rw</span> [one_div]
+  <span class="tc">exact</span> Real.hasDerivAt_log hx
+
+<span class="kw">theorem</span> d_logb (a x : ℝ) (hx : x ≠ 0) :
+    HasDerivAt (<span class="kw">fun</span> y =&gt; Real.logb a y) (1 / (x * Real.log a)) x := <span class="kw">by</span>
+  <span class="kw">have</span> h := (Real.hasDerivAt_log hx).div_const (Real.log a)
+  <span class="kw">have</span> hfun : (<span class="kw">fun</span> y =&gt; Real.logb a y) = <span class="kw">fun</span> y =&gt; Real.log y / Real.log a := <span class="kw">by</span>
+    funext y
+    <span class="tc">rw</span> [Real.log_div_log]
+  <span class="tc">rw</span> [hfun, one_div, mul_inv, ← div_eq_mul_inv]
+  <span class="tc">exact</span> h
+
+<span class="kw">theorem</span> d_sqrt (x : ℝ) (hx : x ≠ 0) : HasDerivAt (<span class="kw">fun</span> y =&gt; √y) (1 / (2 * √x)) x :=
+  Real.hasDerivAt_sqrt hx
+
+<span class="kw">theorem</span> d_sin (x : ℝ) : HasDerivAt Real.sin (Real.cos x) x := Real.hasDerivAt_sin x
+
+<span class="kw">theorem</span> d_cos (x : ℝ) : HasDerivAt Real.cos (-Real.sin x) x := Real.hasDerivAt_cos x
+
+<span class="kw">theorem</span> d_tan (x : ℝ) (hx : Real.cos x ≠ 0) : HasDerivAt Real.tan (1 / Real.cos x ^ 2) x :=
+  Real.hasDerivAt_tan hx
+
+<span class="kw">theorem</span> d_cot (x : ℝ) (hx : Real.sin x ≠ 0) :
+    HasDerivAt Real.cot (-(1 / Real.sin x ^ 2)) x := <span class="kw">by</span>
+  <span class="kw">have</span> h := (Real.hasDerivAt_cos x).div (Real.hasDerivAt_sin x) hx
+  <span class="kw">have</span> hfun : Real.cos / Real.sin = Real.cot := <span class="kw">by</span>
+    funext y
+    <span class="tc">rw</span> [Pi.div_apply, Real.cot_eq_cos_div_sin]
+  <span class="tc">rw</span> [hfun] <span class="kw">at</span> h
+  convert h using 1
+  <span class="tc">rw</span> [<span class="kw">show</span> -Real.sin x * Real.sin x - Real.cos x * Real.cos x = -1 <span class="kw">by</span>
+    <span class="tc">linear_combination</span> -Real.sin_sq_add_cos_sq x]
+  <span class="tc">ring</span>
+
+<span class="kw">theorem</span> d_sec (x : ℝ) (hx : Real.cos x ≠ 0) :
+    HasDerivAt (<span class="kw">fun</span> y =&gt; 1 / Real.cos y) (Real.sin x / Real.cos x ^ 2) x := <span class="kw">by</span>
+  <span class="kw">have</span> h := (Real.hasDerivAt_cos x).inv hx
+  <span class="tc">rw</span> [neg_neg] <span class="kw">at</span> h
+  convert h using 1
+  funext y
+  <span class="tc">rw</span> [one_div, Pi.inv_apply]
+
+<span class="kw">theorem</span> d_csc (x : ℝ) (hx : Real.sin x ≠ 0) :
+    HasDerivAt (<span class="kw">fun</span> y =&gt; 1 / Real.sin y) (-Real.cos x / Real.sin x ^ 2) x := <span class="kw">by</span>
+  <span class="kw">have</span> h := (Real.hasDerivAt_sin x).inv hx
+  convert h using 1
+  funext y
+  <span class="tc">rw</span> [one_div, Pi.inv_apply]
+
+<span class="kw">theorem</span> d_arcsin (x : ℝ) (h : |x| &lt; 1) : HasDerivAt Real.arcsin (1 / √(1 - x ^ 2)) x := <span class="kw">by</span>
+  <span class="tc">rw</span> [abs_lt] <span class="kw">at</span> h
+  <span class="tc">exact</span> Real.hasDerivAt_arcsin h.1.ne&#x27; h.2.ne
+
+<span class="kw">theorem</span> d_arccos (x : ℝ) (h : |x| &lt; 1) : HasDerivAt Real.arccos (-(1 / √(1 - x ^ 2))) x := <span class="kw">by</span>
+  <span class="tc">rw</span> [abs_lt] <span class="kw">at</span> h
+  <span class="tc">exact</span> Real.hasDerivAt_arccos h.1.ne&#x27; h.2.ne
+
+<span class="kw">theorem</span> d_arctan (x : ℝ) : HasDerivAt Real.arctan (1 / (1 + x ^ 2)) x :=
+  Real.hasDerivAt_arctan x
+
+<span class="kw">theorem</span> d_sinh (x : ℝ) : HasDerivAt Real.sinh (Real.cosh x) x := Real.hasDerivAt_sinh x
+
+<span class="kw">theorem</span> d_cosh (x : ℝ) : HasDerivAt Real.cosh (Real.sinh x) x := Real.hasDerivAt_cosh x
+
+<span class="kw">end</span> Ch10.PinakasParagogon
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2010%20%C2%B7%20Derivatives%20of%20the%20Special%20Functions%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch10.PinakasParagogon%0A%0Atheorem%20d_pow%20%28x%20%3A%20%E2%84%9D%29%20%28n%20%3A%20%E2%84%95%29%20%3A%20HasDerivAt%20%28fun%20y%20%3D%3E%20y%20%5E%20n%29%20%28n%20*%20x%20%5E%20%28n%20-%201%29%29%20x%20%3A%3D%0A%20%20hasDerivAt_pow%20n%20x%0A%0Atheorem%20d_exp%20%28x%20%3A%20%E2%84%9D%29%20%3A%20HasDerivAt%20Real.exp%20%28Real.exp%20x%29%20x%20%3A%3D%20Real.hasDerivAt_exp%20x%0A%0Atheorem%20d_exp_base%20%28a%20x%20%3A%20%E2%84%9D%29%20%28ha%20%3A%200%20%3C%20a%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20y%20%3D%3E%20a%20%5E%20y%29%20%28a%20%5E%20x%20*%20Real.log%20a%29%20x%20%3A%3D%0A%20%20%28Real.hasStrictDerivAt_const_rpow%20ha%20x%29.hasDerivAt%0A%0Atheorem%20d_log%20%28x%20%3A%20%E2%84%9D%29%20%28hx%20%3A%20x%20%E2%89%A0%200%29%20%3A%20HasDerivAt%20Real.log%20%281%20%2F%20x%29%20x%20%3A%3D%20by%0A%20%20rw%20%5Bone_div%5D%0A%20%20exact%20Real.hasDerivAt_log%20hx%0A%0Atheorem%20d_logb%20%28a%20x%20%3A%20%E2%84%9D%29%20%28hx%20%3A%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20y%20%3D%3E%20Real.logb%20a%20y%29%20%281%20%2F%20%28x%20*%20Real.log%20a%29%29%20x%20%3A%3D%20by%0A%20%20have%20h%20%3A%3D%20%28Real.hasDerivAt_log%20hx%29.div_const%20%28Real.log%20a%29%0A%20%20have%20hfun%20%3A%20%28fun%20y%20%3D%3E%20Real.logb%20a%20y%29%20%3D%20fun%20y%20%3D%3E%20Real.log%20y%20%2F%20Real.log%20a%20%3A%3D%20by%0A%20%20%20%20funext%20y%0A%20%20%20%20rw%20%5BReal.log_div_log%5D%0A%20%20rw%20%5Bhfun%2C%20one_div%2C%20mul_inv%2C%20%E2%86%90%20div_eq_mul_inv%5D%0A%20%20exact%20h%0A%0Atheorem%20d_sqrt%20%28x%20%3A%20%E2%84%9D%29%20%28hx%20%3A%20x%20%E2%89%A0%200%29%20%3A%20HasDerivAt%20%28fun%20y%20%3D%3E%20%E2%88%9Ay%29%20%281%20%2F%20%282%20*%20%E2%88%9Ax%29%29%20x%20%3A%3D%0A%20%20Real.hasDerivAt_sqrt%20hx%0A%0Atheorem%20d_sin%20%28x%20%3A%20%E2%84%9D%29%20%3A%20HasDerivAt%20Real.sin%20%28Real.cos%20x%29%20x%20%3A%3D%20Real.hasDerivAt_sin%20x%0A%0Atheorem%20d_cos%20%28x%20%3A%20%E2%84%9D%29%20%3A%20HasDerivAt%20Real.cos%20%28-Real.sin%20x%29%20x%20%3A%3D%20Real.hasDerivAt_cos%20x%0A%0Atheorem%20d_tan%20%28x%20%3A%20%E2%84%9D%29%20%28hx%20%3A%20Real.cos%20x%20%E2%89%A0%200%29%20%3A%20HasDerivAt%20Real.tan%20%281%20%2F%20Real.cos%20x%20%5E%202%29%20x%20%3A%3D%0A%20%20Real.hasDerivAt_tan%20hx%0A%0Atheorem%20d_cot%20%28x%20%3A%20%E2%84%9D%29%20%28hx%20%3A%20Real.sin%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20HasDerivAt%20Real.cot%20%28-%281%20%2F%20Real.sin%20x%20%5E%202%29%29%20x%20%3A%3D%20by%0A%20%20have%20h%20%3A%3D%20%28Real.hasDerivAt_cos%20x%29.div%20%28Real.hasDerivAt_sin%20x%29%20hx%0A%20%20have%20hfun%20%3A%20Real.cos%20%2F%20Real.sin%20%3D%20Real.cot%20%3A%3D%20by%0A%20%20%20%20funext%20y%0A%20%20%20%20rw%20%5BPi.div_apply%2C%20Real.cot_eq_cos_div_sin%5D%0A%20%20rw%20%5Bhfun%5D%20at%20h%0A%20%20convert%20h%20using%201%0A%20%20rw%20%5Bshow%20-Real.sin%20x%20*%20Real.sin%20x%20-%20Real.cos%20x%20*%20Real.cos%20x%20%3D%20-1%20by%0A%20%20%20%20linear_combination%20-Real.sin_sq_add_cos_sq%20x%5D%0A%20%20ring%0A%0Atheorem%20d_sec%20%28x%20%3A%20%E2%84%9D%29%20%28hx%20%3A%20Real.cos%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20y%20%3D%3E%201%20%2F%20Real.cos%20y%29%20%28Real.sin%20x%20%2F%20Real.cos%20x%20%5E%202%29%20x%20%3A%3D%20by%0A%20%20have%20h%20%3A%3D%20%28Real.hasDerivAt_cos%20x%29.inv%20hx%0A%20%20rw%20%5Bneg_neg%5D%20at%20h%0A%20%20convert%20h%20using%201%0A%20%20funext%20y%0A%20%20rw%20%5Bone_div%2C%20Pi.inv_apply%5D%0A%0Atheorem%20d_csc%20%28x%20%3A%20%E2%84%9D%29%20%28hx%20%3A%20Real.sin%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20y%20%3D%3E%201%20%2F%20Real.sin%20y%29%20%28-Real.cos%20x%20%2F%20Real.sin%20x%20%5E%202%29%20x%20%3A%3D%20by%0A%20%20have%20h%20%3A%3D%20%28Real.hasDerivAt_sin%20x%29.inv%20hx%0A%20%20convert%20h%20using%201%0A%20%20funext%20y%0A%20%20rw%20%5Bone_div%2C%20Pi.inv_apply%5D%0A%0Atheorem%20d_arcsin%20%28x%20%3A%20%E2%84%9D%29%20%28h%20%3A%20%7Cx%7C%20%3C%201%29%20%3A%20HasDerivAt%20Real.arcsin%20%281%20%2F%20%E2%88%9A%281%20-%20x%20%5E%202%29%29%20x%20%3A%3D%20by%0A%20%20rw%20%5Babs_lt%5D%20at%20h%0A%20%20exact%20Real.hasDerivAt_arcsin%20h.1.ne'%20h.2.ne%0A%0Atheorem%20d_arccos%20%28x%20%3A%20%E2%84%9D%29%20%28h%20%3A%20%7Cx%7C%20%3C%201%29%20%3A%20HasDerivAt%20Real.arccos%20%28-%281%20%2F%20%E2%88%9A%281%20-%20x%20%5E%202%29%29%29%20x%20%3A%3D%20by%0A%20%20rw%20%5Babs_lt%5D%20at%20h%0A%20%20exact%20Real.hasDerivAt_arccos%20h.1.ne'%20h.2.ne%0A%0Atheorem%20d_arctan%20%28x%20%3A%20%E2%84%9D%29%20%3A%20HasDerivAt%20Real.arctan%20%281%20%2F%20%281%20%2B%20x%20%5E%202%29%29%20x%20%3A%3D%0A%20%20Real.hasDerivAt_arctan%20x%0A%0Atheorem%20d_sinh%20%28x%20%3A%20%E2%84%9D%29%20%3A%20HasDerivAt%20Real.sinh%20%28Real.cosh%20x%29%20x%20%3A%3D%20Real.hasDerivAt_sinh%20x%0A%0Atheorem%20d_cosh%20%28x%20%3A%20%E2%84%9D%29%20%3A%20HasDerivAt%20Real.cosh%20%28Real.sinh%20x%29%20x%20%3A%3D%20Real.hasDerivAt_cosh%20x%0A%0Aend%20Ch10.PinakasParagogon%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Stewart, J. (2016). <em>Calculus: Early Transcendentals</em> (8th ed.). Cengage Learning.</li><li>Bartle, R. G., &amp; Sherbert, D. R. (2011). <em>Introduction to Real Analysis</em> (4th ed.). Wiley.</li><li>Rudin, W. (1976). <em>Principles of Mathematical Analysis</em> (3rd ed.). McGraw-Hill.</li><li>Negrepontis, S., Giotopoulos, S., &amp; Giannakoulias, E. (1999). <em>Apeirostikos Logismos [Infinitesimal Calculus]</em> (Vol. I). Ekdoseis Symmetria. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

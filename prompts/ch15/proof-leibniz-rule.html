@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Leibniz Rule: Differentiation with Variable Limits</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>The Leibniz Rule: Differentiation with Variable Limits</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 15 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>Let $f$ be continuous on an interval $I$ and let $a(x),b(x)$ be differentiable with values in $I$. Then $H(x)=\int_{a(x)}^{b(x)}f(t)\,dt$ is differentiable and $H′(x)=f\bigl(b(x)\bigr)b′(x)-f\bigl(a(x)\bigr)a′(x)$.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant &mdash; it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20Let%20%24f%24%20be%20continuous%20on%20an%20interval%20%24I%24%20and%20let%20%24a%28x%29%2Cb%28x%29%24%20be%20differentiable%20with%20values%20in%20%24I%24.%20Then%20%24H%28x%29%3D%5Cint_%7Ba%28x%29%7D%5E%7Bb%28x%29%7Df%28t%29%5C%2Cdt%24%20is%20differentiable%20and%20%24H%E2%80%B2%28x%29%3Df%5Cbigl%28b%28x%29%5Cbigr%29b%E2%80%B2%28x%29-f%5Cbigl%28a%28x%29%5Cbigr%29a%E2%80%B2%28x%29%24.">ChatGPT</a>
@@ -27,6 +87,124 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: Let $f$ be continuous on an interval $I$ and let $a(x),b(x)$ be differentiable with values in $I$. Then $H(x)=\int_{a(x)}^{b(x)}f(t)\,dt$ is differentiable and $H′(x)=f\bigl(b(x)\bigr)b′(x)-f\bigl(a(x)\bigr)a′(x)$.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The rule and its application were proved in Lean 4 with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">If $f$ is continuous and $a(x),b(x)$ are differentiable, then $H(x)=\int_{a(x)}^{b(x)}f(t)\,dt$ has derivative $H'(x)$<wbr>${}=f\bigl(b(x)\bigr)b'(x)-f\bigl(a(x)\bigr)a'(x)$</div><pre class="ln"><span class="kw">theorem</span> leibniz (f a b a&#x27; b&#x27; : ℝ → ℝ) (hf : Continuous f)
+    (ha : ∀ x, HasDerivAt a (a&#x27; x) x) (hb : ∀ x, HasDerivAt b (b&#x27; x) x) (x : ℝ) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; ∫ t <span class="kw">in</span> a x..b x, f t) (f (b x) * b&#x27; x - f (a x) * a&#x27; x) x</pre></li><li><div class="bk">Application: $\dfrac{d}{dx}\int_0^{x^2}f(t)\,dt$<wbr>${}=f(x^2)\cdot 2x$</div><pre class="ln"><span class="kw">theorem</span> leibniz_square (f : ℝ → ℝ) (hf : Continuous f) (x : ℝ) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; ∫ t <span class="kw">in</span> (0 : ℝ)..x ^ 2, f t) (f (x ^ 2) * (2 * x)) x</pre></li></ul>
+<p class="note">For simplicity we take $f$ continuous on all of $\mathbb{R}$, that is $I=\mathbb{R}$, and $a,b$ differentiable at every point. The integral with variable limits is written <code>∫ t in a x..b x, f t</code>. The proof is the one in the book: with $F(u)=\int_0^u f(t)\,dt$ we have $H(x)$<wbr>${}=F\bigl(b(x)\bigr)-F\bigl(a(x)\bigr)$, and the chain rule gives the derivative.</p>
+<h2>2. Step by step: the Leibniz rule</h2>
+<p class="note">The idea: we write $H$ as the difference of two integrals with fixed lower limit $0$ and differentiate each one with the fundamental theorem and the chain rule. We start from the goal:</p>
+<div class="goal start"><span>The goal</span><pre>f a b a&#x27; b&#x27; : ℝ → ℝ
+hf : Continuous f
+ha : ∀ (x : ℝ), HasDerivAt a (a&#x27; x) x
+hb : ∀ (x : ℝ), HasDerivAt b (b&#x27; x) x
+x : ℝ
+⊢ HasDerivAt (fun x =&gt; ∫ (t : ℝ) in a x..b x, f t) (f (b x) * b&#x27; x - f (a x) * a&#x27; x) x</pre></div>
+<p class="note">Above <code>⊢</code> is what we know; after <code>⊢</code> is what we have to show. After each step we show only what changed.</p>
+<ol class="steps"><li><pre class="ln"><span class="cm">-- F(u) = ∫ f(t) dt from 0 to u has derivative f(u) (fundamental theorem)</span>
+<span class="kw">have</span> hF : ∀ u, HasDerivAt (<span class="kw">fun</span> u =&gt; ∫ t <span class="kw">in</span> (0 : ℝ)..u, f t) (f u) u :=
+  <span class="kw">fun</span> u =&gt; (hf.integral_hasStrictDerivAt 0 u).hasDerivAt</pre><p>Fundamental theorem (<code>Continuous.integral_hasStrictDerivAt</code>): $F(u)=\int_0^u f(t)\,dt$ has derivative $f(u)$ at every $u$.</p><div class="goal"><span>What remains to be proved</span><pre>hF : ∀ (u : ℝ), HasDerivAt (fun u =&gt; ∫ (t : ℝ) in 0..u, f t) (f u) u
+⊢ HasDerivAt (fun x =&gt; ∫ (t : ℝ) in a x..b x, f t) (f (b x) * b&#x27; x - f (a x) * a&#x27; x) x</pre></div></li><li><pre class="ln"><span class="cm">-- H(x) = F(b(x)) - F(a(x))</span>
+<span class="kw">have</span> hH : (<span class="kw">fun</span> x =&gt; ∫ t <span class="kw">in</span> a x..b x, f t) =
+    <span class="kw">fun</span> x =&gt; (∫ t <span class="kw">in</span> (0 : ℝ)..b x, f t) - ∫ t <span class="kw">in</span> (0 : ℝ)..a x, f t := <span class="kw">by</span></pre><p>Claim <code>hH</code>: $H(x)$<wbr>${}=F\bigl(b(x)\bigr)-F\bigl(a(x)\bigr)$, that is, the two functions are equal.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ (fun x =&gt; ∫ (t : ℝ) in a x..b x, f t) = fun x =&gt; (∫ (t : ℝ) in 0..b x, f t) - ∫ (t : ℝ) in 0..a x, f t</pre></div></li><li><pre class="ln">funext y</pre><p>Two functions are equal when they take the same value at every point $y$ (<code>funext</code>).</p><div class="goal"><span>What remains to be proved</span><pre>y : ℝ
+⊢ ∫ (t : ℝ) in a y..b y, f t = (∫ (t : ℝ) in 0..b y, f t) - ∫ (t : ℝ) in 0..a y, f t</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [intervalIntegral.integral_interval_sub_left (hf.intervalIntegrable (μ := volume) 0 (b y))
+  (hf.intervalIntegrable (μ := volume) 0 (a y))]</pre><p>By the additivity of the integral, $\int_0^{b(y)}f-\int_0^{a(y)}f$<wbr>${}=\int_{a(y)}^{b(y)}f$ (<code>intervalIntegral.integral_interval_sub_left</code>). $f$ is continuous, hence integrable on every interval.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="tc">rw</span> [hH]</pre><p>We replace $H$ with the difference $F\bigl(b(x)\bigr)-F\bigl(a(x)\bigr)$.</p><div class="goal"><span>What remains to be proved</span><pre>f a b a&#x27; b&#x27; : ℝ → ℝ
+hf : Continuous f
+ha : ∀ (x : ℝ), HasDerivAt a (a&#x27; x) x
+hb : ∀ (x : ℝ), HasDerivAt b (b&#x27; x) x
+x : ℝ
+hF : ∀ (u : ℝ), HasDerivAt (fun u =&gt; ∫ (t : ℝ) in 0..u, f t) (f u) u
+hH : (fun x =&gt; ∫ (t : ℝ) in a x..b x, f t) = fun x =&gt; (∫ (t : ℝ) in 0..b x, f t) - ∫ (t : ℝ) in 0..a x, f t
+⊢ HasDerivAt (fun x =&gt; (∫ (t : ℝ) in 0..b x, f t) - ∫ (t : ℝ) in 0..a x, f t) (f (b x) * b&#x27; x - f (a x) * a&#x27; x) x</pre></div></li><li><pre class="ln"><span class="cm">-- chain rule for each of the two integrals</span>
+<span class="kw">have</span> h1 := (hF (b x)).comp x (hb x)</pre><p>Chain rule: $F\bigl(b(x)\bigr)$ has derivative $f\bigl(b(x)\bigr)\,b'(x)$. Composition is written with the symbol <code>∘</code>.</p><div class="goal"><span>What remains to be proved</span><pre>h1 : HasDerivAt ((fun u =&gt; ∫ (t : ℝ) in 0..u, f t) ∘ b) (f (b x) * b&#x27; x) x
+⊢ HasDerivAt (fun x =&gt; (∫ (t : ℝ) in 0..b x, f t) - ∫ (t : ℝ) in 0..a x, f t) (f (b x) * b&#x27; x - f (a x) * a&#x27; x) x</pre></div></li><li><pre class="ln"><span class="kw">have</span> h2 := (hF (a x)).comp x (ha x)</pre><p>Similarly, $F\bigl(a(x)\bigr)$ has derivative $f\bigl(a(x)\bigr)\,a'(x)$.</p><div class="goal"><span>What remains to be proved</span><pre>h2 : HasDerivAt ((fun u =&gt; ∫ (t : ℝ) in 0..u, f t) ∘ a) (f (a x) * a&#x27; x) x
+⊢ HasDerivAt (fun x =&gt; (∫ (t : ℝ) in 0..b x, f t) - ∫ (t : ℝ) in 0..a x, f t) (f (b x) * b&#x27; x - f (a x) * a&#x27; x) x</pre></div></li><li><pre class="ln"><span class="tc">exact</span> h1.sub h2</pre><p>Difference rule: we subtract the two derivatives.</p><div class="goal done"><span>✓ </span>No goals: the proof is complete.</div></li></ol>
+<h2>3. Try it yourself: $\int_0^{x^2}f(t)\,dt$</h2>
+<div class="ex"><p>Show that $H(x)=\int_0^{x^2}f(t)\,dt$ has derivative $f(x^2)\cdot 2x$. Open the exercise in Lean and replace the word <code>sorry</code> with your own steps. When the proof is correct, the message <i>declaration uses sorry</i> disappears and no red error appears.</p>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2015%20%C2%B7%20The%20Leibniz%20Rule%3A%20Differentiation%20with%20Variable%20Limits%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch15.KanonasLeibniz%0Aopen%20MeasureTheory%0A%0Atheorem%20leibniz%20%28f%20a%20b%20a'%20b'%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28hf%20%3A%20Continuous%20f%29%0A%20%20%20%20%28ha%20%3A%20%E2%88%80%20x%2C%20HasDerivAt%20a%20%28a'%20x%29%20x%29%20%28hb%20%3A%20%E2%88%80%20x%2C%20HasDerivAt%20b%20%28b'%20x%29%20x%29%20%28x%20%3A%20%E2%84%9D%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%20%E2%88%AB%20t%20in%20a%20x..b%20x%2C%20f%20t%29%20%28f%20%28b%20x%29%20*%20b'%20x%20-%20f%20%28a%20x%29%20*%20a'%20x%29%20x%20%3A%3D%20by%0A%20%20--%20F%28u%29%20%3D%20%E2%88%AB%20f%28t%29%20dt%20from%200%20to%20u%20has%20derivative%20f%28u%29%20%28fundamental%20theorem%29%0A%20%20have%20hF%20%3A%20%E2%88%80%20u%2C%20HasDerivAt%20%28fun%20u%20%3D%3E%20%E2%88%AB%20t%20in%20%280%20%3A%20%E2%84%9D%29..u%2C%20f%20t%29%20%28f%20u%29%20u%20%3A%3D%0A%20%20%20%20fun%20u%20%3D%3E%20%28hf.integral_hasStrictDerivAt%200%20u%29.hasDerivAt%0A%20%20--%20H%28x%29%20%3D%20F%28b%28x%29%29%20-%20F%28a%28x%29%29%0A%20%20have%20hH%20%3A%20%28fun%20x%20%3D%3E%20%E2%88%AB%20t%20in%20a%20x..b%20x%2C%20f%20t%29%20%3D%0A%20%20%20%20%20%20fun%20x%20%3D%3E%20%28%E2%88%AB%20t%20in%20%280%20%3A%20%E2%84%9D%29..b%20x%2C%20f%20t%29%20-%20%E2%88%AB%20t%20in%20%280%20%3A%20%E2%84%9D%29..a%20x%2C%20f%20t%20%3A%3D%20by%0A%20%20%20%20funext%20y%0A%20%20%20%20rw%20%5BintervalIntegral.integral_interval_sub_left%20%28hf.intervalIntegrable%20%28%CE%BC%20%3A%3D%20volume%29%200%20%28b%20y%29%29%0A%20%20%20%20%20%20%28hf.intervalIntegrable%20%28%CE%BC%20%3A%3D%20volume%29%200%20%28a%20y%29%29%5D%0A%20%20rw%20%5BhH%5D%0A%20%20--%20chain%20rule%20for%20each%20of%20the%20two%20integrals%0A%20%20have%20h1%20%3A%3D%20%28hF%20%28b%20x%29%29.comp%20x%20%28hb%20x%29%0A%20%20have%20h2%20%3A%3D%20%28hF%20%28a%20x%29%29.comp%20x%20%28ha%20x%29%0A%20%20exact%20h1.sub%20h2%0A%0Atheorem%20leibniz_square%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28hf%20%3A%20Continuous%20f%29%20%28x%20%3A%20%E2%84%9D%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%20%E2%88%AB%20t%20in%20%280%20%3A%20%E2%84%9D%29..x%20%5E%202%2C%20f%20t%29%20%28f%20%28x%20%5E%202%29%20*%20%282%20*%20x%29%29%20x%20%3A%3D%20by%0A%20%20--%20EXERCISE%3A%20replace%20sorry%20with%20your%20own%20proof.%0A%20%20sorry%0A%0Aend%20Ch15.KanonasLeibniz%0A" target="_blank" rel="noopener">Open the exercise in Lean</a>
+<details><summary>Hint</summary><div class="in"><p class="note">Apply the rule with $a(x)=0$ and $b(x)=x^2$: <code>have h := leibniz f (fun _ => 0) (fun x => x ^ 2) (fun _ => 0) (fun x => 2 * x) hf (fun x => hasDerivAt_const x 0) (fun x => by simpa using hasDerivAt_pow 2 x) x</code>. Then <code>h</code> gives the derivative $f(x^2)\cdot 2x-f(0)\cdot 0$; simplify it with <code>simp only [mul_zero, sub_zero] at h</code> and finish with <code>exact h</code>.</p></div></details>
+<details><summary>Solution</summary><div class="in"><pre class="ln"><span class="kw">theorem</span> leibniz_square (f : ℝ → ℝ) (hf : Continuous f) (x : ℝ) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; ∫ t <span class="kw">in</span> (0 : ℝ)..x ^ 2, f t) (f (x ^ 2) * (2 * x)) x := <span class="kw">by</span>
+  <span class="kw">have</span> h := leibniz f (<span class="kw">fun</span> _ =&gt; 0) (<span class="kw">fun</span> x =&gt; x ^ 2) (<span class="kw">fun</span> _ =&gt; 0) (<span class="kw">fun</span> x =&gt; 2 * x) hf
+    (<span class="kw">fun</span> x =&gt; hasDerivAt_const x 0) (<span class="kw">fun</span> x =&gt; <span class="kw">by</span> <span class="tc">simpa</span> using hasDerivAt_pow 2 x) x
+  <span class="tc">simp</span> only [mul_zero, sub_zero] <span class="kw">at</span> h
+  <span class="tc">exact</span> h</pre></div></details>
+</div>
+<h2>4. In Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Continuous.integral_hasStrictDerivAt#doc" target="_blank" rel="noopener"><code>Continuous.integral_hasStrictDerivAt</code></a>: the fundamental theorem: $\int_0^u f(t)\,dt$ has derivative $f(u)$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=intervalIntegral.integral_interval_sub_left#doc" target="_blank" rel="noopener"><code>intervalIntegral.integral_interval_sub_left</code></a>: $\int_0^{b}f-\int_0^{a}f=\int_a^b f$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Continuous.intervalIntegrable#doc" target="_blank" rel="noopener"><code>Continuous.intervalIntegrable</code></a>: a continuous function is integrable on every interval.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.comp#doc" target="_blank" rel="noopener"><code>HasDerivAt.comp</code></a>: the chain rule.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.sub#doc" target="_blank" rel="noopener"><code>HasDerivAt.sub</code></a>: the difference rule.</li></ul>
+<h2>5. The complete code</h2>
+<details><summary>See the code (36 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 15 · The Leibniz Rule: Differentiation with Variable Limits · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch15.KanonasLeibniz
+<span class="kw">open</span> MeasureTheory
+
+<span class="kw">theorem</span> leibniz (f a b a&#x27; b&#x27; : ℝ → ℝ) (hf : Continuous f)
+    (ha : ∀ x, HasDerivAt a (a&#x27; x) x) (hb : ∀ x, HasDerivAt b (b&#x27; x) x) (x : ℝ) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; ∫ t <span class="kw">in</span> a x..b x, f t) (f (b x) * b&#x27; x - f (a x) * a&#x27; x) x := <span class="kw">by</span>
+  <span class="cm">-- F(u) = ∫ f(t) dt from 0 to u has derivative f(u) (fundamental theorem)</span>
+  <span class="kw">have</span> hF : ∀ u, HasDerivAt (<span class="kw">fun</span> u =&gt; ∫ t <span class="kw">in</span> (0 : ℝ)..u, f t) (f u) u :=
+    <span class="kw">fun</span> u =&gt; (hf.integral_hasStrictDerivAt 0 u).hasDerivAt
+  <span class="cm">-- H(x) = F(b(x)) - F(a(x))</span>
+  <span class="kw">have</span> hH : (<span class="kw">fun</span> x =&gt; ∫ t <span class="kw">in</span> a x..b x, f t) =
+      <span class="kw">fun</span> x =&gt; (∫ t <span class="kw">in</span> (0 : ℝ)..b x, f t) - ∫ t <span class="kw">in</span> (0 : ℝ)..a x, f t := <span class="kw">by</span>
+    funext y
+    <span class="tc">rw</span> [intervalIntegral.integral_interval_sub_left (hf.intervalIntegrable (μ := volume) 0 (b y))
+      (hf.intervalIntegrable (μ := volume) 0 (a y))]
+  <span class="tc">rw</span> [hH]
+  <span class="cm">-- chain rule for each of the two integrals</span>
+  <span class="kw">have</span> h1 := (hF (b x)).comp x (hb x)
+  <span class="kw">have</span> h2 := (hF (a x)).comp x (ha x)
+  <span class="tc">exact</span> h1.sub h2
+
+<span class="kw">theorem</span> leibniz_square (f : ℝ → ℝ) (hf : Continuous f) (x : ℝ) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; ∫ t <span class="kw">in</span> (0 : ℝ)..x ^ 2, f t) (f (x ^ 2) * (2 * x)) x := <span class="kw">by</span>
+  <span class="kw">have</span> h := leibniz f (<span class="kw">fun</span> _ =&gt; 0) (<span class="kw">fun</span> x =&gt; x ^ 2) (<span class="kw">fun</span> _ =&gt; 0) (<span class="kw">fun</span> x =&gt; 2 * x) hf
+    (<span class="kw">fun</span> x =&gt; hasDerivAt_const x 0) (<span class="kw">fun</span> x =&gt; <span class="kw">by</span> <span class="tc">simpa</span> using hasDerivAt_pow 2 x) x
+  <span class="tc">simp</span> only [mul_zero, sub_zero] <span class="kw">at</span> h
+  <span class="tc">exact</span> h
+
+<span class="kw">end</span> Ch15.KanonasLeibniz
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2015%20%C2%B7%20The%20Leibniz%20Rule%3A%20Differentiation%20with%20Variable%20Limits%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch15.KanonasLeibniz%0Aopen%20MeasureTheory%0A%0Atheorem%20leibniz%20%28f%20a%20b%20a'%20b'%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28hf%20%3A%20Continuous%20f%29%0A%20%20%20%20%28ha%20%3A%20%E2%88%80%20x%2C%20HasDerivAt%20a%20%28a'%20x%29%20x%29%20%28hb%20%3A%20%E2%88%80%20x%2C%20HasDerivAt%20b%20%28b'%20x%29%20x%29%20%28x%20%3A%20%E2%84%9D%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%20%E2%88%AB%20t%20in%20a%20x..b%20x%2C%20f%20t%29%20%28f%20%28b%20x%29%20*%20b'%20x%20-%20f%20%28a%20x%29%20*%20a'%20x%29%20x%20%3A%3D%20by%0A%20%20--%20F%28u%29%20%3D%20%E2%88%AB%20f%28t%29%20dt%20from%200%20to%20u%20has%20derivative%20f%28u%29%20%28fundamental%20theorem%29%0A%20%20have%20hF%20%3A%20%E2%88%80%20u%2C%20HasDerivAt%20%28fun%20u%20%3D%3E%20%E2%88%AB%20t%20in%20%280%20%3A%20%E2%84%9D%29..u%2C%20f%20t%29%20%28f%20u%29%20u%20%3A%3D%0A%20%20%20%20fun%20u%20%3D%3E%20%28hf.integral_hasStrictDerivAt%200%20u%29.hasDerivAt%0A%20%20--%20H%28x%29%20%3D%20F%28b%28x%29%29%20-%20F%28a%28x%29%29%0A%20%20have%20hH%20%3A%20%28fun%20x%20%3D%3E%20%E2%88%AB%20t%20in%20a%20x..b%20x%2C%20f%20t%29%20%3D%0A%20%20%20%20%20%20fun%20x%20%3D%3E%20%28%E2%88%AB%20t%20in%20%280%20%3A%20%E2%84%9D%29..b%20x%2C%20f%20t%29%20-%20%E2%88%AB%20t%20in%20%280%20%3A%20%E2%84%9D%29..a%20x%2C%20f%20t%20%3A%3D%20by%0A%20%20%20%20funext%20y%0A%20%20%20%20rw%20%5BintervalIntegral.integral_interval_sub_left%20%28hf.intervalIntegrable%20%28%CE%BC%20%3A%3D%20volume%29%200%20%28b%20y%29%29%0A%20%20%20%20%20%20%28hf.intervalIntegrable%20%28%CE%BC%20%3A%3D%20volume%29%200%20%28a%20y%29%29%5D%0A%20%20rw%20%5BhH%5D%0A%20%20--%20chain%20rule%20for%20each%20of%20the%20two%20integrals%0A%20%20have%20h1%20%3A%3D%20%28hF%20%28b%20x%29%29.comp%20x%20%28hb%20x%29%0A%20%20have%20h2%20%3A%3D%20%28hF%20%28a%20x%29%29.comp%20x%20%28ha%20x%29%0A%20%20exact%20h1.sub%20h2%0A%0Atheorem%20leibniz_square%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28hf%20%3A%20Continuous%20f%29%20%28x%20%3A%20%E2%84%9D%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%20%E2%88%AB%20t%20in%20%280%20%3A%20%E2%84%9D%29..x%20%5E%202%2C%20f%20t%29%20%28f%20%28x%20%5E%202%29%20*%20%282%20*%20x%29%29%20x%20%3A%3D%20by%0A%20%20have%20h%20%3A%3D%20leibniz%20f%20%28fun%20_%20%3D%3E%200%29%20%28fun%20x%20%3D%3E%20x%20%5E%202%29%20%28fun%20_%20%3D%3E%200%29%20%28fun%20x%20%3D%3E%202%20*%20x%29%20hf%0A%20%20%20%20%28fun%20x%20%3D%3E%20hasDerivAt_const%20x%200%29%20%28fun%20x%20%3D%3E%20by%20simpa%20using%20hasDerivAt_pow%202%20x%29%20x%0A%20%20simp%20only%20%5Bmul_zero%2C%20sub_zero%5D%20at%20h%0A%20%20exact%20h%0A%0Aend%20Ch15.KanonasLeibniz%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Apostol, T. M. (1967). <em>Calculus</em> (2nd ed., Vols. 1&ndash;2). John Wiley &amp; Sons.</li><li>Filippou, G. N. (2008). <em>Mathimatika Anoteris Ekpaidefsis [Higher Education Mathematics]</em>. Ekdoseis Zitis. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

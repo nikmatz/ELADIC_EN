@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Rolle's Theorem</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Rolle's Theorem</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 10 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>If $f$ is continuous on $[a,b]$, differentiable on $(a,b)$ and $f(a)=f(b)$, then there exists $c\in(a,b)$ with $f'(c)=0$.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20If%20%24f%24%20is%20continuous%20on%20%24%5Ba%2Cb%5D%24%2C%20differentiable%20on%20%24%28a%2Cb%29%24%20and%20%24f%28a%29%3Df%28b%29%24%2C%20then%20there%20exists%20%24c%5Cin%28a%2Cb%29%24%20with%20%24f%27%28c%29%3D0%24.">ChatGPT</a>
@@ -27,6 +87,201 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: If $f$ is continuous on $[a,b]$, differentiable on $(a,b)$ and $f(a)=f(b)$, then there exists $c\in(a,b)$ with $f'(c)=0$.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The theorem was proved in Lean 4 with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">If $f$ is continuous on $[a,b]$, differentiable on $(a,b)$ and $f(a)=f(b)$, there exists $c\in(a,b)$ with $f'(c)=0$</div><pre class="ln"><span class="kw">theorem</span> rolle (f f&#x27; : ℝ → ℝ) (a b : ℝ) (hab : a &lt; b) (hfc : ContinuousOn f (Set.Icc a b))
+    (hfab : f a = f b) (hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x) :
+    ∃ c ∈ Set.Ioo a b, f&#x27; c = 0</pre></li><li><div class="bk">Auxiliary: if $f(a)=f(b)$, every $x\in[a,b]$ that does not belong to $(a,b)$ gives $f(x)=f(a)$</div><pre class="ln"><span class="kw">theorem</span> endpoint_value (f : ℝ → ℝ) (a b : ℝ) (hab : a ≤ b) (hfab : f a = f b) (x : ℝ)
+    (hx : x ∈ Set.Icc a b) (hxi : x ∉ Set.Ioo a b) : f x = f a</pre></li><li><div class="bk">Application: if $f(a)=f(b)=0$, then $f'$ has a root in $(a,b)$</div><pre class="ln"><span class="kw">theorem</span> between_roots (f f&#x27; : ℝ → ℝ) (a b : ℝ) (hab : a &lt; b) (hfc : ContinuousOn f (Set.Icc a b))
+    (hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x) (ha : f a = 0) (hb : f b = 0) :
+    ∃ c ∈ Set.Ioo a b, f&#x27; c = 0</pre></li></ul>
+<p class="note">Continuity on $[a,b]$ is written <code>ContinuousOn f (Set.Icc a b)</code>. For differentiability on $(a,b)$ we give a function <code>f'</code> for the derivative: <code>∀ x ∈ Set.Ioo a b, HasDerivAt f (f' x) x</code>. <code>IsMaxOn f (Set.Icc a b) M</code> means that $f$ attains at $M$ its maximum value on $[a,b]$; similarly <code>IsMinOn</code> for the minimum. The proof follows the usual pattern: by Weierstrass' theorem we find a maximum and a minimum. If one of the two is an interior point, we apply Fermat's theorem; otherwise $f$ is constant and its derivative is $0$.</p>
+<h2>2. Step by step: Rolle's theorem</h2>
+<p class="note">The idea: if the maximum or the minimum lies inside $(a,b)$, the derivative vanishes there; otherwise $f$ is constant. We start from the goal:</p>
+<div class="goal start"><span>The goal</span><pre>f f&#x27; : ℝ → ℝ
+a b : ℝ
+hab : a &lt; b
+hfc : ContinuousOn f (Set.Icc a b)
+hfab : f a = f b
+hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c = 0</pre></div>
+<p class="note">Above <code>⊢</code> is what we know; after <code>⊢</code> is what we have to show. After each step we show only what changed.</p>
+<ol class="steps"><li><pre class="ln"><span class="tc">obtain</span> ⟨M, hM, hMax⟩ := isCompact_Icc.exists_isMaxOn (Set.nonempty_Icc.mpr hab.le) hfc</pre><p>Weierstrass' theorem: $f$ attains a maximum value at some $M\in[a,b]$.</p><div class="goal"><span>What remains to be proved</span><pre>M : ℝ
+hM : M ∈ Set.Icc a b
+hMax : IsMaxOn f (Set.Icc a b) M
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c = 0</pre></div></li><li><pre class="ln"><span class="tc">obtain</span> ⟨m, hm, hMin⟩ := isCompact_Icc.exists_isMinOn (Set.nonempty_Icc.mpr hab.le) hfc</pre><p>Similarly, it attains a minimum value at some $m\in[a,b]$.</p><div class="goal"><span>What remains to be proved</span><pre>m : ℝ
+hm : m ∈ Set.Icc a b
+hMin : IsMinOn f (Set.Icc a b) m
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c = 0</pre></div></li><li><pre class="ln"><span class="tc">by_cases</span> hMi : M ∈ Set.Ioo a b</pre><p>Two cases: $M\in(a,b)$ or not.</p><div class="goal"><span>What remains to be proved (2 goals)</span><i class="case">part pos</i><pre>hMi : M ∈ Set.Ioo a b
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c = 0</pre><i class="case">part neg</i><pre>hMi : M ∉ Set.Ioo a b
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c = 0</pre></div></li><li><pre class="ln">· <span class="kw">have</span> hloc : IsLocalMax f M := hMax.isLocalMax (Icc_mem_nhds hMi.1 hMi.2)</pre><p>If $M\in(a,b)$, then $M$ is a local maximum, because $[a,b]$ contains an interval around $M$.</p><div class="goal"><span>What remains to be proved</span><pre>hloc : IsLocalMax f M
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c = 0</pre></div></li><li><pre class="ln"><span class="tc">exact</span> ⟨M, hMi, hloc.hasDerivAt_eq_zero (hff&#x27; M hMi)⟩</pre><p>Fermat's theorem: $f'(M)=0$, and we choose $c=M$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="tc">by_cases</span> hmi : m ∈ Set.Ioo a b</pre><p>Otherwise, two cases for $m$: $m\in(a,b)$ or not.</p><div class="goal"><span>What remains to be proved (2 goals)</span><i class="case">part pos</i><pre>f f&#x27; : ℝ → ℝ
+a b : ℝ
+hab : a &lt; b
+hfc : ContinuousOn f (Set.Icc a b)
+hfab : f a = f b
+hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x
+M : ℝ
+hM : M ∈ Set.Icc a b
+hMax : IsMaxOn f (Set.Icc a b) M
+m : ℝ
+hm : m ∈ Set.Icc a b
+hMin : IsMinOn f (Set.Icc a b) m
+hMi : M ∉ Set.Ioo a b
+hmi : m ∈ Set.Ioo a b
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c = 0</pre><i class="case">part neg</i><pre>f f&#x27; : ℝ → ℝ
+a b : ℝ
+hab : a &lt; b
+hfc : ContinuousOn f (Set.Icc a b)
+hfab : f a = f b
+hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x
+M : ℝ
+hM : M ∈ Set.Icc a b
+hMax : IsMaxOn f (Set.Icc a b) M
+m : ℝ
+hm : m ∈ Set.Icc a b
+hMin : IsMinOn f (Set.Icc a b) m
+hMi : M ∉ Set.Ioo a b
+hmi : m ∉ Set.Ioo a b
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c = 0</pre></div></li><li><pre class="ln">· <span class="kw">have</span> hloc : IsLocalMin f m := hMin.isLocalMin (Icc_mem_nhds hmi.1 hmi.2)</pre><p>If $m\in(a,b)$, then $m$ is a local minimum.</p><div class="goal"><span>What remains to be proved</span><pre>hloc : IsLocalMin f m
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c = 0</pre></div></li><li><pre class="ln"><span class="tc">exact</span> ⟨m, hmi, hloc.hasDerivAt_eq_zero (hff&#x27; m hmi)⟩</pre><p>Fermat's theorem: $f'(m)=0$, and we choose $c=m$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="kw">have</span> hfM : f M = f a := endpoint_value f a b hab.le hfab M hM hMi
+<span class="kw">have</span> hfm : f m = f a := endpoint_value f a b hab.le hfab m hm hmi</pre><p>There remains the case where $M$ and $m$ are endpoints of $[a,b]$. Since $f(a)=f(b)$, we have $f(M)=f(a)$ and $f(m)=f(a)$ (auxiliary lemma <code>endpoint_value</code>).</p><div class="goal"><span>What remains to be proved</span><pre>f f&#x27; : ℝ → ℝ
+a b : ℝ
+hab : a &lt; b
+hfc : ContinuousOn f (Set.Icc a b)
+hfab : f a = f b
+hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x
+M : ℝ
+hM : M ∈ Set.Icc a b
+hMax : IsMaxOn f (Set.Icc a b) M
+m : ℝ
+hm : m ∈ Set.Icc a b
+hMin : IsMinOn f (Set.Icc a b) m
+hMi : M ∉ Set.Ioo a b
+hmi : m ∉ Set.Ioo a b
+hfM : f M = f a
+hfm : f m = f a
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c = 0</pre></div></li><li><pre class="ln"><span class="kw">have</span> hconst : ∀ x ∈ Set.Ioo a b, f x = f a := <span class="kw">by</span></pre><p>Claim <code>hconst</code>: $f$ is constant on $(a,b)$, equal to $f(a)$.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ ∀ x ∈ Set.Ioo a b, f x = f a</pre></div></li><li><pre class="ln"><span class="tc">intro</span> x hx
+<span class="kw">have</span> h1 : f x ≤ f M := isMaxOn_iff.mp hMax x (Set.Ioo_subset_Icc_self hx)
+<span class="kw">have</span> h2 : f m ≤ f x := isMinOn_iff.mp hMin x (Set.Ioo_subset_Icc_self hx)
+<span class="tc">linarith</span></pre><p>For every $x\in(a,b)$: $f(a)=f(m)\le f(x)\le f(M)=f(a)$, so $f(x)=f(a)$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="kw">have</span> hc : (a + b) / 2 ∈ Set.Ioo a b := ⟨<span class="kw">by</span> <span class="tc">linarith</span>, <span class="kw">by</span> <span class="tc">linarith</span>⟩</pre><p>The midpoint $\dfrac{a+b}{2}$ belongs to $(a,b)$.</p><div class="goal"><span>What remains to be proved</span><pre>f f&#x27; : ℝ → ℝ
+a b : ℝ
+hab : a &lt; b
+hfc : ContinuousOn f (Set.Icc a b)
+hfab : f a = f b
+hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x
+M : ℝ
+hM : M ∈ Set.Icc a b
+hMax : IsMaxOn f (Set.Icc a b) M
+m : ℝ
+hm : m ∈ Set.Icc a b
+hMin : IsMinOn f (Set.Icc a b) m
+hMi : M ∉ Set.Ioo a b
+hmi : m ∉ Set.Ioo a b
+hfM : f M = f a
+hfm : f m = f a
+hconst : ∀ x ∈ Set.Ioo a b, f x = f a
+hc : (a + b) / 2 ∈ Set.Ioo a b
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c = 0</pre></div></li><li><pre class="ln"><span class="kw">have</span> hd : HasDerivAt f 0 ((a + b) / 2) := <span class="kw">by</span></pre><p>Claim <code>hd</code>: at the midpoint, $f$ has derivative $0$.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ HasDerivAt f 0 ((a + b) / 2)</pre></div></li><li><pre class="ln"><span class="tc">apply</span> (hasDerivAt_const ((a + b) / 2) (f a)).congr_of_eventuallyEq
+<span class="tc">filter_upwards</span> [Ioo_mem_nhds hc.1 hc.2] <span class="kw">with</span> x hx
+<span class="tc">exact</span> hconst x hx</pre><p>Near the midpoint, $f$ coincides with the constant function $f(a)$, which has derivative $0$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="tc">exact</span> ⟨(a + b) / 2, hc, (hff&#x27; _ hc).unique hd⟩</pre><p>The derivative is unique, so $f'\!\left(\dfrac{a+b}{2}\right)=0$, and we choose $c=\dfrac{a+b}{2}$.</p><div class="goal done"><span>✓ </span>No goals: the proof is complete.</div></li></ol>
+<h2>3. Try it yourself: a root of the derivative</h2>
+<div class="ex"><p>If $f(a)=f(b)=0$, show that there exists $c\in(a,b)$ with $f'(c)=0$: between two roots of $f$ there is a root of $f'$. Open the exercise in Lean and replace the word <code>sorry</code> with your own steps. When the proof is correct, the message <i>declaration uses sorry</i> disappears and no red error appears.</p>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2010%20%C2%B7%20Rolle's%20Theorem%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch10.Rolle%0Aopen%20Filter%20Topology%0A%0Atheorem%20endpoint_value%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%E2%89%A4%20b%29%20%28hfab%20%3A%20f%20a%20%3D%20f%20b%29%20%28x%20%3A%20%E2%84%9D%29%0A%20%20%20%20%28hx%20%3A%20x%20%E2%88%88%20Set.Icc%20a%20b%29%20%28hxi%20%3A%20x%20%E2%88%89%20Set.Ioo%20a%20b%29%20%3A%20f%20x%20%3D%20f%20a%20%3A%3D%20by%0A%20%20have%20h%20%3A%20x%20%E2%88%88%20%28%7Ba%2C%20b%7D%20%3A%20Set%20%E2%84%9D%29%20%3A%3D%20by%0A%20%20%20%20rw%20%5B%E2%86%90%20Set.Icc_sdiff_Ioo_same%20hab%5D%0A%20%20%20%20exact%20%E2%9F%A8hx%2C%20hxi%E2%9F%A9%0A%20%20rcases%20h%20with%20h%20%7C%20h%0A%20%20%C2%B7%20rw%20%5Bh%5D%0A%20%20%C2%B7%20rw%20%5BSet.mem_singleton_iff%5D%20at%20h%0A%20%20%20%20rw%20%5Bh%2C%20hfab%5D%0A%0Atheorem%20rolle%20%28f%20f'%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%3C%20b%29%20%28hfc%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%0A%20%20%20%20%28hfab%20%3A%20f%20a%20%3D%20f%20b%29%20%28hff'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20f%20%28f'%20x%29%20x%29%20%3A%0A%20%20%20%20%E2%88%83%20c%20%E2%88%88%20Set.Ioo%20a%20b%2C%20f'%20c%20%3D%200%20%3A%3D%20by%0A%20%20obtain%20%E2%9F%A8M%2C%20hM%2C%20hMax%E2%9F%A9%20%3A%3D%20isCompact_Icc.exists_isMaxOn%20%28Set.nonempty_Icc.mpr%20hab.le%29%20hfc%0A%20%20obtain%20%E2%9F%A8m%2C%20hm%2C%20hMin%E2%9F%A9%20%3A%3D%20isCompact_Icc.exists_isMinOn%20%28Set.nonempty_Icc.mpr%20hab.le%29%20hfc%0A%20%20by_cases%20hMi%20%3A%20M%20%E2%88%88%20Set.Ioo%20a%20b%0A%20%20%C2%B7%20have%20hloc%20%3A%20IsLocalMax%20f%20M%20%3A%3D%20hMax.isLocalMax%20%28Icc_mem_nhds%20hMi.1%20hMi.2%29%0A%20%20%20%20exact%20%E2%9F%A8M%2C%20hMi%2C%20hloc.hasDerivAt_eq_zero%20%28hff'%20M%20hMi%29%E2%9F%A9%0A%20%20by_cases%20hmi%20%3A%20m%20%E2%88%88%20Set.Ioo%20a%20b%0A%20%20%C2%B7%20have%20hloc%20%3A%20IsLocalMin%20f%20m%20%3A%3D%20hMin.isLocalMin%20%28Icc_mem_nhds%20hmi.1%20hmi.2%29%0A%20%20%20%20exact%20%E2%9F%A8m%2C%20hmi%2C%20hloc.hasDerivAt_eq_zero%20%28hff'%20m%20hmi%29%E2%9F%A9%0A%20%20have%20hfM%20%3A%20f%20M%20%3D%20f%20a%20%3A%3D%20endpoint_value%20f%20a%20b%20hab.le%20hfab%20M%20hM%20hMi%0A%20%20have%20hfm%20%3A%20f%20m%20%3D%20f%20a%20%3A%3D%20endpoint_value%20f%20a%20b%20hab.le%20hfab%20m%20hm%20hmi%0A%20%20have%20hconst%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20f%20x%20%3D%20f%20a%20%3A%3D%20by%0A%20%20%20%20intro%20x%20hx%0A%20%20%20%20have%20h1%20%3A%20f%20x%20%E2%89%A4%20f%20M%20%3A%3D%20isMaxOn_iff.mp%20hMax%20x%20%28Set.Ioo_subset_Icc_self%20hx%29%0A%20%20%20%20have%20h2%20%3A%20f%20m%20%E2%89%A4%20f%20x%20%3A%3D%20isMinOn_iff.mp%20hMin%20x%20%28Set.Ioo_subset_Icc_self%20hx%29%0A%20%20%20%20linarith%0A%20%20have%20hc%20%3A%20%28a%20%2B%20b%29%20%2F%202%20%E2%88%88%20Set.Ioo%20a%20b%20%3A%3D%20%E2%9F%A8by%20linarith%2C%20by%20linarith%E2%9F%A9%0A%20%20have%20hd%20%3A%20HasDerivAt%20f%200%20%28%28a%20%2B%20b%29%20%2F%202%29%20%3A%3D%20by%0A%20%20%20%20apply%20%28hasDerivAt_const%20%28%28a%20%2B%20b%29%20%2F%202%29%20%28f%20a%29%29.congr_of_eventuallyEq%0A%20%20%20%20filter_upwards%20%5BIoo_mem_nhds%20hc.1%20hc.2%5D%20with%20x%20hx%0A%20%20%20%20exact%20hconst%20x%20hx%0A%20%20exact%20%E2%9F%A8%28a%20%2B%20b%29%20%2F%202%2C%20hc%2C%20%28hff'%20_%20hc%29.unique%20hd%E2%9F%A9%0A%0Atheorem%20between_roots%20%28f%20f'%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%3C%20b%29%20%28hfc%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%0A%20%20%20%20%28hff'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20f%20%28f'%20x%29%20x%29%20%28ha%20%3A%20f%20a%20%3D%200%29%20%28hb%20%3A%20f%20b%20%3D%200%29%20%3A%0A%20%20%20%20%E2%88%83%20c%20%E2%88%88%20Set.Ioo%20a%20b%2C%20f'%20c%20%3D%200%20%3A%3D%20by%0A%20%20--%20EXERCISE%3A%20replace%20the%20sorry%20with%20your%20own%20proof.%0A%20%20sorry%0A%0Aend%20Ch10.Rolle%0A" target="_blank" rel="noopener">Open the exercise in Lean</a>
+<details><summary>Hint</summary><div class="in"><p class="note">Apply the theorem, with $f(a)=f(b)$ obtained from <code>ha</code> and <code>hb</code>: <code>exact rolle f f' a b hab hfc (by rw [ha, hb]) hff'</code>.</p></div></details>
+<details><summary>Solution</summary><div class="in"><pre class="ln"><span class="kw">theorem</span> between_roots (f f&#x27; : ℝ → ℝ) (a b : ℝ) (hab : a &lt; b) (hfc : ContinuousOn f (Set.Icc a b))
+    (hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x) (ha : f a = 0) (hb : f b = 0) :
+    ∃ c ∈ Set.Ioo a b, f&#x27; c = 0 :=
+  rolle f f&#x27; a b hab hfc (<span class="kw">by</span> <span class="tc">rw</span> [ha, hb]) hff&#x27;</pre></div></details>
+</div>
+<h2>4. In Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsCompact.exists_isMaxOn#doc" target="_blank" rel="noopener"><code>IsCompact.exists_isMaxOn</code></a>: a continuous function on a compact, nonempty set attains a maximum value.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsCompact.exists_isMinOn#doc" target="_blank" rel="noopener"><code>IsCompact.exists_isMinOn</code></a>: the same for the minimum value.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=isCompact_Icc#doc" target="_blank" rel="noopener"><code>isCompact_Icc</code></a>: $[a,b]$ is compact.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsMaxOn.isLocalMax#doc" target="_blank" rel="noopener"><code>IsMaxOn.isLocalMax</code></a>: a maximum on a set that contains an interval around the point is a local maximum.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsMinOn.isLocalMin#doc" target="_blank" rel="noopener"><code>IsMinOn.isLocalMin</code></a>: the same for the minimum.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsLocalMax.hasDerivAt_eq_zero#doc" target="_blank" rel="noopener"><code>IsLocalMax.hasDerivAt_eq_zero</code></a>: Fermat's theorem for a local maximum.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsLocalMin.hasDerivAt_eq_zero#doc" target="_blank" rel="noopener"><code>IsLocalMin.hasDerivAt_eq_zero</code></a>: Fermat's theorem for a local minimum.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Set.Icc_sdiff_Ioo_same#doc" target="_blank" rel="noopener"><code>Set.Icc_sdiff_Ioo_same</code></a>: $[a,b]\setminus(a,b)=\{a,b\}$ when $a\le b$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=hasDerivAt_const#doc" target="_blank" rel="noopener"><code>hasDerivAt_const</code></a>: a constant function has derivative $0$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.congr_of_eventuallyEq#doc" target="_blank" rel="noopener"><code>HasDerivAt.congr_of_eventuallyEq</code></a>: functions that are equal near the point have the same derivative.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.unique#doc" target="_blank" rel="noopener"><code>HasDerivAt.unique</code></a>: the derivative is unique.</li></ul>
+<h2>5. The complete code</h2>
+<details><summary>See the code (51 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 10 · Rolle&#x27;s Theorem · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch10.Rolle
+<span class="kw">open</span> Filter Topology
+
+<span class="kw">theorem</span> endpoint_value (f : ℝ → ℝ) (a b : ℝ) (hab : a ≤ b) (hfab : f a = f b) (x : ℝ)
+    (hx : x ∈ Set.Icc a b) (hxi : x ∉ Set.Ioo a b) : f x = f a := <span class="kw">by</span>
+  <span class="kw">have</span> h : x ∈ ({a, b} : Set ℝ) := <span class="kw">by</span>
+    <span class="tc">rw</span> [← Set.Icc_sdiff_Ioo_same hab]
+    <span class="tc">exact</span> ⟨hx, hxi⟩
+  <span class="tc">rcases</span> h <span class="kw">with</span> h | h
+  · <span class="tc">rw</span> [h]
+  · <span class="tc">rw</span> [Set.mem_singleton_iff] <span class="kw">at</span> h
+    <span class="tc">rw</span> [h, hfab]
+
+<span class="kw">theorem</span> rolle (f f&#x27; : ℝ → ℝ) (a b : ℝ) (hab : a &lt; b) (hfc : ContinuousOn f (Set.Icc a b))
+    (hfab : f a = f b) (hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x) :
+    ∃ c ∈ Set.Ioo a b, f&#x27; c = 0 := <span class="kw">by</span>
+  <span class="tc">obtain</span> ⟨M, hM, hMax⟩ := isCompact_Icc.exists_isMaxOn (Set.nonempty_Icc.mpr hab.le) hfc
+  <span class="tc">obtain</span> ⟨m, hm, hMin⟩ := isCompact_Icc.exists_isMinOn (Set.nonempty_Icc.mpr hab.le) hfc
+  <span class="tc">by_cases</span> hMi : M ∈ Set.Ioo a b
+  · <span class="kw">have</span> hloc : IsLocalMax f M := hMax.isLocalMax (Icc_mem_nhds hMi.1 hMi.2)
+    <span class="tc">exact</span> ⟨M, hMi, hloc.hasDerivAt_eq_zero (hff&#x27; M hMi)⟩
+  <span class="tc">by_cases</span> hmi : m ∈ Set.Ioo a b
+  · <span class="kw">have</span> hloc : IsLocalMin f m := hMin.isLocalMin (Icc_mem_nhds hmi.1 hmi.2)
+    <span class="tc">exact</span> ⟨m, hmi, hloc.hasDerivAt_eq_zero (hff&#x27; m hmi)⟩
+  <span class="kw">have</span> hfM : f M = f a := endpoint_value f a b hab.le hfab M hM hMi
+  <span class="kw">have</span> hfm : f m = f a := endpoint_value f a b hab.le hfab m hm hmi
+  <span class="kw">have</span> hconst : ∀ x ∈ Set.Ioo a b, f x = f a := <span class="kw">by</span>
+    <span class="tc">intro</span> x hx
+    <span class="kw">have</span> h1 : f x ≤ f M := isMaxOn_iff.mp hMax x (Set.Ioo_subset_Icc_self hx)
+    <span class="kw">have</span> h2 : f m ≤ f x := isMinOn_iff.mp hMin x (Set.Ioo_subset_Icc_self hx)
+    <span class="tc">linarith</span>
+  <span class="kw">have</span> hc : (a + b) / 2 ∈ Set.Ioo a b := ⟨<span class="kw">by</span> <span class="tc">linarith</span>, <span class="kw">by</span> <span class="tc">linarith</span>⟩
+  <span class="kw">have</span> hd : HasDerivAt f 0 ((a + b) / 2) := <span class="kw">by</span>
+    <span class="tc">apply</span> (hasDerivAt_const ((a + b) / 2) (f a)).congr_of_eventuallyEq
+    <span class="tc">filter_upwards</span> [Ioo_mem_nhds hc.1 hc.2] <span class="kw">with</span> x hx
+    <span class="tc">exact</span> hconst x hx
+  <span class="tc">exact</span> ⟨(a + b) / 2, hc, (hff&#x27; _ hc).unique hd⟩
+
+<span class="kw">theorem</span> between_roots (f f&#x27; : ℝ → ℝ) (a b : ℝ) (hab : a &lt; b) (hfc : ContinuousOn f (Set.Icc a b))
+    (hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x) (ha : f a = 0) (hb : f b = 0) :
+    ∃ c ∈ Set.Ioo a b, f&#x27; c = 0 :=
+  rolle f f&#x27; a b hab hfc (<span class="kw">by</span> <span class="tc">rw</span> [ha, hb]) hff&#x27;
+
+<span class="kw">end</span> Ch10.Rolle
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2010%20%C2%B7%20Rolle's%20Theorem%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch10.Rolle%0Aopen%20Filter%20Topology%0A%0Atheorem%20endpoint_value%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%E2%89%A4%20b%29%20%28hfab%20%3A%20f%20a%20%3D%20f%20b%29%20%28x%20%3A%20%E2%84%9D%29%0A%20%20%20%20%28hx%20%3A%20x%20%E2%88%88%20Set.Icc%20a%20b%29%20%28hxi%20%3A%20x%20%E2%88%89%20Set.Ioo%20a%20b%29%20%3A%20f%20x%20%3D%20f%20a%20%3A%3D%20by%0A%20%20have%20h%20%3A%20x%20%E2%88%88%20%28%7Ba%2C%20b%7D%20%3A%20Set%20%E2%84%9D%29%20%3A%3D%20by%0A%20%20%20%20rw%20%5B%E2%86%90%20Set.Icc_sdiff_Ioo_same%20hab%5D%0A%20%20%20%20exact%20%E2%9F%A8hx%2C%20hxi%E2%9F%A9%0A%20%20rcases%20h%20with%20h%20%7C%20h%0A%20%20%C2%B7%20rw%20%5Bh%5D%0A%20%20%C2%B7%20rw%20%5BSet.mem_singleton_iff%5D%20at%20h%0A%20%20%20%20rw%20%5Bh%2C%20hfab%5D%0A%0Atheorem%20rolle%20%28f%20f'%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%3C%20b%29%20%28hfc%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%0A%20%20%20%20%28hfab%20%3A%20f%20a%20%3D%20f%20b%29%20%28hff'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20f%20%28f'%20x%29%20x%29%20%3A%0A%20%20%20%20%E2%88%83%20c%20%E2%88%88%20Set.Ioo%20a%20b%2C%20f'%20c%20%3D%200%20%3A%3D%20by%0A%20%20obtain%20%E2%9F%A8M%2C%20hM%2C%20hMax%E2%9F%A9%20%3A%3D%20isCompact_Icc.exists_isMaxOn%20%28Set.nonempty_Icc.mpr%20hab.le%29%20hfc%0A%20%20obtain%20%E2%9F%A8m%2C%20hm%2C%20hMin%E2%9F%A9%20%3A%3D%20isCompact_Icc.exists_isMinOn%20%28Set.nonempty_Icc.mpr%20hab.le%29%20hfc%0A%20%20by_cases%20hMi%20%3A%20M%20%E2%88%88%20Set.Ioo%20a%20b%0A%20%20%C2%B7%20have%20hloc%20%3A%20IsLocalMax%20f%20M%20%3A%3D%20hMax.isLocalMax%20%28Icc_mem_nhds%20hMi.1%20hMi.2%29%0A%20%20%20%20exact%20%E2%9F%A8M%2C%20hMi%2C%20hloc.hasDerivAt_eq_zero%20%28hff'%20M%20hMi%29%E2%9F%A9%0A%20%20by_cases%20hmi%20%3A%20m%20%E2%88%88%20Set.Ioo%20a%20b%0A%20%20%C2%B7%20have%20hloc%20%3A%20IsLocalMin%20f%20m%20%3A%3D%20hMin.isLocalMin%20%28Icc_mem_nhds%20hmi.1%20hmi.2%29%0A%20%20%20%20exact%20%E2%9F%A8m%2C%20hmi%2C%20hloc.hasDerivAt_eq_zero%20%28hff'%20m%20hmi%29%E2%9F%A9%0A%20%20have%20hfM%20%3A%20f%20M%20%3D%20f%20a%20%3A%3D%20endpoint_value%20f%20a%20b%20hab.le%20hfab%20M%20hM%20hMi%0A%20%20have%20hfm%20%3A%20f%20m%20%3D%20f%20a%20%3A%3D%20endpoint_value%20f%20a%20b%20hab.le%20hfab%20m%20hm%20hmi%0A%20%20have%20hconst%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20f%20x%20%3D%20f%20a%20%3A%3D%20by%0A%20%20%20%20intro%20x%20hx%0A%20%20%20%20have%20h1%20%3A%20f%20x%20%E2%89%A4%20f%20M%20%3A%3D%20isMaxOn_iff.mp%20hMax%20x%20%28Set.Ioo_subset_Icc_self%20hx%29%0A%20%20%20%20have%20h2%20%3A%20f%20m%20%E2%89%A4%20f%20x%20%3A%3D%20isMinOn_iff.mp%20hMin%20x%20%28Set.Ioo_subset_Icc_self%20hx%29%0A%20%20%20%20linarith%0A%20%20have%20hc%20%3A%20%28a%20%2B%20b%29%20%2F%202%20%E2%88%88%20Set.Ioo%20a%20b%20%3A%3D%20%E2%9F%A8by%20linarith%2C%20by%20linarith%E2%9F%A9%0A%20%20have%20hd%20%3A%20HasDerivAt%20f%200%20%28%28a%20%2B%20b%29%20%2F%202%29%20%3A%3D%20by%0A%20%20%20%20apply%20%28hasDerivAt_const%20%28%28a%20%2B%20b%29%20%2F%202%29%20%28f%20a%29%29.congr_of_eventuallyEq%0A%20%20%20%20filter_upwards%20%5BIoo_mem_nhds%20hc.1%20hc.2%5D%20with%20x%20hx%0A%20%20%20%20exact%20hconst%20x%20hx%0A%20%20exact%20%E2%9F%A8%28a%20%2B%20b%29%20%2F%202%2C%20hc%2C%20%28hff'%20_%20hc%29.unique%20hd%E2%9F%A9%0A%0Atheorem%20between_roots%20%28f%20f'%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%3C%20b%29%20%28hfc%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%0A%20%20%20%20%28hff'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20f%20%28f'%20x%29%20x%29%20%28ha%20%3A%20f%20a%20%3D%200%29%20%28hb%20%3A%20f%20b%20%3D%200%29%20%3A%0A%20%20%20%20%E2%88%83%20c%20%E2%88%88%20Set.Ioo%20a%20b%2C%20f'%20c%20%3D%200%20%3A%3D%0A%20%20rolle%20f%20f'%20a%20b%20hab%20hfc%20%28by%20rw%20%5Bha%2C%20hb%5D%29%20hff'%0A%0Aend%20Ch10.Rolle%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Bartle, R. G., &amp; Sherbert, D. R. (2011). <em>Introduction to Real Analysis</em> (4th ed.). Wiley.</li><li>Rudin, W. (1976). <em>Principles of Mathematical Analysis</em> (3rd ed.). McGraw-Hill.</li><li>Stewart, J. (2016). <em>Calculus: Early Transcendentals</em> (8th ed.). Cengage Learning.</li><li>Negrepontis, S., Giotopoulos, S., &amp; Giannakoulias, E. (1999). <em>Apeirostikos Logismos [Infinitesimal Calculus]</em> (Vol. I). Ekdoseis Symmetria. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

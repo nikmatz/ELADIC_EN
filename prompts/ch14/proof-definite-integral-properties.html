@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Properties of the Definite Integral</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Properties of the Definite Integral</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 14 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>If $f,g$ are integrable on $[a,b]$ and $c\in[a,b]$: $\int_a^b f=-\int_b^a f$ (by convention); $\int_a^a f=0$; $\int_a^b (Af\pm Bg)=A\int_a^b f\pm B\int_a^b g$; $\int_a^b f=\int_a^c f+\int_c^b f$; if $f\ge 0$ then $\int_a^b f\ge 0$; if $f\le g$ then $\int_a^b f\le\int_a^b g$.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant &mdash; it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20If%20%24f%2Cg%24%20are%20integrable%20on%20%24%5Ba%2Cb%5D%24%20and%20%24c%5Cin%5Ba%2Cb%5D%24%3A%20%24%5Cint_a%5Eb%20f%3D-%5Cint_b%5Ea%20f%24%20%28by%20convention%29%3B%20%24%5Cint_a%5Ea%20f%3D0%24%3B%20%24%5Cint_a%5Eb%20%28Af%5Cpm%20Bg%29%3DA%5Cint_a%5Eb%20f%5Cpm%20B%5Cint_a%5Eb%20g%24%3B%20%24%5Cint_a%5Eb%20f%3D%5Cint_a%5Ec%20f%2B%5Cint_c%5Eb%20f%24%3B%20if%20%24f%5Cge%200%24%20then%20%24%5Cint_a%5Eb%20f%5Cge%200%24%3B%20if%20%24f%5Cle%20g%24%20then%20%24%5Cint_a%5Eb%20f%5Cle%5Cint_a%5Eb%20g%24.">ChatGPT</a>
@@ -27,6 +87,101 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: If $f,g$ are integrable on $[a,b]$ and $c\in[a,b]$: $\int_a^b f=-\int_b^a f$ (by convention); $\int_a^a f=0$; $\int_a^b (Af\pm Bg)=A\int_a^b f\pm B\int_a^b g$; $\int_a^b f=\int_a^c f+\int_c^b f$; if $f\ge 0$ then $\int_a^b f\ge 0$; if $f\le g$ then $\int_a^b f\le\int_a^b g$.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The properties were proved in Lean 4, using theorems from Mathlib, with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">$\int_a^b f=-\int_b^a f$</div><pre class="ln"><span class="kw">theorem</span> reverse_limits (f : ℝ → ℝ) (a b : ℝ) : ∫ x <span class="kw">in</span> a..b, f x = -∫ x <span class="kw">in</span> b..a, f x</pre></li><li><div class="bk">$\int_a^a f=0$</div><pre class="ln"><span class="kw">theorem</span> equal_limits (f : ℝ → ℝ) (a : ℝ) : ∫ x <span class="kw">in</span> a..a, f x = 0</pre></li><li><div class="bk">$\int_a^b (Af+Bg)$<wbr>${}=A\int_a^b f+B\int_a^b g$</div><pre class="ln"><span class="kw">theorem</span> linear_add (f g : ℝ → ℝ) (A B a b : ℝ) (hf : IntervalIntegrable f volume a b)
+    (hg : IntervalIntegrable g volume a b) :
+    ∫ x <span class="kw">in</span> a..b, (A * f x + B * g x) = A * (∫ x <span class="kw">in</span> a..b, f x) + B * ∫ x <span class="kw">in</span> a..b, g x</pre></li><li><div class="bk">$\int_a^b (Af-Bg)$<wbr>${}=A\int_a^b f-B\int_a^b g$</div><pre class="ln"><span class="kw">theorem</span> linear_sub (f g : ℝ → ℝ) (A B a b : ℝ) (hf : IntervalIntegrable f volume a b)
+    (hg : IntervalIntegrable g volume a b) :
+    ∫ x <span class="kw">in</span> a..b, (A * f x - B * g x) = A * (∫ x <span class="kw">in</span> a..b, f x) - B * ∫ x <span class="kw">in</span> a..b, g x</pre></li><li><div class="bk">$\int_a^b f=\int_a^c f+\int_c^b f$</div><pre class="ln"><span class="kw">theorem</span> additivity (f : ℝ → ℝ) (a b c : ℝ) (hac : IntervalIntegrable f volume a c)
+    (hcb : IntervalIntegrable f volume c b) :
+    ∫ x <span class="kw">in</span> a..b, f x = (∫ x <span class="kw">in</span> a..c, f x) + ∫ x <span class="kw">in</span> c..b, f x</pre></li><li><div class="bk">If $f\ge 0$ on $[a,b]$, then $\int_a^b f\ge 0$</div><pre class="ln"><span class="kw">theorem</span> nonneg_integral (f : ℝ → ℝ) (a b : ℝ) (hab : a ≤ b) (hf : ∀ x ∈ Set.Icc a b, 0 ≤ f x) :
+    0 ≤ ∫ x <span class="kw">in</span> a..b, f x</pre></li><li><div class="bk">If $f\le g$ on $[a,b]$, then $\int_a^b f\le\int_a^b g$</div><pre class="ln"><span class="kw">theorem</span> mono_integral (f g : ℝ → ℝ) (a b : ℝ) (hab : a ≤ b) (hf : IntervalIntegrable f volume a b)
+    (hg : IntervalIntegrable g volume a b) (hfg : ∀ x ∈ Set.Icc a b, f x ≤ g x) :
+    ∫ x <span class="kw">in</span> a..b, f x ≤ ∫ x <span class="kw">in</span> a..b, g x</pre></li></ul>
+<p class="note">The integral $\int_a^b f(x)\,dx$ is written <code>∫ x in a..b, f x</code>, and “$f$ is integrable on $[a,b]$” is written <code>IntervalIntegrable f volume a b</code>. Mathlib uses the Lebesgue integral, which is more general than the Riemann integral of the book: every function that is Riemann integrable on $[a,b]$ is also Lebesgue integrable, with the same integral. So the properties also hold for the functions of the book. The convention $\int_a^b f=-\int_b^a f$ is a theorem in Mathlib: the integral is also defined when $a\gt b$, with the opposite sign. Additivity holds for any position of $c$, as long as $f$ is integrable on the two intervals. In the two inequalities we assume $a\le b$. For $\int_a^b f\ge 0$ integrability is not even needed, because in Mathlib the integral of a non-integrable function is defined to be $0$.</p>
+<h2>2. Where it is in Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=intervalIntegral.integral_symm#doc" target="_blank" rel="noopener"><code>intervalIntegral.integral_symm</code></a>: $\int_b^a f=-\int_a^b f$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=intervalIntegral.integral_same#doc" target="_blank" rel="noopener"><code>intervalIntegral.integral_same</code></a>: $\int_a^a f=0$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=intervalIntegral.integral_add#doc" target="_blank" rel="noopener"><code>intervalIntegral.integral_add</code></a>: the integral of a sum.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=intervalIntegral.integral_sub#doc" target="_blank" rel="noopener"><code>intervalIntegral.integral_sub</code></a>: the integral of a difference.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=intervalIntegral.integral_const_mul#doc" target="_blank" rel="noopener"><code>intervalIntegral.integral_const_mul</code></a>: $\int_a^b c\,f=c\int_a^b f$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IntervalIntegrable.const_mul#doc" target="_blank" rel="noopener"><code>IntervalIntegrable.const_mul</code></a>: if $f$ is integrable, so is $c\,f$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=intervalIntegral.integral_add_adjacent_intervals#doc" target="_blank" rel="noopener"><code>intervalIntegral.integral_add_adjacent_intervals</code></a>: $\int_a^c f+\int_c^b f=\int_a^b f$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=intervalIntegral.integral_nonneg#doc" target="_blank" rel="noopener"><code>intervalIntegral.integral_nonneg</code></a>: if $f\ge 0$, then $\int_a^b f\ge 0$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=intervalIntegral.integral_mono_on#doc" target="_blank" rel="noopener"><code>intervalIntegral.integral_mono_on</code></a>: if $f\le g$, then $\int_a^b f\le\int_a^b g$.</li></ul>
+<h2>3. The complete code</h2>
+<details><summary>See the code (45 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 14 · Properties of the Definite Integral · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch14.IdiotitesOloklirwmatos
+<span class="kw">open</span> MeasureTheory
+
+<span class="cm">-- &quot;f is integrable on [a,b]&quot; is written IntervalIntegrable f volume a b</span>
+
+<span class="kw">theorem</span> reverse_limits (f : ℝ → ℝ) (a b : ℝ) : ∫ x <span class="kw">in</span> a..b, f x = -∫ x <span class="kw">in</span> b..a, f x :=
+  intervalIntegral.integral_symm b a
+
+<span class="kw">theorem</span> equal_limits (f : ℝ → ℝ) (a : ℝ) : ∫ x <span class="kw">in</span> a..a, f x = 0 :=
+  intervalIntegral.integral_same
+
+<span class="kw">theorem</span> linear_add (f g : ℝ → ℝ) (A B a b : ℝ) (hf : IntervalIntegrable f volume a b)
+    (hg : IntervalIntegrable g volume a b) :
+    ∫ x <span class="kw">in</span> a..b, (A * f x + B * g x) = A * (∫ x <span class="kw">in</span> a..b, f x) + B * ∫ x <span class="kw">in</span> a..b, g x := <span class="kw">by</span>
+  <span class="tc">rw</span> [intervalIntegral.integral_add (hf.const_mul A) (hg.const_mul B),
+    intervalIntegral.integral_const_mul, intervalIntegral.integral_const_mul]
+
+<span class="kw">theorem</span> linear_sub (f g : ℝ → ℝ) (A B a b : ℝ) (hf : IntervalIntegrable f volume a b)
+    (hg : IntervalIntegrable g volume a b) :
+    ∫ x <span class="kw">in</span> a..b, (A * f x - B * g x) = A * (∫ x <span class="kw">in</span> a..b, f x) - B * ∫ x <span class="kw">in</span> a..b, g x := <span class="kw">by</span>
+  <span class="tc">rw</span> [intervalIntegral.integral_sub (hf.const_mul A) (hg.const_mul B),
+    intervalIntegral.integral_const_mul, intervalIntegral.integral_const_mul]
+
+<span class="kw">theorem</span> additivity (f : ℝ → ℝ) (a b c : ℝ) (hac : IntervalIntegrable f volume a c)
+    (hcb : IntervalIntegrable f volume c b) :
+    ∫ x <span class="kw">in</span> a..b, f x = (∫ x <span class="kw">in</span> a..c, f x) + ∫ x <span class="kw">in</span> c..b, f x :=
+  (intervalIntegral.integral_add_adjacent_intervals hac hcb).symm
+
+<span class="kw">theorem</span> nonneg_integral (f : ℝ → ℝ) (a b : ℝ) (hab : a ≤ b) (hf : ∀ x ∈ Set.Icc a b, 0 ≤ f x) :
+    0 ≤ ∫ x <span class="kw">in</span> a..b, f x :=
+  intervalIntegral.integral_nonneg hab hf
+
+<span class="kw">theorem</span> mono_integral (f g : ℝ → ℝ) (a b : ℝ) (hab : a ≤ b) (hf : IntervalIntegrable f volume a b)
+    (hg : IntervalIntegrable g volume a b) (hfg : ∀ x ∈ Set.Icc a b, f x ≤ g x) :
+    ∫ x <span class="kw">in</span> a..b, f x ≤ ∫ x <span class="kw">in</span> a..b, g x :=
+  intervalIntegral.integral_mono_on hab hf hg hfg
+
+<span class="kw">end</span> Ch14.IdiotitesOloklirwmatos
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2014%20%C2%B7%20Properties%20of%20the%20Definite%20Integral%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch14.IdiotitesOloklirwmatos%0Aopen%20MeasureTheory%0A%0A--%20%22f%20is%20integrable%20on%20%5Ba%2Cb%5D%22%20is%20written%20IntervalIntegrable%20f%20volume%20a%20b%0A%0Atheorem%20reverse_limits%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%3A%20%E2%88%AB%20x%20in%20a..b%2C%20f%20x%20%3D%20-%E2%88%AB%20x%20in%20b..a%2C%20f%20x%20%3A%3D%0A%20%20intervalIntegral.integral_symm%20b%20a%0A%0Atheorem%20equal_limits%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20%3A%20%E2%84%9D%29%20%3A%20%E2%88%AB%20x%20in%20a..a%2C%20f%20x%20%3D%200%20%3A%3D%0A%20%20intervalIntegral.integral_same%0A%0Atheorem%20linear_add%20%28f%20g%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28A%20B%20a%20b%20%3A%20%E2%84%9D%29%20%28hf%20%3A%20IntervalIntegrable%20f%20volume%20a%20b%29%0A%20%20%20%20%28hg%20%3A%20IntervalIntegrable%20g%20volume%20a%20b%29%20%3A%0A%20%20%20%20%E2%88%AB%20x%20in%20a..b%2C%20%28A%20*%20f%20x%20%2B%20B%20*%20g%20x%29%20%3D%20A%20*%20%28%E2%88%AB%20x%20in%20a..b%2C%20f%20x%29%20%2B%20B%20*%20%E2%88%AB%20x%20in%20a..b%2C%20g%20x%20%3A%3D%20by%0A%20%20rw%20%5BintervalIntegral.integral_add%20%28hf.const_mul%20A%29%20%28hg.const_mul%20B%29%2C%0A%20%20%20%20intervalIntegral.integral_const_mul%2C%20intervalIntegral.integral_const_mul%5D%0A%0Atheorem%20linear_sub%20%28f%20g%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28A%20B%20a%20b%20%3A%20%E2%84%9D%29%20%28hf%20%3A%20IntervalIntegrable%20f%20volume%20a%20b%29%0A%20%20%20%20%28hg%20%3A%20IntervalIntegrable%20g%20volume%20a%20b%29%20%3A%0A%20%20%20%20%E2%88%AB%20x%20in%20a..b%2C%20%28A%20*%20f%20x%20-%20B%20*%20g%20x%29%20%3D%20A%20*%20%28%E2%88%AB%20x%20in%20a..b%2C%20f%20x%29%20-%20B%20*%20%E2%88%AB%20x%20in%20a..b%2C%20g%20x%20%3A%3D%20by%0A%20%20rw%20%5BintervalIntegral.integral_sub%20%28hf.const_mul%20A%29%20%28hg.const_mul%20B%29%2C%0A%20%20%20%20intervalIntegral.integral_const_mul%2C%20intervalIntegral.integral_const_mul%5D%0A%0Atheorem%20additivity%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20c%20%3A%20%E2%84%9D%29%20%28hac%20%3A%20IntervalIntegrable%20f%20volume%20a%20c%29%0A%20%20%20%20%28hcb%20%3A%20IntervalIntegrable%20f%20volume%20c%20b%29%20%3A%0A%20%20%20%20%E2%88%AB%20x%20in%20a..b%2C%20f%20x%20%3D%20%28%E2%88%AB%20x%20in%20a..c%2C%20f%20x%29%20%2B%20%E2%88%AB%20x%20in%20c..b%2C%20f%20x%20%3A%3D%0A%20%20%28intervalIntegral.integral_add_adjacent_intervals%20hac%20hcb%29.symm%0A%0Atheorem%20nonneg_integral%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%E2%89%A4%20b%29%20%28hf%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Icc%20a%20b%2C%200%20%E2%89%A4%20f%20x%29%20%3A%0A%20%20%20%200%20%E2%89%A4%20%E2%88%AB%20x%20in%20a..b%2C%20f%20x%20%3A%3D%0A%20%20intervalIntegral.integral_nonneg%20hab%20hf%0A%0Atheorem%20mono_integral%20%28f%20g%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%E2%89%A4%20b%29%20%28hf%20%3A%20IntervalIntegrable%20f%20volume%20a%20b%29%0A%20%20%20%20%28hg%20%3A%20IntervalIntegrable%20g%20volume%20a%20b%29%20%28hfg%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Icc%20a%20b%2C%20f%20x%20%E2%89%A4%20g%20x%29%20%3A%0A%20%20%20%20%E2%88%AB%20x%20in%20a..b%2C%20f%20x%20%E2%89%A4%20%E2%88%AB%20x%20in%20a..b%2C%20g%20x%20%3A%3D%0A%20%20intervalIntegral.integral_mono_on%20hab%20hf%20hg%20hfg%0A%0Aend%20Ch14.IdiotitesOloklirwmatos%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Apostol, T. M. (1967). <em>Calculus</em> (2nd ed., Vols. 1&ndash;2). John Wiley &amp; Sons.</li><li>Filippou, G. N. (2008). <em>Mathimatika Anoteris Ekpaidefsis [Higher Education Mathematics]</em>. Ekdoseis Zitis. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

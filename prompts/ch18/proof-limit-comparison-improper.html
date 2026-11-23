@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Limit Comparison Test (improper integrals)</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>The Limit Comparison Test (improper integrals)</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 18 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>Let $f(x)>0$, $g(x)>0$ for $x\ge a$, integrable on every $[a,R]$, with $\lim_{x\to+\infty}\dfrac{f(x)}{g(x)}=L$ and $0&lt;L&lt;+\infty$. Then $\int_a^{+\infty}f(x)\,dx$ and $\int_a^{+\infty}g(x)\,dx$ converge or diverge together. An analogous test holds for improper integrals of the second kind, with the limit taken at the singular point.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant &mdash; it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20Let%20%24f%28x%29%3E0%24%2C%20%24g%28x%29%3E0%24%20for%20%24x%5Cge%20a%24%2C%20integrable%20on%20every%20%24%5Ba%2CR%5D%24%2C%20with%20%24%5Clim_%7Bx%5Cto%2B%5Cinfty%7D%5Cdfrac%7Bf%28x%29%7D%7Bg%28x%29%7D%3DL%24%20and%20%240%3CL%3C%2B%5Cinfty%24.%20Then%20%24%5Cint_a%5E%7B%2B%5Cinfty%7Df%28x%29%5C%2Cdx%24%20and%20%24%5Cint_a%5E%7B%2B%5Cinfty%7Dg%28x%29%5C%2Cdx%24%20converge%20or%20diverge%20together.%20An%20analogous%20test%20holds%20for%20improper%20integrals%20of%20the%20second%20kind%2C%20with%20the%20limit%20taken%20at%20the%20singular%20point.">ChatGPT</a>
@@ -27,6 +87,91 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: Let $f(x)>0$, $g(x)>0$ for $x\ge a$, integrable on every $[a,R]$, with $\lim_{x\to+\infty}\dfrac{f(x)}{g(x)}=L$ and $0&lt;L&lt;+\infty$. Then $\int_a^{+\infty}f(x)\,dx$ and $\int_a^{+\infty}g(x)\,dx$ converge or diverge together. An analogous test holds for improper integrals of the second kind, with the limit taken at the singular point.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The statement was proved in Lean 4, using theorems from Mathlib, with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 23/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">If $g(x)\gt 0$ for $x\ge a$ and $\lim_{x\to+\infty}\dfrac{f(x)}{g(x)}$<wbr>${}=L$ with $0\lt L\lt+\infty$, then $\int_a^{+\infty}f\,dx$ and $\int_a^{+\infty}g\,dx$ converge or diverge together</div><pre class="ln"><span class="kw">theorem</span> limit_comparison (f g : ℝ → ℝ) (a L : ℝ) (hL : 0 &lt; L)
+    (hf : ContinuousOn f (Set.Ici a)) (hg : ContinuousOn g (Set.Ici a))
+    (hg0 : ∀ x ∈ Set.Ici a, 0 &lt; g x)
+    (hlim : Tendsto (<span class="kw">fun</span> x =&gt; f x / g x) atTop (𝓝 L)) :
+    IntegrableOn f (Set.Ici a) ↔ IntegrableOn g (Set.Ici a)</pre></li></ul>
+<p class="note">The convergence of $\int_a^{+\infty}f\,dx$ is written <code>IntegrableOn f (Set.Ici a)</code>, as in the comparison test; whether we take $[a,+\infty)$ or $(a,+\infty)$ makes no difference. We assume $f,g$ continuous for $x\ge a$, so that they are integrable on every $[a,R]$. The hypothesis $f\gt 0$ of the book is not needed: from $\dfrac{f}{g}\to L\gt 0$ it follows that $f\gt 0$ for large $x$. The proof shows that, for large $x$, each of the two functions is bounded by a multiple of the other (notation <code>f =O[atTop] g</code>), and applies the comparison. The analogous test for integrals of the second kind is not stated here.</p>
+<h2>2. Where it is in Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Asymptotics.isBigO_of_div_tendsto_nhds#doc" target="_blank" rel="noopener"><code>Asymptotics.isBigO_of_div_tendsto_nhds</code></a>: if $\dfrac{f}{g}\to c$, then $f$ is bounded by a multiple of $g$ for large $x$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Filter.Tendsto.inv%E2%82%80#doc" target="_blank" rel="noopener"><code>Filter.Tendsto.inv₀</code></a>: if $u\to L\neq 0$, then $\dfrac{1}{u}\to\dfrac{1}{L}$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=MeasureTheory.LocallyIntegrableOn.integrableOn_of_isBigO_atTop#doc" target="_blank" rel="noopener"><code>MeasureTheory.LocallyIntegrableOn.integrableOn_of_isBigO_atTop</code></a>: comparison at infinity for integrals.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=ContinuousOn.locallyIntegrableOn#doc" target="_blank" rel="noopener"><code>ContinuousOn.locallyIntegrableOn</code></a>: a continuous function is integrable on every closed interval.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=MeasureTheory.integrableAtFilter_atTop_iff#doc" target="_blank" rel="noopener"><code>MeasureTheory.integrableAtFilter_atTop_iff</code></a>: integrability “at infinity”.</li></ul>
+<h2>3. The complete code</h2>
+<details><summary>See the code (40 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 18 · The Limit Comparison Test (improper integrals) · checked with Lean v4.37.0-rc1 and Mathlib (23/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch18.OriakoKritirio
+<span class="kw">open</span> MeasureTheory Filter Topology Asymptotics
+
+<span class="kw">theorem</span> limit_comparison (f g : ℝ → ℝ) (a L : ℝ) (hL : 0 &lt; L)
+    (hf : ContinuousOn f (Set.Ici a)) (hg : ContinuousOn g (Set.Ici a))
+    (hg0 : ∀ x ∈ Set.Ici a, 0 &lt; g x)
+    (hlim : Tendsto (<span class="kw">fun</span> x =&gt; f x / g x) atTop (𝓝 L)) :
+    IntegrableOn f (Set.Ici a) ↔ IntegrableOn g (Set.Ici a) := <span class="kw">by</span>
+  <span class="cm">-- f = O(g) as x → +∞, because f/g → L</span>
+  <span class="kw">have</span> hfg : f =O[atTop] g := <span class="kw">by</span>
+    <span class="tc">refine</span> isBigO_of_div_tendsto_nhds ?_ L hlim
+    <span class="tc">filter_upwards</span> [eventually_ge_atTop a] <span class="kw">with</span> x hx h0
+    <span class="tc">exact</span> <span class="tc">absurd</span> h0 (hg0 x hx).ne&#x27;
+  <span class="cm">-- g = O(f) as x → +∞, because g/f → 1/L</span>
+  <span class="kw">have</span> hgf : g =O[atTop] f := <span class="kw">by</span>
+    <span class="kw">have</span> hinv : Tendsto (<span class="kw">fun</span> x =&gt; g x / f x) atTop (𝓝 L⁻¹) := <span class="kw">by</span>
+      <span class="tc">refine</span> (hlim.inv₀ hL.ne&#x27;).congr&#x27; ?_
+      <span class="tc">filter_upwards</span> <span class="kw">with</span> x
+      <span class="tc">exact</span> inv_div (f x) (g x)
+    <span class="tc">refine</span> isBigO_of_div_tendsto_nhds ?_ L⁻¹ hinv
+    <span class="tc">filter_upwards</span> [hlim.eventually (lt_mem_nhds hL)] <span class="kw">with</span> x hx h0
+    <span class="tc">rw</span> [h0, zero_div] <span class="kw">at</span> hx
+    <span class="tc">exact</span> <span class="tc">absurd</span> hx (lt_irrefl 0)
+  <span class="cm">-- comparison at infinity: the continuous f, g are integrable on every [a, R]</span>
+  <span class="tc">constructor</span>
+  · <span class="tc">intro</span> hfi
+    <span class="tc">exact</span> (hg.locallyIntegrableOn measurableSet_Ici).integrableOn_of_isBigO_atTop hgf
+      (integrableAtFilter_atTop_iff.mpr ⟨a, hfi⟩)
+  · <span class="tc">intro</span> hgi
+    <span class="tc">exact</span> (hf.locallyIntegrableOn measurableSet_Ici).integrableOn_of_isBigO_atTop hfg
+      (integrableAtFilter_atTop_iff.mpr ⟨a, hgi⟩)
+
+<span class="kw">end</span> Ch18.OriakoKritirio
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2018%20%C2%B7%20The%20Limit%20Comparison%20Test%20%28improper%20integrals%29%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2823%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch18.OriakoKritirio%0Aopen%20MeasureTheory%20Filter%20Topology%20Asymptotics%0A%0Atheorem%20limit_comparison%20%28f%20g%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20L%20%3A%20%E2%84%9D%29%20%28hL%20%3A%200%20%3C%20L%29%0A%20%20%20%20%28hf%20%3A%20ContinuousOn%20f%20%28Set.Ici%20a%29%29%20%28hg%20%3A%20ContinuousOn%20g%20%28Set.Ici%20a%29%29%0A%20%20%20%20%28hg0%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ici%20a%2C%200%20%3C%20g%20x%29%0A%20%20%20%20%28hlim%20%3A%20Tendsto%20%28fun%20x%20%3D%3E%20f%20x%20%2F%20g%20x%29%20atTop%20%28%F0%9D%93%9D%20L%29%29%20%3A%0A%20%20%20%20IntegrableOn%20f%20%28Set.Ici%20a%29%20%E2%86%94%20IntegrableOn%20g%20%28Set.Ici%20a%29%20%3A%3D%20by%0A%20%20--%20f%20%3D%20O%28g%29%20as%20x%20%E2%86%92%20%2B%E2%88%9E%2C%20because%20f%2Fg%20%E2%86%92%20L%0A%20%20have%20hfg%20%3A%20f%20%3DO%5BatTop%5D%20g%20%3A%3D%20by%0A%20%20%20%20refine%20isBigO_of_div_tendsto_nhds%20%3F_%20L%20hlim%0A%20%20%20%20filter_upwards%20%5Beventually_ge_atTop%20a%5D%20with%20x%20hx%20h0%0A%20%20%20%20exact%20absurd%20h0%20%28hg0%20x%20hx%29.ne'%0A%20%20--%20g%20%3D%20O%28f%29%20as%20x%20%E2%86%92%20%2B%E2%88%9E%2C%20because%20g%2Ff%20%E2%86%92%201%2FL%0A%20%20have%20hgf%20%3A%20g%20%3DO%5BatTop%5D%20f%20%3A%3D%20by%0A%20%20%20%20have%20hinv%20%3A%20Tendsto%20%28fun%20x%20%3D%3E%20g%20x%20%2F%20f%20x%29%20atTop%20%28%F0%9D%93%9D%20L%E2%81%BB%C2%B9%29%20%3A%3D%20by%0A%20%20%20%20%20%20refine%20%28hlim.inv%E2%82%80%20hL.ne'%29.congr'%20%3F_%0A%20%20%20%20%20%20filter_upwards%20with%20x%0A%20%20%20%20%20%20exact%20inv_div%20%28f%20x%29%20%28g%20x%29%0A%20%20%20%20refine%20isBigO_of_div_tendsto_nhds%20%3F_%20L%E2%81%BB%C2%B9%20hinv%0A%20%20%20%20filter_upwards%20%5Bhlim.eventually%20%28lt_mem_nhds%20hL%29%5D%20with%20x%20hx%20h0%0A%20%20%20%20rw%20%5Bh0%2C%20zero_div%5D%20at%20hx%0A%20%20%20%20exact%20absurd%20hx%20%28lt_irrefl%200%29%0A%20%20--%20comparison%20at%20infinity%3A%20the%20continuous%20f%2C%20g%20are%20integrable%20on%20every%20%5Ba%2C%20R%5D%0A%20%20constructor%0A%20%20%C2%B7%20intro%20hfi%0A%20%20%20%20exact%20%28hg.locallyIntegrableOn%20measurableSet_Ici%29.integrableOn_of_isBigO_atTop%20hgf%0A%20%20%20%20%20%20%28integrableAtFilter_atTop_iff.mpr%20%E2%9F%A8a%2C%20hfi%E2%9F%A9%29%0A%20%20%C2%B7%20intro%20hgi%0A%20%20%20%20exact%20%28hf.locallyIntegrableOn%20measurableSet_Ici%29.integrableOn_of_isBigO_atTop%20hfg%0A%20%20%20%20%20%20%28integrableAtFilter_atTop_iff.mpr%20%E2%9F%A8a%2C%20hgi%E2%9F%A9%29%0A%0Aend%20Ch18.OriakoKritirio%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Rudin, W. (1976). <em>Principles of Mathematical Analysis</em> (3rd ed.). McGraw-Hill.</li><li>Filippou, G. N. (2008). <em>Mathimatika Anoteris Ekpaidefsis [Higher Education Mathematics]</em>. Ekdoseis Zitis. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

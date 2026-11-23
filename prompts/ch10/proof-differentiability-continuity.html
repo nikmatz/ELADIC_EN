@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Differentiability ⇒ Continuity</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Differentiability ⇒ Continuity</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 10 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>If $f$ is differentiable at $x_0$, then it is also continuous at $x_0$. The converse does not hold: for example, $f(x)=|x|$ is continuous at $0$ but not differentiable there.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20If%20%24f%24%20is%20differentiable%20at%20%24x_0%24%2C%20then%20it%20is%20also%20continuous%20at%20%24x_0%24.%20The%20converse%20does%20not%20hold%3A%20for%20example%2C%20%24f%28x%29%3D%7Cx%7C%24%20is%20continuous%20at%20%240%24%20but%20not%20differentiable%20there.">ChatGPT</a>
@@ -27,6 +87,122 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: If $f$ is differentiable at $x_0$, then it is also continuous at $x_0$. The converse does not hold: for example, $f(x)=|x|$ is continuous at $0$ but not differentiable there.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The theorem and the counterexample were proved in Lean 4 with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">If $f$ is differentiable at $x_0$, then it is continuous at $x_0$</div><pre class="ln"><span class="kw">theorem</span> continuous_of_hasDeriv (f : ℝ → ℝ) (x₀ f&#x27; : ℝ) (hf : HasDerivAt f f&#x27; x₀) :
+    ContinuousAt f x₀</pre></li><li><div class="bk">Application: if $f$ and $g$ are differentiable at $x_0$, then $f+g$ is continuous at $x_0$</div><pre class="ln"><span class="kw">theorem</span> sum_continuous (f g : ℝ → ℝ) (x₀ f&#x27; g&#x27; : ℝ) (hf : HasDerivAt f f&#x27; x₀)
+    (hg : HasDerivAt g g&#x27; x₀) : ContinuousAt (<span class="kw">fun</span> x =&gt; f x + g x) x₀</pre></li><li><div class="bk">The converse does not hold: $|x|$ is continuous at $0$ but not differentiable there</div><pre class="ln"><span class="kw">theorem</span> abs_counterexample :
+    ContinuousAt (<span class="kw">fun</span> x : ℝ =&gt; |x|) 0 ∧ ¬ DifferentiableAt ℝ (<span class="kw">fun</span> x : ℝ =&gt; |x|) 0</pre></li></ul>
+<p class="note"><code>HasDerivAt f f' x₀</code> means that $f$ has derivative $f'$ at $x_0$, and <code>ContinuousAt f x₀</code> that $f$ is continuous at $x_0$. Mathlib writes limits with <code>Tendsto</code>: <code>Tendsto g (𝓝[≠] x₀) (𝓝 L)</code> means that $g(x)\to L$ as $x\to x_0$ with $x\neq x_0$. The slope $\dfrac{f(x)-f(x_0)}{x-x_0}$ is written <code>slope f x₀ x</code>. The proof is the one in the book: $f(x)-f(x_0)$<wbr>${}=\dfrac{f(x)-f(x_0)}{x-x_0}\,(x-x_0)\to f'\cdot 0$<wbr>${}=0$.</p>
+<h2>2. Step by step: differentiable $\Rightarrow$ continuous</h2>
+<p class="note">The idea: we write the difference $f(x)-f(x_0)$ as the product of the slope and $x-x_0$; the slope tends to $f'$ and the second factor to $0$. We start from the goal:</p>
+<div class="goal start"><span>The goal</span><pre>f : ℝ → ℝ
+x₀ f&#x27; : ℝ
+hf : HasDerivAt f f&#x27; x₀
+⊢ ContinuousAt f x₀</pre></div>
+<p class="note">Above <code>⊢</code> is what we know; after <code>⊢</code> is what we have to show. After each step we show only what changed.</p>
+<ol class="steps"><li><pre class="ln"><span class="tc">rw</span> [hasDerivAt_iff_tendsto_slope] <span class="kw">at</span> hf</pre><p>We write the derivative as a limit: the slope <code>slope f x₀ x</code> tends to $f'$ as $x\to x_0$ with $x\neq x_0$.</p><div class="goal"><span>What remains to be proved</span><pre>hf : Tendsto (slope f x₀) (𝓝[≠] x₀) (𝓝 f&#x27;)
+⊢ ContinuousAt f x₀</pre></div></li><li><pre class="ln"><span class="kw">have</span> h1 : Tendsto (<span class="kw">fun</span> x =&gt; x - x₀) (𝓝[≠] x₀) (𝓝 0) := <span class="kw">by</span></pre><p>Intermediate claim <code>h1</code>: $x-x_0\to 0$ as $x\to x_0$ with $x\neq x_0$.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ Tendsto (fun x =&gt; x - x₀) (𝓝[≠] x₀) (𝓝 0)</pre></div></li><li><pre class="ln"><span class="kw">have</span> h : Tendsto (<span class="kw">fun</span> x =&gt; x - x₀) (𝓝 x₀) (𝓝 (x₀ - x₀)) :=
+  (continuous_id.sub continuous_const).tendsto x₀
+<span class="tc">rw</span> [sub_self] <span class="kw">at</span> h
+<span class="tc">exact</span> h.mono_left nhdsWithin_le_nhds</pre><p>The map $x\mapsto x-x_0$ is continuous, so it tends to $x_0-x_0=0$; the same holds when we keep only the $x\neq x_0$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="kw">have</span> h2 : Tendsto (<span class="kw">fun</span> x =&gt; slope f x₀ x * (x - x₀)) (𝓝[≠] x₀) (𝓝 (f&#x27; * 0)) := hf.mul h1</pre><p>Limit of a product (<code>h2</code>): the slope times $(x-x_0)$ tends to $f'\cdot 0$.</p><div class="goal"><span>What remains to be proved</span><pre>f : ℝ → ℝ
+x₀ f&#x27; : ℝ
+hf : Tendsto (slope f x₀) (𝓝[≠] x₀) (𝓝 f&#x27;)
+h1 : Tendsto (fun x =&gt; x - x₀) (𝓝[≠] x₀) (𝓝 0)
+h2 : Tendsto (fun x =&gt; slope f x₀ x * (x - x₀)) (𝓝[≠] x₀) (𝓝 (f&#x27; * 0))
+⊢ ContinuousAt f x₀</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [mul_zero] <span class="kw">at</span> h2</pre><p>We simplify: $f'\cdot 0=0$.</p><div class="goal"><span>What remains to be proved</span><pre>h2 : Tendsto (fun x =&gt; slope f x₀ x * (x - x₀)) (𝓝[≠] x₀) (𝓝 0)
+⊢ ContinuousAt f x₀</pre></div></li><li><pre class="ln"><span class="kw">have</span> h3 : Tendsto (<span class="kw">fun</span> x =&gt; f x - f x₀) (𝓝[≠] x₀) (𝓝 0) := <span class="kw">by</span></pre><p>Intermediate claim <code>h3</code>: $f(x)-f(x_0)\to 0$.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ Tendsto (fun x =&gt; f x - f x₀) (𝓝[≠] x₀) (𝓝 0)</pre></div></li><li><pre class="ln"><span class="tc">apply</span> h2.congr&#x27;</pre><p>It suffices that the two functions are equal for $x$ near $x_0$ with $x\neq x_0$; then they have the same limit, the $0$ of <code>h2</code>.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ (fun x =&gt; slope f x₀ x * (x - x₀)) =ᶠ[𝓝[≠] x₀] fun x =&gt; f x - f x₀</pre></div></li><li><pre class="ln"><span class="tc">filter_upwards</span> [self_mem_nhdsWithin] <span class="kw">with</span> x hx</pre><p>We take $x\neq x_0$ (<code>{x₀}ᶜ</code> is the set of all $x\neq x_0$).</p><div class="goal"><span>What remains to be proved</span><pre>x : ℝ
+hx : x ∈ {x₀}ᶜ
+⊢ slope f x₀ x * (x - x₀) = f x - f x₀</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [slope_def_field, div_mul_cancel₀ _ (sub_ne_zero.mpr (Set.mem_compl_singleton_iff.mp hx))]</pre><p>Since $x-x_0\neq 0$: $\dfrac{f(x)-f(x_0)}{x-x_0}\cdot(x-x_0)$<wbr>${}=f(x)-f(x_0)$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="tc">rw</span> [continuousAt_iff_punctured_nhds]</pre><p>Continuity at $x_0$ means $f(x)\to f(x_0)$ as $x\to x_0$ with $x\neq x_0$.</p><div class="goal"><span>What remains to be proved</span><pre>f : ℝ → ℝ
+x₀ f&#x27; : ℝ
+hf : Tendsto (slope f x₀) (𝓝[≠] x₀) (𝓝 f&#x27;)
+h1 : Tendsto (fun x =&gt; x - x₀) (𝓝[≠] x₀) (𝓝 0)
+h2 : Tendsto (fun x =&gt; slope f x₀ x * (x - x₀)) (𝓝[≠] x₀) (𝓝 0)
+h3 : Tendsto (fun x =&gt; f x - f x₀) (𝓝[≠] x₀) (𝓝 0)
+⊢ Tendsto f (𝓝[≠] x₀) (𝓝 (f x₀))</pre></div></li><li><pre class="ln"><span class="kw">have</span> h4 := h3.add_const (f x₀)</pre><p>We add the constant $f(x_0)$ to the limit in <code>h3</code>: $f(x)-f(x_0)+f(x_0)\to 0+f(x_0)$.</p><div class="goal"><span>What remains to be proved</span><pre>h4 : Tendsto (fun x =&gt; f x - f x₀ + f x₀) (𝓝[≠] x₀) (𝓝 (0 + f x₀))
+⊢ Tendsto f (𝓝[≠] x₀) (𝓝 (f x₀))</pre></div></li><li><pre class="ln"><span class="tc">simpa</span> using h4</pre><p>We simplify: $f(x)-f(x_0)+f(x_0)=f(x)$ and $0+f(x_0)=f(x_0)$, which is exactly the goal.</p><div class="goal done"><span>✓ </span>No goals: the proof is complete.</div></li></ol>
+<h2>3. Try it yourself: a sum of differentiable functions</h2>
+<div class="ex"><p>If $f$ and $g$ are differentiable at $x_0$, show that $f+g$ is continuous at $x_0$. Open the exercise in Lean and replace the word <code>sorry</code> with your own steps. When the proof is correct, the message <i>declaration uses sorry</i> disappears and no red error appears.</p>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2010%20%C2%B7%20Differentiability%20%E2%87%92%20Continuity%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch10.ParagogisimotitaSynexeia%0Aopen%20Filter%20Topology%0A%0Atheorem%20continuous_of_hasDeriv%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28x%E2%82%80%20f'%20%3A%20%E2%84%9D%29%20%28hf%20%3A%20HasDerivAt%20f%20f'%20x%E2%82%80%29%20%3A%0A%20%20%20%20ContinuousAt%20f%20x%E2%82%80%20%3A%3D%20by%0A%20%20rw%20%5BhasDerivAt_iff_tendsto_slope%5D%20at%20hf%0A%20%20have%20h1%20%3A%20Tendsto%20%28fun%20x%20%3D%3E%20x%20-%20x%E2%82%80%29%20%28%F0%9D%93%9D%5B%E2%89%A0%5D%20x%E2%82%80%29%20%28%F0%9D%93%9D%200%29%20%3A%3D%20by%0A%20%20%20%20have%20h%20%3A%20Tendsto%20%28fun%20x%20%3D%3E%20x%20-%20x%E2%82%80%29%20%28%F0%9D%93%9D%20x%E2%82%80%29%20%28%F0%9D%93%9D%20%28x%E2%82%80%20-%20x%E2%82%80%29%29%20%3A%3D%0A%20%20%20%20%20%20%28continuous_id.sub%20continuous_const%29.tendsto%20x%E2%82%80%0A%20%20%20%20rw%20%5Bsub_self%5D%20at%20h%0A%20%20%20%20exact%20h.mono_left%20nhdsWithin_le_nhds%0A%20%20have%20h2%20%3A%20Tendsto%20%28fun%20x%20%3D%3E%20slope%20f%20x%E2%82%80%20x%20*%20%28x%20-%20x%E2%82%80%29%29%20%28%F0%9D%93%9D%5B%E2%89%A0%5D%20x%E2%82%80%29%20%28%F0%9D%93%9D%20%28f'%20*%200%29%29%20%3A%3D%20hf.mul%20h1%0A%20%20rw%20%5Bmul_zero%5D%20at%20h2%0A%20%20have%20h3%20%3A%20Tendsto%20%28fun%20x%20%3D%3E%20f%20x%20-%20f%20x%E2%82%80%29%20%28%F0%9D%93%9D%5B%E2%89%A0%5D%20x%E2%82%80%29%20%28%F0%9D%93%9D%200%29%20%3A%3D%20by%0A%20%20%20%20apply%20h2.congr'%0A%20%20%20%20filter_upwards%20%5Bself_mem_nhdsWithin%5D%20with%20x%20hx%0A%20%20%20%20rw%20%5Bslope_def_field%2C%20div_mul_cancel%E2%82%80%20_%20%28sub_ne_zero.mpr%20%28Set.mem_compl_singleton_iff.mp%20hx%29%29%5D%0A%20%20rw%20%5BcontinuousAt_iff_punctured_nhds%5D%0A%20%20have%20h4%20%3A%3D%20h3.add_const%20%28f%20x%E2%82%80%29%0A%20%20simpa%20using%20h4%0A%0Atheorem%20sum_continuous%20%28f%20g%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28x%E2%82%80%20f'%20g'%20%3A%20%E2%84%9D%29%20%28hf%20%3A%20HasDerivAt%20f%20f'%20x%E2%82%80%29%0A%20%20%20%20%28hg%20%3A%20HasDerivAt%20g%20g'%20x%E2%82%80%29%20%3A%20ContinuousAt%20%28fun%20x%20%3D%3E%20f%20x%20%2B%20g%20x%29%20x%E2%82%80%20%3A%3D%20by%0A%20%20--%20EXERCISE%3A%20replace%20the%20sorry%20with%20your%20own%20proof.%0A%20%20sorry%0A%0Atheorem%20abs_counterexample%20%3A%0A%20%20%20%20ContinuousAt%20%28fun%20x%20%3A%20%E2%84%9D%20%3D%3E%20%7Cx%7C%29%200%20%E2%88%A7%20%C2%AC%20DifferentiableAt%20%E2%84%9D%20%28fun%20x%20%3A%20%E2%84%9D%20%3D%3E%20%7Cx%7C%29%200%20%3A%3D%0A%20%20%E2%9F%A8continuous_abs.continuousAt%2C%20not_differentiableAt_abs_zero%E2%9F%A9%0A%0Aend%20Ch10.ParagogisimotitaSynexeia%0A" target="_blank" rel="noopener">Open the exercise in Lean</a>
+<details><summary>Hint</summary><div class="in"><p class="note">The function $f+g$ has derivative $f'+g'$ (<code>hf.add hg</code>). Apply the theorem: <code>exact continuous_of_hasDeriv _ x₀ (f' + g') (hf.add hg)</code>.</p></div></details>
+<details><summary>Solution</summary><div class="in"><pre class="ln"><span class="kw">theorem</span> sum_continuous (f g : ℝ → ℝ) (x₀ f&#x27; g&#x27; : ℝ) (hf : HasDerivAt f f&#x27; x₀)
+    (hg : HasDerivAt g g&#x27; x₀) : ContinuousAt (<span class="kw">fun</span> x =&gt; f x + g x) x₀ :=
+  continuous_of_hasDeriv _ x₀ (f&#x27; + g&#x27;) (hf.add hg)</pre></div></details>
+</div>
+<h2>4. In Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=hasDerivAt_iff_tendsto_slope#doc" target="_blank" rel="noopener"><code>hasDerivAt_iff_tendsto_slope</code></a>: the derivative as the limit of the slope $\dfrac{f(x)-f(x_0)}{x-x_0}$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Filter.Tendsto.mul#doc" target="_blank" rel="noopener"><code>Filter.Tendsto.mul</code></a>: the limit of a product.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Filter.Tendsto.congr%27#doc" target="_blank" rel="noopener"><code>Filter.Tendsto.congr&#x27;</code></a>: functions that are equal near the point have the same limit.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Filter.Tendsto.add_const#doc" target="_blank" rel="noopener"><code>Filter.Tendsto.add_const</code></a>: the limit of a sum with a constant.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=continuousAt_iff_punctured_nhds#doc" target="_blank" rel="noopener"><code>continuousAt_iff_punctured_nhds</code></a>: continuity at $x_0$ means $f(x)\to f(x_0)$ as $x\to x_0$ with $x\neq x_0$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=slope_def_field#doc" target="_blank" rel="noopener"><code>slope_def_field</code></a>: the formula for the slope, $\dfrac{f(x)-f(x_0)}{x-x_0}$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=div_mul_cancel%E2%82%80#doc" target="_blank" rel="noopener"><code>div_mul_cancel₀</code></a>: $\dfrac{a}{b}\cdot b=a$ when $b\neq 0$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.add#doc" target="_blank" rel="noopener"><code>HasDerivAt.add</code></a>: the sum rule.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=not_differentiableAt_abs_zero#doc" target="_blank" rel="noopener"><code>not_differentiableAt_abs_zero</code></a>: $|x|$ is not differentiable at $0$.</li></ul>
+<h2>5. The complete code</h2>
+<details><summary>See the code (37 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 10 · Differentiability ⇒ Continuity · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch10.ParagogisimotitaSynexeia
+<span class="kw">open</span> Filter Topology
+
+<span class="kw">theorem</span> continuous_of_hasDeriv (f : ℝ → ℝ) (x₀ f&#x27; : ℝ) (hf : HasDerivAt f f&#x27; x₀) :
+    ContinuousAt f x₀ := <span class="kw">by</span>
+  <span class="tc">rw</span> [hasDerivAt_iff_tendsto_slope] <span class="kw">at</span> hf
+  <span class="kw">have</span> h1 : Tendsto (<span class="kw">fun</span> x =&gt; x - x₀) (𝓝[≠] x₀) (𝓝 0) := <span class="kw">by</span>
+    <span class="kw">have</span> h : Tendsto (<span class="kw">fun</span> x =&gt; x - x₀) (𝓝 x₀) (𝓝 (x₀ - x₀)) :=
+      (continuous_id.sub continuous_const).tendsto x₀
+    <span class="tc">rw</span> [sub_self] <span class="kw">at</span> h
+    <span class="tc">exact</span> h.mono_left nhdsWithin_le_nhds
+  <span class="kw">have</span> h2 : Tendsto (<span class="kw">fun</span> x =&gt; slope f x₀ x * (x - x₀)) (𝓝[≠] x₀) (𝓝 (f&#x27; * 0)) := hf.mul h1
+  <span class="tc">rw</span> [mul_zero] <span class="kw">at</span> h2
+  <span class="kw">have</span> h3 : Tendsto (<span class="kw">fun</span> x =&gt; f x - f x₀) (𝓝[≠] x₀) (𝓝 0) := <span class="kw">by</span>
+    <span class="tc">apply</span> h2.congr&#x27;
+    <span class="tc">filter_upwards</span> [self_mem_nhdsWithin] <span class="kw">with</span> x hx
+    <span class="tc">rw</span> [slope_def_field, div_mul_cancel₀ _ (sub_ne_zero.mpr (Set.mem_compl_singleton_iff.mp hx))]
+  <span class="tc">rw</span> [continuousAt_iff_punctured_nhds]
+  <span class="kw">have</span> h4 := h3.add_const (f x₀)
+  <span class="tc">simpa</span> using h4
+
+<span class="kw">theorem</span> sum_continuous (f g : ℝ → ℝ) (x₀ f&#x27; g&#x27; : ℝ) (hf : HasDerivAt f f&#x27; x₀)
+    (hg : HasDerivAt g g&#x27; x₀) : ContinuousAt (<span class="kw">fun</span> x =&gt; f x + g x) x₀ :=
+  continuous_of_hasDeriv _ x₀ (f&#x27; + g&#x27;) (hf.add hg)
+
+<span class="kw">theorem</span> abs_counterexample :
+    ContinuousAt (<span class="kw">fun</span> x : ℝ =&gt; |x|) 0 ∧ ¬ DifferentiableAt ℝ (<span class="kw">fun</span> x : ℝ =&gt; |x|) 0 :=
+  ⟨continuous_abs.continuousAt, not_differentiableAt_abs_zero⟩
+
+<span class="kw">end</span> Ch10.ParagogisimotitaSynexeia
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2010%20%C2%B7%20Differentiability%20%E2%87%92%20Continuity%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch10.ParagogisimotitaSynexeia%0Aopen%20Filter%20Topology%0A%0Atheorem%20continuous_of_hasDeriv%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28x%E2%82%80%20f'%20%3A%20%E2%84%9D%29%20%28hf%20%3A%20HasDerivAt%20f%20f'%20x%E2%82%80%29%20%3A%0A%20%20%20%20ContinuousAt%20f%20x%E2%82%80%20%3A%3D%20by%0A%20%20rw%20%5BhasDerivAt_iff_tendsto_slope%5D%20at%20hf%0A%20%20have%20h1%20%3A%20Tendsto%20%28fun%20x%20%3D%3E%20x%20-%20x%E2%82%80%29%20%28%F0%9D%93%9D%5B%E2%89%A0%5D%20x%E2%82%80%29%20%28%F0%9D%93%9D%200%29%20%3A%3D%20by%0A%20%20%20%20have%20h%20%3A%20Tendsto%20%28fun%20x%20%3D%3E%20x%20-%20x%E2%82%80%29%20%28%F0%9D%93%9D%20x%E2%82%80%29%20%28%F0%9D%93%9D%20%28x%E2%82%80%20-%20x%E2%82%80%29%29%20%3A%3D%0A%20%20%20%20%20%20%28continuous_id.sub%20continuous_const%29.tendsto%20x%E2%82%80%0A%20%20%20%20rw%20%5Bsub_self%5D%20at%20h%0A%20%20%20%20exact%20h.mono_left%20nhdsWithin_le_nhds%0A%20%20have%20h2%20%3A%20Tendsto%20%28fun%20x%20%3D%3E%20slope%20f%20x%E2%82%80%20x%20*%20%28x%20-%20x%E2%82%80%29%29%20%28%F0%9D%93%9D%5B%E2%89%A0%5D%20x%E2%82%80%29%20%28%F0%9D%93%9D%20%28f'%20*%200%29%29%20%3A%3D%20hf.mul%20h1%0A%20%20rw%20%5Bmul_zero%5D%20at%20h2%0A%20%20have%20h3%20%3A%20Tendsto%20%28fun%20x%20%3D%3E%20f%20x%20-%20f%20x%E2%82%80%29%20%28%F0%9D%93%9D%5B%E2%89%A0%5D%20x%E2%82%80%29%20%28%F0%9D%93%9D%200%29%20%3A%3D%20by%0A%20%20%20%20apply%20h2.congr'%0A%20%20%20%20filter_upwards%20%5Bself_mem_nhdsWithin%5D%20with%20x%20hx%0A%20%20%20%20rw%20%5Bslope_def_field%2C%20div_mul_cancel%E2%82%80%20_%20%28sub_ne_zero.mpr%20%28Set.mem_compl_singleton_iff.mp%20hx%29%29%5D%0A%20%20rw%20%5BcontinuousAt_iff_punctured_nhds%5D%0A%20%20have%20h4%20%3A%3D%20h3.add_const%20%28f%20x%E2%82%80%29%0A%20%20simpa%20using%20h4%0A%0Atheorem%20sum_continuous%20%28f%20g%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28x%E2%82%80%20f'%20g'%20%3A%20%E2%84%9D%29%20%28hf%20%3A%20HasDerivAt%20f%20f'%20x%E2%82%80%29%0A%20%20%20%20%28hg%20%3A%20HasDerivAt%20g%20g'%20x%E2%82%80%29%20%3A%20ContinuousAt%20%28fun%20x%20%3D%3E%20f%20x%20%2B%20g%20x%29%20x%E2%82%80%20%3A%3D%0A%20%20continuous_of_hasDeriv%20_%20x%E2%82%80%20%28f'%20%2B%20g'%29%20%28hf.add%20hg%29%0A%0Atheorem%20abs_counterexample%20%3A%0A%20%20%20%20ContinuousAt%20%28fun%20x%20%3A%20%E2%84%9D%20%3D%3E%20%7Cx%7C%29%200%20%E2%88%A7%20%C2%AC%20DifferentiableAt%20%E2%84%9D%20%28fun%20x%20%3A%20%E2%84%9D%20%3D%3E%20%7Cx%7C%29%200%20%3A%3D%0A%20%20%E2%9F%A8continuous_abs.continuousAt%2C%20not_differentiableAt_abs_zero%E2%9F%A9%0A%0Aend%20Ch10.ParagogisimotitaSynexeia%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Stewart, J. (2016). <em>Calculus: Early Transcendentals</em> (8th ed.). Cengage Learning.</li><li>Bartle, R. G., &amp; Sherbert, D. R. (2011). <em>Introduction to Real Analysis</em> (4th ed.). Wiley.</li><li>Rudin, W. (1976). <em>Principles of Mathematical Analysis</em> (3rd ed.). McGraw-Hill.</li><li>Negrepontis, S., Giotopoulos, S., &amp; Giannakoulias, E. (1999). <em>Apeirostikos Logismos [Infinitesimal Calculus]</em> (Vol. I). Ekdoseis Symmetria. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

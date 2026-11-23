@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Comparison Test for Improper Integrals</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>The Comparison Test for Improper Integrals</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 18 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>If $0\le f(x)\le g(x)$ for $x\ge a$ and $f,g$ are locally integrable on every $[a,R]$: if $\int_a^{+\infty}g\,dx$ converges then so does $\int_a^{+\infty}f\,dx$; if $\int_a^{+\infty}f\,dx$ diverges then so does $\int_a^{+\infty}g\,dx$.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20If%20%240%5Cle%20f%28x%29%5Cle%20g%28x%29%24%20for%20%24x%5Cge%20a%24%20and%20%24f%2Cg%24%20are%20locally%20integrable%20on%20every%20%24%5Ba%2CR%5D%24%3A%20if%20%24%5Cint_a%5E%7B%2B%5Cinfty%7Dg%5C%2Cdx%24%20converges%20then%20so%20does%20%24%5Cint_a%5E%7B%2B%5Cinfty%7Df%5C%2Cdx%24%3B%20if%20%24%5Cint_a%5E%7B%2B%5Cinfty%7Df%5C%2Cdx%24%20diverges%20then%20so%20does%20%24%5Cint_a%5E%7B%2B%5Cinfty%7Dg%5C%2Cdx%24.">ChatGPT</a>
@@ -27,6 +87,96 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: If $0\le f(x)\le g(x)$ for $x\ge a$ and $f,g$ are locally integrable on every $[a,R]$: if $\int_a^{+\infty}g\,dx$ converges then so does $\int_a^{+\infty}f\,dx$; if $\int_a^{+\infty}f\,dx$ diverges then so does $\int_a^{+\infty}g\,dx$.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The statements were proved in Lean 4, using theorems from Mathlib, with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 23/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">If $0\le f(x)\le g(x)$ for $x\ge a$ and $\int_a^{+\infty}g\,dx$ converges, then $\int_a^{+\infty}f\,dx$ also converges</div><pre class="ln"><span class="kw">theorem</span> comparison (f g : ℝ → ℝ) (a : ℝ) (hf : ContinuousOn f (Set.Ici a))
+    (hf0 : ∀ x ∈ Set.Ici a, 0 ≤ f x) (hfg : ∀ x ∈ Set.Ici a, f x ≤ g x)
+    (hg : IntegrableOn g (Set.Ioi a)) : IntegrableOn f (Set.Ioi a)</pre></li><li><div class="bk">If $\int_a^{+\infty}f\,dx$ diverges, then $\int_a^{+\infty}g\,dx$ also diverges</div><pre class="ln"><span class="kw">theorem</span> comparison_diverges (f g : ℝ → ℝ) (a : ℝ) (hf : ContinuousOn f (Set.Ici a))
+    (hf0 : ∀ x ∈ Set.Ici a, 0 ≤ f x) (hfg : ∀ x ∈ Set.Ici a, f x ≤ g x)
+    (hdiv : ¬ IntegrableOn f (Set.Ioi a)) : ¬ IntegrableOn g (Set.Ioi a)</pre></li><li><div class="bk">Connection with the definition in the book: for integrable $f$, $\int_a^R f\,dx\to\int_a^{+\infty}f\,dx$ as $R\to+\infty$</div><pre class="ln"><span class="kw">theorem</span> limit_of_integrable (f : ℝ → ℝ) (a : ℝ) (hf : IntegrableOn f (Set.Ioi a)) :
+    Tendsto (<span class="kw">fun</span> R =&gt; ∫ x <span class="kw">in</span> a..R, f x) atTop (𝓝 (∫ x <span class="kw">in</span> Set.Ioi a, f x))</pre></li><li><div class="bk">and conversely, for $f\ge 0$: if $\int_a^R f\,dx$ has a limit as $R\to+\infty$, then $f$ is integrable on $(a,+\infty)$</div><pre class="ln"><span class="kw">theorem</span> integrable_of_limit (f : ℝ → ℝ) (a L : ℝ) (hf : ContinuousOn f (Set.Ici a))
+    (hf0 : ∀ x ∈ Set.Ici a, 0 ≤ f x)
+    (hlim : Tendsto (<span class="kw">fun</span> R =&gt; ∫ x <span class="kw">in</span> a..R, f x) atTop (𝓝 L)) : IntegrableOn f (Set.Ioi a)</pre></li></ul>
+<p class="note">In Mathlib, the convergence of the improper integral $\int_a^{+\infty}f\,dx$ is expressed as integrability on $(a,+\infty)$: <code>IntegrableOn f (Set.Ioi a)</code>. For nonnegative functions this is exactly convergence in the sense of the book, as the last two theorems show: $\int_a^R f\,dx$ has a limit as $R\to+\infty$ exactly when $f$ is integrable. For simplicity we assume $f$ continuous for $x\ge a$, so that it is integrable on every $[a,R]$; the book requires only this integrability. The set of $x\ge a$ is written <code>Set.Ici a</code> and $(a,+\infty)$ is written <code>Set.Ioi a</code>.</p>
+<h2>2. Where it is in Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=MeasureTheory.Integrable.mono%27#doc" target="_blank" rel="noopener"><code>MeasureTheory.Integrable.mono&#x27;</code></a>: if $|f|\le g$ and $g$ is integrable, then $f$ is also integrable.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=ContinuousOn.aestronglyMeasurable#doc" target="_blank" rel="noopener"><code>ContinuousOn.aestronglyMeasurable</code></a>: a technical measurability condition, which holds for continuous functions.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=MeasureTheory.ae_restrict_of_forall_mem#doc" target="_blank" rel="noopener"><code>MeasureTheory.ae_restrict_of_forall_mem</code></a>: whatever holds at every point of a set also holds “almost everywhere” on it.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=MeasureTheory.intervalIntegral_tendsto_integral_Ioi#doc" target="_blank" rel="noopener"><code>MeasureTheory.intervalIntegral_tendsto_integral_Ioi</code></a>: $\int_a^R f\,dx\to\int_a^{+\infty}f\,dx$ for integrable $f$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=MeasureTheory.integrableOn_Ioi_of_intervalIntegral_norm_tendsto#doc" target="_blank" rel="noopener"><code>MeasureTheory.integrableOn_Ioi_of_intervalIntegral_norm_tendsto</code></a>: if $\int_a^R|f|\,dx$ has a limit, then $f$ is integrable on $(a,+\infty)$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=intervalIntegral.integral_congr#doc" target="_blank" rel="noopener"><code>intervalIntegral.integral_congr</code></a>: functions that are equal on the interval have equal integrals.</li></ul>
+<h2>3. The complete code</h2>
+<details><summary>See the code (42 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 18 · The Comparison Test for Improper Integrals · checked with Lean v4.37.0-rc1 and Mathlib (23/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch18.KritirioSygkrisis
+<span class="kw">open</span> MeasureTheory Filter Topology
+
+<span class="cm">-- for nonnegative f, “the integral from a to +∞ converges” is written IntegrableOn f (Set.Ioi a)</span>
+<span class="kw">theorem</span> comparison (f g : ℝ → ℝ) (a : ℝ) (hf : ContinuousOn f (Set.Ici a))
+    (hf0 : ∀ x ∈ Set.Ici a, 0 ≤ f x) (hfg : ∀ x ∈ Set.Ici a, f x ≤ g x)
+    (hg : IntegrableOn g (Set.Ioi a)) : IntegrableOn f (Set.Ioi a) := <span class="kw">by</span>
+  <span class="tc">refine</span> Integrable.mono&#x27; hg ((hf.mono Set.Ioi_subset_Ici_self).aestronglyMeasurable measurableSet_Ioi)
+    (ae_restrict_of_forall_mem measurableSet_Ioi <span class="kw">fun</span> x hx =&gt; ?_)
+  <span class="tc">rw</span> [Real.norm_eq_abs, abs_of_nonneg (hf0 x (Set.Ioi_subset_Ici_self hx))]
+  <span class="tc">exact</span> hfg x (Set.Ioi_subset_Ici_self hx)
+
+<span class="kw">theorem</span> comparison_diverges (f g : ℝ → ℝ) (a : ℝ) (hf : ContinuousOn f (Set.Ici a))
+    (hf0 : ∀ x ∈ Set.Ici a, 0 ≤ f x) (hfg : ∀ x ∈ Set.Ici a, f x ≤ g x)
+    (hdiv : ¬ IntegrableOn f (Set.Ioi a)) : ¬ IntegrableOn g (Set.Ioi a) :=
+  <span class="kw">fun</span> hg =&gt; hdiv (comparison f g a hf hf0 hfg hg)
+
+<span class="cm">-- connection with the definition in the book (1): then the integral from a to R has a limit as R → +∞</span>
+<span class="kw">theorem</span> limit_of_integrable (f : ℝ → ℝ) (a : ℝ) (hf : IntegrableOn f (Set.Ioi a)) :
+    Tendsto (<span class="kw">fun</span> R =&gt; ∫ x <span class="kw">in</span> a..R, f x) atTop (𝓝 (∫ x <span class="kw">in</span> Set.Ioi a, f x)) :=
+  intervalIntegral_tendsto_integral_Ioi a hf tendsto_id
+
+<span class="cm">-- connection with the definition in the book (2): for nonnegative f the converse also holds</span>
+<span class="kw">theorem</span> integrable_of_limit (f : ℝ → ℝ) (a L : ℝ) (hf : ContinuousOn f (Set.Ici a))
+    (hf0 : ∀ x ∈ Set.Ici a, 0 ≤ f x)
+    (hlim : Tendsto (<span class="kw">fun</span> R =&gt; ∫ x <span class="kw">in</span> a..R, f x) atTop (𝓝 L)) : IntegrableOn f (Set.Ioi a) := <span class="kw">by</span>
+  <span class="tc">refine</span> integrableOn_Ioi_of_intervalIntegral_norm_tendsto L a (<span class="kw">fun</span> R =&gt; ?_) tendsto_id ?_
+  · <span class="tc">exact</span> ((hf.mono Set.Icc_subset_Ici_self).integrableOn_Icc).mono_set Set.Ioc_subset_Icc_self
+  · <span class="tc">refine</span> hlim.congr&#x27; ((eventually_ge_atTop a).mono <span class="kw">fun</span> R hR =&gt; ?_)
+    <span class="kw">show</span> ∫ x <span class="kw">in</span> a..R, f x = ∫ x <span class="kw">in</span> a..R, ‖f x‖
+    <span class="tc">refine</span> intervalIntegral.integral_congr <span class="kw">fun</span> x hx =&gt; ?_
+    <span class="tc">rw</span> [Set.uIcc_of_le hR] <span class="kw">at</span> hx
+    <span class="tc">simp</span> only [Real.norm_eq_abs, abs_of_nonneg (hf0 x hx.1)]
+
+<span class="kw">end</span> Ch18.KritirioSygkrisis
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2018%20%C2%B7%20The%20Comparison%20Test%20for%20Improper%20Integrals%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2823%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch18.KritirioSygkrisis%0Aopen%20MeasureTheory%20Filter%20Topology%0A%0A--%20for%20nonnegative%20f%2C%20%E2%80%9Cthe%20integral%20from%20a%20to%20%2B%E2%88%9E%20converges%E2%80%9D%20is%20written%20IntegrableOn%20f%20%28Set.Ioi%20a%29%0Atheorem%20comparison%20%28f%20g%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20%3A%20%E2%84%9D%29%20%28hf%20%3A%20ContinuousOn%20f%20%28Set.Ici%20a%29%29%0A%20%20%20%20%28hf0%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ici%20a%2C%200%20%E2%89%A4%20f%20x%29%20%28hfg%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ici%20a%2C%20f%20x%20%E2%89%A4%20g%20x%29%0A%20%20%20%20%28hg%20%3A%20IntegrableOn%20g%20%28Set.Ioi%20a%29%29%20%3A%20IntegrableOn%20f%20%28Set.Ioi%20a%29%20%3A%3D%20by%0A%20%20refine%20Integrable.mono'%20hg%20%28%28hf.mono%20Set.Ioi_subset_Ici_self%29.aestronglyMeasurable%20measurableSet_Ioi%29%0A%20%20%20%20%28ae_restrict_of_forall_mem%20measurableSet_Ioi%20fun%20x%20hx%20%3D%3E%20%3F_%29%0A%20%20rw%20%5BReal.norm_eq_abs%2C%20abs_of_nonneg%20%28hf0%20x%20%28Set.Ioi_subset_Ici_self%20hx%29%29%5D%0A%20%20exact%20hfg%20x%20%28Set.Ioi_subset_Ici_self%20hx%29%0A%0Atheorem%20comparison_diverges%20%28f%20g%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20%3A%20%E2%84%9D%29%20%28hf%20%3A%20ContinuousOn%20f%20%28Set.Ici%20a%29%29%0A%20%20%20%20%28hf0%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ici%20a%2C%200%20%E2%89%A4%20f%20x%29%20%28hfg%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ici%20a%2C%20f%20x%20%E2%89%A4%20g%20x%29%0A%20%20%20%20%28hdiv%20%3A%20%C2%AC%20IntegrableOn%20f%20%28Set.Ioi%20a%29%29%20%3A%20%C2%AC%20IntegrableOn%20g%20%28Set.Ioi%20a%29%20%3A%3D%0A%20%20fun%20hg%20%3D%3E%20hdiv%20%28comparison%20f%20g%20a%20hf%20hf0%20hfg%20hg%29%0A%0A--%20connection%20with%20the%20definition%20in%20the%20book%20%281%29%3A%20then%20the%20integral%20from%20a%20to%20R%20has%20a%20limit%20as%20R%20%E2%86%92%20%2B%E2%88%9E%0Atheorem%20limit_of_integrable%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20%3A%20%E2%84%9D%29%20%28hf%20%3A%20IntegrableOn%20f%20%28Set.Ioi%20a%29%29%20%3A%0A%20%20%20%20Tendsto%20%28fun%20R%20%3D%3E%20%E2%88%AB%20x%20in%20a..R%2C%20f%20x%29%20atTop%20%28%F0%9D%93%9D%20%28%E2%88%AB%20x%20in%20Set.Ioi%20a%2C%20f%20x%29%29%20%3A%3D%0A%20%20intervalIntegral_tendsto_integral_Ioi%20a%20hf%20tendsto_id%0A%0A--%20connection%20with%20the%20definition%20in%20the%20book%20%282%29%3A%20for%20nonnegative%20f%20the%20converse%20also%20holds%0Atheorem%20integrable_of_limit%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20L%20%3A%20%E2%84%9D%29%20%28hf%20%3A%20ContinuousOn%20f%20%28Set.Ici%20a%29%29%0A%20%20%20%20%28hf0%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ici%20a%2C%200%20%E2%89%A4%20f%20x%29%0A%20%20%20%20%28hlim%20%3A%20Tendsto%20%28fun%20R%20%3D%3E%20%E2%88%AB%20x%20in%20a..R%2C%20f%20x%29%20atTop%20%28%F0%9D%93%9D%20L%29%29%20%3A%20IntegrableOn%20f%20%28Set.Ioi%20a%29%20%3A%3D%20by%0A%20%20refine%20integrableOn_Ioi_of_intervalIntegral_norm_tendsto%20L%20a%20%28fun%20R%20%3D%3E%20%3F_%29%20tendsto_id%20%3F_%0A%20%20%C2%B7%20exact%20%28%28hf.mono%20Set.Icc_subset_Ici_self%29.integrableOn_Icc%29.mono_set%20Set.Ioc_subset_Icc_self%0A%20%20%C2%B7%20refine%20hlim.congr'%20%28%28eventually_ge_atTop%20a%29.mono%20fun%20R%20hR%20%3D%3E%20%3F_%29%0A%20%20%20%20show%20%E2%88%AB%20x%20in%20a..R%2C%20f%20x%20%3D%20%E2%88%AB%20x%20in%20a..R%2C%20%E2%80%96f%20x%E2%80%96%0A%20%20%20%20refine%20intervalIntegral.integral_congr%20fun%20x%20hx%20%3D%3E%20%3F_%0A%20%20%20%20rw%20%5BSet.uIcc_of_le%20hR%5D%20at%20hx%0A%20%20%20%20simp%20only%20%5BReal.norm_eq_abs%2C%20abs_of_nonneg%20%28hf0%20x%20hx.1%29%5D%0A%0Aend%20Ch18.KritirioSygkrisis%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Bartle, R. G., &amp; Sherbert, D. R. (2011). <em>Introduction to Real Analysis</em> (4th ed.). Wiley.</li><li>Rudin, W. (1976). <em>Principles of Mathematical Analysis</em> (3rd ed.). McGraw-Hill.</li><li>Stewart, J. (2016). <em>Calculus: Early Transcendentals</em> (8th ed.). Cengage Learning.</li><li>Negrepontis, S., Giotopoulos, S., &amp; Giannakoulias, E. (1999). <em>Apeirostikos Logismos [Infinitesimal Calculus]</em> (Vol. I). Ekdoseis Symmetria. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

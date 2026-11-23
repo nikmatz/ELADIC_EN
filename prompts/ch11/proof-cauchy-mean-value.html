@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cauchy's Mean Value Theorem (Generalized MVT)</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Cauchy's Mean Value Theorem (Generalized MVT)</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 11 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>If $f,g$ are continuous on $[a,b]$, differentiable on $(a,b)$ and $g'(x)\ne 0$ for every $x\in(a,b)$ (whence $g(b)\ne g(a)$), then there exists $c\in(a,b)$ such that $\dfrac{f'(c)}{g'(c)}=\dfrac{f(b)-f(a)}{g(b)-g(a)}$.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20If%20%24f%2Cg%24%20are%20continuous%20on%20%24%5Ba%2Cb%5D%24%2C%20differentiable%20on%20%24%28a%2Cb%29%24%20and%20%24g%27%28x%29%5Cne%200%24%20for%20every%20%24x%5Cin%28a%2Cb%29%24%20%28whence%20%24g%28b%29%5Cne%20g%28a%29%24%29%2C%20then%20there%20exists%20%24c%5Cin%28a%2Cb%29%24%20such%20that%20%24%5Cdfrac%7Bf%27%28c%29%7D%7Bg%27%28c%29%7D%3D%5Cdfrac%7Bf%28b%29-f%28a%29%7D%7Bg%28b%29-g%28a%29%7D%24.">ChatGPT</a>
@@ -27,6 +87,190 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: If $f,g$ are continuous on $[a,b]$, differentiable on $(a,b)$ and $g'(x)\ne 0$ for every $x\in(a,b)$ (whence $g(b)\ne g(a)$), then there exists $c\in(a,b)$ such that $\dfrac{f'(c)}{g'(c)}=\dfrac{f(b)-f(a)}{g(b)-g(a)}$.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The theorem and its special case were proved in Lean 4 with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">If $f,g$ are continuous on $[a,b]$, differentiable on $(a,b)$ and $g'(x)\neq 0$ on $(a,b)$, there exists $c\in(a,b)$ with $\dfrac{f'(c)}{g'(c)}$<wbr>${}=\dfrac{f(b)-f(a)}{g(b)-g(a)}$</div><pre class="ln"><span class="kw">theorem</span> cauchy_mean_value (f f&#x27; g g&#x27; : ℝ → ℝ) (a b : ℝ) (hab : a &lt; b)
+    (hfc : ContinuousOn f (Set.Icc a b)) (hgc : ContinuousOn g (Set.Icc a b))
+    (hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x)
+    (hgg&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt g (g&#x27; x) x)
+    (hg&#x27; : ∀ x ∈ Set.Ioo a b, g&#x27; x ≠ 0) :
+    ∃ c ∈ Set.Ioo a b, f&#x27; c / g&#x27; c = (f b - f a) / (g b - g a)</pre></li><li><div class="bk">Special case $g(x)=x$: the mean value theorem</div><pre class="ln"><span class="kw">theorem</span> lagrange_from_cauchy (f f&#x27; : ℝ → ℝ) (a b : ℝ) (hab : a &lt; b)
+    (hfc : ContinuousOn f (Set.Icc a b)) (hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x) :
+    ∃ c ∈ Set.Ioo a b, f&#x27; c = (f b - f a) / (b - a)</pre></li><li><div class="bk">The Mathlib form, without division: $(g(b)-g(a))\,f'(c)$<wbr>${}=(f(b)-f(a))\,g'(c)$</div><pre class="ln"><span class="kw">theorem</span> cauchy_mathlib (f f&#x27; g g&#x27; : ℝ → ℝ) (a b : ℝ) (hab : a &lt; b)
+    (hfc : ContinuousOn f (Set.Icc a b)) (hgc : ContinuousOn g (Set.Icc a b))
+    (hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x)
+    (hgg&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt g (g&#x27; x) x) :
+    ∃ c ∈ Set.Ioo a b, (g b - g a) * f&#x27; c = (f b - f a) * g&#x27; c</pre></li></ul>
+<p class="note">Continuity on $[a,b]$ is written <code>ContinuousOn f (Set.Icc a b)</code>. For differentiability on $(a,b)$ we give a function <code>f'</code> for the derivative: <code>∀ x ∈ Set.Ioo a b, HasDerivAt f (f' x) x</code>. The same for $g$, with the function <code>g'</code>. The proof uses Rolle's theorem twice (in Mathlib, <code>exists_hasDerivAt_eq_zero</code>): first to show that $g(b)\neq g(a)$, and then for the auxiliary function $h(x)$<wbr>${}=[f(b)-f(a)]\,g(x)-[g(b)-g(a)]\,f(x)$. The command <code>set</code> gives a name to an expression: we write $A$ instead of $f(b)-f(a)$ and $B$ instead of $g(b)-g(a)$.</p>
+<h2>2. Step by step: Cauchy's theorem</h2>
+<p class="note">The idea: $h(x)=A\,g(x)-B\,f(x)$, with $A=f(b)-f(a)$ and $B=g(b)-g(a)$, takes the same value at the endpoints, so by Rolle's theorem $h'$ vanishes somewhere. We start from the goal:</p>
+<div class="goal start"><span>The goal</span><pre>f f&#x27; g g&#x27; : ℝ → ℝ
+a b : ℝ
+hab : a &lt; b
+hfc : ContinuousOn f (Set.Icc a b)
+hgc : ContinuousOn g (Set.Icc a b)
+hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x
+hgg&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt g (g&#x27; x) x
+hg&#x27; : ∀ x ∈ Set.Ioo a b, g&#x27; x ≠ 0
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c / g&#x27; c = (f b - f a) / (g b - g a)</pre></div>
+<p class="note">Above <code>⊢</code> is what we know; after <code>⊢</code> is what we have to show. After each step we show only what changed.</p>
+<ol class="steps"><li><pre class="ln"><span class="kw">have</span> hgab : g b - g a ≠ 0 := <span class="kw">by</span></pre><p>First we show that $g(b)\neq g(a)$ (claim <code>hgab</code>).</p><div class="goal"><span>What remains to be proved</span><pre>⊢ g b - g a ≠ 0</pre></div></li><li><pre class="ln"><span class="tc">intro</span> h</pre><p>By contradiction: we assume that $g(b)-g(a)=0$ and look for a contradiction (<code>False</code>).</p><div class="goal"><span>What remains to be proved</span><pre>h : g b - g a = 0
+⊢ False</pre></div></li><li><pre class="ln"><span class="tc">obtain</span> ⟨c, hc, hc0⟩ := exists_hasDerivAt_eq_zero hab hgc (<span class="kw">by</span> <span class="tc">linarith</span>) hgg&#x27;</pre><p>Then $g(a)=g(b)$, and Rolle's theorem gives $c\in(a,b)$ with $g'(c)=0$.</p><div class="goal"><span>What remains to be proved</span><pre>c : ℝ
+hc : c ∈ Set.Ioo a b
+hc0 : g&#x27; c = 0
+⊢ False</pre></div></li><li><pre class="ln"><span class="tc">exact</span> hg&#x27; c hc hc0</pre><p>This contradicts the hypothesis $g'(x)\neq 0$ on $(a,b)$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="tc">set</span> A := f b - f a <span class="kw">with</span> hA</pre><p>We set $A=f(b)-f(a)$.</p><div class="goal"><span>What remains to be proved</span><pre>f f&#x27; g g&#x27; : ℝ → ℝ
+a b : ℝ
+hab : a &lt; b
+hfc : ContinuousOn f (Set.Icc a b)
+hgc : ContinuousOn g (Set.Icc a b)
+hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x
+hgg&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt g (g&#x27; x) x
+hg&#x27; : ∀ x ∈ Set.Ioo a b, g&#x27; x ≠ 0
+hgab : g b - g a ≠ 0
+A : ℝ := f b - f a
+hA : A = f b - f a
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c / g&#x27; c = A / (g b - g a)</pre></div></li><li><pre class="ln"><span class="tc">set</span> B := g b - g a <span class="kw">with</span> hB</pre><p>We set $B=g(b)-g(a)$. Now the goal is $\dfrac{f'(c)}{g'(c)}=\dfrac{A}{B}$, and we know that $B\neq 0$.</p><div class="goal"><span>What remains to be proved</span><pre>B : ℝ := g b - g a
+hgab : B ≠ 0
+hB : B = g b - g a
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c / g&#x27; c = A / B</pre></div></li><li><pre class="ln"><span class="kw">have</span> hcont : ContinuousOn (<span class="kw">fun</span> x =&gt; A * g x - B * f x) (Set.Icc a b) :=
+  (continuousOn_const.mul hgc).sub (continuousOn_const.mul hfc)</pre><p>The auxiliary function $h(x)=A\,g(x)-B\,f(x)$ is continuous on $[a,b]$ (<code>hcont</code>).</p><div class="goal"><span>What remains to be proved</span><pre>hcont : ContinuousOn (fun x =&gt; A * g x - B * f x) (Set.Icc a b)
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c / g&#x27; c = A / B</pre></div></li><li><pre class="ln"><span class="kw">have</span> hderiv : ∀ x ∈ Set.Ioo a b,
+    HasDerivAt (<span class="kw">fun</span> x =&gt; A * g x - B * f x) (A * g&#x27; x - B * f&#x27; x) x := <span class="kw">by</span></pre><p>Claim <code>hderiv</code>: on $(a,b)$ the function $h$ has derivative $A\,g'(x)-B\,f'(x)$.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ ∀ x ∈ Set.Ioo a b, HasDerivAt (fun x =&gt; A * g x - B * f x) (A * g&#x27; x - B * f&#x27; x) x</pre></div></li><li><pre class="ln"><span class="tc">intro</span> x hx
+<span class="tc">exact</span> ((hgg&#x27; x hx).const_mul A).sub ((hff&#x27; x hx).const_mul B)</pre><p>The constant multiple rule and the difference rule.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="kw">have</span> hends : A * g a - B * f a = A * g b - B * f b := <span class="kw">by</span></pre><p>Claim <code>hends</code>: $h(a)=h(b)$.</p><div class="goal"><span>What remains to be proved</span><pre>f f&#x27; g g&#x27; : ℝ → ℝ
+a b : ℝ
+hab : a &lt; b
+hfc : ContinuousOn f (Set.Icc a b)
+hgc : ContinuousOn g (Set.Icc a b)
+hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x
+hgg&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt g (g&#x27; x) x
+hg&#x27; : ∀ x ∈ Set.Ioo a b, g&#x27; x ≠ 0
+A : ℝ := f b - f a
+hA : A = f b - f a
+B : ℝ := g b - g a
+hgab : B ≠ 0
+hB : B = g b - g a
+hcont : ContinuousOn (fun x =&gt; A * g x - B * f x) (Set.Icc a b)
+hderiv : ∀ x ∈ Set.Ioo a b, HasDerivAt (fun x =&gt; A * g x - B * f x) (A * g&#x27; x - B * f&#x27; x) x
+⊢ A * g a - B * f a = A * g b - B * f b</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [hA, hB]
+<span class="tc">ring</span></pre><p>With $A=f(b)-f(a)$ and $B=g(b)-g(a)$ the two sides are equal. The computation is done by <code>ring</code>.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="tc">obtain</span> ⟨c, hc, hc0⟩ := exists_hasDerivAt_eq_zero hab hcont hends hderiv</pre><p>Rolle's theorem for $h$: there exists $c\in(a,b)$ with $A\,g'(c)-B\,f'(c)=0$.</p><div class="goal"><span>What remains to be proved</span><pre>f f&#x27; g g&#x27; : ℝ → ℝ
+a b : ℝ
+hab : a &lt; b
+hfc : ContinuousOn f (Set.Icc a b)
+hgc : ContinuousOn g (Set.Icc a b)
+hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x
+hgg&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt g (g&#x27; x) x
+hg&#x27; : ∀ x ∈ Set.Ioo a b, g&#x27; x ≠ 0
+A : ℝ := f b - f a
+hA : A = f b - f a
+B : ℝ := g b - g a
+hgab : B ≠ 0
+hB : B = g b - g a
+hcont : ContinuousOn (fun x =&gt; A * g x - B * f x) (Set.Icc a b)
+hderiv : ∀ x ∈ Set.Ioo a b, HasDerivAt (fun x =&gt; A * g x - B * f x) (A * g&#x27; x - B * f&#x27; x) x
+hends : A * g a - B * f a = A * g b - B * f b
+c : ℝ
+hc : c ∈ Set.Ioo a b
+hc0 : A * g&#x27; c - B * f&#x27; c = 0
+⊢ ∃ c ∈ Set.Ioo a b, f&#x27; c / g&#x27; c = A / B</pre></div></li><li><pre class="ln"><span class="tc">refine</span> ⟨c, hc, ?_⟩</pre><p>We choose this $c$. It remains to show $\dfrac{f'(c)}{g'(c)}=\dfrac{A}{B}$.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ f&#x27; c / g&#x27; c = A / B</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [div_eq_div_iff (hg&#x27; c hc) hgab]</pre><p>Since $g'(c)\neq 0$ and $B\neq 0$, the equality of the fractions becomes $f'(c)\,B=A\,g'(c)$.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ f&#x27; c * B = A * g&#x27; c</pre></div></li><li><pre class="ln"><span class="tc">linear_combination</span> -hc0</pre><p>This is the equality $A\,g'(c)-B\,f'(c)=0$, written differently. It is checked by <code>linear_combination</code>.</p><div class="goal done"><span>✓ </span>No goals: the proof is complete.</div></li></ol>
+<h2>3. Try it yourself: the mean value theorem as a special case</h2>
+<div class="ex"><p>With $g(x)=x$, so that $g'(x)=1$, show that there exists $c\in(a,b)$ with $f'(c)=\dfrac{f(b)-f(a)}{b-a}$. Open the exercise in Lean and replace the word <code>sorry</code> with your own steps. When the proof is correct, the message <i>declaration uses sorry</i> disappears and no red error appears.</p>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2011%20%C2%B7%20Cauchy's%20Mean%20Value%20Theorem%20%28Generalized%20MVT%29%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch11.CauchyMesiTimi%0A%0Atheorem%20cauchy_mean_value%20%28f%20f'%20g%20g'%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%3C%20b%29%0A%20%20%20%20%28hfc%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%20%28hgc%20%3A%20ContinuousOn%20g%20%28Set.Icc%20a%20b%29%29%0A%20%20%20%20%28hff'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20f%20%28f'%20x%29%20x%29%0A%20%20%20%20%28hgg'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20g%20%28g'%20x%29%20x%29%0A%20%20%20%20%28hg'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20g'%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20%E2%88%83%20c%20%E2%88%88%20Set.Ioo%20a%20b%2C%20f'%20c%20%2F%20g'%20c%20%3D%20%28f%20b%20-%20f%20a%29%20%2F%20%28g%20b%20-%20g%20a%29%20%3A%3D%20by%0A%20%20have%20hgab%20%3A%20g%20b%20-%20g%20a%20%E2%89%A0%200%20%3A%3D%20by%0A%20%20%20%20intro%20h%0A%20%20%20%20obtain%20%E2%9F%A8c%2C%20hc%2C%20hc0%E2%9F%A9%20%3A%3D%20exists_hasDerivAt_eq_zero%20hab%20hgc%20%28by%20linarith%29%20hgg'%0A%20%20%20%20exact%20hg'%20c%20hc%20hc0%0A%20%20set%20A%20%3A%3D%20f%20b%20-%20f%20a%20with%20hA%0A%20%20set%20B%20%3A%3D%20g%20b%20-%20g%20a%20with%20hB%0A%20%20have%20hcont%20%3A%20ContinuousOn%20%28fun%20x%20%3D%3E%20A%20*%20g%20x%20-%20B%20*%20f%20x%29%20%28Set.Icc%20a%20b%29%20%3A%3D%0A%20%20%20%20%28continuousOn_const.mul%20hgc%29.sub%20%28continuousOn_const.mul%20hfc%29%0A%20%20have%20hderiv%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%0A%20%20%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%20A%20*%20g%20x%20-%20B%20*%20f%20x%29%20%28A%20*%20g'%20x%20-%20B%20*%20f'%20x%29%20x%20%3A%3D%20by%0A%20%20%20%20intro%20x%20hx%0A%20%20%20%20exact%20%28%28hgg'%20x%20hx%29.const_mul%20A%29.sub%20%28%28hff'%20x%20hx%29.const_mul%20B%29%0A%20%20have%20hends%20%3A%20A%20*%20g%20a%20-%20B%20*%20f%20a%20%3D%20A%20*%20g%20b%20-%20B%20*%20f%20b%20%3A%3D%20by%0A%20%20%20%20rw%20%5BhA%2C%20hB%5D%0A%20%20%20%20ring%0A%20%20obtain%20%E2%9F%A8c%2C%20hc%2C%20hc0%E2%9F%A9%20%3A%3D%20exists_hasDerivAt_eq_zero%20hab%20hcont%20hends%20hderiv%0A%20%20refine%20%E2%9F%A8c%2C%20hc%2C%20%3F_%E2%9F%A9%0A%20%20rw%20%5Bdiv_eq_div_iff%20%28hg'%20c%20hc%29%20hgab%5D%0A%20%20linear_combination%20-hc0%0A%0Atheorem%20lagrange_from_cauchy%20%28f%20f'%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%3C%20b%29%0A%20%20%20%20%28hfc%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%20%28hff'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20f%20%28f'%20x%29%20x%29%20%3A%0A%20%20%20%20%E2%88%83%20c%20%E2%88%88%20Set.Ioo%20a%20b%2C%20f'%20c%20%3D%20%28f%20b%20-%20f%20a%29%20%2F%20%28b%20-%20a%29%20%3A%3D%20by%0A%20%20--%20EXERCISE%3A%20replace%20the%20sorry%20with%20your%20own%20proof.%0A%20%20sorry%0A%0A--%20the%20Mathlib%20form%2C%20without%20division%0Atheorem%20cauchy_mathlib%20%28f%20f'%20g%20g'%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%3C%20b%29%0A%20%20%20%20%28hfc%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%20%28hgc%20%3A%20ContinuousOn%20g%20%28Set.Icc%20a%20b%29%29%0A%20%20%20%20%28hff'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20f%20%28f'%20x%29%20x%29%0A%20%20%20%20%28hgg'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20g%20%28g'%20x%29%20x%29%20%3A%0A%20%20%20%20%E2%88%83%20c%20%E2%88%88%20Set.Ioo%20a%20b%2C%20%28g%20b%20-%20g%20a%29%20*%20f'%20c%20%3D%20%28f%20b%20-%20f%20a%29%20*%20g'%20c%20%3A%3D%0A%20%20exists_ratio_hasDerivAt_eq_ratio_slope%20f%20f'%20hab%20hfc%20hff'%20g%20g'%20hgc%20hgg'%0A%0Aend%20Ch11.CauchyMesiTimi%0A" target="_blank" rel="noopener">Open the exercise in Lean</a>
+<details><summary>Hint</summary><div class="in"><p class="note">Apply the theorem with <code>(fun x => x)</code> and <code>(fun _ => 1)</code>: <code>obtain ⟨c, hc, h⟩ := cauchy_mean_value f f' (fun x => x) (fun _ => 1) a b hab hfc continuousOn_id hff' (fun x _ => hasDerivAt_id' x) (fun _ _ => one_ne_zero)</code>. Finally, <code>exact ⟨c, hc, by simpa using h⟩</code>: <code>simpa</code> simplifies $\dfrac{f'(c)}{1}$.</p></div></details>
+<details><summary>Solution</summary><div class="in"><pre class="ln"><span class="kw">theorem</span> lagrange_from_cauchy (f f&#x27; : ℝ → ℝ) (a b : ℝ) (hab : a &lt; b)
+    (hfc : ContinuousOn f (Set.Icc a b)) (hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x) :
+    ∃ c ∈ Set.Ioo a b, f&#x27; c = (f b - f a) / (b - a) := <span class="kw">by</span>
+  <span class="tc">obtain</span> ⟨c, hc, h⟩ := cauchy_mean_value f f&#x27; (<span class="kw">fun</span> x =&gt; x) (<span class="kw">fun</span> _ =&gt; 1) a b hab hfc
+    continuousOn_id hff&#x27; (<span class="kw">fun</span> x _ =&gt; hasDerivAt_id&#x27; x) (<span class="kw">fun</span> _ _ =&gt; one_ne_zero)
+  <span class="tc">exact</span> ⟨c, hc, <span class="kw">by</span> <span class="tc">simpa</span> using h⟩</pre></div></details>
+</div>
+<h2>4. In Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=exists_hasDerivAt_eq_zero#doc" target="_blank" rel="noopener"><code>exists_hasDerivAt_eq_zero</code></a>: Rolle's theorem.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=ContinuousOn.mul#doc" target="_blank" rel="noopener"><code>ContinuousOn.mul</code></a>: the product of continuous functions is continuous.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=ContinuousOn.sub#doc" target="_blank" rel="noopener"><code>ContinuousOn.sub</code></a>: the difference of continuous functions is continuous.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.const_mul#doc" target="_blank" rel="noopener"><code>HasDerivAt.const_mul</code></a>: the rule for $c\,f(x)$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.sub#doc" target="_blank" rel="noopener"><code>HasDerivAt.sub</code></a>: the difference rule.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=div_eq_div_iff#doc" target="_blank" rel="noopener"><code>div_eq_div_iff</code></a>: $\dfrac{a}{b}=\dfrac{c}{d}$ exactly when $ad=cb$, for $b,d\neq 0$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=exists_ratio_hasDerivAt_eq_ratio_slope#doc" target="_blank" rel="noopener"><code>exists_ratio_hasDerivAt_eq_ratio_slope</code></a>: Cauchy's theorem in Mathlib.</li></ul>
+<h2>5. The complete code</h2>
+<details><summary>See the code (51 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 11 · Cauchy&#x27;s Mean Value Theorem (Generalized MVT) · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch11.CauchyMesiTimi
+
+<span class="kw">theorem</span> cauchy_mean_value (f f&#x27; g g&#x27; : ℝ → ℝ) (a b : ℝ) (hab : a &lt; b)
+    (hfc : ContinuousOn f (Set.Icc a b)) (hgc : ContinuousOn g (Set.Icc a b))
+    (hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x)
+    (hgg&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt g (g&#x27; x) x)
+    (hg&#x27; : ∀ x ∈ Set.Ioo a b, g&#x27; x ≠ 0) :
+    ∃ c ∈ Set.Ioo a b, f&#x27; c / g&#x27; c = (f b - f a) / (g b - g a) := <span class="kw">by</span>
+  <span class="kw">have</span> hgab : g b - g a ≠ 0 := <span class="kw">by</span>
+    <span class="tc">intro</span> h
+    <span class="tc">obtain</span> ⟨c, hc, hc0⟩ := exists_hasDerivAt_eq_zero hab hgc (<span class="kw">by</span> <span class="tc">linarith</span>) hgg&#x27;
+    <span class="tc">exact</span> hg&#x27; c hc hc0
+  <span class="tc">set</span> A := f b - f a <span class="kw">with</span> hA
+  <span class="tc">set</span> B := g b - g a <span class="kw">with</span> hB
+  <span class="kw">have</span> hcont : ContinuousOn (<span class="kw">fun</span> x =&gt; A * g x - B * f x) (Set.Icc a b) :=
+    (continuousOn_const.mul hgc).sub (continuousOn_const.mul hfc)
+  <span class="kw">have</span> hderiv : ∀ x ∈ Set.Ioo a b,
+      HasDerivAt (<span class="kw">fun</span> x =&gt; A * g x - B * f x) (A * g&#x27; x - B * f&#x27; x) x := <span class="kw">by</span>
+    <span class="tc">intro</span> x hx
+    <span class="tc">exact</span> ((hgg&#x27; x hx).const_mul A).sub ((hff&#x27; x hx).const_mul B)
+  <span class="kw">have</span> hends : A * g a - B * f a = A * g b - B * f b := <span class="kw">by</span>
+    <span class="tc">rw</span> [hA, hB]
+    <span class="tc">ring</span>
+  <span class="tc">obtain</span> ⟨c, hc, hc0⟩ := exists_hasDerivAt_eq_zero hab hcont hends hderiv
+  <span class="tc">refine</span> ⟨c, hc, ?_⟩
+  <span class="tc">rw</span> [div_eq_div_iff (hg&#x27; c hc) hgab]
+  <span class="tc">linear_combination</span> -hc0
+
+<span class="kw">theorem</span> lagrange_from_cauchy (f f&#x27; : ℝ → ℝ) (a b : ℝ) (hab : a &lt; b)
+    (hfc : ContinuousOn f (Set.Icc a b)) (hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x) :
+    ∃ c ∈ Set.Ioo a b, f&#x27; c = (f b - f a) / (b - a) := <span class="kw">by</span>
+  <span class="tc">obtain</span> ⟨c, hc, h⟩ := cauchy_mean_value f f&#x27; (<span class="kw">fun</span> x =&gt; x) (<span class="kw">fun</span> _ =&gt; 1) a b hab hfc
+    continuousOn_id hff&#x27; (<span class="kw">fun</span> x _ =&gt; hasDerivAt_id&#x27; x) (<span class="kw">fun</span> _ _ =&gt; one_ne_zero)
+  <span class="tc">exact</span> ⟨c, hc, <span class="kw">by</span> <span class="tc">simpa</span> using h⟩
+
+<span class="cm">-- the Mathlib form, without division</span>
+<span class="kw">theorem</span> cauchy_mathlib (f f&#x27; g g&#x27; : ℝ → ℝ) (a b : ℝ) (hab : a &lt; b)
+    (hfc : ContinuousOn f (Set.Icc a b)) (hgc : ContinuousOn g (Set.Icc a b))
+    (hff&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt f (f&#x27; x) x)
+    (hgg&#x27; : ∀ x ∈ Set.Ioo a b, HasDerivAt g (g&#x27; x) x) :
+    ∃ c ∈ Set.Ioo a b, (g b - g a) * f&#x27; c = (f b - f a) * g&#x27; c :=
+  exists_ratio_hasDerivAt_eq_ratio_slope f f&#x27; hab hfc hff&#x27; g g&#x27; hgc hgg&#x27;
+
+<span class="kw">end</span> Ch11.CauchyMesiTimi
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2011%20%C2%B7%20Cauchy's%20Mean%20Value%20Theorem%20%28Generalized%20MVT%29%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch11.CauchyMesiTimi%0A%0Atheorem%20cauchy_mean_value%20%28f%20f'%20g%20g'%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%3C%20b%29%0A%20%20%20%20%28hfc%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%20%28hgc%20%3A%20ContinuousOn%20g%20%28Set.Icc%20a%20b%29%29%0A%20%20%20%20%28hff'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20f%20%28f'%20x%29%20x%29%0A%20%20%20%20%28hgg'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20g%20%28g'%20x%29%20x%29%0A%20%20%20%20%28hg'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20g'%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20%E2%88%83%20c%20%E2%88%88%20Set.Ioo%20a%20b%2C%20f'%20c%20%2F%20g'%20c%20%3D%20%28f%20b%20-%20f%20a%29%20%2F%20%28g%20b%20-%20g%20a%29%20%3A%3D%20by%0A%20%20have%20hgab%20%3A%20g%20b%20-%20g%20a%20%E2%89%A0%200%20%3A%3D%20by%0A%20%20%20%20intro%20h%0A%20%20%20%20obtain%20%E2%9F%A8c%2C%20hc%2C%20hc0%E2%9F%A9%20%3A%3D%20exists_hasDerivAt_eq_zero%20hab%20hgc%20%28by%20linarith%29%20hgg'%0A%20%20%20%20exact%20hg'%20c%20hc%20hc0%0A%20%20set%20A%20%3A%3D%20f%20b%20-%20f%20a%20with%20hA%0A%20%20set%20B%20%3A%3D%20g%20b%20-%20g%20a%20with%20hB%0A%20%20have%20hcont%20%3A%20ContinuousOn%20%28fun%20x%20%3D%3E%20A%20*%20g%20x%20-%20B%20*%20f%20x%29%20%28Set.Icc%20a%20b%29%20%3A%3D%0A%20%20%20%20%28continuousOn_const.mul%20hgc%29.sub%20%28continuousOn_const.mul%20hfc%29%0A%20%20have%20hderiv%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%0A%20%20%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%20A%20*%20g%20x%20-%20B%20*%20f%20x%29%20%28A%20*%20g'%20x%20-%20B%20*%20f'%20x%29%20x%20%3A%3D%20by%0A%20%20%20%20intro%20x%20hx%0A%20%20%20%20exact%20%28%28hgg'%20x%20hx%29.const_mul%20A%29.sub%20%28%28hff'%20x%20hx%29.const_mul%20B%29%0A%20%20have%20hends%20%3A%20A%20*%20g%20a%20-%20B%20*%20f%20a%20%3D%20A%20*%20g%20b%20-%20B%20*%20f%20b%20%3A%3D%20by%0A%20%20%20%20rw%20%5BhA%2C%20hB%5D%0A%20%20%20%20ring%0A%20%20obtain%20%E2%9F%A8c%2C%20hc%2C%20hc0%E2%9F%A9%20%3A%3D%20exists_hasDerivAt_eq_zero%20hab%20hcont%20hends%20hderiv%0A%20%20refine%20%E2%9F%A8c%2C%20hc%2C%20%3F_%E2%9F%A9%0A%20%20rw%20%5Bdiv_eq_div_iff%20%28hg'%20c%20hc%29%20hgab%5D%0A%20%20linear_combination%20-hc0%0A%0Atheorem%20lagrange_from_cauchy%20%28f%20f'%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%3C%20b%29%0A%20%20%20%20%28hfc%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%20%28hff'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20f%20%28f'%20x%29%20x%29%20%3A%0A%20%20%20%20%E2%88%83%20c%20%E2%88%88%20Set.Ioo%20a%20b%2C%20f'%20c%20%3D%20%28f%20b%20-%20f%20a%29%20%2F%20%28b%20-%20a%29%20%3A%3D%20by%0A%20%20obtain%20%E2%9F%A8c%2C%20hc%2C%20h%E2%9F%A9%20%3A%3D%20cauchy_mean_value%20f%20f'%20%28fun%20x%20%3D%3E%20x%29%20%28fun%20_%20%3D%3E%201%29%20a%20b%20hab%20hfc%0A%20%20%20%20continuousOn_id%20hff'%20%28fun%20x%20_%20%3D%3E%20hasDerivAt_id'%20x%29%20%28fun%20_%20_%20%3D%3E%20one_ne_zero%29%0A%20%20exact%20%E2%9F%A8c%2C%20hc%2C%20by%20simpa%20using%20h%E2%9F%A9%0A%0A--%20the%20Mathlib%20form%2C%20without%20division%0Atheorem%20cauchy_mathlib%20%28f%20f'%20g%20g'%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%3C%20b%29%0A%20%20%20%20%28hfc%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%20%28hgc%20%3A%20ContinuousOn%20g%20%28Set.Icc%20a%20b%29%29%0A%20%20%20%20%28hff'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20f%20%28f'%20x%29%20x%29%0A%20%20%20%20%28hgg'%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20g%20%28g'%20x%29%20x%29%20%3A%0A%20%20%20%20%E2%88%83%20c%20%E2%88%88%20Set.Ioo%20a%20b%2C%20%28g%20b%20-%20g%20a%29%20*%20f'%20c%20%3D%20%28f%20b%20-%20f%20a%29%20*%20g'%20c%20%3A%3D%0A%20%20exists_ratio_hasDerivAt_eq_ratio_slope%20f%20f'%20hab%20hfc%20hff'%20g%20g'%20hgc%20hgg'%0A%0Aend%20Ch11.CauchyMesiTimi%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Bartle, R. G., &amp; Sherbert, D. R. (2011). <em>Introduction to Real Analysis</em> (4th ed.). Wiley.</li><li>Rudin, W. (1976). <em>Principles of Mathematical Analysis</em> (3rd ed.). McGraw-Hill.</li><li>Stewart, J. (2016). <em>Calculus: Early Transcendentals</em> (8th ed.). Cengage Learning.</li><li>Negrepontis, S., Giotopoulos, S., &amp; Giannakoulias, E. (1999). <em>Apeirostikos Logismos [Infinitesimal Calculus]</em> (Vol. I). Ekdoseis Symmetria. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

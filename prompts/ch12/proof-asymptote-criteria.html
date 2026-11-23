@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Criteria for Asymptotes</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Criteria for Asymptotes</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 12 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>For a rational function $f(x)=\dfrac{P(x)}{Q(x)}$ (with $P,Q$ having no common factor): (i) a vertical asymptote $x=x_0$ at every root $x_0$ of $Q$; (ii) a horizontal asymptote if $\deg P\le\deg Q$ — namely $y=0$ when $\deg P&lt;\deg Q$, or $y$ equal to the ratio of the leading coefficients when $\deg P=\deg Q$; (iii) an oblique asymptote $y=\alpha x+\beta$ if and only if $\deg P=\deg Q+1$, where $\alpha x+\beta$ is the quotient of the division $P/Q$. More generally (not only for rational functions), $y=\alpha x+\beta$ is an oblique asymptote of $f$ at $\pm\infty$ if and only if the finite limits $\alpha=\lim_{x\to\pm\infty}\dfrac{f(x)}{x}\ne 0$ and $\beta=\lim_{x\to\pm\infty}\bigl(f(x)-\alpha x\bigr)$ exist. If $\alpha=0$ and $\beta$ exists, the asymptote is horizontal.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20For%20a%20rational%20function%20%24f%28x%29%3D%5Cdfrac%7BP%28x%29%7D%7BQ%28x%29%7D%24%20%28with%20%24P%2CQ%24%20having%20no%20common%20factor%29%3A%20%28i%29%20a%20vertical%20asymptote%20%24x%3Dx_0%24%20at%20every%20root%20%24x_0%24%20of%20%24Q%24%3B%20%28ii%29%20a%20horizontal%20asymptote%20if%20%24%5Cdeg%20P%5Cle%5Cdeg%20Q%24%20%E2%80%94%20namely%20%24y%3D0%24%20when%20%24%5Cdeg%20P%3C%5Cdeg%20Q%24%2C%20or%20%24y%24%20equal%20to%20the%20ratio%20of%20the%20leading%20coefficients%20when%20%24%5Cdeg%20P%3D%5Cdeg%20Q%24%3B%20%28iii%29%20an%20oblique%20asymptote%20%24y%3D%5Calpha%20x%2B%5Cbeta%24%20if%20and%20only%20if%20%24%5Cdeg%20P%3D%5Cdeg%20Q%2B1%24%2C%20where%20%24%5Calpha%20x%2B%5Cbeta%24%20is%20the%20quotient%20of%20the%20division%20%24P/Q%24.%20More%20generally%20%28not%20only%20for%20rational%20functions%29%2C%20%24y%3D%5Calpha%20x%2B%5Cbeta%24%20is%20an%20oblique%20asymptote%20of%20%24f%24%20at%20%24%5Cpm%5Cinfty%24%20if%20and%20only%20if%20the%20finite%20limits%20%24%5Calpha%3D%5Clim_%7Bx%5Cto%5Cpm%5Cinfty%7D%5Cdfrac%7Bf%28x%29%7D%7Bx%7D%5Cne%200%24%20and%20%24%5Cbeta%3D%5Clim_%7Bx%5Cto%5Cpm%5Cinfty%7D%5Cbigl%28f%28x%29-%5Calpha%20x%5Cbigr%29%24%20exist.%20If%20%24%5Calpha%3D0%24%20and%20%24%5Cbeta%24%20exists%2C%20the%20asymptote%20is%20horizontal.">ChatGPT</a>
@@ -27,6 +87,132 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: For a rational function $f(x)=\dfrac{P(x)}{Q(x)}$ (with $P,Q$ having no common factor): (i) a vertical asymptote $x=x_0$ at every root $x_0$ of $Q$; (ii) a horizontal asymptote if $\deg P\le\deg Q$ — namely $y=0$ when $\deg P&lt;\deg Q$, or $y$ equal to the ratio of the leading coefficients when $\deg P=\deg Q$; (iii) an oblique asymptote $y=\alpha x+\beta$ if and only if $\deg P=\deg Q+1$, where $\alpha x+\beta$ is the quotient of the division $P/Q$. More generally (not only for rational functions), $y=\alpha x+\beta$ is an oblique asymptote of $f$ at $\pm\infty$ if and only if the finite limits $\alpha=\lim_{x\to\pm\infty}\dfrac{f(x)}{x}\ne 0$ and $\beta=\lim_{x\to\pm\infty}\bigl(f(x)-\alpha x\bigr)$ exist. If $\alpha=0$ and $\beta$ exists, the asymptote is horizontal.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The statements were proved in Lean 4, using theorems from Mathlib, with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">(i) If $q(x_0)=0$, $p(x_0)\neq 0$ and $q(x)\neq 0$ near $x_0$, then $\left|\dfrac{p(x)}{q(x)}\right|\to+\infty$ as $x\to x_0$: vertical asymptote $x=x_0$</div><pre class="ln"><span class="kw">theorem</span> vertical_asymptote (p q : ℝ → ℝ) (x₀ : ℝ) (hp : ContinuousAt p x₀)
+    (hq : ContinuousAt q x₀) (hq0 : q x₀ = 0) (hp0 : p x₀ ≠ 0)
+    (hqne : ∀ᶠ x <span class="kw">in</span> 𝓝[≠] x₀, q x ≠ 0) :
+    Tendsto (<span class="kw">fun</span> x =&gt; |p x / q x|) (𝓝[≠] x₀) atTop</pre></li><li><div class="bk">(ii) If $\deg P\lt\deg Q$, then $\dfrac{P(x)}{Q(x)}\to 0$: horizontal asymptote $y=0$</div><pre class="ln"><span class="kw">theorem</span> horizontal_zero (P Q : ℝ[X]) (hdeg : P.degree &lt; Q.degree) :
+    Tendsto (<span class="kw">fun</span> x =&gt; P.eval x / Q.eval x) atTop (𝓝 0)</pre></li><li><div class="bk">(ii) If $\deg P=\deg Q$, then $\dfrac{P(x)}{Q(x)}$ tends to the ratio of the leading coefficients</div><pre class="ln"><span class="kw">theorem</span> horizontal_ratio (P Q : ℝ[X]) (hdeg : P.degree = Q.degree) :
+    Tendsto (<span class="kw">fun</span> x =&gt; P.eval x / Q.eval x) atTop (𝓝 (P.leadingCoeff / Q.leadingCoeff))</pre></li><li><div class="bk">(iii) If $S$ is the quotient of the division $P:Q$, then $\dfrac{P(x)}{Q(x)}-S(x)\to 0$; when $\deg P=\deg Q+1$, $S(x)=\alpha x+\beta$ is the oblique asymptote</div><pre class="ln"><span class="kw">theorem</span> minus_quotient (P Q : ℝ[X]) (hQ : Q ≠ 0) :
+    Tendsto (<span class="kw">fun</span> x =&gt; P.eval x / Q.eval x - (P / Q).eval x) atTop (𝓝 0)</pre></li><li><div class="bk">General criterion: $y=\alpha x+\beta$ is an asymptote at $+\infty$ exactly when $\dfrac{f(x)}{x}\to\alpha$ and $f(x)-\alpha x\to\beta$</div><pre class="ln"><span class="kw">theorem</span> oblique_iff (f : ℝ → ℝ) (α β : ℝ) :
+    Tendsto (<span class="kw">fun</span> x =&gt; f x - (α * x + β)) atTop (𝓝 0) ↔
+      Tendsto (<span class="kw">fun</span> x =&gt; f x / x) atTop (𝓝 α) ∧ Tendsto (<span class="kw">fun</span> x =&gt; f x - α * x) atTop (𝓝 β)</pre></li></ul>
+<p class="note">A limit is written with <code>Tendsto</code>: <code>Tendsto F atTop (𝓝 L)</code> means $F(x)\to L$ as $x\to+\infty$. <code>𝓝[≠] x₀</code> means $x\to x_0$ with $x\neq x_0$, and <code>atTop</code> in the place of the limit means $+\infty$. Polynomials are elements of <code>ℝ[X]</code>: <code>P.eval x</code> is the value $P(x)$, <code>P.degree</code> the degree and <code>P.leadingCoeff</code> the leading coefficient. <code>P / Q</code> is the quotient and <code>P % Q</code> the remainder of the division. For a rational function with no common factor, at every root $x_0$ of $Q$ we have $P(x_0)\neq 0$, and $Q$ has no other roots near $x_0$; so (i) applies. The phrase “asymptote $y=\alpha x+\beta$” means $f(x)-(\alpha x+\beta)\to 0$, and for $\alpha=0$ the asymptote is horizontal. Parts (ii) and (iii) are stated for $x\to+\infty$; the case $x\to-\infty$ is symmetric and is not written out separately here, nor is the “only if” direction of (iii).</p>
+<h2>2. Where it is in Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Polynomial.div_tendsto_atTop_zero_of_degree_lt#doc" target="_blank" rel="noopener"><code>Polynomial.div_tendsto_atTop_zero_of_degree_lt</code></a>: $\dfrac{P(x)}{Q(x)}\to 0$ when $\deg P\lt\deg Q$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Polynomial.div_tendsto_atTop_leadingCoeff_div_of_degree_eq#doc" target="_blank" rel="noopener"><code>Polynomial.div_tendsto_atTop_leadingCoeff_div_of_degree_eq</code></a>: the limit when $\deg P=\deg Q$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Polynomial.degree_mod_lt#doc" target="_blank" rel="noopener"><code>Polynomial.degree_mod_lt</code></a>: the remainder has smaller degree than the divisor.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=EuclideanDomain.div_add_mod#doc" target="_blank" rel="noopener"><code>EuclideanDomain.div_add_mod</code></a>: the division identity $P=Q\,S+R$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Polynomial.finite_setOfPred_isRoot#doc" target="_blank" rel="noopener"><code>Polynomial.finite_setOfPred_isRoot</code></a>: a nonzero polynomial has finitely many roots.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Filter.Tendsto.pos_mul_atTop#doc" target="_blank" rel="noopener"><code>Filter.Tendsto.pos_mul_atTop</code></a>: if $F\to C\gt 0$ and $G\to+\infty$, then $F\,G\to+\infty$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=tendsto_inv_nhdsGT_zero#doc" target="_blank" rel="noopener"><code>tendsto_inv_nhdsGT_zero</code></a>: $\dfrac{1}{t}\to+\infty$ as $t\to 0^+$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Filter.Tendsto.div_atTop#doc" target="_blank" rel="noopener"><code>Filter.Tendsto.div_atTop</code></a>: if $F\to L$ and $G\to+\infty$, then $\dfrac{F}{G}\to 0$.</li></ul>
+<h2>3. The complete code</h2>
+<details><summary>See the code (77 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 12 · Criteria for Asymptotes · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch12.Asymptotes
+<span class="kw">open</span> Filter Topology Polynomial
+
+<span class="cm">-- (i) vertical asymptote: at the root x₀ of the denominator, with numerator ≠ 0, |p/q| → +∞</span>
+<span class="kw">theorem</span> vertical_asymptote (p q : ℝ → ℝ) (x₀ : ℝ) (hp : ContinuousAt p x₀)
+    (hq : ContinuousAt q x₀) (hq0 : q x₀ = 0) (hp0 : p x₀ ≠ 0)
+    (hqne : ∀ᶠ x <span class="kw">in</span> 𝓝[≠] x₀, q x ≠ 0) :
+    Tendsto (<span class="kw">fun</span> x =&gt; |p x / q x|) (𝓝[≠] x₀) atTop := <span class="kw">by</span>
+  <span class="kw">have</span> h1 : Tendsto (<span class="kw">fun</span> x =&gt; |p x|) (𝓝[≠] x₀) (𝓝 |p x₀|) :=
+    (hp.tendsto.abs).mono_left nhdsWithin_le_nhds
+  <span class="kw">have</span> h2 : Tendsto (<span class="kw">fun</span> x =&gt; |q x|) (𝓝[≠] x₀) (𝓝[&gt;] 0) := <span class="kw">by</span>
+    <span class="tc">apply</span> tendsto_nhdsWithin_iff.mpr
+    <span class="tc">constructor</span>
+    · <span class="kw">have</span> h := (hq.tendsto.abs).mono_left (nhdsWithin_le_nhds (s := {x₀}ᶜ))
+      rwa [hq0, abs_zero] <span class="kw">at</span> h
+    · <span class="tc">filter_upwards</span> [hqne] <span class="kw">with</span> x hx
+      <span class="tc">exact</span> abs_pos.mpr hx
+  <span class="kw">have</span> h3 := h1.pos_mul_atTop (abs_pos.mpr hp0) (tendsto_inv_nhdsGT_zero.comp h2)
+  <span class="tc">refine</span> h3.congr (<span class="kw">fun</span> x =&gt; ?_)
+  <span class="tc">simp</span> [div_eq_mul_inv]
+
+<span class="cm">-- (ii) horizontal asymptote y = 0 when deg P &lt; deg Q</span>
+<span class="kw">theorem</span> horizontal_zero (P Q : ℝ[X]) (hdeg : P.degree &lt; Q.degree) :
+    Tendsto (<span class="kw">fun</span> x =&gt; P.eval x / Q.eval x) atTop (𝓝 0) :=
+  Polynomial.div_tendsto_atTop_zero_of_degree_lt hdeg
+
+<span class="cm">-- (ii) when deg P = deg Q, the asymptote is the ratio of the leading coefficients</span>
+<span class="kw">theorem</span> horizontal_ratio (P Q : ℝ[X]) (hdeg : P.degree = Q.degree) :
+    Tendsto (<span class="kw">fun</span> x =&gt; P.eval x / Q.eval x) atTop (𝓝 (P.leadingCoeff / Q.leadingCoeff)) :=
+  Polynomial.div_tendsto_atTop_leadingCoeff_div_of_degree_eq hdeg
+
+<span class="cm">-- (iii) the quotient S of the division P / Q: the difference P/Q - S tends to 0</span>
+<span class="kw">theorem</span> minus_quotient (P Q : ℝ[X]) (hQ : Q ≠ 0) :
+    Tendsto (<span class="kw">fun</span> x =&gt; P.eval x / Q.eval x - (P / Q).eval x) atTop (𝓝 0) := <span class="kw">by</span>
+  <span class="kw">have</span> hR : Tendsto (<span class="kw">fun</span> x =&gt; (P % Q).eval x / Q.eval x) atTop (𝓝 0) :=
+    Polynomial.div_tendsto_atTop_zero_of_degree_lt (Polynomial.degree_mod_lt P hQ)
+  <span class="tc">refine</span> hR.congr&#x27; ?_
+  <span class="kw">have</span> hfin : {x | Q.IsRoot x}.Finite := Polynomial.finite_setOfPred_isRoot hQ
+  <span class="tc">filter_upwards</span> [Filter.atTop_le_cofinite hfin.compl_mem_cofinite] <span class="kw">with</span> x hx
+  <span class="kw">have</span> hx&#x27; : Q.eval x ≠ 0 := hx
+  <span class="kw">have</span> he : P.eval x = Q.eval x * (P / Q).eval x + (P % Q).eval x := <span class="kw">by</span>
+    <span class="tc">rw</span> [← Polynomial.eval_mul, ← Polynomial.eval_add, EuclideanDomain.div_add_mod]
+  <span class="tc">rw</span> [he, add_div, mul_div_cancel_left₀ _ hx&#x27;]
+  <span class="tc">ring</span>
+
+<span class="cm">-- general criterion: y = αx + β is an asymptote at +∞ exactly when f(x)/x → α and f(x) - αx → β</span>
+<span class="kw">theorem</span> oblique_iff (f : ℝ → ℝ) (α β : ℝ) :
+    Tendsto (<span class="kw">fun</span> x =&gt; f x - (α * x + β)) atTop (𝓝 0) ↔
+      Tendsto (<span class="kw">fun</span> x =&gt; f x / x) atTop (𝓝 α) ∧ Tendsto (<span class="kw">fun</span> x =&gt; f x - α * x) atTop (𝓝 β) := <span class="kw">by</span>
+  <span class="tc">constructor</span>
+  · <span class="tc">intro</span> h
+    <span class="kw">have</span> h2 : Tendsto (<span class="kw">fun</span> x =&gt; f x - α * x) atTop (𝓝 β) := <span class="kw">by</span>
+      <span class="kw">have</span> h&#x27; := h.add_const β
+      <span class="tc">rw</span> [zero_add] <span class="kw">at</span> h&#x27;
+      <span class="tc">refine</span> h&#x27;.congr (<span class="kw">fun</span> x =&gt; ?_)
+      <span class="tc">ring</span>
+    <span class="tc">refine</span> ⟨?_, h2⟩
+    <span class="kw">have</span> h3 : Tendsto (<span class="kw">fun</span> x =&gt; (f x - α * x) / x) atTop (𝓝 0) := h2.div_atTop tendsto_id
+    <span class="kw">have</span> h4 := h3.add_const α
+    <span class="tc">rw</span> [zero_add] <span class="kw">at</span> h4
+    <span class="tc">refine</span> h4.congr&#x27; ?_
+    <span class="tc">filter_upwards</span> [eventually_ne_atTop 0] <span class="kw">with</span> x hx
+    <span class="tc">rw</span> [sub_div, mul_div_assoc, div_self hx, mul_one, sub_add_cancel]
+  · <span class="tc">rintro</span> ⟨_, h2⟩
+    <span class="kw">have</span> h&#x27; := h2.sub_const β
+    <span class="tc">rw</span> [sub_self] <span class="kw">at</span> h&#x27;
+    <span class="tc">refine</span> h&#x27;.congr (<span class="kw">fun</span> x =&gt; ?_)
+    <span class="tc">ring</span>
+
+<span class="kw">end</span> Ch12.Asymptotes
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2012%20%C2%B7%20Criteria%20for%20Asymptotes%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch12.Asymptotes%0Aopen%20Filter%20Topology%20Polynomial%0A%0A--%20%28i%29%20vertical%20asymptote%3A%20at%20the%20root%20x%E2%82%80%20of%20the%20denominator%2C%20with%20numerator%20%E2%89%A0%200%2C%20%7Cp%2Fq%7C%20%E2%86%92%20%2B%E2%88%9E%0Atheorem%20vertical_asymptote%20%28p%20q%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28x%E2%82%80%20%3A%20%E2%84%9D%29%20%28hp%20%3A%20ContinuousAt%20p%20x%E2%82%80%29%0A%20%20%20%20%28hq%20%3A%20ContinuousAt%20q%20x%E2%82%80%29%20%28hq0%20%3A%20q%20x%E2%82%80%20%3D%200%29%20%28hp0%20%3A%20p%20x%E2%82%80%20%E2%89%A0%200%29%0A%20%20%20%20%28hqne%20%3A%20%E2%88%80%E1%B6%A0%20x%20in%20%F0%9D%93%9D%5B%E2%89%A0%5D%20x%E2%82%80%2C%20q%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20Tendsto%20%28fun%20x%20%3D%3E%20%7Cp%20x%20%2F%20q%20x%7C%29%20%28%F0%9D%93%9D%5B%E2%89%A0%5D%20x%E2%82%80%29%20atTop%20%3A%3D%20by%0A%20%20have%20h1%20%3A%20Tendsto%20%28fun%20x%20%3D%3E%20%7Cp%20x%7C%29%20%28%F0%9D%93%9D%5B%E2%89%A0%5D%20x%E2%82%80%29%20%28%F0%9D%93%9D%20%7Cp%20x%E2%82%80%7C%29%20%3A%3D%0A%20%20%20%20%28hp.tendsto.abs%29.mono_left%20nhdsWithin_le_nhds%0A%20%20have%20h2%20%3A%20Tendsto%20%28fun%20x%20%3D%3E%20%7Cq%20x%7C%29%20%28%F0%9D%93%9D%5B%E2%89%A0%5D%20x%E2%82%80%29%20%28%F0%9D%93%9D%5B%3E%5D%200%29%20%3A%3D%20by%0A%20%20%20%20apply%20tendsto_nhdsWithin_iff.mpr%0A%20%20%20%20constructor%0A%20%20%20%20%C2%B7%20have%20h%20%3A%3D%20%28hq.tendsto.abs%29.mono_left%20%28nhdsWithin_le_nhds%20%28s%20%3A%3D%20%7Bx%E2%82%80%7D%E1%B6%9C%29%29%0A%20%20%20%20%20%20rwa%20%5Bhq0%2C%20abs_zero%5D%20at%20h%0A%20%20%20%20%C2%B7%20filter_upwards%20%5Bhqne%5D%20with%20x%20hx%0A%20%20%20%20%20%20exact%20abs_pos.mpr%20hx%0A%20%20have%20h3%20%3A%3D%20h1.pos_mul_atTop%20%28abs_pos.mpr%20hp0%29%20%28tendsto_inv_nhdsGT_zero.comp%20h2%29%0A%20%20refine%20h3.congr%20%28fun%20x%20%3D%3E%20%3F_%29%0A%20%20simp%20%5Bdiv_eq_mul_inv%5D%0A%0A--%20%28ii%29%20horizontal%20asymptote%20y%20%3D%200%20when%20deg%20P%20%3C%20deg%20Q%0Atheorem%20horizontal_zero%20%28P%20Q%20%3A%20%E2%84%9D%5BX%5D%29%20%28hdeg%20%3A%20P.degree%20%3C%20Q.degree%29%20%3A%0A%20%20%20%20Tendsto%20%28fun%20x%20%3D%3E%20P.eval%20x%20%2F%20Q.eval%20x%29%20atTop%20%28%F0%9D%93%9D%200%29%20%3A%3D%0A%20%20Polynomial.div_tendsto_atTop_zero_of_degree_lt%20hdeg%0A%0A--%20%28ii%29%20when%20deg%20P%20%3D%20deg%20Q%2C%20the%20asymptote%20is%20the%20ratio%20of%20the%20leading%20coefficients%0Atheorem%20horizontal_ratio%20%28P%20Q%20%3A%20%E2%84%9D%5BX%5D%29%20%28hdeg%20%3A%20P.degree%20%3D%20Q.degree%29%20%3A%0A%20%20%20%20Tendsto%20%28fun%20x%20%3D%3E%20P.eval%20x%20%2F%20Q.eval%20x%29%20atTop%20%28%F0%9D%93%9D%20%28P.leadingCoeff%20%2F%20Q.leadingCoeff%29%29%20%3A%3D%0A%20%20Polynomial.div_tendsto_atTop_leadingCoeff_div_of_degree_eq%20hdeg%0A%0A--%20%28iii%29%20the%20quotient%20S%20of%20the%20division%20P%20%2F%20Q%3A%20the%20difference%20P%2FQ%20-%20S%20tends%20to%200%0Atheorem%20minus_quotient%20%28P%20Q%20%3A%20%E2%84%9D%5BX%5D%29%20%28hQ%20%3A%20Q%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20Tendsto%20%28fun%20x%20%3D%3E%20P.eval%20x%20%2F%20Q.eval%20x%20-%20%28P%20%2F%20Q%29.eval%20x%29%20atTop%20%28%F0%9D%93%9D%200%29%20%3A%3D%20by%0A%20%20have%20hR%20%3A%20Tendsto%20%28fun%20x%20%3D%3E%20%28P%20%25%20Q%29.eval%20x%20%2F%20Q.eval%20x%29%20atTop%20%28%F0%9D%93%9D%200%29%20%3A%3D%0A%20%20%20%20Polynomial.div_tendsto_atTop_zero_of_degree_lt%20%28Polynomial.degree_mod_lt%20P%20hQ%29%0A%20%20refine%20hR.congr'%20%3F_%0A%20%20have%20hfin%20%3A%20%7Bx%20%7C%20Q.IsRoot%20x%7D.Finite%20%3A%3D%20Polynomial.finite_setOfPred_isRoot%20hQ%0A%20%20filter_upwards%20%5BFilter.atTop_le_cofinite%20hfin.compl_mem_cofinite%5D%20with%20x%20hx%0A%20%20have%20hx'%20%3A%20Q.eval%20x%20%E2%89%A0%200%20%3A%3D%20hx%0A%20%20have%20he%20%3A%20P.eval%20x%20%3D%20Q.eval%20x%20*%20%28P%20%2F%20Q%29.eval%20x%20%2B%20%28P%20%25%20Q%29.eval%20x%20%3A%3D%20by%0A%20%20%20%20rw%20%5B%E2%86%90%20Polynomial.eval_mul%2C%20%E2%86%90%20Polynomial.eval_add%2C%20EuclideanDomain.div_add_mod%5D%0A%20%20rw%20%5Bhe%2C%20add_div%2C%20mul_div_cancel_left%E2%82%80%20_%20hx'%5D%0A%20%20ring%0A%0A--%20general%20criterion%3A%20y%20%3D%20%CE%B1x%20%2B%20%CE%B2%20is%20an%20asymptote%20at%20%2B%E2%88%9E%20exactly%20when%20f%28x%29%2Fx%20%E2%86%92%20%CE%B1%20and%20f%28x%29%20-%20%CE%B1x%20%E2%86%92%20%CE%B2%0Atheorem%20oblique_iff%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28%CE%B1%20%CE%B2%20%3A%20%E2%84%9D%29%20%3A%0A%20%20%20%20Tendsto%20%28fun%20x%20%3D%3E%20f%20x%20-%20%28%CE%B1%20*%20x%20%2B%20%CE%B2%29%29%20atTop%20%28%F0%9D%93%9D%200%29%20%E2%86%94%0A%20%20%20%20%20%20Tendsto%20%28fun%20x%20%3D%3E%20f%20x%20%2F%20x%29%20atTop%20%28%F0%9D%93%9D%20%CE%B1%29%20%E2%88%A7%20Tendsto%20%28fun%20x%20%3D%3E%20f%20x%20-%20%CE%B1%20*%20x%29%20atTop%20%28%F0%9D%93%9D%20%CE%B2%29%20%3A%3D%20by%0A%20%20constructor%0A%20%20%C2%B7%20intro%20h%0A%20%20%20%20have%20h2%20%3A%20Tendsto%20%28fun%20x%20%3D%3E%20f%20x%20-%20%CE%B1%20*%20x%29%20atTop%20%28%F0%9D%93%9D%20%CE%B2%29%20%3A%3D%20by%0A%20%20%20%20%20%20have%20h'%20%3A%3D%20h.add_const%20%CE%B2%0A%20%20%20%20%20%20rw%20%5Bzero_add%5D%20at%20h'%0A%20%20%20%20%20%20refine%20h'.congr%20%28fun%20x%20%3D%3E%20%3F_%29%0A%20%20%20%20%20%20ring%0A%20%20%20%20refine%20%E2%9F%A8%3F_%2C%20h2%E2%9F%A9%0A%20%20%20%20have%20h3%20%3A%20Tendsto%20%28fun%20x%20%3D%3E%20%28f%20x%20-%20%CE%B1%20*%20x%29%20%2F%20x%29%20atTop%20%28%F0%9D%93%9D%200%29%20%3A%3D%20h2.div_atTop%20tendsto_id%0A%20%20%20%20have%20h4%20%3A%3D%20h3.add_const%20%CE%B1%0A%20%20%20%20rw%20%5Bzero_add%5D%20at%20h4%0A%20%20%20%20refine%20h4.congr'%20%3F_%0A%20%20%20%20filter_upwards%20%5Beventually_ne_atTop%200%5D%20with%20x%20hx%0A%20%20%20%20rw%20%5Bsub_div%2C%20mul_div_assoc%2C%20div_self%20hx%2C%20mul_one%2C%20sub_add_cancel%5D%0A%20%20%C2%B7%20rintro%20%E2%9F%A8_%2C%20h2%E2%9F%A9%0A%20%20%20%20have%20h'%20%3A%3D%20h2.sub_const%20%CE%B2%0A%20%20%20%20rw%20%5Bsub_self%5D%20at%20h'%0A%20%20%20%20refine%20h'.congr%20%28fun%20x%20%3D%3E%20%3F_%29%0A%20%20%20%20ring%0A%0Aend%20Ch12.Asymptotes%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Stewart, J. (2016). <em>Calculus: Early Transcendentals</em> (8th ed.). Cengage Learning.</li><li>Bartle, R. G., &amp; Sherbert, D. R. (2011). <em>Introduction to Real Analysis</em> (4th ed.). Wiley.</li><li>Rudin, W. (1976). <em>Principles of Mathematical Analysis</em> (3rd ed.). McGraw-Hill.</li><li>Negrepontis, S., Giotopoulos, S., &amp; Giannakoulias, E. (1999). <em>Apeirostikos Logismos [Infinitesimal Calculus]</em> (Vol. I). Ekdoseis Symmetria. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

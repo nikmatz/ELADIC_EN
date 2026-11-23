@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fermat's Theorem</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Fermat's Theorem</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 11 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>If $f$ has a local extremum at an interior point $x_0$ and is differentiable there, then $f'(x_0)=0$. Points with $f'(x_0)=0$ are called critical, but not all of them are extrema.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20If%20%24f%24%20has%20a%20local%20extremum%20at%20an%20interior%20point%20%24x_0%24%20and%20is%20differentiable%20there%2C%20then%20%24f%27%28x_0%29%3D0%24.%20Points%20with%20%24f%27%28x_0%29%3D0%24%20are%20called%20critical%2C%20but%20not%20all%20of%20them%20are%20extrema.">ChatGPT</a>
@@ -27,6 +87,144 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: If $f$ has a local extremum at an interior point $x_0$ and is differentiable there, then $f'(x_0)=0$. Points with $f'(x_0)=0$ are called critical, but not all of them are extrema.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The theorem and the counterexample were proved in Lean 4 with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">If $f$ has a local minimum at an interior point $x_0$ and is differentiable there, then $f'(x_0)=0$</div><pre class="ln"><span class="kw">theorem</span> fermat_min (f : ℝ → ℝ) (x₀ f&#x27; : ℝ) (hmin : IsLocalMin f x₀) (hf : HasDerivAt f f&#x27; x₀) :
+    f&#x27; = 0</pre></li><li><div class="bk">The same for a local maximum</div><pre class="ln"><span class="kw">theorem</span> fermat_max (f : ℝ → ℝ) (x₀ f&#x27; : ℝ) (hmax : IsLocalMax f x₀) (hf : HasDerivAt f f&#x27; x₀) :
+    f&#x27; = 0</pre></li><li><div class="bk">The same for every local extremum, with the Mathlib theorem</div><pre class="ln"><span class="kw">theorem</span> fermat_extr (f : ℝ → ℝ) (x₀ f&#x27; : ℝ) (hext : IsLocalExtr f x₀)
+    (hf : HasDerivAt f f&#x27; x₀) : f&#x27; = 0</pre></li><li><div class="bk">The function $f(x)=x^3$ has $f'(0)=0$</div><pre class="ln"><span class="kw">theorem</span> cube_critical : HasDerivAt (<span class="kw">fun</span> x : ℝ =&gt; x ^ 3) 0 0</pre></li><li><div class="bk">But $x^3$ does not have a local extremum at $0$: not all critical points are extrema</div><pre class="ln"><span class="kw">theorem</span> cube_not_extr : ¬ IsLocalExtr (<span class="kw">fun</span> x : ℝ =&gt; x ^ 3) 0</pre></li></ul>
+<p class="note">“$f$ has a local minimum at $x_0$” is written <code>IsLocalMin f x₀</code>, a local maximum <code>IsLocalMax f x₀</code>, and a local extremum <code>IsLocalExtr f x₀</code>. All three mean that the inequality holds on an open interval around $x_0$, so $x_0$ is an interior point. <code>∀ᶠ x in 𝓝[>] x₀, P x</code> means that the property $P(x)$ holds for every $x\gt x_0$ close enough to $x_0$. The proof: the slope $\dfrac{f(x)-f(x_0)}{x-x_0}$ is $\ge 0$ to the right of $x_0$ and $\le 0$ to the left, so its limit $f'$ is both $\ge 0$ and $\le 0$. For $x^3$: $0$ is not an extremum, because on every interval around $0$ the function $x^3$ takes both positive and negative values.</p>
+<h2>2. Step by step: local minimum</h2>
+<p class="note">The idea: to the right of $x_0$ the slope is $\ge 0$ and to the left it is $\le 0$, so its limit $f'$ is $0$. We start from the goal:</p>
+<div class="goal start"><span>The goal</span><pre>f : ℝ → ℝ
+x₀ f&#x27; : ℝ
+hmin : IsLocalMin f x₀
+hf : HasDerivAt f f&#x27; x₀
+⊢ f&#x27; = 0</pre></div>
+<p class="note">Above <code>⊢</code> is what we know; after <code>⊢</code> is what we have to show. After each step we show only what changed.</p>
+<ol class="steps"><li><pre class="ln"><span class="tc">rw</span> [hasDerivAt_iff_tendsto_slope] <span class="kw">at</span> hf</pre><p>We write the derivative as a limit: the slope <code>slope f x₀ x</code> tends to $f'$ as $x\to x_0$ with $x\neq x_0$.</p><div class="goal"><span>What remains to be proved</span><pre>hf : Tendsto (slope f x₀) (𝓝[≠] x₀) (𝓝 f&#x27;)
+⊢ f&#x27; = 0</pre></div></li><li><pre class="ln"><span class="kw">have</span> hR : 0 ≤ f&#x27; := <span class="kw">by</span></pre><p>First half, <code>hR</code>: $0\le f'$.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ 0 ≤ f&#x27;</pre></div></li><li><pre class="ln"><span class="kw">have</span> h1 : Tendsto (slope f x₀) (𝓝[&gt;] x₀) (𝓝 f&#x27;) := hf.mono_left (nhdsGT_le_nhdsNE x₀)
+<span class="kw">have</span> hm : ∀ᶠ x <span class="kw">in</span> 𝓝[&gt;] x₀, f x₀ ≤ f x := nhdsWithin_le_nhds hmin</pre><p>The slope also tends to $f'$ as $x\to x_0^+$ (<code>h1</code>; <code>𝓝[>] x₀</code> means $x\to x_0$ with $x\gt x_0$). Since $f$ has a local minimum at $x_0$, we have $f(x_0)\le f(x)$ for $x$ near $x_0$ (<code>hm</code>).</p><div class="goal"><span>What remains to be proved</span><pre>h1 : Tendsto (slope f x₀) (𝓝[&gt;] x₀) (𝓝 f&#x27;)
+hm : ∀ᶠ (x : ℝ) in 𝓝[&gt;] x₀, f x₀ ≤ f x
+⊢ 0 ≤ f&#x27;</pre></div></li><li><pre class="ln"><span class="tc">apply</span> ge_of_tendsto h1</pre><p>If a quantity tends to $f'$ and is $\ge 0$ for $x\gt x_0$ near $x_0$, then $f'\ge 0$. It remains to show that the slope is $\ge 0$ there.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ ∀ᶠ (c : ℝ) in 𝓝[&gt;] x₀, 0 ≤ slope f x₀ c</pre></div></li><li><pre class="ln"><span class="tc">filter_upwards</span> [hm, self_mem_nhdsWithin] <span class="kw">with</span> x hfx hx</pre><p>We take $x\gt x_0$ near $x_0$, with $f(x_0)\le f(x)$.</p><div class="goal"><span>What remains to be proved</span><pre>x : ℝ
+hfx : f x₀ ≤ f x
+hx : x ∈ Set.Ioi x₀
+⊢ 0 ≤ slope f x₀ x</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [slope_def_field]</pre><p>We write the slope as a fraction.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ 0 ≤ (f x - f x₀) / (x - x₀)</pre></div></li><li><pre class="ln"><span class="tc">exact</span> div_nonneg (sub_nonneg.mpr hfx) (sub_nonneg.mpr (le_of_lt hx))</pre><p>The numerator $f(x)-f(x_0)$ is $\ge 0$ and the denominator $x-x_0$ is positive, so the fraction is $\ge 0$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="kw">have</span> hL : f&#x27; ≤ 0 := <span class="kw">by</span></pre><p>Second half, <code>hL</code>: $f'\le 0$.</p><div class="goal"><span>What remains to be proved</span><pre>f : ℝ → ℝ
+x₀ f&#x27; : ℝ
+hmin : IsLocalMin f x₀
+hf : Tendsto (slope f x₀) (𝓝[≠] x₀) (𝓝 f&#x27;)
+hR : 0 ≤ f&#x27;
+⊢ f&#x27; ≤ 0</pre></div></li><li><pre class="ln"><span class="kw">have</span> h2 : Tendsto (slope f x₀) (𝓝[&lt;] x₀) (𝓝 f&#x27;) := hf.mono_left (nhdsLT_le_nhdsNE x₀)
+<span class="kw">have</span> hm : ∀ᶠ x <span class="kw">in</span> 𝓝[&lt;] x₀, f x₀ ≤ f x := nhdsWithin_le_nhds hmin</pre><p>Now $x\to x_0^-$ (<code>h2</code>; <code>𝓝[&lt;] x₀</code> means $x\to x_0$ with $x\lt x_0$), again with $f(x_0)\le f(x)$.</p><div class="goal"><span>What remains to be proved</span><pre>h2 : Tendsto (slope f x₀) (𝓝[&lt;] x₀) (𝓝 f&#x27;)
+hm : ∀ᶠ (x : ℝ) in 𝓝[&lt;] x₀, f x₀ ≤ f x
+⊢ f&#x27; ≤ 0</pre></div></li><li><pre class="ln"><span class="tc">apply</span> le_of_tendsto h2</pre><p>If a quantity tends to $f'$ and is $\le 0$ for $x\lt x_0$ near $x_0$, then $f'\le 0$.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ ∀ᶠ (c : ℝ) in 𝓝[&lt;] x₀, slope f x₀ c ≤ 0</pre></div></li><li><pre class="ln"><span class="tc">filter_upwards</span> [hm, self_mem_nhdsWithin] <span class="kw">with</span> x hfx hx</pre><p>We take $x\lt x_0$ near $x_0$, with $f(x_0)\le f(x)$.</p><div class="goal"><span>What remains to be proved</span><pre>x : ℝ
+hfx : f x₀ ≤ f x
+hx : x ∈ Set.Iio x₀
+⊢ slope f x₀ x ≤ 0</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [slope_def_field]</pre><p>We write the slope as a fraction.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ (f x - f x₀) / (x - x₀) ≤ 0</pre></div></li><li><pre class="ln"><span class="tc">exact</span> div_nonpos_of_nonneg_of_nonpos (sub_nonneg.mpr hfx) (sub_nonpos.mpr (le_of_lt hx))</pre><p>The numerator is $\ge 0$ and the denominator $x-x_0$ is negative, so the fraction is $\le 0$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="tc">linarith</span></pre><p>From $0\le f'$ and $f'\le 0$ we get $f'=0$.</p><div class="goal done"><span>✓ </span>No goals: the proof is complete.</div></li></ol>
+<h2>3. Try it yourself: local maximum</h2>
+<div class="ex"><p>Prove the same for a local maximum: if $f$ has a local maximum at $x_0$ and has derivative $f'$ at $x_0$, then $f'=0$. Open the exercise in Lean and replace the word <code>sorry</code> with your own steps. When the proof is correct, the message <i>declaration uses sorry</i> disappears and no red error appears.</p>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2011%20%C2%B7%20Fermat's%20Theorem%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch11.Fermat%0Aopen%20Filter%20Topology%0A%0Atheorem%20fermat_min%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28x%E2%82%80%20f'%20%3A%20%E2%84%9D%29%20%28hmin%20%3A%20IsLocalMin%20f%20x%E2%82%80%29%20%28hf%20%3A%20HasDerivAt%20f%20f'%20x%E2%82%80%29%20%3A%0A%20%20%20%20f'%20%3D%200%20%3A%3D%20by%0A%20%20rw%20%5BhasDerivAt_iff_tendsto_slope%5D%20at%20hf%0A%20%20have%20hR%20%3A%200%20%E2%89%A4%20f'%20%3A%3D%20by%0A%20%20%20%20have%20h1%20%3A%20Tendsto%20%28slope%20f%20x%E2%82%80%29%20%28%F0%9D%93%9D%5B%3E%5D%20x%E2%82%80%29%20%28%F0%9D%93%9D%20f'%29%20%3A%3D%20hf.mono_left%20%28nhdsGT_le_nhdsNE%20x%E2%82%80%29%0A%20%20%20%20have%20hm%20%3A%20%E2%88%80%E1%B6%A0%20x%20in%20%F0%9D%93%9D%5B%3E%5D%20x%E2%82%80%2C%20f%20x%E2%82%80%20%E2%89%A4%20f%20x%20%3A%3D%20nhdsWithin_le_nhds%20hmin%0A%20%20%20%20apply%20ge_of_tendsto%20h1%0A%20%20%20%20filter_upwards%20%5Bhm%2C%20self_mem_nhdsWithin%5D%20with%20x%20hfx%20hx%0A%20%20%20%20rw%20%5Bslope_def_field%5D%0A%20%20%20%20exact%20div_nonneg%20%28sub_nonneg.mpr%20hfx%29%20%28sub_nonneg.mpr%20%28le_of_lt%20hx%29%29%0A%20%20have%20hL%20%3A%20f'%20%E2%89%A4%200%20%3A%3D%20by%0A%20%20%20%20have%20h2%20%3A%20Tendsto%20%28slope%20f%20x%E2%82%80%29%20%28%F0%9D%93%9D%5B%3C%5D%20x%E2%82%80%29%20%28%F0%9D%93%9D%20f'%29%20%3A%3D%20hf.mono_left%20%28nhdsLT_le_nhdsNE%20x%E2%82%80%29%0A%20%20%20%20have%20hm%20%3A%20%E2%88%80%E1%B6%A0%20x%20in%20%F0%9D%93%9D%5B%3C%5D%20x%E2%82%80%2C%20f%20x%E2%82%80%20%E2%89%A4%20f%20x%20%3A%3D%20nhdsWithin_le_nhds%20hmin%0A%20%20%20%20apply%20le_of_tendsto%20h2%0A%20%20%20%20filter_upwards%20%5Bhm%2C%20self_mem_nhdsWithin%5D%20with%20x%20hfx%20hx%0A%20%20%20%20rw%20%5Bslope_def_field%5D%0A%20%20%20%20exact%20div_nonpos_of_nonneg_of_nonpos%20%28sub_nonneg.mpr%20hfx%29%20%28sub_nonpos.mpr%20%28le_of_lt%20hx%29%29%0A%20%20linarith%0A%0Atheorem%20fermat_max%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28x%E2%82%80%20f'%20%3A%20%E2%84%9D%29%20%28hmax%20%3A%20IsLocalMax%20f%20x%E2%82%80%29%20%28hf%20%3A%20HasDerivAt%20f%20f'%20x%E2%82%80%29%20%3A%0A%20%20%20%20f'%20%3D%200%20%3A%3D%20by%0A%20%20--%20EXERCISE%3A%20replace%20the%20sorry%20with%20your%20own%20proof.%0A%20%20sorry%0A%0Atheorem%20fermat_extr%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28x%E2%82%80%20f'%20%3A%20%E2%84%9D%29%20%28hext%20%3A%20IsLocalExtr%20f%20x%E2%82%80%29%0A%20%20%20%20%28hf%20%3A%20HasDerivAt%20f%20f'%20x%E2%82%80%29%20%3A%20f'%20%3D%200%20%3A%3D%0A%20%20hext.hasDerivAt_eq_zero%20hf%0A%0A--%20a%20critical%20point%20that%20is%20not%20an%20extremum%3A%20f%28x%29%20%3D%20x%C2%B3%20at%200%0Atheorem%20cube_critical%20%3A%20HasDerivAt%20%28fun%20x%20%3A%20%E2%84%9D%20%3D%3E%20x%20%5E%203%29%200%200%20%3A%3D%20by%0A%20%20simpa%20using%20hasDerivAt_pow%203%20%280%20%3A%20%E2%84%9D%29%0A%0Atheorem%20cube_not_extr%20%3A%20%C2%AC%20IsLocalExtr%20%28fun%20x%20%3A%20%E2%84%9D%20%3D%3E%20x%20%5E%203%29%200%20%3A%3D%20by%0A%20%20have%20hpt%20%3A%20%E2%88%80%20%CE%B5%20%3A%20%E2%84%9D%2C%200%20%3C%20%CE%B5%20%E2%86%92%20dist%20%28%CE%B5%20%2F%202%29%200%20%3C%20%CE%B5%20%E2%88%A7%20dist%20%28-%28%CE%B5%20%2F%202%29%29%200%20%3C%20%CE%B5%20%3A%3D%20by%0A%20%20%20%20intro%20%CE%B5%20h%CE%B5%0A%20%20%20%20rw%20%5BReal.dist_eq%2C%20Real.dist_eq%2C%20sub_zero%2C%20sub_zero%2C%20abs_neg%2C%20abs_of_pos%20%28half_pos%20h%CE%B5%29%5D%0A%20%20%20%20constructor%20%3C%3B%3E%20linarith%0A%20%20rintro%20%28h%20%7C%20h%29%0A%20%20%C2%B7%20obtain%20%E2%9F%A8%CE%B5%2C%20h%CE%B5%2C%20hball%E2%9F%A9%20%3A%3D%20Metric.eventually_nhds_iff.mp%20h%0A%20%20%20%20have%20h1%20%3A%20%280%20%3A%20%E2%84%9D%29%20%5E%203%20%E2%89%A4%20%28-%28%CE%B5%20%2F%202%29%29%20%5E%203%20%3A%3D%20hball%20%28hpt%20%CE%B5%20h%CE%B5%29.2%0A%20%20%20%20have%20h2%20%3A%200%20%3C%20%28%CE%B5%20%2F%202%29%20%5E%203%20%3A%3D%20pow_pos%20%28half_pos%20h%CE%B5%29%203%0A%20%20%20%20linarith%0A%20%20%C2%B7%20obtain%20%E2%9F%A8%CE%B5%2C%20h%CE%B5%2C%20hball%E2%9F%A9%20%3A%3D%20Metric.eventually_nhds_iff.mp%20h%0A%20%20%20%20have%20h1%20%3A%20%28%CE%B5%20%2F%202%29%20%5E%203%20%E2%89%A4%20%280%20%3A%20%E2%84%9D%29%20%5E%203%20%3A%3D%20hball%20%28hpt%20%CE%B5%20h%CE%B5%29.1%0A%20%20%20%20have%20h2%20%3A%200%20%3C%20%28%CE%B5%20%2F%202%29%20%5E%203%20%3A%3D%20pow_pos%20%28half_pos%20h%CE%B5%29%203%0A%20%20%20%20linarith%0A%0Aend%20Ch11.Fermat%0A" target="_blank" rel="noopener">Open the exercise in Lean</a>
+<details><summary>Hint</summary><div class="in"><p class="note">The function $-f$, which has derivative $-f'$, has a local minimum at $x_0$. Apply the theorem to $-f$: <code>have h := fermat_min (fun x => -f x) x₀ (-f') hmax.neg hf.neg</code> and then <code>linarith</code>.</p></div></details>
+<details><summary>Solution</summary><div class="in"><pre class="ln"><span class="kw">theorem</span> fermat_max (f : ℝ → ℝ) (x₀ f&#x27; : ℝ) (hmax : IsLocalMax f x₀) (hf : HasDerivAt f f&#x27; x₀) :
+    f&#x27; = 0 := <span class="kw">by</span>
+  <span class="kw">have</span> h := fermat_min (<span class="kw">fun</span> x =&gt; -f x) x₀ (-f&#x27;) hmax.neg hf.neg
+  <span class="tc">linarith</span></pre></div></details>
+</div>
+<h2>4. In Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=hasDerivAt_iff_tendsto_slope#doc" target="_blank" rel="noopener"><code>hasDerivAt_iff_tendsto_slope</code></a>: the derivative as the limit of the slope $\dfrac{f(x)-f(x_0)}{x-x_0}$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=nhdsGT_le_nhdsNE#doc" target="_blank" rel="noopener"><code>nhdsGT_le_nhdsNE</code></a>: if $x\to x_0$ with $x\gt x_0$, then also $x\to x_0$ with $x\neq x_0$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=nhdsLT_le_nhdsNE#doc" target="_blank" rel="noopener"><code>nhdsLT_le_nhdsNE</code></a>: the same for $x\lt x_0$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=ge_of_tendsto#doc" target="_blank" rel="noopener"><code>ge_of_tendsto</code></a>: if $g(x)\to L$ and $g(x)\ge c$ near the point, then $L\ge c$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=le_of_tendsto#doc" target="_blank" rel="noopener"><code>le_of_tendsto</code></a>: the same with $\le$ in place of $\ge$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=div_nonneg#doc" target="_blank" rel="noopener"><code>div_nonneg</code></a>: from $a\ge 0$ and $b\ge 0$ we get $\dfrac{a}{b}\ge 0$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=div_nonpos_of_nonneg_of_nonpos#doc" target="_blank" rel="noopener"><code>div_nonpos_of_nonneg_of_nonpos</code></a>: from $a\ge 0$ and $b\le 0$ we get $\dfrac{a}{b}\le 0$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsLocalMax.neg#doc" target="_blank" rel="noopener"><code>IsLocalMax.neg</code></a>: a local maximum of $f$ is a local minimum of $-f$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsLocalExtr.hasDerivAt_eq_zero#doc" target="_blank" rel="noopener"><code>IsLocalExtr.hasDerivAt_eq_zero</code></a>: Fermat's theorem in Mathlib.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=hasDerivAt_pow#doc" target="_blank" rel="noopener"><code>hasDerivAt_pow</code></a>: the derivative of $x^n$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Metric.eventually_nhds_iff#doc" target="_blank" rel="noopener"><code>Metric.eventually_nhds_iff</code></a>: a property holds near $x_0$ exactly when it holds on an interval $(x_0-\varepsilon,x_0+\varepsilon)$.</li></ul>
+<h2>5. The complete code</h2>
+<details><summary>See the code (58 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 11 · Fermat&#x27;s Theorem · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch11.Fermat
+<span class="kw">open</span> Filter Topology
+
+<span class="kw">theorem</span> fermat_min (f : ℝ → ℝ) (x₀ f&#x27; : ℝ) (hmin : IsLocalMin f x₀) (hf : HasDerivAt f f&#x27; x₀) :
+    f&#x27; = 0 := <span class="kw">by</span>
+  <span class="tc">rw</span> [hasDerivAt_iff_tendsto_slope] <span class="kw">at</span> hf
+  <span class="kw">have</span> hR : 0 ≤ f&#x27; := <span class="kw">by</span>
+    <span class="kw">have</span> h1 : Tendsto (slope f x₀) (𝓝[&gt;] x₀) (𝓝 f&#x27;) := hf.mono_left (nhdsGT_le_nhdsNE x₀)
+    <span class="kw">have</span> hm : ∀ᶠ x <span class="kw">in</span> 𝓝[&gt;] x₀, f x₀ ≤ f x := nhdsWithin_le_nhds hmin
+    <span class="tc">apply</span> ge_of_tendsto h1
+    <span class="tc">filter_upwards</span> [hm, self_mem_nhdsWithin] <span class="kw">with</span> x hfx hx
+    <span class="tc">rw</span> [slope_def_field]
+    <span class="tc">exact</span> div_nonneg (sub_nonneg.mpr hfx) (sub_nonneg.mpr (le_of_lt hx))
+  <span class="kw">have</span> hL : f&#x27; ≤ 0 := <span class="kw">by</span>
+    <span class="kw">have</span> h2 : Tendsto (slope f x₀) (𝓝[&lt;] x₀) (𝓝 f&#x27;) := hf.mono_left (nhdsLT_le_nhdsNE x₀)
+    <span class="kw">have</span> hm : ∀ᶠ x <span class="kw">in</span> 𝓝[&lt;] x₀, f x₀ ≤ f x := nhdsWithin_le_nhds hmin
+    <span class="tc">apply</span> le_of_tendsto h2
+    <span class="tc">filter_upwards</span> [hm, self_mem_nhdsWithin] <span class="kw">with</span> x hfx hx
+    <span class="tc">rw</span> [slope_def_field]
+    <span class="tc">exact</span> div_nonpos_of_nonneg_of_nonpos (sub_nonneg.mpr hfx) (sub_nonpos.mpr (le_of_lt hx))
+  <span class="tc">linarith</span>
+
+<span class="kw">theorem</span> fermat_max (f : ℝ → ℝ) (x₀ f&#x27; : ℝ) (hmax : IsLocalMax f x₀) (hf : HasDerivAt f f&#x27; x₀) :
+    f&#x27; = 0 := <span class="kw">by</span>
+  <span class="kw">have</span> h := fermat_min (<span class="kw">fun</span> x =&gt; -f x) x₀ (-f&#x27;) hmax.neg hf.neg
+  <span class="tc">linarith</span>
+
+<span class="kw">theorem</span> fermat_extr (f : ℝ → ℝ) (x₀ f&#x27; : ℝ) (hext : IsLocalExtr f x₀)
+    (hf : HasDerivAt f f&#x27; x₀) : f&#x27; = 0 :=
+  hext.hasDerivAt_eq_zero hf
+
+<span class="cm">-- a critical point that is not an extremum: f(x) = x³ at 0</span>
+<span class="kw">theorem</span> cube_critical : HasDerivAt (<span class="kw">fun</span> x : ℝ =&gt; x ^ 3) 0 0 := <span class="kw">by</span>
+  <span class="tc">simpa</span> using hasDerivAt_pow 3 (0 : ℝ)
+
+<span class="kw">theorem</span> cube_not_extr : ¬ IsLocalExtr (<span class="kw">fun</span> x : ℝ =&gt; x ^ 3) 0 := <span class="kw">by</span>
+  <span class="kw">have</span> hpt : ∀ ε : ℝ, 0 &lt; ε → dist (ε / 2) 0 &lt; ε ∧ dist (-(ε / 2)) 0 &lt; ε := <span class="kw">by</span>
+    <span class="tc">intro</span> ε hε
+    <span class="tc">rw</span> [Real.dist_eq, Real.dist_eq, sub_zero, sub_zero, abs_neg, abs_of_pos (half_pos hε)]
+    <span class="tc">constructor</span> &lt;;&gt; <span class="tc">linarith</span>
+  <span class="tc">rintro</span> (h | h)
+  · <span class="tc">obtain</span> ⟨ε, hε, hball⟩ := Metric.eventually_nhds_iff.mp h
+    <span class="kw">have</span> h1 : (0 : ℝ) ^ 3 ≤ (-(ε / 2)) ^ 3 := hball (hpt ε hε).2
+    <span class="kw">have</span> h2 : 0 &lt; (ε / 2) ^ 3 := pow_pos (half_pos hε) 3
+    <span class="tc">linarith</span>
+  · <span class="tc">obtain</span> ⟨ε, hε, hball⟩ := Metric.eventually_nhds_iff.mp h
+    <span class="kw">have</span> h1 : (ε / 2) ^ 3 ≤ (0 : ℝ) ^ 3 := hball (hpt ε hε).1
+    <span class="kw">have</span> h2 : 0 &lt; (ε / 2) ^ 3 := pow_pos (half_pos hε) 3
+    <span class="tc">linarith</span>
+
+<span class="kw">end</span> Ch11.Fermat
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2011%20%C2%B7%20Fermat's%20Theorem%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch11.Fermat%0Aopen%20Filter%20Topology%0A%0Atheorem%20fermat_min%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28x%E2%82%80%20f'%20%3A%20%E2%84%9D%29%20%28hmin%20%3A%20IsLocalMin%20f%20x%E2%82%80%29%20%28hf%20%3A%20HasDerivAt%20f%20f'%20x%E2%82%80%29%20%3A%0A%20%20%20%20f'%20%3D%200%20%3A%3D%20by%0A%20%20rw%20%5BhasDerivAt_iff_tendsto_slope%5D%20at%20hf%0A%20%20have%20hR%20%3A%200%20%E2%89%A4%20f'%20%3A%3D%20by%0A%20%20%20%20have%20h1%20%3A%20Tendsto%20%28slope%20f%20x%E2%82%80%29%20%28%F0%9D%93%9D%5B%3E%5D%20x%E2%82%80%29%20%28%F0%9D%93%9D%20f'%29%20%3A%3D%20hf.mono_left%20%28nhdsGT_le_nhdsNE%20x%E2%82%80%29%0A%20%20%20%20have%20hm%20%3A%20%E2%88%80%E1%B6%A0%20x%20in%20%F0%9D%93%9D%5B%3E%5D%20x%E2%82%80%2C%20f%20x%E2%82%80%20%E2%89%A4%20f%20x%20%3A%3D%20nhdsWithin_le_nhds%20hmin%0A%20%20%20%20apply%20ge_of_tendsto%20h1%0A%20%20%20%20filter_upwards%20%5Bhm%2C%20self_mem_nhdsWithin%5D%20with%20x%20hfx%20hx%0A%20%20%20%20rw%20%5Bslope_def_field%5D%0A%20%20%20%20exact%20div_nonneg%20%28sub_nonneg.mpr%20hfx%29%20%28sub_nonneg.mpr%20%28le_of_lt%20hx%29%29%0A%20%20have%20hL%20%3A%20f'%20%E2%89%A4%200%20%3A%3D%20by%0A%20%20%20%20have%20h2%20%3A%20Tendsto%20%28slope%20f%20x%E2%82%80%29%20%28%F0%9D%93%9D%5B%3C%5D%20x%E2%82%80%29%20%28%F0%9D%93%9D%20f'%29%20%3A%3D%20hf.mono_left%20%28nhdsLT_le_nhdsNE%20x%E2%82%80%29%0A%20%20%20%20have%20hm%20%3A%20%E2%88%80%E1%B6%A0%20x%20in%20%F0%9D%93%9D%5B%3C%5D%20x%E2%82%80%2C%20f%20x%E2%82%80%20%E2%89%A4%20f%20x%20%3A%3D%20nhdsWithin_le_nhds%20hmin%0A%20%20%20%20apply%20le_of_tendsto%20h2%0A%20%20%20%20filter_upwards%20%5Bhm%2C%20self_mem_nhdsWithin%5D%20with%20x%20hfx%20hx%0A%20%20%20%20rw%20%5Bslope_def_field%5D%0A%20%20%20%20exact%20div_nonpos_of_nonneg_of_nonpos%20%28sub_nonneg.mpr%20hfx%29%20%28sub_nonpos.mpr%20%28le_of_lt%20hx%29%29%0A%20%20linarith%0A%0Atheorem%20fermat_max%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28x%E2%82%80%20f'%20%3A%20%E2%84%9D%29%20%28hmax%20%3A%20IsLocalMax%20f%20x%E2%82%80%29%20%28hf%20%3A%20HasDerivAt%20f%20f'%20x%E2%82%80%29%20%3A%0A%20%20%20%20f'%20%3D%200%20%3A%3D%20by%0A%20%20have%20h%20%3A%3D%20fermat_min%20%28fun%20x%20%3D%3E%20-f%20x%29%20x%E2%82%80%20%28-f'%29%20hmax.neg%20hf.neg%0A%20%20linarith%0A%0Atheorem%20fermat_extr%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28x%E2%82%80%20f'%20%3A%20%E2%84%9D%29%20%28hext%20%3A%20IsLocalExtr%20f%20x%E2%82%80%29%0A%20%20%20%20%28hf%20%3A%20HasDerivAt%20f%20f'%20x%E2%82%80%29%20%3A%20f'%20%3D%200%20%3A%3D%0A%20%20hext.hasDerivAt_eq_zero%20hf%0A%0A--%20a%20critical%20point%20that%20is%20not%20an%20extremum%3A%20f%28x%29%20%3D%20x%C2%B3%20at%200%0Atheorem%20cube_critical%20%3A%20HasDerivAt%20%28fun%20x%20%3A%20%E2%84%9D%20%3D%3E%20x%20%5E%203%29%200%200%20%3A%3D%20by%0A%20%20simpa%20using%20hasDerivAt_pow%203%20%280%20%3A%20%E2%84%9D%29%0A%0Atheorem%20cube_not_extr%20%3A%20%C2%AC%20IsLocalExtr%20%28fun%20x%20%3A%20%E2%84%9D%20%3D%3E%20x%20%5E%203%29%200%20%3A%3D%20by%0A%20%20have%20hpt%20%3A%20%E2%88%80%20%CE%B5%20%3A%20%E2%84%9D%2C%200%20%3C%20%CE%B5%20%E2%86%92%20dist%20%28%CE%B5%20%2F%202%29%200%20%3C%20%CE%B5%20%E2%88%A7%20dist%20%28-%28%CE%B5%20%2F%202%29%29%200%20%3C%20%CE%B5%20%3A%3D%20by%0A%20%20%20%20intro%20%CE%B5%20h%CE%B5%0A%20%20%20%20rw%20%5BReal.dist_eq%2C%20Real.dist_eq%2C%20sub_zero%2C%20sub_zero%2C%20abs_neg%2C%20abs_of_pos%20%28half_pos%20h%CE%B5%29%5D%0A%20%20%20%20constructor%20%3C%3B%3E%20linarith%0A%20%20rintro%20%28h%20%7C%20h%29%0A%20%20%C2%B7%20obtain%20%E2%9F%A8%CE%B5%2C%20h%CE%B5%2C%20hball%E2%9F%A9%20%3A%3D%20Metric.eventually_nhds_iff.mp%20h%0A%20%20%20%20have%20h1%20%3A%20%280%20%3A%20%E2%84%9D%29%20%5E%203%20%E2%89%A4%20%28-%28%CE%B5%20%2F%202%29%29%20%5E%203%20%3A%3D%20hball%20%28hpt%20%CE%B5%20h%CE%B5%29.2%0A%20%20%20%20have%20h2%20%3A%200%20%3C%20%28%CE%B5%20%2F%202%29%20%5E%203%20%3A%3D%20pow_pos%20%28half_pos%20h%CE%B5%29%203%0A%20%20%20%20linarith%0A%20%20%C2%B7%20obtain%20%E2%9F%A8%CE%B5%2C%20h%CE%B5%2C%20hball%E2%9F%A9%20%3A%3D%20Metric.eventually_nhds_iff.mp%20h%0A%20%20%20%20have%20h1%20%3A%20%28%CE%B5%20%2F%202%29%20%5E%203%20%E2%89%A4%20%280%20%3A%20%E2%84%9D%29%20%5E%203%20%3A%3D%20hball%20%28hpt%20%CE%B5%20h%CE%B5%29.1%0A%20%20%20%20have%20h2%20%3A%200%20%3C%20%28%CE%B5%20%2F%202%29%20%5E%203%20%3A%3D%20pow_pos%20%28half_pos%20h%CE%B5%29%203%0A%20%20%20%20linarith%0A%0Aend%20Ch11.Fermat%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Bartle, R. G., &amp; Sherbert, D. R. (2011). <em>Introduction to Real Analysis</em> (4th ed.). Wiley.</li><li>Rudin, W. (1976). <em>Principles of Mathematical Analysis</em> (3rd ed.). McGraw-Hill.</li><li>Stewart, J. (2016). <em>Calculus: Early Transcendentals</em> (8th ed.). Cengage Learning.</li><li>Negrepontis, S., Giotopoulos, S., &amp; Giannakoulias, E. (1999). <em>Apeirostikos Logismos [Infinitesimal Calculus]</em> (Vol. I). Ekdoseis Symmetria. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

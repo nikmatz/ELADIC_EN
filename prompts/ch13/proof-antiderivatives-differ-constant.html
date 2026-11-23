@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Antiderivatives Differ by a Constant</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Antiderivatives Differ by a Constant</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 13 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>If $F$ and $G$ are antiderivatives of the same function $f$ on an interval $I$, that is, $F′(x)=G′(x)=f(x)$ for every $x\in I$, then there exists a constant $C\in\mathbb{R}$ such that $G(x)=F(x)+C$ for every $x\in I$.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant &mdash; it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20If%20%24F%24%20and%20%24G%24%20are%20antiderivatives%20of%20the%20same%20function%20%24f%24%20on%20an%20interval%20%24I%24%2C%20that%20is%2C%20%24F%E2%80%B2%28x%29%3DG%E2%80%B2%28x%29%3Df%28x%29%24%20for%20every%20%24x%5Cin%20I%24%2C%20then%20there%20exists%20a%20constant%20%24C%5Cin%5Cmathbb%7BR%7D%24%20such%20that%20%24G%28x%29%3DF%28x%29%2BC%24%20for%20every%20%24x%5Cin%20I%24.">ChatGPT</a>
@@ -27,6 +87,172 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: If $F$ and $G$ are antiderivatives of the same function $f$ on an interval $I$, that is, $F′(x)=G′(x)=f(x)$ for every $x\in I$, then there exists a constant $C\in\mathbb{R}$ such that $G(x)=F(x)+C$ for every $x\in I$.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The theorem and its application were proved in Lean 4 with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">If $F'=G'=f$ on $(a,b)$, there exists a constant $C$ such that $G(x)=F(x)+C$ for every $x\in(a,b)$</div><pre class="ln"><span class="kw">theorem</span> antiderivatives_differ_const (F G f : ℝ → ℝ) (a b : ℝ)
+    (hF : ∀ x ∈ Set.Ioo a b, HasDerivAt F (f x) x) (hG : ∀ x ∈ Set.Ioo a b, HasDerivAt G (f x) x) :
+    ∃ C, ∀ x ∈ Set.Ioo a b, G x = F x + C</pre></li><li><div class="bk">Application: if moreover $G(x_0)=F(x_0)$ at one point, then $G=F$ on all of $(a,b)$</div><pre class="ln"><span class="kw">theorem</span> same_value_same_function (F G f : ℝ → ℝ) (a b x₀ : ℝ) (hx₀ : x₀ ∈ Set.Ioo a b)
+    (hF : ∀ x ∈ Set.Ioo a b, HasDerivAt F (f x) x) (hG : ∀ x ∈ Set.Ioo a b, HasDerivAt G (f x) x)
+    (h0 : G x₀ = F x₀) : ∀ x ∈ Set.Ioo a b, G x = F x</pre></li></ul>
+<p class="note">“$F$ is an antiderivative of $f$ on the interval” is written <code>∀ x ∈ Set.Ioo a b, HasDerivAt F (f x) x</code>: at every point of $(a,b)$, $F$ has derivative $f(x)$. As the interval $I$ we take an open interval $(a,b)$. The proof uses the mean value theorem (<code>exists_hasDerivAt_eq_slope</code>): $H=G-F$ has derivative $0$, so it takes the same value at all points of the interval. The hypothesis that $I$ is an interval is needed, because on two disjoint intervals the constants may differ.</p>
+<h2>2. Step by step: $G=F+C$</h2>
+<p class="note">The idea: $H=G-F$ has derivative $0$, so by the mean value theorem it is constant; the constant is its value at the midpoint of the interval. We start from the goal:</p>
+<div class="goal start"><span>The goal</span><pre>F G f : ℝ → ℝ
+a b : ℝ
+hF : ∀ x ∈ Set.Ioo a b, HasDerivAt F (f x) x
+hG : ∀ x ∈ Set.Ioo a b, HasDerivAt G (f x) x
+⊢ ∃ C, ∀ x ∈ Set.Ioo a b, G x = F x + C</pre></div>
+<p class="note">Above <code>⊢</code> is what we know; after <code>⊢</code> is what we have to show. After each step we show only what changed.</p>
+<ol class="steps"><li><pre class="ln"><span class="cm">-- the difference H = G - F has derivative 0</span>
+<span class="kw">have</span> hH : ∀ x ∈ Set.Ioo a b, HasDerivAt (<span class="kw">fun</span> x =&gt; G x - F x) 0 x := <span class="kw">by</span></pre><p>Claim <code>hH</code>: the difference $H(x)=G(x)-F(x)$ has derivative $0$ on $(a,b)$.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ ∀ x ∈ Set.Ioo a b, HasDerivAt (fun x =&gt; G x - F x) 0 x</pre></div></li><li><pre class="ln"><span class="tc">intro</span> x hx
+<span class="kw">have</span> h := (hG x hx).sub (hF x hx)
+<span class="tc">rw</span> [sub_self] <span class="kw">at</span> h
+<span class="tc">exact</span> h</pre><p>The derivative of the difference is $f(x)-f(x)=0$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="cm">-- mean value theorem: H takes the same value at any two points</span>
+<span class="kw">have</span> hconst : ∀ x ∈ Set.Ioo a b, ∀ y ∈ Set.Ioo a b, x &lt; y → G y - F y = G x - F x := <span class="kw">by</span></pre><p>Claim <code>hconst</code>: for $x\lt y$ in $(a,b)$ we have $H(y)=H(x)$.</p><div class="goal"><span>What remains to be proved</span><pre>F G f : ℝ → ℝ
+a b : ℝ
+hF : ∀ x ∈ Set.Ioo a b, HasDerivAt F (f x) x
+hG : ∀ x ∈ Set.Ioo a b, HasDerivAt G (f x) x
+hH : ∀ x ∈ Set.Ioo a b, HasDerivAt (fun x =&gt; G x - F x) 0 x
+⊢ ∀ x ∈ Set.Ioo a b, ∀ y ∈ Set.Ioo a b, x &lt; y → G y - F y = G x - F x</pre></div></li><li><pre class="ln"><span class="tc">intro</span> x hx y hy hxy</pre><p>We take $x\lt y$ in $(a,b)$.</p><div class="goal"><span>What remains to be proved</span><pre>x : ℝ
+hx : x ∈ Set.Ioo a b
+y : ℝ
+hy : y ∈ Set.Ioo a b
+hxy : x &lt; y
+⊢ G y - F y = G x - F x</pre></div></li><li><pre class="ln"><span class="kw">have</span> hcont : ContinuousOn (<span class="kw">fun</span> x =&gt; G x - F x) (Set.Icc x y) := <span class="kw">fun</span> z hz =&gt;
+  (hH z ⟨hx.1.trans_le hz.1, hz.2.trans_lt hy.2⟩).continuousAt.continuousWithinAt
+<span class="tc">obtain</span> ⟨c, -, hc⟩ := exists_hasDerivAt_eq_slope (<span class="kw">fun</span> x =&gt; G x - F x) (<span class="kw">fun</span> _ =&gt; 0) hxy hcont
+  (<span class="kw">fun</span> z hz =&gt; hH z ⟨hx.1.trans hz.1, hz.2.trans hy.2⟩)</pre><p>The mean value theorem for $H$ on $[x,y]$, where $H$ is continuous (<code>hcont</code>): there exists $c$ with $0=H'(c)=\dfrac{H(y)-H(x)}{y-x}$.</p><div class="goal"><span>What remains to be proved</span><pre>hcont : ContinuousOn (fun x =&gt; G x - F x) (Set.Icc x y)
+c : ℝ
+hc : 0 = (G y - F y - (G x - F x)) / (y - x)
+⊢ G y - F y = G x - F x</pre></div></li><li><pre class="ln"><span class="kw">have</span> h : (G y - F y - (G x - F x)) / (y - x) = 0 := hc.symm</pre><p>We write the equality the other way around: the fraction is $0$.</p><div class="goal"><span>What remains to be proved</span><pre>h : (G y - F y - (G x - F x)) / (y - x) = 0
+⊢ G y - F y = G x - F x</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [div_eq_zero_iff, sub_eq_zero] <span class="kw">at</span> h</pre><p>A fraction is $0$ exactly when the numerator or the denominator is $0$: $H(y)=H(x)$ or $y-x=0$.</p><div class="goal"><span>What remains to be proved</span><pre>h : G y - F y = G x - F x ∨ y - x = 0
+⊢ G y - F y = G x - F x</pre></div></li><li><pre class="ln"><span class="tc">exact</span> h.resolve_right (sub_ne_zero.mpr hxy.ne&#x27;)</pre><p>The case $y-x=0$ is ruled out, because $x\lt y$. Hence $H(y)=H(x)$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="tc">by_cases</span> hab : a &lt; b</pre><p>Two cases: the interval $(a,b)$ is nonempty ($a\lt b$) or empty.</p><div class="goal"><span>What remains to be proved (2 goals)</span><i class="case">part pos</i><pre>F G f : ℝ → ℝ
+a b : ℝ
+hF : ∀ x ∈ Set.Ioo a b, HasDerivAt F (f x) x
+hG : ∀ x ∈ Set.Ioo a b, HasDerivAt G (f x) x
+hH : ∀ x ∈ Set.Ioo a b, HasDerivAt (fun x =&gt; G x - F x) 0 x
+hconst : ∀ x ∈ Set.Ioo a b, ∀ y ∈ Set.Ioo a b, x &lt; y → G y - F y = G x - F x
+hab : a &lt; b
+⊢ ∃ C, ∀ x ∈ Set.Ioo a b, G x = F x + C</pre><i class="case">part neg</i><pre>F G f : ℝ → ℝ
+a b : ℝ
+hF : ∀ x ∈ Set.Ioo a b, HasDerivAt F (f x) x
+hG : ∀ x ∈ Set.Ioo a b, HasDerivAt G (f x) x
+hH : ∀ x ∈ Set.Ioo a b, HasDerivAt (fun x =&gt; G x - F x) 0 x
+hconst : ∀ x ∈ Set.Ioo a b, ∀ y ∈ Set.Ioo a b, x &lt; y → G y - F y = G x - F x
+hab : ¬a &lt; b
+⊢ ∃ C, ∀ x ∈ Set.Ioo a b, G x = F x + C</pre></div></li><li><pre class="ln">· <span class="kw">have</span> hm : (a + b) / 2 ∈ Set.Ioo a b := ⟨<span class="kw">by</span> <span class="tc">linarith</span>, <span class="kw">by</span> <span class="tc">linarith</span>⟩
+  <span class="tc">refine</span> ⟨G ((a + b) / 2) - F ((a + b) / 2), <span class="kw">fun</span> x hx =&gt; ?_⟩</pre><p>If $a\lt b$, the midpoint $m=\dfrac{a+b}{2}$ belongs to $(a,b)$. We choose $C=G(m)-F(m)$ and take an arbitrary $x\in(a,b)$.</p><div class="goal"><span>What remains to be proved</span><pre>hm : (a + b) / 2 ∈ Set.Ioo a b
+x : ℝ
+hx : x ∈ Set.Ioo a b
+⊢ G x = F x + (G ((a + b) / 2) - F ((a + b) / 2))</pre></div></li><li><pre class="ln"><span class="tc">rcases</span> lt_trichotomy x ((a + b) / 2) <span class="kw">with</span> h | h | h</pre><p>Three cases: $x\lt m$, $x=m$, or $x\gt m$.</p><div class="goal"><span>What remains to be proved (3 goals)</span><i class="case">part pos.inl</i><pre>h : x &lt; (a + b) / 2
+⊢ G x = F x + (G ((a + b) / 2) - F ((a + b) / 2))</pre><i class="case">part pos.inr.inl</i><pre>h : x = (a + b) / 2
+⊢ G x = F x + (G ((a + b) / 2) - F ((a + b) / 2))</pre><i class="case">part pos.inr.inr</i><pre>h : (a + b) / 2 &lt; x
+⊢ G x = F x + (G ((a + b) / 2) - F ((a + b) / 2))</pre></div></li><li><pre class="ln">· <span class="kw">have</span> := hconst x hx _ hm h
+  <span class="tc">linarith</span></pre><p>If $x\lt m$: by <code>hconst</code>, $H(m)=H(x)$, that is, $G(x)=F(x)+C$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln">· <span class="tc">rw</span> [h]
+  <span class="tc">ring</span></pre><p>If $x=m$: $G(m)=F(m)+\bigl(G(m)-F(m)\bigr)$, which <code>ring</code> checks.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln">· <span class="kw">have</span> := hconst _ hm x hx h
+  <span class="tc">linarith</span></pre><p>If $x\gt m$: again by <code>hconst</code>, $H(x)=H(m)$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln">· <span class="tc">exact</span> ⟨0, <span class="kw">fun</span> x hx =&gt; <span class="tc">absurd</span> (hx.1.trans hx.2) hab⟩</pre><p>If $(a,b)$ is empty, there is nothing to show, and any $C$ will do, e.g. $C=0$.</p><div class="goal done"><span>✓ </span>No goals: the proof is complete.</div></li></ol>
+<h2>3. Try it yourself: the same value at one point</h2>
+<div class="ex"><p>If moreover $G(x_0)=F(x_0)$ for some $x_0\in(a,b)$, show that $G(x)=F(x)$ for every $x\in(a,b)$. Open the exercise in Lean and replace the word <code>sorry</code> with your own steps. When the proof is correct, the message <i>declaration uses sorry</i> disappears and no red error appears.</p>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2013%20%C2%B7%20Antiderivatives%20Differ%20by%20a%20Constant%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch13.AntiparagogoiStathera%0A%0Atheorem%20antiderivatives_differ_const%20%28F%20G%20f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%0A%20%20%20%20%28hF%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20F%20%28f%20x%29%20x%29%20%28hG%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20G%20%28f%20x%29%20x%29%20%3A%0A%20%20%20%20%E2%88%83%20C%2C%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20G%20x%20%3D%20F%20x%20%2B%20C%20%3A%3D%20by%0A%20%20--%20the%20difference%20H%20%3D%20G%20-%20F%20has%20derivative%200%0A%20%20have%20hH%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20%28fun%20x%20%3D%3E%20G%20x%20-%20F%20x%29%200%20x%20%3A%3D%20by%0A%20%20%20%20intro%20x%20hx%0A%20%20%20%20have%20h%20%3A%3D%20%28hG%20x%20hx%29.sub%20%28hF%20x%20hx%29%0A%20%20%20%20rw%20%5Bsub_self%5D%20at%20h%0A%20%20%20%20exact%20h%0A%20%20--%20mean%20value%20theorem%3A%20H%20takes%20the%20same%20value%20at%20any%20two%20points%0A%20%20have%20hconst%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20%E2%88%80%20y%20%E2%88%88%20Set.Ioo%20a%20b%2C%20x%20%3C%20y%20%E2%86%92%20G%20y%20-%20F%20y%20%3D%20G%20x%20-%20F%20x%20%3A%3D%20by%0A%20%20%20%20intro%20x%20hx%20y%20hy%20hxy%0A%20%20%20%20have%20hcont%20%3A%20ContinuousOn%20%28fun%20x%20%3D%3E%20G%20x%20-%20F%20x%29%20%28Set.Icc%20x%20y%29%20%3A%3D%20fun%20z%20hz%20%3D%3E%0A%20%20%20%20%20%20%28hH%20z%20%E2%9F%A8hx.1.trans_le%20hz.1%2C%20hz.2.trans_lt%20hy.2%E2%9F%A9%29.continuousAt.continuousWithinAt%0A%20%20%20%20obtain%20%E2%9F%A8c%2C%20-%2C%20hc%E2%9F%A9%20%3A%3D%20exists_hasDerivAt_eq_slope%20%28fun%20x%20%3D%3E%20G%20x%20-%20F%20x%29%20%28fun%20_%20%3D%3E%200%29%20hxy%20hcont%0A%20%20%20%20%20%20%28fun%20z%20hz%20%3D%3E%20hH%20z%20%E2%9F%A8hx.1.trans%20hz.1%2C%20hz.2.trans%20hy.2%E2%9F%A9%29%0A%20%20%20%20have%20h%20%3A%20%28G%20y%20-%20F%20y%20-%20%28G%20x%20-%20F%20x%29%29%20%2F%20%28y%20-%20x%29%20%3D%200%20%3A%3D%20hc.symm%0A%20%20%20%20rw%20%5Bdiv_eq_zero_iff%2C%20sub_eq_zero%5D%20at%20h%0A%20%20%20%20exact%20h.resolve_right%20%28sub_ne_zero.mpr%20hxy.ne'%29%0A%20%20by_cases%20hab%20%3A%20a%20%3C%20b%0A%20%20%C2%B7%20have%20hm%20%3A%20%28a%20%2B%20b%29%20%2F%202%20%E2%88%88%20Set.Ioo%20a%20b%20%3A%3D%20%E2%9F%A8by%20linarith%2C%20by%20linarith%E2%9F%A9%0A%20%20%20%20refine%20%E2%9F%A8G%20%28%28a%20%2B%20b%29%20%2F%202%29%20-%20F%20%28%28a%20%2B%20b%29%20%2F%202%29%2C%20fun%20x%20hx%20%3D%3E%20%3F_%E2%9F%A9%0A%20%20%20%20rcases%20lt_trichotomy%20x%20%28%28a%20%2B%20b%29%20%2F%202%29%20with%20h%20%7C%20h%20%7C%20h%0A%20%20%20%20%C2%B7%20have%20%3A%3D%20hconst%20x%20hx%20_%20hm%20h%0A%20%20%20%20%20%20linarith%0A%20%20%20%20%C2%B7%20rw%20%5Bh%5D%0A%20%20%20%20%20%20ring%0A%20%20%20%20%C2%B7%20have%20%3A%3D%20hconst%20_%20hm%20x%20hx%20h%0A%20%20%20%20%20%20linarith%0A%20%20%C2%B7%20exact%20%E2%9F%A80%2C%20fun%20x%20hx%20%3D%3E%20absurd%20%28hx.1.trans%20hx.2%29%20hab%E2%9F%A9%0A%0Atheorem%20same_value_same_function%20%28F%20G%20f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20x%E2%82%80%20%3A%20%E2%84%9D%29%20%28hx%E2%82%80%20%3A%20x%E2%82%80%20%E2%88%88%20Set.Ioo%20a%20b%29%0A%20%20%20%20%28hF%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20F%20%28f%20x%29%20x%29%20%28hG%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20G%20%28f%20x%29%20x%29%0A%20%20%20%20%28h0%20%3A%20G%20x%E2%82%80%20%3D%20F%20x%E2%82%80%29%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20G%20x%20%3D%20F%20x%20%3A%3D%20by%0A%20%20--%20EXERCISE%3A%20replace%20the%20sorry%20with%20your%20own%20proof.%0A%20%20sorry%0A%0Aend%20Ch13.AntiparagogoiStathera%0A" target="_blank" rel="noopener">Open the exercise in Lean</a>
+<details><summary>Hint</summary><div class="in"><p class="note">Take the constant given by the theorem: <code>obtain ⟨C, hC⟩ := antiderivatives_differ_const F G f a b hF hG</code>. At $x_0$, <code>hC x₀ hx₀</code> gives $G(x_0)=F(x_0)+C$, so with <code>linarith</code> you find $C=0$. Finally, <code>intro x hx</code> and <code>rw [hC x hx, hC0, add_zero]</code>, where <code>hC0</code> is the fact $C=0$.</p></div></details>
+<details><summary>Solution</summary><div class="in"><pre class="ln"><span class="kw">theorem</span> same_value_same_function (F G f : ℝ → ℝ) (a b x₀ : ℝ) (hx₀ : x₀ ∈ Set.Ioo a b)
+    (hF : ∀ x ∈ Set.Ioo a b, HasDerivAt F (f x) x) (hG : ∀ x ∈ Set.Ioo a b, HasDerivAt G (f x) x)
+    (h0 : G x₀ = F x₀) : ∀ x ∈ Set.Ioo a b, G x = F x := <span class="kw">by</span>
+  <span class="tc">obtain</span> ⟨C, hC⟩ := antiderivatives_differ_const F G f a b hF hG
+  <span class="kw">have</span> hC0 : C = 0 := <span class="kw">by</span>
+    <span class="kw">have</span> h := hC x₀ hx₀
+    <span class="tc">linarith</span>
+  <span class="tc">intro</span> x hx
+  <span class="tc">rw</span> [hC x hx, hC0, add_zero]</pre></div></details>
+</div>
+<h2>4. In Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=exists_hasDerivAt_eq_slope#doc" target="_blank" rel="noopener"><code>exists_hasDerivAt_eq_slope</code></a>: the mean value theorem.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.sub#doc" target="_blank" rel="noopener"><code>HasDerivAt.sub</code></a>: the difference rule.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.continuousAt#doc" target="_blank" rel="noopener"><code>HasDerivAt.continuousAt</code></a>: a differentiable function is continuous.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=div_eq_zero_iff#doc" target="_blank" rel="noopener"><code>div_eq_zero_iff</code></a>: $\dfrac{a}{b}=0$ exactly when $a=0$ or $b=0$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=lt_trichotomy#doc" target="_blank" rel="noopener"><code>lt_trichotomy</code></a>: for two numbers, $x\lt y$, $x=y$, or $x\gt y$.</li></ul>
+<h2>5. The complete code</h2>
+<details><summary>See the code (51 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 13 · Antiderivatives Differ by a Constant · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch13.AntiparagogoiStathera
+
+<span class="kw">theorem</span> antiderivatives_differ_const (F G f : ℝ → ℝ) (a b : ℝ)
+    (hF : ∀ x ∈ Set.Ioo a b, HasDerivAt F (f x) x) (hG : ∀ x ∈ Set.Ioo a b, HasDerivAt G (f x) x) :
+    ∃ C, ∀ x ∈ Set.Ioo a b, G x = F x + C := <span class="kw">by</span>
+  <span class="cm">-- the difference H = G - F has derivative 0</span>
+  <span class="kw">have</span> hH : ∀ x ∈ Set.Ioo a b, HasDerivAt (<span class="kw">fun</span> x =&gt; G x - F x) 0 x := <span class="kw">by</span>
+    <span class="tc">intro</span> x hx
+    <span class="kw">have</span> h := (hG x hx).sub (hF x hx)
+    <span class="tc">rw</span> [sub_self] <span class="kw">at</span> h
+    <span class="tc">exact</span> h
+  <span class="cm">-- mean value theorem: H takes the same value at any two points</span>
+  <span class="kw">have</span> hconst : ∀ x ∈ Set.Ioo a b, ∀ y ∈ Set.Ioo a b, x &lt; y → G y - F y = G x - F x := <span class="kw">by</span>
+    <span class="tc">intro</span> x hx y hy hxy
+    <span class="kw">have</span> hcont : ContinuousOn (<span class="kw">fun</span> x =&gt; G x - F x) (Set.Icc x y) := <span class="kw">fun</span> z hz =&gt;
+      (hH z ⟨hx.1.trans_le hz.1, hz.2.trans_lt hy.2⟩).continuousAt.continuousWithinAt
+    <span class="tc">obtain</span> ⟨c, -, hc⟩ := exists_hasDerivAt_eq_slope (<span class="kw">fun</span> x =&gt; G x - F x) (<span class="kw">fun</span> _ =&gt; 0) hxy hcont
+      (<span class="kw">fun</span> z hz =&gt; hH z ⟨hx.1.trans hz.1, hz.2.trans hy.2⟩)
+    <span class="kw">have</span> h : (G y - F y - (G x - F x)) / (y - x) = 0 := hc.symm
+    <span class="tc">rw</span> [div_eq_zero_iff, sub_eq_zero] <span class="kw">at</span> h
+    <span class="tc">exact</span> h.resolve_right (sub_ne_zero.mpr hxy.ne&#x27;)
+  <span class="tc">by_cases</span> hab : a &lt; b
+  · <span class="kw">have</span> hm : (a + b) / 2 ∈ Set.Ioo a b := ⟨<span class="kw">by</span> <span class="tc">linarith</span>, <span class="kw">by</span> <span class="tc">linarith</span>⟩
+    <span class="tc">refine</span> ⟨G ((a + b) / 2) - F ((a + b) / 2), <span class="kw">fun</span> x hx =&gt; ?_⟩
+    <span class="tc">rcases</span> lt_trichotomy x ((a + b) / 2) <span class="kw">with</span> h | h | h
+    · <span class="kw">have</span> := hconst x hx _ hm h
+      <span class="tc">linarith</span>
+    · <span class="tc">rw</span> [h]
+      <span class="tc">ring</span>
+    · <span class="kw">have</span> := hconst _ hm x hx h
+      <span class="tc">linarith</span>
+  · <span class="tc">exact</span> ⟨0, <span class="kw">fun</span> x hx =&gt; <span class="tc">absurd</span> (hx.1.trans hx.2) hab⟩
+
+<span class="kw">theorem</span> same_value_same_function (F G f : ℝ → ℝ) (a b x₀ : ℝ) (hx₀ : x₀ ∈ Set.Ioo a b)
+    (hF : ∀ x ∈ Set.Ioo a b, HasDerivAt F (f x) x) (hG : ∀ x ∈ Set.Ioo a b, HasDerivAt G (f x) x)
+    (h0 : G x₀ = F x₀) : ∀ x ∈ Set.Ioo a b, G x = F x := <span class="kw">by</span>
+  <span class="tc">obtain</span> ⟨C, hC⟩ := antiderivatives_differ_const F G f a b hF hG
+  <span class="kw">have</span> hC0 : C = 0 := <span class="kw">by</span>
+    <span class="kw">have</span> h := hC x₀ hx₀
+    <span class="tc">linarith</span>
+  <span class="tc">intro</span> x hx
+  <span class="tc">rw</span> [hC x hx, hC0, add_zero]
+
+<span class="kw">end</span> Ch13.AntiparagogoiStathera
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2013%20%C2%B7%20Antiderivatives%20Differ%20by%20a%20Constant%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch13.AntiparagogoiStathera%0A%0Atheorem%20antiderivatives_differ_const%20%28F%20G%20f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%0A%20%20%20%20%28hF%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20F%20%28f%20x%29%20x%29%20%28hG%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20G%20%28f%20x%29%20x%29%20%3A%0A%20%20%20%20%E2%88%83%20C%2C%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20G%20x%20%3D%20F%20x%20%2B%20C%20%3A%3D%20by%0A%20%20--%20the%20difference%20H%20%3D%20G%20-%20F%20has%20derivative%200%0A%20%20have%20hH%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20%28fun%20x%20%3D%3E%20G%20x%20-%20F%20x%29%200%20x%20%3A%3D%20by%0A%20%20%20%20intro%20x%20hx%0A%20%20%20%20have%20h%20%3A%3D%20%28hG%20x%20hx%29.sub%20%28hF%20x%20hx%29%0A%20%20%20%20rw%20%5Bsub_self%5D%20at%20h%0A%20%20%20%20exact%20h%0A%20%20--%20mean%20value%20theorem%3A%20H%20takes%20the%20same%20value%20at%20any%20two%20points%0A%20%20have%20hconst%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20%E2%88%80%20y%20%E2%88%88%20Set.Ioo%20a%20b%2C%20x%20%3C%20y%20%E2%86%92%20G%20y%20-%20F%20y%20%3D%20G%20x%20-%20F%20x%20%3A%3D%20by%0A%20%20%20%20intro%20x%20hx%20y%20hy%20hxy%0A%20%20%20%20have%20hcont%20%3A%20ContinuousOn%20%28fun%20x%20%3D%3E%20G%20x%20-%20F%20x%29%20%28Set.Icc%20x%20y%29%20%3A%3D%20fun%20z%20hz%20%3D%3E%0A%20%20%20%20%20%20%28hH%20z%20%E2%9F%A8hx.1.trans_le%20hz.1%2C%20hz.2.trans_lt%20hy.2%E2%9F%A9%29.continuousAt.continuousWithinAt%0A%20%20%20%20obtain%20%E2%9F%A8c%2C%20-%2C%20hc%E2%9F%A9%20%3A%3D%20exists_hasDerivAt_eq_slope%20%28fun%20x%20%3D%3E%20G%20x%20-%20F%20x%29%20%28fun%20_%20%3D%3E%200%29%20hxy%20hcont%0A%20%20%20%20%20%20%28fun%20z%20hz%20%3D%3E%20hH%20z%20%E2%9F%A8hx.1.trans%20hz.1%2C%20hz.2.trans%20hy.2%E2%9F%A9%29%0A%20%20%20%20have%20h%20%3A%20%28G%20y%20-%20F%20y%20-%20%28G%20x%20-%20F%20x%29%29%20%2F%20%28y%20-%20x%29%20%3D%200%20%3A%3D%20hc.symm%0A%20%20%20%20rw%20%5Bdiv_eq_zero_iff%2C%20sub_eq_zero%5D%20at%20h%0A%20%20%20%20exact%20h.resolve_right%20%28sub_ne_zero.mpr%20hxy.ne'%29%0A%20%20by_cases%20hab%20%3A%20a%20%3C%20b%0A%20%20%C2%B7%20have%20hm%20%3A%20%28a%20%2B%20b%29%20%2F%202%20%E2%88%88%20Set.Ioo%20a%20b%20%3A%3D%20%E2%9F%A8by%20linarith%2C%20by%20linarith%E2%9F%A9%0A%20%20%20%20refine%20%E2%9F%A8G%20%28%28a%20%2B%20b%29%20%2F%202%29%20-%20F%20%28%28a%20%2B%20b%29%20%2F%202%29%2C%20fun%20x%20hx%20%3D%3E%20%3F_%E2%9F%A9%0A%20%20%20%20rcases%20lt_trichotomy%20x%20%28%28a%20%2B%20b%29%20%2F%202%29%20with%20h%20%7C%20h%20%7C%20h%0A%20%20%20%20%C2%B7%20have%20%3A%3D%20hconst%20x%20hx%20_%20hm%20h%0A%20%20%20%20%20%20linarith%0A%20%20%20%20%C2%B7%20rw%20%5Bh%5D%0A%20%20%20%20%20%20ring%0A%20%20%20%20%C2%B7%20have%20%3A%3D%20hconst%20_%20hm%20x%20hx%20h%0A%20%20%20%20%20%20linarith%0A%20%20%C2%B7%20exact%20%E2%9F%A80%2C%20fun%20x%20hx%20%3D%3E%20absurd%20%28hx.1.trans%20hx.2%29%20hab%E2%9F%A9%0A%0Atheorem%20same_value_same_function%20%28F%20G%20f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20x%E2%82%80%20%3A%20%E2%84%9D%29%20%28hx%E2%82%80%20%3A%20x%E2%82%80%20%E2%88%88%20Set.Ioo%20a%20b%29%0A%20%20%20%20%28hF%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20F%20%28f%20x%29%20x%29%20%28hG%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20HasDerivAt%20G%20%28f%20x%29%20x%29%0A%20%20%20%20%28h0%20%3A%20G%20x%E2%82%80%20%3D%20F%20x%E2%82%80%29%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ioo%20a%20b%2C%20G%20x%20%3D%20F%20x%20%3A%3D%20by%0A%20%20obtain%20%E2%9F%A8C%2C%20hC%E2%9F%A9%20%3A%3D%20antiderivatives_differ_const%20F%20G%20f%20a%20b%20hF%20hG%0A%20%20have%20hC0%20%3A%20C%20%3D%200%20%3A%3D%20by%0A%20%20%20%20have%20h%20%3A%3D%20hC%20x%E2%82%80%20hx%E2%82%80%0A%20%20%20%20linarith%0A%20%20intro%20x%20hx%0A%20%20rw%20%5BhC%20x%20hx%2C%20hC0%2C%20add_zero%5D%0A%0Aend%20Ch13.AntiparagogoiStathera%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Apostol, T. M. (1967). <em>Calculus</em> (2nd ed., Vols. 1&ndash;2). John Wiley &amp; Sons.</li><li>Filippou, G. N. (2008). <em>Mathimatika Anoteris Ekpaidefsis [Higher Education Mathematics]</em>. Ekdoseis Zitis. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

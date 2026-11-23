@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ratio Test (d&#x27;Alembert)</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Ratio Test (d&#x27;Alembert)</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 19 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>Let $\sum a_n$ be a series with $a_n\neq 0$ and let $L=\lim_{n\to\infty}\left|\dfrac{a_{n+1}}{a_n}\right|$ (provided the limit exists). If $L&lt;1$, the series converges absolutely; if $L&gt;1$ (or $L=+\infty$), it diverges; if $L=1$, the test is inconclusive. (With $\limsup$ in place of the limit, only the condition $\limsup&lt;1$ guarantees convergence; from $\limsup&gt;1$ divergence does NOT follow.)</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20Let%20%24%5Csum%20a_n%24%20be%20a%20series%20with%20%24a_n%5Cneq%200%24%20and%20let%20%24L%3D%5Clim_%7Bn%5Cto%5Cinfty%7D%5Cleft%7C%5Cdfrac%7Ba_%7Bn%2B1%7D%7D%7Ba_n%7D%5Cright%7C%24%20%28provided%20the%20limit%20exists%29.%20If%20%24L%3C1%24%2C%20the%20series%20converges%20absolutely%3B%20if%20%24L%3E1%24%20%28or%20%24L%3D%2B%5Cinfty%24%29%2C%20it%20diverges%3B%20if%20%24L%3D1%24%2C%20the%20test%20is%20inconclusive.%20%28With%20%24%5Climsup%24%20in%20place%20of%20the%20limit%2C%20only%20the%20condition%20%24%5Climsup%3C1%24%20guarantees%20convergence%3B%20from%20%24%5Climsup%3E1%24%20divergence%20does%20NOT%20follow.%29">ChatGPT</a>
@@ -27,6 +87,122 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: Let $\sum a_n$ be a series with $a_n\neq 0$ and let $L=\lim_{n\to\infty}\left|\dfrac{a_{n+1}}{a_n}\right|$ (provided the limit exists). If $L&lt;1$, the series converges absolutely; if $L&gt;1$ (or $L=+\infty$), it diverges; if $L=1$, the test is inconclusive. (With $\limsup$ in place of the limit, only the condition $\limsup&lt;1$ guarantees convergence; from $\limsup&gt;1$ divergence does NOT follow.)</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The statements were proved in Lean 4, using theorems from Mathlib, with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 23/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">$L\lt 1$: the series converges absolutely</div><pre class="ln"><span class="kw">theorem</span> ratio_converges (a : ℕ → ℝ) (L : ℝ) (hL : L &lt; 1) (ha : ∀ᶠ n <span class="kw">in</span> atTop, a n ≠ 0)
+    (h : Tendsto (<span class="kw">fun</span> n =&gt; |a (n + 1) / a n|) atTop (𝓝 L)) : Summable a</pre></li><li><div class="bk">With $\limsup$ in place of the limit: if $|a_{n+1}|\le r\,|a_n|$ for large $n$, with $r\lt 1$, the series converges absolutely</div><pre class="ln"><span class="kw">theorem</span> ratio_converges_le (a : ℕ → ℝ) (r : ℝ) (hr : r &lt; 1)
+    (h : ∀ᶠ n <span class="kw">in</span> atTop, |a (n + 1)| ≤ r * |a n|) : Summable a</pre></li><li><div class="bk">If $\left|\dfrac{a_{n+1}}{a_n}\right|\gt 1$ for large $n$, the series diverges</div><pre class="ln"><span class="kw">theorem</span> diverges_of_ratio (a : ℕ → ℝ) (h : ∀ᶠ n <span class="kw">in</span> atTop, 1 &lt; |a (n + 1) / a n|) :
+    ¬ ∃ S, Tendsto (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range N, a n) atTop (𝓝 S)</pre></li><li><div class="bk">$L\gt 1$: the series diverges</div><pre class="ln"><span class="kw">theorem</span> ratio_diverges (a : ℕ → ℝ) (L : ℝ) (hL : 1 &lt; L)
+    (h : Tendsto (<span class="kw">fun</span> n =&gt; |a (n + 1) / a n|) atTop (𝓝 L)) :
+    ¬ ∃ S, Tendsto (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range N, a n) atTop (𝓝 S)</pre></li><li><div class="bk">$L=+\infty$: the series diverges</div><pre class="ln"><span class="kw">theorem</span> ratio_diverges_top (a : ℕ → ℝ) (h : Tendsto (<span class="kw">fun</span> n =&gt; |a (n + 1) / a n|) atTop atTop) :
+    ¬ ∃ S, Tendsto (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range N, a n) atTop (𝓝 S)</pre></li></ul>
+<p class="note">$L$<wbr>${}=\lim\left|\dfrac{a_{n+1}}{a_n}\right|$ appears as the hypothesis <code>Tendsto (fun n => |a (n + 1) / a n|) atTop (𝓝 L)</code>, and $L=+\infty$ as <code>Tendsto … atTop atTop</code>. Absolute convergence is written <code>Summable a</code>, because for real numbers this Mathlib notion means absolute convergence; divergence is written as “the partial sums have no limit”. For convergence it suffices that $a_n\neq 0$ for large $n$. The condition $\limsup\left|\dfrac{a_{n+1}}{a_n}\right|\lt 1$ means that there exists $r\lt 1$ with $|a_{n+1}|\le r\,|a_n|$ for large $n$, and this is how it is stated. For divergence, the proof shows that the $|a_n|$ increase from some $N$ onward, so they do not tend to $0$, and the necessary condition fails. That the test is inconclusive for $L=1$, and that $\limsup\gt 1$ does not imply divergence, are remarks illustrated by examples and are not stated here.</p>
+<h2>2. Where it is in Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=summable_of_ratio_test_tendsto_lt_one#doc" target="_blank" rel="noopener"><code>summable_of_ratio_test_tendsto_lt_one</code></a>: the ratio test for $L\lt 1$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=summable_of_ratio_norm_eventually_le#doc" target="_blank" rel="noopener"><code>summable_of_ratio_norm_eventually_le</code></a>: if $|a_{n+1}|\le r\,|a_n|$ for large $n$, with $r\lt 1$, the series converges absolutely.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Nat.le_induction#doc" target="_blank" rel="noopener"><code>Nat.le_induction</code></a>: induction for all $n\ge N$; it gives $|a_n|\ge|a_N|$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Filter.eventually_gt_atTop#doc" target="_blank" rel="noopener"><code>Filter.eventually_gt_atTop</code></a>: for large $x$ we have $x\gt 1$; it is used for $L=+\infty$.</li></ul>
+<h2>3. The complete code</h2>
+<details><summary>See the code (68 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 19 · Ratio Test (d&#x27;Alembert) · checked with Lean v4.37.0-rc1 and Mathlib (23/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch19.KritirioLogou
+<span class="kw">open</span> Filter Topology
+
+<span class="cm">-- L &lt; 1: the series converges absolutely</span>
+<span class="kw">theorem</span> ratio_converges (a : ℕ → ℝ) (L : ℝ) (hL : L &lt; 1) (ha : ∀ᶠ n <span class="kw">in</span> atTop, a n ≠ 0)
+    (h : Tendsto (<span class="kw">fun</span> n =&gt; |a (n + 1) / a n|) atTop (𝓝 L)) : Summable a := <span class="kw">by</span>
+  <span class="tc">refine</span> summable_of_ratio_test_tendsto_lt_one hL ha ?_
+  <span class="tc">simpa</span> [Real.norm_eq_abs, abs_div] using h
+
+<span class="cm">-- with limsup in place of the limit: |a (n + 1)| ≤ r |a n| for large n, with r &lt; 1</span>
+<span class="kw">theorem</span> ratio_converges_le (a : ℕ → ℝ) (r : ℝ) (hr : r &lt; 1)
+    (h : ∀ᶠ n <span class="kw">in</span> atTop, |a (n + 1)| ≤ r * |a n|) : Summable a :=
+  summable_of_ratio_norm_eventually_le hr (<span class="kw">by</span> <span class="tc">simpa</span> [Real.norm_eq_abs] using h)
+
+<span class="cm">-- if for large n the ratio is &gt; 1, the partial sums do not converge</span>
+<span class="kw">theorem</span> diverges_of_ratio (a : ℕ → ℝ) (h : ∀ᶠ n <span class="kw">in</span> atTop, 1 &lt; |a (n + 1) / a n|) :
+    ¬ ∃ S, Tendsto (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range N, a n) atTop (𝓝 S) := <span class="kw">by</span>
+  <span class="tc">rintro</span> ⟨S, hS⟩
+  <span class="cm">-- necessary condition: a n → 0</span>
+  <span class="kw">have</span> h0 : Tendsto a atTop (𝓝 0) := <span class="kw">by</span>
+    <span class="kw">have</span> h1 := (hS.comp (tendsto_add_atTop_nat 1)).sub hS
+    <span class="tc">simp</span> only [Function.comp_def, Finset.sum_range_succ, add_sub_cancel_left, sub_self] <span class="kw">at</span> h1
+    <span class="tc">exact</span> h1
+  <span class="cm">-- for n ≥ N the ratio is &gt; 1</span>
+  <span class="tc">obtain</span> ⟨N, hN⟩ := eventually_atTop.mp h
+  <span class="kw">have</span> hstep : ∀ n ≥ N, a n ≠ 0 ∧ |a n| &lt; |a (n + 1)| := <span class="kw">by</span>
+    <span class="tc">intro</span> n hn
+    <span class="kw">have</span> h1 := hN n hn
+    <span class="kw">have</span> ha : a n ≠ 0 := <span class="kw">by</span>
+      <span class="tc">intro</span> h2
+      <span class="tc">rw</span> [h2, div_zero, abs_zero] <span class="kw">at</span> h1
+      <span class="tc">linarith</span>
+    <span class="tc">refine</span> ⟨ha, ?_⟩
+    <span class="tc">rw</span> [abs_div, lt_div_iff₀ (abs_pos.mpr ha), one_mul] <span class="kw">at</span> h1
+    <span class="tc">exact</span> h1
+  <span class="cm">-- therefore |a n| ≥ |a N| &gt; 0 for every n ≥ N</span>
+  <span class="kw">have</span> hge : ∀ n ≥ N, |a N| ≤ |a n| := <span class="kw">by</span>
+    <span class="tc">intro</span> n hn
+    <span class="tc">induction</span> n, hn using Nat.le_induction <span class="kw">with</span>
+    | base =&gt; <span class="tc">exact</span> le_rfl
+    | succ k hk ih =&gt; <span class="tc">exact</span> ih.trans (hstep k hk).2.le
+  <span class="kw">have</span> hpos : 0 &lt; |a N| := abs_pos.mpr (hstep N le_rfl).1
+  <span class="cm">-- contradiction with a n → 0</span>
+  <span class="kw">have</span> h3 := h0.abs.eventually (gt_mem_nhds (<span class="kw">show</span> |(0 : ℝ)| &lt; |a N| <span class="kw">by</span>
+    <span class="tc">rw</span> [abs_zero]
+    <span class="tc">exact</span> hpos))
+  <span class="tc">obtain</span> ⟨n, hn1, hn2⟩ := (h3.and (eventually_ge_atTop N)).<span class="tc">exists</span>
+  <span class="tc">exact</span> <span class="tc">absurd</span> (hge n hn2) (not_le.mpr hn1)
+
+<span class="cm">-- L &gt; 1</span>
+<span class="kw">theorem</span> ratio_diverges (a : ℕ → ℝ) (L : ℝ) (hL : 1 &lt; L)
+    (h : Tendsto (<span class="kw">fun</span> n =&gt; |a (n + 1) / a n|) atTop (𝓝 L)) :
+    ¬ ∃ S, Tendsto (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range N, a n) atTop (𝓝 S) :=
+  diverges_of_ratio a (h.eventually (lt_mem_nhds hL))
+
+<span class="cm">-- L = +∞</span>
+<span class="kw">theorem</span> ratio_diverges_top (a : ℕ → ℝ) (h : Tendsto (<span class="kw">fun</span> n =&gt; |a (n + 1) / a n|) atTop atTop) :
+    ¬ ∃ S, Tendsto (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range N, a n) atTop (𝓝 S) :=
+  diverges_of_ratio a (h.eventually (eventually_gt_atTop 1))
+
+<span class="kw">end</span> Ch19.KritirioLogou
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2019%20%C2%B7%20Ratio%20Test%20%28d'Alembert%29%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2823%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch19.KritirioLogou%0Aopen%20Filter%20Topology%0A%0A--%20L%20%3C%201%3A%20the%20series%20converges%20absolutely%0Atheorem%20ratio_converges%20%28a%20%3A%20%E2%84%95%20%E2%86%92%20%E2%84%9D%29%20%28L%20%3A%20%E2%84%9D%29%20%28hL%20%3A%20L%20%3C%201%29%20%28ha%20%3A%20%E2%88%80%E1%B6%A0%20n%20in%20atTop%2C%20a%20n%20%E2%89%A0%200%29%0A%20%20%20%20%28h%20%3A%20Tendsto%20%28fun%20n%20%3D%3E%20%7Ca%20%28n%20%2B%201%29%20%2F%20a%20n%7C%29%20atTop%20%28%F0%9D%93%9D%20L%29%29%20%3A%20Summable%20a%20%3A%3D%20by%0A%20%20refine%20summable_of_ratio_test_tendsto_lt_one%20hL%20ha%20%3F_%0A%20%20simpa%20%5BReal.norm_eq_abs%2C%20abs_div%5D%20using%20h%0A%0A--%20with%20limsup%20in%20place%20of%20the%20limit%3A%20%7Ca%20%28n%20%2B%201%29%7C%20%E2%89%A4%20r%20%7Ca%20n%7C%20for%20large%20n%2C%20with%20r%20%3C%201%0Atheorem%20ratio_converges_le%20%28a%20%3A%20%E2%84%95%20%E2%86%92%20%E2%84%9D%29%20%28r%20%3A%20%E2%84%9D%29%20%28hr%20%3A%20r%20%3C%201%29%0A%20%20%20%20%28h%20%3A%20%E2%88%80%E1%B6%A0%20n%20in%20atTop%2C%20%7Ca%20%28n%20%2B%201%29%7C%20%E2%89%A4%20r%20*%20%7Ca%20n%7C%29%20%3A%20Summable%20a%20%3A%3D%0A%20%20summable_of_ratio_norm_eventually_le%20hr%20%28by%20simpa%20%5BReal.norm_eq_abs%5D%20using%20h%29%0A%0A--%20if%20for%20large%20n%20the%20ratio%20is%20%3E%201%2C%20the%20partial%20sums%20do%20not%20converge%0Atheorem%20diverges_of_ratio%20%28a%20%3A%20%E2%84%95%20%E2%86%92%20%E2%84%9D%29%20%28h%20%3A%20%E2%88%80%E1%B6%A0%20n%20in%20atTop%2C%201%20%3C%20%7Ca%20%28n%20%2B%201%29%20%2F%20a%20n%7C%29%20%3A%0A%20%20%20%20%C2%AC%20%E2%88%83%20S%2C%20Tendsto%20%28fun%20N%20%3D%3E%20%E2%88%91%20n%20%E2%88%88%20Finset.range%20N%2C%20a%20n%29%20atTop%20%28%F0%9D%93%9D%20S%29%20%3A%3D%20by%0A%20%20rintro%20%E2%9F%A8S%2C%20hS%E2%9F%A9%0A%20%20--%20necessary%20condition%3A%20a%20n%20%E2%86%92%200%0A%20%20have%20h0%20%3A%20Tendsto%20a%20atTop%20%28%F0%9D%93%9D%200%29%20%3A%3D%20by%0A%20%20%20%20have%20h1%20%3A%3D%20%28hS.comp%20%28tendsto_add_atTop_nat%201%29%29.sub%20hS%0A%20%20%20%20simp%20only%20%5BFunction.comp_def%2C%20Finset.sum_range_succ%2C%20add_sub_cancel_left%2C%20sub_self%5D%20at%20h1%0A%20%20%20%20exact%20h1%0A%20%20--%20for%20n%20%E2%89%A5%20N%20the%20ratio%20is%20%3E%201%0A%20%20obtain%20%E2%9F%A8N%2C%20hN%E2%9F%A9%20%3A%3D%20eventually_atTop.mp%20h%0A%20%20have%20hstep%20%3A%20%E2%88%80%20n%20%E2%89%A5%20N%2C%20a%20n%20%E2%89%A0%200%20%E2%88%A7%20%7Ca%20n%7C%20%3C%20%7Ca%20%28n%20%2B%201%29%7C%20%3A%3D%20by%0A%20%20%20%20intro%20n%20hn%0A%20%20%20%20have%20h1%20%3A%3D%20hN%20n%20hn%0A%20%20%20%20have%20ha%20%3A%20a%20n%20%E2%89%A0%200%20%3A%3D%20by%0A%20%20%20%20%20%20intro%20h2%0A%20%20%20%20%20%20rw%20%5Bh2%2C%20div_zero%2C%20abs_zero%5D%20at%20h1%0A%20%20%20%20%20%20linarith%0A%20%20%20%20refine%20%E2%9F%A8ha%2C%20%3F_%E2%9F%A9%0A%20%20%20%20rw%20%5Babs_div%2C%20lt_div_iff%E2%82%80%20%28abs_pos.mpr%20ha%29%2C%20one_mul%5D%20at%20h1%0A%20%20%20%20exact%20h1%0A%20%20--%20therefore%20%7Ca%20n%7C%20%E2%89%A5%20%7Ca%20N%7C%20%3E%200%20for%20every%20n%20%E2%89%A5%20N%0A%20%20have%20hge%20%3A%20%E2%88%80%20n%20%E2%89%A5%20N%2C%20%7Ca%20N%7C%20%E2%89%A4%20%7Ca%20n%7C%20%3A%3D%20by%0A%20%20%20%20intro%20n%20hn%0A%20%20%20%20induction%20n%2C%20hn%20using%20Nat.le_induction%20with%0A%20%20%20%20%7C%20base%20%3D%3E%20exact%20le_rfl%0A%20%20%20%20%7C%20succ%20k%20hk%20ih%20%3D%3E%20exact%20ih.trans%20%28hstep%20k%20hk%29.2.le%0A%20%20have%20hpos%20%3A%200%20%3C%20%7Ca%20N%7C%20%3A%3D%20abs_pos.mpr%20%28hstep%20N%20le_rfl%29.1%0A%20%20--%20contradiction%20with%20a%20n%20%E2%86%92%200%0A%20%20have%20h3%20%3A%3D%20h0.abs.eventually%20%28gt_mem_nhds%20%28show%20%7C%280%20%3A%20%E2%84%9D%29%7C%20%3C%20%7Ca%20N%7C%20by%0A%20%20%20%20rw%20%5Babs_zero%5D%0A%20%20%20%20exact%20hpos%29%29%0A%20%20obtain%20%E2%9F%A8n%2C%20hn1%2C%20hn2%E2%9F%A9%20%3A%3D%20%28h3.and%20%28eventually_ge_atTop%20N%29%29.exists%0A%20%20exact%20absurd%20%28hge%20n%20hn2%29%20%28not_le.mpr%20hn1%29%0A%0A--%20L%20%3E%201%0Atheorem%20ratio_diverges%20%28a%20%3A%20%E2%84%95%20%E2%86%92%20%E2%84%9D%29%20%28L%20%3A%20%E2%84%9D%29%20%28hL%20%3A%201%20%3C%20L%29%0A%20%20%20%20%28h%20%3A%20Tendsto%20%28fun%20n%20%3D%3E%20%7Ca%20%28n%20%2B%201%29%20%2F%20a%20n%7C%29%20atTop%20%28%F0%9D%93%9D%20L%29%29%20%3A%0A%20%20%20%20%C2%AC%20%E2%88%83%20S%2C%20Tendsto%20%28fun%20N%20%3D%3E%20%E2%88%91%20n%20%E2%88%88%20Finset.range%20N%2C%20a%20n%29%20atTop%20%28%F0%9D%93%9D%20S%29%20%3A%3D%0A%20%20diverges_of_ratio%20a%20%28h.eventually%20%28lt_mem_nhds%20hL%29%29%0A%0A--%20L%20%3D%20%2B%E2%88%9E%0Atheorem%20ratio_diverges_top%20%28a%20%3A%20%E2%84%95%20%E2%86%92%20%E2%84%9D%29%20%28h%20%3A%20Tendsto%20%28fun%20n%20%3D%3E%20%7Ca%20%28n%20%2B%201%29%20%2F%20a%20n%7C%29%20atTop%20atTop%29%20%3A%0A%20%20%20%20%C2%AC%20%E2%88%83%20S%2C%20Tendsto%20%28fun%20N%20%3D%3E%20%E2%88%91%20n%20%E2%88%88%20Finset.range%20N%2C%20a%20n%29%20atTop%20%28%F0%9D%93%9D%20S%29%20%3A%3D%0A%20%20diverges_of_ratio%20a%20%28h.eventually%20%28eventually_gt_atTop%201%29%29%0A%0Aend%20Ch19.KritirioLogou%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Stewart, J. (2016). <em>Calculus: Early Transcendentals</em> (8th ed.). Cengage Learning.</li><li>Bartle, R. G., &amp; Sherbert, D. R. (2011). <em>Introduction to Real Analysis</em> (4th ed.). Wiley.</li><li>Rudin, W. (1976). <em>Principles of Mathematical Analysis</em> (3rd ed.). McGraw-Hill.</li><li>Negrepontis, S., Giotopoulos, S., &amp; Giannakoulias, E. (1999). <em>Apeirostikos Logismos [Infinitesimal Calculus]</em> (Vol. I). Ekdoseis Symmetria. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

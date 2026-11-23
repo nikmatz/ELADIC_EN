@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Integrals with $\tan$ and $\sec$</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Integrals with $\tan$ and $\sec$</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 16 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>$\int\tan x\,dx=\ln|\sec x|+C$ and $\int\sec x\,dx=\ln|\sec x+\tan x|+C$, as well as $\int\sec^2x\,dx=\tan x+C$, $\int\sec x\tan x\,dx=\sec x+C$. For $\int\tan^m x\sec^n x\,dx$: if $n$ is even with $n\ge 2$, keep one factor $\sec^2 x$ for $du$ and set $u=\tan x$; if $m$ is odd with $n\ge 1$, keep one factor $\sec x\tan x$ and set $u=\sec x$; in the remaining cases ($n=0$, or $m$ even with $n$ odd) write $\tan^2 x=\sec^2 x-1$ and resort to a reduction formula, to integration by parts, or to the formula for $\int\sec x\,dx$.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant &mdash; it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20%24%5Cint%5Ctan%20x%5C%2Cdx%3D%5Cln%7C%5Csec%20x%7C%2BC%24%20and%20%24%5Cint%5Csec%20x%5C%2Cdx%3D%5Cln%7C%5Csec%20x%2B%5Ctan%20x%7C%2BC%24%2C%20as%20well%20as%20%24%5Cint%5Csec%5E2x%5C%2Cdx%3D%5Ctan%20x%2BC%24%2C%20%24%5Cint%5Csec%20x%5Ctan%20x%5C%2Cdx%3D%5Csec%20x%2BC%24.%20For%20%24%5Cint%5Ctan%5Em%20x%5Csec%5En%20x%5C%2Cdx%24%3A%20if%20%24n%24%20is%20even%20with%20%24n%5Cge%202%24%2C%20keep%20one%20factor%20%24%5Csec%5E2%20x%24%20for%20%24du%24%20and%20set%20%24u%3D%5Ctan%20x%24%3B%20if%20%24m%24%20is%20odd%20with%20%24n%5Cge%201%24%2C%20keep%20one%20factor%20%24%5Csec%20x%5Ctan%20x%24%20and%20set%20%24u%3D%5Csec%20x%24%3B%20in%20the%20remaining%20cases%20%28%24n%3D0%24%2C%20or%20%24m%24%20even%20with%20%24n%24%20odd%29%20write%20%24%5Ctan%5E2%20x%3D%5Csec%5E2%20x-1%24%20and%20resort%20to%20a%20reduction%20formula%2C%20to%20integration%20by%20parts%2C%20or%20to%20the%20formula%20for%20%24%5Cint%5Csec%20x%5C%2Cdx%24.">ChatGPT</a>
@@ -27,6 +87,155 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: $\int\tan x\,dx=\ln|\sec x|+C$ and $\int\sec x\,dx=\ln|\sec x+\tan x|+C$, as well as $\int\sec^2x\,dx=\tan x+C$, $\int\sec x\tan x\,dx=\sec x+C$. For $\int\tan^m x\sec^n x\,dx$: if $n$ is even with $n\ge 2$, keep one factor $\sec^2 x$ for $du$ and set $u=\tan x$; if $m$ is odd with $n\ge 1$, keep one factor $\sec x\tan x$ and set $u=\sec x$; in the remaining cases ($n=0$, or $m$ even with $n$ odd) write $\tan^2 x=\sec^2 x-1$ and resort to a reduction formula, to integration by parts, or to the formula for $\int\sec x\,dx$.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The formulas were proved in Lean 4 with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">$\int\sec^2x\,dx=\tan x+C$</div><pre class="ln"><span class="kw">theorem</span> int_sec_sq (x : ℝ) (hc : Real.cos x ≠ 0) :
+    HasDerivAt Real.tan (1 / Real.cos x ^ 2) x</pre></li><li><div class="bk">$\int\sec x\tan x\,dx=\sec x+C$</div><pre class="ln"><span class="kw">theorem</span> int_sec_tan (x : ℝ) (hc : Real.cos x ≠ 0) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; 1 / Real.cos x) (1 / Real.cos x * Real.tan x) x</pre></li><li><div class="bk">$\int\sec x\,dx$<wbr>${}=\ln|\sec x+\tan x|+C$</div><pre class="ln"><span class="kw">theorem</span> int_sec (x : ℝ) (hc : Real.cos x ≠ 0) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; Real.log |1 / Real.cos x + Real.tan x|) (1 / Real.cos x) x</pre></li><li><div class="bk">$\int\tan x\,dx=\ln|\sec x|+C$</div><pre class="ln"><span class="kw">theorem</span> int_tan (x : ℝ) (hc : Real.cos x ≠ 0) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; Real.log |1 / Real.cos x|) (Real.tan x) x</pre></li></ul>
+<p class="note">Each formula is written as “the right-hand side has the integrand as its derivative”, at every $x$ with $\cos x\neq 0$. The function $\sec x$ is written $\dfrac{1}{\cos x}$. The guidelines for $\int\tan^m x\sec^n x\,dx$ say which substitution to make; they are not theorems, which is why they are not stated here. In Mathlib the logarithm <code>Real.log</code> is also defined for negative numbers, as $\ln|t|$, so the absolute value disappears at once (<code>Real.log_abs</code>).</p>
+<h2>2. Step by step: $\int\sec x\,dx$</h2>
+<p class="note">The idea: we differentiate $\ln(\sec x+\tan x)$ and find $\dfrac{\sec x\tan x+\sec^2x}{\sec x+\tan x}$<wbr>${}=\sec x$. We start from the goal:</p>
+<div class="goal start"><span>The goal</span><pre>x : ℝ
+hc : Real.cos x ≠ 0
+⊢ HasDerivAt (fun x =&gt; Real.log |1 / Real.cos x + Real.tan x|) (1 / Real.cos x) x</pre></div>
+<p class="note">Above <code>⊢</code> is what we know; after <code>⊢</code> is what we have to show. After each step we show only what changed.</p>
+<ol class="steps"><li><pre class="ln"><span class="cm">-- in Mathlib, ln|t| = ln t</span>
+<span class="tc">simp</span> only [Real.log_abs]</pre><p>In Mathlib $\ln|t|=\ln t$ (<code>Real.log_abs</code>), so the absolute value disappears.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ HasDerivAt (fun x =&gt; Real.log (1 / Real.cos x + Real.tan x)) (1 / Real.cos x) x</pre></div></li><li><pre class="ln"><span class="cm">-- when cos x ≠ 0, sin x ≠ -1</span>
+<span class="kw">have</span> hs : 1 + Real.sin x ≠ 0 := <span class="kw">by</span></pre><p>Claim <code>hs</code>: $1+\sin x\neq 0$.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ 1 + Real.sin x ≠ 0</pre></div></li><li><pre class="ln"><span class="tc">intro</span> h
+<span class="kw">have</span> h1 : Real.sin x = -1 := <span class="kw">by</span> <span class="tc">linarith</span>
+<span class="kw">have</span> h2 := Real.sin_sq_add_cos_sq x
+<span class="tc">rw</span> [h1] <span class="kw">at</span> h2
+<span class="kw">have</span> h3 : Real.cos x ^ 2 = 0 := <span class="kw">by</span> <span class="tc">linarith</span>
+<span class="tc">exact</span> hc (pow_eq_zero_iff two_ne_zero |&gt;.mp h3)</pre><p>If $1+\sin x=0$, then $\sin x=-1$, and from $\sin^2x+\cos^2x=1$ we would have $\cos^2x=0$, hence $\cos x=0$, which contradicts the hypothesis.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="cm">-- sec x + tan x = (1 + sin x)/cos x ≠ 0</span>
+<span class="kw">have</span> hne : 1 / Real.cos x + Real.tan x ≠ 0 := <span class="kw">by</span>
+  <span class="tc">rw</span> [Real.tan_eq_sin_div_cos, ← add_div]
+  <span class="tc">exact</span> div_ne_zero hs hc</pre><p>Therefore $\sec x+\tan x$<wbr>${}=\dfrac{1+\sin x}{\cos x}\neq 0$.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="cm">-- (sec x + tan x)&#x27; = sec x tan x + sec² x</span>
+<span class="kw">have</span> h1 : HasDerivAt (<span class="kw">fun</span> x =&gt; 1 / Real.cos x + Real.tan x)
+    (1 / Real.cos x * Real.tan x + 1 / Real.cos x ^ 2) x :=
+  (int_sec_tan x hc).add (int_sec_sq x hc)</pre><p>$\sec x+\tan x$ has derivative $\sec x\tan x+\sec^2x$, by the two previous formulas.</p><div class="goal"><span>What remains to be proved</span><pre>x : ℝ
+hc : Real.cos x ≠ 0
+hs : 1 + Real.sin x ≠ 0
+hne : 1 / Real.cos x + Real.tan x ≠ 0
+h1 : HasDerivAt (fun x =&gt; 1 / Real.cos x + Real.tan x) (1 / Real.cos x * Real.tan x + 1 / Real.cos x ^ 2) x
+⊢ HasDerivAt (fun x =&gt; Real.log (1 / Real.cos x + Real.tan x)) (1 / Real.cos x) x</pre></div></li><li><pre class="ln"><span class="cm">-- logarithm rule</span>
+<span class="kw">have</span> h2 := h1.log hne</pre><p>Logarithm rule (<code>HasDerivAt.log</code>): $\ln(\sec x+\tan x)$ has derivative $\dfrac{\sec x\tan x+\sec^2x}{\sec x+\tan x}$.</p><div class="goal"><span>What remains to be proved</span><pre>h2 : HasDerivAt (fun y =&gt; Real.log (1 / Real.cos y + Real.tan y))
+  ((1 / Real.cos x * Real.tan x + 1 / Real.cos x ^ 2) / (1 / Real.cos x + Real.tan x)) x
+⊢ HasDerivAt (fun x =&gt; Real.log (1 / Real.cos x + Real.tan x)) (1 / Real.cos x) x</pre></div></li><li><pre class="ln">convert h2 using 1</pre><p>The function is already the right one; it remains to show that the two derivatives are equal.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ 1 / Real.cos x = (1 / Real.cos x * Real.tan x + 1 / Real.cos x ^ 2) / (1 / Real.cos x + Real.tan x)</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [Real.tan_eq_sin_div_cos]</pre><p>We write $\tan x=\dfrac{\sin x}{\cos x}$.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ 1 / Real.cos x =
+  (1 / Real.cos x * (Real.sin x / Real.cos x) + 1 / Real.cos x ^ 2) / (1 / Real.cos x + Real.sin x / Real.cos x)</pre></div></li><li><pre class="ln"><span class="tc">field_simp</span>
+<span class="tc">ring</span></pre><p>We clear the denominators (<code>field_simp</code>) and check the remaining equality with <code>ring</code>.</p><div class="goal done"><span>✓ </span>No goals: the proof is complete.</div></li></ol>
+<h2>3. Try it yourself: $\int\tan x\,dx$</h2>
+<div class="ex"><p>Show that, wherever $\cos x\neq 0$, $\ln|\sec x|$ has derivative $\tan x$. Open the exercise in Lean and replace the word <code>sorry</code> with your own steps. When the proof is correct, the message <i>declaration uses sorry</i> disappears and no red error appears.</p>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2016%20%C2%B7%20Integrals%20with%20tan%20and%20sec%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch16.TanSec%0A%0A--%20we%20write%20sec%20x%20%3D%201%2Fcos%20x%0A%0A--%20%E2%88%AB%20sec%C2%B2%20x%20dx%20%3D%20tan%20x%20%2B%20C%0Atheorem%20int_sec_sq%20%28x%20%3A%20%E2%84%9D%29%20%28hc%20%3A%20Real.cos%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20HasDerivAt%20Real.tan%20%281%20%2F%20Real.cos%20x%20%5E%202%29%20x%20%3A%3D%0A%20%20Real.hasDerivAt_tan%20hc%0A%0A--%20%E2%88%AB%20sec%20x%20tan%20x%20dx%20%3D%20sec%20x%20%2B%20C%0Atheorem%20int_sec_tan%20%28x%20%3A%20%E2%84%9D%29%20%28hc%20%3A%20Real.cos%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%201%20%2F%20Real.cos%20x%29%20%281%20%2F%20Real.cos%20x%20*%20Real.tan%20x%29%20x%20%3A%3D%20by%0A%20%20have%20h%20%3A%3D%20%28hasDerivAt_const%20x%20%281%20%3A%20%E2%84%9D%29%29.fun_div%20%28Real.hasDerivAt_cos%20x%29%20hc%0A%20%20convert%20h%20using%201%0A%20%20rw%20%5BReal.tan_eq_sin_div_cos%5D%0A%20%20field_simp%0A%20%20ring%0A%0A--%20%E2%88%AB%20sec%20x%20dx%20%3D%20ln%7Csec%20x%20%2B%20tan%20x%7C%20%2B%20C%0Atheorem%20int_sec%20%28x%20%3A%20%E2%84%9D%29%20%28hc%20%3A%20Real.cos%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%20Real.log%20%7C1%20%2F%20Real.cos%20x%20%2B%20Real.tan%20x%7C%29%20%281%20%2F%20Real.cos%20x%29%20x%20%3A%3D%20by%0A%20%20--%20in%20Mathlib%2C%20ln%7Ct%7C%20%3D%20ln%20t%0A%20%20simp%20only%20%5BReal.log_abs%5D%0A%20%20--%20when%20cos%20x%20%E2%89%A0%200%2C%20sin%20x%20%E2%89%A0%20-1%0A%20%20have%20hs%20%3A%201%20%2B%20Real.sin%20x%20%E2%89%A0%200%20%3A%3D%20by%0A%20%20%20%20intro%20h%0A%20%20%20%20have%20h1%20%3A%20Real.sin%20x%20%3D%20-1%20%3A%3D%20by%20linarith%0A%20%20%20%20have%20h2%20%3A%3D%20Real.sin_sq_add_cos_sq%20x%0A%20%20%20%20rw%20%5Bh1%5D%20at%20h2%0A%20%20%20%20have%20h3%20%3A%20Real.cos%20x%20%5E%202%20%3D%200%20%3A%3D%20by%20linarith%0A%20%20%20%20exact%20hc%20%28pow_eq_zero_iff%20two_ne_zero%20%7C%3E.mp%20h3%29%0A%20%20--%20sec%20x%20%2B%20tan%20x%20%3D%20%281%20%2B%20sin%20x%29%2Fcos%20x%20%E2%89%A0%200%0A%20%20have%20hne%20%3A%201%20%2F%20Real.cos%20x%20%2B%20Real.tan%20x%20%E2%89%A0%200%20%3A%3D%20by%0A%20%20%20%20rw%20%5BReal.tan_eq_sin_div_cos%2C%20%E2%86%90%20add_div%5D%0A%20%20%20%20exact%20div_ne_zero%20hs%20hc%0A%20%20--%20%28sec%20x%20%2B%20tan%20x%29'%20%3D%20sec%20x%20tan%20x%20%2B%20sec%C2%B2%20x%0A%20%20have%20h1%20%3A%20HasDerivAt%20%28fun%20x%20%3D%3E%201%20%2F%20Real.cos%20x%20%2B%20Real.tan%20x%29%0A%20%20%20%20%20%20%281%20%2F%20Real.cos%20x%20*%20Real.tan%20x%20%2B%201%20%2F%20Real.cos%20x%20%5E%202%29%20x%20%3A%3D%0A%20%20%20%20%28int_sec_tan%20x%20hc%29.add%20%28int_sec_sq%20x%20hc%29%0A%20%20--%20logarithm%20rule%0A%20%20have%20h2%20%3A%3D%20h1.log%20hne%0A%20%20convert%20h2%20using%201%0A%20%20rw%20%5BReal.tan_eq_sin_div_cos%5D%0A%20%20field_simp%0A%20%20ring%0A%0Atheorem%20int_tan%20%28x%20%3A%20%E2%84%9D%29%20%28hc%20%3A%20Real.cos%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%20Real.log%20%7C1%20%2F%20Real.cos%20x%7C%29%20%28Real.tan%20x%29%20x%20%3A%3D%20by%0A%20%20--%20EXERCISE%3A%20replace%20sorry%20with%20your%20own%20proof.%0A%20%20sorry%0A%0Aend%20Ch16.TanSec%0A" target="_blank" rel="noopener">Open the exercise in Lean</a>
+<details><summary>Hint</summary><div class="in"><p class="note">Start with <code>simp only [Real.log_abs]</code>. Then apply the logarithm rule to the formula for $\sec x$: <code>have h := (int_sec_tan x hc).log (one_div_ne_zero hc)</code>. Finally, <code>convert h using 1</code>, <code>rw [Real.tan_eq_sin_div_cos]</code> and <code>field_simp</code>.</p></div></details>
+<details><summary>Solution</summary><div class="in"><pre class="ln"><span class="kw">theorem</span> int_tan (x : ℝ) (hc : Real.cos x ≠ 0) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; Real.log |1 / Real.cos x|) (Real.tan x) x := <span class="kw">by</span>
+  <span class="tc">simp</span> only [Real.log_abs]
+  <span class="kw">have</span> h := (int_sec_tan x hc).log (one_div_ne_zero hc)
+  convert h using 1
+  <span class="tc">rw</span> [Real.tan_eq_sin_div_cos]
+  <span class="tc">field_simp</span></pre></div></details>
+</div>
+<h2>4. In Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.hasDerivAt_tan#doc" target="_blank" rel="noopener"><code>Real.hasDerivAt_tan</code></a>: the derivative of $\tan x$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.hasDerivAt_cos#doc" target="_blank" rel="noopener"><code>Real.hasDerivAt_cos</code></a>: the derivative of $\cos x$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.fun_div#doc" target="_blank" rel="noopener"><code>HasDerivAt.fun_div</code></a>: the quotient rule.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.log_abs#doc" target="_blank" rel="noopener"><code>Real.log_abs</code></a>: $\ln|t|=\ln t$ in Mathlib.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.sin_sq_add_cos_sq#doc" target="_blank" rel="noopener"><code>Real.sin_sq_add_cos_sq</code></a>: $\sin^2x+\cos^2x=1$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.tan_eq_sin_div_cos#doc" target="_blank" rel="noopener"><code>Real.tan_eq_sin_div_cos</code></a>: $\tan x=\dfrac{\sin x}{\cos x}$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.add#doc" target="_blank" rel="noopener"><code>HasDerivAt.add</code></a>: the sum rule.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=HasDerivAt.log#doc" target="_blank" rel="noopener"><code>HasDerivAt.log</code></a>: the derivative of $\ln f(x)$.</li></ul>
+<h2>5. The complete code</h2>
+<details><summary>See the code (62 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 16 · Integrals with tan and sec · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch16.TanSec
+
+<span class="cm">-- we write sec x = 1/cos x</span>
+
+<span class="cm">-- ∫ sec² x dx = tan x + C</span>
+<span class="kw">theorem</span> int_sec_sq (x : ℝ) (hc : Real.cos x ≠ 0) :
+    HasDerivAt Real.tan (1 / Real.cos x ^ 2) x :=
+  Real.hasDerivAt_tan hc
+
+<span class="cm">-- ∫ sec x tan x dx = sec x + C</span>
+<span class="kw">theorem</span> int_sec_tan (x : ℝ) (hc : Real.cos x ≠ 0) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; 1 / Real.cos x) (1 / Real.cos x * Real.tan x) x := <span class="kw">by</span>
+  <span class="kw">have</span> h := (hasDerivAt_const x (1 : ℝ)).fun_div (Real.hasDerivAt_cos x) hc
+  convert h using 1
+  <span class="tc">rw</span> [Real.tan_eq_sin_div_cos]
+  <span class="tc">field_simp</span>
+  <span class="tc">ring</span>
+
+<span class="cm">-- ∫ sec x dx = ln|sec x + tan x| + C</span>
+<span class="kw">theorem</span> int_sec (x : ℝ) (hc : Real.cos x ≠ 0) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; Real.log |1 / Real.cos x + Real.tan x|) (1 / Real.cos x) x := <span class="kw">by</span>
+  <span class="cm">-- in Mathlib, ln|t| = ln t</span>
+  <span class="tc">simp</span> only [Real.log_abs]
+  <span class="cm">-- when cos x ≠ 0, sin x ≠ -1</span>
+  <span class="kw">have</span> hs : 1 + Real.sin x ≠ 0 := <span class="kw">by</span>
+    <span class="tc">intro</span> h
+    <span class="kw">have</span> h1 : Real.sin x = -1 := <span class="kw">by</span> <span class="tc">linarith</span>
+    <span class="kw">have</span> h2 := Real.sin_sq_add_cos_sq x
+    <span class="tc">rw</span> [h1] <span class="kw">at</span> h2
+    <span class="kw">have</span> h3 : Real.cos x ^ 2 = 0 := <span class="kw">by</span> <span class="tc">linarith</span>
+    <span class="tc">exact</span> hc (pow_eq_zero_iff two_ne_zero |&gt;.mp h3)
+  <span class="cm">-- sec x + tan x = (1 + sin x)/cos x ≠ 0</span>
+  <span class="kw">have</span> hne : 1 / Real.cos x + Real.tan x ≠ 0 := <span class="kw">by</span>
+    <span class="tc">rw</span> [Real.tan_eq_sin_div_cos, ← add_div]
+    <span class="tc">exact</span> div_ne_zero hs hc
+  <span class="cm">-- (sec x + tan x)&#x27; = sec x tan x + sec² x</span>
+  <span class="kw">have</span> h1 : HasDerivAt (<span class="kw">fun</span> x =&gt; 1 / Real.cos x + Real.tan x)
+      (1 / Real.cos x * Real.tan x + 1 / Real.cos x ^ 2) x :=
+    (int_sec_tan x hc).add (int_sec_sq x hc)
+  <span class="cm">-- logarithm rule</span>
+  <span class="kw">have</span> h2 := h1.log hne
+  convert h2 using 1
+  <span class="tc">rw</span> [Real.tan_eq_sin_div_cos]
+  <span class="tc">field_simp</span>
+  <span class="tc">ring</span>
+
+<span class="kw">theorem</span> int_tan (x : ℝ) (hc : Real.cos x ≠ 0) :
+    HasDerivAt (<span class="kw">fun</span> x =&gt; Real.log |1 / Real.cos x|) (Real.tan x) x := <span class="kw">by</span>
+  <span class="tc">simp</span> only [Real.log_abs]
+  <span class="kw">have</span> h := (int_sec_tan x hc).log (one_div_ne_zero hc)
+  convert h using 1
+  <span class="tc">rw</span> [Real.tan_eq_sin_div_cos]
+  <span class="tc">field_simp</span>
+
+<span class="kw">end</span> Ch16.TanSec
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2016%20%C2%B7%20Integrals%20with%20tan%20and%20sec%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch16.TanSec%0A%0A--%20we%20write%20sec%20x%20%3D%201%2Fcos%20x%0A%0A--%20%E2%88%AB%20sec%C2%B2%20x%20dx%20%3D%20tan%20x%20%2B%20C%0Atheorem%20int_sec_sq%20%28x%20%3A%20%E2%84%9D%29%20%28hc%20%3A%20Real.cos%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20HasDerivAt%20Real.tan%20%281%20%2F%20Real.cos%20x%20%5E%202%29%20x%20%3A%3D%0A%20%20Real.hasDerivAt_tan%20hc%0A%0A--%20%E2%88%AB%20sec%20x%20tan%20x%20dx%20%3D%20sec%20x%20%2B%20C%0Atheorem%20int_sec_tan%20%28x%20%3A%20%E2%84%9D%29%20%28hc%20%3A%20Real.cos%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%201%20%2F%20Real.cos%20x%29%20%281%20%2F%20Real.cos%20x%20*%20Real.tan%20x%29%20x%20%3A%3D%20by%0A%20%20have%20h%20%3A%3D%20%28hasDerivAt_const%20x%20%281%20%3A%20%E2%84%9D%29%29.fun_div%20%28Real.hasDerivAt_cos%20x%29%20hc%0A%20%20convert%20h%20using%201%0A%20%20rw%20%5BReal.tan_eq_sin_div_cos%5D%0A%20%20field_simp%0A%20%20ring%0A%0A--%20%E2%88%AB%20sec%20x%20dx%20%3D%20ln%7Csec%20x%20%2B%20tan%20x%7C%20%2B%20C%0Atheorem%20int_sec%20%28x%20%3A%20%E2%84%9D%29%20%28hc%20%3A%20Real.cos%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%20Real.log%20%7C1%20%2F%20Real.cos%20x%20%2B%20Real.tan%20x%7C%29%20%281%20%2F%20Real.cos%20x%29%20x%20%3A%3D%20by%0A%20%20--%20in%20Mathlib%2C%20ln%7Ct%7C%20%3D%20ln%20t%0A%20%20simp%20only%20%5BReal.log_abs%5D%0A%20%20--%20when%20cos%20x%20%E2%89%A0%200%2C%20sin%20x%20%E2%89%A0%20-1%0A%20%20have%20hs%20%3A%201%20%2B%20Real.sin%20x%20%E2%89%A0%200%20%3A%3D%20by%0A%20%20%20%20intro%20h%0A%20%20%20%20have%20h1%20%3A%20Real.sin%20x%20%3D%20-1%20%3A%3D%20by%20linarith%0A%20%20%20%20have%20h2%20%3A%3D%20Real.sin_sq_add_cos_sq%20x%0A%20%20%20%20rw%20%5Bh1%5D%20at%20h2%0A%20%20%20%20have%20h3%20%3A%20Real.cos%20x%20%5E%202%20%3D%200%20%3A%3D%20by%20linarith%0A%20%20%20%20exact%20hc%20%28pow_eq_zero_iff%20two_ne_zero%20%7C%3E.mp%20h3%29%0A%20%20--%20sec%20x%20%2B%20tan%20x%20%3D%20%281%20%2B%20sin%20x%29%2Fcos%20x%20%E2%89%A0%200%0A%20%20have%20hne%20%3A%201%20%2F%20Real.cos%20x%20%2B%20Real.tan%20x%20%E2%89%A0%200%20%3A%3D%20by%0A%20%20%20%20rw%20%5BReal.tan_eq_sin_div_cos%2C%20%E2%86%90%20add_div%5D%0A%20%20%20%20exact%20div_ne_zero%20hs%20hc%0A%20%20--%20%28sec%20x%20%2B%20tan%20x%29'%20%3D%20sec%20x%20tan%20x%20%2B%20sec%C2%B2%20x%0A%20%20have%20h1%20%3A%20HasDerivAt%20%28fun%20x%20%3D%3E%201%20%2F%20Real.cos%20x%20%2B%20Real.tan%20x%29%0A%20%20%20%20%20%20%281%20%2F%20Real.cos%20x%20*%20Real.tan%20x%20%2B%201%20%2F%20Real.cos%20x%20%5E%202%29%20x%20%3A%3D%0A%20%20%20%20%28int_sec_tan%20x%20hc%29.add%20%28int_sec_sq%20x%20hc%29%0A%20%20--%20logarithm%20rule%0A%20%20have%20h2%20%3A%3D%20h1.log%20hne%0A%20%20convert%20h2%20using%201%0A%20%20rw%20%5BReal.tan_eq_sin_div_cos%5D%0A%20%20field_simp%0A%20%20ring%0A%0Atheorem%20int_tan%20%28x%20%3A%20%E2%84%9D%29%20%28hc%20%3A%20Real.cos%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20HasDerivAt%20%28fun%20x%20%3D%3E%20Real.log%20%7C1%20%2F%20Real.cos%20x%7C%29%20%28Real.tan%20x%29%20x%20%3A%3D%20by%0A%20%20simp%20only%20%5BReal.log_abs%5D%0A%20%20have%20h%20%3A%3D%20%28int_sec_tan%20x%20hc%29.log%20%28one_div_ne_zero%20hc%29%0A%20%20convert%20h%20using%201%0A%20%20rw%20%5BReal.tan_eq_sin_div_cos%5D%0A%20%20field_simp%0A%0Aend%20Ch16.TanSec%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Apostol, T. M. (1967). <em>Calculus</em> (2nd ed., Vols. 1&ndash;2). John Wiley &amp; Sons.</li><li>Filippou, G. N. (2008). <em>Mathimatika Anoteris Ekpaidefsis [Higher Education Mathematics]</em>. Ekdoseis Zitis. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

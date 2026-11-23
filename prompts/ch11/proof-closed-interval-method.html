@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Closed Interval Method</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>The Closed Interval Method</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 11 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>If $f$ is continuous on the closed interval $[a,b]$, then its global extrema occur either at the critical points of $(a,b)$ (where $f′=0$ or $f′$ does not exist) or at the endpoints $a,b$: the largest of these values is the global maximum and the smallest is the global minimum.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant &mdash; it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20If%20%24f%24%20is%20continuous%20on%20the%20closed%20interval%20%24%5Ba%2Cb%5D%24%2C%20then%20its%20global%20extrema%20occur%20either%20at%20the%20critical%20points%20of%20%24%28a%2Cb%29%24%20%28where%20%24f%E2%80%B2%3D0%24%20or%20%24f%E2%80%B2%24%20does%20not%20exist%29%20or%20at%20the%20endpoints%20%24a%2Cb%24%3A%20the%20largest%20of%20these%20values%20is%20the%20global%20maximum%20and%20the%20smallest%20is%20the%20global%20minimum.">ChatGPT</a>
@@ -27,6 +87,167 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: If $f$ is continuous on the closed interval $[a,b]$, then its global extrema occur either at the critical points of $(a,b)$ (where $f′=0$ or $f′$ does not exist) or at the endpoints $a,b$: the largest of these values is the global maximum and the smallest is the global minimum.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The method was proved in Lean 4 with no errors, for the maximum and for the minimum.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">If $f$ is continuous on $[a,b]$, it attains a maximum value at a point $M$ that is an endpoint or a critical point (where $f'(M)=0$ or $f'(M)$ does not exist)</div><pre class="ln"><span class="kw">theorem</span> max_at_critical_or_endpoint (f : ℝ → ℝ) (a b : ℝ) (hab : a ≤ b)
+    (hf : ContinuousOn f (Set.Icc a b)) :
+    ∃ M ∈ Set.Icc a b, (∀ x ∈ Set.Icc a b, f x ≤ f M) ∧
+      (M = a ∨ M = b ∨ ∀ f&#x27;, HasDerivAt f f&#x27; M → f&#x27; = 0)</pre></li><li><div class="bk">The same for the minimum value</div><pre class="ln"><span class="kw">theorem</span> min_at_critical_or_endpoint (f : ℝ → ℝ) (a b : ℝ) (hab : a ≤ b)
+    (hf : ContinuousOn f (Set.Icc a b)) :
+    ∃ m ∈ Set.Icc a b, (∀ x ∈ Set.Icc a b, f m ≤ f x) ∧
+      (m = a ∨ m = b ∨ ∀ f&#x27;, HasDerivAt f f&#x27; m → f&#x27; = 0)</pre></li><li><div class="bk">Application: if $f'$ vanishes nowhere, the maximum occurs at an endpoint</div><pre class="ln"><span class="kw">theorem</span> max_at_endpoint (f f&#x27; : ℝ → ℝ) (a b : ℝ) (hab : a ≤ b)
+    (hf : ContinuousOn f (Set.Icc a b)) (hd : ∀ x, HasDerivAt f (f&#x27; x) x)
+    (hne : ∀ x, f&#x27; x ≠ 0) :
+    ∃ M ∈ Set.Icc a b, (∀ x ∈ Set.Icc a b, f x ≤ f M) ∧ (M = a ∨ M = b)</pre></li></ul>
+<p class="note">Continuity on $[a,b]$ is written <code>ContinuousOn f (Set.Icc a b)</code>. “$M$ is a critical point” is written <code>∀ f', HasDerivAt f f' M → f' = 0</code>: if the derivative at $M$ exists, it is $0$. In this way the same statement also covers the points where $f'$ does not exist. Since $f(x)\le f(M)$ for every $x\in[a,b]$, the value $f(M)$ is the largest of the values at the endpoints and at the critical points, that is, the global maximum; similarly for the minimum. <code>IsMaxOn f (Set.Icc a b) M</code> means that $f$ attains at $M$ its maximum value on $[a,b]$.</p>
+<h2>2. Step by step: the maximum</h2>
+<p class="note">The idea: Weierstrass' theorem gives the maximum point $M$; if it is not an endpoint, it is an interior point, and Fermat's theorem gives $f'(M)=0$. We start from the goal:</p>
+<div class="goal start"><span>The goal</span><pre>f : ℝ → ℝ
+a b : ℝ
+hab : a ≤ b
+hf : ContinuousOn f (Set.Icc a b)
+⊢ ∃ M ∈ Set.Icc a b, (∀ x ∈ Set.Icc a b, f x ≤ f M) ∧ (M = a ∨ M = b ∨ ∀ (f&#x27; : ℝ), HasDerivAt f f&#x27; M → f&#x27; = 0)</pre></div>
+<p class="note">Above <code>⊢</code> is what we know; after <code>⊢</code> is what we have to show. After each step we show only what changed.</p>
+<ol class="steps"><li><pre class="ln"><span class="tc">obtain</span> ⟨M, hM, hmax⟩ := isCompact_Icc.exists_isMaxOn (Set.nonempty_Icc.mpr hab) hf</pre><p>Weierstrass' theorem: $f$ attains a maximum value at some $M\in[a,b]$ (<code>hmax</code>).</p><div class="goal"><span>What remains to be proved</span><pre>M : ℝ
+hM : M ∈ Set.Icc a b
+hmax : IsMaxOn f (Set.Icc a b) M
+⊢ ∃ M ∈ Set.Icc a b, (∀ x ∈ Set.Icc a b, f x ≤ f M) ∧ (M = a ∨ M = b ∨ ∀ (f&#x27; : ℝ), HasDerivAt f f&#x27; M → f&#x27; = 0)</pre></div></li><li><pre class="ln"><span class="tc">refine</span> ⟨M, hM, <span class="kw">fun</span> x hx =&gt; isMaxOn_iff.mp hmax x hx, ?_⟩</pre><p>We choose this $M$. The inequality $f(x)\le f(M)$ for every $x\in[a,b]$ follows from <code>hmax</code>. It remains to show that $M$ is an endpoint or a critical point.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ M = a ∨ M = b ∨ ∀ (f&#x27; : ℝ), HasDerivAt f f&#x27; M → f&#x27; = 0</pre></div></li><li><pre class="ln"><span class="tc">by_cases</span> ha : M = a</pre><p>Two cases: $M=a$ or not.</p><div class="goal"><span>What remains to be proved (2 goals)</span><i class="case">part pos</i><pre>ha : M = a
+⊢ M = a ∨ M = b ∨ ∀ (f&#x27; : ℝ), HasDerivAt f f&#x27; M → f&#x27; = 0</pre><i class="case">part neg</i><pre>ha : ¬M = a
+⊢ M = a ∨ M = b ∨ ∀ (f&#x27; : ℝ), HasDerivAt f f&#x27; M → f&#x27; = 0</pre></div></li><li><pre class="ln">· <span class="tc">exact</span> Or.inl ha</pre><p>If $M=a$, then $M$ is an endpoint.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="tc">by_cases</span> hb : M = b</pre><p>Otherwise, two cases: $M=b$ or not.</p><div class="goal"><span>What remains to be proved (2 goals)</span><i class="case">part pos</i><pre>f : ℝ → ℝ
+a b : ℝ
+hab : a ≤ b
+hf : ContinuousOn f (Set.Icc a b)
+M : ℝ
+hM : M ∈ Set.Icc a b
+hmax : IsMaxOn f (Set.Icc a b) M
+ha : ¬M = a
+hb : M = b
+⊢ M = a ∨ M = b ∨ ∀ (f&#x27; : ℝ), HasDerivAt f f&#x27; M → f&#x27; = 0</pre><i class="case">part neg</i><pre>f : ℝ → ℝ
+a b : ℝ
+hab : a ≤ b
+hf : ContinuousOn f (Set.Icc a b)
+M : ℝ
+hM : M ∈ Set.Icc a b
+hmax : IsMaxOn f (Set.Icc a b) M
+ha : ¬M = a
+hb : ¬M = b
+⊢ M = a ∨ M = b ∨ ∀ (f&#x27; : ℝ), HasDerivAt f f&#x27; M → f&#x27; = 0</pre></div></li><li><pre class="ln">· <span class="tc">exact</span> Or.inr (Or.inl hb)</pre><p>If $M=b$, then $M$ is again an endpoint.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="tc">refine</span> Or.inr (Or.inr ?_)</pre><p>There remains the case $M\neq a$ and $M\neq b$: we show that, if the derivative at $M$ exists, it is $0$.</p><div class="goal"><span>What remains to be proved</span><pre>f : ℝ → ℝ
+a b : ℝ
+hab : a ≤ b
+hf : ContinuousOn f (Set.Icc a b)
+M : ℝ
+hM : M ∈ Set.Icc a b
+hmax : IsMaxOn f (Set.Icc a b) M
+ha : ¬M = a
+hb : ¬M = b
+⊢ ∀ (f&#x27; : ℝ), HasDerivAt f f&#x27; M → f&#x27; = 0</pre></div></li><li><pre class="ln"><span class="tc">intro</span> f&#x27; hf&#x27;</pre><p>We take the derivative $f'$ of $f$ at $M$ (<code>hf'</code>).</p><div class="goal"><span>What remains to be proved</span><pre>f&#x27; : ℝ
+hf&#x27; : HasDerivAt f f&#x27; M
+⊢ f&#x27; = 0</pre></div></li><li><pre class="ln"><span class="kw">have</span> hMi : M ∈ Set.Ioo a b := ⟨lt_of_le_of_ne hM.1 (Ne.symm ha), lt_of_le_of_ne hM.2 hb⟩</pre><p>Since $a\le M\le b$, $M\neq a$ and $M\neq b$, the point $M$ is an interior point: $M\in(a,b)$.</p><div class="goal"><span>What remains to be proved</span><pre>hMi : M ∈ Set.Ioo a b
+⊢ f&#x27; = 0</pre></div></li><li><pre class="ln"><span class="kw">have</span> hloc : IsLocalMax f M := hmax.isLocalMax (Icc_mem_nhds hMi.1 hMi.2)</pre><p>Therefore $M$ is a local maximum, because $[a,b]$ contains an interval around $M$.</p><div class="goal"><span>What remains to be proved</span><pre>hloc : IsLocalMax f M
+⊢ f&#x27; = 0</pre></div></li><li><pre class="ln"><span class="tc">exact</span> hloc.hasDerivAt_eq_zero hf&#x27;</pre><p>Fermat's theorem: $f'=0$.</p><div class="goal done"><span>✓ </span>No goals: the proof is complete.</div></li></ol>
+<h2>3. Try it yourself: a maximum at an endpoint</h2>
+<div class="ex"><p>If $f$ has a derivative $f'(x)\neq 0$ everywhere, show that the maximum of $f$ on $[a,b]$ occurs at an endpoint. Open the exercise in Lean and replace the word <code>sorry</code> with your own steps. When the proof is correct, the message <i>declaration uses sorry</i> disappears and no red error appears.</p>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2011%20%C2%B7%20The%20Closed%20Interval%20Method%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch11.KleistoDiastima%0A%0Atheorem%20max_at_critical_or_endpoint%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%E2%89%A4%20b%29%0A%20%20%20%20%28hf%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%20%3A%0A%20%20%20%20%E2%88%83%20M%20%E2%88%88%20Set.Icc%20a%20b%2C%20%28%E2%88%80%20x%20%E2%88%88%20Set.Icc%20a%20b%2C%20f%20x%20%E2%89%A4%20f%20M%29%20%E2%88%A7%0A%20%20%20%20%20%20%28M%20%3D%20a%20%E2%88%A8%20M%20%3D%20b%20%E2%88%A8%20%E2%88%80%20f'%2C%20HasDerivAt%20f%20f'%20M%20%E2%86%92%20f'%20%3D%200%29%20%3A%3D%20by%0A%20%20obtain%20%E2%9F%A8M%2C%20hM%2C%20hmax%E2%9F%A9%20%3A%3D%20isCompact_Icc.exists_isMaxOn%20%28Set.nonempty_Icc.mpr%20hab%29%20hf%0A%20%20refine%20%E2%9F%A8M%2C%20hM%2C%20fun%20x%20hx%20%3D%3E%20isMaxOn_iff.mp%20hmax%20x%20hx%2C%20%3F_%E2%9F%A9%0A%20%20by_cases%20ha%20%3A%20M%20%3D%20a%0A%20%20%C2%B7%20exact%20Or.inl%20ha%0A%20%20by_cases%20hb%20%3A%20M%20%3D%20b%0A%20%20%C2%B7%20exact%20Or.inr%20%28Or.inl%20hb%29%0A%20%20refine%20Or.inr%20%28Or.inr%20%3F_%29%0A%20%20intro%20f'%20hf'%0A%20%20have%20hMi%20%3A%20M%20%E2%88%88%20Set.Ioo%20a%20b%20%3A%3D%20%E2%9F%A8lt_of_le_of_ne%20hM.1%20%28Ne.symm%20ha%29%2C%20lt_of_le_of_ne%20hM.2%20hb%E2%9F%A9%0A%20%20have%20hloc%20%3A%20IsLocalMax%20f%20M%20%3A%3D%20hmax.isLocalMax%20%28Icc_mem_nhds%20hMi.1%20hMi.2%29%0A%20%20exact%20hloc.hasDerivAt_eq_zero%20hf'%0A%0Atheorem%20min_at_critical_or_endpoint%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%E2%89%A4%20b%29%0A%20%20%20%20%28hf%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%20%3A%0A%20%20%20%20%E2%88%83%20m%20%E2%88%88%20Set.Icc%20a%20b%2C%20%28%E2%88%80%20x%20%E2%88%88%20Set.Icc%20a%20b%2C%20f%20m%20%E2%89%A4%20f%20x%29%20%E2%88%A7%0A%20%20%20%20%20%20%28m%20%3D%20a%20%E2%88%A8%20m%20%3D%20b%20%E2%88%A8%20%E2%88%80%20f'%2C%20HasDerivAt%20f%20f'%20m%20%E2%86%92%20f'%20%3D%200%29%20%3A%3D%20by%0A%20%20obtain%20%E2%9F%A8m%2C%20hm%2C%20hmin%E2%9F%A9%20%3A%3D%20isCompact_Icc.exists_isMinOn%20%28Set.nonempty_Icc.mpr%20hab%29%20hf%0A%20%20refine%20%E2%9F%A8m%2C%20hm%2C%20fun%20x%20hx%20%3D%3E%20isMinOn_iff.mp%20hmin%20x%20hx%2C%20%3F_%E2%9F%A9%0A%20%20by_cases%20ha%20%3A%20m%20%3D%20a%0A%20%20%C2%B7%20exact%20Or.inl%20ha%0A%20%20by_cases%20hb%20%3A%20m%20%3D%20b%0A%20%20%C2%B7%20exact%20Or.inr%20%28Or.inl%20hb%29%0A%20%20refine%20Or.inr%20%28Or.inr%20%3F_%29%0A%20%20intro%20f'%20hf'%0A%20%20have%20hmi%20%3A%20m%20%E2%88%88%20Set.Ioo%20a%20b%20%3A%3D%20%E2%9F%A8lt_of_le_of_ne%20hm.1%20%28Ne.symm%20ha%29%2C%20lt_of_le_of_ne%20hm.2%20hb%E2%9F%A9%0A%20%20have%20hloc%20%3A%20IsLocalMin%20f%20m%20%3A%3D%20hmin.isLocalMin%20%28Icc_mem_nhds%20hmi.1%20hmi.2%29%0A%20%20exact%20hloc.hasDerivAt_eq_zero%20hf'%0A%0Atheorem%20max_at_endpoint%20%28f%20f'%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%E2%89%A4%20b%29%0A%20%20%20%20%28hf%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%20%28hd%20%3A%20%E2%88%80%20x%2C%20HasDerivAt%20f%20%28f'%20x%29%20x%29%0A%20%20%20%20%28hne%20%3A%20%E2%88%80%20x%2C%20f'%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20%E2%88%83%20M%20%E2%88%88%20Set.Icc%20a%20b%2C%20%28%E2%88%80%20x%20%E2%88%88%20Set.Icc%20a%20b%2C%20f%20x%20%E2%89%A4%20f%20M%29%20%E2%88%A7%20%28M%20%3D%20a%20%E2%88%A8%20M%20%3D%20b%29%20%3A%3D%20by%0A%20%20--%20EXERCISE%3A%20replace%20the%20sorry%20with%20your%20own%20proof.%0A%20%20sorry%0A%0Aend%20Ch11.KleistoDiastima%0A" target="_blank" rel="noopener">Open the exercise in Lean</a>
+<details><summary>Hint</summary><div class="in"><p class="note">Take the point given by the theorem: <code>obtain ⟨M, hM, hmax, h⟩ := max_at_critical_or_endpoint f a b hab hf</code>, and then <code>rcases h with h | h | h</code>. In the first two cases write <code>exact ⟨M, hM, hmax, Or.inl h⟩</code> and <code>exact ⟨M, hM, hmax, Or.inr h⟩</code>. In the third, <code>h (f' M) (hd M)</code> gives $f'(M)=0$, which contradicts <code>hne M</code>: <code>exact absurd (h (f' M) (hd M)) (hne M)</code>.</p></div></details>
+<details><summary>Solution</summary><div class="in"><pre class="ln"><span class="kw">theorem</span> max_at_endpoint (f f&#x27; : ℝ → ℝ) (a b : ℝ) (hab : a ≤ b)
+    (hf : ContinuousOn f (Set.Icc a b)) (hd : ∀ x, HasDerivAt f (f&#x27; x) x)
+    (hne : ∀ x, f&#x27; x ≠ 0) :
+    ∃ M ∈ Set.Icc a b, (∀ x ∈ Set.Icc a b, f x ≤ f M) ∧ (M = a ∨ M = b) := <span class="kw">by</span>
+  <span class="tc">obtain</span> ⟨M, hM, hmax, h⟩ := max_at_critical_or_endpoint f a b hab hf
+  <span class="tc">rcases</span> h <span class="kw">with</span> h | h | h
+  · <span class="tc">exact</span> ⟨M, hM, hmax, Or.inl h⟩
+  · <span class="tc">exact</span> ⟨M, hM, hmax, Or.inr h⟩
+  · <span class="tc">exact</span> <span class="tc">absurd</span> (h (f&#x27; M) (hd M)) (hne M)</pre></div></details>
+</div>
+<h2>4. In Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsCompact.exists_isMaxOn#doc" target="_blank" rel="noopener"><code>IsCompact.exists_isMaxOn</code></a>: a continuous function on a compact, nonempty set attains a maximum value.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsCompact.exists_isMinOn#doc" target="_blank" rel="noopener"><code>IsCompact.exists_isMinOn</code></a>: the same for the minimum value.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=isCompact_Icc#doc" target="_blank" rel="noopener"><code>isCompact_Icc</code></a>: $[a,b]$ is compact.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsMaxOn.isLocalMax#doc" target="_blank" rel="noopener"><code>IsMaxOn.isLocalMax</code></a>: a maximum on a set that contains an interval around the point is a local maximum.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsMinOn.isLocalMin#doc" target="_blank" rel="noopener"><code>IsMinOn.isLocalMin</code></a>: the same for the minimum.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsLocalMax.hasDerivAt_eq_zero#doc" target="_blank" rel="noopener"><code>IsLocalMax.hasDerivAt_eq_zero</code></a>: Fermat's theorem for a local maximum.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsLocalMin.hasDerivAt_eq_zero#doc" target="_blank" rel="noopener"><code>IsLocalMin.hasDerivAt_eq_zero</code></a>: Fermat's theorem for a local minimum.</li></ul>
+<h2>5. The complete code</h2>
+<details><summary>See the code (52 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 11 · The Closed Interval Method · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch11.KleistoDiastima
+
+<span class="kw">theorem</span> max_at_critical_or_endpoint (f : ℝ → ℝ) (a b : ℝ) (hab : a ≤ b)
+    (hf : ContinuousOn f (Set.Icc a b)) :
+    ∃ M ∈ Set.Icc a b, (∀ x ∈ Set.Icc a b, f x ≤ f M) ∧
+      (M = a ∨ M = b ∨ ∀ f&#x27;, HasDerivAt f f&#x27; M → f&#x27; = 0) := <span class="kw">by</span>
+  <span class="tc">obtain</span> ⟨M, hM, hmax⟩ := isCompact_Icc.exists_isMaxOn (Set.nonempty_Icc.mpr hab) hf
+  <span class="tc">refine</span> ⟨M, hM, <span class="kw">fun</span> x hx =&gt; isMaxOn_iff.mp hmax x hx, ?_⟩
+  <span class="tc">by_cases</span> ha : M = a
+  · <span class="tc">exact</span> Or.inl ha
+  <span class="tc">by_cases</span> hb : M = b
+  · <span class="tc">exact</span> Or.inr (Or.inl hb)
+  <span class="tc">refine</span> Or.inr (Or.inr ?_)
+  <span class="tc">intro</span> f&#x27; hf&#x27;
+  <span class="kw">have</span> hMi : M ∈ Set.Ioo a b := ⟨lt_of_le_of_ne hM.1 (Ne.symm ha), lt_of_le_of_ne hM.2 hb⟩
+  <span class="kw">have</span> hloc : IsLocalMax f M := hmax.isLocalMax (Icc_mem_nhds hMi.1 hMi.2)
+  <span class="tc">exact</span> hloc.hasDerivAt_eq_zero hf&#x27;
+
+<span class="kw">theorem</span> min_at_critical_or_endpoint (f : ℝ → ℝ) (a b : ℝ) (hab : a ≤ b)
+    (hf : ContinuousOn f (Set.Icc a b)) :
+    ∃ m ∈ Set.Icc a b, (∀ x ∈ Set.Icc a b, f m ≤ f x) ∧
+      (m = a ∨ m = b ∨ ∀ f&#x27;, HasDerivAt f f&#x27; m → f&#x27; = 0) := <span class="kw">by</span>
+  <span class="tc">obtain</span> ⟨m, hm, hmin⟩ := isCompact_Icc.exists_isMinOn (Set.nonempty_Icc.mpr hab) hf
+  <span class="tc">refine</span> ⟨m, hm, <span class="kw">fun</span> x hx =&gt; isMinOn_iff.mp hmin x hx, ?_⟩
+  <span class="tc">by_cases</span> ha : m = a
+  · <span class="tc">exact</span> Or.inl ha
+  <span class="tc">by_cases</span> hb : m = b
+  · <span class="tc">exact</span> Or.inr (Or.inl hb)
+  <span class="tc">refine</span> Or.inr (Or.inr ?_)
+  <span class="tc">intro</span> f&#x27; hf&#x27;
+  <span class="kw">have</span> hmi : m ∈ Set.Ioo a b := ⟨lt_of_le_of_ne hm.1 (Ne.symm ha), lt_of_le_of_ne hm.2 hb⟩
+  <span class="kw">have</span> hloc : IsLocalMin f m := hmin.isLocalMin (Icc_mem_nhds hmi.1 hmi.2)
+  <span class="tc">exact</span> hloc.hasDerivAt_eq_zero hf&#x27;
+
+<span class="kw">theorem</span> max_at_endpoint (f f&#x27; : ℝ → ℝ) (a b : ℝ) (hab : a ≤ b)
+    (hf : ContinuousOn f (Set.Icc a b)) (hd : ∀ x, HasDerivAt f (f&#x27; x) x)
+    (hne : ∀ x, f&#x27; x ≠ 0) :
+    ∃ M ∈ Set.Icc a b, (∀ x ∈ Set.Icc a b, f x ≤ f M) ∧ (M = a ∨ M = b) := <span class="kw">by</span>
+  <span class="tc">obtain</span> ⟨M, hM, hmax, h⟩ := max_at_critical_or_endpoint f a b hab hf
+  <span class="tc">rcases</span> h <span class="kw">with</span> h | h | h
+  · <span class="tc">exact</span> ⟨M, hM, hmax, Or.inl h⟩
+  · <span class="tc">exact</span> ⟨M, hM, hmax, Or.inr h⟩
+  · <span class="tc">exact</span> <span class="tc">absurd</span> (h (f&#x27; M) (hd M)) (hne M)
+
+<span class="kw">end</span> Ch11.KleistoDiastima
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2011%20%C2%B7%20The%20Closed%20Interval%20Method%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch11.KleistoDiastima%0A%0Atheorem%20max_at_critical_or_endpoint%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%E2%89%A4%20b%29%0A%20%20%20%20%28hf%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%20%3A%0A%20%20%20%20%E2%88%83%20M%20%E2%88%88%20Set.Icc%20a%20b%2C%20%28%E2%88%80%20x%20%E2%88%88%20Set.Icc%20a%20b%2C%20f%20x%20%E2%89%A4%20f%20M%29%20%E2%88%A7%0A%20%20%20%20%20%20%28M%20%3D%20a%20%E2%88%A8%20M%20%3D%20b%20%E2%88%A8%20%E2%88%80%20f'%2C%20HasDerivAt%20f%20f'%20M%20%E2%86%92%20f'%20%3D%200%29%20%3A%3D%20by%0A%20%20obtain%20%E2%9F%A8M%2C%20hM%2C%20hmax%E2%9F%A9%20%3A%3D%20isCompact_Icc.exists_isMaxOn%20%28Set.nonempty_Icc.mpr%20hab%29%20hf%0A%20%20refine%20%E2%9F%A8M%2C%20hM%2C%20fun%20x%20hx%20%3D%3E%20isMaxOn_iff.mp%20hmax%20x%20hx%2C%20%3F_%E2%9F%A9%0A%20%20by_cases%20ha%20%3A%20M%20%3D%20a%0A%20%20%C2%B7%20exact%20Or.inl%20ha%0A%20%20by_cases%20hb%20%3A%20M%20%3D%20b%0A%20%20%C2%B7%20exact%20Or.inr%20%28Or.inl%20hb%29%0A%20%20refine%20Or.inr%20%28Or.inr%20%3F_%29%0A%20%20intro%20f'%20hf'%0A%20%20have%20hMi%20%3A%20M%20%E2%88%88%20Set.Ioo%20a%20b%20%3A%3D%20%E2%9F%A8lt_of_le_of_ne%20hM.1%20%28Ne.symm%20ha%29%2C%20lt_of_le_of_ne%20hM.2%20hb%E2%9F%A9%0A%20%20have%20hloc%20%3A%20IsLocalMax%20f%20M%20%3A%3D%20hmax.isLocalMax%20%28Icc_mem_nhds%20hMi.1%20hMi.2%29%0A%20%20exact%20hloc.hasDerivAt_eq_zero%20hf'%0A%0Atheorem%20min_at_critical_or_endpoint%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%E2%89%A4%20b%29%0A%20%20%20%20%28hf%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%20%3A%0A%20%20%20%20%E2%88%83%20m%20%E2%88%88%20Set.Icc%20a%20b%2C%20%28%E2%88%80%20x%20%E2%88%88%20Set.Icc%20a%20b%2C%20f%20m%20%E2%89%A4%20f%20x%29%20%E2%88%A7%0A%20%20%20%20%20%20%28m%20%3D%20a%20%E2%88%A8%20m%20%3D%20b%20%E2%88%A8%20%E2%88%80%20f'%2C%20HasDerivAt%20f%20f'%20m%20%E2%86%92%20f'%20%3D%200%29%20%3A%3D%20by%0A%20%20obtain%20%E2%9F%A8m%2C%20hm%2C%20hmin%E2%9F%A9%20%3A%3D%20isCompact_Icc.exists_isMinOn%20%28Set.nonempty_Icc.mpr%20hab%29%20hf%0A%20%20refine%20%E2%9F%A8m%2C%20hm%2C%20fun%20x%20hx%20%3D%3E%20isMinOn_iff.mp%20hmin%20x%20hx%2C%20%3F_%E2%9F%A9%0A%20%20by_cases%20ha%20%3A%20m%20%3D%20a%0A%20%20%C2%B7%20exact%20Or.inl%20ha%0A%20%20by_cases%20hb%20%3A%20m%20%3D%20b%0A%20%20%C2%B7%20exact%20Or.inr%20%28Or.inl%20hb%29%0A%20%20refine%20Or.inr%20%28Or.inr%20%3F_%29%0A%20%20intro%20f'%20hf'%0A%20%20have%20hmi%20%3A%20m%20%E2%88%88%20Set.Ioo%20a%20b%20%3A%3D%20%E2%9F%A8lt_of_le_of_ne%20hm.1%20%28Ne.symm%20ha%29%2C%20lt_of_le_of_ne%20hm.2%20hb%E2%9F%A9%0A%20%20have%20hloc%20%3A%20IsLocalMin%20f%20m%20%3A%3D%20hmin.isLocalMin%20%28Icc_mem_nhds%20hmi.1%20hmi.2%29%0A%20%20exact%20hloc.hasDerivAt_eq_zero%20hf'%0A%0Atheorem%20max_at_endpoint%20%28f%20f'%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28a%20b%20%3A%20%E2%84%9D%29%20%28hab%20%3A%20a%20%E2%89%A4%20b%29%0A%20%20%20%20%28hf%20%3A%20ContinuousOn%20f%20%28Set.Icc%20a%20b%29%29%20%28hd%20%3A%20%E2%88%80%20x%2C%20HasDerivAt%20f%20%28f'%20x%29%20x%29%0A%20%20%20%20%28hne%20%3A%20%E2%88%80%20x%2C%20f'%20x%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20%E2%88%83%20M%20%E2%88%88%20Set.Icc%20a%20b%2C%20%28%E2%88%80%20x%20%E2%88%88%20Set.Icc%20a%20b%2C%20f%20x%20%E2%89%A4%20f%20M%29%20%E2%88%A7%20%28M%20%3D%20a%20%E2%88%A8%20M%20%3D%20b%29%20%3A%3D%20by%0A%20%20obtain%20%E2%9F%A8M%2C%20hM%2C%20hmax%2C%20h%E2%9F%A9%20%3A%3D%20max_at_critical_or_endpoint%20f%20a%20b%20hab%20hf%0A%20%20rcases%20h%20with%20h%20%7C%20h%20%7C%20h%0A%20%20%C2%B7%20exact%20%E2%9F%A8M%2C%20hM%2C%20hmax%2C%20Or.inl%20h%E2%9F%A9%0A%20%20%C2%B7%20exact%20%E2%9F%A8M%2C%20hM%2C%20hmax%2C%20Or.inr%20h%E2%9F%A9%0A%20%20%C2%B7%20exact%20absurd%20%28h%20%28f'%20M%29%20%28hd%20M%29%29%20%28hne%20M%29%0A%0Aend%20Ch11.KleistoDiastima%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Apostol, T. M. (1967). <em>Calculus</em> (2nd ed., Vols. 1&ndash;2). John Wiley &amp; Sons.</li><li>Filippou, G. N. (2008). <em>Mathimatika Anoteris Ekpaidefsis [Higher Education Mathematics]</em>. Ekdoseis Zitis. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

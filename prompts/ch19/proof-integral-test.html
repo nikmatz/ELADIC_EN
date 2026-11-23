@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Integral Test</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Integral Test</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 19 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>If $f:[1,\infty)\to\mathbb{R}$ is continuous, positive and decreasing, then $\sum_{n=1}^{\infty}f(n)$ and $\int_1^{\infty}f(x)\,dx$ converge or diverge together, with $\int_1^{\infty}f\,dx\le\sum_{n=1}^{\infty}f(n)\le f(1)+\int_1^{\infty}f\,dx$.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20If%20%24f%3A%5B1%2C%5Cinfty%29%5Cto%5Cmathbb%7BR%7D%24%20is%20continuous%2C%20positive%20and%20decreasing%2C%20then%20%24%5Csum_%7Bn%3D1%7D%5E%7B%5Cinfty%7Df%28n%29%24%20and%20%24%5Cint_1%5E%7B%5Cinfty%7Df%28x%29%5C%2Cdx%24%20converge%20or%20diverge%20together%2C%20with%20%24%5Cint_1%5E%7B%5Cinfty%7Df%5C%2Cdx%5Cle%5Csum_%7Bn%3D1%7D%5E%7B%5Cinfty%7Df%28n%29%5Cle%20f%281%29%2B%5Cint_1%5E%7B%5Cinfty%7Df%5C%2Cdx%24.">ChatGPT</a>
@@ -27,6 +87,121 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: If $f:[1,\infty)\to\mathbb{R}$ is continuous, positive and decreasing, then $\sum_{n=1}^{\infty}f(n)$ and $\int_1^{\infty}f(x)\,dx$ converge or diverge together, with $\int_1^{\infty}f\,dx\le\sum_{n=1}^{\infty}f(n)\le f(1)+\int_1^{\infty}f\,dx$.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The statements were proved in Lean 4, using theorems from Mathlib, with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 23/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">For $f$ decreasing and nonnegative on $[1,+\infty)$: $\sum_{n=1}^{\infty}f(n)$ converges if and only if $\int_1^{+\infty}f\,dx$ converges</div><pre class="ln"><span class="kw">theorem</span> integral_test (f : ℝ → ℝ) (hf : AntitoneOn f (Set.Ici 1))
+    (h0 : ∀ x ∈ Set.Ici (1 : ℝ), 0 ≤ f x) :
+    Summable (<span class="kw">fun</span> n : ℕ =&gt; f (n + 1)) ↔ IntegrableOn f (Set.Ioi 1)</pre></li><li><div class="bk">$\int_1^{1+N}f\,dx\le f(1)+f(2)+\cdots+f(N)$</div><pre class="ln"><span class="kw">theorem</span> integral_le_partial_sum (f : ℝ → ℝ) (hf : AntitoneOn f (Set.Ici 1)) (N : ℕ) :
+    ∫ x <span class="kw">in</span> (1 : ℝ)..1 + N, f x ≤ ∑ i ∈ Finset.range N, f (1 + i)</pre></li><li><div class="bk">$f(2)+f(3)+\cdots+f(N+1)\le\int_1^{1+N}f\,dx$</div><pre class="ln"><span class="kw">theorem</span> partial_sum_le_integral (f : ℝ → ℝ) (hf : AntitoneOn f (Set.Ici 1)) (N : ℕ) :
+    ∑ i ∈ Finset.range N, f (1 + (i + 1 : ℕ)) ≤ ∫ x <span class="kw">in</span> (1 : ℝ)..1 + N, f x</pre></li><li><div class="bk">When the series converges: $\int_1^{+\infty}f\,dx\le\sum_{n=1}^{\infty}f(n)\le f(1)$<wbr>${}+\int_1^{+\infty}f\,dx$</div><pre class="ln"><span class="kw">theorem</span> integral_test_bounds (f : ℝ → ℝ) (hf : AntitoneOn f (Set.Ici 1))
+    (h0 : ∀ x ∈ Set.Ici (1 : ℝ), 0 ≤ f x) (hs : Summable (<span class="kw">fun</span> n : ℕ =&gt; f (n + 1))) :
+    ∫ x <span class="kw">in</span> Set.Ioi (1 : ℝ), f x ≤ ∑&#x27; n : ℕ, f (n + 1) ∧
+      ∑&#x27; n : ℕ, f (n + 1) ≤ f 1 + ∫ x <span class="kw">in</span> Set.Ioi (1 : ℝ), f x</pre></li></ul>
+<p class="note">The series $f(1)+f(2)+\cdots$ is written, with indexing from $0$, as $\sum_{n\ge 0}f(n+1)$, and its convergence as <code>Summable</code>; for series with nonnegative terms this is exactly convergence in the sense of the book. The convergence of $\int_1^{+\infty}f\,dx$ is written as integrability on $(1,+\infty)$, <code>IntegrableOn f (Set.Ioi 1)</code>, as in Chapter 18, and $[1,+\infty)$ is written <code>Set.Ici 1</code>. Continuity is not needed: Mathlib proves the test for every decreasing function, and $f\ge 0$ suffices instead of $f\gt 0$. The two inequalities with the partial sums are the heart of the proof: they compare the area under the curve with rectangles of width $1$. From them, letting $N\to+\infty$, we obtain the inequalities of the book; the sum of the series is written <code>∑' n : ℕ, f (n + 1)</code>.</p>
+<h2>2. Where it is in Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=AntitoneOn.integrableOn_Ioi_of_summable_comp_add#doc" target="_blank" rel="noopener"><code>AntitoneOn.integrableOn_Ioi_of_summable_comp_add</code></a>: if the series converges, $f$ is integrable on $(N,+\infty)$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=AntitoneOn.summable_of_integrableOn_Ioi#doc" target="_blank" rel="noopener"><code>AntitoneOn.summable_of_integrableOn_Ioi</code></a>: if $f$ is integrable on $(N,+\infty)$, the series converges.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=summable_nat_add_iff#doc" target="_blank" rel="noopener"><code>summable_nat_add_iff</code></a>: a series converges exactly when its tail converges.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=AntitoneOn.integral_le_sum#doc" target="_blank" rel="noopener"><code>AntitoneOn.integral_le_sum</code></a>: the integral is at most the sum of the “left” rectangles.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=AntitoneOn.sum_le_integral#doc" target="_blank" rel="noopener"><code>AntitoneOn.sum_le_integral</code></a>: the sum of the “right” rectangles is at most the integral.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=MeasureTheory.intervalIntegral_tendsto_integral_Ioi#doc" target="_blank" rel="noopener"><code>MeasureTheory.intervalIntegral_tendsto_integral_Ioi</code></a>: $\int_1^R f\,dx\to\int_1^{+\infty}f\,dx$ as $R\to+\infty$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=le_of_tendsto_of_tendsto%27#doc" target="_blank" rel="noopener"><code>le_of_tendsto_of_tendsto&#x27;</code></a>: inequalities are preserved in the limit.</li></ul>
+<h2>3. The complete code</h2>
+<details><summary>See the code (66 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 19 · Integral Test · checked with Lean v4.37.0-rc1 and Mathlib (23/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch19.KritirioOloklirwmatos
+<span class="kw">open</span> MeasureTheory Filter Topology
+
+<span class="cm">-- f decreasing and nonnegative on [1, +∞): the series f(1) + f(2) + … is written Σ f(n + 1)</span>
+<span class="kw">theorem</span> integral_test (f : ℝ → ℝ) (hf : AntitoneOn f (Set.Ici 1))
+    (h0 : ∀ x ∈ Set.Ici (1 : ℝ), 0 ≤ f x) :
+    Summable (<span class="kw">fun</span> n : ℕ =&gt; f (n + 1)) ↔ IntegrableOn f (Set.Ioi 1) := <span class="kw">by</span>
+  <span class="kw">have</span> hf&#x27; : AntitoneOn f (Set.Ici ((1 : ℕ) : ℝ)) := <span class="kw">by</span> <span class="tc">simpa</span> using hf
+  <span class="kw">have</span> h0&#x27; : ∀ t ∈ Set.Ioi ((1 : ℕ) : ℝ), 0 ≤ f t := <span class="kw">fun</span> t ht =&gt; <span class="kw">by</span>
+    <span class="tc">simp</span> only [Nat.cast_one, Set.mem_Ioi] <span class="kw">at</span> ht
+    <span class="tc">exact</span> h0 t (Set.mem_Ici.mpr ht.le)
+  <span class="tc">constructor</span>
+  · <span class="tc">intro</span> hs
+    <span class="kw">have</span> h := hf&#x27;.integrableOn_Ioi_of_summable_comp_add (<span class="kw">by</span> <span class="tc">simpa</span> using hs) h0&#x27;
+    <span class="tc">simpa</span> using h
+  · <span class="tc">intro</span> hi
+    <span class="kw">have</span> h := hf&#x27;.summable_of_integrableOn_Ioi (<span class="kw">by</span> <span class="tc">simpa</span> using hi) h0&#x27;
+    <span class="kw">have</span> h2 := (summable_nat_add_iff 1).mpr h
+    <span class="tc">simpa</span> using h2
+
+<span class="cm">-- bounds with the partial sums: ∫ from 1 to 1 + N ≤ f(1) + … + f(N)</span>
+<span class="kw">theorem</span> integral_le_partial_sum (f : ℝ → ℝ) (hf : AntitoneOn f (Set.Ici 1)) (N : ℕ) :
+    ∫ x <span class="kw">in</span> (1 : ℝ)..1 + N, f x ≤ ∑ i ∈ Finset.range N, f (1 + i) :=
+  (hf.mono Set.Icc_subset_Ici_self).integral_le_sum
+
+<span class="cm">-- and f(2) + … + f(N + 1) ≤ ∫ from 1 to 1 + N</span>
+<span class="kw">theorem</span> partial_sum_le_integral (f : ℝ → ℝ) (hf : AntitoneOn f (Set.Ici 1)) (N : ℕ) :
+    ∑ i ∈ Finset.range N, f (1 + (i + 1 : ℕ)) ≤ ∫ x <span class="kw">in</span> (1 : ℝ)..1 + N, f x :=
+  (hf.mono Set.Icc_subset_Ici_self).sum_le_integral
+
+<span class="cm">-- the inequalities of the book, when the series converges</span>
+<span class="kw">theorem</span> integral_test_bounds (f : ℝ → ℝ) (hf : AntitoneOn f (Set.Ici 1))
+    (h0 : ∀ x ∈ Set.Ici (1 : ℝ), 0 ≤ f x) (hs : Summable (<span class="kw">fun</span> n : ℕ =&gt; f (n + 1))) :
+    ∫ x <span class="kw">in</span> Set.Ioi (1 : ℝ), f x ≤ ∑&#x27; n : ℕ, f (n + 1) ∧
+      ∑&#x27; n : ℕ, f (n + 1) ≤ f 1 + ∫ x <span class="kw">in</span> Set.Ioi (1 : ℝ), f x := <span class="kw">by</span>
+  <span class="kw">have</span> hi : IntegrableOn f (Set.Ioi 1) := (integral_test f hf h0).mp hs
+  <span class="cm">-- the ∫ from 1 to 1 + N tends to the ∫ from 1 to +∞</span>
+  <span class="kw">have</span> hI : Tendsto (<span class="kw">fun</span> N : ℕ =&gt; ∫ x <span class="kw">in</span> (1 : ℝ)..1 + N, f x) atTop
+      (𝓝 (∫ x <span class="kw">in</span> Set.Ioi (1 : ℝ), f x)) :=
+    intervalIntegral_tendsto_integral_Ioi 1 hi
+      (tendsto_atTop_add_const_left atTop 1 tendsto_natCast_atTop_atTop)
+  <span class="cm">-- the partial sums f(1) + … + f(N) tend to the sum of the series</span>
+  <span class="kw">have</span> hS : Tendsto (<span class="kw">fun</span> N =&gt; ∑ i ∈ Finset.range N, f (1 + i)) atTop
+      (𝓝 (∑&#x27; n : ℕ, f (n + 1))) := <span class="kw">by</span>
+    <span class="kw">have</span> h := hs.hasSum.tendsto_sum_nat
+    <span class="tc">simp</span> only [add_comm (1 : ℝ)]
+    <span class="tc">exact</span> h
+  <span class="kw">have</span> hS1 : Tendsto (<span class="kw">fun</span> N : ℕ =&gt; ∑ i ∈ Finset.range (N + 1), f (1 + i)) atTop
+      (𝓝 (∑&#x27; n : ℕ, f (n + 1))) :=
+    hS.comp (tendsto_add_atTop_nat 1)
+  <span class="cm">-- f(1) + f(2) + … + f(N + 1) ≤ f(1) + ∫ from 1 to 1 + N</span>
+  <span class="kw">have</span> h2 : ∀ N : ℕ, ∑ i ∈ Finset.range (N + 1), f (1 + i) ≤ f 1 + ∫ x <span class="kw">in</span> (1 : ℝ)..1 + N, f x := <span class="kw">by</span>
+    <span class="tc">intro</span> N
+    <span class="tc">rw</span> [Finset.sum_range_succ&#x27;, Nat.cast_zero, add_zero]
+    <span class="tc">linarith</span> [partial_sum_le_integral f hf N]
+  <span class="tc">exact</span> ⟨le_of_tendsto_of_tendsto&#x27; hI hS (integral_le_partial_sum f hf),
+    le_of_tendsto_of_tendsto&#x27; hS1 (hI.const_add (f 1)) h2⟩
+
+<span class="kw">end</span> Ch19.KritirioOloklirwmatos
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2019%20%C2%B7%20Integral%20Test%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2823%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch19.KritirioOloklirwmatos%0Aopen%20MeasureTheory%20Filter%20Topology%0A%0A--%20f%20decreasing%20and%20nonnegative%20on%20%5B1%2C%20%2B%E2%88%9E%29%3A%20the%20series%20f%281%29%20%2B%20f%282%29%20%2B%20%E2%80%A6%20is%20written%20%CE%A3%20f%28n%20%2B%201%29%0Atheorem%20integral_test%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28hf%20%3A%20AntitoneOn%20f%20%28Set.Ici%201%29%29%0A%20%20%20%20%28h0%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ici%20%281%20%3A%20%E2%84%9D%29%2C%200%20%E2%89%A4%20f%20x%29%20%3A%0A%20%20%20%20Summable%20%28fun%20n%20%3A%20%E2%84%95%20%3D%3E%20f%20%28n%20%2B%201%29%29%20%E2%86%94%20IntegrableOn%20f%20%28Set.Ioi%201%29%20%3A%3D%20by%0A%20%20have%20hf'%20%3A%20AntitoneOn%20f%20%28Set.Ici%20%28%281%20%3A%20%E2%84%95%29%20%3A%20%E2%84%9D%29%29%20%3A%3D%20by%20simpa%20using%20hf%0A%20%20have%20h0'%20%3A%20%E2%88%80%20t%20%E2%88%88%20Set.Ioi%20%28%281%20%3A%20%E2%84%95%29%20%3A%20%E2%84%9D%29%2C%200%20%E2%89%A4%20f%20t%20%3A%3D%20fun%20t%20ht%20%3D%3E%20by%0A%20%20%20%20simp%20only%20%5BNat.cast_one%2C%20Set.mem_Ioi%5D%20at%20ht%0A%20%20%20%20exact%20h0%20t%20%28Set.mem_Ici.mpr%20ht.le%29%0A%20%20constructor%0A%20%20%C2%B7%20intro%20hs%0A%20%20%20%20have%20h%20%3A%3D%20hf'.integrableOn_Ioi_of_summable_comp_add%20%28by%20simpa%20using%20hs%29%20h0'%0A%20%20%20%20simpa%20using%20h%0A%20%20%C2%B7%20intro%20hi%0A%20%20%20%20have%20h%20%3A%3D%20hf'.summable_of_integrableOn_Ioi%20%28by%20simpa%20using%20hi%29%20h0'%0A%20%20%20%20have%20h2%20%3A%3D%20%28summable_nat_add_iff%201%29.mpr%20h%0A%20%20%20%20simpa%20using%20h2%0A%0A--%20bounds%20with%20the%20partial%20sums%3A%20%E2%88%AB%20from%201%20to%201%20%2B%20N%20%E2%89%A4%20f%281%29%20%2B%20%E2%80%A6%20%2B%20f%28N%29%0Atheorem%20integral_le_partial_sum%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28hf%20%3A%20AntitoneOn%20f%20%28Set.Ici%201%29%29%20%28N%20%3A%20%E2%84%95%29%20%3A%0A%20%20%20%20%E2%88%AB%20x%20in%20%281%20%3A%20%E2%84%9D%29..1%20%2B%20N%2C%20f%20x%20%E2%89%A4%20%E2%88%91%20i%20%E2%88%88%20Finset.range%20N%2C%20f%20%281%20%2B%20i%29%20%3A%3D%0A%20%20%28hf.mono%20Set.Icc_subset_Ici_self%29.integral_le_sum%0A%0A--%20and%20f%282%29%20%2B%20%E2%80%A6%20%2B%20f%28N%20%2B%201%29%20%E2%89%A4%20%E2%88%AB%20from%201%20to%201%20%2B%20N%0Atheorem%20partial_sum_le_integral%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28hf%20%3A%20AntitoneOn%20f%20%28Set.Ici%201%29%29%20%28N%20%3A%20%E2%84%95%29%20%3A%0A%20%20%20%20%E2%88%91%20i%20%E2%88%88%20Finset.range%20N%2C%20f%20%281%20%2B%20%28i%20%2B%201%20%3A%20%E2%84%95%29%29%20%E2%89%A4%20%E2%88%AB%20x%20in%20%281%20%3A%20%E2%84%9D%29..1%20%2B%20N%2C%20f%20x%20%3A%3D%0A%20%20%28hf.mono%20Set.Icc_subset_Ici_self%29.sum_le_integral%0A%0A--%20the%20inequalities%20of%20the%20book%2C%20when%20the%20series%20converges%0Atheorem%20integral_test_bounds%20%28f%20%3A%20%E2%84%9D%20%E2%86%92%20%E2%84%9D%29%20%28hf%20%3A%20AntitoneOn%20f%20%28Set.Ici%201%29%29%0A%20%20%20%20%28h0%20%3A%20%E2%88%80%20x%20%E2%88%88%20Set.Ici%20%281%20%3A%20%E2%84%9D%29%2C%200%20%E2%89%A4%20f%20x%29%20%28hs%20%3A%20Summable%20%28fun%20n%20%3A%20%E2%84%95%20%3D%3E%20f%20%28n%20%2B%201%29%29%29%20%3A%0A%20%20%20%20%E2%88%AB%20x%20in%20Set.Ioi%20%281%20%3A%20%E2%84%9D%29%2C%20f%20x%20%E2%89%A4%20%E2%88%91'%20n%20%3A%20%E2%84%95%2C%20f%20%28n%20%2B%201%29%20%E2%88%A7%0A%20%20%20%20%20%20%E2%88%91'%20n%20%3A%20%E2%84%95%2C%20f%20%28n%20%2B%201%29%20%E2%89%A4%20f%201%20%2B%20%E2%88%AB%20x%20in%20Set.Ioi%20%281%20%3A%20%E2%84%9D%29%2C%20f%20x%20%3A%3D%20by%0A%20%20have%20hi%20%3A%20IntegrableOn%20f%20%28Set.Ioi%201%29%20%3A%3D%20%28integral_test%20f%20hf%20h0%29.mp%20hs%0A%20%20--%20the%20%E2%88%AB%20from%201%20to%201%20%2B%20N%20tends%20to%20the%20%E2%88%AB%20from%201%20to%20%2B%E2%88%9E%0A%20%20have%20hI%20%3A%20Tendsto%20%28fun%20N%20%3A%20%E2%84%95%20%3D%3E%20%E2%88%AB%20x%20in%20%281%20%3A%20%E2%84%9D%29..1%20%2B%20N%2C%20f%20x%29%20atTop%0A%20%20%20%20%20%20%28%F0%9D%93%9D%20%28%E2%88%AB%20x%20in%20Set.Ioi%20%281%20%3A%20%E2%84%9D%29%2C%20f%20x%29%29%20%3A%3D%0A%20%20%20%20intervalIntegral_tendsto_integral_Ioi%201%20hi%0A%20%20%20%20%20%20%28tendsto_atTop_add_const_left%20atTop%201%20tendsto_natCast_atTop_atTop%29%0A%20%20--%20the%20partial%20sums%20f%281%29%20%2B%20%E2%80%A6%20%2B%20f%28N%29%20tend%20to%20the%20sum%20of%20the%20series%0A%20%20have%20hS%20%3A%20Tendsto%20%28fun%20N%20%3D%3E%20%E2%88%91%20i%20%E2%88%88%20Finset.range%20N%2C%20f%20%281%20%2B%20i%29%29%20atTop%0A%20%20%20%20%20%20%28%F0%9D%93%9D%20%28%E2%88%91'%20n%20%3A%20%E2%84%95%2C%20f%20%28n%20%2B%201%29%29%29%20%3A%3D%20by%0A%20%20%20%20have%20h%20%3A%3D%20hs.hasSum.tendsto_sum_nat%0A%20%20%20%20simp%20only%20%5Badd_comm%20%281%20%3A%20%E2%84%9D%29%5D%0A%20%20%20%20exact%20h%0A%20%20have%20hS1%20%3A%20Tendsto%20%28fun%20N%20%3A%20%E2%84%95%20%3D%3E%20%E2%88%91%20i%20%E2%88%88%20Finset.range%20%28N%20%2B%201%29%2C%20f%20%281%20%2B%20i%29%29%20atTop%0A%20%20%20%20%20%20%28%F0%9D%93%9D%20%28%E2%88%91'%20n%20%3A%20%E2%84%95%2C%20f%20%28n%20%2B%201%29%29%29%20%3A%3D%0A%20%20%20%20hS.comp%20%28tendsto_add_atTop_nat%201%29%0A%20%20--%20f%281%29%20%2B%20f%282%29%20%2B%20%E2%80%A6%20%2B%20f%28N%20%2B%201%29%20%E2%89%A4%20f%281%29%20%2B%20%E2%88%AB%20from%201%20to%201%20%2B%20N%0A%20%20have%20h2%20%3A%20%E2%88%80%20N%20%3A%20%E2%84%95%2C%20%E2%88%91%20i%20%E2%88%88%20Finset.range%20%28N%20%2B%201%29%2C%20f%20%281%20%2B%20i%29%20%E2%89%A4%20f%201%20%2B%20%E2%88%AB%20x%20in%20%281%20%3A%20%E2%84%9D%29..1%20%2B%20N%2C%20f%20x%20%3A%3D%20by%0A%20%20%20%20intro%20N%0A%20%20%20%20rw%20%5BFinset.sum_range_succ'%2C%20Nat.cast_zero%2C%20add_zero%5D%0A%20%20%20%20linarith%20%5Bpartial_sum_le_integral%20f%20hf%20N%5D%0A%20%20exact%20%E2%9F%A8le_of_tendsto_of_tendsto'%20hI%20hS%20%28integral_le_partial_sum%20f%20hf%29%2C%0A%20%20%20%20le_of_tendsto_of_tendsto'%20hS1%20%28hI.const_add%20%28f%201%29%29%20h2%E2%9F%A9%0A%0Aend%20Ch19.KritirioOloklirwmatos%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Stewart, J. (2016). <em>Calculus: Early Transcendentals</em> (8th ed.). Cengage Learning.</li><li>Bartle, R. G., &amp; Sherbert, D. R. (2011). <em>Introduction to Real Analysis</em> (4th ed.). Wiley.</li><li>Rudin, W. (1976). <em>Principles of Mathematical Analysis</em> (3rd ed.). McGraw-Hill.</li><li>Negrepontis, S., Giotopoulos, S., &amp; Giannakoulias, E. (1999). <em>Apeirostikos Logismos [Infinitesimal Calculus]</em> (Vol. I). Ekdoseis Symmetria. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Necessary Condition for Convergence</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Necessary Condition for Convergence</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 19 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>If $\sum_{n=1}^{\infty}a_n$ converges, then $\lim a_n=0$. The converse does not hold: the harmonic series $\sum\dfrac{1}{n}$ diverges even though $\dfrac{1}{n}\to 0$.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20If%20%24%5Csum_%7Bn%3D1%7D%5E%7B%5Cinfty%7Da_n%24%20converges%2C%20then%20%24%5Clim%20a_n%3D0%24.%20The%20converse%20does%20not%20hold%3A%20the%20harmonic%20series%20%24%5Csum%5Cdfrac%7B1%7D%7Bn%7D%24%20diverges%20even%20though%20%24%5Cdfrac%7B1%7D%7Bn%7D%5Cto%200%24.">ChatGPT</a>
@@ -27,6 +87,120 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: If $\sum_{n=1}^{\infty}a_n$ converges, then $\lim a_n=0$. The converse does not hold: the harmonic series $\sum\dfrac{1}{n}$ diverges even though $\dfrac{1}{n}\to 0$.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The theorem, the counterexample and the divergence test were proved in Lean 4 with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 23/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">If $\sum a_n$ converges, then $a_n\to 0$</div><pre class="ln"><span class="kw">theorem</span> necessary (a : ℕ → ℝ) (S : ℝ)
+    (h : Tendsto (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range N, a n) atTop (𝓝 S)) :
+    Tendsto a atTop (𝓝 0)</pre></li><li><div class="bk">The converse does not hold: $\dfrac{1}{n}\to 0$, but the partial sums of the harmonic series tend to $+\infty$</div><pre class="ln"><span class="kw">theorem</span> harmonic :
+    Tendsto (<span class="kw">fun</span> n : ℕ =&gt; 1 / ((n : ℝ) + 1)) atTop (𝓝 0) ∧
+      Tendsto (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range N, 1 / ((n : ℝ) + 1)) atTop atTop</pre></li><li><div class="bk">If $a_n\to 0$ does not hold, the series diverges</div><pre class="ln"><span class="kw">theorem</span> diverges_of_not_tendsto (a : ℕ → ℝ) (h : ¬ Tendsto a atTop (𝓝 0)) :
+    ¬ ∃ S, Tendsto (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range N, a n) atTop (𝓝 S)</pre></li></ul>
+<p class="note">The convergence of the series is written as in the book, through the partial sums: <code>Tendsto (fun N => ∑ n ∈ Finset.range N, a n) atTop (𝓝 S)</code>, where $S_N=a_0+\dots+a_{N-1}$. The indexing starts at $0$; for the harmonic series we write the terms as $\dfrac{1}{n+1}$ with $n\ge 0$, which are the $1,\tfrac12,\tfrac13,\dots$ of the book.</p>
+<h2>2. Step by step: $\sum a_n$ converges $\Rightarrow$ $a_n\to 0$</h2>
+<p class="note">The idea, as in the book: $a_N=S_{N+1}-S_N\to S-S=0$. We start from the goal:</p>
+<div class="goal start"><span>The goal</span><pre>a : ℕ → ℝ
+S : ℝ
+h : Tendsto (fun N =&gt; ∑ n ∈ Finset.range N, a n) atTop (𝓝 S)
+⊢ Tendsto a atTop (𝓝 0)</pre></div>
+<p class="note">Above <code>⊢</code> is what we know; after <code>⊢</code> is what we have to show. After each step we show only what changed.</p>
+<ol class="steps"><li><pre class="ln"><span class="cm">-- the sequence S_{N+1} also tends to S</span>
+<span class="kw">have</span> h1 : Tendsto (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range (N + 1), a n) atTop (𝓝 S) :=
+  h.comp (tendsto_add_atTop_nat 1)</pre><p>Since $S_N\to S$, the shifted sequence $S_{N+1}$ also tends to $S$.</p><div class="goal"><span>What remains to be proved</span><pre>h1 : Tendsto (fun N =&gt; ∑ n ∈ Finset.range (N + 1), a n) atTop (𝓝 S)
+⊢ Tendsto a atTop (𝓝 0)</pre></div></li><li><pre class="ln"><span class="cm">-- a_N = S_{N+1} - S_N</span>
+<span class="kw">have</span> h2 : (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range (N + 1), a n - ∑ n ∈ Finset.range N, a n) = a := <span class="kw">by</span>
+  funext N
+  <span class="tc">rw</span> [Finset.sum_range_succ]</pre><p>To compare the two partial sums, we write $S_{N+1}=S_N+a_N$; the goal becomes $S_N+a_N-S_N=a_N$.</p><div class="goal"><span>What remains to be proved</span><pre>N : ℕ
+⊢ ∑ x ∈ Finset.range N, a x + a N - ∑ n ∈ Finset.range N, a n = a N</pre></div></li><li><pre class="ln"><span class="tc">ring</span></pre><p><code>ring</code> confirms it. Thus $S_{N+1}-S_N=a_N$ for every $N$.</p><div class="goal"><span>What remains to be proved</span><pre>h2 : (fun N =&gt; ∑ n ∈ Finset.range (N + 1), a n - ∑ n ∈ Finset.range N, a n) = a
+⊢ Tendsto a atTop (𝓝 0)</pre></div></li><li><pre class="ln"><span class="cm">-- hence a_N → S - S = 0</span>
+<span class="kw">have</span> h3 := h1.sub h</pre><p>By the limit laws, $S_{N+1}-S_N\to S-S$.</p><div class="goal"><span>What remains to be proved</span><pre>h3 : Tendsto (fun x =&gt; ∑ n ∈ Finset.range (x + 1), a n - ∑ n ∈ Finset.range x, a n) atTop (𝓝 (S - S))
+⊢ Tendsto a atTop (𝓝 0)</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [h2, sub_self] <span class="kw">at</span> h3</pre><p>We substitute $S_{N+1}-S_N=a_N$ and $S-S=0$: <code>h3</code> says that $a_n\to 0$, which is the goal.</p><div class="goal"><span>What remains to be proved</span><pre>h3 : Tendsto a atTop (𝓝 0)
+⊢ Tendsto a atTop (𝓝 0)</pre></div></li></ol>
+<h2>3. Try it yourself: The divergence test</h2>
+<div class="ex"><p>Show that if $a_n\to 0$ does not hold, then the partial sums do not converge. Open the exercise in Lean and replace the word <code>sorry</code> with your own steps. When the proof is correct, the message <i>declaration uses sorry</i> disappears and no red error appears.</p>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2019%20%C2%B7%20Necessary%20Condition%20for%20Convergence%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2823%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch19.AnagkaiaSynthiki%0Aopen%20Filter%20Topology%0A%0A--%20if%20the%20partial%20sums%20S_N%20converge%2C%20then%20a%20n%20%E2%86%92%200%0Atheorem%20necessary%20%28a%20%3A%20%E2%84%95%20%E2%86%92%20%E2%84%9D%29%20%28S%20%3A%20%E2%84%9D%29%0A%20%20%20%20%28h%20%3A%20Tendsto%20%28fun%20N%20%3D%3E%20%E2%88%91%20n%20%E2%88%88%20Finset.range%20N%2C%20a%20n%29%20atTop%20%28%F0%9D%93%9D%20S%29%29%20%3A%0A%20%20%20%20Tendsto%20a%20atTop%20%28%F0%9D%93%9D%200%29%20%3A%3D%20by%0A%20%20--%20the%20sequence%20S_%7BN%2B1%7D%20also%20tends%20to%20S%0A%20%20have%20h1%20%3A%20Tendsto%20%28fun%20N%20%3D%3E%20%E2%88%91%20n%20%E2%88%88%20Finset.range%20%28N%20%2B%201%29%2C%20a%20n%29%20atTop%20%28%F0%9D%93%9D%20S%29%20%3A%3D%0A%20%20%20%20h.comp%20%28tendsto_add_atTop_nat%201%29%0A%20%20--%20a_N%20%3D%20S_%7BN%2B1%7D%20-%20S_N%0A%20%20have%20h2%20%3A%20%28fun%20N%20%3D%3E%20%E2%88%91%20n%20%E2%88%88%20Finset.range%20%28N%20%2B%201%29%2C%20a%20n%20-%20%E2%88%91%20n%20%E2%88%88%20Finset.range%20N%2C%20a%20n%29%20%3D%20a%20%3A%3D%20by%0A%20%20%20%20funext%20N%0A%20%20%20%20rw%20%5BFinset.sum_range_succ%5D%0A%20%20%20%20ring%0A%20%20--%20hence%20a_N%20%E2%86%92%20S%20-%20S%20%3D%200%0A%20%20have%20h3%20%3A%3D%20h1.sub%20h%0A%20%20rw%20%5Bh2%2C%20sub_self%5D%20at%20h3%0A%20%20exact%20h3%0A%0A--%20the%20converse%20does%20not%20hold%3A%201%2F%28n%2B1%29%20%E2%86%92%200%2C%20but%20the%20harmonic%20series%20diverges%0Atheorem%20harmonic%20%3A%0A%20%20%20%20Tendsto%20%28fun%20n%20%3A%20%E2%84%95%20%3D%3E%201%20%2F%20%28%28n%20%3A%20%E2%84%9D%29%20%2B%201%29%29%20atTop%20%28%F0%9D%93%9D%200%29%20%E2%88%A7%0A%20%20%20%20%20%20Tendsto%20%28fun%20N%20%3D%3E%20%E2%88%91%20n%20%E2%88%88%20Finset.range%20N%2C%201%20%2F%20%28%28n%20%3A%20%E2%84%9D%29%20%2B%201%29%29%20atTop%20atTop%20%3A%3D%0A%20%20%E2%9F%A8tendsto_one_div_add_atTop_nhds_zero_nat%2C%20Real.tendsto_sum_range_one_div_nat_succ_atTop%E2%9F%A9%0A%0Atheorem%20diverges_of_not_tendsto%20%28a%20%3A%20%E2%84%95%20%E2%86%92%20%E2%84%9D%29%20%28h%20%3A%20%C2%AC%20Tendsto%20a%20atTop%20%28%F0%9D%93%9D%200%29%29%20%3A%0A%20%20%20%20%C2%AC%20%E2%88%83%20S%2C%20Tendsto%20%28fun%20N%20%3D%3E%20%E2%88%91%20n%20%E2%88%88%20Finset.range%20N%2C%20a%20n%29%20atTop%20%28%F0%9D%93%9D%20S%29%20%3A%3D%20by%0A%20%20--%20EXERCISE%3A%20replace%20the%20sorry%20with%20your%20own%20proof.%0A%20%20sorry%0A%0Aend%20Ch19.AnagkaiaSynthiki%0A" target="_blank" rel="noopener">Open the exercise in Lean</a>
+<details><summary>Hint</summary><div class="in"><p class="note">By contradiction: <code>rintro ⟨S, hS⟩</code> and then <code>exact h (necessary a S hS)</code>.</p></div></details>
+<details><summary>Solution</summary><div class="in"><pre class="ln"><span class="kw">theorem</span> diverges_of_not_tendsto (a : ℕ → ℝ) (h : ¬ Tendsto a atTop (𝓝 0)) :
+    ¬ ∃ S, Tendsto (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range N, a n) atTop (𝓝 S) := <span class="kw">by</span>
+  <span class="tc">rintro</span> ⟨S, hS⟩
+  <span class="tc">exact</span> h (necessary a S hS)</pre></div></details>
+</div>
+<h2>4. In Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Filter.tendsto_add_atTop_nat#doc" target="_blank" rel="noopener"><code>Filter.tendsto_add_atTop_nat</code></a>: $N+1\to+\infty$ as $N\to+\infty$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Filter.Tendsto.comp#doc" target="_blank" rel="noopener"><code>Filter.Tendsto.comp</code></a>: composition of limits; here it gives $S_{N+1}\to S$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Finset.sum_range_succ#doc" target="_blank" rel="noopener"><code>Finset.sum_range_succ</code></a>: $S_{N+1}=S_N+a_N$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Filter.Tendsto.sub#doc" target="_blank" rel="noopener"><code>Filter.Tendsto.sub</code></a>: the limit of a difference.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=tendsto_one_div_add_atTop_nhds_zero_nat#doc" target="_blank" rel="noopener"><code>tendsto_one_div_add_atTop_nhds_zero_nat</code></a>: $\dfrac{1}{n+1}\to 0$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.tendsto_sum_range_one_div_nat_succ_atTop#doc" target="_blank" rel="noopener"><code>Real.tendsto_sum_range_one_div_nat_succ_atTop</code></a>: the partial sums of the harmonic series tend to $+\infty$.</li></ul>
+<h2>5. The complete code</h2>
+<details><summary>See the code (39 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 19 · Necessary Condition for Convergence · checked with Lean v4.37.0-rc1 and Mathlib (23/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch19.AnagkaiaSynthiki
+<span class="kw">open</span> Filter Topology
+
+<span class="cm">-- if the partial sums S_N converge, then a n → 0</span>
+<span class="kw">theorem</span> necessary (a : ℕ → ℝ) (S : ℝ)
+    (h : Tendsto (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range N, a n) atTop (𝓝 S)) :
+    Tendsto a atTop (𝓝 0) := <span class="kw">by</span>
+  <span class="cm">-- the sequence S_{N+1} also tends to S</span>
+  <span class="kw">have</span> h1 : Tendsto (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range (N + 1), a n) atTop (𝓝 S) :=
+    h.comp (tendsto_add_atTop_nat 1)
+  <span class="cm">-- a_N = S_{N+1} - S_N</span>
+  <span class="kw">have</span> h2 : (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range (N + 1), a n - ∑ n ∈ Finset.range N, a n) = a := <span class="kw">by</span>
+    funext N
+    <span class="tc">rw</span> [Finset.sum_range_succ]
+    <span class="tc">ring</span>
+  <span class="cm">-- hence a_N → S - S = 0</span>
+  <span class="kw">have</span> h3 := h1.sub h
+  <span class="tc">rw</span> [h2, sub_self] <span class="kw">at</span> h3
+  <span class="tc">exact</span> h3
+
+<span class="cm">-- the converse does not hold: 1/(n+1) → 0, but the harmonic series diverges</span>
+<span class="kw">theorem</span> harmonic :
+    Tendsto (<span class="kw">fun</span> n : ℕ =&gt; 1 / ((n : ℝ) + 1)) atTop (𝓝 0) ∧
+      Tendsto (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range N, 1 / ((n : ℝ) + 1)) atTop atTop :=
+  ⟨tendsto_one_div_add_atTop_nhds_zero_nat, Real.tendsto_sum_range_one_div_nat_succ_atTop⟩
+
+<span class="kw">theorem</span> diverges_of_not_tendsto (a : ℕ → ℝ) (h : ¬ Tendsto a atTop (𝓝 0)) :
+    ¬ ∃ S, Tendsto (<span class="kw">fun</span> N =&gt; ∑ n ∈ Finset.range N, a n) atTop (𝓝 S) := <span class="kw">by</span>
+  <span class="tc">rintro</span> ⟨S, hS⟩
+  <span class="tc">exact</span> h (necessary a S hS)
+
+<span class="kw">end</span> Ch19.AnagkaiaSynthiki
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%2019%20%C2%B7%20Necessary%20Condition%20for%20Convergence%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2823%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch19.AnagkaiaSynthiki%0Aopen%20Filter%20Topology%0A%0A--%20if%20the%20partial%20sums%20S_N%20converge%2C%20then%20a%20n%20%E2%86%92%200%0Atheorem%20necessary%20%28a%20%3A%20%E2%84%95%20%E2%86%92%20%E2%84%9D%29%20%28S%20%3A%20%E2%84%9D%29%0A%20%20%20%20%28h%20%3A%20Tendsto%20%28fun%20N%20%3D%3E%20%E2%88%91%20n%20%E2%88%88%20Finset.range%20N%2C%20a%20n%29%20atTop%20%28%F0%9D%93%9D%20S%29%29%20%3A%0A%20%20%20%20Tendsto%20a%20atTop%20%28%F0%9D%93%9D%200%29%20%3A%3D%20by%0A%20%20--%20the%20sequence%20S_%7BN%2B1%7D%20also%20tends%20to%20S%0A%20%20have%20h1%20%3A%20Tendsto%20%28fun%20N%20%3D%3E%20%E2%88%91%20n%20%E2%88%88%20Finset.range%20%28N%20%2B%201%29%2C%20a%20n%29%20atTop%20%28%F0%9D%93%9D%20S%29%20%3A%3D%0A%20%20%20%20h.comp%20%28tendsto_add_atTop_nat%201%29%0A%20%20--%20a_N%20%3D%20S_%7BN%2B1%7D%20-%20S_N%0A%20%20have%20h2%20%3A%20%28fun%20N%20%3D%3E%20%E2%88%91%20n%20%E2%88%88%20Finset.range%20%28N%20%2B%201%29%2C%20a%20n%20-%20%E2%88%91%20n%20%E2%88%88%20Finset.range%20N%2C%20a%20n%29%20%3D%20a%20%3A%3D%20by%0A%20%20%20%20funext%20N%0A%20%20%20%20rw%20%5BFinset.sum_range_succ%5D%0A%20%20%20%20ring%0A%20%20--%20hence%20a_N%20%E2%86%92%20S%20-%20S%20%3D%200%0A%20%20have%20h3%20%3A%3D%20h1.sub%20h%0A%20%20rw%20%5Bh2%2C%20sub_self%5D%20at%20h3%0A%20%20exact%20h3%0A%0A--%20the%20converse%20does%20not%20hold%3A%201%2F%28n%2B1%29%20%E2%86%92%200%2C%20but%20the%20harmonic%20series%20diverges%0Atheorem%20harmonic%20%3A%0A%20%20%20%20Tendsto%20%28fun%20n%20%3A%20%E2%84%95%20%3D%3E%201%20%2F%20%28%28n%20%3A%20%E2%84%9D%29%20%2B%201%29%29%20atTop%20%28%F0%9D%93%9D%200%29%20%E2%88%A7%0A%20%20%20%20%20%20Tendsto%20%28fun%20N%20%3D%3E%20%E2%88%91%20n%20%E2%88%88%20Finset.range%20N%2C%201%20%2F%20%28%28n%20%3A%20%E2%84%9D%29%20%2B%201%29%29%20atTop%20atTop%20%3A%3D%0A%20%20%E2%9F%A8tendsto_one_div_add_atTop_nhds_zero_nat%2C%20Real.tendsto_sum_range_one_div_nat_succ_atTop%E2%9F%A9%0A%0Atheorem%20diverges_of_not_tendsto%20%28a%20%3A%20%E2%84%95%20%E2%86%92%20%E2%84%9D%29%20%28h%20%3A%20%C2%AC%20Tendsto%20a%20atTop%20%28%F0%9D%93%9D%200%29%29%20%3A%0A%20%20%20%20%C2%AC%20%E2%88%83%20S%2C%20Tendsto%20%28fun%20N%20%3D%3E%20%E2%88%91%20n%20%E2%88%88%20Finset.range%20N%2C%20a%20n%29%20atTop%20%28%F0%9D%93%9D%20S%29%20%3A%3D%20by%0A%20%20rintro%20%E2%9F%A8S%2C%20hS%E2%9F%A9%0A%20%20exact%20h%20%28necessary%20a%20S%20hS%29%0A%0Aend%20Ch19.AnagkaiaSynthiki%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Stewart, J. (2016). <em>Calculus: Early Transcendentals</em> (8th ed.). Cengage Learning.</li><li>Bartle, R. G., &amp; Sherbert, D. R. (2011). <em>Introduction to Real Analysis</em> (4th ed.). Wiley.</li><li>Rudin, W. (1976). <em>Principles of Mathematical Analysis</em> (3rd ed.). McGraw-Hill.</li><li>Negrepontis, S., Giotopoulos, S., &amp; Giannakoulias, E. (1999). <em>Apeirostikos Logismos [Infinitesimal Calculus]</em> (Vol. I). Ekdoseis Symmetria. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>
