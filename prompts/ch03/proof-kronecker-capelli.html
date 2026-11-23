@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kronecker–Capelli Theorem</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Kronecker–Capelli Theorem</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 3 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>Kronecker–Capelli Theorem: the system $Ax=b$, with $\tilde{A}=[A\mid b]$ the augmented matrix, is consistent $\Leftrightarrow\operatorname{rank}(A)=\operatorname{rank}(\tilde{A})$. In that case: if $\operatorname{rank}(A)=n$ there is a unique solution; if $\operatorname{rank}(A)\lt n$ there are infinitely many solutions with $n-\operatorname{rank}(A)$ free parameters.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20Kronecker%E2%80%93Capelli%20Theorem%3A%20the%20system%20%24Ax%3Db%24%2C%20with%20%24%5Ctilde%7BA%7D%3D%5BA%5Cmid%20b%5D%24%20the%20augmented%20matrix%2C%20is%20consistent%20%24%5CLeftrightarrow%5Coperatorname%7Brank%7D%28A%29%3D%5Coperatorname%7Brank%7D%28%5Ctilde%7BA%7D%29%24.%20In%20that%20case%3A%20if%20%24%5Coperatorname%7Brank%7D%28A%29%3Dn%24%20there%20is%20a%20unique%20solution%3B%20if%20%24%5Coperatorname%7Brank%7D%28A%29%5Clt%20n%24%20there%20are%20infinitely%20many%20solutions%20with%20%24n-%5Coperatorname%7Brank%7D%28A%29%24%20free%20parameters.">ChatGPT</a>
@@ -27,6 +87,141 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: Kronecker–Capelli Theorem: the system $Ax=b$, with $\tilde{A}=[A\mid b]$ the augmented matrix, is consistent $\Leftrightarrow\operatorname{rank}(A)=\operatorname{rank}(\tilde{A})$. In that case: if $\operatorname{rank}(A)=n$ there is a unique solution; if $\operatorname{rank}(A)\lt n$ there are infinitely many solutions with $n-\operatorname{rank}(A)$ free parameters.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The theorem and its corollaries were proved in Lean 4 with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">$Ax=b$ is consistent $\Leftrightarrow\operatorname{rank}(A)$<wbr>${}=\operatorname{rank}(\tilde{A})$</div><pre class="ln"><span class="kw">theorem</span> compatible_iff (A : Matrix (Fin m) (Fin n) ℝ) (b : Fin m → ℝ) :
+    (∃ x, A *ᵥ x = b) ↔ A.rank = (augmented A b).rank</pre></li><li><div class="bk">If $\operatorname{rank}(A)=n$, the solution is unique</div><pre class="ln"><span class="kw">theorem</span> unique_of_rank (A : Matrix (Fin m) (Fin n) ℝ) (b : Fin m → ℝ) (h : A.rank = n)
+    (x y : Fin n → ℝ) (hx : A *ᵥ x = b) (hy : A *ᵥ y = b) : x = y</pre></li><li><div class="bk">The solutions of the homogeneous system form a space of dimension $n-\operatorname{rank}(A)$: this is the number of free parameters</div><pre class="ln"><span class="kw">theorem</span> dim_solutions (A : Matrix (Fin m) (Fin n) ℝ) :
+    finrank ℝ (LinearMap.ker A.mulVecLin) = n - A.rank</pre></li></ul>
+<p class="note">The augmented matrix $\tilde{A}=[A\mid b]$ is defined in the code as <code>augmented A b</code>, an $m\times(n+1)$ matrix whose last column is $b$. The columns of a matrix are written <code>A.col</code>, and the space they span, the column space $\mathcal{C}(A)$, is written <code>span ℝ (Set.range A.col)</code>. For the case $\operatorname{rank}(A)\lt n$: every solution is a particular solution plus a solution of the homogeneous system, and the solutions of the homogeneous system form a space of dimension $n-\operatorname{rank}(A)$.</p>
+<h2>2. Step by step: consistent $\Leftrightarrow\operatorname{rank}(A)$<wbr>${}=\operatorname{rank}(\tilde{A})$</h2>
+<p class="note">The idea: the rank is the dimension of the column space. The matrix $\tilde{A}$ has one extra column, $b$, and the rank stays the same exactly when $b$ already belongs to the column space of $A$. We start from the goal:</p>
+<div class="goal start"><span>The goal</span><pre>m n : ℕ
+A : Matrix (Fin m) (Fin n) ℝ
+b : Fin m → ℝ
+⊢ (∃ x, A *ᵥ x = b) ↔ A.rank = (augmented A b).rank</pre></div>
+<p class="note">Above <code>⊢</code> is what we know; after <code>⊢</code> is what we have to show. After each step we show only what changed.</p>
+<ol class="steps"><li><pre class="ln"><span class="tc">rw</span> [solvable_iff_mem]</pre><p>The system has a solution exactly when $b$ is a linear combination of the columns of $A$, that is, $b\in\mathcal{C}(A)$ (lemma <code>solvable_iff_mem</code>, the exercise below).</p><div class="goal"><span>What remains to be proved</span><pre>⊢ b ∈ span ℝ (Set.range A.col) ↔ A.rank = (augmented A b).rank</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [← finrank_span_range_col, ← finrank_span_range_col]</pre><p>The rank of a matrix is the dimension of the space spanned by its columns.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ b ∈ span ℝ (Set.range A.col) ↔
+  finrank ℝ ↥(span ℝ (Set.range A.col)) = finrank ℝ ↥(span ℝ (Set.range (augmented A b).col))</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [cols_augmented]</pre><p>The columns of $\tilde{A}$ are the columns of $A$ together with $b$ (lemma <code>cols_augmented</code>).</p><div class="goal"><span>What remains to be proved</span><pre>⊢ b ∈ span ℝ (Set.range A.col) ↔ finrank ℝ ↥(span ℝ (Set.range A.col)) = finrank ℝ ↥(span ℝ (insert b (Set.range A.col)))</pre></div></li><li><pre class="ln"><span class="tc">constructor</span></pre><p>Two directions: <code>mp</code> for $\Rightarrow$ and <code>mpr</code> for $\Leftarrow$.</p><div class="goal"><span>What remains to be proved (2 goals)</span><i class="case">part mp</i><pre>⊢ b ∈ span ℝ (Set.range A.col) → finrank ℝ ↥(span ℝ (Set.range A.col)) = finrank ℝ ↥(span ℝ (insert b (Set.range A.col)))</pre><i class="case">part mpr</i><pre>⊢ finrank ℝ ↥(span ℝ (Set.range A.col)) = finrank ℝ ↥(span ℝ (insert b (Set.range A.col))) → b ∈ span ℝ (Set.range A.col)</pre></div></li><li><pre class="ln">· <span class="tc">intro</span> hb</pre><p>Direction $\Rightarrow$: we assume that $b\in\mathcal{C}(A)$.</p><div class="goal"><span>What remains to be proved</span><pre>hb : b ∈ span ℝ (Set.range A.col)
+⊢ finrank ℝ ↥(span ℝ (Set.range A.col)) = finrank ℝ ↥(span ℝ (insert b (Set.range A.col)))</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [span_insert_eq_span hb]</pre><p>Then adding $b$ does not change the spanned space, and hence not its dimension either.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln">· <span class="tc">intro</span> h</pre><p>Direction $\Leftarrow$: the two spaces have the same dimension.</p><div class="goal"><span>What remains to be proved</span><pre>m n : ℕ
+A : Matrix (Fin m) (Fin n) ℝ
+b : Fin m → ℝ
+h : finrank ℝ ↥(span ℝ (Set.range A.col)) = finrank ℝ ↥(span ℝ (insert b (Set.range A.col)))
+⊢ b ∈ span ℝ (Set.range A.col)</pre></div></li><li><pre class="ln"><span class="kw">have</span> hle : span ℝ (Set.range A.col) ≤ span ℝ (insert b (Set.range A.col)) :=
+  span_mono (Set.subset_insert b _)</pre><p>$\mathcal{C}(A)$ is contained in the space spanned by the columns of $A$ together with $b$.</p><div class="goal"><span>What remains to be proved</span><pre>hle : span ℝ (Set.range A.col) ≤ span ℝ (insert b (Set.range A.col))
+⊢ b ∈ span ℝ (Set.range A.col)</pre></div></li><li><pre class="ln"><span class="kw">have</span> heq := eq_of_le_of_finrank_eq hle h</pre><p>A subspace that is contained in another and has the same dimension is equal to it (theorem <code>eq_of_le_of_finrank_eq</code>).</p><div class="goal"><span>What remains to be proved</span><pre>heq : span ℝ (Set.range A.col) = span ℝ (insert b (Set.range A.col))
+⊢ b ∈ span ℝ (Set.range A.col)</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [heq]</pre><p>So it suffices to show that $b$ belongs to the larger space.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ b ∈ span ℝ (insert b (Set.range A.col))</pre></div></li><li><pre class="ln"><span class="tc">exact</span> subset_span (Set.mem_insert b _)</pre><p>This holds, because $b$ is one of the vectors that span it.</p><div class="goal done"><span>✓ </span>No goals: the proof is complete.</div></li></ol>
+<h2>3. Try it yourself: a solution exists exactly when $b\in\mathcal{C}(A)$</h2>
+<div class="ex"><p>$A\mathbf{x}$ is a linear combination of the columns of $A$ with coefficients $x_i$. Mathlib expresses this as follows: the image of the map $\mathbf{x}\mapsto A\mathbf{x}$ is the space spanned by the columns. Open the exercise in Lean and replace the word <code>sorry</code> with your own steps. When the proof is correct, the message <i>declaration uses sorry</i> disappears and no red error appears.</p>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%203%20%C2%B7%20Kronecker%E2%80%93Capelli%20Theorem%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch3.KroneckerCapelli%0Aopen%20Matrix%20Module%20Submodule%0A%0Avariable%20%7Bm%20n%20%3A%20%E2%84%95%7D%0A%0A%2F--%20The%20augmented%20matrix%20%5BA%20%7C%20b%5D%3A%20the%20columns%20of%20A%2C%20followed%20by%20b%20as%20the%20last%20column.%20-%2F%0Adef%20augmented%20%28A%20%3A%20Matrix%20%28Fin%20m%29%20%28Fin%20n%29%20%E2%84%9D%29%20%28b%20%3A%20Fin%20m%20%E2%86%92%20%E2%84%9D%29%20%3A%20Matrix%20%28Fin%20m%29%20%28Fin%20%28n%20%2B%201%29%29%20%E2%84%9D%20%3A%3D%0A%20%20Matrix.of%20fun%20i%20%3D%3E%20Fin.snoc%20%28A%20i%29%20%28b%20i%29%0A%0Atheorem%20cols_augmented%20%28A%20%3A%20Matrix%20%28Fin%20m%29%20%28Fin%20n%29%20%E2%84%9D%29%20%28b%20%3A%20Fin%20m%20%E2%86%92%20%E2%84%9D%29%20%3A%0A%20%20%20%20Set.range%20%28augmented%20A%20b%29.col%20%3D%20insert%20b%20%28Set.range%20A.col%29%20%3A%3D%20by%0A%20%20ext%20v%0A%20%20simp%20only%20%5BSet.mem_range%2C%20Set.mem_insert_iff%5D%0A%20%20constructor%0A%20%20%C2%B7%20rintro%20%E2%9F%A8j%2C%20rfl%E2%9F%A9%0A%20%20%20%20induction%20j%20using%20Fin.lastCases%20with%0A%20%20%20%20%7C%20last%20%3D%3E%20left%3B%20funext%20i%3B%20simp%20%5Baugmented%5D%0A%20%20%20%20%7C%20cast%20k%20%3D%3E%20right%3B%20exact%20%E2%9F%A8k%2C%20by%20funext%20i%3B%20simp%20%5Baugmented%5D%E2%9F%A9%0A%20%20%C2%B7%20rintro%20%28rfl%20%7C%20%E2%9F%A8k%2C%20rfl%E2%9F%A9%29%0A%20%20%20%20%C2%B7%20exact%20%E2%9F%A8Fin.last%20n%2C%20by%20funext%20i%3B%20simp%20%5Baugmented%5D%E2%9F%A9%0A%20%20%20%20%C2%B7%20exact%20%E2%9F%A8k.castSucc%2C%20by%20funext%20i%3B%20simp%20%5Baugmented%5D%E2%9F%A9%0A%0Atheorem%20solvable_iff_mem%20%28A%20%3A%20Matrix%20%28Fin%20m%29%20%28Fin%20n%29%20%E2%84%9D%29%20%28b%20%3A%20Fin%20m%20%E2%86%92%20%E2%84%9D%29%20%3A%0A%20%20%20%20%28%E2%88%83%20x%2C%20A%20*%E1%B5%A5%20x%20%3D%20b%29%20%E2%86%94%20b%20%E2%88%88%20span%20%E2%84%9D%20%28Set.range%20A.col%29%20%3A%3D%20by%0A%20%20--%20EXERCISE%3A%20replace%20the%20sorry%20with%20your%20own%20proof.%0A%20%20sorry%0A%0Atheorem%20compatible_iff%20%28A%20%3A%20Matrix%20%28Fin%20m%29%20%28Fin%20n%29%20%E2%84%9D%29%20%28b%20%3A%20Fin%20m%20%E2%86%92%20%E2%84%9D%29%20%3A%0A%20%20%20%20%28%E2%88%83%20x%2C%20A%20*%E1%B5%A5%20x%20%3D%20b%29%20%E2%86%94%20A.rank%20%3D%20%28augmented%20A%20b%29.rank%20%3A%3D%20by%0A%20%20rw%20%5Bsolvable_iff_mem%5D%0A%20%20rw%20%5B%E2%86%90%20finrank_span_range_col%2C%20%E2%86%90%20finrank_span_range_col%5D%0A%20%20rw%20%5Bcols_augmented%5D%0A%20%20constructor%0A%20%20%C2%B7%20intro%20hb%0A%20%20%20%20rw%20%5Bspan_insert_eq_span%20hb%5D%0A%20%20%C2%B7%20intro%20h%0A%20%20%20%20have%20hle%20%3A%20span%20%E2%84%9D%20%28Set.range%20A.col%29%20%E2%89%A4%20span%20%E2%84%9D%20%28insert%20b%20%28Set.range%20A.col%29%29%20%3A%3D%0A%20%20%20%20%20%20span_mono%20%28Set.subset_insert%20b%20_%29%0A%20%20%20%20have%20heq%20%3A%3D%20eq_of_le_of_finrank_eq%20hle%20h%0A%20%20%20%20rw%20%5Bheq%5D%0A%20%20%20%20exact%20subset_span%20%28Set.mem_insert%20b%20_%29%0A%0Atheorem%20dim_solutions%20%28A%20%3A%20Matrix%20%28Fin%20m%29%20%28Fin%20n%29%20%E2%84%9D%29%20%3A%0A%20%20%20%20finrank%20%E2%84%9D%20%28LinearMap.ker%20A.mulVecLin%29%20%3D%20n%20-%20A.rank%20%3A%3D%20by%0A%20%20have%20h%20%3A%3D%20LinearMap.finrank_range_add_finrank_ker%20A.mulVecLin%0A%20%20rw%20%5Bfinrank_range_mulVecLin%2C%20finrank_fin_fun%5D%20at%20h%0A%20%20omega%0A%0Atheorem%20unique_of_rank%20%28A%20%3A%20Matrix%20%28Fin%20m%29%20%28Fin%20n%29%20%E2%84%9D%29%20%28b%20%3A%20Fin%20m%20%E2%86%92%20%E2%84%9D%29%20%28h%20%3A%20A.rank%20%3D%20n%29%0A%20%20%20%20%28x%20y%20%3A%20Fin%20n%20%E2%86%92%20%E2%84%9D%29%20%28hx%20%3A%20A%20*%E1%B5%A5%20x%20%3D%20b%29%20%28hy%20%3A%20A%20*%E1%B5%A5%20y%20%3D%20b%29%20%3A%20x%20%3D%20y%20%3A%3D%20by%0A%20%20have%20hk%20%3A%20LinearMap.ker%20A.mulVecLin%20%3D%20%E2%8A%A5%20%3A%3D%20by%0A%20%20%20%20rw%20%5B%E2%86%90%20Submodule.finrank_eq_zero%2C%20dim_solutions%2C%20h%2C%20Nat.sub_self%5D%0A%20%20have%20hmem%20%3A%20x%20-%20y%20%E2%88%88%20LinearMap.ker%20A.mulVecLin%20%3A%3D%20by%0A%20%20%20%20rw%20%5BLinearMap.mem_ker%2C%20mulVecLin_apply%2C%20mulVec_sub%2C%20hx%2C%20hy%2C%20sub_self%5D%0A%20%20rw%20%5Bhk%2C%20Submodule.mem_bot%5D%20at%20hmem%0A%20%20exact%20sub_eq_zero.mp%20hmem%0A%0Aend%20Ch3.KroneckerCapelli%0A" target="_blank" rel="noopener">Open the exercise in Lean</a>
+<details><summary>Hint</summary><div class="in"><p class="note">Write <code>rw [← range_mulVecLin, LinearMap.mem_range]</code>. Then the two sides say the same thing in different words, and the proof closes with <code>rfl</code>.</p></div></details>
+<details><summary>Solution</summary><div class="in"><pre class="ln"><span class="kw">theorem</span> solvable_iff_mem (A : Matrix (Fin m) (Fin n) ℝ) (b : Fin m → ℝ) :
+    (∃ x, A *ᵥ x = b) ↔ b ∈ span ℝ (Set.range A.col) := <span class="kw">by</span>
+  <span class="tc">rw</span> [← range_mulVecLin, LinearMap.mem_range]
+  rfl</pre></div></details>
+</div>
+<h2>4. In Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Matrix.finrank_span_range_col#doc" target="_blank" rel="noopener"><code>Matrix.finrank_span_range_col</code></a>: the rank is the dimension of the column space.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Matrix.range_mulVecLin#doc" target="_blank" rel="noopener"><code>Matrix.range_mulVecLin</code></a>: the image of $\mathbf{x}\mapsto A\mathbf{x}$ is the column space.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Submodule.span_insert_eq_span#doc" target="_blank" rel="noopener"><code>Submodule.span_insert_eq_span</code></a>: adding a vector that already lies in the span does not change the spanned space.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Submodule.eq_of_le_of_finrank_eq#doc" target="_blank" rel="noopener"><code>Submodule.eq_of_le_of_finrank_eq</code></a>: a subspace inside another one of the same dimension is equal to it.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=LinearMap.finrank_range_add_finrank_ker#doc" target="_blank" rel="noopener"><code>LinearMap.finrank_range_add_finrank_ker</code></a>: the rank–nullity theorem.</li></ul>
+<h2>5. The complete code</h2>
+<details><summary>See the code (65 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 3 · Kronecker–Capelli Theorem · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch3.KroneckerCapelli
+<span class="kw">open</span> Matrix Module Submodule
+
+<span class="kw">variable</span> {m n : ℕ}
+
+<span class="cm">/-- The augmented matrix [A | b]: the columns of A, followed by b as the last column. -/</span>
+<span class="kw">def</span> augmented (A : Matrix (Fin m) (Fin n) ℝ) (b : Fin m → ℝ) : Matrix (Fin m) (Fin (n + 1)) ℝ :=
+  Matrix.of <span class="kw">fun</span> i =&gt; Fin.snoc (A i) (b i)
+
+<span class="kw">theorem</span> cols_augmented (A : Matrix (Fin m) (Fin n) ℝ) (b : Fin m → ℝ) :
+    Set.range (augmented A b).col = insert b (Set.range A.col) := <span class="kw">by</span>
+  <span class="tc">ext</span> v
+  <span class="tc">simp</span> only [Set.mem_range, Set.mem_insert_iff]
+  <span class="tc">constructor</span>
+  · <span class="tc">rintro</span> ⟨j, rfl⟩
+    <span class="tc">induction</span> j using Fin.lastCases <span class="kw">with</span>
+    | last =&gt; <span class="tc">left</span>; funext i; <span class="tc">simp</span> [augmented]
+    | cast k =&gt; <span class="tc">right</span>; <span class="tc">exact</span> ⟨k, <span class="kw">by</span> funext i; <span class="tc">simp</span> [augmented]⟩
+  · <span class="tc">rintro</span> (rfl | ⟨k, rfl⟩)
+    · <span class="tc">exact</span> ⟨Fin.last n, <span class="kw">by</span> funext i; <span class="tc">simp</span> [augmented]⟩
+    · <span class="tc">exact</span> ⟨k.castSucc, <span class="kw">by</span> funext i; <span class="tc">simp</span> [augmented]⟩
+
+<span class="kw">theorem</span> solvable_iff_mem (A : Matrix (Fin m) (Fin n) ℝ) (b : Fin m → ℝ) :
+    (∃ x, A *ᵥ x = b) ↔ b ∈ span ℝ (Set.range A.col) := <span class="kw">by</span>
+  <span class="tc">rw</span> [← range_mulVecLin, LinearMap.mem_range]
+  rfl
+
+<span class="kw">theorem</span> compatible_iff (A : Matrix (Fin m) (Fin n) ℝ) (b : Fin m → ℝ) :
+    (∃ x, A *ᵥ x = b) ↔ A.rank = (augmented A b).rank := <span class="kw">by</span>
+  <span class="tc">rw</span> [solvable_iff_mem]
+  <span class="tc">rw</span> [← finrank_span_range_col, ← finrank_span_range_col]
+  <span class="tc">rw</span> [cols_augmented]
+  <span class="tc">constructor</span>
+  · <span class="tc">intro</span> hb
+    <span class="tc">rw</span> [span_insert_eq_span hb]
+  · <span class="tc">intro</span> h
+    <span class="kw">have</span> hle : span ℝ (Set.range A.col) ≤ span ℝ (insert b (Set.range A.col)) :=
+      span_mono (Set.subset_insert b _)
+    <span class="kw">have</span> heq := eq_of_le_of_finrank_eq hle h
+    <span class="tc">rw</span> [heq]
+    <span class="tc">exact</span> subset_span (Set.mem_insert b _)
+
+<span class="kw">theorem</span> dim_solutions (A : Matrix (Fin m) (Fin n) ℝ) :
+    finrank ℝ (LinearMap.ker A.mulVecLin) = n - A.rank := <span class="kw">by</span>
+  <span class="kw">have</span> h := LinearMap.finrank_range_add_finrank_ker A.mulVecLin
+  <span class="tc">rw</span> [finrank_range_mulVecLin, finrank_fin_fun] <span class="kw">at</span> h
+  <span class="tc">omega</span>
+
+<span class="kw">theorem</span> unique_of_rank (A : Matrix (Fin m) (Fin n) ℝ) (b : Fin m → ℝ) (h : A.rank = n)
+    (x y : Fin n → ℝ) (hx : A *ᵥ x = b) (hy : A *ᵥ y = b) : x = y := <span class="kw">by</span>
+  <span class="kw">have</span> hk : LinearMap.ker A.mulVecLin = ⊥ := <span class="kw">by</span>
+    <span class="tc">rw</span> [← Submodule.finrank_eq_zero, dim_solutions, h, Nat.sub_self]
+  <span class="kw">have</span> hmem : x - y ∈ LinearMap.ker A.mulVecLin := <span class="kw">by</span>
+    <span class="tc">rw</span> [LinearMap.mem_ker, mulVecLin_apply, mulVec_sub, hx, hy, sub_self]
+  <span class="tc">rw</span> [hk, Submodule.mem_bot] <span class="kw">at</span> hmem
+  <span class="tc">exact</span> sub_eq_zero.mp hmem
+
+<span class="kw">end</span> Ch3.KroneckerCapelli
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%203%20%C2%B7%20Kronecker%E2%80%93Capelli%20Theorem%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch3.KroneckerCapelli%0Aopen%20Matrix%20Module%20Submodule%0A%0Avariable%20%7Bm%20n%20%3A%20%E2%84%95%7D%0A%0A%2F--%20The%20augmented%20matrix%20%5BA%20%7C%20b%5D%3A%20the%20columns%20of%20A%2C%20followed%20by%20b%20as%20the%20last%20column.%20-%2F%0Adef%20augmented%20%28A%20%3A%20Matrix%20%28Fin%20m%29%20%28Fin%20n%29%20%E2%84%9D%29%20%28b%20%3A%20Fin%20m%20%E2%86%92%20%E2%84%9D%29%20%3A%20Matrix%20%28Fin%20m%29%20%28Fin%20%28n%20%2B%201%29%29%20%E2%84%9D%20%3A%3D%0A%20%20Matrix.of%20fun%20i%20%3D%3E%20Fin.snoc%20%28A%20i%29%20%28b%20i%29%0A%0Atheorem%20cols_augmented%20%28A%20%3A%20Matrix%20%28Fin%20m%29%20%28Fin%20n%29%20%E2%84%9D%29%20%28b%20%3A%20Fin%20m%20%E2%86%92%20%E2%84%9D%29%20%3A%0A%20%20%20%20Set.range%20%28augmented%20A%20b%29.col%20%3D%20insert%20b%20%28Set.range%20A.col%29%20%3A%3D%20by%0A%20%20ext%20v%0A%20%20simp%20only%20%5BSet.mem_range%2C%20Set.mem_insert_iff%5D%0A%20%20constructor%0A%20%20%C2%B7%20rintro%20%E2%9F%A8j%2C%20rfl%E2%9F%A9%0A%20%20%20%20induction%20j%20using%20Fin.lastCases%20with%0A%20%20%20%20%7C%20last%20%3D%3E%20left%3B%20funext%20i%3B%20simp%20%5Baugmented%5D%0A%20%20%20%20%7C%20cast%20k%20%3D%3E%20right%3B%20exact%20%E2%9F%A8k%2C%20by%20funext%20i%3B%20simp%20%5Baugmented%5D%E2%9F%A9%0A%20%20%C2%B7%20rintro%20%28rfl%20%7C%20%E2%9F%A8k%2C%20rfl%E2%9F%A9%29%0A%20%20%20%20%C2%B7%20exact%20%E2%9F%A8Fin.last%20n%2C%20by%20funext%20i%3B%20simp%20%5Baugmented%5D%E2%9F%A9%0A%20%20%20%20%C2%B7%20exact%20%E2%9F%A8k.castSucc%2C%20by%20funext%20i%3B%20simp%20%5Baugmented%5D%E2%9F%A9%0A%0Atheorem%20solvable_iff_mem%20%28A%20%3A%20Matrix%20%28Fin%20m%29%20%28Fin%20n%29%20%E2%84%9D%29%20%28b%20%3A%20Fin%20m%20%E2%86%92%20%E2%84%9D%29%20%3A%0A%20%20%20%20%28%E2%88%83%20x%2C%20A%20*%E1%B5%A5%20x%20%3D%20b%29%20%E2%86%94%20b%20%E2%88%88%20span%20%E2%84%9D%20%28Set.range%20A.col%29%20%3A%3D%20by%0A%20%20rw%20%5B%E2%86%90%20range_mulVecLin%2C%20LinearMap.mem_range%5D%0A%20%20rfl%0A%0Atheorem%20compatible_iff%20%28A%20%3A%20Matrix%20%28Fin%20m%29%20%28Fin%20n%29%20%E2%84%9D%29%20%28b%20%3A%20Fin%20m%20%E2%86%92%20%E2%84%9D%29%20%3A%0A%20%20%20%20%28%E2%88%83%20x%2C%20A%20*%E1%B5%A5%20x%20%3D%20b%29%20%E2%86%94%20A.rank%20%3D%20%28augmented%20A%20b%29.rank%20%3A%3D%20by%0A%20%20rw%20%5Bsolvable_iff_mem%5D%0A%20%20rw%20%5B%E2%86%90%20finrank_span_range_col%2C%20%E2%86%90%20finrank_span_range_col%5D%0A%20%20rw%20%5Bcols_augmented%5D%0A%20%20constructor%0A%20%20%C2%B7%20intro%20hb%0A%20%20%20%20rw%20%5Bspan_insert_eq_span%20hb%5D%0A%20%20%C2%B7%20intro%20h%0A%20%20%20%20have%20hle%20%3A%20span%20%E2%84%9D%20%28Set.range%20A.col%29%20%E2%89%A4%20span%20%E2%84%9D%20%28insert%20b%20%28Set.range%20A.col%29%29%20%3A%3D%0A%20%20%20%20%20%20span_mono%20%28Set.subset_insert%20b%20_%29%0A%20%20%20%20have%20heq%20%3A%3D%20eq_of_le_of_finrank_eq%20hle%20h%0A%20%20%20%20rw%20%5Bheq%5D%0A%20%20%20%20exact%20subset_span%20%28Set.mem_insert%20b%20_%29%0A%0Atheorem%20dim_solutions%20%28A%20%3A%20Matrix%20%28Fin%20m%29%20%28Fin%20n%29%20%E2%84%9D%29%20%3A%0A%20%20%20%20finrank%20%E2%84%9D%20%28LinearMap.ker%20A.mulVecLin%29%20%3D%20n%20-%20A.rank%20%3A%3D%20by%0A%20%20have%20h%20%3A%3D%20LinearMap.finrank_range_add_finrank_ker%20A.mulVecLin%0A%20%20rw%20%5Bfinrank_range_mulVecLin%2C%20finrank_fin_fun%5D%20at%20h%0A%20%20omega%0A%0Atheorem%20unique_of_rank%20%28A%20%3A%20Matrix%20%28Fin%20m%29%20%28Fin%20n%29%20%E2%84%9D%29%20%28b%20%3A%20Fin%20m%20%E2%86%92%20%E2%84%9D%29%20%28h%20%3A%20A.rank%20%3D%20n%29%0A%20%20%20%20%28x%20y%20%3A%20Fin%20n%20%E2%86%92%20%E2%84%9D%29%20%28hx%20%3A%20A%20*%E1%B5%A5%20x%20%3D%20b%29%20%28hy%20%3A%20A%20*%E1%B5%A5%20y%20%3D%20b%29%20%3A%20x%20%3D%20y%20%3A%3D%20by%0A%20%20have%20hk%20%3A%20LinearMap.ker%20A.mulVecLin%20%3D%20%E2%8A%A5%20%3A%3D%20by%0A%20%20%20%20rw%20%5B%E2%86%90%20Submodule.finrank_eq_zero%2C%20dim_solutions%2C%20h%2C%20Nat.sub_self%5D%0A%20%20have%20hmem%20%3A%20x%20-%20y%20%E2%88%88%20LinearMap.ker%20A.mulVecLin%20%3A%3D%20by%0A%20%20%20%20rw%20%5BLinearMap.mem_ker%2C%20mulVecLin_apply%2C%20mulVec_sub%2C%20hx%2C%20hy%2C%20sub_self%5D%0A%20%20rw%20%5Bhk%2C%20Submodule.mem_bot%5D%20at%20hmem%0A%20%20exact%20sub_eq_zero.mp%20hmem%0A%0Aend%20Ch3.KroneckerCapelli%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Axler, S. (2024). <em>Linear Algebra Done Right</em> (4th ed.). Springer.</li><li>Hoffman, K., &amp; Kunze, R. (1971). <em>Linear Algebra</em> (2nd ed.). Prentice-Hall.</li><li>Strang, G. (2016). <em>Introduction to Linear Algebra</em> (5th ed.). Wellesley-Cambridge Press.</li><li>Varsos, D. A., Deriziotis, D. I., Maliakas, M. P., Papastavridis, S. G., Raptis, E., &amp; Talelli, O. P. (2003). <em>Eisagogi sti Grammiki Algevra [Introduction to Linear Algebra]</em> (Vol. A). Ekdoseis Sofia. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

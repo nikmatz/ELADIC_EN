@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>General Solution of the Basic Trigonometric Equations</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>General Solution of the Basic Trigonometric Equations</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 0 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>General solutions of the basic trigonometric equations (with $\kappa\in\mathbb{Z}$): $\sin x=k$ (for $|k|\le 1$) $\Rightarrow x=\arcsin k+2\kappa\pi$ or $x=\pi-\arcsin k+2\kappa\pi$; $\cos x=k$ (for $|k|\le 1$) $\Rightarrow x=\pm\arccos k+2\kappa\pi$; $\tan x=k\Rightarrow x=\arctan k+\kappa\pi$. If $|k|\gt 1$, the equations $\sin x=k$ and $\cos x=k$ have no solution.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20General%20solutions%20of%20the%20basic%20trigonometric%20equations%20%28with%20%24%5Ckappa%5Cin%5Cmathbb%7BZ%7D%24%29%3A%20%24%5Csin%20x%3Dk%24%20%28for%20%24%7Ck%7C%5Cle%201%24%29%20%24%5CRightarrow%20x%3D%5Carcsin%20k%2B2%5Ckappa%5Cpi%24%20or%20%24x%3D%5Cpi-%5Carcsin%20k%2B2%5Ckappa%5Cpi%24%3B%20%24%5Ccos%20x%3Dk%24%20%28for%20%24%7Ck%7C%5Cle%201%24%29%20%24%5CRightarrow%20x%3D%5Cpm%5Carccos%20k%2B2%5Ckappa%5Cpi%24%3B%20%24%5Ctan%20x%3Dk%5CRightarrow%20x%3D%5Carctan%20k%2B%5Ckappa%5Cpi%24.%20If%20%24%7Ck%7C%5Cgt%201%24%2C%20the%20equations%20%24%5Csin%20x%3Dk%24%20and%20%24%5Ccos%20x%3Dk%24%20have%20no%20solution.">ChatGPT</a>
@@ -27,6 +87,127 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: General solutions of the basic trigonometric equations (with $\kappa\in\mathbb{Z}$): $\sin x=k$ (for $|k|\le 1$) $\Rightarrow x=\arcsin k+2\kappa\pi$ or $x=\pi-\arcsin k+2\kappa\pi$; $\cos x=k$ (for $|k|\le 1$) $\Rightarrow x=\pm\arccos k+2\kappa\pi$; $\tan x=k\Rightarrow x=\arctan k+\kappa\pi$. If $|k|\gt 1$, the equations $\sin x=k$ and $\cos x=k$ have no solution.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The general solutions were proved in Lean 4 with no errors, using theorems from Mathlib.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">$\sin x=k$, $|k|\le 1$ $\Leftrightarrow x$<wbr>${}=\arcsin k+2\kappa\pi$ or $x=\pi-\arcsin k+2\kappa\pi$</div><pre class="ln"><span class="kw">theorem</span> sin_solutions (x k : ℝ) (hk : |k| ≤ 1) :
+    sin x = k ↔ ∃ n : ℤ, x = arcsin k + 2 * n * π ∨ x = π - arcsin k + 2 * n * π</pre></li><li><div class="bk">$\cos x=k$, $|k|\le 1$ $\Leftrightarrow x$<wbr>${}=\pm\arccos k+2\kappa\pi$</div><pre class="ln"><span class="kw">theorem</span> cos_solutions (x k : ℝ) (hk : |k| ≤ 1) :
+    cos x = k ↔ ∃ n : ℤ, x = arccos k + 2 * n * π ∨ x = -arccos k + 2 * n * π</pre></li><li><div class="bk">$\tan x$<wbr>${}=k\Rightarrow x$<wbr>${}=\arctan k+\kappa\pi$</div><pre class="ln"><span class="kw">theorem</span> tan_solutions (x k : ℝ) (hx : cos x ≠ 0) (h : tan x = k) :
+    ∃ n : ℤ, x = arctan k + n * π</pre></li><li><div class="bk">If $|k|\gt 1$, the equations $\sin x=k$ and $\cos x=k$ have no solution</div><pre class="ln"><span class="kw">theorem</span> no_solution (x k : ℝ) (hk : 1 &lt; |k|) : sin x ≠ k ∧ cos x ≠ k</pre></li></ul>
+<p class="note">The book’s $\kappa\in\mathbb{Z}$ is called <code>n : ℤ</code> here. For the tangent we assume $\cos x\neq 0$, so that $\tan x$ is defined as in the book. For sine and cosine we also prove the converse: every such $x$ is a solution.</p>
+<h2>2. Where it is in Mathlib</h2>
+<p class="note">We relied on these theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.sin_eq_sin_iff#doc" target="_blank" rel="noopener"><code>Real.sin_eq_sin_iff</code></a>: $\sin x=\sin y$ exactly when $y=2k\pi+x$ or $y=(2k+1)\pi-x$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.cos_eq_cos_iff#doc" target="_blank" rel="noopener"><code>Real.cos_eq_cos_iff</code></a>: $\cos x=\cos y$ exactly when $y=2k\pi\pm x$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.sin_arcsin#doc" target="_blank" rel="noopener"><code>Real.sin_arcsin</code></a>: $\sin(\arcsin k)=k$ for $-1\le k\le 1$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Real.sin_eq_zero_iff#doc" target="_blank" rel="noopener"><code>Real.sin_eq_zero_iff</code></a>: $\sin x=0$ exactly when $x=n\pi$.</li></ul>
+<h2>3. The complete code</h2>
+<details><summary>See the code (77 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 0 · General Solution of the Basic Trigonometric Equations · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch0.TrigExisoseis
+<span class="kw">open</span> Real
+
+<span class="kw">theorem</span> sin_solutions (x k : ℝ) (hk : |k| ≤ 1) :
+    sin x = k ↔ ∃ n : ℤ, x = arcsin k + 2 * n * π ∨ x = π - arcsin k + 2 * n * π := <span class="kw">by</span>
+  <span class="kw">have</span> hs : sin (arcsin k) = k := sin_arcsin (abs_le.mp hk).1 (abs_le.mp hk).2
+  <span class="tc">constructor</span>
+  · <span class="tc">intro</span> h
+    <span class="kw">have</span> e : sin (arcsin k) = sin x := <span class="kw">by</span> <span class="tc">rw</span> [hs, h]
+    <span class="tc">obtain</span> ⟨n, hn⟩ := sin_eq_sin_iff.mp e
+    <span class="tc">refine</span> ⟨n, ?_⟩
+    <span class="tc">rcases</span> hn <span class="kw">with</span> hn | hn
+    · <span class="tc">left</span>
+      <span class="tc">linarith</span>
+    · <span class="tc">right</span>
+      <span class="tc">linarith</span>
+  · <span class="tc">rintro</span> ⟨n, hn | hn⟩
+    · <span class="kw">have</span> e : sin (arcsin k) = sin x := sin_eq_sin_iff.mpr ⟨n, Or.inl (<span class="kw">by</span> <span class="tc">linarith</span>)⟩
+      <span class="tc">rw</span> [← e, hs]
+    · <span class="kw">have</span> e : sin (arcsin k) = sin x := sin_eq_sin_iff.mpr ⟨n, Or.inr (<span class="kw">by</span> <span class="tc">linarith</span>)⟩
+      <span class="tc">rw</span> [← e, hs]
+
+<span class="kw">theorem</span> cos_solutions (x k : ℝ) (hk : |k| ≤ 1) :
+    cos x = k ↔ ∃ n : ℤ, x = arccos k + 2 * n * π ∨ x = -arccos k + 2 * n * π := <span class="kw">by</span>
+  <span class="kw">have</span> hc : cos (arccos k) = k := cos_arccos (abs_le.mp hk).1 (abs_le.mp hk).2
+  <span class="tc">constructor</span>
+  · <span class="tc">intro</span> h
+    <span class="kw">have</span> e : cos (arccos k) = cos x := <span class="kw">by</span> <span class="tc">rw</span> [hc, h]
+    <span class="tc">obtain</span> ⟨n, hn⟩ := cos_eq_cos_iff.mp e
+    <span class="tc">refine</span> ⟨n, ?_⟩
+    <span class="tc">rcases</span> hn <span class="kw">with</span> hn | hn
+    · <span class="tc">left</span>
+      <span class="tc">linarith</span>
+    · <span class="tc">right</span>
+      <span class="tc">linarith</span>
+  · <span class="tc">rintro</span> ⟨n, hn | hn⟩
+    · <span class="kw">have</span> e : cos (arccos k) = cos x := cos_eq_cos_iff.mpr ⟨n, Or.inl (<span class="kw">by</span> <span class="tc">linarith</span>)⟩
+      <span class="tc">rw</span> [← e, hc]
+    · <span class="kw">have</span> e : cos (arccos k) = cos x := cos_eq_cos_iff.mpr ⟨n, Or.inr (<span class="kw">by</span> <span class="tc">linarith</span>)⟩
+      <span class="tc">rw</span> [← e, hc]
+
+<span class="kw">theorem</span> tan_solutions (x k : ℝ) (hx : cos x ≠ 0) (h : tan x = k) :
+    ∃ n : ℤ, x = arctan k + n * π := <span class="kw">by</span>
+  <span class="kw">have</span> hc : 0 &lt; cos (arctan k) := cos_arctan_pos k
+  <span class="kw">have</span> h₁ : sin x = k * cos x := <span class="kw">by</span>
+    <span class="tc">rw</span> [← h, tan_eq_sin_div_cos, div_mul_cancel₀ _ hx]
+  <span class="kw">have</span> h₂ : sin (arctan k) = k * cos (arctan k) := <span class="kw">by</span>
+    <span class="kw">have</span> t := tan_arctan k
+    <span class="tc">rw</span> [tan_eq_sin_div_cos] <span class="kw">at</span> t
+    <span class="kw">have</span> e := div_mul_cancel₀ (sin (arctan k)) hc.ne&#x27;
+    <span class="tc">rw</span> [t] <span class="kw">at</span> e
+    <span class="tc">exact</span> e.symm
+  <span class="kw">have</span> h₃ : sin (x - arctan k) = 0 := <span class="kw">by</span>
+    <span class="tc">rw</span> [sin_sub, h₁, h₂]
+    <span class="tc">ring</span>
+  <span class="tc">obtain</span> ⟨n, hn⟩ := sin_eq_zero_iff.mp h₃
+  <span class="tc">exact</span> ⟨n, <span class="kw">by</span> <span class="tc">linarith</span>⟩
+
+<span class="kw">theorem</span> no_solution (x k : ℝ) (hk : 1 &lt; |k|) : sin x ≠ k ∧ cos x ≠ k := <span class="kw">by</span>
+  <span class="tc">constructor</span>
+  · <span class="tc">intro</span> h
+    <span class="kw">have</span> b := abs_sin_le_one x
+    <span class="tc">rw</span> [h] <span class="kw">at</span> b
+    <span class="tc">linarith</span>
+  · <span class="tc">intro</span> h
+    <span class="kw">have</span> b := abs_cos_le_one x
+    <span class="tc">rw</span> [h] <span class="kw">at</span> b
+    <span class="tc">linarith</span>
+
+<span class="kw">end</span> Ch0.TrigExisoseis
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%200%20%C2%B7%20General%20Solution%20of%20the%20Basic%20Trigonometric%20Equations%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch0.TrigExisoseis%0Aopen%20Real%0A%0Atheorem%20sin_solutions%20%28x%20k%20%3A%20%E2%84%9D%29%20%28hk%20%3A%20%7Ck%7C%20%E2%89%A4%201%29%20%3A%0A%20%20%20%20sin%20x%20%3D%20k%20%E2%86%94%20%E2%88%83%20n%20%3A%20%E2%84%A4%2C%20x%20%3D%20arcsin%20k%20%2B%202%20*%20n%20*%20%CF%80%20%E2%88%A8%20x%20%3D%20%CF%80%20-%20arcsin%20k%20%2B%202%20*%20n%20*%20%CF%80%20%3A%3D%20by%0A%20%20have%20hs%20%3A%20sin%20%28arcsin%20k%29%20%3D%20k%20%3A%3D%20sin_arcsin%20%28abs_le.mp%20hk%29.1%20%28abs_le.mp%20hk%29.2%0A%20%20constructor%0A%20%20%C2%B7%20intro%20h%0A%20%20%20%20have%20e%20%3A%20sin%20%28arcsin%20k%29%20%3D%20sin%20x%20%3A%3D%20by%20rw%20%5Bhs%2C%20h%5D%0A%20%20%20%20obtain%20%E2%9F%A8n%2C%20hn%E2%9F%A9%20%3A%3D%20sin_eq_sin_iff.mp%20e%0A%20%20%20%20refine%20%E2%9F%A8n%2C%20%3F_%E2%9F%A9%0A%20%20%20%20rcases%20hn%20with%20hn%20%7C%20hn%0A%20%20%20%20%C2%B7%20left%0A%20%20%20%20%20%20linarith%0A%20%20%20%20%C2%B7%20right%0A%20%20%20%20%20%20linarith%0A%20%20%C2%B7%20rintro%20%E2%9F%A8n%2C%20hn%20%7C%20hn%E2%9F%A9%0A%20%20%20%20%C2%B7%20have%20e%20%3A%20sin%20%28arcsin%20k%29%20%3D%20sin%20x%20%3A%3D%20sin_eq_sin_iff.mpr%20%E2%9F%A8n%2C%20Or.inl%20%28by%20linarith%29%E2%9F%A9%0A%20%20%20%20%20%20rw%20%5B%E2%86%90%20e%2C%20hs%5D%0A%20%20%20%20%C2%B7%20have%20e%20%3A%20sin%20%28arcsin%20k%29%20%3D%20sin%20x%20%3A%3D%20sin_eq_sin_iff.mpr%20%E2%9F%A8n%2C%20Or.inr%20%28by%20linarith%29%E2%9F%A9%0A%20%20%20%20%20%20rw%20%5B%E2%86%90%20e%2C%20hs%5D%0A%0Atheorem%20cos_solutions%20%28x%20k%20%3A%20%E2%84%9D%29%20%28hk%20%3A%20%7Ck%7C%20%E2%89%A4%201%29%20%3A%0A%20%20%20%20cos%20x%20%3D%20k%20%E2%86%94%20%E2%88%83%20n%20%3A%20%E2%84%A4%2C%20x%20%3D%20arccos%20k%20%2B%202%20*%20n%20*%20%CF%80%20%E2%88%A8%20x%20%3D%20-arccos%20k%20%2B%202%20*%20n%20*%20%CF%80%20%3A%3D%20by%0A%20%20have%20hc%20%3A%20cos%20%28arccos%20k%29%20%3D%20k%20%3A%3D%20cos_arccos%20%28abs_le.mp%20hk%29.1%20%28abs_le.mp%20hk%29.2%0A%20%20constructor%0A%20%20%C2%B7%20intro%20h%0A%20%20%20%20have%20e%20%3A%20cos%20%28arccos%20k%29%20%3D%20cos%20x%20%3A%3D%20by%20rw%20%5Bhc%2C%20h%5D%0A%20%20%20%20obtain%20%E2%9F%A8n%2C%20hn%E2%9F%A9%20%3A%3D%20cos_eq_cos_iff.mp%20e%0A%20%20%20%20refine%20%E2%9F%A8n%2C%20%3F_%E2%9F%A9%0A%20%20%20%20rcases%20hn%20with%20hn%20%7C%20hn%0A%20%20%20%20%C2%B7%20left%0A%20%20%20%20%20%20linarith%0A%20%20%20%20%C2%B7%20right%0A%20%20%20%20%20%20linarith%0A%20%20%C2%B7%20rintro%20%E2%9F%A8n%2C%20hn%20%7C%20hn%E2%9F%A9%0A%20%20%20%20%C2%B7%20have%20e%20%3A%20cos%20%28arccos%20k%29%20%3D%20cos%20x%20%3A%3D%20cos_eq_cos_iff.mpr%20%E2%9F%A8n%2C%20Or.inl%20%28by%20linarith%29%E2%9F%A9%0A%20%20%20%20%20%20rw%20%5B%E2%86%90%20e%2C%20hc%5D%0A%20%20%20%20%C2%B7%20have%20e%20%3A%20cos%20%28arccos%20k%29%20%3D%20cos%20x%20%3A%3D%20cos_eq_cos_iff.mpr%20%E2%9F%A8n%2C%20Or.inr%20%28by%20linarith%29%E2%9F%A9%0A%20%20%20%20%20%20rw%20%5B%E2%86%90%20e%2C%20hc%5D%0A%0Atheorem%20tan_solutions%20%28x%20k%20%3A%20%E2%84%9D%29%20%28hx%20%3A%20cos%20x%20%E2%89%A0%200%29%20%28h%20%3A%20tan%20x%20%3D%20k%29%20%3A%0A%20%20%20%20%E2%88%83%20n%20%3A%20%E2%84%A4%2C%20x%20%3D%20arctan%20k%20%2B%20n%20*%20%CF%80%20%3A%3D%20by%0A%20%20have%20hc%20%3A%200%20%3C%20cos%20%28arctan%20k%29%20%3A%3D%20cos_arctan_pos%20k%0A%20%20have%20h%E2%82%81%20%3A%20sin%20x%20%3D%20k%20*%20cos%20x%20%3A%3D%20by%0A%20%20%20%20rw%20%5B%E2%86%90%20h%2C%20tan_eq_sin_div_cos%2C%20div_mul_cancel%E2%82%80%20_%20hx%5D%0A%20%20have%20h%E2%82%82%20%3A%20sin%20%28arctan%20k%29%20%3D%20k%20*%20cos%20%28arctan%20k%29%20%3A%3D%20by%0A%20%20%20%20have%20t%20%3A%3D%20tan_arctan%20k%0A%20%20%20%20rw%20%5Btan_eq_sin_div_cos%5D%20at%20t%0A%20%20%20%20have%20e%20%3A%3D%20div_mul_cancel%E2%82%80%20%28sin%20%28arctan%20k%29%29%20hc.ne'%0A%20%20%20%20rw%20%5Bt%5D%20at%20e%0A%20%20%20%20exact%20e.symm%0A%20%20have%20h%E2%82%83%20%3A%20sin%20%28x%20-%20arctan%20k%29%20%3D%200%20%3A%3D%20by%0A%20%20%20%20rw%20%5Bsin_sub%2C%20h%E2%82%81%2C%20h%E2%82%82%5D%0A%20%20%20%20ring%0A%20%20obtain%20%E2%9F%A8n%2C%20hn%E2%9F%A9%20%3A%3D%20sin_eq_zero_iff.mp%20h%E2%82%83%0A%20%20exact%20%E2%9F%A8n%2C%20by%20linarith%E2%9F%A9%0A%0Atheorem%20no_solution%20%28x%20k%20%3A%20%E2%84%9D%29%20%28hk%20%3A%201%20%3C%20%7Ck%7C%29%20%3A%20sin%20x%20%E2%89%A0%20k%20%E2%88%A7%20cos%20x%20%E2%89%A0%20k%20%3A%3D%20by%0A%20%20constructor%0A%20%20%C2%B7%20intro%20h%0A%20%20%20%20have%20b%20%3A%3D%20abs_sin_le_one%20x%0A%20%20%20%20rw%20%5Bh%5D%20at%20b%0A%20%20%20%20linarith%0A%20%20%C2%B7%20intro%20h%0A%20%20%20%20have%20b%20%3A%3D%20abs_cos_le_one%20x%0A%20%20%20%20rw%20%5Bh%5D%20at%20b%0A%20%20%20%20linarith%0A%0Aend%20Ch0.TrigExisoseis%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Stewart, J. (2016). <em>Calculus: Early Transcendentals</em> (8th ed.). Cengage Learning.</li><li>Edwards, C. H., &amp; Penney, D. E. (2008). <em>Calculus: Early Transcendentals</em> (7th ed.). Pearson/Prentice Hall.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

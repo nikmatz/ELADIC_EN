@@ -1,23 +1,81 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Basic Properties of a Vector Space</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
 .p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
 </style></head><body>
 <h1>Basic Properties of a Vector Space</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 1 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>In a vector space $V$: the zero vector $0$ is unique; the negative $-u$ of each $u$ is unique; $0\cdot u=0$, $\lambda\cdot 0=0$, $(-1)\cdot u=-u$, and if $\lambda\cdot u=0$ then $\lambda=0$ or $u=0$.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20In%20a%20vector%20space%20%24V%24%3A%20the%20zero%20vector%20%240%24%20is%20unique%3B%20the%20negative%20%24-u%24%20of%20each%20%24u%24%20is%20unique%3B%20%240%5Ccdot%20u%3D0%24%2C%20%24%5Clambda%5Ccdot%200%3D0%24%2C%20%24%28-1%29%5Ccdot%20u%3D-u%24%2C%20and%20if%20%24%5Clambda%5Ccdot%20u%3D0%24%20then%20%24%5Clambda%3D0%24%20or%20%24u%3D0%24.">ChatGPT</a>
@@ -27,6 +85,200 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: In a vector space $V$: the zero vector $0$ is unique; the negative $-u$ of each $u$ is unique; $0\cdot u=0$, $\lambda\cdot 0=0$, $(-1)\cdot u=-u$, and if $\lambda\cdot u=0$ then $\lambda=0$ or $u=0$.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> All six properties were proved in Lean 4, and the check passed with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. Here we start from the eight axioms of a vector space, as in the book, and prove everything else from them alone.</p>
+
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">The zero vector $0$ is unique</div><pre class="ln"><span class="kw">theorem</span> zero_unique (z : V) (hz : ∀ u : V, u + z = u) : z = 0</pre></li><li><div class="bk">The negative $-u$ of each $u$ is unique</div><pre class="ln"><span class="kw">theorem</span> neg_unique {u w : V} (h : u + w = 0) : w = -u</pre></li><li><div class="bk">$0\cdot u=0$</div><pre class="ln"><span class="kw">theorem</span> zero_smul&#x27; (u : V) : (0 : ℝ) • u = 0</pre></li><li><div class="bk">$\lambda\cdot 0=0$</div><pre class="ln"><span class="kw">theorem</span> smul_zero&#x27; (κ : ℝ) : κ • (0 : V) = 0</pre></li><li><div class="bk">$(-1)\cdot u=-u$</div><pre class="ln"><span class="kw">theorem</span> neg_one_smul&#x27; (u : V) : (-1 : ℝ) • u = -u</pre></li><li><div class="bk">If $\lambda\cdot u=0$, then $\lambda=0$ or $u=0$</div><pre class="ln"><span class="kw">theorem</span> eq_zero_or_eq_zero_of_smul_eq_zero {κ : ℝ} {u : V}
+    (h : κ • u = 0) : κ = 0 ∨ u = 0</pre></li></ul>
+<p class="note">How to read them: <code>•</code> is scalar multiplication, <code>∀</code> means “for every”, <code>∨</code> means “or”, and <code>(h : …)</code> is a hypothesis named <code>h</code>. <code>λ</code> is a reserved word in Lean, so we call the scalar <code>κ</code>. Lean checks the proof; whether its statement says the same thing as the book is for the reader to judge, which is why we put them side by side.</p>
+<details><summary>The eight axioms, as we wrote them in Lean</summary><div class="in">
+<table><tbody><tr><td><code>add_comm</code></td><td>$u+v=v+u$</td></tr><tr><td><code>add_assoc</code></td><td>$(u+v)+w=u+(v+w)$</td></tr><tr><td><code>add_zero</code></td><td>$u+0=u$</td></tr><tr><td><code>add_neg</code></td><td>$u+(-u)=0$</td></tr><tr><td><code>smul_add</code></td><td>$\kappa(u+v)=\kappa u+\kappa v$</td></tr><tr><td><code>add_smul</code></td><td>$(\kappa+\mu)u=\kappa u+\mu u$</td></tr><tr><td><code>mul_smul</code></td><td>$(\kappa\mu)u=\kappa(\mu u)$</td></tr><tr><td><code>one_smul</code></td><td>$1\cdot u=u$</td></tr></tbody></table>
+<p class="note">For all $u,v,w\in V$ and $\kappa,\mu\in\mathbb{R}$. In the code, the definition is the structure <code>VectorSpace</code>:</p>
+<pre class="ln"><span class="kw">class</span> VectorSpace (V : Type) <span class="kw">extends</span> Add V, Zero V, Neg V, SMul ℝ V <span class="kw">where</span>
+  <span class="cm">/-- u + v = v + u -/</span>
+  add_comm : ∀ u v : V, u + v = v + u
+  <span class="cm">/-- (u + v) + w = u + (v + w) -/</span>
+  add_assoc : ∀ u v w : V, u + v + w = u + (v + w)
+  <span class="cm">/-- u + 0 = u -/</span>
+  add_zero : ∀ u : V, u + 0 = u
+  <span class="cm">/-- u + (−u) = 0 -/</span>
+  add_neg : ∀ u : V, u + -u = 0
+  <span class="cm">/-- κ·(u + v) = κ·u + κ·v -/</span>
+  smul_add : ∀ (κ : ℝ) (u v : V), κ • (u + v) = κ • u + κ • v
+  <span class="cm">/-- (κ + μ)·u = κ·u + μ·u -/</span>
+  add_smul : ∀ (κ μ : ℝ) (u : V), (κ + μ) • u = κ • u + μ • u
+  <span class="cm">/-- (κμ)·u = κ·(μ·u) -/</span>
+  mul_smul : ∀ (κ μ : ℝ) (u : V), (κ * μ) • u = κ • (μ • u)
+  <span class="cm">/-- 1·u = u -/</span>
+  one_smul : ∀ u : V, (1 : ℝ) • u = u</pre></div></details>
+
+<h2>2. Step by step: the proof of $0\cdot u=0$</h2>
+<p class="note">In the book: $0\cdot u=(0+0)\cdot u=0\cdot u+0\cdot u$, and adding $-(0\cdot u)$ to both sides we get $0\cdot u=0$. In Lean the same idea takes three steps. We start from the goal:</p>
+<div class="goal start"><span>The goal</span><pre>V : Type
+inst✝ : VectorSpace V
+u : V
+⊢ 0 • u = 0</pre></div>
+<p class="note">Above <code>⊢</code> is what we know ($V$ is a vector space, $u$ is a vector in it); after <code>⊢</code> is what we have to show. These do not change below, so we show only the goal line.</p>
+<ol class="steps"><li><pre class="ln"><span class="tc">apply</span> eq_zero_of_add_self</pre><p>It suffices to show that $0\cdot u+0\cdot u=0\cdot u$. Why? If $x+x=x$, we add $-x$ to both sides and find $x=0$. This is the lemma <code>eq_zero_of_add_self</code> (see below).</p><div class="goal"><span>What remains to be proved</span><pre>⊢ 0 • u + 0 • u = 0 • u</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [← VectorSpace.add_smul]</pre><p>By the axiom $(\kappa+\mu)u=\kappa u+\mu u$, read from right to left: $0\cdot u+0\cdot u=(0+0)\cdot u$. The symbol <code>←</code> means “from right to left”.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ (0 + 0) • u = 0 • u</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [add_zero]</pre><p>In the real numbers $0+0=0$, so the two sides become identical and Lean closes the equality by itself.</p><div class="goal done"><span>✓ </span>No goals: the proof is complete.</div></li></ol>
+<details><summary>The lemma we used: if $x+x=x$, then $x=0$</summary><div class="in">
+<pre class="ln"><span class="kw">theorem</span> eq_zero_of_add_self {x : V} (h : x + x = x) : x = 0 := <span class="kw">by</span>
+  <span class="kw">calc</span> x = x + 0 := (VectorSpace.add_zero x).symm
+    _ = x + (x + -x) := <span class="kw">by</span> <span class="tc">rw</span> [VectorSpace.add_neg]
+    _ = x + x + -x := (VectorSpace.add_assoc x x (-x)).symm
+    _ = x + -x := <span class="kw">by</span> <span class="tc">rw</span> [h]
+    _ = 0 := VectorSpace.add_neg x</pre>
+<p class="note">Each line of <code>calc</code> is an equality, with the reason it holds next to it:</p>
+<table class="calc"><tbody><tr><td><code>x = x + 0</code></td><td>axiom <code>add_zero</code></td></tr><tr><td><code>_ = x + (x + -x)</code></td><td>axiom <code>add_neg</code>: $x+(-x)=0$</td></tr><tr><td><code>_ = x + x + -x</code></td><td>axiom <code>add_assoc</code></td></tr><tr><td><code>_ = x + -x</code></td><td>the hypothesis <code>h</code>: $x+x=x$</td></tr><tr><td><code>_ = 0</code></td><td>axiom <code>add_neg</code></td></tr></tbody></table></div></details>
+
+<h2>3. Try it yourself: $\lambda\cdot 0=0$</h2>
+<div class="ex"><p>The proof has the same form as that of $0\cdot u=0$. Open the exercise in Lean and replace the word <code>sorry</code> with your own steps. When the proof is correct, the message <i>declaration uses sorry</i> disappears and no red error appears.</p>
+<a class="btn l" href="https://live.lean-lang.org/#code=import%20Mathlib%0A%0A%2F-!%0A%23%20Basic%20Properties%20of%20a%20Vector%20Space%20%28Chapter%201%29%0A%0AWe%20define%20a%20vector%20space%20as%20in%20the%20book%3A%20a%20set%20%22V%22%20with%20addition%2C%0Aa%20zero%20vector%2C%20negatives%20and%20scalar%20multiplication%20by%20real%20numbers%2C%0Asatisfying%20eight%20axioms.%20Every%20property%20below%20is%20proved%20from%20these%0Aaxioms%20alone.%0A%28%22%CE%BB%22%20is%20a%20reserved%20word%20in%20Lean%2C%20so%20we%20call%20the%20scalars%20%22%CE%BA%22%20and%20%22%CE%BC%22.%29%0A-%2F%0A%0A%2F--%20A%20%28linear%29%20vector%20space%20over%20%E2%84%9D%2C%20with%20the%20eight%20axioms%20of%20the%20book.%20-%2F%0Aclass%20VectorSpace%20%28V%20%3A%20Type%29%20extends%20Add%20V%2C%20Zero%20V%2C%20Neg%20V%2C%20SMul%20%E2%84%9D%20V%20where%0A%20%20%2F--%20u%20%2B%20v%20%3D%20v%20%2B%20u%20-%2F%0A%20%20add_comm%20%3A%20%E2%88%80%20u%20v%20%3A%20V%2C%20u%20%2B%20v%20%3D%20v%20%2B%20u%0A%20%20%2F--%20%28u%20%2B%20v%29%20%2B%20w%20%3D%20u%20%2B%20%28v%20%2B%20w%29%20-%2F%0A%20%20add_assoc%20%3A%20%E2%88%80%20u%20v%20w%20%3A%20V%2C%20u%20%2B%20v%20%2B%20w%20%3D%20u%20%2B%20%28v%20%2B%20w%29%0A%20%20%2F--%20u%20%2B%200%20%3D%20u%20-%2F%0A%20%20add_zero%20%3A%20%E2%88%80%20u%20%3A%20V%2C%20u%20%2B%200%20%3D%20u%0A%20%20%2F--%20u%20%2B%20%28%E2%88%92u%29%20%3D%200%20-%2F%0A%20%20add_neg%20%3A%20%E2%88%80%20u%20%3A%20V%2C%20u%20%2B%20-u%20%3D%200%0A%20%20%2F--%20%CE%BA%C2%B7%28u%20%2B%20v%29%20%3D%20%CE%BA%C2%B7u%20%2B%20%CE%BA%C2%B7v%20-%2F%0A%20%20smul_add%20%3A%20%E2%88%80%20%28%CE%BA%20%3A%20%E2%84%9D%29%20%28u%20v%20%3A%20V%29%2C%20%CE%BA%20%E2%80%A2%20%28u%20%2B%20v%29%20%3D%20%CE%BA%20%E2%80%A2%20u%20%2B%20%CE%BA%20%E2%80%A2%20v%0A%20%20%2F--%20%28%CE%BA%20%2B%20%CE%BC%29%C2%B7u%20%3D%20%CE%BA%C2%B7u%20%2B%20%CE%BC%C2%B7u%20-%2F%0A%20%20add_smul%20%3A%20%E2%88%80%20%28%CE%BA%20%CE%BC%20%3A%20%E2%84%9D%29%20%28u%20%3A%20V%29%2C%20%28%CE%BA%20%2B%20%CE%BC%29%20%E2%80%A2%20u%20%3D%20%CE%BA%20%E2%80%A2%20u%20%2B%20%CE%BC%20%E2%80%A2%20u%0A%20%20%2F--%20%28%CE%BA%CE%BC%29%C2%B7u%20%3D%20%CE%BA%C2%B7%28%CE%BC%C2%B7u%29%20-%2F%0A%20%20mul_smul%20%3A%20%E2%88%80%20%28%CE%BA%20%CE%BC%20%3A%20%E2%84%9D%29%20%28u%20%3A%20V%29%2C%20%28%CE%BA%20*%20%CE%BC%29%20%E2%80%A2%20u%20%3D%20%CE%BA%20%E2%80%A2%20%28%CE%BC%20%E2%80%A2%20u%29%0A%20%20%2F--%201%C2%B7u%20%3D%20u%20-%2F%0A%20%20one_smul%20%3A%20%E2%88%80%20u%20%3A%20V%2C%20%281%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3D%20u%0A%0Anamespace%20Ch1%0A%0Avariable%20%7BV%20%3A%20Type%7D%20%5BVectorSpace%20V%5D%0A%0A%2F--%20%281%29%20The%20zero%20vector%20is%20unique.%20-%2F%0Atheorem%20zero_unique%20%28z%20%3A%20V%29%20%28hz%20%3A%20%E2%88%80%20u%20%3A%20V%2C%20u%20%2B%20z%20%3D%20u%29%20%3A%20z%20%3D%200%20%3A%3D%20by%0A%20%20calc%20z%20%3D%20z%20%2B%200%20%3A%3D%20%28VectorSpace.add_zero%20z%29.symm%0A%20%20%20%20_%20%3D%200%20%2B%20z%20%3A%3D%20VectorSpace.add_comm%20z%200%0A%20%20%20%20_%20%3D%200%20%3A%3D%20hz%200%0A%0A%2F--%20%282%29%20The%20negative%20of%20every%20vector%20is%20unique.%20-%2F%0Atheorem%20neg_unique%20%7Bu%20w%20%3A%20V%7D%20%28h%20%3A%20u%20%2B%20w%20%3D%200%29%20%3A%20w%20%3D%20-u%20%3A%3D%20by%0A%20%20calc%20w%20%3D%20w%20%2B%200%20%3A%3D%20%28VectorSpace.add_zero%20w%29.symm%0A%20%20%20%20_%20%3D%20w%20%2B%20%28u%20%2B%20-u%29%20%3A%3D%20by%20rw%20%5BVectorSpace.add_neg%5D%0A%20%20%20%20_%20%3D%20w%20%2B%20u%20%2B%20-u%20%3A%3D%20%28VectorSpace.add_assoc%20w%20u%20%28-u%29%29.symm%0A%20%20%20%20_%20%3D%20u%20%2B%20w%20%2B%20-u%20%3A%3D%20by%20rw%20%5BVectorSpace.add_comm%20w%20u%5D%0A%20%20%20%20_%20%3D%200%20%2B%20-u%20%3A%3D%20by%20rw%20%5Bh%5D%0A%20%20%20%20_%20%3D%20-u%20%2B%200%20%3A%3D%20VectorSpace.add_comm%200%20%28-u%29%0A%20%20%20%20_%20%3D%20-u%20%3A%3D%20VectorSpace.add_zero%20%28-u%29%0A%0A%2F--%20Lemma%3A%20if%20x%20%2B%20x%20%3D%20x%2C%20then%20x%20%3D%200%20%28add%20%E2%88%92x%20to%20both%20sides%29.%20-%2F%0Atheorem%20eq_zero_of_add_self%20%7Bx%20%3A%20V%7D%20%28h%20%3A%20x%20%2B%20x%20%3D%20x%29%20%3A%20x%20%3D%200%20%3A%3D%20by%0A%20%20calc%20x%20%3D%20x%20%2B%200%20%3A%3D%20%28VectorSpace.add_zero%20x%29.symm%0A%20%20%20%20_%20%3D%20x%20%2B%20%28x%20%2B%20-x%29%20%3A%3D%20by%20rw%20%5BVectorSpace.add_neg%5D%0A%20%20%20%20_%20%3D%20x%20%2B%20x%20%2B%20-x%20%3A%3D%20%28VectorSpace.add_assoc%20x%20x%20%28-x%29%29.symm%0A%20%20%20%20_%20%3D%20x%20%2B%20-x%20%3A%3D%20by%20rw%20%5Bh%5D%0A%20%20%20%20_%20%3D%200%20%3A%3D%20VectorSpace.add_neg%20x%0A%0A%2F--%20%283%29%200%C2%B7u%20%3D%200%20-%2F%0Atheorem%20zero_smul'%20%28u%20%3A%20V%29%20%3A%20%280%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3D%200%20%3A%3D%20by%0A%20%20apply%20eq_zero_of_add_self%0A%20%20rw%20%5B%E2%86%90%20VectorSpace.add_smul%5D%0A%20%20rw%20%5Badd_zero%5D%0A%0A%2F--%20%284%29%20%CE%BA%C2%B70%20%3D%200%20-%2F%0Atheorem%20smul_zero'%20%28%CE%BA%20%3A%20%E2%84%9D%29%20%3A%20%CE%BA%20%E2%80%A2%20%280%20%3A%20V%29%20%3D%200%20%3A%3D%20by%0A%20%20--%20EXERCISE%3A%20imitate%20the%20proof%20of%200%C2%B7u%20%3D%200%20above.%0A%20%20--%20Hint%3A%20you%20need%20the%20axiom%20%22VectorSpace.smul_add%22%20instead%20of%20%22VectorSpace.add_smul%22.%0A%20%20sorry%0A%0A%2F--%20%285%29%20%28%E2%88%921%29%C2%B7u%20%3D%20%E2%88%92u%20-%2F%0Atheorem%20neg_one_smul'%20%28u%20%3A%20V%29%20%3A%20%28-1%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3D%20-u%20%3A%3D%20by%0A%20%20apply%20neg_unique%0A%20%20calc%20u%20%2B%20%28-1%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3D%20%281%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%2B%20%28-1%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3A%3D%20by%20rw%20%5BVectorSpace.one_smul%5D%0A%20%20%20%20_%20%3D%20%28%281%20%3A%20%E2%84%9D%29%20%2B%20-1%29%20%E2%80%A2%20u%20%3A%3D%20%28VectorSpace.add_smul%201%20%28-1%29%20u%29.symm%0A%20%20%20%20_%20%3D%20%280%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3A%3D%20by%20norm_num%0A%20%20%20%20_%20%3D%200%20%3A%3D%20zero_smul'%20u%0A%0A%2F--%20%286%29%20If%20%CE%BA%C2%B7u%20%3D%200%2C%20then%20%CE%BA%20%3D%200%20or%20u%20%3D%200.%20-%2F%0Atheorem%20eq_zero_or_eq_zero_of_smul_eq_zero%20%7B%CE%BA%20%3A%20%E2%84%9D%7D%20%7Bu%20%3A%20V%7D%20%28h%20%3A%20%CE%BA%20%E2%80%A2%20u%20%3D%200%29%20%3A%0A%20%20%20%20%CE%BA%20%3D%200%20%E2%88%A8%20u%20%3D%200%20%3A%3D%20by%0A%20%20by_cases%20h%CE%BA%20%3A%20%CE%BA%20%3D%200%0A%20%20%C2%B7%20left%0A%20%20%20%20exact%20h%CE%BA%0A%20%20%C2%B7%20right%0A%20%20%20%20calc%20u%20%3D%20%281%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3A%3D%20%28VectorSpace.one_smul%20u%29.symm%0A%20%20%20%20%20%20_%20%3D%20%28%CE%BA%E2%81%BB%C2%B9%20*%20%CE%BA%29%20%E2%80%A2%20u%20%3A%3D%20by%20rw%20%5Binv_mul_cancel%E2%82%80%20h%CE%BA%5D%0A%20%20%20%20%20%20_%20%3D%20%CE%BA%E2%81%BB%C2%B9%20%E2%80%A2%20%28%CE%BA%20%E2%80%A2%20u%29%20%3A%3D%20VectorSpace.mul_smul%20%CE%BA%E2%81%BB%C2%B9%20%CE%BA%20u%0A%20%20%20%20%20%20_%20%3D%20%CE%BA%E2%81%BB%C2%B9%20%E2%80%A2%20%280%20%3A%20V%29%20%3A%3D%20by%20rw%20%5Bh%5D%0A%20%20%20%20%20%20_%20%3D%200%20%3A%3D%20smul_zero'%20%CE%BA%E2%81%BB%C2%B9%0A%0Aend%20Ch1%0A%0A%2F-!%20%23%23%20The%20same%20properties%20are%20ready-made%20in%20Mathlib%20%28there%20a%20vector%20space%20is%20called%20a%20%22Module%22%29%20-%2F%0Asection%20InMathlib%0Avariable%20%7BW%20%3A%20Type%7D%20%5BAddCommGroup%20W%5D%20%5BModule%20%E2%84%9D%20W%5D%0A%0Aexample%20%28u%20%3A%20W%29%20%3A%20%280%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3D%200%20%3A%3D%20zero_smul%20%E2%84%9D%20u%0Aexample%20%28%CE%BA%20%3A%20%E2%84%9D%29%20%3A%20%CE%BA%20%E2%80%A2%20%280%20%3A%20W%29%20%3D%200%20%3A%3D%20smul_zero%20%CE%BA%0Aexample%20%28u%20%3A%20W%29%20%3A%20%28-1%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3D%20-u%20%3A%3D%20neg_one_smul%20%E2%84%9D%20u%0Aexample%20%28%CE%BA%20%3A%20%E2%84%9D%29%20%28u%20%3A%20W%29%20%3A%20%CE%BA%20%E2%80%A2%20u%20%3D%200%20%E2%86%94%20%CE%BA%20%3D%200%20%E2%88%A8%20u%20%3D%200%20%3A%3D%20smul_eq_zero%0Aend%20InMathlib%0A" target="_blank" rel="noopener">Open the exercise in Lean</a>
+<details><summary>Hint</summary><div class="in"><p class="note">Start with <code>apply eq_zero_of_add_self</code>, as before. Then you need the axiom $\kappa(u+v)=\kappa u+\kappa v$, that is <code>VectorSpace.smul_add</code>, instead of <code>VectorSpace.add_smul</code>.</p></div></details>
+<details><summary>Solution</summary><div class="in"><pre class="ln"><span class="kw">theorem</span> smul_zero&#x27; (κ : ℝ) : κ • (0 : V) = 0 := <span class="kw">by</span>
+  <span class="tc">apply</span> eq_zero_of_add_self
+  <span class="tc">rw</span> [← VectorSpace.smul_add]
+  <span class="tc">rw</span> [VectorSpace.add_zero]</pre></div></details>
+</div>
+
+<h2>4. The complete proof of all six properties</h2>
+<details><summary>See the code (103 lines)</summary><div class="in">
+<div class="codebar"><span>Exactly the code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="kw">import</span> Mathlib
+
+<span class="cm">/-!
+# Basic Properties of a Vector Space (Chapter 1)
+
+We define a vector space as in the book: a set &quot;V&quot; with addition,
+a zero vector, negatives and scalar multiplication by real numbers,
+satisfying eight axioms. Every property below is proved from these
+axioms alone.
+(&quot;λ&quot; is a reserved word in Lean, so we call the scalars &quot;κ&quot; and &quot;μ&quot;.)
+-/</span>
+
+<span class="cm">/-- A (linear) vector space over ℝ, with the eight axioms of the book. -/</span>
+<span class="kw">class</span> VectorSpace (V : Type) <span class="kw">extends</span> Add V, Zero V, Neg V, SMul ℝ V <span class="kw">where</span>
+  <span class="cm">/-- u + v = v + u -/</span>
+  add_comm : ∀ u v : V, u + v = v + u
+  <span class="cm">/-- (u + v) + w = u + (v + w) -/</span>
+  add_assoc : ∀ u v w : V, u + v + w = u + (v + w)
+  <span class="cm">/-- u + 0 = u -/</span>
+  add_zero : ∀ u : V, u + 0 = u
+  <span class="cm">/-- u + (−u) = 0 -/</span>
+  add_neg : ∀ u : V, u + -u = 0
+  <span class="cm">/-- κ·(u + v) = κ·u + κ·v -/</span>
+  smul_add : ∀ (κ : ℝ) (u v : V), κ • (u + v) = κ • u + κ • v
+  <span class="cm">/-- (κ + μ)·u = κ·u + μ·u -/</span>
+  add_smul : ∀ (κ μ : ℝ) (u : V), (κ + μ) • u = κ • u + μ • u
+  <span class="cm">/-- (κμ)·u = κ·(μ·u) -/</span>
+  mul_smul : ∀ (κ μ : ℝ) (u : V), (κ * μ) • u = κ • (μ • u)
+  <span class="cm">/-- 1·u = u -/</span>
+  one_smul : ∀ u : V, (1 : ℝ) • u = u
+
+<span class="kw">namespace</span> Ch1
+
+<span class="kw">variable</span> {V : Type} [VectorSpace V]
+
+<span class="cm">/-- (1) The zero vector is unique. -/</span>
+<span class="kw">theorem</span> zero_unique (z : V) (hz : ∀ u : V, u + z = u) : z = 0 := <span class="kw">by</span>
+  <span class="kw">calc</span> z = z + 0 := (VectorSpace.add_zero z).symm
+    _ = 0 + z := VectorSpace.add_comm z 0
+    _ = 0 := hz 0
+
+<span class="cm">/-- (2) The negative of every vector is unique. -/</span>
+<span class="kw">theorem</span> neg_unique {u w : V} (h : u + w = 0) : w = -u := <span class="kw">by</span>
+  <span class="kw">calc</span> w = w + 0 := (VectorSpace.add_zero w).symm
+    _ = w + (u + -u) := <span class="kw">by</span> <span class="tc">rw</span> [VectorSpace.add_neg]
+    _ = w + u + -u := (VectorSpace.add_assoc w u (-u)).symm
+    _ = u + w + -u := <span class="kw">by</span> <span class="tc">rw</span> [VectorSpace.add_comm w u]
+    _ = 0 + -u := <span class="kw">by</span> <span class="tc">rw</span> [h]
+    _ = -u + 0 := VectorSpace.add_comm 0 (-u)
+    _ = -u := VectorSpace.add_zero (-u)
+
+<span class="cm">/-- Lemma: if x + x = x, then x = 0 (add −x to both sides). -/</span>
+<span class="kw">theorem</span> eq_zero_of_add_self {x : V} (h : x + x = x) : x = 0 := <span class="kw">by</span>
+  <span class="kw">calc</span> x = x + 0 := (VectorSpace.add_zero x).symm
+    _ = x + (x + -x) := <span class="kw">by</span> <span class="tc">rw</span> [VectorSpace.add_neg]
+    _ = x + x + -x := (VectorSpace.add_assoc x x (-x)).symm
+    _ = x + -x := <span class="kw">by</span> <span class="tc">rw</span> [h]
+    _ = 0 := VectorSpace.add_neg x
+
+<span class="cm">/-- (3) 0·u = 0 -/</span>
+<span class="kw">theorem</span> zero_smul&#x27; (u : V) : (0 : ℝ) • u = 0 := <span class="kw">by</span>
+  <span class="tc">apply</span> eq_zero_of_add_self
+  <span class="tc">rw</span> [← VectorSpace.add_smul]
+  <span class="tc">rw</span> [add_zero]
+
+<span class="cm">/-- (4) κ·0 = 0 -/</span>
+<span class="kw">theorem</span> smul_zero&#x27; (κ : ℝ) : κ • (0 : V) = 0 := <span class="kw">by</span>
+  <span class="tc">apply</span> eq_zero_of_add_self
+  <span class="tc">rw</span> [← VectorSpace.smul_add]
+  <span class="tc">rw</span> [VectorSpace.add_zero]
+
+<span class="cm">/-- (5) (−1)·u = −u -/</span>
+<span class="kw">theorem</span> neg_one_smul&#x27; (u : V) : (-1 : ℝ) • u = -u := <span class="kw">by</span>
+  <span class="tc">apply</span> neg_unique
+  <span class="kw">calc</span> u + (-1 : ℝ) • u = (1 : ℝ) • u + (-1 : ℝ) • u := <span class="kw">by</span> <span class="tc">rw</span> [VectorSpace.one_smul]
+    _ = ((1 : ℝ) + -1) • u := (VectorSpace.add_smul 1 (-1) u).symm
+    _ = (0 : ℝ) • u := <span class="kw">by</span> <span class="tc">norm_num</span>
+    _ = 0 := zero_smul&#x27; u
+
+<span class="cm">/-- (6) If κ·u = 0, then κ = 0 or u = 0. -/</span>
+<span class="kw">theorem</span> eq_zero_or_eq_zero_of_smul_eq_zero {κ : ℝ} {u : V} (h : κ • u = 0) :
+    κ = 0 ∨ u = 0 := <span class="kw">by</span>
+  <span class="tc">by_cases</span> hκ : κ = 0
+  · <span class="tc">left</span>
+    <span class="tc">exact</span> hκ
+  · <span class="tc">right</span>
+    <span class="kw">calc</span> u = (1 : ℝ) • u := (VectorSpace.one_smul u).symm
+      _ = (κ⁻¹ * κ) • u := <span class="kw">by</span> <span class="tc">rw</span> [inv_mul_cancel₀ hκ]
+      _ = κ⁻¹ • (κ • u) := VectorSpace.mul_smul κ⁻¹ κ u
+      _ = κ⁻¹ • (0 : V) := <span class="kw">by</span> <span class="tc">rw</span> [h]
+      _ = 0 := smul_zero&#x27; κ⁻¹
+
+<span class="kw">end</span> Ch1
+
+<span class="cm">/-! ## The same properties are ready-made in Mathlib (there a vector space is called a &quot;Module&quot;) -/</span>
+<span class="kw">section</span> InMathlib
+<span class="kw">variable</span> {W : Type} [AddCommGroup W] [Module ℝ W]
+
+<span class="kw">example</span> (u : W) : (0 : ℝ) • u = 0 := zero_smul ℝ u
+<span class="kw">example</span> (κ : ℝ) : κ • (0 : W) = 0 := smul_zero κ
+<span class="kw">example</span> (u : W) : (-1 : ℝ) • u = -u := neg_one_smul ℝ u
+<span class="kw">example</span> (κ : ℝ) (u : W) : κ • u = 0 ↔ κ = 0 ∨ u = 0 := smul_eq_zero
+<span class="kw">end</span> InMathlib
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=import%20Mathlib%0A%0A%2F-!%0A%23%20Basic%20Properties%20of%20a%20Vector%20Space%20%28Chapter%201%29%0A%0AWe%20define%20a%20vector%20space%20as%20in%20the%20book%3A%20a%20set%20%22V%22%20with%20addition%2C%0Aa%20zero%20vector%2C%20negatives%20and%20scalar%20multiplication%20by%20real%20numbers%2C%0Asatisfying%20eight%20axioms.%20Every%20property%20below%20is%20proved%20from%20these%0Aaxioms%20alone.%0A%28%22%CE%BB%22%20is%20a%20reserved%20word%20in%20Lean%2C%20so%20we%20call%20the%20scalars%20%22%CE%BA%22%20and%20%22%CE%BC%22.%29%0A-%2F%0A%0A%2F--%20A%20%28linear%29%20vector%20space%20over%20%E2%84%9D%2C%20with%20the%20eight%20axioms%20of%20the%20book.%20-%2F%0Aclass%20VectorSpace%20%28V%20%3A%20Type%29%20extends%20Add%20V%2C%20Zero%20V%2C%20Neg%20V%2C%20SMul%20%E2%84%9D%20V%20where%0A%20%20%2F--%20u%20%2B%20v%20%3D%20v%20%2B%20u%20-%2F%0A%20%20add_comm%20%3A%20%E2%88%80%20u%20v%20%3A%20V%2C%20u%20%2B%20v%20%3D%20v%20%2B%20u%0A%20%20%2F--%20%28u%20%2B%20v%29%20%2B%20w%20%3D%20u%20%2B%20%28v%20%2B%20w%29%20-%2F%0A%20%20add_assoc%20%3A%20%E2%88%80%20u%20v%20w%20%3A%20V%2C%20u%20%2B%20v%20%2B%20w%20%3D%20u%20%2B%20%28v%20%2B%20w%29%0A%20%20%2F--%20u%20%2B%200%20%3D%20u%20-%2F%0A%20%20add_zero%20%3A%20%E2%88%80%20u%20%3A%20V%2C%20u%20%2B%200%20%3D%20u%0A%20%20%2F--%20u%20%2B%20%28%E2%88%92u%29%20%3D%200%20-%2F%0A%20%20add_neg%20%3A%20%E2%88%80%20u%20%3A%20V%2C%20u%20%2B%20-u%20%3D%200%0A%20%20%2F--%20%CE%BA%C2%B7%28u%20%2B%20v%29%20%3D%20%CE%BA%C2%B7u%20%2B%20%CE%BA%C2%B7v%20-%2F%0A%20%20smul_add%20%3A%20%E2%88%80%20%28%CE%BA%20%3A%20%E2%84%9D%29%20%28u%20v%20%3A%20V%29%2C%20%CE%BA%20%E2%80%A2%20%28u%20%2B%20v%29%20%3D%20%CE%BA%20%E2%80%A2%20u%20%2B%20%CE%BA%20%E2%80%A2%20v%0A%20%20%2F--%20%28%CE%BA%20%2B%20%CE%BC%29%C2%B7u%20%3D%20%CE%BA%C2%B7u%20%2B%20%CE%BC%C2%B7u%20-%2F%0A%20%20add_smul%20%3A%20%E2%88%80%20%28%CE%BA%20%CE%BC%20%3A%20%E2%84%9D%29%20%28u%20%3A%20V%29%2C%20%28%CE%BA%20%2B%20%CE%BC%29%20%E2%80%A2%20u%20%3D%20%CE%BA%20%E2%80%A2%20u%20%2B%20%CE%BC%20%E2%80%A2%20u%0A%20%20%2F--%20%28%CE%BA%CE%BC%29%C2%B7u%20%3D%20%CE%BA%C2%B7%28%CE%BC%C2%B7u%29%20-%2F%0A%20%20mul_smul%20%3A%20%E2%88%80%20%28%CE%BA%20%CE%BC%20%3A%20%E2%84%9D%29%20%28u%20%3A%20V%29%2C%20%28%CE%BA%20*%20%CE%BC%29%20%E2%80%A2%20u%20%3D%20%CE%BA%20%E2%80%A2%20%28%CE%BC%20%E2%80%A2%20u%29%0A%20%20%2F--%201%C2%B7u%20%3D%20u%20-%2F%0A%20%20one_smul%20%3A%20%E2%88%80%20u%20%3A%20V%2C%20%281%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3D%20u%0A%0Anamespace%20Ch1%0A%0Avariable%20%7BV%20%3A%20Type%7D%20%5BVectorSpace%20V%5D%0A%0A%2F--%20%281%29%20The%20zero%20vector%20is%20unique.%20-%2F%0Atheorem%20zero_unique%20%28z%20%3A%20V%29%20%28hz%20%3A%20%E2%88%80%20u%20%3A%20V%2C%20u%20%2B%20z%20%3D%20u%29%20%3A%20z%20%3D%200%20%3A%3D%20by%0A%20%20calc%20z%20%3D%20z%20%2B%200%20%3A%3D%20%28VectorSpace.add_zero%20z%29.symm%0A%20%20%20%20_%20%3D%200%20%2B%20z%20%3A%3D%20VectorSpace.add_comm%20z%200%0A%20%20%20%20_%20%3D%200%20%3A%3D%20hz%200%0A%0A%2F--%20%282%29%20The%20negative%20of%20every%20vector%20is%20unique.%20-%2F%0Atheorem%20neg_unique%20%7Bu%20w%20%3A%20V%7D%20%28h%20%3A%20u%20%2B%20w%20%3D%200%29%20%3A%20w%20%3D%20-u%20%3A%3D%20by%0A%20%20calc%20w%20%3D%20w%20%2B%200%20%3A%3D%20%28VectorSpace.add_zero%20w%29.symm%0A%20%20%20%20_%20%3D%20w%20%2B%20%28u%20%2B%20-u%29%20%3A%3D%20by%20rw%20%5BVectorSpace.add_neg%5D%0A%20%20%20%20_%20%3D%20w%20%2B%20u%20%2B%20-u%20%3A%3D%20%28VectorSpace.add_assoc%20w%20u%20%28-u%29%29.symm%0A%20%20%20%20_%20%3D%20u%20%2B%20w%20%2B%20-u%20%3A%3D%20by%20rw%20%5BVectorSpace.add_comm%20w%20u%5D%0A%20%20%20%20_%20%3D%200%20%2B%20-u%20%3A%3D%20by%20rw%20%5Bh%5D%0A%20%20%20%20_%20%3D%20-u%20%2B%200%20%3A%3D%20VectorSpace.add_comm%200%20%28-u%29%0A%20%20%20%20_%20%3D%20-u%20%3A%3D%20VectorSpace.add_zero%20%28-u%29%0A%0A%2F--%20Lemma%3A%20if%20x%20%2B%20x%20%3D%20x%2C%20then%20x%20%3D%200%20%28add%20%E2%88%92x%20to%20both%20sides%29.%20-%2F%0Atheorem%20eq_zero_of_add_self%20%7Bx%20%3A%20V%7D%20%28h%20%3A%20x%20%2B%20x%20%3D%20x%29%20%3A%20x%20%3D%200%20%3A%3D%20by%0A%20%20calc%20x%20%3D%20x%20%2B%200%20%3A%3D%20%28VectorSpace.add_zero%20x%29.symm%0A%20%20%20%20_%20%3D%20x%20%2B%20%28x%20%2B%20-x%29%20%3A%3D%20by%20rw%20%5BVectorSpace.add_neg%5D%0A%20%20%20%20_%20%3D%20x%20%2B%20x%20%2B%20-x%20%3A%3D%20%28VectorSpace.add_assoc%20x%20x%20%28-x%29%29.symm%0A%20%20%20%20_%20%3D%20x%20%2B%20-x%20%3A%3D%20by%20rw%20%5Bh%5D%0A%20%20%20%20_%20%3D%200%20%3A%3D%20VectorSpace.add_neg%20x%0A%0A%2F--%20%283%29%200%C2%B7u%20%3D%200%20-%2F%0Atheorem%20zero_smul'%20%28u%20%3A%20V%29%20%3A%20%280%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3D%200%20%3A%3D%20by%0A%20%20apply%20eq_zero_of_add_self%0A%20%20rw%20%5B%E2%86%90%20VectorSpace.add_smul%5D%0A%20%20rw%20%5Badd_zero%5D%0A%0A%2F--%20%284%29%20%CE%BA%C2%B70%20%3D%200%20-%2F%0Atheorem%20smul_zero'%20%28%CE%BA%20%3A%20%E2%84%9D%29%20%3A%20%CE%BA%20%E2%80%A2%20%280%20%3A%20V%29%20%3D%200%20%3A%3D%20by%0A%20%20apply%20eq_zero_of_add_self%0A%20%20rw%20%5B%E2%86%90%20VectorSpace.smul_add%5D%0A%20%20rw%20%5BVectorSpace.add_zero%5D%0A%0A%2F--%20%285%29%20%28%E2%88%921%29%C2%B7u%20%3D%20%E2%88%92u%20-%2F%0Atheorem%20neg_one_smul'%20%28u%20%3A%20V%29%20%3A%20%28-1%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3D%20-u%20%3A%3D%20by%0A%20%20apply%20neg_unique%0A%20%20calc%20u%20%2B%20%28-1%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3D%20%281%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%2B%20%28-1%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3A%3D%20by%20rw%20%5BVectorSpace.one_smul%5D%0A%20%20%20%20_%20%3D%20%28%281%20%3A%20%E2%84%9D%29%20%2B%20-1%29%20%E2%80%A2%20u%20%3A%3D%20%28VectorSpace.add_smul%201%20%28-1%29%20u%29.symm%0A%20%20%20%20_%20%3D%20%280%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3A%3D%20by%20norm_num%0A%20%20%20%20_%20%3D%200%20%3A%3D%20zero_smul'%20u%0A%0A%2F--%20%286%29%20If%20%CE%BA%C2%B7u%20%3D%200%2C%20then%20%CE%BA%20%3D%200%20or%20u%20%3D%200.%20-%2F%0Atheorem%20eq_zero_or_eq_zero_of_smul_eq_zero%20%7B%CE%BA%20%3A%20%E2%84%9D%7D%20%7Bu%20%3A%20V%7D%20%28h%20%3A%20%CE%BA%20%E2%80%A2%20u%20%3D%200%29%20%3A%0A%20%20%20%20%CE%BA%20%3D%200%20%E2%88%A8%20u%20%3D%200%20%3A%3D%20by%0A%20%20by_cases%20h%CE%BA%20%3A%20%CE%BA%20%3D%200%0A%20%20%C2%B7%20left%0A%20%20%20%20exact%20h%CE%BA%0A%20%20%C2%B7%20right%0A%20%20%20%20calc%20u%20%3D%20%281%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3A%3D%20%28VectorSpace.one_smul%20u%29.symm%0A%20%20%20%20%20%20_%20%3D%20%28%CE%BA%E2%81%BB%C2%B9%20*%20%CE%BA%29%20%E2%80%A2%20u%20%3A%3D%20by%20rw%20%5Binv_mul_cancel%E2%82%80%20h%CE%BA%5D%0A%20%20%20%20%20%20_%20%3D%20%CE%BA%E2%81%BB%C2%B9%20%E2%80%A2%20%28%CE%BA%20%E2%80%A2%20u%29%20%3A%3D%20VectorSpace.mul_smul%20%CE%BA%E2%81%BB%C2%B9%20%CE%BA%20u%0A%20%20%20%20%20%20_%20%3D%20%CE%BA%E2%81%BB%C2%B9%20%E2%80%A2%20%280%20%3A%20V%29%20%3A%3D%20by%20rw%20%5Bh%5D%0A%20%20%20%20%20%20_%20%3D%200%20%3A%3D%20smul_zero'%20%CE%BA%E2%81%BB%C2%B9%0A%0Aend%20Ch1%0A%0A%2F-!%20%23%23%20The%20same%20properties%20are%20ready-made%20in%20Mathlib%20%28there%20a%20vector%20space%20is%20called%20a%20%22Module%22%29%20-%2F%0Asection%20InMathlib%0Avariable%20%7BW%20%3A%20Type%7D%20%5BAddCommGroup%20W%5D%20%5BModule%20%E2%84%9D%20W%5D%0A%0Aexample%20%28u%20%3A%20W%29%20%3A%20%280%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3D%200%20%3A%3D%20zero_smul%20%E2%84%9D%20u%0Aexample%20%28%CE%BA%20%3A%20%E2%84%9D%29%20%3A%20%CE%BA%20%E2%80%A2%20%280%20%3A%20W%29%20%3D%200%20%3A%3D%20smul_zero%20%CE%BA%0Aexample%20%28u%20%3A%20W%29%20%3A%20%28-1%20%3A%20%E2%84%9D%29%20%E2%80%A2%20u%20%3D%20-u%20%3A%3D%20neg_one_smul%20%E2%84%9D%20u%0Aexample%20%28%CE%BA%20%3A%20%E2%84%9D%29%20%28u%20%3A%20W%29%20%3A%20%CE%BA%20%E2%80%A2%20u%20%3D%200%20%E2%86%94%20%CE%BA%20%3D%200%20%E2%88%A8%20u%20%3D%200%20%3A%3D%20smul_eq_zero%0Aend%20InMathlib%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+<p class="note"><b>In Mathlib</b>, Lean’s large mathematics library, the same properties are ready-made: <code>zero_smul</code>, <code>smul_zero</code>, <code>neg_one_smul</code>, <code>smul_eq_zero</code>. There, however, the definition is more general and $0\cdot u=0$, $\lambda\cdot 0=0$ are taken as axioms. That is why here we wrote the book’s definition and proved them.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Axler, S. (2024). <em>Linear Algebra Done Right</em> (4th ed.). Springer.</li><li>Hoffman, K., &amp; Kunze, R. (1971). <em>Linear Algebra</em> (2nd ed.). Prentice-Hall.</li><li>Strang, G. (2016). <em>Introduction to Linear Algebra</em> (5th ed.). Wellesley-Cambridge Press.</li><li>Varsos, D. A., Deriziotis, D. I., Maliakas, M. P., Papastavridis, S. G., Raptis, E., &amp; Talelli, O. P. (2003). <em>Eisagogi sti Grammiki Algevra [Introduction to Linear Algebra]</em> (Vol. A). Ekdoseis Sofia. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

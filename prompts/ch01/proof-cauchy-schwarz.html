@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cauchy–Schwarz Inequality</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Cauchy–Schwarz Inequality</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 1 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>For all $u,v$: $|\langle u,v\rangle|\le\|u\|\,\|v\|$, with equality $\Leftrightarrow$ $u,v$ are linearly dependent.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20For%20all%20%24u%2Cv%24%3A%20%24%7C%5Clangle%20u%2Cv%5Crangle%7C%5Cle%5C%7Cu%5C%7C%5C%2C%5C%7Cv%5C%7C%24%2C%20with%20equality%20%24%5CLeftrightarrow%24%20%24u%2Cv%24%20are%20linearly%20dependent.">ChatGPT</a>
@@ -27,6 +87,124 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: For all $u,v$: $|\langle u,v\rangle|\le\|u\|\,\|v\|$, with equality $\Leftrightarrow$ $u,v$ are linearly dependent.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The inequality and the equality condition were proved in Lean 4 with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">$|\langle u,v\rangle|\le\|u\|\,\|v\|$</div><pre class="ln"><span class="kw">theorem</span> cauchy_schwarz (u v : V) : |⟪u, v⟫_ℝ| ≤ ‖u‖ * ‖v‖</pre></li><li><div class="bk">Equivalently, squared: $\langle u,v\rangle^2\le\|u\|^2\|v\|^2$</div><pre class="ln"><span class="kw">theorem</span> sq_version (u v : V) : ⟪u, v⟫_ℝ ^ 2 ≤ ‖u‖ ^ 2 * ‖v‖ ^ 2</pre></li><li><div class="bk">Equality $\Leftrightarrow$ $u,v$ are linearly dependent</div><pre class="ln"><span class="kw">theorem</span> equality_iff (u v : V) :
+    |⟪u, v⟫_ℝ| = ‖u‖ * ‖v‖ ↔ ¬ LinearIndependent ℝ ![u, v]</pre></li></ul>
+<p class="note">The inner product $\langle u,v\rangle$ is written <code>⟪u, v⟫_ℝ</code> and the norm $\|u\|$ is written <code>‖u‖</code>. <code>V</code> is any real inner product space (<code>InnerProductSpace ℝ V</code>), so the result holds in $\mathbb{R}^n$ as well. <code>t • v</code> is the product $tv$ of the number $t$ with the vector $v$. <code>¬ LinearIndependent ℝ ![u, v]</code> means that $u,v$ are not linearly independent, that is, they are linearly dependent.</p>
+<h2>2. Step by step: the inequality $\langle u,v\rangle^2\le\|u\|^2\|v\|^2$</h2>
+<p class="note">The proof in the book: for every $t\in\mathbb{R}$ we have $\|u+tv\|^2\ge 0$, so the quadratic in $t$ has discriminant $\le 0$. We first prove the squared inequality. The form with the absolute value follows immediately and is the exercise below. We start from the goal:</p>
+<div class="goal start"><span>The goal</span><pre>V : Type u_1
+inst✝¹ : NormedAddCommGroup V
+inst✝ : InnerProductSpace ℝ V
+u v : V
+⊢ ⟪u, v⟫_ℝ ^ 2 ≤ ‖u‖ ^ 2 * ‖v‖ ^ 2</pre></div>
+<p class="note">Above <code>⊢</code> is what we know; after <code>⊢</code> is what we have to show. After each step we show only what changed.</p>
+<ol class="steps"><li><pre class="ln"><span class="kw">have</span> h : ∀ t : ℝ, 0 ≤ ‖v‖ ^ 2 * (t * t) + 2 * ⟪u, v⟫_ℝ * t + ‖u‖ ^ 2 := <span class="kw">by</span></pre><p>We open an intermediate claim <code>h</code>: the quadratic $\|v\|^2t^2+2\langle u,v\rangle t+\|u\|^2$ takes no negative values. <code>have … := by</code> opens a proof of its own, with its own goal.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ ∀ (t : ℝ), 0 ≤ ‖v‖ ^ 2 * (t * t) + 2 * ⟪u, v⟫_ℝ * t + ‖u‖ ^ 2</pre></div></li><li><pre class="ln"><span class="tc">intro</span> t</pre><p>We take an arbitrary real number $t$.</p><div class="goal"><span>What remains to be proved</span><pre>t : ℝ
+⊢ 0 ≤ ‖v‖ ^ 2 * (t * t) + 2 * ⟪u, v⟫_ℝ * t + ‖u‖ ^ 2</pre></div></li><li><pre class="ln"><span class="kw">have</span> e := expand u v t</pre><p>The lemma <code>expand</code>, a little earlier in the code, expands the square: $\|u+tv\|^2$<wbr>${}=\|u\|^2+2t\langle u,v\rangle+t^2\|v\|^2$.</p><div class="goal"><span>What remains to be proved</span><pre>e : ‖u + t • v‖ ^ 2 = ‖u‖ ^ 2 + 2 * (t * ⟪u, v⟫_ℝ) + t ^ 2 * ‖v‖ ^ 2
+⊢ 0 ≤ ‖v‖ ^ 2 * (t * t) + 2 * ⟪u, v⟫_ℝ * t + ‖u‖ ^ 2</pre></div></li><li><pre class="ln"><span class="kw">have</span> p := sq_nonneg ‖u + t • v‖</pre><p>A square is never negative: $\|u+tv\|^2\ge 0$.</p><div class="goal"><span>What remains to be proved</span><pre>p : 0 ≤ ‖u + t • v‖ ^ 2
+⊢ 0 ≤ ‖v‖ ^ 2 * (t * t) + 2 * ⟪u, v⟫_ℝ * t + ‖u‖ ^ 2</pre></div></li><li><pre class="ln"><span class="tc">nlinarith</span> [e, p]</pre><p>The goal follows from <code>e</code> and <code>p</code>: it is the same inequality with the terms in a different order. The tactic <code>nlinarith</code> does the combination. The intermediate claim <code>h</code> is proved.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln"><span class="kw">have</span> hd := discrim_le_zero h</pre><p>A quadratic $at^2+bt+c$ that never takes a negative value has discriminant $\le 0$. This is the Mathlib theorem <code>discrim_le_zero</code>. <code>hd</code> says that $\Delta\le 0$.</p><div class="goal"><span>What remains to be proved</span><pre>V : Type u_1
+inst✝¹ : NormedAddCommGroup V
+inst✝ : InnerProductSpace ℝ V
+u v : V
+h : ∀ (t : ℝ), 0 ≤ ‖v‖ ^ 2 * (t * t) + 2 * ⟪u, v⟫_ℝ * t + ‖u‖ ^ 2
+hd : discrim (‖v‖ ^ 2) (2 * ⟪u, v⟫_ℝ) (‖u‖ ^ 2) ≤ 0
+⊢ ⟪u, v⟫_ℝ ^ 2 ≤ ‖u‖ ^ 2 * ‖v‖ ^ 2</pre></div></li><li><pre class="ln"><span class="tc">unfold</span> discrim <span class="kw">at</span> hd</pre><p>We unfold the definition of the discriminant: $\Delta$<wbr>${}=b^2-4ac$<wbr>${}=(2\langle u,v\rangle)^2-4\|v\|^2\|u\|^2$.</p><div class="goal"><span>What remains to be proved</span><pre>hd : (2 * ⟪u, v⟫_ℝ) ^ 2 - 4 * ‖v‖ ^ 2 * ‖u‖ ^ 2 ≤ 0
+⊢ ⟪u, v⟫_ℝ ^ 2 ≤ ‖u‖ ^ 2 * ‖v‖ ^ 2</pre></div></li><li><pre class="ln"><span class="tc">nlinarith</span> [hd]</pre><p>From $4\langle u,v\rangle^2-4\|u\|^2\|v\|^2\le 0$, dividing by $4$, we obtain the goal. <code>nlinarith</code> does this.</p><div class="goal done"><span>✓ </span>No goals: the proof is complete.</div></li></ol>
+<h2>3. Try it yourself: the form $|\langle u,v\rangle|\le\|u\|\,\|v\|$</h2>
+<div class="ex"><p>Use the squared inequality we have just proved. Open the exercise in Lean and replace the word <code>sorry</code> with your own steps. When the proof is correct, the message <i>declaration uses sorry</i> disappears and no red error appears.</p>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%201%20%C2%B7%20Cauchy%E2%80%93Schwarz%20Inequality%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch1.CauchySchwarz%0Aopen%20scoped%20InnerProductSpace%0A%0Avariable%20%7BV%20%3A%20Type*%7D%20%5BNormedAddCommGroup%20V%5D%20%5BInnerProductSpace%20%E2%84%9D%20V%5D%0A%0Atheorem%20expand%20%28u%20v%20%3A%20V%29%20%28t%20%3A%20%E2%84%9D%29%20%3A%0A%20%20%20%20%E2%80%96u%20%2B%20t%20%E2%80%A2%20v%E2%80%96%20%5E%202%20%3D%20%E2%80%96u%E2%80%96%20%5E%202%20%2B%202%20*%20%28t%20*%20%E2%9F%AAu%2C%20v%E2%9F%AB_%E2%84%9D%29%20%2B%20t%20%5E%202%20*%20%E2%80%96v%E2%80%96%20%5E%202%20%3A%3D%20by%0A%20%20rw%20%5Bnorm_add_sq_real%2C%20real_inner_smul_right%2C%20norm_smul%2C%20mul_pow%2C%20Real.norm_eq_abs%2C%20sq_abs%5D%0A%0Atheorem%20sq_version%20%28u%20v%20%3A%20V%29%20%3A%20%E2%9F%AAu%2C%20v%E2%9F%AB_%E2%84%9D%20%5E%202%20%E2%89%A4%20%E2%80%96u%E2%80%96%20%5E%202%20*%20%E2%80%96v%E2%80%96%20%5E%202%20%3A%3D%20by%0A%20%20have%20h%20%3A%20%E2%88%80%20t%20%3A%20%E2%84%9D%2C%200%20%E2%89%A4%20%E2%80%96v%E2%80%96%20%5E%202%20*%20%28t%20*%20t%29%20%2B%202%20*%20%E2%9F%AAu%2C%20v%E2%9F%AB_%E2%84%9D%20*%20t%20%2B%20%E2%80%96u%E2%80%96%20%5E%202%20%3A%3D%20by%0A%20%20%20%20intro%20t%0A%20%20%20%20have%20e%20%3A%3D%20expand%20u%20v%20t%0A%20%20%20%20have%20p%20%3A%3D%20sq_nonneg%20%E2%80%96u%20%2B%20t%20%E2%80%A2%20v%E2%80%96%0A%20%20%20%20nlinarith%20%5Be%2C%20p%5D%0A%20%20have%20hd%20%3A%3D%20discrim_le_zero%20h%0A%20%20unfold%20discrim%20at%20hd%0A%20%20nlinarith%20%5Bhd%5D%0A%0Atheorem%20cauchy_schwarz%20%28u%20v%20%3A%20V%29%20%3A%20%7C%E2%9F%AAu%2C%20v%E2%9F%AB_%E2%84%9D%7C%20%E2%89%A4%20%E2%80%96u%E2%80%96%20*%20%E2%80%96v%E2%80%96%20%3A%3D%20by%0A%20%20--%20EXERCISE%3A%20replace%20the%20sorry%20with%20your%20own%20proof.%0A%20%20sorry%0A%0Atheorem%20equality_iff%20%28u%20v%20%3A%20V%29%20%3A%0A%20%20%20%20%7C%E2%9F%AAu%2C%20v%E2%9F%AB_%E2%84%9D%7C%20%3D%20%E2%80%96u%E2%80%96%20*%20%E2%80%96v%E2%80%96%20%E2%86%94%20%C2%AC%20LinearIndependent%20%E2%84%9D%20!%5Bu%2C%20v%5D%20%3A%3D%20by%0A%20%20by_cases%20hu%20%3A%20u%20%3D%200%0A%20%20%C2%B7%20subst%20hu%0A%20%20%20%20simp%20only%20%5Binner_zero_left%2C%20abs_zero%2C%20norm_zero%2C%20zero_mul%2C%20true_iff%5D%0A%20%20%20%20intro%20h%0A%20%20%20%20exact%20h.ne_zero%200%20rfl%0A%20%20%C2%B7%20have%20key%20%3A%3D%20%28norm_inner_eq_norm_tfae%20%E2%84%9D%20u%20v%29.out%201%203%0A%20%20%20%20rw%20%5B%E2%86%90%20Real.norm_eq_abs%2C%20key%2C%20LinearIndependent.pair_iff'%20hu%5D%0A%20%20%20%20simp%20only%20%5Bhu%2C%20false_or%2C%20not_forall%2C%20not_not%2C%20ne_eq%5D%0A%20%20%20%20constructor%0A%20%20%20%20%C2%B7%20rintro%20%E2%9F%A8r%2C%20hr%E2%9F%A9%0A%20%20%20%20%20%20exact%20%E2%9F%A8r%2C%20hr.symm%E2%9F%A9%0A%20%20%20%20%C2%B7%20rintro%20%E2%9F%A8r%2C%20hr%E2%9F%A9%0A%20%20%20%20%20%20exact%20%E2%9F%A8r%2C%20hr.symm%E2%9F%A9%0A%0Aend%20Ch1.CauchySchwarz%0A" target="_blank" rel="noopener">Open the exercise in Lean</a>
+<details><summary>Hint</summary><div class="in"><p class="note">The theorem <code>abs_le_of_sq_le_sq</code> says: if $a^2\le b^2$ and $b\ge 0$, then $|a|\le b$. Start with <code>apply abs_le_of_sq_le_sq _ (by positivity)</code>. Rewrite $(\|u\|\,\|v\|)^2=\|u\|^2\|v\|^2$ with <code>rw [mul_pow]</code> and finish with <code>exact sq_version u v</code>.</p></div></details>
+<details><summary>Solution</summary><div class="in"><pre class="ln"><span class="kw">theorem</span> cauchy_schwarz (u v : V) : |⟪u, v⟫_ℝ| ≤ ‖u‖ * ‖v‖ := <span class="kw">by</span>
+  <span class="tc">apply</span> abs_le_of_sq_le_sq _ (<span class="kw">by</span> <span class="tc">positivity</span>)
+  <span class="tc">rw</span> [mul_pow]
+  <span class="tc">exact</span> sq_version u v</pre></div></details>
+</div>
+<h2>4. In Mathlib</h2>
+<p class="note">We used the following theorems:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=abs_real_inner_le_norm#doc" target="_blank" rel="noopener"><code>abs_real_inner_le_norm</code></a>: the Cauchy–Schwarz inequality, ready-made in Mathlib.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=norm_inner_eq_norm_tfae#doc" target="_blank" rel="noopener"><code>norm_inner_eq_norm_tfae</code></a>: the equivalent forms of the equality condition.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=discrim_le_zero#doc" target="_blank" rel="noopener"><code>discrim_le_zero</code></a>: a quadratic that takes no negative values has discriminant $\le 0$.</li></ul>
+<h2>5. The complete code</h2>
+<details><summary>See the code (48 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 1 · Cauchy–Schwarz Inequality · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch1.CauchySchwarz
+<span class="kw">open</span> <span class="kw">scoped</span> InnerProductSpace
+
+<span class="kw">variable</span> {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℝ V]
+
+<span class="kw">theorem</span> expand (u v : V) (t : ℝ) :
+    ‖u + t • v‖ ^ 2 = ‖u‖ ^ 2 + 2 * (t * ⟪u, v⟫_ℝ) + t ^ 2 * ‖v‖ ^ 2 := <span class="kw">by</span>
+  <span class="tc">rw</span> [norm_add_sq_real, real_inner_smul_right, norm_smul, mul_pow, Real.norm_eq_abs, sq_abs]
+
+<span class="kw">theorem</span> sq_version (u v : V) : ⟪u, v⟫_ℝ ^ 2 ≤ ‖u‖ ^ 2 * ‖v‖ ^ 2 := <span class="kw">by</span>
+  <span class="kw">have</span> h : ∀ t : ℝ, 0 ≤ ‖v‖ ^ 2 * (t * t) + 2 * ⟪u, v⟫_ℝ * t + ‖u‖ ^ 2 := <span class="kw">by</span>
+    <span class="tc">intro</span> t
+    <span class="kw">have</span> e := expand u v t
+    <span class="kw">have</span> p := sq_nonneg ‖u + t • v‖
+    <span class="tc">nlinarith</span> [e, p]
+  <span class="kw">have</span> hd := discrim_le_zero h
+  <span class="tc">unfold</span> discrim <span class="kw">at</span> hd
+  <span class="tc">nlinarith</span> [hd]
+
+<span class="kw">theorem</span> cauchy_schwarz (u v : V) : |⟪u, v⟫_ℝ| ≤ ‖u‖ * ‖v‖ := <span class="kw">by</span>
+  <span class="tc">apply</span> abs_le_of_sq_le_sq _ (<span class="kw">by</span> <span class="tc">positivity</span>)
+  <span class="tc">rw</span> [mul_pow]
+  <span class="tc">exact</span> sq_version u v
+
+<span class="kw">theorem</span> equality_iff (u v : V) :
+    |⟪u, v⟫_ℝ| = ‖u‖ * ‖v‖ ↔ ¬ LinearIndependent ℝ ![u, v] := <span class="kw">by</span>
+  <span class="tc">by_cases</span> hu : u = 0
+  · <span class="tc">subst</span> hu
+    <span class="tc">simp</span> only [inner_zero_left, abs_zero, norm_zero, zero_mul, true_iff]
+    <span class="tc">intro</span> h
+    <span class="tc">exact</span> h.ne_zero 0 rfl
+  · <span class="kw">have</span> key := (norm_inner_eq_norm_tfae ℝ u v).out 1 3
+    <span class="tc">rw</span> [← Real.norm_eq_abs, key, LinearIndependent.pair_iff&#x27; hu]
+    <span class="tc">simp</span> only [hu, false_or, not_forall, not_not, ne_eq]
+    <span class="tc">constructor</span>
+    · <span class="tc">rintro</span> ⟨r, hr⟩
+      <span class="tc">exact</span> ⟨r, hr.symm⟩
+    · <span class="tc">rintro</span> ⟨r, hr⟩
+      <span class="tc">exact</span> ⟨r, hr.symm⟩
+
+<span class="kw">end</span> Ch1.CauchySchwarz
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%201%20%C2%B7%20Cauchy%E2%80%93Schwarz%20Inequality%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch1.CauchySchwarz%0Aopen%20scoped%20InnerProductSpace%0A%0Avariable%20%7BV%20%3A%20Type*%7D%20%5BNormedAddCommGroup%20V%5D%20%5BInnerProductSpace%20%E2%84%9D%20V%5D%0A%0Atheorem%20expand%20%28u%20v%20%3A%20V%29%20%28t%20%3A%20%E2%84%9D%29%20%3A%0A%20%20%20%20%E2%80%96u%20%2B%20t%20%E2%80%A2%20v%E2%80%96%20%5E%202%20%3D%20%E2%80%96u%E2%80%96%20%5E%202%20%2B%202%20*%20%28t%20*%20%E2%9F%AAu%2C%20v%E2%9F%AB_%E2%84%9D%29%20%2B%20t%20%5E%202%20*%20%E2%80%96v%E2%80%96%20%5E%202%20%3A%3D%20by%0A%20%20rw%20%5Bnorm_add_sq_real%2C%20real_inner_smul_right%2C%20norm_smul%2C%20mul_pow%2C%20Real.norm_eq_abs%2C%20sq_abs%5D%0A%0Atheorem%20sq_version%20%28u%20v%20%3A%20V%29%20%3A%20%E2%9F%AAu%2C%20v%E2%9F%AB_%E2%84%9D%20%5E%202%20%E2%89%A4%20%E2%80%96u%E2%80%96%20%5E%202%20*%20%E2%80%96v%E2%80%96%20%5E%202%20%3A%3D%20by%0A%20%20have%20h%20%3A%20%E2%88%80%20t%20%3A%20%E2%84%9D%2C%200%20%E2%89%A4%20%E2%80%96v%E2%80%96%20%5E%202%20*%20%28t%20*%20t%29%20%2B%202%20*%20%E2%9F%AAu%2C%20v%E2%9F%AB_%E2%84%9D%20*%20t%20%2B%20%E2%80%96u%E2%80%96%20%5E%202%20%3A%3D%20by%0A%20%20%20%20intro%20t%0A%20%20%20%20have%20e%20%3A%3D%20expand%20u%20v%20t%0A%20%20%20%20have%20p%20%3A%3D%20sq_nonneg%20%E2%80%96u%20%2B%20t%20%E2%80%A2%20v%E2%80%96%0A%20%20%20%20nlinarith%20%5Be%2C%20p%5D%0A%20%20have%20hd%20%3A%3D%20discrim_le_zero%20h%0A%20%20unfold%20discrim%20at%20hd%0A%20%20nlinarith%20%5Bhd%5D%0A%0Atheorem%20cauchy_schwarz%20%28u%20v%20%3A%20V%29%20%3A%20%7C%E2%9F%AAu%2C%20v%E2%9F%AB_%E2%84%9D%7C%20%E2%89%A4%20%E2%80%96u%E2%80%96%20*%20%E2%80%96v%E2%80%96%20%3A%3D%20by%0A%20%20apply%20abs_le_of_sq_le_sq%20_%20%28by%20positivity%29%0A%20%20rw%20%5Bmul_pow%5D%0A%20%20exact%20sq_version%20u%20v%0A%0Atheorem%20equality_iff%20%28u%20v%20%3A%20V%29%20%3A%0A%20%20%20%20%7C%E2%9F%AAu%2C%20v%E2%9F%AB_%E2%84%9D%7C%20%3D%20%E2%80%96u%E2%80%96%20*%20%E2%80%96v%E2%80%96%20%E2%86%94%20%C2%AC%20LinearIndependent%20%E2%84%9D%20!%5Bu%2C%20v%5D%20%3A%3D%20by%0A%20%20by_cases%20hu%20%3A%20u%20%3D%200%0A%20%20%C2%B7%20subst%20hu%0A%20%20%20%20simp%20only%20%5Binner_zero_left%2C%20abs_zero%2C%20norm_zero%2C%20zero_mul%2C%20true_iff%5D%0A%20%20%20%20intro%20h%0A%20%20%20%20exact%20h.ne_zero%200%20rfl%0A%20%20%C2%B7%20have%20key%20%3A%3D%20%28norm_inner_eq_norm_tfae%20%E2%84%9D%20u%20v%29.out%201%203%0A%20%20%20%20rw%20%5B%E2%86%90%20Real.norm_eq_abs%2C%20key%2C%20LinearIndependent.pair_iff'%20hu%5D%0A%20%20%20%20simp%20only%20%5Bhu%2C%20false_or%2C%20not_forall%2C%20not_not%2C%20ne_eq%5D%0A%20%20%20%20constructor%0A%20%20%20%20%C2%B7%20rintro%20%E2%9F%A8r%2C%20hr%E2%9F%A9%0A%20%20%20%20%20%20exact%20%E2%9F%A8r%2C%20hr.symm%E2%9F%A9%0A%20%20%20%20%C2%B7%20rintro%20%E2%9F%A8r%2C%20hr%E2%9F%A9%0A%20%20%20%20%20%20exact%20%E2%9F%A8r%2C%20hr.symm%E2%9F%A9%0A%0Aend%20Ch1.CauchySchwarz%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Axler, S. (2024). <em>Linear Algebra Done Right</em> (4th ed.). Springer.</li><li>Hoffman, K., &amp; Kunze, R. (1971). <em>Linear Algebra</em> (2nd ed.). Prentice-Hall.</li><li>Strang, G. (2016). <em>Introduction to Linear Algebra</em> (5th ed.). Wellesley-Cambridge Press.</li><li>Varsos, D. A., Deriziotis, D. I., Maliakas, M. P., Papastavridis, S. G., Raptis, E., &amp; Talelli, O. P. (2003). <em>Eisagogi sti Grammiki Algevra [Introduction to Linear Algebra]</em> (Vol. A). Ekdoseis Sofia. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>
