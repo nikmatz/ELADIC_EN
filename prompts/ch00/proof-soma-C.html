@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Field Structure of &#8450;</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Field Structure of &#8450;</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 0 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>The set $\mathbb{C}$, equipped with addition and multiplication, is a field: commutativity, associativity and distributivity hold, identity elements exist, and every $z\ne 0$ has an inverse $z^{-1}$.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20The%20set%20%24%5Cmathbb%7BC%7D%24%2C%20equipped%20with%20addition%20and%20multiplication%2C%20is%20a%20field%3A%20commutativity%2C%20associativity%20and%20distributivity%20hold%2C%20identity%20elements%20exist%2C%20and%20every%20%24z%5Cne%200%24%20has%20an%20inverse%20%24z%5E%7B-1%7D%24.">ChatGPT</a>
@@ -27,6 +87,80 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: The set $\mathbb{C}$, equipped with addition and multiplication, is a field: commutativity, associativity and distributivity hold, identity elements exist, and every $z\ne 0$ has an inverse $z^{-1}$.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The field properties of $\mathbb{C}$ were proved in Lean 4, using theorems from Mathlib, with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">Commutativity of addition: $z+w=w+z$</div><pre class="ln"><span class="kw">theorem</span> comm_add (z w : ℂ) : z + w = w + z</pre></li><li><div class="bk">Commutativity of multiplication: $zw=wz$</div><pre class="ln"><span class="kw">theorem</span> comm_mul (z w : ℂ) : z * w = w * z</pre></li><li><div class="bk">Associativity of addition</div><pre class="ln"><span class="kw">theorem</span> assoc_add (z w u : ℂ) : z + w + u = z + (w + u)</pre></li><li><div class="bk">Associativity of multiplication</div><pre class="ln"><span class="kw">theorem</span> assoc_mul (z w u : ℂ) : z * w * u = z * (w * u)</pre></li><li><div class="bk">Distributivity: $z(w+u)=zw+zu$</div><pre class="ln"><span class="kw">theorem</span> distrib (z w u : ℂ) : z * (w + u) = z * w + z * u</pre></li><li><div class="bk">Additive identity: $z+0=z$</div><pre class="ln"><span class="kw">theorem</span> zero_neutral (z : ℂ) : z + 0 = z</pre></li><li><div class="bk">Multiplicative identity: $z\cdot 1=z$</div><pre class="ln"><span class="kw">theorem</span> one_neutral (z : ℂ) : z * 1 = z</pre></li><li><div class="bk">Additive inverse: $z+(-z)=0$</div><pre class="ln"><span class="kw">theorem</span> opposite (z : ℂ) : z + -z = 0</pre></li><li><div class="bk">Every $z\neq 0$ has an inverse: $z\,z^{-1}=1$</div><pre class="ln"><span class="kw">theorem</span> inverse (z : ℂ) (hz : z ≠ 0) : z * z⁻¹ = 1</pre></li><li><div class="bk">The inverse is $z^{-1}=\dfrac{\overline{z}}{|z|^2}$</div><pre class="ln"><span class="kw">theorem</span> inverse_formula (z : ℂ) : z⁻¹ = conj z * ((normSq z)⁻¹ : ℝ)</pre></li><li><div class="bk">$\mathbb{C}$ is a field</div><pre class="ln"><span class="kw">theorem</span> is_field : IsField ℂ</pre></li></ul>
+<p class="note">In Mathlib, $\mathbb{C}$ is defined as pairs of reals $(a,b)$ with the operations of the book, and it is proved to be a field. That is why each property here is a general theorem about fields, applied to $\mathbb{C}$. The expression <code>normSq z</code> is $|z|^2=a^2+b^2$, and <code>conj z</code> is the conjugate $\overline{z}$.</p>
+<h2>2. Where it is in Mathlib</h2>
+<p class="note">The field structure of $\mathbb{C}$ in Mathlib:</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Complex.instField#doc" target="_blank" rel="noopener"><code>Complex.instField</code></a>: $\mathbb{C}$ as a field.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Complex.inv_def#doc" target="_blank" rel="noopener"><code>Complex.inv_def</code></a>: the formula for the inverse.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=mul_inv_cancel%E2%82%80#doc" target="_blank" rel="noopener"><code>mul_inv_cancel₀</code></a>: in every field, $zz^{-1}=1$ for $z\neq 0$.</li></ul>
+<h2>3. The complete code</h2>
+<details><summary>See the code (33 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 0 · Field Structure of ℂ · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch0.SomaC
+<span class="kw">open</span> Complex ComplexConjugate
+
+<span class="kw">theorem</span> comm_add (z w : ℂ) : z + w = w + z := add_comm z w
+
+<span class="kw">theorem</span> comm_mul (z w : ℂ) : z * w = w * z := mul_comm z w
+
+<span class="kw">theorem</span> assoc_add (z w u : ℂ) : z + w + u = z + (w + u) := add_assoc z w u
+
+<span class="kw">theorem</span> assoc_mul (z w u : ℂ) : z * w * u = z * (w * u) := mul_assoc z w u
+
+<span class="kw">theorem</span> distrib (z w u : ℂ) : z * (w + u) = z * w + z * u := mul_add z w u
+
+<span class="kw">theorem</span> zero_neutral (z : ℂ) : z + 0 = z := add_zero z
+
+<span class="kw">theorem</span> one_neutral (z : ℂ) : z * 1 = z := mul_one z
+
+<span class="kw">theorem</span> opposite (z : ℂ) : z + -z = 0 := add_neg_cancel z
+
+<span class="kw">theorem</span> inverse (z : ℂ) (hz : z ≠ 0) : z * z⁻¹ = 1 := mul_inv_cancel₀ hz
+
+<span class="kw">theorem</span> inverse_formula (z : ℂ) : z⁻¹ = conj z * ((normSq z)⁻¹ : ℝ) := inv_def z
+
+<span class="kw">theorem</span> is_field : IsField ℂ := Field.toIsField ℂ
+
+<span class="kw">end</span> Ch0.SomaC
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%200%20%C2%B7%20Field%20Structure%20of%20%E2%84%82%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch0.SomaC%0Aopen%20Complex%20ComplexConjugate%0A%0Atheorem%20comm_add%20%28z%20w%20%3A%20%E2%84%82%29%20%3A%20z%20%2B%20w%20%3D%20w%20%2B%20z%20%3A%3D%20add_comm%20z%20w%0A%0Atheorem%20comm_mul%20%28z%20w%20%3A%20%E2%84%82%29%20%3A%20z%20*%20w%20%3D%20w%20*%20z%20%3A%3D%20mul_comm%20z%20w%0A%0Atheorem%20assoc_add%20%28z%20w%20u%20%3A%20%E2%84%82%29%20%3A%20z%20%2B%20w%20%2B%20u%20%3D%20z%20%2B%20%28w%20%2B%20u%29%20%3A%3D%20add_assoc%20z%20w%20u%0A%0Atheorem%20assoc_mul%20%28z%20w%20u%20%3A%20%E2%84%82%29%20%3A%20z%20*%20w%20*%20u%20%3D%20z%20*%20%28w%20*%20u%29%20%3A%3D%20mul_assoc%20z%20w%20u%0A%0Atheorem%20distrib%20%28z%20w%20u%20%3A%20%E2%84%82%29%20%3A%20z%20*%20%28w%20%2B%20u%29%20%3D%20z%20*%20w%20%2B%20z%20*%20u%20%3A%3D%20mul_add%20z%20w%20u%0A%0Atheorem%20zero_neutral%20%28z%20%3A%20%E2%84%82%29%20%3A%20z%20%2B%200%20%3D%20z%20%3A%3D%20add_zero%20z%0A%0Atheorem%20one_neutral%20%28z%20%3A%20%E2%84%82%29%20%3A%20z%20*%201%20%3D%20z%20%3A%3D%20mul_one%20z%0A%0Atheorem%20opposite%20%28z%20%3A%20%E2%84%82%29%20%3A%20z%20%2B%20-z%20%3D%200%20%3A%3D%20add_neg_cancel%20z%0A%0Atheorem%20inverse%20%28z%20%3A%20%E2%84%82%29%20%28hz%20%3A%20z%20%E2%89%A0%200%29%20%3A%20z%20*%20z%E2%81%BB%C2%B9%20%3D%201%20%3A%3D%20mul_inv_cancel%E2%82%80%20hz%0A%0Atheorem%20inverse_formula%20%28z%20%3A%20%E2%84%82%29%20%3A%20z%E2%81%BB%C2%B9%20%3D%20conj%20z%20*%20%28%28normSq%20z%29%E2%81%BB%C2%B9%20%3A%20%E2%84%9D%29%20%3A%3D%20inv_def%20z%0A%0Atheorem%20is_field%20%3A%20IsField%20%E2%84%82%20%3A%3D%20Field.toIsField%20%E2%84%82%0A%0Aend%20Ch0.SomaC%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Churchill, R. V., &amp; Brown, J. W. (1984). <em>Complex Variables and Applications</em> (5th ed.). McGraw-Hill.</li><li>Hoffman, K., &amp; Kunze, R. (1971). <em>Linear Algebra</em> (2nd ed.). Prentice-Hall.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

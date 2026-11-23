@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>nth Roots of a Complex Number</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>nth Roots of a Complex Number</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 0 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>Every nonzero complex number $w=\rho e^{i\varphi}$ has exactly $n$ distinct $n$th roots: $z_k=\rho^{1/n}\,e^{i(\varphi+2k\pi)/n}$, $k=0,\dots,n-1$, the vertices of a regular $n$-gon.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20Every%20nonzero%20complex%20number%20%24w%3D%5Crho%20e%5E%7Bi%5Cvarphi%7D%24%20has%20exactly%20%24n%24%20distinct%20%24n%24th%20roots%3A%20%24z_k%3D%5Crho%5E%7B1/n%7D%5C%2Ce%5E%7Bi%28%5Cvarphi%2B2k%5Cpi%29/n%7D%24%2C%20%24k%3D0%2C%5Cdots%2Cn-1%24%2C%20the%20vertices%20of%20a%20regular%20%24n%24-gon.">ChatGPT</a>
@@ -27,6 +87,128 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: Every nonzero complex number $w=\rho e^{i\varphi}$ has exactly $n$ distinct $n$th roots: $z_k=\rho^{1/n}\,e^{i(\varphi+2k\pi)/n}$, $k=0,\dots,n-1$, the vertices of a regular $n$-gon.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> The formula for the $n$th roots, the fact that they are distinct, and the fact that they are all the roots were proved in Lean 4 with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. We first define the root <code>z ρ φ n k</code> $=\rho^{1/n}e^{i(\varphi+2k\pi)/n}$, as in the book, and then we prove what holds for it.</p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">Every $z_k$<wbr>${}=\rho^{1/n}e^{i(\varphi+2k\pi)/n}$ is an $n$th root of $w=\rho e^{i\varphi}$</div><pre class="ln"><span class="kw">theorem</span> z_pow (ρ φ : ℝ) (hρ : 0 &lt; ρ) (n k : ℕ) (hn : n ≠ 0) :
+    z ρ φ n k ^ n = ρ * exp (φ * I)</pre></li><li><div class="bk">The roots $z_0,\dots,z_{n-1}$ are distinct</div><pre class="ln"><span class="kw">theorem</span> z_injective (ρ φ : ℝ) (hρ : 0 &lt; ρ) (n : ℕ) (hn : n ≠ 0) {j k : ℕ}
+    (hj : j &lt; n) (hk : k &lt; n) (h : z ρ φ n j = z ρ φ n k) : j = k</pre></li><li><div class="bk">Every $n$th root of $w$ is some $z_k$ with $k\lt n$</div><pre class="ln"><span class="kw">theorem</span> all_roots (ρ φ : ℝ) (hρ : 0 &lt; ρ) (n : ℕ) (hn : n ≠ 0) (x : ℂ)
+    (hx : x ^ n = ρ * exp (φ * I)) : ∃ k &lt; n, x = z ρ φ n k</pre></li><li><div class="bk">A nonzero complex number has exactly $n$ distinct $n$th roots</div><pre class="ln"><span class="kw">theorem</span> exactly_n (n : ℕ) (hn : n ≠ 0) (w : ℂ) (hw : w ≠ 0) :
+    (Polynomial.nthRoots n w).Nodup ∧ Multiset.card (Polynomial.nthRoots n w) = n</pre></li></ul>
+<p class="note">The hypothesis <code>hρ : 0 &lt; ρ</code> says that the modulus is positive ($w\neq 0$), and <code>hn : n ≠ 0</code> says that $n\ge 1$. The expression <code>ρ ^ (↑n)⁻¹</code> is $\rho^{1/n}$. In the last theorem, <code>nthRoots n w</code> are the roots of the polynomial $x^n-w$, with multiplicities; <code>Nodup</code> says that none of them is repeated, and <code>card</code> that there are $n$ of them. The geometric picture (vertices of a regular $n$-gon) is not formalized here.</p>
+<h2>2. Step by step: every $z_k$ is a root: $z_k^{\,n}=\rho e^{i\varphi}$</h2>
+<p class="note">In the book: $z_k^{\,n}$<wbr>${}=\left(\rho^{1/n}\right)^n e^{i(\varphi+2k\pi)}$<wbr>${}=\rho\,e^{i\varphi}\,e^{2k\pi i}$<wbr>${}=\rho\,e^{i\varphi}$, since $e^{2k\pi i}=1$. In Lean:</p>
+<div class="goal start"><span>The goal</span><pre>ρ φ : ℝ
+hρ : 0 &lt; ρ
+n k : ℕ
+hn : n ≠ 0
+⊢ z ρ φ n k ^ n = ↑ρ * cexp (↑φ * I)</pre></div>
+<p class="note">Above <code>⊢</code> is what we know; after <code>⊢</code> is what we have to show. After each step we show only what changed.</p>
+<ol class="steps"><li><pre class="ln"><span class="kw">have</span> hn&#x27; : (n : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr hn</pre><p>We note that $n\neq 0$ also as a complex number; we will divide by it.</p><div class="goal"><span>What remains to be proved</span><pre>hn&#x27; : ↑n ≠ 0
+⊢ z ρ φ n k ^ n = ↑ρ * cexp (↑φ * I)</pre></div></li><li><pre class="ln"><span class="tc">unfold</span> z</pre><p>We unfold the definition of $z_k$.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ (↑(ρ ^ (↑n)⁻¹) * cexp ((↑φ + 2 * ↑k * ↑π) / ↑n * I)) ^ n = ↑ρ * cexp (↑φ * I)</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [mul_pow, ← ofReal_pow, Real.rpow_inv_natCast_pow hρ.le hn]</pre><p>$(ab)^n=a^nb^n$, and $\left(\rho^{1/n}\right)^n=\rho$ for $\rho\ge 0$ (<code>Real.rpow_inv_natCast_pow</code>).</p><div class="goal"><span>What remains to be proved</span><pre>⊢ ↑ρ * cexp ((↑φ + 2 * ↑k * ↑π) / ↑n * I) ^ n = ↑ρ * cexp (↑φ * I)</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [← exp_natCast_mul]</pre><p>$\left(e^x\right)^n=e^{nx}$.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ ↑ρ * cexp (↑n * ((↑φ + 2 * ↑k * ↑π) / ↑n * I)) = ↑ρ * cexp (↑φ * I)</pre></div></li><li><pre class="ln"><span class="kw">have</span> h : (n : ℂ) * ((φ + 2 * k * π) / n * I) = φ * I + k * (2 * π * I) := <span class="kw">by</span>
+  <span class="kw">calc</span> (n : ℂ) * ((φ + 2 * k * π) / n * I) = (n / n) * ((φ + 2 * k * π) * I) := <span class="kw">by</span> <span class="tc">ring</span>
+    _ = φ * I + k * (2 * π * I) := <span class="kw">by</span> <span class="tc">rw</span> [div_self hn&#x27;, one_mul]; <span class="tc">ring</span></pre><p>The exponent: $n\cdot\dfrac{\varphi+2k\pi}{n}\,i$<wbr>${}=\varphi i+k\cdot 2\pi i$. We compute it with two equalities (<code>calc</code>), where $n/n=1$ since $n\neq 0$.</p><div class="goal"><span>What remains to be proved</span><pre>h : ↑n * ((↑φ + 2 * ↑k * ↑π) / ↑n * I) = ↑φ * I + ↑k * (2 * ↑π * I)
+⊢ ↑ρ * cexp (↑n * ((↑φ + 2 * ↑k * ↑π) / ↑n * I)) = ↑ρ * cexp (↑φ * I)</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [h, exp_add, exp_nat_mul_two_pi_mul_I, mul_one]</pre><p>$e^{\varphi i+k\cdot 2\pi i}$<wbr>${}=e^{\varphi i}\,e^{2k\pi i}$<wbr>${}=e^{\varphi i}\cdot 1$, since $e^{2k\pi i}=1$ (<code>exp_nat_mul_two_pi_mul_I</code>).</p><div class="goal done"><span>✓ </span>No goals: the proof is complete.</div></li></ol>
+<h2>3. In Mathlib</h2>
+<p class="note">For the distinctness and completeness of the roots we used the primitive roots of unity in Mathlib: $z_k=z_0\cdot\zeta^k$ with $\zeta=e^{2\pi i/n}$ (theorem <code>z_eq</code>).</p>
+<ul class="mlist"><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=Complex.isPrimitiveRoot_exp#doc" target="_blank" rel="noopener"><code>Complex.isPrimitiveRoot_exp</code></a>: $e^{2\pi i/n}$ is a primitive $n$th root of unity.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsPrimitiveRoot.nthRoots_eq#doc" target="_blank" rel="noopener"><code>IsPrimitiveRoot.nthRoots_eq</code></a>: the solutions of $x^n=w$ are $\zeta^k\alpha$, $k=0,\dots,n-1$.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsPrimitiveRoot.nthRoots_nodup#doc" target="_blank" rel="noopener"><code>IsPrimitiveRoot.nthRoots_nodup</code></a>: they are distinct.</li><li><a href="https://leanprover-community.github.io/mathlib4_docs/find/?pattern=IsPrimitiveRoot.card_nthRoots#doc" target="_blank" rel="noopener"><code>IsPrimitiveRoot.card_nthRoots</code></a>: there are exactly $n$ of them.</li></ul>
+<h2>4. The complete code</h2>
+<details><summary>See the code (64 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 0 · nth Roots of a Complex Number · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch0.NostesRizes
+<span class="kw">open</span> Complex
+<span class="kw">open</span> <span class="kw">scoped</span> Real
+
+<span class="cm">/-- The root with index k: ρ^(1/n) · e^(i(φ + 2kπ)/n). -/</span>
+<span class="kw">noncomputable</span> <span class="kw">def</span> z (ρ φ : ℝ) (n k : ℕ) : ℂ :=
+  ((ρ ^ ((n : ℝ)⁻¹) : ℝ) : ℂ) * exp ((φ + 2 * k * π) / n * I)
+
+<span class="kw">theorem</span> z_pow (ρ φ : ℝ) (hρ : 0 &lt; ρ) (n k : ℕ) (hn : n ≠ 0) :
+    z ρ φ n k ^ n = ρ * exp (φ * I) := <span class="kw">by</span>
+  <span class="kw">have</span> hn&#x27; : (n : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr hn
+  <span class="tc">unfold</span> z
+  <span class="tc">rw</span> [mul_pow, ← ofReal_pow, Real.rpow_inv_natCast_pow hρ.le hn]
+  <span class="tc">rw</span> [← exp_natCast_mul]
+  <span class="kw">have</span> h : (n : ℂ) * ((φ + 2 * k * π) / n * I) = φ * I + k * (2 * π * I) := <span class="kw">by</span>
+    <span class="kw">calc</span> (n : ℂ) * ((φ + 2 * k * π) / n * I) = (n / n) * ((φ + 2 * k * π) * I) := <span class="kw">by</span> <span class="tc">ring</span>
+      _ = φ * I + k * (2 * π * I) := <span class="kw">by</span> <span class="tc">rw</span> [div_self hn&#x27;, one_mul]; <span class="tc">ring</span>
+  <span class="tc">rw</span> [h, exp_add, exp_nat_mul_two_pi_mul_I, mul_one]
+
+<span class="kw">theorem</span> z_eq (ρ φ : ℝ) (n k : ℕ) :
+    z ρ φ n k = z ρ φ n 0 * exp (2 * π * I / n) ^ k := <span class="kw">by</span>
+  <span class="tc">unfold</span> z
+  <span class="tc">rw</span> [← exp_natCast_mul, mul_assoc (((ρ ^ ((n : ℝ)⁻¹) : ℝ) : ℂ)), ← exp_add]
+  <span class="tc">congr</span> 2
+  <span class="tc">push_cast</span>
+  <span class="tc">ring</span>
+
+<span class="kw">theorem</span> z_injective (ρ φ : ℝ) (hρ : 0 &lt; ρ) (n : ℕ) (hn : n ≠ 0) {j k : ℕ}
+    (hj : j &lt; n) (hk : k &lt; n) (h : z ρ φ n j = z ρ φ n k) : j = k := <span class="kw">by</span>
+  <span class="kw">have</span> h0 : z ρ φ n 0 ≠ 0 := <span class="kw">by</span>
+    <span class="tc">unfold</span> z
+    <span class="tc">apply</span> mul_ne_zero
+    · <span class="tc">exact_mod_cast</span> (Real.rpow_pos_of_pos hρ _).ne&#x27;
+    · <span class="tc">exact</span> exp_ne_zero _
+  <span class="tc">rw</span> [z_eq ρ φ n j, z_eq ρ φ n k] <span class="kw">at</span> h
+  <span class="kw">have</span> h&#x27; := mul_left_cancel₀ h0 h
+  <span class="tc">exact</span> (isPrimitiveRoot_exp n hn).pow_inj hj hk h&#x27;
+
+<span class="kw">theorem</span> exactly_n (n : ℕ) (hn : n ≠ 0) (w : ℂ) (hw : w ≠ 0) :
+    (Polynomial.nthRoots n w).Nodup ∧ Multiset.card (Polynomial.nthRoots n w) = n := <span class="kw">by</span>
+  <span class="kw">have</span> hζ := isPrimitiveRoot_exp n hn
+  <span class="tc">refine</span> ⟨hζ.nthRoots_nodup hw, ?_⟩
+  <span class="kw">have</span> hex : ∃ α, α ^ n = w := IsAlgClosed.exists_pow_nat_eq w (Nat.pos_of_ne_zero hn)
+  <span class="tc">rw</span> [hζ.card_nthRoots]
+  <span class="tc">simp</span> [hex]
+
+<span class="kw">theorem</span> all_roots (ρ φ : ℝ) (hρ : 0 &lt; ρ) (n : ℕ) (hn : n ≠ 0) (x : ℂ)
+    (hx : x ^ n = ρ * exp (φ * I)) : ∃ k &lt; n, x = z ρ φ n k := <span class="kw">by</span>
+  <span class="kw">have</span> hζ := isPrimitiveRoot_exp n hn
+  <span class="kw">have</span> hmem : x ∈ Polynomial.nthRoots n ((ρ : ℂ) * exp (φ * I)) :=
+    (Polynomial.mem_nthRoots (Nat.pos_of_ne_zero hn)).mpr hx
+  <span class="tc">rw</span> [hζ.nthRoots_eq (z_pow ρ φ hρ n 0 hn)] <span class="kw">at</span> hmem
+  <span class="tc">obtain</span> ⟨k, hk, hkx⟩ := Multiset.mem_map.mp hmem
+  <span class="tc">refine</span> ⟨k, Multiset.mem_range.mp hk, ?_⟩
+  <span class="tc">rw</span> [← hkx, z_eq ρ φ n k, mul_comm]
+
+<span class="kw">end</span> Ch0.NostesRizes
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%200%20%C2%B7%20nth%20Roots%20of%20a%20Complex%20Number%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch0.NostesRizes%0Aopen%20Complex%0Aopen%20scoped%20Real%0A%0A%2F--%20The%20root%20with%20index%20k%3A%20%CF%81%5E%281%2Fn%29%20%C2%B7%20e%5E%28i%28%CF%86%20%2B%202k%CF%80%29%2Fn%29.%20-%2F%0Anoncomputable%20def%20z%20%28%CF%81%20%CF%86%20%3A%20%E2%84%9D%29%20%28n%20k%20%3A%20%E2%84%95%29%20%3A%20%E2%84%82%20%3A%3D%0A%20%20%28%28%CF%81%20%5E%20%28%28n%20%3A%20%E2%84%9D%29%E2%81%BB%C2%B9%29%20%3A%20%E2%84%9D%29%20%3A%20%E2%84%82%29%20*%20exp%20%28%28%CF%86%20%2B%202%20*%20k%20*%20%CF%80%29%20%2F%20n%20*%20I%29%0A%0Atheorem%20z_pow%20%28%CF%81%20%CF%86%20%3A%20%E2%84%9D%29%20%28h%CF%81%20%3A%200%20%3C%20%CF%81%29%20%28n%20k%20%3A%20%E2%84%95%29%20%28hn%20%3A%20n%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20z%20%CF%81%20%CF%86%20n%20k%20%5E%20n%20%3D%20%CF%81%20*%20exp%20%28%CF%86%20*%20I%29%20%3A%3D%20by%0A%20%20have%20hn'%20%3A%20%28n%20%3A%20%E2%84%82%29%20%E2%89%A0%200%20%3A%3D%20Nat.cast_ne_zero.mpr%20hn%0A%20%20unfold%20z%0A%20%20rw%20%5Bmul_pow%2C%20%E2%86%90%20ofReal_pow%2C%20Real.rpow_inv_natCast_pow%20h%CF%81.le%20hn%5D%0A%20%20rw%20%5B%E2%86%90%20exp_natCast_mul%5D%0A%20%20have%20h%20%3A%20%28n%20%3A%20%E2%84%82%29%20*%20%28%28%CF%86%20%2B%202%20*%20k%20*%20%CF%80%29%20%2F%20n%20*%20I%29%20%3D%20%CF%86%20*%20I%20%2B%20k%20*%20%282%20*%20%CF%80%20*%20I%29%20%3A%3D%20by%0A%20%20%20%20calc%20%28n%20%3A%20%E2%84%82%29%20*%20%28%28%CF%86%20%2B%202%20*%20k%20*%20%CF%80%29%20%2F%20n%20*%20I%29%20%3D%20%28n%20%2F%20n%29%20*%20%28%28%CF%86%20%2B%202%20*%20k%20*%20%CF%80%29%20*%20I%29%20%3A%3D%20by%20ring%0A%20%20%20%20%20%20_%20%3D%20%CF%86%20*%20I%20%2B%20k%20*%20%282%20*%20%CF%80%20*%20I%29%20%3A%3D%20by%20rw%20%5Bdiv_self%20hn'%2C%20one_mul%5D%3B%20ring%0A%20%20rw%20%5Bh%2C%20exp_add%2C%20exp_nat_mul_two_pi_mul_I%2C%20mul_one%5D%0A%0Atheorem%20z_eq%20%28%CF%81%20%CF%86%20%3A%20%E2%84%9D%29%20%28n%20k%20%3A%20%E2%84%95%29%20%3A%0A%20%20%20%20z%20%CF%81%20%CF%86%20n%20k%20%3D%20z%20%CF%81%20%CF%86%20n%200%20*%20exp%20%282%20*%20%CF%80%20*%20I%20%2F%20n%29%20%5E%20k%20%3A%3D%20by%0A%20%20unfold%20z%0A%20%20rw%20%5B%E2%86%90%20exp_natCast_mul%2C%20mul_assoc%20%28%28%28%CF%81%20%5E%20%28%28n%20%3A%20%E2%84%9D%29%E2%81%BB%C2%B9%29%20%3A%20%E2%84%9D%29%20%3A%20%E2%84%82%29%29%2C%20%E2%86%90%20exp_add%5D%0A%20%20congr%202%0A%20%20push_cast%0A%20%20ring%0A%0Atheorem%20z_injective%20%28%CF%81%20%CF%86%20%3A%20%E2%84%9D%29%20%28h%CF%81%20%3A%200%20%3C%20%CF%81%29%20%28n%20%3A%20%E2%84%95%29%20%28hn%20%3A%20n%20%E2%89%A0%200%29%20%7Bj%20k%20%3A%20%E2%84%95%7D%0A%20%20%20%20%28hj%20%3A%20j%20%3C%20n%29%20%28hk%20%3A%20k%20%3C%20n%29%20%28h%20%3A%20z%20%CF%81%20%CF%86%20n%20j%20%3D%20z%20%CF%81%20%CF%86%20n%20k%29%20%3A%20j%20%3D%20k%20%3A%3D%20by%0A%20%20have%20h0%20%3A%20z%20%CF%81%20%CF%86%20n%200%20%E2%89%A0%200%20%3A%3D%20by%0A%20%20%20%20unfold%20z%0A%20%20%20%20apply%20mul_ne_zero%0A%20%20%20%20%C2%B7%20exact_mod_cast%20%28Real.rpow_pos_of_pos%20h%CF%81%20_%29.ne'%0A%20%20%20%20%C2%B7%20exact%20exp_ne_zero%20_%0A%20%20rw%20%5Bz_eq%20%CF%81%20%CF%86%20n%20j%2C%20z_eq%20%CF%81%20%CF%86%20n%20k%5D%20at%20h%0A%20%20have%20h'%20%3A%3D%20mul_left_cancel%E2%82%80%20h0%20h%0A%20%20exact%20%28isPrimitiveRoot_exp%20n%20hn%29.pow_inj%20hj%20hk%20h'%0A%0Atheorem%20exactly_n%20%28n%20%3A%20%E2%84%95%29%20%28hn%20%3A%20n%20%E2%89%A0%200%29%20%28w%20%3A%20%E2%84%82%29%20%28hw%20%3A%20w%20%E2%89%A0%200%29%20%3A%0A%20%20%20%20%28Polynomial.nthRoots%20n%20w%29.Nodup%20%E2%88%A7%20Multiset.card%20%28Polynomial.nthRoots%20n%20w%29%20%3D%20n%20%3A%3D%20by%0A%20%20have%20h%CE%B6%20%3A%3D%20isPrimitiveRoot_exp%20n%20hn%0A%20%20refine%20%E2%9F%A8h%CE%B6.nthRoots_nodup%20hw%2C%20%3F_%E2%9F%A9%0A%20%20have%20hex%20%3A%20%E2%88%83%20%CE%B1%2C%20%CE%B1%20%5E%20n%20%3D%20w%20%3A%3D%20IsAlgClosed.exists_pow_nat_eq%20w%20%28Nat.pos_of_ne_zero%20hn%29%0A%20%20rw%20%5Bh%CE%B6.card_nthRoots%5D%0A%20%20simp%20%5Bhex%5D%0A%0Atheorem%20all_roots%20%28%CF%81%20%CF%86%20%3A%20%E2%84%9D%29%20%28h%CF%81%20%3A%200%20%3C%20%CF%81%29%20%28n%20%3A%20%E2%84%95%29%20%28hn%20%3A%20n%20%E2%89%A0%200%29%20%28x%20%3A%20%E2%84%82%29%0A%20%20%20%20%28hx%20%3A%20x%20%5E%20n%20%3D%20%CF%81%20*%20exp%20%28%CF%86%20*%20I%29%29%20%3A%20%E2%88%83%20k%20%3C%20n%2C%20x%20%3D%20z%20%CF%81%20%CF%86%20n%20k%20%3A%3D%20by%0A%20%20have%20h%CE%B6%20%3A%3D%20isPrimitiveRoot_exp%20n%20hn%0A%20%20have%20hmem%20%3A%20x%20%E2%88%88%20Polynomial.nthRoots%20n%20%28%28%CF%81%20%3A%20%E2%84%82%29%20*%20exp%20%28%CF%86%20*%20I%29%29%20%3A%3D%0A%20%20%20%20%28Polynomial.mem_nthRoots%20%28Nat.pos_of_ne_zero%20hn%29%29.mpr%20hx%0A%20%20rw%20%5Bh%CE%B6.nthRoots_eq%20%28z_pow%20%CF%81%20%CF%86%20h%CF%81%20n%200%20hn%29%5D%20at%20hmem%0A%20%20obtain%20%E2%9F%A8k%2C%20hk%2C%20hkx%E2%9F%A9%20%3A%3D%20Multiset.mem_map.mp%20hmem%0A%20%20refine%20%E2%9F%A8k%2C%20Multiset.mem_range.mp%20hk%2C%20%3F_%E2%9F%A9%0A%20%20rw%20%5B%E2%86%90%20hkx%2C%20z_eq%20%CF%81%20%CF%86%20n%20k%2C%20mul_comm%5D%0A%0Aend%20Ch0.NostesRizes%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Churchill, R. V., &amp; Brown, J. W. (1984). <em>Complex Variables and Applications</em> (5th ed.). McGraw-Hill.</li><li>Stewart, J. (2016). <em>Calculus: Early Transcendentals</em> (8th ed.). Cengage Learning.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>

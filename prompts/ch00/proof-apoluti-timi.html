@@ -1,23 +1,83 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Properties of the Absolute Value</title>
-<script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']],displayMath:[['$$','$$'],['\[','\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
+<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]},options:{ignoreHtmlClass:'tex2jax_ignore'},svg:{fontCache:'global'}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
-body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222}
+:root{color-scheme:light}
+*{box-sizing:border-box;min-width:0}
+body{font-family:system-ui,Arial,sans-serif;max-width:640px;margin:24px auto;padding:0 16px;line-height:1.55;color:#222;background:#fff}
 h1{font-size:19px;margin-bottom:2px}
+h2{font-size:16px;margin:26px 0 8px;color:#17734a}
 .sub{color:#666;font-size:13px;margin-top:0}
 .stmt{background:#f3eef7;border:1.5px solid #521a76;padding:12px 14px;border-radius:8px;margin:16px 0;font-size:15px;color:#222}
 .stmt .lbl,.refs .lbl{display:block;font-weight:700;color:#521a76;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
 .btns{margin:18px 0 6px}
 .btn{display:inline-block;padding:12px 18px;margin:6px 10px 6px 0;border-radius:8px;color:#fff;text-decoration:none;font-weight:600;font-size:15px}
-.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d}
-.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7}
+.btn.g{background:#10a37f}.btn.c{background:#d97757}.btn.x{background:#111}.btn.p{background:#20808d;color:#fff;font-size:15px;padding:12px 18px;margin-top:6px;line-height:1.55}
+.btn.l{background:#17734a}.btn.o{background:#fff;color:#17734a;border:1.5px solid #17734a}
+.p{background:#f5f5f5;padding:12px;border-radius:8px;font-size:13px;color:#444;margin-top:8px;line-height:1.7;overflow-x:auto}
 .refs{margin:18px 0 6px;font-size:13.5px}.refs ul{margin:4px 0 0;padding-left:20px}.refs li{margin:5px 0;color:#333}
 .refs em{font-style:italic}
 small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10px}
+.tabs{display:flex;gap:6px;margin:18px 0 4px;border-bottom:1.5px solid #ddd}
+.tabs button{flex:1 1 0;font:600 14.5px system-ui,Arial,sans-serif;padding:11px 8px;min-height:44px;border:1.5px solid #ddd;border-bottom:0;border-radius:8px 8px 0 0;background:#fafafa;color:#555;cursor:pointer;margin-bottom:-1.5px}
+.tabs button[aria-selected=true]{background:#fff;color:#521a76;border-color:#521a76;border-bottom:1.5px solid #fff}
+.tabs button[data-t=lean][aria-selected=true]{color:#17734a;border-color:#17734a}
+.tabs .ok{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#17734a;border-radius:10px;padding:1px 7px;margin-left:4px;vertical-align:1px}
+.tabs button:focus-visible{outline:3px solid #8cc9a8;outline-offset:2px}
+.hint{font-size:13.5px;color:#444;background:#eef7f1;border-radius:8px;padding:9px 12px;margin-top:14px}
+.hint a{color:#17734a;font-weight:600}
+.seal{display:flex;gap:10px;align-items:flex-start;background:#eef7f1;border:1.5px solid #17734a;border-radius:8px;padding:11px 13px;margin:16px 0 4px;font-size:14px}
+.seal b{color:#17734a}.seal .ck{flex:none;width:26px;height:26px;border-radius:50%;background:#17734a;color:#fff;font-weight:700;display:grid;place-items:center}
+pre{margin:0;overflow-x:auto}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace}
+code{font-size:.92em;background:#f4f4f6;border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+.ln{background:#f7f7f9;border:1px solid #e6e6ea;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.5;white-space:pre}
+.kw{color:#521a76;font-weight:700}.tc{color:#17734a;font-weight:700}.cm{color:#6a737d;font-style:italic}
+ul.pairs{list-style:none;padding:0;margin:8px 0}
+ul.pairs li{border:1px solid #e3e3e8;border-radius:8px;padding:9px 11px;margin:8px 0}
+ul.pairs .bk{font-size:14.5px;margin-bottom:6px}
+ul.pairs .ln{white-space:pre-wrap;overflow-wrap:anywhere}
+ul.pairs .bk::before{content:"Book";display:inline-block;font-size:11px;font-weight:700;color:#521a76;border:1px solid #521a76;border-radius:4px;padding:0 5px;margin-right:7px;vertical-align:1px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:10px 0}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;margin:0}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:#521a76;color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px}
+ol.steps li::after{content:"";position:absolute;left:13.5px;top:34px;bottom:2px;border-left:1.5px dashed #c9b8d6}
+ol.steps li:last-child::after{display:none}
+ol.steps p{margin:7px 0;font-size:14.5px}
+.goal{border-left:4px solid #521a76;background:#faf8fc;border-radius:0 6px 6px 0;padding:7px 10px;font-size:13px}
+.goal span{display:block;font-size:11.5px;font-weight:700;color:#521a76;margin-bottom:3px}
+.goal pre{font-size:13px;white-space:pre}
+.goal.done{border-color:#17734a;background:#eef7f1;color:#17734a;font-weight:600;font-size:14px}
+.goal.done span{display:inline;color:#17734a;font-size:14px}
+.start{margin:8px 0 14px}
+details{border:1px solid #e3e3e8;border-radius:8px;margin:10px 0;background:#fff}
+details>summary{cursor:pointer;padding:12px 12px;font-weight:600;font-size:14.5px;min-height:44px;line-height:1.45}
+details[open]>summary{border-bottom:1px solid #eee}
+details .in{padding:10px 12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td{border-bottom:1px solid #eee;padding:6px 6px;vertical-align:top}
+td:first-child{white-space:nowrap;padding-right:10px}
+.calc td:first-child{white-space:nowrap}.calc code{white-space:nowrap;overflow-wrap:normal}
+.ex{background:#fbf9f2;border:1.5px dashed #b9a76a;border-radius:8px;padding:11px 13px;margin:10px 0}
+.ex p{margin:0 0 8px}
+.note{font-size:13.5px;color:#444}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px;color:#666}
+.copy{font:600 13px system-ui,Arial,sans-serif;border:1px solid #ccc;background:#fff;border-radius:6px;padding:6px 10px;min-height:36px;cursor:pointer}
+.full{max-height:420px;overflow:auto}
+@media(max-width:600px){.tabs button{font-size:13.5px}.btn{padding:11px 14px}td:first-child{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.seal .ck{animation:pop .5s ease-out}@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}}
+.goal .case{display:block;font-style:normal;font-size:11.5px;color:#6b4a86;margin:6px 0 2px}
+ul.mlist{padding-left:20px;margin:8px 0}ul.mlist li{margin:6px 0;font-size:14.5px}ul.mlist a{color:#17734a}
 </style></head><body>
 <h1>Properties of the Absolute Value</h1>
-<p class="sub">Proof with the help of a Large Language Model (AI)</p>
+<p class="sub">Chapter 0 · Explanation by a Large Language Model and a proof checked by computer (Lean)</p>
 <div class="stmt"><span class="lbl">Statement</span>Properties of the absolute value: $|a|\ge 0$ with $|a|=0\Leftrightarrow a=0$; $|ab|=|a|\,|b|$ and $\left|\dfrac{a}{b}\right|=\dfrac{|a|}{|b|}$ ($b\ne 0$); $|a|\lt b\Leftrightarrow -b\lt a\lt b$ (for $b\gt 0$); the triangle inequality $|a+b|\le|a|+|b|$ and the reverse triangle inequality $\bigl||a|-|b|\bigr|\le|a-b|$; geometrically, $|a-b|$ is the distance between $a$ and $b$.</div>
+<div class="tabs" role="tablist">
+<button role="tab" id="tab-ai" aria-controls="ai" aria-selected="true" data-t="ai">Explanation with an LLM</button>
+<button role="tab" id="tab-lean" aria-controls="lean" aria-selected="false" data-t="lean">Proof in Lean<span class="ok">✓</span></button>
+</div>
+
+<section id="ai" role="tabpanel" aria-labelledby="tab-ai">
 <p>Choose an assistant — it will open with the prompt ready:</p>
 <div class="btns">
 <a class="btn g" href="https://chatgpt.com/?q=Give%20a%20rigorous%2C%20mathematically%20correct%20university-level%20proof%2C%20justifying%20every%20non-obvious%20step.%20Then%20give%20pedagogical%20extensions%3A%20the%20key%20idea%2C%20an%20intuitive/geometric%20interpretation%2C%20a%20worked%20example%2C%20and%20common%20student%20mistakes.%20THEOREM%3A%20Properties%20of%20the%20absolute%20value%3A%20%24%7Ca%7C%5Cge%200%24%20with%20%24%7Ca%7C%3D0%5CLeftrightarrow%20a%3D0%24%3B%20%24%7Cab%7C%3D%7Ca%7C%5C%2C%7Cb%7C%24%20and%20%24%5Cleft%7C%5Cdfrac%7Ba%7D%7Bb%7D%5Cright%7C%3D%5Cdfrac%7B%7Ca%7C%7D%7B%7Cb%7C%7D%24%20%28%24b%5Cne%200%24%29%3B%20%24%7Ca%7C%5Clt%20b%5CLeftrightarrow%20-b%5Clt%20a%5Clt%20b%24%20%28for%20%24b%5Cgt%200%24%29%3B%20the%20triangle%20inequality%20%24%7Ca%2Bb%7C%5Cle%7Ca%7C%2B%7Cb%7C%24%20and%20the%20reverse%20triangle%20inequality%20%24%5Cbigl%7C%7Ca%7C-%7Cb%7C%5Cbigr%7C%5Cle%7Ca-b%7C%24%3B%20geometrically%2C%20%24%7Ca-b%7C%24%20is%20the%20distance%20between%20%24a%24%20and%20%24b%24.">ChatGPT</a>
@@ -27,6 +87,119 @@ small{color:#777}footer{margin-top:22px;border-top:1px solid #eee;padding-top:10
 </div>
 <p style="margin-top:16px"><small>The prompt that will be sent:</small></p>
 <div class="p">Give a rigorous, mathematically correct university-level proof, justifying every non-obvious step. Then give pedagogical extensions: the key idea, an intuitive/geometric interpretation, a worked example, and common student mistakes. THEOREM: Properties of the absolute value: $|a|\ge 0$ with $|a|=0\Leftrightarrow a=0$; $|ab|=|a|\,|b|$ and $\left|\dfrac{a}{b}\right|=\dfrac{|a|}{|b|}$ ($b\ne 0$); $|a|\lt b\Leftrightarrow -b\lt a\lt b$ (for $b\gt 0$); the triangle inequality $|a+b|\le|a|+|b|$ and the reverse triangle inequality $\bigl||a|-|b|\bigr|\le|a-b|$; geometrically, $|a-b|$ is the distance between $a$ and $b$.</div>
+<p class="hint">The models’ answers may contain mistakes. For a proof checked step by step by a computer, see the <a href="#lean" data-go="lean">Proof in Lean</a> tab.</p>
+</section>
+
+<section id="lean" role="tabpanel" aria-labelledby="tab-lean" hidden>
+<div class="seal"><span class="ck" aria-hidden="true">✓</span><div><b>Checked by computer.</b> All the properties were proved in Lean 4, and the check passed with no errors.<br><small>Lean v4.37.0-rc1 with Mathlib · live.lean-lang.org · 22/11/2026</small></div></div>
+<p class="note"><b>Lean</b> is a language in which a proof is written so rigorously that a computer checks every step. If a step does not follow from the previous ones, the check fails. </p>
+<h2>1. What is proved: the statement in the book and in Lean</h2>
+<ul class="pairs"><li><div class="bk">$|a|\ge 0$</div><pre class="ln"><span class="kw">theorem</span> nonneg (a : ℝ) : |a| ≥ 0</pre></li><li><div class="bk">$|a|=0\Leftrightarrow a=0$</div><pre class="ln"><span class="kw">theorem</span> eq_zero_iff (a : ℝ) : |a| = 0 ↔ a = 0</pre></li><li><div class="bk">$|ab|=|a|\,|b|$</div><pre class="ln"><span class="kw">theorem</span> abs_product (a b : ℝ) : |a * b| = |a| * |b|</pre></li><li><div class="bk">$\left|\dfrac{a}{b}\right|$<wbr>${}=\dfrac{|a|}{|b|}$</div><pre class="ln"><span class="kw">theorem</span> abs_quotient (a b : ℝ) : |a / b| = |a| / |b|</pre></li><li><div class="bk">$|a|\lt b\Leftrightarrow -b\lt a\lt b$</div><pre class="ln"><span class="kw">theorem</span> lt_iff (a b : ℝ) : |a| &lt; b ↔ -b &lt; a ∧ a &lt; b</pre></li><li><div class="bk">Triangle inequality: $|a+b|\le|a|+|b|$</div><pre class="ln"><span class="kw">theorem</span> triangle (a b : ℝ) : |a + b| ≤ |a| + |b|</pre></li><li><div class="bk">Reverse triangle inequality: $\bigl||a|-|b|\bigr|\le|a-b|$</div><pre class="ln"><span class="kw">theorem</span> reverse_triangle (a b : ℝ) : |(|a| - |b|)| ≤ |a - b|</pre></li><li><div class="bk">$|a-b|$ is the distance between $a,b$</div><pre class="ln"><span class="kw">theorem</span> distance (a b : ℝ) : dist a b = |a - b|</pre></li></ul>
+<p class="note">The symbol <code>↔</code> means “if and only if”, and <code>∧</code> means “and”. Two small differences from the book: in Lean $\frac{a}{0}=0$, so the formula for $\left|\frac{a}{b}\right|$ holds even without the hypothesis $b\neq 0$; and the equivalence for $|a|\lt b$ does not need $b\gt 0$ (if $b\le 0$, both sides are false). Here <code>dist a b</code> is the distance as defined in Mathlib.</p>
+<h2>2. Step by step: the triangle inequality</h2>
+<p class="note">In the book: $-|a|\le a\le|a|$ and $-|b|\le b\le|b|$; adding, $-(|a|+|b|)\le a+b\le|a|+|b|$, that is, $|a+b|\le|a|+|b|$. In Lean:</p>
+<div class="goal start"><span>The goal</span><pre>a b : ℝ
+⊢ |a + b| ≤ |a| + |b|</pre></div>
+<p class="note">Above <code>⊢</code> is what we know; after <code>⊢</code> is what we have to show. After each step we show only what changed.</p>
+<ol class="steps"><li><pre class="ln"><span class="kw">have</span> ha₁ : -|a| ≤ a := neg_abs_le a
+<span class="kw">have</span> ha₂ : a ≤ |a| := le_abs_self a
+<span class="kw">have</span> hb₁ : -|b| ≤ b := neg_abs_le b
+<span class="kw">have</span> hb₂ : b ≤ |b| := le_abs_self b</pre><p>We write down the four known inequalities: <code>neg_abs_le</code> is $-|x|\le x$ and <code>le_abs_self</code> is $x\le|x|$.</p><div class="goal"><span>What remains to be proved</span><pre>ha₁ : -|a| ≤ a
+ha₂ : a ≤ |a|
+hb₁ : -|b| ≤ b
+hb₂ : b ≤ |b|
+⊢ |a + b| ≤ |a| + |b|</pre></div></li><li><pre class="ln"><span class="tc">rw</span> [abs_le]</pre><p>The theorem <code>abs_le</code> says that $|x|\le y$ if and only if $-y\le x\le y$. The goal becomes two inequalities.</p><div class="goal"><span>What remains to be proved</span><pre>⊢ -(|a| + |b|) ≤ a + b ∧ a + b ≤ |a| + |b|</pre></div></li><li><pre class="ln"><span class="tc">constructor</span></pre><p>We split the two inequalities into two goals.</p><div class="goal"><span>What remains to be proved (2 goals)</span><i class="case">part left</i><pre>⊢ -(|a| + |b|) ≤ a + b</pre><i class="case">part right</i><pre>⊢ a + b ≤ |a| + |b|</pre></div></li><li><pre class="ln">· <span class="tc">linarith</span></pre><p>The first, $-(|a|+|b|)\le a+b$, follows by adding $-|a|\le a$ and $-|b|\le b$. The addition is found by <code>linarith</code>.</p><div class="goal done"><span>✓ </span>This part is complete.</div></li><li><pre class="ln">· <span class="tc">linarith</span></pre><p>The second, $a+b\le|a|+|b|$, follows by adding $a\le|a|$ and $b\le|b|$.</p><div class="goal done"><span>✓ </span>No goals: the proof is complete.</div></li></ol>
+<h2>3. Try it yourself: the reverse triangle inequality</h2>
+<div class="ex"><p>Prove that $\bigl||a|-|b|\bigr|\le|a-b|$, using the triangle inequality <code>triangle</code>. Open the exercise in Lean and replace the word <code>sorry</code> with your own steps. When the proof is correct, the message <i>declaration uses sorry</i> disappears and no red error appears.</p>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%200%20%C2%B7%20Properties%20of%20the%20Absolute%20Value%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch0.ApolutiTimi%0A%0Atheorem%20nonneg%20%28a%20%3A%20%E2%84%9D%29%20%3A%20%7Ca%7C%20%E2%89%A5%200%20%3A%3D%20abs_nonneg%20a%0A%0Atheorem%20eq_zero_iff%20%28a%20%3A%20%E2%84%9D%29%20%3A%20%7Ca%7C%20%3D%200%20%E2%86%94%20a%20%3D%200%20%3A%3D%20abs_eq_zero%0A%0Atheorem%20abs_product%20%28a%20b%20%3A%20%E2%84%9D%29%20%3A%20%7Ca%20*%20b%7C%20%3D%20%7Ca%7C%20*%20%7Cb%7C%20%3A%3D%20abs_mul%20a%20b%0A%0Atheorem%20abs_quotient%20%28a%20b%20%3A%20%E2%84%9D%29%20%3A%20%7Ca%20%2F%20b%7C%20%3D%20%7Ca%7C%20%2F%20%7Cb%7C%20%3A%3D%20abs_div%20a%20b%0A%0Atheorem%20lt_iff%20%28a%20b%20%3A%20%E2%84%9D%29%20%3A%20%7Ca%7C%20%3C%20b%20%E2%86%94%20-b%20%3C%20a%20%E2%88%A7%20a%20%3C%20b%20%3A%3D%20abs_lt%0A%0Atheorem%20triangle%20%28a%20b%20%3A%20%E2%84%9D%29%20%3A%20%7Ca%20%2B%20b%7C%20%E2%89%A4%20%7Ca%7C%20%2B%20%7Cb%7C%20%3A%3D%20by%0A%20%20have%20ha%E2%82%81%20%3A%20-%7Ca%7C%20%E2%89%A4%20a%20%3A%3D%20neg_abs_le%20a%0A%20%20have%20ha%E2%82%82%20%3A%20a%20%E2%89%A4%20%7Ca%7C%20%3A%3D%20le_abs_self%20a%0A%20%20have%20hb%E2%82%81%20%3A%20-%7Cb%7C%20%E2%89%A4%20b%20%3A%3D%20neg_abs_le%20b%0A%20%20have%20hb%E2%82%82%20%3A%20b%20%E2%89%A4%20%7Cb%7C%20%3A%3D%20le_abs_self%20b%0A%20%20rw%20%5Babs_le%5D%0A%20%20constructor%0A%20%20%C2%B7%20linarith%0A%20%20%C2%B7%20linarith%0A%0Atheorem%20reverse_triangle%20%28a%20b%20%3A%20%E2%84%9D%29%20%3A%20%7C%28%7Ca%7C%20-%20%7Cb%7C%29%7C%20%E2%89%A4%20%7Ca%20-%20b%7C%20%3A%3D%20by%0A%20%20--%20EXERCISE%3A%20replace%20sorry%20with%20your%20own%20proof.%0A%20%20sorry%0A%0Atheorem%20distance%20%28a%20b%20%3A%20%E2%84%9D%29%20%3A%20dist%20a%20b%20%3D%20%7Ca%20-%20b%7C%20%3A%3D%20Real.dist_eq%20a%20b%0A%0Aend%20Ch0.ApolutiTimi%0A" target="_blank" rel="noopener">Open the exercise in Lean</a>
+<details><summary>Hint</summary><div class="in"><p class="note">Write $a=(a-b)+b$ and apply <code>triangle</code>: you get $|a|\le|a-b|+|b|$. Do the same with $b=(b-a)+a$, where $|b-a|=|a-b|$ (<code>abs_sub_comm</code>). Then <code>rw [abs_le]</code>, <code>constructor</code> and <code>linarith</code>.</p></div></details>
+<details><summary>Solution</summary><div class="in"><pre class="ln"><span class="kw">theorem</span> reverse_triangle (a b : ℝ) : |(|a| - |b|)| ≤ |a - b| := <span class="kw">by</span>
+  <span class="kw">have</span> h₁ : |a| ≤ |a - b| + |b| := <span class="kw">by</span>
+    <span class="kw">calc</span> |a| = |a - b + b| := <span class="kw">by</span> <span class="tc">rw</span> [sub_add_cancel]
+      _ ≤ |a - b| + |b| := triangle (a - b) b
+  <span class="kw">have</span> h₂ : |b| ≤ |a - b| + |a| := <span class="kw">by</span>
+    <span class="kw">calc</span> |b| = |b - a + a| := <span class="kw">by</span> <span class="tc">rw</span> [sub_add_cancel]
+      _ ≤ |b - a| + |a| := triangle (b - a) a
+      _ = |a - b| + |a| := <span class="kw">by</span> <span class="tc">rw</span> [abs_sub_comm]
+  <span class="tc">rw</span> [abs_le]
+  <span class="tc">constructor</span>
+  · <span class="tc">linarith</span>
+  · <span class="tc">linarith</span></pre></div></details>
+</div>
+<h2>4. The complete code</h2>
+<details><summary>See the code (45 lines)</summary><div class="in">
+<div class="codebar"><span>The code that was checked</span><button class="copy" type="button" id="copy">Copy</button></div>
+<pre class="ln full" id="full"><span class="cm">-- Companion digital material for the book: Matzakos, N. (2026).</span>
+<span class="cm">-- Elements of Linear Algebra, Differential &amp; Integral Calculus. Independently published.</span>
+<span class="cm">-- Chapter 0 · Properties of the Absolute Value · checked with Lean v4.37.0-rc1 and Mathlib (22/11/2026).</span>
+
+<span class="kw">import</span> Mathlib
+
+<span class="kw">namespace</span> Ch0.ApolutiTimi
+
+<span class="kw">theorem</span> nonneg (a : ℝ) : |a| ≥ 0 := abs_nonneg a
+
+<span class="kw">theorem</span> eq_zero_iff (a : ℝ) : |a| = 0 ↔ a = 0 := abs_eq_zero
+
+<span class="kw">theorem</span> abs_product (a b : ℝ) : |a * b| = |a| * |b| := abs_mul a b
+
+<span class="kw">theorem</span> abs_quotient (a b : ℝ) : |a / b| = |a| / |b| := abs_div a b
+
+<span class="kw">theorem</span> lt_iff (a b : ℝ) : |a| &lt; b ↔ -b &lt; a ∧ a &lt; b := abs_lt
+
+<span class="kw">theorem</span> triangle (a b : ℝ) : |a + b| ≤ |a| + |b| := <span class="kw">by</span>
+  <span class="kw">have</span> ha₁ : -|a| ≤ a := neg_abs_le a
+  <span class="kw">have</span> ha₂ : a ≤ |a| := le_abs_self a
+  <span class="kw">have</span> hb₁ : -|b| ≤ b := neg_abs_le b
+  <span class="kw">have</span> hb₂ : b ≤ |b| := le_abs_self b
+  <span class="tc">rw</span> [abs_le]
+  <span class="tc">constructor</span>
+  · <span class="tc">linarith</span>
+  · <span class="tc">linarith</span>
+
+<span class="kw">theorem</span> reverse_triangle (a b : ℝ) : |(|a| - |b|)| ≤ |a - b| := <span class="kw">by</span>
+  <span class="kw">have</span> h₁ : |a| ≤ |a - b| + |b| := <span class="kw">by</span>
+    <span class="kw">calc</span> |a| = |a - b + b| := <span class="kw">by</span> <span class="tc">rw</span> [sub_add_cancel]
+      _ ≤ |a - b| + |b| := triangle (a - b) b
+  <span class="kw">have</span> h₂ : |b| ≤ |a - b| + |a| := <span class="kw">by</span>
+    <span class="kw">calc</span> |b| = |b - a + a| := <span class="kw">by</span> <span class="tc">rw</span> [sub_add_cancel]
+      _ ≤ |b - a| + |a| := triangle (b - a) a
+      _ = |a - b| + |a| := <span class="kw">by</span> <span class="tc">rw</span> [abs_sub_comm]
+  <span class="tc">rw</span> [abs_le]
+  <span class="tc">constructor</span>
+  · <span class="tc">linarith</span>
+  · <span class="tc">linarith</span>
+
+<span class="kw">theorem</span> distance (a b : ℝ) : dist a b = |a - b| := Real.dist_eq a b
+
+<span class="kw">end</span> Ch0.ApolutiTimi
+</pre></div></details>
+<a class="btn l" href="https://live.lean-lang.org/#code=--%20Companion%20digital%20material%20for%20the%20book%3A%20Matzakos%2C%20N.%20%282026%29.%0A--%20Elements%20of%20Linear%20Algebra%2C%20Differential%20%26%20Integral%20Calculus.%20Independently%20published.%0A--%20Chapter%200%20%C2%B7%20Properties%20of%20the%20Absolute%20Value%20%C2%B7%20checked%20with%20Lean%20v4.37.0-rc1%20and%20Mathlib%20%2822%2F11%2F2026%29.%0A%0Aimport%20Mathlib%0A%0Anamespace%20Ch0.ApolutiTimi%0A%0Atheorem%20nonneg%20%28a%20%3A%20%E2%84%9D%29%20%3A%20%7Ca%7C%20%E2%89%A5%200%20%3A%3D%20abs_nonneg%20a%0A%0Atheorem%20eq_zero_iff%20%28a%20%3A%20%E2%84%9D%29%20%3A%20%7Ca%7C%20%3D%200%20%E2%86%94%20a%20%3D%200%20%3A%3D%20abs_eq_zero%0A%0Atheorem%20abs_product%20%28a%20b%20%3A%20%E2%84%9D%29%20%3A%20%7Ca%20*%20b%7C%20%3D%20%7Ca%7C%20*%20%7Cb%7C%20%3A%3D%20abs_mul%20a%20b%0A%0Atheorem%20abs_quotient%20%28a%20b%20%3A%20%E2%84%9D%29%20%3A%20%7Ca%20%2F%20b%7C%20%3D%20%7Ca%7C%20%2F%20%7Cb%7C%20%3A%3D%20abs_div%20a%20b%0A%0Atheorem%20lt_iff%20%28a%20b%20%3A%20%E2%84%9D%29%20%3A%20%7Ca%7C%20%3C%20b%20%E2%86%94%20-b%20%3C%20a%20%E2%88%A7%20a%20%3C%20b%20%3A%3D%20abs_lt%0A%0Atheorem%20triangle%20%28a%20b%20%3A%20%E2%84%9D%29%20%3A%20%7Ca%20%2B%20b%7C%20%E2%89%A4%20%7Ca%7C%20%2B%20%7Cb%7C%20%3A%3D%20by%0A%20%20have%20ha%E2%82%81%20%3A%20-%7Ca%7C%20%E2%89%A4%20a%20%3A%3D%20neg_abs_le%20a%0A%20%20have%20ha%E2%82%82%20%3A%20a%20%E2%89%A4%20%7Ca%7C%20%3A%3D%20le_abs_self%20a%0A%20%20have%20hb%E2%82%81%20%3A%20-%7Cb%7C%20%E2%89%A4%20b%20%3A%3D%20neg_abs_le%20b%0A%20%20have%20hb%E2%82%82%20%3A%20b%20%E2%89%A4%20%7Cb%7C%20%3A%3D%20le_abs_self%20b%0A%20%20rw%20%5Babs_le%5D%0A%20%20constructor%0A%20%20%C2%B7%20linarith%0A%20%20%C2%B7%20linarith%0A%0Atheorem%20reverse_triangle%20%28a%20b%20%3A%20%E2%84%9D%29%20%3A%20%7C%28%7Ca%7C%20-%20%7Cb%7C%29%7C%20%E2%89%A4%20%7Ca%20-%20b%7C%20%3A%3D%20by%0A%20%20have%20h%E2%82%81%20%3A%20%7Ca%7C%20%E2%89%A4%20%7Ca%20-%20b%7C%20%2B%20%7Cb%7C%20%3A%3D%20by%0A%20%20%20%20calc%20%7Ca%7C%20%3D%20%7Ca%20-%20b%20%2B%20b%7C%20%3A%3D%20by%20rw%20%5Bsub_add_cancel%5D%0A%20%20%20%20%20%20_%20%E2%89%A4%20%7Ca%20-%20b%7C%20%2B%20%7Cb%7C%20%3A%3D%20triangle%20%28a%20-%20b%29%20b%0A%20%20have%20h%E2%82%82%20%3A%20%7Cb%7C%20%E2%89%A4%20%7Ca%20-%20b%7C%20%2B%20%7Ca%7C%20%3A%3D%20by%0A%20%20%20%20calc%20%7Cb%7C%20%3D%20%7Cb%20-%20a%20%2B%20a%7C%20%3A%3D%20by%20rw%20%5Bsub_add_cancel%5D%0A%20%20%20%20%20%20_%20%E2%89%A4%20%7Cb%20-%20a%7C%20%2B%20%7Ca%7C%20%3A%3D%20triangle%20%28b%20-%20a%29%20a%0A%20%20%20%20%20%20_%20%3D%20%7Ca%20-%20b%7C%20%2B%20%7Ca%7C%20%3A%3D%20by%20rw%20%5Babs_sub_comm%5D%0A%20%20rw%20%5Babs_le%5D%0A%20%20constructor%0A%20%20%C2%B7%20linarith%0A%20%20%C2%B7%20linarith%0A%0Atheorem%20distance%20%28a%20b%20%3A%20%E2%84%9D%29%20%3A%20dist%20a%20b%20%3D%20%7Ca%20-%20b%7C%20%3A%3D%20Real.dist_eq%20a%20b%0A%0Aend%20Ch0.ApolutiTimi%0A" target="_blank" rel="noopener">Open it in Lean</a>
+<p class="note">The online Lean editor works best on a computer. On a phone, read the steps here.</p>
+</section>
+
 <div class="refs tex2jax_ignore"><span class="lbl">Where to find the proof</span><ul><li>Stewart, J. (2016). <em>Calculus: Early Transcendentals</em> (8th ed.). Cengage Learning.</li><li>Bartle, R. G., &amp; Sherbert, D. R. (2011). <em>Introduction to Real Analysis</em> (4th ed.). Wiley.</li><li>Rudin, W. (1976). <em>Principles of Mathematical Analysis</em> (3rd ed.). McGraw-Hill.</li><li>Negrepontis, S., Giotopoulos, S., &amp; Giannakoulias, E. (1999). <em>Apeirostikos Logismos [Infinitesimal Calculus]</em> (Vol. I). Ekdoseis Symmetria. In Greek.</li></ul></div>
-<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. NewTech Publications. &nbsp;The answers of Large Language Models are not guaranteed; always verify them against the theory.</small></footer>
+<footer class="tex2jax_ignore"><small>Companion digital material for the book: Matzakos, N. (2026). <em>Elements of Linear Algebra, Differential &amp; Integral Calculus</em>. Independently published.<br>The answers of Large Language Models are not guaranteed; always verify them against the theory. The Lean proof was checked by computer.</small></footer>
+<script>
+{
+  const tabs = [...document.querySelectorAll('.tabs button')];
+  const show = (t) => {
+    for (const b of tabs) {
+      const on = b.dataset.t === t;
+      b.setAttribute('aria-selected', on);
+      document.getElementById(b.dataset.t).hidden = !on;
+    }
+    if (t === 'lean' && window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('lean')]).catch(() => {});
+  };
+  for (const b of tabs) b.addEventListener('click', () => { show(b.dataset.t); try { history.replaceState(null, '', '#' + b.dataset.t); } catch (e) {} });
+  for (const a of document.querySelectorAll('[data-go]')) a.addEventListener('click', (e) => { e.preventDefault(); show(a.dataset.go); document.getElementById('tab-lean').scrollIntoView({block: 'nearest'}); });
+  const start = () => show(location.hash === '#lean' ? 'lean' : 'ai');
+  window.addEventListener('hashchange', start); start();
+  const btn = document.getElementById('copy');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('full').innerText); btn.textContent = 'Copied ✓'; }
+    catch (e) { btn.textContent = 'Select and copy manually'; }
+  });
+}
+</script>
 </body></html>
